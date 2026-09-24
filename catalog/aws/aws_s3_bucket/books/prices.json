@@ -6,7 +6,7 @@
     "sync": {
       "service": "AmazonS3",
       "filters": {
-        "usagetype": "([A-Z]+[0-9]-)?Requests-Tier2"
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Requests-Tier2"
       }
     },
     "values": {
@@ -15,7 +15,47 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       },
+      "ap-northeast-2": {
+        "value": 0.00035,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 0.0004,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 0.0004,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.00044,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.00043,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.0004,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
       "us-east-1": {
+        "value": 0.0004,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.0004,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
         "value": 0.0004,
         "verified": true,
         "checkedAt": "2026-09-24"
@@ -29,7 +69,7 @@
     "sync": {
       "service": "AmazonS3",
       "filters": {
-        "usagetype": "([A-Z]+[0-9]-)?Requests-Tier1"
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Requests-Tier1"
       }
     },
     "values": {
@@ -38,7 +78,47 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       },
+      "ap-northeast-2": {
+        "value": 0.0045,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.0055,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.0054,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
       "us-east-1": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
         "value": 0.005,
         "verified": true,
         "checkedAt": "2026-09-24"
@@ -52,7 +132,7 @@
     "sync": {
       "service": "AmazonS3",
       "filters": {
-        "usagetype": "([A-Z]+[0-9]-)?TimedStorage-ByteHrs"
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?TimedStorage-ByteHrs"
       }
     },
     "values": {
@@ -61,7 +141,47 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       },
+      "ap-northeast-2": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.0245,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
       "us-east-1": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
         "value": 0.023,
         "verified": true,
         "checkedAt": "2026-09-24"

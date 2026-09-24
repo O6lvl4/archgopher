@@ -63,6 +63,30 @@ func Books() (book.Books, error) {
 	return book.Merge(parts...)
 }
 
+// Regions lists every region the price books cover, sorted. A region is
+// supported when every row that varies by region has a value for it, which
+// TestEveryRegionIsComplete checks.
+func Regions() ([]string, error) {
+	books, err := Books()
+	if err != nil {
+		return nil, err
+	}
+	set := map[string]bool{}
+	for _, e := range books.Prices {
+		for r := range e.Values {
+			if r != book.AnyRegion {
+				set[r] = true
+			}
+		}
+	}
+	out := make([]string, 0, len(set))
+	for r := range set {
+		out = append(out, r)
+	}
+	sort.Strings(out)
+	return out, nil
+}
+
 // Actions maps each resource type to kinds of work and the IAM actions that do them.
 func Actions() map[string]map[string][]string {
 	out := map[string]map[string][]string{}

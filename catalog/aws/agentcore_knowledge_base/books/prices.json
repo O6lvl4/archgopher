@@ -6,7 +6,7 @@
     "sync": {
       "service": "AmazonBedrockAgentCore",
       "filters": {
-        "usagetype": "([A-Z]+[0-9]-)?Knowledge-Base:Consumption-based:AgenticRetrieval"
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Knowledge-Base:Consumption-based:AgenticRetrieval"
       }
     },
     "values": {
@@ -15,7 +15,47 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       },
+      "ap-northeast-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.004,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.004,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.004,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
       "us-east-1": {
+        "value": 0.004,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
         "value": 0.004,
         "verified": true,
         "checkedAt": "2026-09-24"
@@ -29,7 +69,7 @@
     "sync": {
       "service": "AmazonBedrockAgentCore",
       "filters": {
-        "usagetype": "([A-Z]+[0-9]-)?Knowledge-Base:Consumption-based:Retrieval"
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Knowledge-Base:Consumption-based:Retrieval"
       }
     },
     "values": {
@@ -38,7 +78,47 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       },
+      "ap-northeast-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
       "us-east-1": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
         "value": 0.001,
         "verified": true,
         "checkedAt": "2026-09-24"
@@ -52,7 +132,7 @@
     "sync": {
       "service": "AmazonBedrockAgentCore",
       "filters": {
-        "usagetype": "([A-Z]+[0-9]-)?Knowledge-Base:Consumption-based:Storage"
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Knowledge-Base:Consumption-based:Storage"
       }
     },
     "values": {
@@ -61,7 +141,47 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       },
+      "ap-northeast-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
       "us-east-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
         "value": 5,
         "verified": true,
         "checkedAt": "2026-09-24"

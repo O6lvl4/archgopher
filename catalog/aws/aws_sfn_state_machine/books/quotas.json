@@ -2,14 +2,24 @@
   "aws.sfn.standard.start_execution": {
     "unit": "requests/second",
     "source": "https://docs.aws.amazon.com/step-functions/latest/dg/service-quotas.html",
-    "note": "Token bucket refill rate; bucket size is 1,300 in us-east-1 and 800 in most other regions",
+    "note": "Token bucket refill rate; bucket size is 1,300 in us-east-1, us-west-2 and eu-west-1 and 800 in all other regions",
     "values": {
-      "ap-northeast-1": {
+      "*": {
         "value": 150,
         "verified": true,
         "checkedAt": "2026-09-24"
       },
+      "eu-west-1": {
+        "value": 300,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
       "us-east-1": {
+        "value": 300,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
         "value": 300,
         "verified": true,
         "checkedAt": "2026-09-24"

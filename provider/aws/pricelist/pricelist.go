@@ -4,6 +4,7 @@ package pricelist
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -15,6 +16,10 @@ import (
 	"strings"
 	"time"
 )
+
+// ErrAbsent means the Price List offers nothing that matches in the region:
+// no file for the service there, or no product that fits the filters.
+var ErrAbsent = errors.New("not in the Price List")
 
 // BaseURL is the public Price List endpoint.
 const BaseURL = "https://pricing.us-east-1.amazonaws.com"
@@ -57,10 +62,9 @@ type Spec struct {
 	// or the beginRange of the tier as a number.
 	Tier string `json:"tier,omitempty"`
 	// OfferRegion reads another section of the service's files (CloudFront's
-	// edge prices live in "aws-other" whatever the resource region).
+	// edge prices live in "aws-other" whatever the resource region). A price
+	// read there is the same in every region, so its row is "*".
 	OfferRegion string `json:"offerRegion,omitempty"`
-	// RegionFilters override Filters per book region (US- or JP- edge prefixes).
-	RegionFilters map[string]map[string]string `json:"regionFilters,omitempty"`
 	// ListPer is how many units the Price List price covers when its unit is a
 	// bundle ("1M Input Tokens" is 1e6). 0 means one unit.
 	ListPer float64 `json:"listPer,omitempty"`
@@ -74,20 +78,12 @@ func (s Spec) PerUnit(usd float64) float64 {
 	return usd / s.ListPer
 }
 
-// For returns the filters and offer region to use for one book region.
-func (s Spec) For(region string) (map[string]string, string) {
-	f := map[string]string{}
-	for k, v := range s.Filters {
-		f[k] = v
-	}
-	for k, v := range s.RegionFilters[region] {
-		f[k] = v
-	}
-	offer := region
+// For returns the offer region to read for one book region.
+func (s Spec) For(region string) string {
 	if s.OfferRegion != "" {
-		offer = s.OfferRegion
+		return s.OfferRegion
 	}
-	return f, offer
+	return region
 }
 
 // Match is one priced dimension of a matching product.
@@ -140,6 +136,9 @@ func (c *Client) download(service, region, path string) error {
 		return err
 	}
 	defer resp.Body.Close()
+	if resp.StatusCode == http.StatusNotFound || resp.StatusCode == http.StatusForbidden {
+		return fmt.Errorf("%w: GET %s: %s", ErrAbsent, url, resp.Status)
+	}
 	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("GET %s: %s", url, resp.Status)
 	}
@@ -219,8 +218,8 @@ func begin(d Dimension) float64 {
 
 // Resolve finds exactly one price for a spec, or explains why it cannot.
 func (c *Client) Resolve(spec Spec, region string) (Match, error) {
-	filters, offerRegion := spec.For(region)
-	o, err := c.Offer(spec.Service, offerRegion)
+	filters := spec.Filters
+	o, err := c.Offer(spec.Service, spec.For(region))
 	if err != nil {
 		return Match{}, err
 	}
@@ -234,7 +233,7 @@ func (c *Client) Resolve(spec Spec, region string) (Match, error) {
 	}
 	switch len(skus) {
 	case 0:
-		return Match{}, fmt.Errorf("no product matches %v", filters)
+		return Match{}, fmt.Errorf("%w: no product matches %v", ErrAbsent, filters)
 	case 1:
 	default:
 		var names []string

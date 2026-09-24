@@ -50,18 +50,12 @@ func TestResolveNeedsExactlyOneProduct(t *testing.T) {
 	}
 }
 
-func TestRegionFiltersOverride(t *testing.T) {
-	spec := Spec{
-		Filters:       map[string]string{"group": "g", "usagetype": "base"},
-		RegionFilters: map[string]map[string]string{"ap-northeast-1": {"usagetype": "JP-x"}},
-		OfferRegion:   "aws-other",
+func TestOfferRegionIsFixed(t *testing.T) {
+	if got := (Spec{OfferRegion: "aws-other"}).For("ap-northeast-1"); got != "aws-other" {
+		t.Fatalf("got %s", got)
 	}
-	f, offer := spec.For("ap-northeast-1")
-	if f["usagetype"] != "JP-x" || f["group"] != "g" || offer != "aws-other" {
-		t.Fatalf("got %v %s", f, offer)
-	}
-	if f, _ := spec.For("us-east-1"); f["usagetype"] != "base" {
-		t.Fatalf("got %v", f)
+	if got := (Spec{}).For("us-east-1"); got != "us-east-1" {
+		t.Fatalf("got %s", got)
 	}
 }
 

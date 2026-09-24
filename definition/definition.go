@@ -87,6 +87,11 @@ func Compile(f File) (*Resource, error) {
 		}
 		r.assumptions = append(r.assumptions, field.FieldsOf(t)...)
 	}
+	for _, fd := range append(append([]field.Field(nil), r.attributes...), r.assumptions...) {
+		if reserved[fd.Key] {
+			return nil, fmt.Errorf("%s: %q is a name every expression already has", f.Type, fd.Key)
+		}
+	}
 	decl := declare(r.attributes, r.assumptions)
 	if r.lets, err = compileLets(f.Let, decl); err != nil {
 		return nil, fmt.Errorf("%s: %w", f.Type, err)
@@ -139,7 +144,7 @@ func (r *Resource) Scout(node model.Node, demand model.Demand, rec *meter.Record
 	if errA != nil || errP != nil {
 		return joinErrs(errA, errP)
 	}
-	env := runtimeEnv(r.attributes, r.assumptions, attrs, assume, r.File.Kinds, demand)
+	env := runtimeEnv(rec.Region, r.attributes, r.assumptions, attrs, assume, r.File.Kinds, demand)
 	for _, l := range r.lets {
 		v, err := l.eval(env)
 		if err != nil {

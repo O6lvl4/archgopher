@@ -1,14 +1,28 @@
 type: aws_cloudfront_distribution
 label: CloudFront
 category: Edge
-description: HTTPS requests and transfer out, priced at the edge nearest the spec region. Free tier is ignored.
+description: "HTTPS requests and transfer out, priced by where viewers are: by default the CloudFront price zone of the region. Free tier is ignored."
 kinds: [request]
 sla: aws.cloudfront
 assumptions:
   - { key: responseKb, label: Response size, type: number, unit: KB }
+  - { key: viewers, label: Viewers in, type: choice, options: [region, us, ca, eu, jp, ap, au, in, sa, za, me], default: region, hint: "CloudFront price zone of most viewers: region picks the zone the region is in" }
+let:
+  - zone: >-
+      viewers != "region" ? viewers :
+      region startsWith "us-" ? "us" :
+      region startsWith "ca-" ? "ca" :
+      region startsWith "eu-" || region startsWith "il-" ? "eu" :
+      region in ["ap-northeast-1", "ap-northeast-3"] ? "jp" :
+      region in ["ap-southeast-2", "ap-southeast-4", "ap-southeast-6"] ? "au" :
+      region startsWith "ap-south-" ? "in" :
+      region startsWith "ap-" ? "ap" :
+      region startsWith "sa-" ? "sa" :
+      region startsWith "af-" ? "za" :
+      region startsWith "me-" ? "me" : "us"
 readings:
-  - requests: { name: HTTPS requests, price: aws.cloudfront.https_requests, count: total.monthly }
-  - cost: { name: Transfer out, quantity: total.monthly * responseKb / 1024 / 1024, unit: GB, price: aws.cloudfront.transfer_out }
+  - requests: { name: HTTPS requests, price: "aws.cloudfront.{zone}.https_requests", count: total.monthly }
+  - cost: { name: Transfer out, quantity: total.monthly * responseKb / 1024 / 1024, unit: GB, price: "aws.cloudfront.{zone}.transfer_out" }
   - rate: { name: Requests per distribution, unit: requests/second, quota: aws.cloudfront.distribution_rps, peak: total.peak }
 terraform:
   # The outermost front door: references to it (callback URLs, links in emails) are mentions.

@@ -14,10 +14,12 @@ type TokenAssume struct {
 }
 
 // Tokens prices model calls by token class and checks tokens and requests
-// per minute. Ids are Prefix + ".input", ".output", ".cache_read",
-// ".cache_write", ".tpm", ".rpm" and ".output_burndown".
+// per minute. Prices are PricePrefix + ".input", ".output", ".cache_read" and
+// ".cache_write"; quotas are Prefix + ".tpm", ".rpm" and ".output_burndown".
+// PricePrefix defaults to Prefix. They differ when one quota covers several
+// price lists, such as a model's global and regional inference.
 type Tokens struct {
-	Prefix string
+	Prefix, PricePrefix string
 }
 
 // Read records calls at a monthly count and a peak rate.
@@ -26,15 +28,19 @@ func (f Tokens) Read(r *meter.Recorder, monthly, peakPerSecond float64, a TokenA
 		r.Fail("cache shares must be between 0 and 1 and add up to at most 1")
 		return
 	}
+	price := f.PricePrefix
+	if price == "" {
+		price = f.Prefix
+	}
 	plain := 1 - a.CacheReadShare - a.CacheWriteShare
-	r.Cost("Input tokens", monthly*a.InputTokens*plain, "token", f.Prefix+".input")
+	r.Cost("Input tokens", monthly*a.InputTokens*plain, "token", price+".input")
 	if a.CacheWriteShare > 0 {
-		r.Cost("Cache write tokens", monthly*a.InputTokens*a.CacheWriteShare, "token", f.Prefix+".cache_write")
+		r.Cost("Cache write tokens", monthly*a.InputTokens*a.CacheWriteShare, "token", price+".cache_write")
 	}
 	if a.CacheReadShare > 0 {
-		r.Cost("Cache read tokens", monthly*a.InputTokens*a.CacheReadShare, "token", f.Prefix+".cache_read")
+		r.Cost("Cache read tokens", monthly*a.InputTokens*a.CacheReadShare, "token", price+".cache_read")
 	}
-	r.Cost("Output tokens", monthly*a.OutputTokens, "token", f.Prefix+".output")
+	r.Cost("Output tokens", monthly*a.OutputTokens, "token", price+".output")
 	burndown := 1.0
 	if b := r.Ref(book.Quotas, f.Prefix+".output_burndown", "multiplier"); b != nil {
 		burndown = *b

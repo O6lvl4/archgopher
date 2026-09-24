@@ -75,10 +75,27 @@ func (r *Recorder) lookup(name book.Name, id, unit string) (book.Entry, *float64
 	return e, v.Value, true
 }
 
+// NotOfferedError is a reading whose price is verified to have no value in the
+// region: the Price List does not offer it there.
+type NotOfferedError struct{ Reading, Region, PriceID string }
+
+func (e *NotOfferedError) Error() string {
+	return fmt.Sprintf("%s is not offered in %s (no %q price)", e.Reading, e.Region, e.PriceID)
+}
+
+func (r *Recorder) verified(name book.Name, id string) bool {
+	_, v, err := r.books.Book(name).Lookup(id, r.Region)
+	return err == nil && v.Verified
+}
+
 // Cost records quantity (in unit) priced by priceID.
 func (r *Recorder) Cost(name string, quantity float64, unit, priceID string) {
 	e, v, ok := r.lookup(book.Prices, priceID, unit)
 	if !ok {
+		return
+	}
+	if v == nil && r.verified(book.Prices, priceID) {
+		r.errs = append(r.errs, &NotOfferedError{Reading: name, Region: r.Region, PriceID: priceID})
 		return
 	}
 	c := Cost{Name: name, Quantity: quantity, Unit: unit, PriceID: priceID}

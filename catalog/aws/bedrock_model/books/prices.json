@@ -1,12 +1,50 @@
 {
-  "aws.bedrock.claude-haiku-4-5.cache_read": {
+  "aws.bedrock.claude-haiku-4-5.global.cache_read": {
     "unit": "token",
     "per": 1000000,
     "source": "https://aws.amazon.com/bedrock/pricing/",
-    "note": "From the pricing page (not in the bulk Price List). us-east-1 is the global cross-region profile; ap-northeast-1 is the Japan geographic profile (jp.), 10% above global.",
+    "note": "Global cross-Region inference (global.). No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Haiku 4\\.5 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_CacheReadInputTokenCount_Global-Units"
+      },
+      "listPer": 1000000.0
+    },
     "values": {
       "ap-northeast-1": {
-        "value": 0.11,
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.1,
         "verified": true,
         "checkedAt": "2026-09-24"
       },
@@ -14,17 +52,65 @@
         "value": 0.1,
         "verified": true,
         "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
       }
     }
   },
-  "aws.bedrock.claude-haiku-4-5.cache_write": {
+  "aws.bedrock.claude-haiku-4-5.global.cache_write": {
     "unit": "token",
     "per": 1000000,
     "source": "https://aws.amazon.com/bedrock/pricing/",
-    "note": "From the pricing page (not in the bulk Price List). us-east-1 is the global cross-region profile; ap-northeast-1 is the Japan geographic profile (jp.), 10% above global. Cache writes are the 5-minute price.",
+    "note": "Global cross-Region inference (global.). 5-minute cache. No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Haiku 4\\.5 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_CacheWriteInputTokenCount_Global-Units"
+      },
+      "listPer": 1000000.0
+    },
     "values": {
       "ap-northeast-1": {
-        "value": 1.375,
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 1.25,
         "verified": true,
         "checkedAt": "2026-09-24"
       },
@@ -32,17 +118,65 @@
         "value": 1.25,
         "verified": true,
         "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
       }
     }
   },
-  "aws.bedrock.claude-haiku-4-5.input": {
+  "aws.bedrock.claude-haiku-4-5.global.input": {
     "unit": "token",
     "per": 1000000,
     "source": "https://aws.amazon.com/bedrock/pricing/",
-    "note": "From the pricing page (not in the bulk Price List). us-east-1 is the global cross-region profile; ap-northeast-1 is the Japan geographic profile (jp.), 10% above global.",
+    "note": "Global cross-Region inference (global.). No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Haiku 4\\.5 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_InputTokenCount_Global-Units"
+      },
+      "listPer": 1000000.0
+    },
     "values": {
       "ap-northeast-1": {
-        "value": 1.1,
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 1,
         "verified": true,
         "checkedAt": "2026-09-24"
       },
@@ -50,103 +184,923 @@
         "value": 1,
         "verified": true,
         "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
       }
     }
   },
-  "aws.bedrock.claude-haiku-4-5.output": {
+  "aws.bedrock.claude-haiku-4-5.global.output": {
     "unit": "token",
     "per": 1000000,
     "source": "https://aws.amazon.com/bedrock/pricing/",
-    "note": "From the pricing page (not in the bulk Price List). us-east-1 is the global cross-region profile; ap-northeast-1 is the Japan geographic profile (jp.), 10% above global.",
+    "note": "Global cross-Region inference (global.). No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Haiku 4\\.5 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_OutputTokenCount_Global-Units"
+      },
+      "listPer": 1000000.0
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-haiku-4-5.regional.cache_read": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "Geographic cross-Region or in-Region inference (us., eu., jp., apac.), 10% above global. No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Haiku 4\\.5 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_CacheReadInputTokenCount-Units"
+      },
+      "listPer": 1000000.0
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-haiku-4-5.regional.cache_write": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "Geographic cross-Region or in-Region inference (us., eu., jp., apac.), 10% above global. 5-minute cache. No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Haiku 4\\.5 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_CacheWriteInputTokenCount-Units"
+      },
+      "listPer": 1000000.0
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 1.375,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 1.375,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 1.375,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 1.375,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 1.375,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 1.375,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 1.375,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-haiku-4-5.regional.input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "Geographic cross-Region or in-Region inference (us., eu., jp., apac.), 10% above global. No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Haiku 4\\.5 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_InputTokenCount-Units"
+      },
+      "listPer": 1000000.0
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 1.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 1.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 1.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 1.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 1.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 1.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 1.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-haiku-4-5.regional.output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "Geographic cross-Region or in-Region inference (us., eu., jp., apac.), 10% above global. No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Haiku 4\\.5 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_OutputTokenCount-Units"
+      },
+      "listPer": 1000000.0
+    },
     "values": {
       "ap-northeast-1": {
         "value": 5.5,
         "verified": true,
         "checkedAt": "2026-09-24"
       },
+      "ap-northeast-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 5.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 5.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 5.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
       "us-east-1": {
-        "value": 5,
+        "value": 5.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 5.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 5.5,
         "verified": true,
         "checkedAt": "2026-09-24"
       }
     }
   },
-  "aws.bedrock.claude-opus-4-5.cache_read": {
+  "aws.bedrock.claude-opus-4-5.global.cache_read": {
     "unit": "token",
     "per": 1000000,
     "source": "https://aws.amazon.com/bedrock/pricing/",
-    "note": "From the pricing page (not in the bulk Price List). us-east-1 is the global cross-region profile; ap-northeast-1 is the Japan geographic profile (jp.), 10% above global. Opus 4.5 has no jp. profile price.",
+    "note": "Global cross-Region inference (global.). No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Opus 4\\.5 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_CacheReadInputTokenCount_Global-Units"
+      },
+      "listPer": 1000000.0
+    },
     "values": {
       "ap-northeast-1": {
         "value": null,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
       },
       "us-east-1": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
         "value": 0.5,
         "verified": true,
         "checkedAt": "2026-09-24"
       }
     }
   },
-  "aws.bedrock.claude-opus-4-5.cache_write": {
+  "aws.bedrock.claude-opus-4-5.global.cache_write": {
     "unit": "token",
     "per": 1000000,
     "source": "https://aws.amazon.com/bedrock/pricing/",
-    "note": "From the pricing page (not in the bulk Price List). us-east-1 is the global cross-region profile; ap-northeast-1 is the Japan geographic profile (jp.), 10% above global. Cache writes are the 5-minute price. Opus 4.5 has no jp. profile price.",
+    "note": "Global cross-Region inference (global.). 5-minute cache. No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Opus 4\\.5 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_CacheWriteInputTokenCount_Global-Units"
+      },
+      "listPer": 1000000.0
+    },
     "values": {
       "ap-northeast-1": {
         "value": null,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 6.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 6.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 6.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 6.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 6.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
       },
       "us-east-1": {
+        "value": 6.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 6.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
         "value": 6.25,
         "verified": true,
         "checkedAt": "2026-09-24"
       }
     }
   },
-  "aws.bedrock.claude-opus-4-5.input": {
+  "aws.bedrock.claude-opus-4-5.global.input": {
     "unit": "token",
     "per": 1000000,
     "source": "https://aws.amazon.com/bedrock/pricing/",
-    "note": "From the pricing page (not in the bulk Price List). us-east-1 is the global cross-region profile; ap-northeast-1 is the Japan geographic profile (jp.), 10% above global. Opus 4.5 has no jp. profile price.",
+    "note": "Global cross-Region inference (global.). No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Opus 4\\.5 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_InputTokenCount_Global-Units"
+      },
+      "listPer": 1000000.0
+    },
     "values": {
       "ap-northeast-1": {
         "value": null,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
       },
       "us-east-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
         "value": 5,
         "verified": true,
         "checkedAt": "2026-09-24"
       }
     }
   },
-  "aws.bedrock.claude-opus-4-5.output": {
+  "aws.bedrock.claude-opus-4-5.global.output": {
     "unit": "token",
     "per": 1000000,
     "source": "https://aws.amazon.com/bedrock/pricing/",
-    "note": "From the pricing page (not in the bulk Price List). us-east-1 is the global cross-region profile; ap-northeast-1 is the Japan geographic profile (jp.), 10% above global. Opus 4.5 has no jp. profile price.",
+    "note": "Global cross-Region inference (global.). No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Opus 4\\.5 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_OutputTokenCount_Global-Units"
+      },
+      "listPer": 1000000.0
+    },
     "values": {
       "ap-northeast-1": {
         "value": null,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
       },
       "us-east-1": {
+        "value": 25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
         "value": 25,
         "verified": true,
         "checkedAt": "2026-09-24"
       }
     }
   },
-  "aws.bedrock.claude-sonnet-4-5.cache_read": {
+  "aws.bedrock.claude-opus-4-5.regional.cache_read": {
     "unit": "token",
     "per": 1000000,
     "source": "https://aws.amazon.com/bedrock/pricing/",
-    "note": "From the pricing page (not in the bulk Price List). us-east-1 is the global cross-region profile; ap-northeast-1 is the Japan geographic profile (jp.), 10% above global.",
+    "note": "Geographic cross-Region or in-Region inference (us., eu., jp., apac.), 10% above global. No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Opus 4\\.5 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_CacheReadInputTokenCount-Units"
+      },
+      "listPer": 1000000.0
+    },
     "values": {
       "ap-northeast-1": {
-        "value": 0.33,
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.55,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.55,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.55,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.55,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 0.55,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-opus-4-5.regional.cache_write": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "Geographic cross-Region or in-Region inference (us., eu., jp., apac.), 10% above global. 5-minute cache. No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Opus 4\\.5 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_CacheWriteInputTokenCount-Units"
+      },
+      "listPer": 1000000.0
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 6.875,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 6.875,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 6.875,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 6.875,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 6.875,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-opus-4-5.regional.input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "Geographic cross-Region or in-Region inference (us., eu., jp., apac.), 10% above global. No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Opus 4\\.5 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_InputTokenCount-Units"
+      },
+      "listPer": 1000000.0
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 5.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 5.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 5.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 5.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 5.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-opus-4-5.regional.output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "Geographic cross-Region or in-Region inference (us., eu., jp., apac.), 10% above global. No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Opus 4\\.5 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_OutputTokenCount-Units"
+      },
+      "listPer": 1000000.0
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 27.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 27.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 27.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 27.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 27.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-sonnet-4-5.global.cache_read": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "Global cross-Region inference (global.). No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Sonnet 4\\.5 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_CacheReadInputTokenCount_Global-Units"
+      },
+      "listPer": 1000000.0
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.3,
         "verified": true,
         "checkedAt": "2026-09-24"
       },
@@ -154,17 +1108,65 @@
         "value": 0.3,
         "verified": true,
         "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
       }
     }
   },
-  "aws.bedrock.claude-sonnet-4-5.cache_write": {
+  "aws.bedrock.claude-sonnet-4-5.global.cache_write": {
     "unit": "token",
     "per": 1000000,
     "source": "https://aws.amazon.com/bedrock/pricing/",
-    "note": "From the pricing page (not in the bulk Price List). us-east-1 is the global cross-region profile; ap-northeast-1 is the Japan geographic profile (jp.), 10% above global. Cache writes are the 5-minute price.",
+    "note": "Global cross-Region inference (global.). 5-minute cache. No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Sonnet 4\\.5 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_CacheWriteInputTokenCount_Global-Units"
+      },
+      "listPer": 1000000.0
+    },
     "values": {
       "ap-northeast-1": {
-        "value": 4.125,
+        "value": 3.75,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 3.75,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 3.75,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 3.75,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 3.75,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 3.75,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 3.75,
         "verified": true,
         "checkedAt": "2026-09-24"
       },
@@ -172,17 +1174,65 @@
         "value": 3.75,
         "verified": true,
         "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 3.75,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 3.75,
+        "verified": true,
+        "checkedAt": "2026-09-24"
       }
     }
   },
-  "aws.bedrock.claude-sonnet-4-5.input": {
+  "aws.bedrock.claude-sonnet-4-5.global.input": {
     "unit": "token",
     "per": 1000000,
     "source": "https://aws.amazon.com/bedrock/pricing/",
-    "note": "From the pricing page (not in the bulk Price List). us-east-1 is the global cross-region profile; ap-northeast-1 is the Japan geographic profile (jp.), 10% above global.",
+    "note": "Global cross-Region inference (global.). No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Sonnet 4\\.5 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_InputTokenCount_Global-Units"
+      },
+      "listPer": 1000000.0
+    },
     "values": {
       "ap-northeast-1": {
-        "value": 3.3,
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 3,
         "verified": true,
         "checkedAt": "2026-09-24"
       },
@@ -190,22 +1240,344 @@
         "value": 3,
         "verified": true,
         "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
       }
     }
   },
-  "aws.bedrock.claude-sonnet-4-5.output": {
+  "aws.bedrock.claude-sonnet-4-5.global.output": {
     "unit": "token",
     "per": 1000000,
     "source": "https://aws.amazon.com/bedrock/pricing/",
-    "note": "From the pricing page (not in the bulk Price List). us-east-1 is the global cross-region profile; ap-northeast-1 is the Japan geographic profile (jp.), 10% above global.",
+    "note": "Global cross-Region inference (global.). No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Sonnet 4\\.5 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_OutputTokenCount_Global-Units"
+      },
+      "listPer": 1000000.0
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-sonnet-4-5.regional.cache_read": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "Geographic cross-Region or in-Region inference (us., eu., jp., apac.), 10% above global. No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Sonnet 4\\.5 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_CacheReadInputTokenCount-Units"
+      },
+      "listPer": 1000000.0
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.33,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.33,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.33,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.33,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.33,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.33,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 0.33,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-sonnet-4-5.regional.cache_write": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "Geographic cross-Region or in-Region inference (us., eu., jp., apac.), 10% above global. 5-minute cache. No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Sonnet 4\\.5 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_CacheWriteInputTokenCount-Units"
+      },
+      "listPer": 1000000.0
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 4.125,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 4.125,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 4.125,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 4.125,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 4.125,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 4.125,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 4.125,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-sonnet-4-5.regional.input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "Geographic cross-Region or in-Region inference (us., eu., jp., apac.), 10% above global. No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Sonnet 4\\.5 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_InputTokenCount-Units"
+      },
+      "listPer": 1000000.0
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 3.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 3.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 3.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 3.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 3.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 3.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 3.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-sonnet-4-5.regional.output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "Geographic cross-Region or in-Region inference (us., eu., jp., apac.), 10% above global. No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Sonnet 4\\.5 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_OutputTokenCount-Units"
+      },
+      "listPer": 1000000.0
+    },
     "values": {
       "ap-northeast-1": {
         "value": 16.5,
         "verified": true,
         "checkedAt": "2026-09-24"
       },
+      "ap-northeast-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 16.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 16.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 16.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
       "us-east-1": {
-        "value": 15,
+        "value": 16.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 16.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 16.5,
         "verified": true,
         "checkedAt": "2026-09-24"
       }

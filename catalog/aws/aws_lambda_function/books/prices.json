@@ -7,7 +7,7 @@
       "service": "AWSLambda",
       "filters": {
         "group": "AWS-Lambda-Duration-ARM",
-        "usagetype": "([A-Z]+[0-9]-)?Lambda-GB-Second-ARM"
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Lambda-GB-Second-ARM"
       }
     },
     "values": {
@@ -16,7 +16,47 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       },
+      "ap-northeast-2": {
+        "value": 0.0000133334,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 0.0000133334,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 0.0000133334,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.0000133334,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.0000133334,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.0000133334,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
       "us-east-1": {
+        "value": 0.0000133334,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.0000133334,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
         "value": 0.0000133334,
         "verified": true,
         "checkedAt": "2026-09-24"
@@ -31,7 +71,7 @@
       "service": "AWSLambda",
       "filters": {
         "group": "AWS-Lambda-Requests",
-        "usagetype": "([A-Z]+[0-9]-)?Request"
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Request"
       }
     },
     "values": {
@@ -40,7 +80,47 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       },
+      "ap-northeast-2": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
       "us-east-1": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
         "value": 0.2,
         "verified": true,
         "checkedAt": "2026-09-24"
@@ -55,7 +135,7 @@
       "service": "AWSLambda",
       "filters": {
         "group": "AWS-Lambda-Duration",
-        "usagetype": "([A-Z]+[0-9]-)?Lambda-GB-Second"
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Lambda-GB-Second"
       }
     },
     "values": {
@@ -64,7 +144,47 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       },
+      "ap-northeast-2": {
+        "value": 0.0000166667,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 0.0000166667,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 0.0000166667,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.0000166667,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.0000166667,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.0000166667,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
       "us-east-1": {
+        "value": 0.0000166667,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.0000166667,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
         "value": 0.0000166667,
         "verified": true,
         "checkedAt": "2026-09-24"

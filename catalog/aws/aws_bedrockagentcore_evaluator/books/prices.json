@@ -5,7 +5,7 @@
     "sync": {
       "service": "AmazonBedrockAgentCore",
       "filters": {
-        "usagetype": "([A-Z]+[0-9]-)?Evaluations:Consumption-based:CustomEvaluators:Tier1"
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Evaluations:Consumption-based:CustomEvaluators:Tier1"
       }
     },
     "values": {
@@ -14,7 +14,47 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       },
+      "ap-northeast-2": {
+        "value": 0.0015,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 0.0015,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 0.0015,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.0015,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.0015,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.0015,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
       "us-east-1": {
+        "value": 0.0015,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.0015,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
         "value": 0.0015,
         "verified": true,
         "checkedAt": "2026-09-24"

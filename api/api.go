@@ -11,7 +11,6 @@ import (
 	"strings"
 	"testing/fstest"
 
-	"github.com/O6lvl4/archgopher/book"
 	"github.com/O6lvl4/archgopher/engine"
 	"github.com/O6lvl4/archgopher/field"
 	"github.com/O6lvl4/archgopher/model"
@@ -133,24 +132,7 @@ func RootCandidates(files map[string]string) []string {
 
 // Regions lists the regions the price book covers.
 func Regions() ([]string, error) {
-	books, err := aws.Books()
-	if err != nil {
-		return nil, err
-	}
-	set := map[string]bool{}
-	for _, e := range books.Prices {
-		for r := range e.Values {
-			if r != book.AnyRegion {
-				set[r] = true
-			}
-		}
-	}
-	out := make([]string, 0, len(set))
-	for r := range set {
-		out = append(out, r)
-	}
-	sort.Strings(out)
-	return out, nil
+	return aws.Regions()
 }
 
 // ParseYAML reads a declaration from YAML.

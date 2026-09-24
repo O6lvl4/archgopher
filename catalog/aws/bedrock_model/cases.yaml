@@ -11,8 +11,8 @@
     outputTokensPerCall: 400
   demand:
     call:
-        monthly: 2e+06
-        peak: 40
+      monthly: 2e+06
+      peak: 40
   costs:
     Cache read tokens: 1080
     Cache write tokens: 2250
@@ -20,7 +20,7 @@
     Output tokens: 12000
   limits:
     Requests per minute: 2400
-    Tokens per minute: 7.68e+06
+    Tokens per minute: 7680000.0
 - name: Haiku without cache (us-east-1)
   region: us-east-1
   assumptions:
@@ -29,14 +29,14 @@
     outputTokensPerCall: 200
   demand:
     call:
-        monthly: 2e+06
-        peak: 40
+      monthly: 2e+06
+      peak: 40
   costs:
     Input tokens: 1600
     Output tokens: 2000
   limits:
     Requests per minute: 2400
-    Tokens per minute: 4.32e+06
+    Tokens per minute: 4320000.0
 - name: cache shares over 1 (us-east-1)
   region: us-east-1
   assumptions:
@@ -47,10 +47,10 @@
     outputTokensPerCall: 1
   demand:
     call:
-        monthly: 2e+06
-        peak: 40
+      monthly: 2e+06
+      peak: 40
   error: cache shares must be between 0 and 1 and add up to at most 1
-- name: Sonnet with prompt cache (ap-northeast-1)
+- name: Sonnet with prompt cache (ap-northeast-1, jp. profile)
   region: ap-northeast-1
   assumptions:
     cacheReadShare: 0.6
@@ -58,10 +58,11 @@
     inputTokensPerCall: 3000
     model: claude-sonnet-4-5
     outputTokensPerCall: 400
+    inference: regional
   demand:
     call:
-        monthly: 2e+06
-        peak: 40
+      monthly: 2e+06
+      peak: 40
   costs:
     Cache read tokens: 1188
     Cache write tokens: 2475
@@ -69,23 +70,24 @@
     Output tokens: 13200
   limits:
     Requests per minute: 2400
-    Tokens per minute: 7.68e+06
-- name: Haiku without cache (ap-northeast-1)
+    Tokens per minute: 7680000.0
+- name: Haiku without cache (ap-northeast-1, jp. profile)
   region: ap-northeast-1
   assumptions:
     inputTokensPerCall: 800
     model: claude-haiku-4-5
     outputTokensPerCall: 200
+    inference: regional
   demand:
     call:
-        monthly: 2e+06
-        peak: 40
+      monthly: 2e+06
+      peak: 40
   costs:
     Input tokens: 1760
     Output tokens: 2200
   limits:
     Requests per minute: 2400
-    Tokens per minute: 4.32e+06
+    Tokens per minute: 4320000.0
 - name: cache shares over 1 (ap-northeast-1)
   region: ap-northeast-1
   assumptions:
@@ -96,6 +98,24 @@
     outputTokensPerCall: 1
   demand:
     call:
-        monthly: 2e+06
-        peak: 40
+      monthly: 2e+06
+      peak: 40
   error: cache shares must be between 0 and 1 and add up to at most 1
+- name: Opus is not offered from Tokyo
+  region: ap-northeast-1
+  assumptions:
+    model: claude-opus-4-5
+    inputTokensPerCall: 1000
+    outputTokensPerCall: 100
+  demand:
+    call:
+      monthly: 1000
+      peak: 1
+  limits:
+    Requests per minute: 60
+    Tokens per minute: 90000
+  error: 'Input tokens is not offered in ap-northeast-1 (no "aws.bedrock.claude-opus-4-5.global.input"
+    price)
+
+    Output tokens is not offered in ap-northeast-1 (no "aws.bedrock.claude-opus-4-5.global.output"
+    price)'

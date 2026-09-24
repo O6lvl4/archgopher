@@ -1,60 +1,389 @@
 {
-  "aws.cloudfront.https_requests": {
+  "aws.cloudfront.ap.https_requests": {
     "unit": "request",
     "per": 10000,
     "source": "https://aws.amazon.com/cloudfront/pricing/",
-    "note": "Keyed by the edge nearest the region: us-east-1 is United States, ap-northeast-1 is Japan",
+    "note": "HTTPS requests served from edges in Asia Pacific (Hong Kong, Singapore, South Korea, Taiwan, and others)",
     "sync": {
       "service": "AmazonCloudFront",
       "offerRegion": "aws-other",
-      "filters": {},
-      "regionFilters": {
-        "us-east-1": {
-          "usagetype": "US-Requests-Tier2-HTTPS"
-        },
-        "ap-northeast-1": {
-          "usagetype": "JP-Requests-Tier2-HTTPS"
-        }
+      "filters": {
+        "usagetype": "AP-Requests-Tier2-HTTPS"
       }
     },
     "values": {
-      "ap-northeast-1": {
+      "*": {
         "value": 0.012,
         "verified": true,
         "checkedAt": "2026-09-24"
-      },
-      "us-east-1": {
+      }
+    }
+  },
+  "aws.cloudfront.ap.transfer_out": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/cloudfront/pricing/",
+    "note": "Data transfer out to viewers in Asia Pacific (Hong Kong, Singapore, South Korea, Taiwan, and others), first 10 TB tier",
+    "sync": {
+      "service": "AmazonCloudFront",
+      "offerRegion": "aws-other",
+      "filters": {
+        "usagetype": "AP-DataTransfer-Out-Bytes"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.cloudfront.au.https_requests": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://aws.amazon.com/cloudfront/pricing/",
+    "note": "HTTPS requests served from edges in Australia and New Zealand",
+    "sync": {
+      "service": "AmazonCloudFront",
+      "offerRegion": "aws-other",
+      "filters": {
+        "usagetype": "AU-Requests-Tier2-HTTPS"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.cloudfront.au.transfer_out": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/cloudfront/pricing/",
+    "note": "Data transfer out to viewers in Australia and New Zealand, first 10 TB tier",
+    "sync": {
+      "service": "AmazonCloudFront",
+      "offerRegion": "aws-other",
+      "filters": {
+        "usagetype": "AU-DataTransfer-Out-Bytes"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.114,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.cloudfront.ca.https_requests": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://aws.amazon.com/cloudfront/pricing/",
+    "note": "HTTPS requests served from edges in Canada",
+    "sync": {
+      "service": "AmazonCloudFront",
+      "offerRegion": "aws-other",
+      "filters": {
+        "usagetype": "CA-Requests-Tier2-HTTPS"
+      }
+    },
+    "values": {
+      "*": {
         "value": 0.01,
         "verified": true,
         "checkedAt": "2026-09-24"
       }
     }
   },
-  "aws.cloudfront.transfer_out": {
+  "aws.cloudfront.ca.transfer_out": {
     "unit": "GB",
     "source": "https://aws.amazon.com/cloudfront/pricing/",
-    "note": "First 10 TB tier; keyed like https_requests",
+    "note": "Data transfer out to viewers in Canada, first 10 TB tier",
     "sync": {
       "service": "AmazonCloudFront",
       "offerRegion": "aws-other",
-      "filters": {},
-      "regionFilters": {
-        "us-east-1": {
-          "usagetype": "US-DataTransfer-Out-Bytes"
-        },
-        "ap-northeast-1": {
-          "usagetype": "JP-DataTransfer-Out-Bytes"
-        }
+      "filters": {
+        "usagetype": "CA-DataTransfer-Out-Bytes"
       }
     },
     "values": {
-      "ap-northeast-1": {
+      "*": {
+        "value": 0.085,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.cloudfront.eu.https_requests": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://aws.amazon.com/cloudfront/pricing/",
+    "note": "HTTPS requests served from edges in Europe and Israel",
+    "sync": {
+      "service": "AmazonCloudFront",
+      "offerRegion": "aws-other",
+      "filters": {
+        "usagetype": "EU-Requests-Tier2-HTTPS"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.cloudfront.eu.transfer_out": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/cloudfront/pricing/",
+    "note": "Data transfer out to viewers in Europe and Israel, first 10 TB tier",
+    "sync": {
+      "service": "AmazonCloudFront",
+      "offerRegion": "aws-other",
+      "filters": {
+        "usagetype": "EU-DataTransfer-Out-Bytes"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.085,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.cloudfront.in.https_requests": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://aws.amazon.com/cloudfront/pricing/",
+    "note": "HTTPS requests served from edges in India",
+    "sync": {
+      "service": "AmazonCloudFront",
+      "offerRegion": "aws-other",
+      "filters": {
+        "usagetype": "IN-Requests-Tier2-HTTPS"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.cloudfront.in.transfer_out": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/cloudfront/pricing/",
+    "note": "Data transfer out to viewers in India, first 10 TB tier",
+    "sync": {
+      "service": "AmazonCloudFront",
+      "offerRegion": "aws-other",
+      "filters": {
+        "usagetype": "IN-DataTransfer-Out-Bytes"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.109,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.cloudfront.jp.https_requests": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://aws.amazon.com/cloudfront/pricing/",
+    "note": "HTTPS requests served from edges in Japan",
+    "sync": {
+      "service": "AmazonCloudFront",
+      "offerRegion": "aws-other",
+      "filters": {
+        "usagetype": "JP-Requests-Tier2-HTTPS"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.cloudfront.jp.transfer_out": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/cloudfront/pricing/",
+    "note": "Data transfer out to viewers in Japan, first 10 TB tier",
+    "sync": {
+      "service": "AmazonCloudFront",
+      "offerRegion": "aws-other",
+      "filters": {
+        "usagetype": "JP-DataTransfer-Out-Bytes"
+      }
+    },
+    "values": {
+      "*": {
         "value": 0.114,
         "verified": true,
         "checkedAt": "2026-09-24"
-      },
-      "us-east-1": {
+      }
+    }
+  },
+  "aws.cloudfront.me.https_requests": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://aws.amazon.com/cloudfront/pricing/",
+    "note": "HTTPS requests served from edges in Middle East",
+    "sync": {
+      "service": "AmazonCloudFront",
+      "offerRegion": "aws-other",
+      "filters": {
+        "usagetype": "ME-Requests-Tier2-HTTPS"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.cloudfront.me.transfer_out": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/cloudfront/pricing/",
+    "note": "Data transfer out to viewers in Middle East, first 10 TB tier",
+    "sync": {
+      "service": "AmazonCloudFront",
+      "offerRegion": "aws-other",
+      "filters": {
+        "usagetype": "ME-DataTransfer-Out-Bytes"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.cloudfront.sa.https_requests": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://aws.amazon.com/cloudfront/pricing/",
+    "note": "HTTPS requests served from edges in South America",
+    "sync": {
+      "service": "AmazonCloudFront",
+      "offerRegion": "aws-other",
+      "filters": {
+        "usagetype": "SA-Requests-Tier2-HTTPS"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.022,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.cloudfront.sa.transfer_out": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/cloudfront/pricing/",
+    "note": "Data transfer out to viewers in South America, first 10 TB tier",
+    "sync": {
+      "service": "AmazonCloudFront",
+      "offerRegion": "aws-other",
+      "filters": {
+        "usagetype": "SA-DataTransfer-Out-Bytes"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.cloudfront.us.https_requests": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://aws.amazon.com/cloudfront/pricing/",
+    "note": "HTTPS requests served from edges in United States, Mexico",
+    "sync": {
+      "service": "AmazonCloudFront",
+      "offerRegion": "aws-other",
+      "filters": {
+        "usagetype": "US-Requests-Tier2-HTTPS"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.cloudfront.us.transfer_out": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/cloudfront/pricing/",
+    "note": "Data transfer out to viewers in United States, Mexico, first 10 TB tier",
+    "sync": {
+      "service": "AmazonCloudFront",
+      "offerRegion": "aws-other",
+      "filters": {
+        "usagetype": "US-DataTransfer-Out-Bytes"
+      }
+    },
+    "values": {
+      "*": {
         "value": 0.085,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.cloudfront.za.https_requests": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://aws.amazon.com/cloudfront/pricing/",
+    "note": "HTTPS requests served from edges in South Africa",
+    "sync": {
+      "service": "AmazonCloudFront",
+      "offerRegion": "aws-other",
+      "filters": {
+        "usagetype": "ZA-Requests-Tier2-HTTPS"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.cloudfront.za.transfer_out": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/cloudfront/pricing/",
+    "note": "Data transfer out to viewers in South Africa, first 10 TB tier",
+    "sync": {
+      "service": "AmazonCloudFront",
+      "offerRegion": "aws-other",
+      "filters": {
+        "usagetype": "ZA-DataTransfer-Out-Bytes"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.11,
         "verified": true,
         "checkedAt": "2026-09-24"
       }

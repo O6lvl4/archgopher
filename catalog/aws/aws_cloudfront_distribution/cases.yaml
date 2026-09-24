@@ -7,8 +7,8 @@
     responseKb: 40
   demand:
     request:
-        monthly: 2e+06
-        peak: 40
+      monthly: 2e+06
+      peak: 40
   costs:
     HTTPS requests: 2
     Transfer out: 6.484985352
@@ -20,10 +20,37 @@
     responseKb: 40
   demand:
     request:
-        monthly: 2e+06
-        peak: 40
+      monthly: 2e+06
+      peak: 40
   costs:
     HTTPS requests: 2.4
     Transfer out: 8.697509766
+  limits:
+    Requests per distribution: 40
+- name: Frankfurt picks the Europe zone
+  region: eu-central-1
+  assumptions:
+    responseKb: 40
+  demand:
+    request:
+      monthly: 2000000.0
+      peak: 40
+  costs:
+    HTTPS requests: 2.4
+    Transfer out: 6.484985352
+  limits:
+    Requests per distribution: 40
+- name: Viewers in India, served from us-east-1
+  region: us-east-1
+  assumptions:
+    responseKb: 40
+    viewers: in
+  demand:
+    request:
+      monthly: 2000000.0
+      peak: 40
+  costs:
+    HTTPS requests: 2.4
+    Transfer out: 8.316040039
   limits:
     Requests per distribution: 40

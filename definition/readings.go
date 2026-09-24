@@ -49,7 +49,7 @@ var kinds = map[string]map[string]param{
 	"capacity":    {"name": reqTxt, "units": reqNum, "unit": reqTxt, "price": reqTxt},
 	"limit":       {"name": reqTxt, "demand": reqNum, "unit": reqTxt, "quota": optTxt, "capacity": nilNum},
 	"logs":        {"count": reqNum, "kb": reqNum, "retentionDays": reqNum, "ingest": reqTxt, "storage": reqTxt},
-	"tokens":      {"prefix": reqTxt, "monthly": reqNum, "peak": reqNum, "input": reqNum, "output": reqNum, "cacheRead": optNum, "cacheWrite": optNum},
+	"tokens":      {"prefix": reqTxt, "pricePrefix": optTxt, "monthly": reqNum, "peak": reqNum, "input": reqNum, "output": reqNum, "cacheRead": optNum, "cacheWrite": optNum},
 	"session":     {"count": reqNum, "peak": reqNum, "sessionSeconds": reqNum, "activeVcpuSeconds": reqNum, "memoryGb": reqNum, "vcpuPrice": reqTxt, "memoryPrice": reqTxt, "concurrentQuota": reqTxt},
 	"fail":        {"message": reqTxt, "continue": {flag, false}},
 }
@@ -239,6 +239,6 @@ var record = map[string]func(v values, r *meter.Recorder){
 	},
 	"tokens": func(v values, r *meter.Recorder) {
 		a := facet.TokenAssume{InputTokens: v.n("input"), OutputTokens: v.n("output"), CacheReadShare: v.n("cacheRead"), CacheWriteShare: v.n("cacheWrite")}
-		facet.Tokens{Prefix: v.texts["prefix"]}.Read(r, v.n("monthly"), v.n("peak"), a)
+		facet.Tokens{Prefix: v.texts["prefix"], PricePrefix: v.texts["pricePrefix"]}.Read(r, v.n("monthly"), v.n("peak"), a)
 	},
 }

@@ -4,12 +4,17 @@
     "source": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/bedrock-agentcore-limits.html",
     "note": "Active session workloads per account; 5,000 in us-east-1 and us-west-2, 2,500 elsewhere. Adjustable",
     "values": {
-      "ap-northeast-1": {
+      "*": {
         "value": 2500,
         "verified": true,
         "checkedAt": "2026-09-24"
       },
       "us-east-1": {
+        "value": 5000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
         "value": 5000,
         "verified": true,
         "checkedAt": "2026-09-24"

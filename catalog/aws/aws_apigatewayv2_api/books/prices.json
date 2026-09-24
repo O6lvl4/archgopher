@@ -7,7 +7,7 @@
     "sync": {
       "service": "AmazonApiGateway",
       "filters": {
-        "usagetype": "([A-Z]+[0-9]-)?ApiGatewayHttpRequest"
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?ApiGatewayHttpRequest"
       }
     },
     "values": {
@@ -16,7 +16,47 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       },
+      "ap-northeast-2": {
+        "value": 1.23,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 1.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 1.29,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 1.11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
       "us-east-1": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
         "value": 1,
         "verified": true,
         "checkedAt": "2026-09-24"

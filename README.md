@@ -47,7 +47,7 @@ DynamoDB, SQS, S3, an hourly cleanup job, and a Bedrock model added by hand.
 | Node         | Type          | Monthly  | Tightest headroom | p99      | SLA     |
 | api_handler  | Lambda        | $12.00   | 99.4%             | 400 ms   | 99.950% |
 | notes        | DynamoDB      | $10.14   | 99.9%             | -        | 99.990% |
-| summarizer   | Bedrock model | $1597.20 | -                 | 3,000 ms | 99.900% |
+| summarizer   | Bedrock model | $1452.00 | 93.4%             | 3,000 ms | 99.900% |
 ...
 ```
 
@@ -156,8 +156,19 @@ a value per region, a unit, a source URL and a `verified` flag.
 
 ```sh
 archgopher sync --check      # exit 1 if the book is out of date
+archgopher sync --add-regions eu-west-2   # add a region to every price
 archgopher explore AWSLambda ap-northeast-1 'usagetype=.*GB-Second.*'
 ```
+
+**Regions.** Ten regions are covered: us-east-1, us-east-2, us-west-2,
+eu-west-1, eu-central-1, ap-northeast-1, ap-northeast-2, ap-southeast-1,
+ap-southeast-2 and ap-south-1. A row that is the same everywhere is `*`; a
+quota that differs names its regions over a `*` default ("2,500 elsewhere").
+`sync --add-regions` reads every price from the Price List for the new region
+and lists anything left to fill by hand. Where the Price List has no price, the
+row is recorded as not offered, and a node that needs it fails with "not
+offered in <region>" instead of costing nothing. A test keeps every region
+complete.
 
 Quotas are the published defaults. Some are account-specific in practice
 (Lambda concurrency on new accounts, Bedrock tokens per minute), and their
@@ -171,7 +182,7 @@ the demand and says the capacity is unknown.
 | `aws_lambda_function` | Requests, GB-seconds (x86_64 / arm64), logs | Concurrency (Little's law: peak rate × duration) against the account or reserved concurrency |
 | `aws_api_gateway_rest_api` | Requests | Account throttle |
 | `aws_apigatewayv2_api` | Requests in 512 KB steps (HTTP APIs) | Account throttle |
-| `aws_cloudfront_distribution` | HTTPS requests, transfer out | Requests per distribution |
+| `aws_cloudfront_distribution` | HTTPS requests, transfer out, by the price zone of the viewers (the region's zone unless set) | Requests per distribution |
 | `aws_dynamodb_table` | On-demand request units or provisioned capacity (4 KB / 1 KB steps, consistency, transactions), storage | Table throughput or provisioned capacity |
 | `aws_s3_bucket` | GET, PUT, storage (Standard) | Per-prefix request rate × prefixes |
 | `aws_sqs_queue` | Requests in 64 KB chunks | FIFO send rate |
@@ -180,7 +191,7 @@ the demand and says the capacity is unknown.
 | `aws_rds_cluster` | Aurora Serverless v2 ACU-hours, storage, I/O (Standard or I/O-Optimized) | Peak ACU against max capacity |
 | `aws_scheduler_schedule` | Invocations | - |
 | `aws_cloudwatch_event_rule` | Nothing (scheduled rules are free) | - |
-| `bedrock_model` | Input, output, cache read and cache write tokens (Claude 4.5 models) | Tokens per minute (output × burndown, cache reads excluded) and requests per minute |
+| `bedrock_model` | Input, output, cache read and cache write tokens (Claude 4.5 models), global or regional inference | Tokens per minute (output × burndown, cache reads excluded) and requests per minute |
 | `aws_bedrockagentcore_agent_runtime` | Active vCPU-hours and peak-memory GB-hours per session (platform V1 or V2), logs | Concurrent sessions, session creation rate, data-plane calls, session length |
 | `aws_bedrockagentcore_memory` | Short-term events, long-term records stored (built-in or custom strategy), retrievals | CreateEvent and retrieval rates, extraction tokens per minute |
 | `aws_bedrockagentcore_gateway` | API invocations, search, tool indexing, VPC data processing | Tool calls and search calls per second |
@@ -244,7 +255,7 @@ iam:
 
 Expressions see every attribute and assumption by key (optional ones are nil
 when unset), `total.monthly` and `total.peak`, `demand.<kind>.monthly` and
-`.peak`, earlier `let` values, and `ceilDiv(a, b)`. `includes: [logs]` adds a
+`.peak`, `region`, earlier `let` values, and `ceilDiv(a, b)`. `includes: [logs]` adds a
 facet's own assumption fields. A directory without `resource.yaml` holds rows
 several resources share, such as log prices.
 

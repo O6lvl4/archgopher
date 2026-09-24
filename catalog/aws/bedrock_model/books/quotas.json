@@ -14,14 +14,9 @@
   "aws.bedrock.claude-haiku-4-5.rpm": {
     "unit": "requests/minute",
     "source": "https://docs.aws.amazon.com/general/latest/gr/bedrock.html",
-    "note": "Published default for cross-region inference; the applied value is account-specific, so check Service Quotas",
+    "note": "Published default in each supported Region; global and geographic cross-Region inference have separate quotas with this same default. The applied value is account-specific, so check Service Quotas",
     "values": {
-      "ap-northeast-1": {
-        "value": 10000,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-1": {
+      "*": {
         "value": 10000,
         "verified": true,
         "checkedAt": "2026-09-24"
@@ -31,14 +26,9 @@
   "aws.bedrock.claude-haiku-4-5.tpm": {
     "unit": "tokens/minute",
     "source": "https://docs.aws.amazon.com/general/latest/gr/bedrock.html",
-    "note": "Published default for cross-region inference; the applied value is account-specific, so check Service Quotas",
+    "note": "Published default in each supported Region; global and geographic cross-Region inference have separate quotas with this same default. The applied value is account-specific, so check Service Quotas",
     "values": {
-      "ap-northeast-1": {
-        "value": 5000000,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-1": {
+      "*": {
         "value": 5000000,
         "verified": true,
         "checkedAt": "2026-09-24"
@@ -60,13 +50,9 @@
   "aws.bedrock.claude-opus-4-5.rpm": {
     "unit": "requests/minute",
     "source": "https://docs.aws.amazon.com/general/latest/gr/bedrock.html",
-    "note": "Published default for cross-region inference; the applied value is account-specific, so check Service Quotas. Not offered through the jp. profile",
+    "note": "Published default in each supported Region; global and geographic cross-Region inference have separate quotas with this same default. The applied value is account-specific, so check Service Quotas",
     "values": {
-      "ap-northeast-1": {
-        "value": null,
-        "verified": false
-      },
-      "us-east-1": {
+      "*": {
         "value": 10000,
         "verified": true,
         "checkedAt": "2026-09-24"
@@ -76,13 +62,9 @@
   "aws.bedrock.claude-opus-4-5.tpm": {
     "unit": "tokens/minute",
     "source": "https://docs.aws.amazon.com/general/latest/gr/bedrock.html",
-    "note": "Published default for cross-region inference; the applied value is account-specific, so check Service Quotas. Not offered through the jp. profile",
+    "note": "Published default in each supported Region; global and geographic cross-Region inference have separate quotas with this same default. The applied value is account-specific, so check Service Quotas",
     "values": {
-      "ap-northeast-1": {
-        "value": null,
-        "verified": false
-      },
-      "us-east-1": {
+      "*": {
         "value": 2000000,
         "verified": true,
         "checkedAt": "2026-09-24"
@@ -104,14 +86,9 @@
   "aws.bedrock.claude-sonnet-4-5.rpm": {
     "unit": "requests/minute",
     "source": "https://docs.aws.amazon.com/general/latest/gr/bedrock.html",
-    "note": "Published default for cross-region inference; the applied value is account-specific, so check Service Quotas",
+    "note": "Published default in each supported Region; global and geographic cross-Region inference have separate quotas with this same default. The applied value is account-specific, so check Service Quotas",
     "values": {
-      "ap-northeast-1": {
-        "value": 10000,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-1": {
+      "*": {
         "value": 10000,
         "verified": true,
         "checkedAt": "2026-09-24"
@@ -121,14 +98,9 @@
   "aws.bedrock.claude-sonnet-4-5.tpm": {
     "unit": "tokens/minute",
     "source": "https://docs.aws.amazon.com/general/latest/gr/bedrock.html",
-    "note": "Published default for cross-region inference; the applied value is account-specific, so check Service Quotas",
+    "note": "Published default in each supported Region; global and geographic cross-Region inference have separate quotas with this same default. The applied value is account-specific, so check Service Quotas",
     "values": {
-      "ap-northeast-1": {
-        "value": 5000000,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-1": {
+      "*": {
         "value": 5000000,
         "verified": true,
         "checkedAt": "2026-09-24"

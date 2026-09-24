@@ -3,6 +3,7 @@ package aws
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"flag"
 	"os"
 	"path/filepath"
@@ -18,8 +19,6 @@ import (
 	"github.com/O6lvl4/archgopher/model"
 	"github.com/O6lvl4/archgopher/scouter"
 )
-
-var regions = []string{"us-east-1", "ap-northeast-1"}
 
 // sample fills required fields with a plausible value and applies overrides.
 func sample(fields []field.Field, over map[string]any) map[string]any {
@@ -62,6 +61,10 @@ func TestEveryScouterReadsTheBooks(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	regions, err := Regions()
+	if err != nil {
+		t.Fatal(err)
+	}
 	reg := Registry()
 	for _, typ := range reg.Types() {
 		s := reg[typ]
@@ -74,11 +77,89 @@ func TestEveryScouterReadsTheBooks(t *testing.T) {
 			for _, k := range s.Meta().Kinds {
 				d[k] = model.Load{Monthly: 1e6, PeakPerSecond: 10}
 			}
-			if err := s.Scout(n, d, meter.NewRecorder(region, books)); err != nil {
+			if err := s.Scout(n, d, meter.NewRecorder(region, books)); err != nil && !onlyNotOffered(err) {
 				t.Errorf("%s in %s: %v", typ, region, err)
 			}
 		}
 	}
+}
+
+// onlyNotOffered reports whether every joined error is a price the region
+// does not offer, which is a fact about the region, not a broken book.
+func onlyNotOffered(err error) bool {
+	errs := []error{err}
+	if j, ok := err.(interface{ Unwrap() []error }); ok {
+		errs = j.Unwrap()
+	}
+	for _, e := range errs {
+		var no *meter.NotOfferedError
+		if !errors.As(e, &no) {
+			return false
+		}
+	}
+	return true
+}
+
+// TestEveryRegionIsComplete keeps a region all or nothing: every row that
+// varies by region has a value, or a verified "not offered", for every region
+// any price covers. Adding a region is `archgopher sync --add-regions`.
+func TestEveryRegionIsComplete(t *testing.T) {
+	books, err := Books()
+	if err != nil {
+		t.Fatal(err)
+	}
+	regions, err := Regions()
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, name := range []book.Name{book.Prices, book.Quotas, book.SLAs} {
+		for id, e := range books.Book(name) {
+			if _, any := e.Values[book.AnyRegion]; any {
+				continue
+			}
+			for _, r := range regions {
+				if _, ok := e.Values[r]; !ok {
+					t.Errorf("%s %q has no value for %s", name, id, r)
+				}
+			}
+		}
+	}
+}
+
+// TestRegionalQuotas pins quotas that differ by region, read from each
+// service's quota page: named regions override the "*" default.
+func TestRegionalQuotas(t *testing.T) {
+	books, err := Books()
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, c := range []struct {
+		id, region string
+		want       float64
+	}{
+		{"aws.sns.publish_rps", "us-east-1", 30000},
+		{"aws.sns.publish_rps", "eu-west-1", 9000},
+		{"aws.sns.publish_rps", "ap-northeast-1", 1500},
+		{"aws.sns.publish_rps", "sa-east-1", 300},
+		{"aws.sfn.standard.start_execution", "us-west-2", 300},
+		{"aws.sfn.standard.start_execution", "eu-central-1", 150},
+		{"aws.agentcore.runtime.active_sessions", "us-west-2", 5000},
+		{"aws.agentcore.runtime.active_sessions", "ap-northeast-1", 2500},
+		{"aws.agentcore.evaluation.per_minute", "ap-southeast-1", 200},
+		{"aws.agentcore.evaluation.per_minute", "eu-west-1", 1200},
+	} {
+		_, v, err := books.Quotas.Lookup(c.id, c.region)
+		if err != nil || v.Value == nil || *v.Value != c.want {
+			t.Errorf("%s in %s: want %v, got %v (%v)", c.id, c.region, c.want, show(v.Value), err)
+		}
+	}
+}
+
+func show(v *float64) any {
+	if v == nil {
+		return nil
+	}
+	return *v
 }
 
 func TestBooksAreWellFormed(t *testing.T) {
@@ -90,13 +171,6 @@ func TestBooksAreWellFormed(t *testing.T) {
 		for id, e := range books.Book(name) {
 			if e.Unit == "" || !strings.HasPrefix(e.Source, "https://") || len(e.Values) == 0 {
 				t.Errorf("%s %s: needs a unit, an https source and values", name, id)
-			}
-			if _, any := e.Values[book.AnyRegion]; !any {
-				for _, r := range regions {
-					if _, ok := e.Values[r]; !ok {
-						t.Errorf("%s %s: no value for %s", name, id, r)
-					}
-				}
 			}
 		}
 	}

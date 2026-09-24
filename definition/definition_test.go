@@ -76,6 +76,7 @@ func TestDefinitionMistakesFailAtLoad(t *testing.T) {
 		"a type mismatch":         strings.Replace(queue, "total.monthly * 3", `total.monthly * "3"`, 1),
 		"a directory mismatch":    strings.Replace(queue, "type: test_queue", "type: other", 1),
 		"a bad default":           strings.Replace(queue, "type: number, default: 1", "type: number, default: one", 1),
+		"a field named region":    strings.Replace(queue, "key: fifo,", "key: region,", 1),
 	}
 	for name, src := range cases {
 		if _, err := Load(fstest.MapFS{"c/test_queue/resource.yaml": {Data: []byte(src)}}, "c/test_queue"); err == nil {

@@ -2,15 +2,65 @@
   "aws.sns.publish_rps": {
     "unit": "requests/second",
     "source": "https://docs.aws.amazon.com/general/latest/gr/sns.html",
-    "note": "Standard topics; varies by region",
+    "note": "Standard topics, messages per second per account, Publish and PublishBatch combined",
     "values": {
+      "*": {
+        "value": 300,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
       "ap-northeast-1": {
         "value": 1500,
         "verified": true,
         "checkedAt": "2026-09-24"
       },
+      "ap-northeast-2": {
+        "value": 1500,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 1500,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 1500,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 1500,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 1500,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 9000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
       "us-east-1": {
         "value": 30000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 1500,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-1": {
+        "value": 1500,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 9000,
         "verified": true,
         "checkedAt": "2026-09-24"
       }

@@ -24,8 +24,11 @@ func flowOf(l model.Load) Flow { return Flow{Monthly: l.Monthly, Peak: l.PeakPer
 
 // declare builds the typed environment expressions compile against, so an
 // unknown name or a type mismatch fails when the definition loads.
+// reserved names are in every expression: the demand and the spec region.
+var reserved = map[string]bool{"total": true, "demand": true, "region": true}
+
 func declare(attrs, assume []field.Field) map[string]any {
-	env := map[string]any{"total": Flow{}, "demand": map[string]Flow{}}
+	env := map[string]any{"total": Flow{}, "demand": map[string]Flow{}, "region": ""}
 	for _, f := range append(append([]field.Field(nil), attrs...), assume...) {
 		env[f.Key] = reflect.Zero(typeOf(f)).Interface()
 	}
@@ -33,12 +36,12 @@ func declare(attrs, assume []field.Field) map[string]any {
 }
 
 // runtimeEnv fills the environment for one node.
-func runtimeEnv(attrs, assume []field.Field, a, p map[string]any, kinds []string, d model.Demand) map[string]any {
+func runtimeEnv(region string, attrs, assume []field.Field, a, p map[string]any, kinds []string, d model.Demand) map[string]any {
 	demand := map[string]Flow{}
 	for _, k := range kinds {
 		demand[k] = flowOf(d.Of(k))
 	}
-	env := map[string]any{"total": flowOf(d.Total()), "demand": demand}
+	env := map[string]any{"total": flowOf(d.Total()), "demand": demand, "region": region}
 	put := func(fields []field.Field, values map[string]any) {
 		for _, f := range fields {
 			v, set := values[f.Key]
