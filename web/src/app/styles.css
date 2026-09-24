@@ -16,7 +16,7 @@
   --prov-azure: #0078d4;
   --prov-gcp: linear-gradient(90deg, #4285f4 0 25%, #ea4335 25% 50%, #fbbc04 50% 75%, #34a853 75%);
   --prov-cloudflare: #f38020;
-  --prov-general: #64748b;
+  --prov-general: #ffffff;
   --radius: 10px;
   --shadow: 0 1px 2px rgb(16 24 40 / 6%), 0 1px 3px rgb(16 24 40 / 8%);
   --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -39,11 +39,11 @@
     --bad: #f87171;
     --bad-soft: #3a1d1d;
     --warn-soft: #3a2e14;
-    --prov-aws: #d5dbdb;
+    --prov-aws: #8b98a9;
     --prov-azure: #3a96dd;
     --prov-gcp: linear-gradient(90deg, #8ab4f8 0 25%, #f28b82 25% 50%, #fdd663 50% 75%, #81c995 75%);
     --prov-cloudflare: #f6933b;
-    --prov-general: #94a3b8;
+    --prov-general: #ffffff;
     --shadow: 0 1px 2px rgb(0 0 0 / 40%);
     color-scheme: dark;
   }
@@ -117,16 +117,16 @@ button.link:hover { text-decoration: underline; background: none; }
 }
 .catalog-icon { flex: none; }
 
-/* provider lines shared by cards and catalog headings: the brand color, or
-   Google's four colors in turn */
+/* provider lines shared by cards and catalog headings: the brand color,
+   Google's four colors in turn, or white framed in black for neutral nodes */
 .prov-aws { --prov-line: var(--prov-aws); }
 .prov-azure { --prov-line: var(--prov-azure); }
 .prov-gcp { --prov-line: var(--prov-gcp); }
 .prov-cloudflare { --prov-line: var(--prov-cloudflare); }
-.prov-general { --prov-line: var(--prov-general); }
+.prov-general { --prov-line: var(--prov-general); --prov-edge: inset 0 0 0 1px #16181d; }
 .catalog h2::before {
   content: ""; display: inline-block; width: 10px; height: 10px; margin-right: 6px; border-radius: 3px;
-  background: var(--prov-line, var(--prov-general));
+  background: var(--prov-line, var(--prov-general)); box-shadow: var(--prov-edge, none);
 }
 .card.pattern { border-style: dashed; }
 
@@ -149,6 +149,7 @@ button.link:hover { text-decoration: underline; background: none; }
 .card::before {
   content: ""; position: absolute; inset: -1px -1px auto; height: 4px;
   border-radius: var(--radius) var(--radius) 0 0; background: var(--prov-line, var(--prov-general));
+  box-shadow: var(--prov-edge, none);
 }
 .card-top { display: flex; gap: 8px; align-items: flex-start; }
 .card-icon { flex: none; border-radius: 6px; }
