@@ -1,6 +1,6 @@
 import type { Edge, Node } from "@xyflow/react";
 import { num } from "./format";
-import { fitAround, rectOf, type Rect } from "./frames";
+import { fitAround, rectOf } from "./frames";
 import type { CatalogEntry, NodeResult, Result, Spec, SpecGroup, SpecNode } from "./types";
 
 export interface CardData extends Record<string, unknown> {
@@ -14,8 +14,6 @@ export type CardNode = Node<CardData, "scouter">;
 export interface FrameData extends Record<string, unknown> {
   group: SpecGroup;
   reading?: NodeResult;
-  /** Called when the frame has been resized, with where it is now. */
-  onResized: (rect: Rect) => void;
 }
 
 export type FrameNode = Node<FrameData, "frame">;
@@ -25,8 +23,8 @@ export type FlowNode = CardNode | FrameNode;
 export const frameNodeId = (group: string) => `group:${group}`;
 export const groupOfFrame = (nodeId: string) => (nodeId.startsWith("group:") ? nodeId.slice("group:".length) : undefined);
 
-/** Frames drawn from where each group says it is, behind the cards; only the label drags. */
-export function toFrames(spec: Spec, result: Result | undefined, selected: string | undefined, onResized: (id: string, rect: Rect) => void): FrameNode[] {
+/** Frames drawn where the layout put each group, behind the cards. */
+export function toFrames(spec: Spec, result: Result | undefined, selected: string | undefined): FrameNode[] {
   const readings = new Map((result?.groups ?? []).map((r) => [r.id, r]));
   return (spec.groups ?? []).flatMap((group) => {
     const r = rectOf(group) ?? fitAround(spec, group.id);
@@ -37,9 +35,9 @@ export function toFrames(spec: Spec, result: Result | undefined, selected: strin
       position: { x: r.x, y: r.y },
       width: r.width,
       height: r.height,
-      data: { group, reading: readings.get(group.id), onResized: (rect) => onResized(group.id, rect) },
+      data: { group, reading: readings.get(group.id) },
       selected: group.id === selected,
-      dragHandle: ".frame-label",
+      draggable: false,
       selectable: false,
       focusable: false,
       deletable: false,

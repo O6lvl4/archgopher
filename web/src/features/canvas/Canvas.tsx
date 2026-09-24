@@ -1,7 +1,6 @@
 import { Background, Controls, MiniMap, Panel, ReactFlow, applyNodeChanges, useReactFlow, type Connection, type EdgeChange, type NodeChange } from "@xyflow/react";
 import { useEffect, useMemo, useState, type Dispatch } from "react";
 import { groupOfFrame, toFlowEdges, toFlowNodes, toFrames, type CardNode, type FlowNode } from "../../lib/flow";
-import type { Rect } from "../../lib/frames";
 import { closesCycle, type Action, type Selection } from "../../lib/state";
 import type { CatalogEntry, Result, Spec } from "../../lib/types";
 import { GroupFrame } from "../../composites/GroupFrame";
@@ -33,25 +32,7 @@ function refusal(spec: Spec, c: Connection): string | undefined {
 
 const isCard = (n: FlowNode): n is CardNode => n.type === "scouter";
 
-/** While a frame is dragged, the cards in it move by the same amount. */
-function followFrames(changes: NodeChange<FlowNode>[], nodes: FlowNode[], spec: Spec): NodeChange<FlowNode>[] {
-  const byId = new Map(nodes.map((n) => [n.id, n]));
-  return changes.flatMap((c) => {
-    const group = c.type === "position" && c.dragging && c.position ? groupOfFrame(c.id) : undefined;
-    const frame = c.type === "position" ? byId.get(c.id) : undefined;
-    if (!group || !frame || c.type !== "position" || !c.position) return [];
-    const dx = c.position.x - frame.position.x;
-    const dy = c.position.y - frame.position.y;
-    return spec.nodes.flatMap((n) => {
-      const card = n.group === group ? byId.get(n.id) : undefined;
-      return card ? [{ type: "position" as const, id: card.id, position: { x: card.position.x + dx, y: card.position.y + dy }, dragging: true }] : [];
-    });
-  });
-}
 
-function frameRect(n: FlowNode): Rect {
-  return { x: n.position.x, y: n.position.y, width: n.width ?? n.measured?.width ?? 0, height: n.height ?? n.measured?.height ?? 0 };
-}
 
 /** Delete or Backspace removes the selected frame (its cards stay), unless typing in a field. */
 function useDeleteGroup(group: string | undefined, dispatch: Dispatch<Action>) {
@@ -82,30 +63,23 @@ export function Canvas({ spec, result, catalog, selection, dispatch, onSelect, o
   const selectedGroup = selection?.kind === "group" ? selection.id : undefined;
   const selectedEdge = selection?.kind === "edge" ? selection.index : undefined;
   useEffect(() => {
-    const onResized = (id: string, rect: Rect) => dispatch({ type: "frame", id, rect, positions: {} });
     setNodes((prev) => [
-      ...toFrames(spec, result, selectedGroup, onResized),
+      ...toFrames(spec, result, selectedGroup),
       ...toFlowNodes(spec, result, catalog, prev.filter(isCard)).map((n) => ({ ...n, selected: n.id === selectedNode })),
     ]);
-  }, [spec, result, catalog, selectedNode, selectedGroup, dispatch]);
+  }, [spec, result, catalog, selectedNode, selectedGroup]);
   const edges = useMemo(() => toFlowEdges(spec, result, selectedEdge), [spec, result, selectedEdge]);
   useDeleteGroup(selectedGroup, dispatch);
   useFitOnReshape(spec);
 
   const onNodesChange = (changes: NodeChange<FlowNode>[]) => {
-    setNodes((ns) => applyNodeChanges([...changes, ...followFrames(changes, ns, spec)], ns));
+    setNodes((ns) => applyNodeChanges(changes, ns));
     for (const c of changes) if (c.type === "remove" && !groupOfFrame(c.id)) dispatch({ type: "removeNode", id: c.id });
   };
-  const onDragStop = (dragged: FlowNode[]) => {
-    const frame = dragged.find((n) => groupOfFrame(n.id));
-    const group = frame && groupOfFrame(frame.id);
-    if (frame && group) {
-      const members = new Set(spec.nodes.filter((n) => n.group === group).map((n) => n.id));
-      const positions = Object.fromEntries(nodes.filter((n) => members.has(n.id)).map((n) => [n.id, n.position]));
-      return dispatch({ type: "frame", id: group, rect: frameRect(frame), positions });
-    }
+  // A dropped card may have joined or left a frame; the layout follows either way.
+  const onDragStop = (dragged: FlowNode[]) =>
     dispatch({ type: "drop", positions: Object.fromEntries(dragged.filter(isCard).map((n) => [n.id, n.position])) });
-  };
+
   const onEdgesChange = (changes: EdgeChange[]) => {
     const removed = changes.filter((c) => c.type === "remove").map((c) => edgeIndex(c.id));
     for (const i of removed.sort((a, b) => b - a)) dispatch({ type: "removeEdge", index: i });

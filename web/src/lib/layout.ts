@@ -46,18 +46,3 @@ export function autoLayout(spec: Spec): Record<string, Position> {
   for (const gr of empty) place(groupKey(gr.id));
   return out;
 }
-
-/** True when some node has never been placed. */
-export function needsLayout(spec: Spec): boolean {
-  return spec.nodes.some((n) => !n.position);
-}
-
-const overlaps = (a: Position, b: Position) => Math.abs(a.x - b.x) < NODE_WIDTH + 12 && Math.abs(a.y - b.y) < NODE_HEIGHT + 12;
-
-/** The first spot at or below want that no placed node covers. */
-export function freeSpot(spec: Spec, want: Position): Position {
-  const taken = spec.nodes.flatMap((n) => (n.position ? [n.position] : []));
-  const spot = { ...want };
-  while (taken.some((p) => overlaps(p, spot))) spot.y += NODE_HEIGHT + 16;
-  return spot;
-}

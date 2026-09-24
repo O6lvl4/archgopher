@@ -161,9 +161,6 @@ button.link:hover { text-decoration: underline; background: none; }
   background: color-mix(in srgb, var(--surface-2) 45%, transparent);
 }
 .frame.selected { border-color: var(--accent); border-style: solid; }
-.react-flow__node-frame .frame-handle, .react-flow__node-frame .frame-line { pointer-events: auto; }
-.frame-handle { width: 9px; height: 9px; border-radius: 2px; background: var(--surface); border: 1.5px solid var(--accent); }
-.frame-line { border-color: transparent; }
 .frame-label {
   position: absolute; top: 6px; left: 12px; display: flex; gap: 6px; align-items: baseline;
   font-size: 12px; font-weight: 600; color: var(--text);

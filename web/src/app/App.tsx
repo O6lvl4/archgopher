@@ -1,4 +1,3 @@
-import { useReactFlow } from "@xyflow/react";
 import { useEffect, useState } from "react";
 import { Canvas } from "../features/canvas/Canvas";
 import { Catalog } from "../composites/Catalog";
@@ -9,7 +8,6 @@ import { TerraformDialog, type ImportRequest } from "../features/terraform/Terra
 import { download, slug } from "../lib/download";
 import { engine } from "../lib/engine";
 import { examples } from "../lib/examples";
-import { freeSpot, NODE_HEIGHT, NODE_WIDTH } from "../lib/layout";
 import { NEW_FRAME } from "../lib/frames";
 import { freshGroupId, freshId, type Selection } from "../lib/state";
 import type { CatalogEntry } from "../lib/types";
@@ -27,7 +25,6 @@ function useNotice() {
 
 export function App() {
   const ws = useWorkspace();
-  const flow = useReactFlow();
   const [selection, setSelection] = useState<Selection>();
   const [importing, setImporting] = useState(false);
   const [warnings, setWarnings] = useState<string[]>([]);
@@ -42,17 +39,10 @@ export function App() {
     }
   };
 
-  const canvasCenter = () => {
-    const box = document.querySelector(".canvas")?.getBoundingClientRect();
-    return flow.screenToFlowPosition({ x: (box?.left ?? 0) + (box?.width ?? 600) / 2, y: (box?.top ?? 0) + (box?.height ?? 400) / 2 });
-  };
-
-  /** A boundary from the catalog is an empty frame in the middle of the view; cards dropped in it join it. */
+  /** A boundary from the catalog is an empty frame; cards dropped in it join it. The layout places both. */
   const addGroup = (entry: CatalogEntry) => {
     const id = freshGroupId(ws.spec, entry.label);
-    const center = canvasCenter();
-    const position = { x: Math.round(center.x - NEW_FRAME.width / 2), y: Math.round(center.y - NEW_FRAME.height / 2) };
-    ws.dispatch({ type: "addGroup", group: { id, kind: entry.label, label: id, type: entry.type, position, size: NEW_FRAME } });
+    ws.dispatch({ type: "addGroup", group: { id, kind: entry.label, label: id, type: entry.type, size: NEW_FRAME } });
     setSelection({ kind: "group", id });
   };
 
@@ -60,9 +50,7 @@ export function App() {
     const entry = ws.catalogMap.get(type);
     if (entry?.boundary) return addGroup(entry);
     const id = freshId(ws.spec, entry?.label ?? type);
-    const center = canvasCenter();
-    const position = freeSpot(ws.spec, { x: Math.round(center.x - NODE_WIDTH / 2), y: Math.round(center.y - NODE_HEIGHT / 2) });
-    ws.dispatch({ type: "addNode", node: { id, type, position } });
+    ws.dispatch({ type: "addNode", node: { id, type } });
     setSelection({ kind: "node", id });
   };
 
