@@ -1,6 +1,7 @@
 type: aws_sfn_state_machine
 label: Step Functions
 category: Compute
+icon: step-functions
 description: Standard bills state transitions; express bills requests and GB-seconds. Headroom is the StartExecution rate.
 kinds: [execution]
 sla: aws.sfn

@@ -1,6 +1,7 @@
 type: agentcore_knowledge_base
 label: AgentCore Knowledge Base
 category: AI
+icon: agentcore
 description: Retrieval or agentic retrieval queries and storage. Not a Terraform resource; place it by hand.
 kinds: [query]
 sla: aws.agentcore

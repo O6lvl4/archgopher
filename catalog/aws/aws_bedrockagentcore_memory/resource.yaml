@@ -1,6 +1,7 @@
 type: aws_bedrockagentcore_memory
 label: AgentCore Memory
 category: AI
+icon: agentcore
 description: Short-term events, long-term records stored and retrieved. Headroom is CreateEvent and retrieval rates, and extraction tokens per minute for built-in strategies.
 kinds: [event, retrieve]
 sla: aws.agentcore

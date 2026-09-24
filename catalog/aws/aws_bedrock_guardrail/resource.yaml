@@ -1,6 +1,7 @@
 type: aws_bedrock_guardrail
 label: Bedrock guardrail
 category: AI
+icon: bedrock
 description: "Text units (up to 1,000 characters each) per assessment, priced per configured policy: content filters, denied topics, PII filters and contextual grounding. Word filters and regexes are free. Quotas count against the calling account; the pricing pages do not say which account pays when the guardrail belongs to another account."
 kinds: [apply]
 sla: aws.bedrock

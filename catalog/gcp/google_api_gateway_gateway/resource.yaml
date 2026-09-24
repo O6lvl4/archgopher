@@ -1,6 +1,7 @@
 type: google_api_gateway_gateway
 label: API Gateway
 category: Networking
+icon: api-gateway
 description: "Calls per million at the 2M-to-1B tier; the free first 2M and the cheaper tier above 1B are ignored. Headroom is Service Control quota units, at most one per call."
 kinds: [request]
 sla: gcp.apigateway

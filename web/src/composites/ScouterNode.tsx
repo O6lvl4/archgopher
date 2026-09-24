@@ -3,6 +3,7 @@ import { ms, num, pct, tone, usd } from "../lib/format";
 import type { CardNode } from "../lib/flow";
 import type { NodeResult } from "../lib/types";
 import { Chip } from "../ui/Chip";
+import { Icon } from "../ui/Icon";
 import { Metric } from "../ui/Metric";
 
 function minHeadroom(r: NodeResult | undefined): number | null {
@@ -42,19 +43,30 @@ function EntryLoad({ node }: { node: CardNode["data"]["node"] }) {
   );
 }
 
+/** The provider sets the card's line; a pattern also draws a dashed frame. */
+function cardClass(entry: CardNode["data"]["entry"]): string {
+  const provider = `prov-${entry?.provider ?? "general"}`;
+  return entry?.category === "Pattern" ? `${provider} pattern` : provider;
+}
+
 export function ScouterNode({ data, selected }: NodeProps<CardNode>) {
   const { node, reading, entry } = data;
   const s = status(reading, node.stale);
   return (
-    <div className={`card cat-${(entry?.category ?? "other").toLowerCase().replace(/[^a-z]/g, "")}${selected ? " selected" : ""}`}>
+    <div className={`card ${cardClass(entry)}${selected ? " selected" : ""}`}>
       <Handle type="target" position={Position.Left} />
-      <div className="card-head">
-        <span className="card-kind">{entry?.label ?? node.type}</span>
-        {reading?.members && <Chip tone="muted">{reading.members.length} inside</Chip>}
-        {s && <Chip tone={s.tone}>{s.label}</Chip>}
-      </div>
-      <div className="card-id" title={node.address ?? node.id}>
-        {node.id}
+      <div className="card-top">
+        <Icon name={entry?.icon} size={32} className="card-icon" />
+        <div className="card-names">
+          <div className="card-head">
+            <span className="card-kind">{entry?.label ?? node.type}</span>
+            {reading?.members && <Chip tone="muted">{reading.members.length} inside</Chip>}
+            {s && <Chip tone={s.tone}>{s.label}</Chip>}
+          </div>
+          <div className="card-id" title={node.address ?? node.id}>
+            {node.id}
+          </div>
+        </div>
       </div>
       {node.type === "entry" ? <EntryLoad node={node} /> : <Readings reading={reading} />}
       <Handle type="source" position={Position.Right} />

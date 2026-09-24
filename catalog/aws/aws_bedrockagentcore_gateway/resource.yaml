@@ -1,6 +1,7 @@
 type: aws_bedrockagentcore_gateway
 label: AgentCore Gateway
 category: AI
+icon: agentcore
 description: API invocations, semantic search, tool indexing and VPC data processing. Headroom is tool calls per second and search-based calls per minute.
 kinds: [tool_call, search]
 sla: aws.agentcore

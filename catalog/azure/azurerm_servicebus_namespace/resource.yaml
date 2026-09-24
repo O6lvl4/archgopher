@@ -1,6 +1,7 @@
 type: azurerm_servicebus_namespace
 label: Service Bus
 category: Messaging
+icon: service-bus
 description: "Basic: operations. Standard: the base fee and operations beyond the 13 million it includes (volume discounts above 100 million are not read). Premium: messaging-unit hours. Operations are counted per 64 KB. Headroom is operations per second on Basic and Standard; Premium has no fixed limit."
 kinds: [send]
 sla: azure.servicebus

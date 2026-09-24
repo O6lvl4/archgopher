@@ -18,9 +18,11 @@ import (
 
 // File is resource.yaml.
 type File struct {
-	Type        string       `yaml:"type"`
-	Label       string       `yaml:"label"`
-	Category    string       `yaml:"category"`
+	Type     string `yaml:"type"`
+	Label    string `yaml:"label"`
+	Category string `yaml:"category"`
+	// Icon is the picture's name among the provider's icons.
+	Icon        string       `yaml:"icon"`
 	Description string       `yaml:"description"`
 	Kinds       []string     `yaml:"kinds"`
 	SLA         string       `yaml:"sla"`
@@ -129,7 +131,7 @@ func build(specs []field.Spec) ([]field.Field, error) {
 // Meta is the catalog entry.
 func (r *Resource) Meta() scouter.Meta {
 	f := r.File
-	return scouter.Meta{Type: f.Type, Label: f.Label, Category: f.Category, Provider: r.provider, Description: f.Description, Kinds: f.Kinds, SLA: f.SLA, External: f.External}
+	return scouter.Meta{Type: f.Type, Label: f.Label, Category: f.Category, Provider: r.provider, Description: f.Description, Kinds: f.Kinds, SLA: f.SLA, External: f.External, Icon: iconPath(r.provider, f.Icon)}
 }
 
 // Attributes lists the Terraform attributes the resource reads.
@@ -204,4 +206,12 @@ func typeOf(f field.Field) reflect.Type {
 		return t
 	}
 	return reflect.PointerTo(t)
+}
+
+// iconPath places an icon name under its provider's icons.
+func iconPath(provider, name string) string {
+	if name == "" {
+		return ""
+	}
+	return provider + "/" + name
 }

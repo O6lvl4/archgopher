@@ -1,6 +1,7 @@
 type: bedrock_model
 label: Bedrock model
 category: AI
+icon: bedrock
 description: "Input, output and prompt-cache tokens. Headroom is tokens and requests per minute: output counts with the burndown multiplier, cache reads do not count."
 kinds: [call]
 sla: aws.bedrock

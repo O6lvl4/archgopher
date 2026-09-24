@@ -1,6 +1,7 @@
 type: aws_cognito_user_pool
 label: Cognito user pool
 category: Security
+icon: cognito
 description: "Monthly active users priced by feature plan: Lite in volume tiers, Essentials and Plus flat. Headroom is the sign-in and sign-up request rates, shared by every user pool in the account and region. Free tier is ignored."
 kinds: [sign_in]
 sla: aws.cognito

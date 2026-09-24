@@ -1,6 +1,7 @@
 type: azurerm_postgresql_flexible_server
 label: PostgreSQL flexible server
 category: Database
+icon: postgresql
 description: "Compute hours by SKU and provisioned storage; high availability runs a standby of the same size, so both double. Headroom is connections against the SKU's default max_connections."
 kinds: [query]
 sla: azure.postgresql.flexible

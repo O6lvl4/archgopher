@@ -1,6 +1,7 @@
 type: aws_bedrockagentcore_workload_identity
 label: AgentCore Identity
 category: AI
+icon: agentcore
 description: Token and API key requests for non-AWS resources; free when agents use Identity through Runtime or Gateway. Headroom is token requests per second.
 kinds: [token]
 sla: aws.agentcore

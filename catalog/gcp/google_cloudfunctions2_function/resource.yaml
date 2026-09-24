@@ -1,6 +1,7 @@
 type: google_cloudfunctions2_function
 label: Cloud Run function (2nd gen)
 category: Compute
+icon: cloud-functions
 description: "Billed at Cloud Run prices: vCPU- and GiB-seconds while instances serve invocations, and invocations as requests. Headroom is instances needed against max instances. Event triggers are not read as edges yet."
 kinds: [invoke]
 sla: gcp.functions

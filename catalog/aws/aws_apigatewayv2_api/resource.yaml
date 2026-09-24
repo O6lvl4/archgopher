@@ -1,6 +1,7 @@
 type: aws_apigatewayv2_api
 label: API Gateway (HTTP)
 category: Edge
+icon: api-gateway
 description: Requests in 512 KB steps; headroom is the account throttle. WebSocket APIs are not read yet.
 kinds: [request]
 sla: aws.apigateway

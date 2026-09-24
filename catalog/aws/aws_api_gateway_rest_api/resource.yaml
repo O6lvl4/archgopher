@@ -1,6 +1,7 @@
 type: aws_api_gateway_rest_api
 label: API Gateway (REST)
 category: Edge
+icon: api-gateway
 description: Requests; headroom is the account throttle shared by every API in the region.
 kinds: [request]
 sla: aws.apigateway

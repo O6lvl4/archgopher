@@ -1,6 +1,7 @@
 type: aws_cloudfront_function
 label: CloudFront Function
 category: Edge
+icon: cloudfront
 description: "Invocations at the edge: one per viewer request or response of the cache behaviors it is associated with. Free tier is ignored."
 kinds: [request]
 sla: aws.cloudfront

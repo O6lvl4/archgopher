@@ -1,6 +1,7 @@
 type: google_sql_database_instance
 label: Cloud SQL instance
 category: Database
+icon: cloud-sql
 description: "Enterprise edition for MySQL and PostgreSQL: vCPU- and memory-hours (or a shared-core instance-hour) and SSD storage, at the high availability price when REGIONAL. Headroom is PostgreSQL's default max_connections for the memory size."
 kinds: [query]
 sla: gcp.sql

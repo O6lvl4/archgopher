@@ -1,6 +1,7 @@
 type: aws_sns_topic
 label: SNS
 category: Messaging
+icon: sns
 description: Publishes in 64 KB chunks; delivery to Lambda and SQS is free. Headroom is the regional publish rate.
 kinds: [publish]
 sla: aws.sns

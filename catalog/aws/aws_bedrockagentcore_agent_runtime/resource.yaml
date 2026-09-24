@@ -1,6 +1,7 @@
 type: aws_bedrockagentcore_agent_runtime
 label: AgentCore Runtime
 category: AI
+icon: agentcore
 description: "Session compute: active CPU, and peak memory for the whole session, on platform V1 or V2. Headroom is concurrent sessions, session creation, data-plane calls and session length."
 kinds: [session]
 sla: aws.agentcore

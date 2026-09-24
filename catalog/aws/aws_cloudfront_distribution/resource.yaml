@@ -1,6 +1,7 @@
 type: aws_cloudfront_distribution
 label: CloudFront
 category: Edge
+icon: cloudfront
 description: "HTTPS requests and transfer out, priced by where viewers are: by default the CloudFront price zone of the region. Free tier is ignored."
 kinds: [request]
 sla: aws.cloudfront

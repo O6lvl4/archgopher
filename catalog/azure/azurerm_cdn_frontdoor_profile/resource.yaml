@@ -1,6 +1,7 @@
 type: azurerm_cdn_frontdoor_profile
 label: Front Door
 category: Edge
+icon: front-door
 description: "Standard or Premium profile: the monthly base fee, requests and data transfer to clients, priced by the billing zone of the edge that serves the viewers (by default the zone of the region). Transfer from the edge to the origin and the free tier are not read."
 kinds: [request]
 sla: azure.frontdoor

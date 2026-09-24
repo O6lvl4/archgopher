@@ -1,6 +1,7 @@
 type: azurerm_cosmosdb_account
 label: Cosmos DB
 category: Database
+icon: cosmos-db
 description: "Request units and storage. Serverless bills request units consumed; provisioned bills RU/s-hours set on its databases or containers (from the assumption, as throughput is not on the account), single-region writes. The free tier is ignored, as every free tier."
 kinds: [read, write]
 sla: azure.cosmosdb

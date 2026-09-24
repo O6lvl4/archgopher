@@ -1,6 +1,7 @@
 type: cloudflare_r2_bucket
 label: R2
 category: Storage
+icon: archive
 description: "Storage, Class A operations (writes and lists) and Class B operations (reads). Infrequent Access costs more per operation, adds retrieval per GB and bills at least 30 days per object. Egress is free and deletes are free. The free allowance (10 GB-month, 1 million Class A, 10 million Class B, Standard only) is account-wide and not subtracted here."
 kinds: [read, write]
 sla: cloudflare.r2

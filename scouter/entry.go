@@ -21,7 +21,7 @@ func (entryScouter) Meta() Meta {
 	return Meta{
 		Type: EntryType, Label: "Entry", Category: "Entry",
 		Description: "Where load comes from: users, clients or another system. Set monthly volume and peak rate.",
-		Kinds:       []string{"unit"}, External: true,
+		Kinds:       []string{"unit"}, External: true, Icon: "general/entry",
 	}
 }
 func (entryScouter) Attributes() []field.Field  { return nil }

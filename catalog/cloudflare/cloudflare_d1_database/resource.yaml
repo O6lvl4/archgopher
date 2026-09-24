@@ -1,6 +1,7 @@
 type: cloudflare_d1_database
 label: D1
 category: Database
+icon: database
 description: "Rows read, rows written and storage, beyond what the Workers Paid plan includes account-wide (25 billion rows read and 50 million rows written a month, 5 GB stored), which is not subtracted here. Each database is single-threaded: throughput is about one second divided by the query time. Egress is free."
 kinds: [read, write]
 sla: cloudflare.d1

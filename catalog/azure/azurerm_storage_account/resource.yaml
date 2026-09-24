@@ -1,6 +1,7 @@
 type: azurerm_storage_account
 label: Storage account (Blob)
 category: Storage
+icon: storage-account
 description: "Blob Storage on the hot tier: data stored, write and read operations by redundancy, and direct transfer out to the internet. Headroom is the account request rate."
 kinds: [read, write]
 sla: azure.storage

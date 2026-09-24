@@ -1,4 +1,5 @@
 import type { CatalogEntry } from "../lib/types";
+import { Icon } from "../ui/Icon";
 
 const providerLabels: Record<string, string> = { "": "General", aws: "AWS", azure: "Azure", gcp: "Google Cloud", cloudflare: "Cloudflare" };
 
@@ -20,14 +21,14 @@ export function Catalog({ catalog, onAdd }: { catalog: CatalogEntry[]; onAdd: (t
   return (
     <nav className="catalog" aria-label="Scouters">
       {groups(catalog).map(([provider, categories]) => (
-        <section key={provider} className="catalog-provider">
+        <section key={provider} className={`catalog-provider prov-${provider || "general"}`}>
           <h2>{providerLabels[provider] ?? provider}</h2>
           {categories.map(([category, entries]) => (
             <section key={category}>
               <h3>{category}</h3>
               {entries.map((e) => (
                 <button key={e.type} className="catalog-item" title={e.description} onClick={() => onAdd(e.type)}>
-                  <span className={`dot cat-${category.toLowerCase().replace(/[^a-z]/g, "")}`} />
+                  <Icon name={e.icon} size={18} className="catalog-icon" />
                   {e.label}
                 </button>
               ))}

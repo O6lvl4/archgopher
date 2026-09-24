@@ -1,6 +1,7 @@
 type: google_cloud_scheduler_job
 label: Cloud Scheduler job
 category: Scheduling
+icon: cloud-scheduler
 description: "One job-month per job, paused jobs included; executions are free. Free jobs are ignored, as every free tier. The cron schedule is not read into load yet: give the node a load by hand to send it on to its target."
 kinds: [fire]
 sla: gcp.scheduler

@@ -1,6 +1,7 @@
 type: azurerm_windows_function_app
 label: Function app (Windows)
 category: Compute
+icon: function-apps
 description: "On the Consumption plan: executions and GB-seconds (memory rounded up to 128 MB, at least 100 ms). On a Premium or App Service plan the app costs nothing itself: the azurerm_service_plan node carries the cost. Headroom is scale-out instances and the 10-minute timeout."
 kinds: [invoke]
 sla: azure.functions

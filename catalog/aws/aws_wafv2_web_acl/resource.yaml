@@ -1,6 +1,7 @@
 type: aws_wafv2_web_acl
 label: WAF web ACL
 category: Security
+icon: waf
 description: "The web ACL and its rules by the month, and inspected requests priced by the capacity (WCU) the web ACL uses. CLOUDFRONT scope is priced in us-east-1. Bot Control, Fraud Control, CAPTCHA and body inspection over the default are extra and not read."
 kinds: [request]
 sla: aws.waf

@@ -1,6 +1,7 @@
 type: google_cloud_run_v2_service
 label: Cloud Run service
 category: Compute
+icon: cloud-run
 description: "Request-based billing: vCPU- and GiB-seconds while instances serve requests, and requests. Headroom is instances needed against max instances."
 kinds: [request]
 sla: gcp.cloudrun

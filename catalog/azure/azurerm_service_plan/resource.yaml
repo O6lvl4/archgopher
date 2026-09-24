@@ -1,6 +1,7 @@
 type: azurerm_service_plan
 label: App Service plan
 category: Compute
+icon: app-service-plan
 description: "Instance-hours for Basic, Standard and Premium v3 plans, and vCPU and memory hours for Elastic Premium (EP) plans, times the worker count. Consumption (Y1) and Flex Consumption (FC1) plans cost nothing here: their apps are billed per execution."
 kinds: [host]
 sla: azure.appservice

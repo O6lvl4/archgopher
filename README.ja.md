@@ -45,6 +45,8 @@ Bedrock のモデルを持ちます。
 同じエンジンが WebAssembly としてブラウザでも動きます。Terraform のフォルダを読み込み（ブラウザの中で読むだけで送信しない）、
 ノードを置いて繋ぎ、前提を埋めると、編集のたびにグラフ全体を読み直します。宣言は CLI と同じ YAML で開いて保存できます。
 画面は式を持たず、入力欄はエンジンが返すスカウターの項目定義から組み立てます。
+カードには、サービスのアイコン（`resource.yaml` の `icon`）とプロバイダの色の線（AWS・Azure・Google Cloud の4色・Cloudflare）が付きます。
+アイコンは各社の構成図用アイコン集から取っており、出典と利用条件は [web/src/ui/icons/NOTICE.md](web/src/ui/icons/NOTICE.md) にあります。
 
 ```sh
 cd web && pnpm install && pnpm run dev   # エンジンを WebAssembly にビルドして http://localhost:5176 で開く
@@ -94,12 +96,13 @@ Go の import を、`web/scripts/layers.mjs` が画面の import を検査し、
 
 ## リソースの追加
 
-リソースは [`catalog/aws`](catalog/aws) の下に、資源型の名前のディレクトリとして1つずつ置く。
-Go のコードは書かない。
+リソースは `catalog/<プロバイダ>`（aws・azure・gcp・cloudflare）の下に、資源型の名前のディレクトリとして1つずつ置く。
+Go のコードは書かない。`resource.yaml` の `icon` は `web/src/ui/icons/<プロバイダ>/` の絵の名前で、
+アイコンの無いリソースと、どのリソースも使わない絵はテストで落ちる。
 
 | ファイル | 持つもの |
 | --- | --- |
-| `resource.yaml` | 受け付ける属性と前提、負荷を読み値に変える面の組み合わせ、Terraform の規則、IAM アクション |
+| `resource.yaml` | アイコン、受け付ける属性と前提、負荷を読み値に変える面の組み合わせ、Terraform の規則、IAM アクション |
 | `books/prices.json` | 単価と、Price List で確かめるための取り込み条件 |
 | `books/quotas.json` `books/slas.json` | 上限と SLA |
 | `cases.yaml` | 入力と期待値の組。この前提とこの負荷なら、この金額と需要になる |
@@ -114,3 +117,5 @@ Go のコードは書かない。
 
 archgopher のロゴは、[Renée French](https://reneefrench.blogspot.com/) による Go gopher をもとにしています。
 Go gopher は [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) で公開されています。
+
+`web/src/ui/icons` のサービスのアイコンは各社のもので、Apache License の対象外です。出典と利用条件は [NOTICE.md](web/src/ui/icons/NOTICE.md) にあります。

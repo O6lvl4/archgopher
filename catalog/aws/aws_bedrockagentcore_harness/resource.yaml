@@ -1,6 +1,7 @@
 type: aws_bedrockagentcore_harness
 label: AgentCore Harness
 category: AI
+icon: agentcore
 description: "A managed agent loop on a managed Runtime: session compute at Runtime prices, under Runtime quotas. Model tokens are read by the model node it calls; managed memory is billed as AgentCore Memory."
 kinds: [session]
 sla: aws.agentcore

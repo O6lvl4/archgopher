@@ -1,6 +1,7 @@
 type: workers_ai_model
 label: Workers AI model
 category: AI
+icon: sparkles
 description: "Input, output and cached input tokens of a text generation model, at the per-model token prices Cloudflare derives from $0.011 per 1,000 neurons, beyond the 10,000 neurons a day the plan includes. Headroom is requests per minute per model; no tokens-per-minute limit is published."
 kinds: [call]
 sla: cloudflare.workers_ai

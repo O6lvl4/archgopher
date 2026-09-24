@@ -1,6 +1,7 @@
 type: aws_cloudwatch_event_rule
 label: EventBridge rule
 category: Scheduling
+icon: eventbridge
 description: Scheduled rules cost nothing; the schedule becomes the node's load on Terraform import.
 kinds: [fire]
 sla: aws.eventbridge

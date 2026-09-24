@@ -1,6 +1,7 @@
 type: azurerm_cognitive_deployment
 label: Azure OpenAI deployment
 category: AI
+icon: openai
 description: "Input, cached input and output tokens by model and deployment type (Standard is regional, GlobalStandard routes anywhere, DataZoneStandard stays in a data zone). Headroom is the deployment's capacity (1 unit = 1,000 tokens per minute) and, without one, the subscription's default Tier 1 quota."
 kinds: [call]
 sla: azure.openai

@@ -1,6 +1,7 @@
 type: aws_s3_bucket
 label: S3
 category: Storage
+icon: s3
 description: S3 Standard GET, PUT, storage and direct transfer out to the internet. Headroom is the per-prefix request rate times the prefixes in use.
 kinds: [read, write]
 sla: aws.s3

@@ -1,6 +1,7 @@
 type: azurerm_key_vault
 label: Key Vault
 category: Security
+icon: key-vault
 description: "Secret, key and certificate operations on software-protected keys. HSM-protected key-months on Premium vaults are not read. Headroom is the per-vault transaction rate."
 kinds: [read]
 sla: azure.keyvault

@@ -1,6 +1,7 @@
 type: cloudflare_workers_script
 label: Worker
 category: Compute
+icon: code
 description: "Workers Paid, Standard usage model: requests and CPU milliseconds beyond what the account's plan includes. The plan's $5 base and its included usage are account-wide, not per Worker: place the Workers Paid plan node once. Egress is free."
 kinds: [request]
 sla: cloudflare.workers

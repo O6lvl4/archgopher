@@ -1,6 +1,7 @@
 type: aws_ssm_parameter
 label: SSM parameter
 category: Security
+icon: systems-manager
 description: "Standard parameters are free; Advanced parameters are billed per parameter-hour, and their API interactions per 10,000. Higher throughput, set for the account, bills every interaction and raises the GetParameter rate."
 kinds: [read]
 sla: aws.ssm

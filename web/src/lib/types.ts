@@ -64,6 +64,8 @@ export interface CatalogEntry {
   kinds: string[];
   sla?: string;
   external?: boolean;
+  /** The picture: "<provider>/<name>", or "general/<name>" for provider-neutral nodes. */
+  icon?: string;
   attributes: Field[] | null;
   assumptions: Field[] | null;
 }

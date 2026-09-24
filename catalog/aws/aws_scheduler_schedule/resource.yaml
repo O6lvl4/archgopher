@@ -1,6 +1,7 @@
 type: aws_scheduler_schedule
 label: EventBridge Scheduler
 category: Scheduling
+icon: eventbridge
 description: Invocations. Its schedule expression becomes the node's load on Terraform import. Free tier is ignored.
 kinds: [fire]
 sla: aws.scheduler

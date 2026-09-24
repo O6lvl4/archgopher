@@ -1,6 +1,7 @@
 type: aws_ecr_repository
 label: ECR repository
 category: Compute
+icon: ecr
 description: "Image storage. Pulls in the same region are free; data transfer to other regions or the internet is not modeled. Headroom is the BatchGetImage and GetDownloadUrlForLayer rates."
 kinds: [pull]
 sla: aws.ecr

@@ -1,6 +1,7 @@
 type: aws_dynamodb_table
 label: DynamoDB
 category: Database
+icon: dynamodb
 description: Read and write units (4 KB / 1 KB steps) and storage. Headroom is provisioned capacity or the on-demand table limit. Auto scaling is not modelled.
 kinds: [read, write]
 sla: aws.dynamodb

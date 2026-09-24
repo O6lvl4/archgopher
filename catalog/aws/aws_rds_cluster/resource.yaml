@@ -1,6 +1,7 @@
 type: aws_rds_cluster
 label: Aurora Serverless v2
 category: Database
+icon: aurora
 description: ACU-hours, storage and I/O. Headroom is peak ACU against max capacity.
 kinds: [query]
 sla: aws.aurora

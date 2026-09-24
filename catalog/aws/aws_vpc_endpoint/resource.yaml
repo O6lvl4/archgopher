@@ -1,6 +1,7 @@
 type: aws_vpc_endpoint
 label: VPC endpoint
 category: Network
+icon: privatelink
 description: "Gateway endpoints (S3, DynamoDB) cost nothing. Interface endpoints cost an endpoint-hour in each Availability Zone plus each GB processed. Traffic through an endpoint is an assumption, not load: references to it are mentions."
 kinds: [request]
 sla: aws.privatelink

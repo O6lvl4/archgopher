@@ -72,6 +72,12 @@ pnpm run dev      # builds the engine to WebAssembly, then serves http://localho
 The UI holds no formulas. It asks the engine for the catalog of scouters and
 builds every form from the fields the Go structs declare.
 
+Each card shows its service's icon, named by `icon` in `resource.yaml`, and a
+line in its provider's color: AWS, Azure, Google Cloud's four colors or
+Cloudflare. The icons come from each provider's architecture icon set; see
+[web/src/ui/icons/NOTICE.md](web/src/ui/icons/NOTICE.md) for their sources and
+terms.
+
 ## The declaration
 
 ```yaml
@@ -304,13 +310,15 @@ bill.
 ### Adding a resource
 
 Every resource is a directory in [`catalog/aws`](catalog/aws),
-[`catalog/azure`](catalog/azure) or [`catalog/gcp`](catalog/gcp), named after
-its type. It holds everything about that resource and nothing else; adding one
-needs no Go code.
+[`catalog/azure`](catalog/azure), [`catalog/gcp`](catalog/gcp) or
+[`catalog/cloudflare`](catalog/cloudflare), named after its type. It holds
+everything about that resource and nothing else; adding one needs no Go code.
+Its `icon` names a picture in `web/src/ui/icons/<provider>/`; a test fails when
+a resource has none or a picture is unused.
 
 ```text
 catalog/aws/aws_sqs_queue/
-  resource.yaml      what it accepts, how load becomes readings, Terraform rules, IAM actions
+  resource.yaml      its icon, what it accepts, how load becomes readings, Terraform rules, IAM actions
   books/prices.json  its prices, with the Price List filters that verify them
   books/quotas.json  its quotas
   books/slas.json    its SLA
@@ -432,3 +440,6 @@ and a feature never imports another feature.
 The archgopher logo is derived from the Go gopher, designed by
 [Renée French](https://reneefrench.blogspot.com/) and licensed under
 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+
+The service icons in `web/src/ui/icons` belong to their owners and are not
+covered by the Apache License; see [their notice](web/src/ui/icons/NOTICE.md).

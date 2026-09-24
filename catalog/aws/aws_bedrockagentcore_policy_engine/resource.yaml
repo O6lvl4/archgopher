@@ -1,6 +1,7 @@
 type: aws_bedrockagentcore_policy_engine
 label: AgentCore Policy
 category: AI
+icon: agentcore
 description: "Authorization requests for every tool call of the gateways that use it, and input tokens processed when policies are generated from natural language."
 kinds: [authorize]
 sla: aws.agentcore

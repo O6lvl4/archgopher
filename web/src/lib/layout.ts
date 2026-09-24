@@ -2,7 +2,8 @@ import dagre from "@dagrejs/dagre";
 import type { Position, Spec } from "./types";
 
 export const NODE_WIDTH = 236;
-export const NODE_HEIGHT = 112;
+// The height of a card with readings (.card in styles.css); the layout spaces rows by it.
+export const NODE_HEIGHT = 140;
 
 /** Lays the graph out left to right, callers on the left. */
 export function autoLayout(spec: Spec): Record<string, Position> {

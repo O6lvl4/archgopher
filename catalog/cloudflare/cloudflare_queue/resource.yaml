@@ -1,6 +1,7 @@
 type: cloudflare_queue
 label: Queues
 category: Messaging
+icon: list
 description: "Operations per 64 KB of each message written, read and deleted, beyond the 1 million a month the Workers Paid plan includes account-wide, which is not subtracted here. Egress is free."
 kinds: [send]
 sla: cloudflare.queues

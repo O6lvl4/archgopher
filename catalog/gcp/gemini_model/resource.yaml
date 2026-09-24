@@ -1,6 +1,7 @@
 type: gemini_model
 label: Gemini model
 category: AI
+icon: vertex-ai
 description: "Input, output and cached input tokens at the 200K-and-under context tier on Vertex AI Standard PayGo. Headroom is the organization's tokens per minute at usage Tier 1; cache reads do not count."
 kinds: [call]
 sla: gcp.gemini

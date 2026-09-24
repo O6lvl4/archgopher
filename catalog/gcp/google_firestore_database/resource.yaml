@@ -1,6 +1,7 @@
 type: google_firestore_database
 label: Firestore database
 category: Database
+icon: firestore
 description: "Native mode, Standard edition, regional location: document reads, writes and deletes, and stored data. The free quota is ignored, as every free tier."
 kinds: [read, write]
 sla: gcp.firestore

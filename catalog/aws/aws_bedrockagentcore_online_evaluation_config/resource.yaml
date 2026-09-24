@@ -1,6 +1,7 @@
 type: aws_bedrockagentcore_online_evaluation_config
 label: AgentCore online evaluation
 category: AI
+icon: agentcore
 description: Built-in evaluator tokens for the sampled share of sessions. Headroom is input tokens and evaluations per minute.
 kinds: [session]
 sla: aws.agentcore

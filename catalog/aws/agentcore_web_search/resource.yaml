@@ -1,6 +1,7 @@
 type: agentcore_web_search
 label: AgentCore Web Search
 category: AI
+icon: agentcore
 description: Web search queries through the managed tool. Not a Terraform resource; place it by hand.
 kinds: [query]
 sla: aws.agentcore

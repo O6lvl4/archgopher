@@ -1,6 +1,7 @@
 type: aws_ecs_task_definition
 label: ECS task (Fargate)
 category: Compute
+icon: ecs
 description: "Task runs on Fargate: vCPU and memory billed per second with a 1-minute minimum, and ephemeral storage above 20 GB. Headroom is vCPUs running, the task launch rate and RunTask calls."
 kinds: [run]
 sla: aws.ecs

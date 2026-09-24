@@ -1,6 +1,7 @@
 type: aws_lambda_function
 label: Lambda
 category: Compute
+icon: lambda
 description: Requests and GB-seconds; headroom is concurrency (peak rate × duration). Logs are counted when set.
 kinds: [invoke]
 sla: aws.lambda
