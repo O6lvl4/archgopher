@@ -1,0 +1,31 @@
+name: prices
+
+# Re-reads the public AWS Price List every week and opens a pull request when
+# a price in aws/books/prices.json changed. No AWS credentials are needed.
+on:
+  schedule:
+    - cron: "0 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+      - name: Sync prices
+        run: go run ./cmd/arch-scouter sync | tee sync.txt
+      - name: Open a pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: prices/sync
+          commit-message: Update prices from the AWS Price List
+          title: Update prices from the AWS Price List
+          body-path: sync.txt
+          add-paths: aws/books/prices.json
