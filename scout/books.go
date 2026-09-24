@@ -1,6 +1,7 @@
 package scout
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"sort"
@@ -91,4 +92,18 @@ func (e Entry) regions() []string {
 	}
 	sort.Strings(out)
 	return out
+}
+
+// MarshalBook writes a book in its canonical form: sorted keys, two-space
+// indent, no HTML escaping. Every writer of the bundled books uses it, so a
+// sync that changes nothing leaves the file byte for byte the same.
+func MarshalBook(b Book) ([]byte, error) {
+	var buf bytes.Buffer
+	enc := json.NewEncoder(&buf)
+	enc.SetIndent("", "  ")
+	enc.SetEscapeHTML(false)
+	if err := enc.Encode(b); err != nil {
+		return nil, err
+	}
+	return buf.Bytes(), nil
 }

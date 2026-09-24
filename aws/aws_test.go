@@ -1,6 +1,10 @@
 package aws
 
 import (
+	"bytes"
+	"encoding/json"
+	"flag"
+	"os"
 	"strings"
 	"testing"
 
@@ -110,5 +114,37 @@ func TestIAMKinds(t *testing.T) {
 		if got != c.want {
 			t.Errorf("%s %v: got %q, want %q", c.target, c.actions, got, c.want)
 		}
+	}
+}
+
+var update = flag.Bool("update", false, "rewrite the bundled books in canonical form")
+
+// The books must be in the form sync writes, or a sync that changes nothing
+// would still produce a diff. Fix with: go test ./aws -run TestBooksAreCanonical -update
+func TestBooksAreCanonical(t *testing.T) {
+	for _, name := range []string{"prices", "quotas", "slas"} {
+		path := "books/" + name + ".json"
+		raw, err := os.ReadFile(path)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var b scout.Book
+		if err := json.Unmarshal(raw, &b); err != nil {
+			t.Fatal(err)
+		}
+		want, err := scout.MarshalBook(b)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if bytes.Equal(raw, want) {
+			continue
+		}
+		if *update {
+			if err := os.WriteFile(path, want, 0o644); err != nil {
+				t.Fatal(err)
+			}
+			continue
+		}
+		t.Errorf("%s is not canonical; run: go test ./aws -run TestBooksAreCanonical -update", path)
 	}
 }

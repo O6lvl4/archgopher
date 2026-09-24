@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -83,14 +82,11 @@ func cmdSync(args []string, out io.Writer) error {
 		}
 		return nil
 	}
-	var buf bytes.Buffer
-	enc := json.NewEncoder(&buf)
-	enc.SetIndent("", "  ")
-	enc.SetEscapeHTML(false)
-	if err := enc.Encode(prices); err != nil {
+	data, err = scout.MarshalBook(prices)
+	if err != nil {
 		return err
 	}
-	return os.WriteFile(*book, buf.Bytes(), 0o644)
+	return os.WriteFile(*book, data, 0o644)
 }
 
 func cmdExplore(args []string, out io.Writer) error {
