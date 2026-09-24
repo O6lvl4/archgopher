@@ -1,0 +1,22 @@
+type: cloudflare_durable_object
+label: Durable Object
+category: Compute
+description: "One Durable Object class on Workers Paid with the SQLite storage backend: requests, duration and SQL storage beyond what the plan includes (place the Workers Paid plan node once). Duration is wall-clock time while an object is active and cannot hibernate, billed at 128 MB per object whatever it uses. Headroom is requests per second on the busiest object."
+kinds: [request]
+sla: cloudflare.durable_objects
+# A class is declared in a Worker's migrations, not as a Terraform resource: place it by hand and connect its callers to it.
+external: true
+assumptions:
+  - { key: activeObjects, label: Objects active on average, type: number, hint: "Objects held in memory at an average moment: one open WebSocket without the Hibernation API holds its object all month" }
+  - { key: rowsReadPerRequest, label: Rows read per request, type: number, default: 0, hint: "Key-value methods (get, list) read rows of a hidden table too" }
+  - { key: rowsWrittenPerRequest, label: Rows written per request, type: number, default: 0, hint: "put, delete and setAlarm each write rows" }
+  - { key: storageGb, label: Stored data, type: number, unit: GB, default: 0 }
+  - { key: hotShare, label: Share of peak on the busiest object, type: number, default: 1, hint: "1 when a single object serves every request; 1/N when the load spreads evenly over N objects" }
+readings:
+  - requests: { name: Requests, price: cloudflare.durable_objects.requests, count: total.monthly }
+  # 730 hours a month, as the capacity reading counts; Cloudflare's GB is 1,000 MB, so 128 MB is 0.128 GB.
+  - cost: { name: Duration, quantity: activeObjects * 730 * 3600 * 0.128, unit: GB-second, price: cloudflare.durable_objects.duration }
+  - cost: { when: rowsReadPerRequest > 0, name: Rows read, quantity: total.monthly * rowsReadPerRequest, unit: row, price: cloudflare.durable_objects.rows_read }
+  - cost: { when: rowsWrittenPerRequest > 0, name: Rows written, quantity: total.monthly * rowsWrittenPerRequest, unit: row, price: cloudflare.durable_objects.rows_written }
+  - storage: { name: SQL storage, gb: storageGb, price: cloudflare.durable_objects.storage }
+  - limit: { name: Requests per second per object, demand: total.peak * hotShare, unit: requests/second, quota: cloudflare.durable_objects.rps_per_object }

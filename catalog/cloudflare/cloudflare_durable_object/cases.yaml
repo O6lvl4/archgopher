@@ -1,0 +1,37 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+# Duration is objects x 730 h x 3,600 s x 0.128 GB: 10 objects make 3,363,840 GB-s.
+- name: ten objects with SQL storage
+  region: us-east-1
+  assumptions:
+    activeObjects: 10
+    rowsReadPerRequest: 4
+    rowsWrittenPerRequest: 1
+    storageGb: 2
+    hotShare: 0.1
+  demand:
+    request:
+      monthly: 5000000.0
+      peak: 50
+  costs:
+    Requests: 0.75
+    Duration: 42.048
+    Rows read: 0.02
+    Rows written: 5
+    SQL storage: 0.4
+  limits:
+    Requests per second per object: 5
+- name: one chat room held open all month, in Japan East
+  region: japaneast
+  assumptions:
+    activeObjects: 1
+  demand:
+    request:
+      monthly: 2000000.0
+      peak: 1200
+  costs:
+    Requests: 0.3
+    Duration: 4.2048
+    SQL storage: 0
+  limits:
+    Requests per second per object: 1200

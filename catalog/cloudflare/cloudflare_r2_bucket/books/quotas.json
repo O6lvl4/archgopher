@@ -1,0 +1,14 @@
+{
+  "cloudflare.r2.same_key_writes": {
+    "unit": "writes/second",
+    "source": "https://developers.cloudflare.com/r2/platform/limits/",
+    "note": "Concurrent writes to the same object name; faster writes return HTTP 429",
+    "values": {
+      "*": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

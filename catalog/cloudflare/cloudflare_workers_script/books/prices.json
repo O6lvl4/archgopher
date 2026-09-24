@@ -1,0 +1,28 @@
+{
+  "cloudflare.workers.cpu_ms": {
+    "unit": "CPU-ms",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers/platform/pricing/",
+    "note": "Standard usage model, beyond the 30 million CPU ms a month the plan includes. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.workers.requests": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers/platform/pricing/",
+    "note": "Standard usage model, beyond the 10 million a month the plan includes. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

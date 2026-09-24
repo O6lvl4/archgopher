@@ -57,8 +57,11 @@ var allowed = map[string][]string{
 	"provider/gcp/billingcatalog": {},
 	"provider/gcp":                {"book", "catalog", "definition", "scouter", "terraform/eval", "terraform/infer"},
 
+	// Cloudflare provider: prices read by hand from the pricing pages.
+	"provider/cloudflare": {"book", "catalog", "definition", "scouter", "terraform/infer"},
+
 	// The one place that lists the providers.
-	"cloud": {"book", "pattern", "scouter", "terraform/infer", "provider/aws", "provider/aws/pattern", "provider/azure", "provider/gcp"},
+	"cloud": {"book", "model", "pattern", "scouter", "terraform/infer", "provider/aws", "provider/aws/pattern", "provider/azure", "provider/cloudflare", "provider/gcp"},
 
 	// Edges of the system.
 	"api":            {"book", "cloud", "engine", "field", "model", "pattern", "scouter", "terraform/eval", "terraform/infer", "terraform/merge"},

@@ -1,0 +1,41 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Standard, 500 GB
+  region: us-east-1
+  assumptions:
+    storageGb: 500
+  demand:
+    read:
+      monthly: 20000000.0
+      peak: 300
+    write:
+      monthly: 2000000.0
+      peak: 30
+  costs:
+    Class B operations: 7.2
+    Class A operations: 9
+    Storage: 7.5
+  limits:
+    Writes to one key: 0
+- name: Infrequent Access, 500 KB objects, in Tokyo
+  region: japaneast
+  attributes:
+    storage_class: InfrequentAccess
+  assumptions:
+    storageGb: 1000
+    objectKb: 500
+    sameKeyWritesPerSecond: 2
+  demand:
+    read:
+      monthly: 1000000.0
+      peak: 5
+    write:
+      monthly: 100000.0
+      peak: 2
+  costs:
+    Class B operations: 0.9
+    Class A operations: 0.9
+    Storage: 10
+    Data retrieval: 5
+  limits:
+    Writes to one key: 2

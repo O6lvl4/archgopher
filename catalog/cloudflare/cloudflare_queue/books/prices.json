@@ -1,0 +1,15 @@
+{
+  "cloudflare.queues.operations": {
+    "unit": "operation",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/queues/platform/pricing/",
+    "note": "Standard operations, one per 64 KB written, read or deleted, beyond the 1 million a month the plan includes. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

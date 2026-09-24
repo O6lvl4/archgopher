@@ -75,9 +75,8 @@ func cmdTerraform(args []string, out io.Writer) error {
 		spec, w = merge.Merge(existing, spec)
 		warnings = append(warnings, w...)
 	}
-	if spec.Region == "" {
-		spec.Region = "us-east-1"
-		warnings = append(warnings, "no region found; using us-east-1 (set --region)")
+	if cloud.FillRegion(&spec) {
+		warnings = append(warnings, "no region found; using "+cloud.DefaultRegion+" (set --region)")
 	}
 	data, err := model.MarshalSpec(spec)
 	if err != nil {

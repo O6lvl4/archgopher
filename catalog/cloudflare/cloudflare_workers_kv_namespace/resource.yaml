@@ -1,0 +1,16 @@
+type: cloudflare_workers_kv_namespace
+label: Workers KV
+category: Database
+description: "Keys read, keys written and stored data, beyond what the Workers Paid plan includes account-wide (10 million reads and 1 million writes, deletes and lists each a month, 1 GB stored), which is not subtracted here. Count deletes and list requests as writes: they cost the same. Egress is free."
+kinds: [read, write]
+sla: cloudflare.kv
+assumptions:
+  - { key: storageGb, label: Stored data, type: number, unit: GB }
+  - { key: sameKeyWritesPerSecond, label: Writes per second to the busiest key, type: number, default: 0, hint: "Writes to one key are limited to one per second" }
+readings:
+  - requests: { name: Reads, price: cloudflare.kv.reads, count: demand.read.monthly }
+  - requests: { name: Writes, price: cloudflare.kv.writes, count: demand.write.monthly }
+  - storage: { name: Stored data, gb: storageGb, price: cloudflare.kv.storage }
+  - rate: { name: Writes to one key, unit: writes/second, quota: cloudflare.kv.same_key_writes, peak: sameKeyWritesPerSecond }
+terraform:
+  aliases: { cloudflare_workers_kv: namespace_id }

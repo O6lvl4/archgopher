@@ -1,0 +1,14 @@
+{
+  "cloudflare.durable_objects.rps_per_object": {
+    "unit": "requests/second",
+    "source": "https://developers.cloudflare.com/durable-objects/platform/limits/",
+    "note": "Soft limit per object; heavy work per request lowers it. Past it the object queues requests, then returns an overloaded error",
+    "values": {
+      "*": {
+        "value": 1000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

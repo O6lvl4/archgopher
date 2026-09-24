@@ -5,8 +5,8 @@
   </picture>
 </h1>
 
-Read an architecture before you build it. archgopher turns Terraform (AWS, Azure
-and Google Cloud) into a graph of resources, pushes your expected load through it, and reads every node
+Read an architecture before you build it. archgopher turns Terraform (AWS, Azure,
+Google Cloud and Cloudflare) into a graph of resources, pushes your expected load through it, and reads every node
 on four dimensions:
 
 | Dimension | What you get | How paths combine |
@@ -146,7 +146,7 @@ and appear in the report as skipped.
 
 ## Reference books
 
-Prices, quotas and SLAs live next to each resource in `catalog/aws/<type>/books`, one row per ID with
+Prices, quotas and SLAs live next to each resource in `catalog/<provider>/<type>/books`, one row per ID with
 a value per region, a unit, a source URL and a `verified` flag.
 
 - **Units are checked.** A reading that counts `GB` against a price per
@@ -277,6 +277,28 @@ Google Cloud prices are read from the pricing pages until a credentialed
 `sync` checks them against the Billing Catalog; they are marked unverified
 until then.
 
+### Cloudflare
+
+| Type | Reads | Headroom |
+| --- | --- | --- |
+| `cloudflare_workers_script` | Requests and CPU milliseconds (routes, custom domains and cron triggers fold in) | CPU time per request |
+| `cloudflare_workers_paid_plan` | The Workers Paid base fee, one per account (placed by hand) | - |
+| `cloudflare_durable_object` | Requests, duration of active objects, SQLite rows read and written, storage (placed by hand) | Requests per second per object |
+| `workers_ai_model` | Input, cached and output tokens by model (placed by hand) | Requests per minute |
+| `cloudflare_zone` | The plan's monthly fee (DNS records and settings fold in) | - |
+| `cloudflare_r2_bucket` | Storage, Class A and B operations, Infrequent Access retrieval; egress is free | Writes per second to one key |
+| `cloudflare_d1_database` | Rows read and written, storage | Database size; queries per second from one query at a time |
+| `cloudflare_workers_kv_namespace` | Reads, writes (deletes and lists cost the same), storage | Writes per second to one key |
+| `cloudflare_queue` | Operations in 64 KB chunks | Messages per second per queue, message size |
+
+Cloudflare publishes no price API, so `sync` cannot check these prices. They
+are read from the pricing pages by hand and marked verified with the date they
+were read. Each price is the same everywhere (`*`), so a Cloudflare node prices
+in the region of any declaration, and a declaration of Cloudflare alone needs
+no region. The allowances included in the Workers Paid plan are shared across
+the account and are not subtracted, so small workloads read higher than the
+bill.
+
 `archgopher catalog` prints every scouter with its fields as JSON.
 
 ### Adding a resource
@@ -398,8 +420,10 @@ and a feature never imports another feature.
   unless the row says otherwise).
 - Auto scaling, caching behaviour and retries are not modelled. Express them
   through `perUnit` and assumptions.
-- AWS only, for now. The engine does not know about AWS; another provider
-  would be another package like `aws`.
+- One region per declaration. A declaration that mixes AWS, Azure and Google
+  Cloud prices every node in that one region, so nodes of the other clouds
+  find no price. Cloudflare prices are the same everywhere and price in any
+  region.
 
 ## License
 

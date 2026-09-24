@@ -29,3 +29,11 @@ var GCP embed.FS
 
 // GCPRoot is the directory of the Google Cloud catalog inside GCP.
 const GCPRoot = "gcp"
+
+// Cloudflare is the Cloudflare catalog.
+//
+//go:embed cloudflare
+var Cloudflare embed.FS
+
+// CloudflareRoot is the directory of the Cloudflare catalog inside Cloudflare.
+const CloudflareRoot = "cloudflare"

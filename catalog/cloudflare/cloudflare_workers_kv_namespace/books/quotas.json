@@ -1,0 +1,14 @@
+{
+  "cloudflare.kv.same_key_writes": {
+    "unit": "writes/second",
+    "source": "https://developers.cloudflare.com/kv/platform/limits/",
+    "note": "Writes to the same key, on Free and Paid",
+    "values": {
+      "*": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

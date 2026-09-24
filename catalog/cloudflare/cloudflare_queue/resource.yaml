@@ -1,0 +1,16 @@
+type: cloudflare_queue
+label: Queues
+category: Messaging
+description: "Operations per 64 KB of each message written, read and deleted, beyond the 1 million a month the Workers Paid plan includes account-wide, which is not subtracted here. Egress is free."
+kinds: [send]
+sla: cloudflare.queues
+assumptions:
+  - { key: messageKb, label: Message size, type: number, unit: KB, default: 1, hint: "Billed in 64 KB chunks; about 0.1 KB of metadata is added" }
+  - { key: operationsPerMessage, label: Operations per message, type: number, default: 3, hint: "Write, read and delete; each retry adds a read" }
+readings:
+  - requests: { name: Operations, price: cloudflare.queues.operations, unit: operation, count: total.monthly * operationsPerMessage, chunkKb: 64, sizeKb: messageKb }
+  - rate: { name: Message throughput, unit: messages/second, quota: cloudflare.queues.messages_per_second, peak: total.peak }
+  - limit: { name: Message size, demand: messageKb, unit: KB, quota: cloudflare.queues.message_kb }
+terraform:
+  links:
+    - { type: cloudflare_queue_consumer, from: queue_id, to: [script_name] }

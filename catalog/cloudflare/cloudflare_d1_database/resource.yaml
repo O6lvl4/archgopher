@@ -1,0 +1,17 @@
+type: cloudflare_d1_database
+label: D1
+category: Database
+description: "Rows read, rows written and storage, beyond what the Workers Paid plan includes account-wide (25 billion rows read and 50 million rows written a month, 5 GB stored), which is not subtracted here. Each database is single-threaded: throughput is about one second divided by the query time. Egress is free."
+kinds: [read, write]
+sla: cloudflare.d1
+assumptions:
+  - { key: storageGb, label: Storage, type: number, unit: GB, hint: "Tables and indexes" }
+  - { key: rowsPerRead, label: Rows read per read query, type: number, default: 1, hint: "Rows scanned, not rows returned; a full table scan reads every row" }
+  - { key: rowsPerWrite, label: Rows written per write query, type: number, default: 1, hint: "Each index on a written column adds a row" }
+  - { key: queryMs, label: Query duration, type: number, unit: ms, default: 1, hint: "SQL time per query; an indexed lookup is under 1 ms, a write several ms" }
+readings:
+  - cost: { name: Rows read, quantity: demand.read.monthly * rowsPerRead, unit: row, price: cloudflare.d1.rows_read }
+  - cost: { name: Rows written, quantity: demand.write.monthly * rowsPerWrite, unit: row, price: cloudflare.d1.rows_written }
+  - storage: { name: Storage, gb: storageGb, price: cloudflare.d1.storage }
+  - limit: { name: Database size, demand: storageGb, unit: GB, quota: cloudflare.d1.max_database_gb }
+  - limit: { name: Queries per second, demand: demand.read.peak + demand.write.peak, unit: queries/second, capacity: 1000 / queryMs }

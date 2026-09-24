@@ -1,0 +1,13 @@
+{
+  "cloudflare.zone": {
+    "unit": "fraction",
+    "source": "https://www.cloudflare.com/business-sla/",
+    "note": "Free and Pro carry no SLA. Business carries 100% uptime (the Business SLA) and Enterprise the SLA in its contract; the book is keyed by resource type, not plan, so a Business zone also reads as no SLA, which leaves a path's availability unchanged, as 100% would",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": false
+      }
+    }
+  }
+}

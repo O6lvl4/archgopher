@@ -1,0 +1,39 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Business from the v4 plan attribute
+  region: us-east-1
+  attributes:
+    plan: business
+  demand:
+    request:
+      monthly: 100000000.0
+      peak: 500
+  costs:
+    Plan (business): 250
+- name: Pro set by hand, as for a v5 zone subscription
+  region: ap-northeast-1
+  assumptions:
+    defaultPlan: pro
+  demand:
+    request:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Plan (pro): 25
+- name: Free
+  region: japaneast
+  demand:
+    request:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Plan (free): 0
+- name: Enterprise is priced by contract
+  region: us-east-1
+  attributes:
+    plan: enterprise
+  demand:
+    request:
+      monthly: 1000000.0
+      peak: 10
+  error: "the enterprise plan is not priced: Enterprise and partner plans are priced by contract, Lite and Pro Plus are not on the plans page"

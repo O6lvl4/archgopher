@@ -103,9 +103,8 @@ func Terraform(req TerraformRequest) (TerraformResponse, error) {
 		spec, w = merge.Merge(*req.Merge, spec)
 		warnings = append(warnings, w...)
 	}
-	if spec.Region == "" {
-		spec.Region = "us-east-1"
-		warnings = append(warnings, "no region found in an aws provider block or an azurerm location; using us-east-1")
+	if cloud.FillRegion(&spec) {
+		warnings = append(warnings, "no region found in a provider block or a resource location; using "+cloud.DefaultRegion)
 	}
 	if warnings == nil {
 		warnings = []string{}

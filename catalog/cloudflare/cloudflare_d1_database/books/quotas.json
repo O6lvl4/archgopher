@@ -1,0 +1,14 @@
+{
+  "cloudflare.d1.max_database_gb": {
+    "unit": "GB",
+    "source": "https://developers.cloudflare.com/d1/platform/limits/",
+    "note": "Maximum database size on Workers Paid (500 MB on Free); cannot be increased",
+    "values": {
+      "*": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

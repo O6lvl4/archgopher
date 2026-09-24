@@ -1,0 +1,54 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Llama 3.3 70B
+  region: us-east-1
+  assumptions:
+    model: llama-3.3-70b-instruct-fp8-fast
+    inputTokensPerCall: 2000
+    outputTokensPerCall: 300
+  demand:
+    call:
+      monthly: 1000000.0
+      peak: 5
+  costs:
+    Input tokens: 586
+    Output tokens: 675.9
+  limits:
+    Requests per minute: 300
+    Tokens per minute: 690000
+- name: DeepSeek V4 Flash with cached input, in Tokyo
+  region: asia-northeast1
+  assumptions:
+    model: deepseek-v4-flash-0731
+    inputTokensPerCall: 10000
+    outputTokensPerCall: 1000
+    cacheReadShare: 0.8
+  demand:
+    call:
+      monthly: 100000.0
+      peak: 0.2
+  costs:
+    Input tokens: 88
+    Cache read tokens: 11.2
+    Output tokens: 132
+  limits:
+    Requests per minute: 12
+    Tokens per minute: 36000
+- name: a cached share on a model without a cached price
+  region: us-east-1
+  assumptions:
+    model: gemma-3-12b-it
+    inputTokensPerCall: 1000
+    outputTokensPerCall: 100
+    cacheReadShare: 0.5
+  demand:
+    call:
+      monthly: 1000.0
+      peak: 1
+  costs:
+    Input tokens: 0.1725
+    Output tokens: 0.0556
+  limits:
+    Requests per minute: 60
+    Tokens per minute: 36000
+  error: Cache read tokens is not offered in us-east-1 (no "cloudflare.workers_ai.gemma-3-12b-it.cache_read" price)

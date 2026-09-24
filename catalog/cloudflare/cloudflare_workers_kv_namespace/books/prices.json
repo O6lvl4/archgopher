@@ -1,0 +1,41 @@
+{
+  "cloudflare.kv.reads": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/kv/platform/pricing/",
+    "note": "Keys read (a bulk read counts every key), beyond the 10 million a month the plan includes. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.kv.storage": {
+    "unit": "GB-month",
+    "per": 1,
+    "source": "https://developers.cloudflare.com/kv/platform/pricing/",
+    "note": "Beyond the 1 GB the plan includes. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.kv.writes": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/kv/platform/pricing/",
+    "note": "Keys written, keys deleted and list requests are each $5.00 per million beyond 1 million a month the plan includes. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

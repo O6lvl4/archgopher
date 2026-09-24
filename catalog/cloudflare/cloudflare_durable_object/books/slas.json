@@ -1,0 +1,13 @@
+{
+  "cloudflare.durable_objects": {
+    "unit": "fraction",
+    "source": "https://www.cloudflare.com/business-sla/",
+    "note": "No SLA is published for Durable Objects on the Paid plan; the Business SLA covers Business and Enterprise zone plans",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": false
+      }
+    }
+  }
+}

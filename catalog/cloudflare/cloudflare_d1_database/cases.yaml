@@ -1,0 +1,41 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 20 rows scanned per read, an index on every write
+  region: us-east-1
+  assumptions:
+    storageGb: 3
+    rowsPerRead: 20
+    rowsPerWrite: 2
+  demand:
+    read:
+      monthly: 30000000.0
+      peak: 50
+    write:
+      monthly: 3000000.0
+      peak: 10
+  costs:
+    Rows read: 0.6
+    Rows written: 6
+    Storage: 2.25
+  limits:
+    Database size: 3
+    Queries per second: 60
+- name: 20 ms queries on a 12 GB database
+  region: ap-northeast-1
+  assumptions:
+    storageGb: 12
+    queryMs: 20
+  demand:
+    read:
+      monthly: 1000000.0
+      peak: 40
+    write:
+      monthly: 100000.0
+      peak: 5
+  costs:
+    Rows read: 0.001
+    Rows written: 0.1
+    Storage: 9
+  limits:
+    Database size: 12
+    Queries per second: 45

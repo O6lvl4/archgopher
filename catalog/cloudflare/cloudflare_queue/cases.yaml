@@ -1,0 +1,26 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 30 million 1 KB messages
+  region: us-east-1
+  demand:
+    send:
+      monthly: 30000000.0
+      peak: 100
+  costs:
+    Operations: 36
+  limits:
+    Message throughput: 100
+    Message size: 1
+- name: 100 KB messages count two chunks, in Tokyo
+  region: asia-northeast1
+  assumptions:
+    messageKb: 100
+  demand:
+    send:
+      monthly: 10000000.0
+      peak: 20
+  costs:
+    Operations: 24
+  limits:
+    Message throughput: 20
+    Message size: 100

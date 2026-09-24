@@ -1,0 +1,26 @@
+{
+  "cloudflare.queues.message_kb": {
+    "unit": "KB",
+    "source": "https://developers.cloudflare.com/queues/platform/limits/",
+    "note": "Maximum message size, 1 KB = 1000 bytes, including about 100 bytes of metadata",
+    "values": {
+      "*": {
+        "value": 128,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.queues.messages_per_second": {
+    "unit": "messages/second",
+    "source": "https://developers.cloudflare.com/queues/platform/limits/",
+    "note": "Per-queue message throughput; above it send() and sendBatch() throw Too Many Requests",
+    "values": {
+      "*": {
+        "value": 5000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

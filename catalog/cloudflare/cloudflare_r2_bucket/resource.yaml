@@ -1,0 +1,24 @@
+type: cloudflare_r2_bucket
+label: R2
+category: Storage
+description: "Storage, Class A operations (writes and lists) and Class B operations (reads). Infrequent Access costs more per operation, adds retrieval per GB and bills at least 30 days per object. Egress is free and deletes are free. The free allowance (10 GB-month, 1 million Class A, 10 million Class B, Standard only) is account-wide and not subtracted here."
+kinds: [read, write]
+sla: cloudflare.r2
+attributes:
+  - { key: storage_class, label: Default storage class, type: choice, options: [Standard, InfrequentAccess], default: Standard }
+assumptions:
+  - { key: storageGb, label: Storage, type: number, unit: GB }
+  - { key: objectKb, label: Object size read, type: number, unit: KB, default: 0, hint: "Infrequent Access only: every read retrieves the object and is billed per GB" }
+  - { key: sameKeyWritesPerSecond, label: Writes per second to the busiest key, type: number, default: 0, hint: "Writes to one object name are limited to one per second" }
+let:
+  - class: 'storage_class == "InfrequentAccess" ? "infrequent_access" : "standard"'
+readings:
+  - requests: { name: Class B operations, price: "cloudflare.r2.{class}.class_b", count: demand.read.monthly }
+  - requests: { name: Class A operations, price: "cloudflare.r2.{class}.class_a", count: demand.write.monthly }
+  - storage: { name: Storage, gb: storageGb, price: "cloudflare.r2.{class}.storage" }
+  - cost: { when: 'storage_class == "InfrequentAccess"', name: Data retrieval, quantity: demand.read.monthly * objectKb / 1000000, unit: GB, price: cloudflare.r2.infrequent_access.retrieval }
+  - rate: { name: Writes to one key, unit: writes/second, quota: cloudflare.r2.same_key_writes, peak: sameKeyWritesPerSecond }
+terraform:
+  links:
+    - { type: cloudflare_r2_bucket_event_notification, from: bucket_name, to: [queue_id] }
+  aliases: { cloudflare_r2_custom_domain: bucket_name }

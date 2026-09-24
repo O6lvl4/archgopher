@@ -1,0 +1,93 @@
+{
+  "cloudflare.r2.infrequent_access.class_a": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/r2/pricing/",
+    "note": "No free allowance. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 9,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.r2.infrequent_access.class_b": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/r2/pricing/",
+    "note": "No free allowance. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 0.9,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.r2.infrequent_access.retrieval": {
+    "unit": "GB",
+    "per": 1,
+    "source": "https://developers.cloudflare.com/r2/pricing/",
+    "note": "Data retrieval (processing) on every read or copy. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.r2.infrequent_access.storage": {
+    "unit": "GB-month",
+    "per": 1,
+    "source": "https://developers.cloudflare.com/r2/pricing/",
+    "note": "No free allowance; 30-day minimum storage duration. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.r2.standard.class_a": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/r2/pricing/",
+    "note": "PutObject, CopyObject, ListObjects, multipart and bucket changes, beyond the 1 million a month free. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 4.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.r2.standard.class_b": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/r2/pricing/",
+    "note": "GetObject and HeadObject, beyond the 10 million a month free. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 0.36,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.r2.standard.storage": {
+    "unit": "GB-month",
+    "per": 1,
+    "source": "https://developers.cloudflare.com/r2/pricing/",
+    "note": "Beyond the 10 GB-month a month free to every account. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 0.015,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

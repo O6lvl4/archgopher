@@ -1,0 +1,13 @@
+{
+  "cloudflare.d1": {
+    "unit": "fraction",
+    "source": "https://www.cloudflare.com/business-sla/",
+    "note": "No SLA is published for D1; the Business SLA covers serving content on Business and Enterprise zone plans",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": false
+      }
+    }
+  }
+}

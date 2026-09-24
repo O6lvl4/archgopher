@@ -1,0 +1,17 @@
+type: cloudflare_workers_script
+label: Worker
+category: Compute
+description: "Workers Paid, Standard usage model: requests and CPU milliseconds beyond what the account's plan includes. The plan's $5 base and its included usage are account-wide, not per Worker: place the Workers Paid plan node once. Egress is free."
+kinds: [request]
+sla: cloudflare.workers
+attributes:
+  - { key: cpu_ms_limit, label: CPU time limit per request, type: number, unit: ms, optional: true, path: limits.cpu_ms }
+assumptions:
+  - { key: cpuMsPerRequest, label: CPU time per request, type: number, unit: ms, hint: "CPU time only; waiting on fetches or storage is not billed" }
+readings:
+  - requests: { name: Requests, price: cloudflare.workers.requests, count: total.monthly }
+  - cost: { name: CPU time, quantity: total.monthly * cpuMsPerRequest, unit: CPU-ms, price: cloudflare.workers.cpu_ms }
+  - limit: { name: CPU time per request, demand: cpuMsPerRequest, unit: ms, quota: cloudflare.workers.cpu_ms_limit, capacity: cpu_ms_limit }
+terraform:
+  frontDoor: true
+  aliases: { cloudflare_workers_route: script, cloudflare_workers_custom_domain: service, cloudflare_workers_cron_trigger: script_name }

@@ -1,0 +1,313 @@
+{
+  "cloudflare.workers_ai.deepseek-v4-flash-0731.cache_read": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/deepseek-ai/deepseek-v4-flash-0731: 1273 neurons per million cached input tokens. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 0.014,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.workers_ai.deepseek-v4-flash-0731.cache_write": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/deepseek-ai/deepseek-v4-flash-0731: no price is listed for writing the cache; prefix caching is automatic, so leave cacheWriteShare at 0 and count first reads as input",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": false
+      }
+    }
+  },
+  "cloudflare.workers_ai.deepseek-v4-flash-0731.input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/deepseek-ai/deepseek-v4-flash-0731: 40000 neurons per million input tokens at $0.011 per 1,000 neurons. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 0.44,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.workers_ai.deepseek-v4-flash-0731.output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/deepseek-ai/deepseek-v4-flash-0731: 120000 neurons per million output tokens at $0.011 per 1,000 neurons. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 1.32,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.workers_ai.gemma-3-12b-it.cache_read": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/google/gemma-3-12b-it lists no cached input price",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.workers_ai.gemma-3-12b-it.cache_write": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/google/gemma-3-12b-it lists no cached input price",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.workers_ai.gemma-3-12b-it.input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/google/gemma-3-12b-it: 31371 neurons per million input tokens at $0.011 per 1,000 neurons. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 0.345,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.workers_ai.gemma-3-12b-it.output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/google/gemma-3-12b-it: 50560 neurons per million output tokens at $0.011 per 1,000 neurons. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 0.556,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.workers_ai.llama-3.1-8b-instruct-fp8-fast.cache_read": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/meta/llama-3.1-8b-instruct-fp8-fast lists no cached input price",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.workers_ai.llama-3.1-8b-instruct-fp8-fast.cache_write": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/meta/llama-3.1-8b-instruct-fp8-fast lists no cached input price",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.workers_ai.llama-3.1-8b-instruct-fp8-fast.input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/meta/llama-3.1-8b-instruct-fp8-fast: 4119 neurons per million input tokens at $0.011 per 1,000 neurons. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 0.045,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.workers_ai.llama-3.1-8b-instruct-fp8-fast.output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/meta/llama-3.1-8b-instruct-fp8-fast: 34868 neurons per million output tokens at $0.011 per 1,000 neurons. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 0.384,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.workers_ai.llama-3.3-70b-instruct-fp8-fast.cache_read": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/meta/llama-3.3-70b-instruct-fp8-fast lists no cached input price",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.workers_ai.llama-3.3-70b-instruct-fp8-fast.cache_write": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/meta/llama-3.3-70b-instruct-fp8-fast lists no cached input price",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.workers_ai.llama-3.3-70b-instruct-fp8-fast.input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/meta/llama-3.3-70b-instruct-fp8-fast: 26668 neurons per million input tokens at $0.011 per 1,000 neurons. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 0.293,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.workers_ai.llama-3.3-70b-instruct-fp8-fast.output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/meta/llama-3.3-70b-instruct-fp8-fast: 204805 neurons per million output tokens at $0.011 per 1,000 neurons. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 2.253,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.workers_ai.llama-4-scout-17b-16e-instruct.cache_read": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/meta/llama-4-scout-17b-16e-instruct lists no cached input price",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.workers_ai.llama-4-scout-17b-16e-instruct.cache_write": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/meta/llama-4-scout-17b-16e-instruct lists no cached input price",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.workers_ai.llama-4-scout-17b-16e-instruct.input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/meta/llama-4-scout-17b-16e-instruct: 24545 neurons per million input tokens at $0.011 per 1,000 neurons. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 0.27,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.workers_ai.llama-4-scout-17b-16e-instruct.output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/meta/llama-4-scout-17b-16e-instruct: 77273 neurons per million output tokens at $0.011 per 1,000 neurons. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 0.85,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.workers_ai.mistral-small-3.1-24b-instruct.cache_read": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/mistralai/mistral-small-3.1-24b-instruct lists no cached input price",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.workers_ai.mistral-small-3.1-24b-instruct.cache_write": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/mistralai/mistral-small-3.1-24b-instruct lists no cached input price",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.workers_ai.mistral-small-3.1-24b-instruct.input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/mistralai/mistral-small-3.1-24b-instruct: 31876 neurons per million input tokens at $0.011 per 1,000 neurons. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 0.351,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.workers_ai.mistral-small-3.1-24b-instruct.output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/mistralai/mistral-small-3.1-24b-instruct: 50488 neurons per million output tokens at $0.011 per 1,000 neurons. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 0.555,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "cloudflare.d1.rows_read": {
+    "unit": "row",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/d1/platform/pricing/",
+    "note": "Workers Paid, beyond the 25 billion a month the plan includes. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.d1.rows_written": {
+    "unit": "row",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/d1/platform/pricing/",
+    "note": "Workers Paid, beyond the 50 million a month the plan includes. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.d1.storage": {
+    "unit": "GB-month",
+    "per": 1,
+    "source": "https://developers.cloudflare.com/d1/platform/pricing/",
+    "note": "Workers Paid, beyond the first 5 GB summed over the account's databases. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 0.75,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

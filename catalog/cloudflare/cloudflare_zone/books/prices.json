@@ -1,0 +1,38 @@
+{
+  "cloudflare.zone.business": {
+    "unit": "zone-month",
+    "source": "https://www.cloudflare.com/plans/",
+    "note": "Billed monthly; $200 a month billed annually. Read on the plans page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 250,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.zone.free": {
+    "unit": "zone-month",
+    "source": "https://www.cloudflare.com/plans/",
+    "note": "Free plan. Read on the plans page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 0,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "cloudflare.zone.pro": {
+    "unit": "zone-month",
+    "source": "https://www.cloudflare.com/plans/",
+    "note": "Billed monthly; $20 a month billed annually. Read on the plans page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

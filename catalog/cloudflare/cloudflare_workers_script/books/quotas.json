@@ -1,0 +1,14 @@
+{
+  "cloudflare.workers.cpu_ms_limit": {
+    "unit": "ms",
+    "source": "https://developers.cloudflare.com/workers/platform/pricing/",
+    "note": "Default CPU time per invocation on Workers Paid; configurable up to 5 minutes with limits.cpu_ms",
+    "values": {
+      "*": {
+        "value": 30000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

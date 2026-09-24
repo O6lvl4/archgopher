@@ -5,7 +5,7 @@
   </picture>
 </h1>
 
-作る前に構成を読むためのツールです。Terraform（AWS・Azure・Google Cloud）を資源のグラフにし、想定する負荷を入口から流して、
+作る前に構成を読むためのツールです。Terraform（AWS・Azure・Google Cloud・Cloudflare）を資源のグラフにし、想定する負荷を入口から流して、
 ノードごとに4つの次元を読みます。
 
 | 次元 | 出るもの | 経路での合成 |
@@ -63,6 +63,7 @@ cd web && pnpm install && pnpm run dev   # エンジンを WebAssembly にビル
 | 地域 | 10地域（us-east-1・us-east-2・us-west-2・eu-west-1・eu-central-1・ap-northeast-1・ap-northeast-2・ap-southeast-1・ap-southeast-2・ap-south-1）。全地域で同じ値は `*`、地域で違う上限は `*` の既定に地域名の例外を重ねる。地域差は全上限について各サービスの上限ページで確認した（API Gateway・SNS・SQS 高スループット・Step Functions・AgentCore Runtime と評価に差がある） | `sync --add-regions` で単価を Price List から一括で足せる。台帳の全行が全地域の値を持つことをテストで保つ |
 | Azure | AWS と同じ仕組みで扱う。単価は Azure Retail Prices API から取り込み（認証不要）、地域は AWS の10地域に対応する10地域。ロール割り当て（azurerm_role_assignment）を、マネージド ID を持つ資源から対象の資源への辺にする | 資源の追加は catalog/azure にディレクトリを足すだけ。Go のコードは変えない |
 | Google Cloud | 単価は Cloud Billing Catalog API から取り込む。この API だけは認証が要るので、環境変数でトークンか gcloud のアカウントか API キーを渡す。無い環境では Google Cloud の行を飛ばし、失敗にしない | CI に認証を置かなくても AWS と Azure の見直しは回る。地域は AWS の10地域に対応する10地域 |
+| Cloudflare | 単価を取り込む API が無いので、料金ページから手で読み、確かめた日付（checkedAt）を付けて確認済みにする。`sync` では見直せない。単価は全地域で同じなので `*` の1行で持ち、どの地域の宣言でも同じ額になる。Workers 有料プランの月額はアカウントに1つのノードにし、プランに含まれる量は差し引かない | 含まれる量はアカウント全体で共有されるので、資源ごとに引くと二重に引く。少量の利用では実際より高く出る。Cloudflare だけの宣言では地域が無くても警告しない |
 | 提供のない地域 | Price List に単価が無い行は「提供なし」として記録し、その単価を使うノードは誤りにする | 0円として黙って通さない。Opus 4.5 を東京から呼ぶ構成などを、作る前に止める |
 | CloudFront の単価 | 見る人の価格区分で引く。既定はリソースの地域の区分 | CloudFront の料金は配信先で決まり、リソースの地域では決まらない |
 | Bedrock の単価 | global と regional（地域プロファイル・リージョン内）を前提で選ぶ。既定は global | regional は global の1.1倍。上限は両者で別枠だが既定値は同じ |

@@ -1,0 +1,20 @@
+type: cloudflare_zone
+label: Zone
+category: Networking
+description: "A zone's plan at the month-to-month price; annual billing costs less and is not modelled. Bandwidth and requests through the zone are free. Free and Pro carry no SLA; Business carries the 100% uptime SLA, which the SLA book, keyed by resource type, cannot tell apart."
+kinds: [request]
+sla: cloudflare.zone
+attributes:
+  - { key: plan, label: Plan, type: string, optional: true, path: plan, hint: "Provider v4. In v5 the plan is rate_plan.id on cloudflare_zone_subscription: set it here by hand" }
+assumptions:
+  - { key: defaultPlan, label: Plan when Terraform does not set one, type: choice, options: [free, pro, business], default: free }
+let:
+  - p: 'plan != nil ? lower(plan) : defaultPlan'
+readings:
+  - fail: { when: 'not (p in ["free", "pro", "business"])', message: "the {p} plan is not priced: Enterprise and partner plans are priced by contract, Lite and Pro Plus are not on the plans page" }
+  - cost: { name: 'Plan ({p})', quantity: 1, unit: zone-month, price: 'cloudflare.zone.{p}' }
+terraform:
+  frontDoor: true
+  aliases: { cloudflare_zone_subscription: zone_id, cloudflare_zone_setting: zone_id, cloudflare_dns_record: zone_id, cloudflare_record: zone_id }
+  links:
+    - { type: cloudflare_workers_route, from: zone_id, to: [script] }

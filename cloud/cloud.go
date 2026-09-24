@@ -5,10 +5,12 @@ package cloud
 
 import (
 	"github.com/O6lvl4/archgopher/book"
+	"github.com/O6lvl4/archgopher/model"
 	"github.com/O6lvl4/archgopher/pattern"
 	"github.com/O6lvl4/archgopher/provider/aws"
 	awspattern "github.com/O6lvl4/archgopher/provider/aws/pattern"
 	"github.com/O6lvl4/archgopher/provider/azure"
+	"github.com/O6lvl4/archgopher/provider/cloudflare"
 	"github.com/O6lvl4/archgopher/provider/gcp"
 	"github.com/O6lvl4/archgopher/scouter"
 	"github.com/O6lvl4/archgopher/terraform/infer"
@@ -17,7 +19,7 @@ import (
 // Registry holds every provider's resources and the entry.
 func Registry() scouter.Registry {
 	reg := scouter.Registry{}
-	for _, r := range []scouter.Registry{aws.Registry(), azure.Registry(), gcp.Registry()} {
+	for _, r := range []scouter.Registry{aws.Registry(), azure.Registry(), gcp.Registry(), cloudflare.Registry()} {
 		for t, s := range r {
 			reg[t] = s
 		}
@@ -39,12 +41,16 @@ func Books() (book.Books, error) {
 	if err != nil {
 		return book.Books{}, err
 	}
-	return book.Merge(a, z, g)
+	c, err := cloudflare.Books()
+	if err != nil {
+		return book.Books{}, err
+	}
+	return book.Merge(a, z, g, c)
 }
 
 // TerraformRules combine every provider's rules.
 func TerraformRules() infer.Rules {
-	return infer.Combine(aws.TerraformRules(), azure.TerraformRules(), gcp.TerraformRules())
+	return infer.Combine(aws.TerraformRules(), azure.TerraformRules(), gcp.TerraformRules(), cloudflare.TerraformRules())
 }
 
 // Patterns are the L3 patterns.
@@ -57,7 +63,9 @@ type RegionGroup struct {
 	Regions  []string `json:"regions"`
 }
 
-// Regions lists the regions each provider's price books cover.
+// Regions lists the regions each provider's price books cover. Cloudflare
+// has none: its prices are the same everywhere, so its resources price in any
+// region of the others.
 func Regions() ([]RegionGroup, error) {
 	a, err := aws.Regions()
 	if err != nil {
@@ -76,4 +84,24 @@ func Regions() ([]RegionGroup, error) {
 		{Provider: "azure", Label: "Azure", Regions: z},
 		{Provider: "gcp", Label: "Google Cloud", Regions: g},
 	}, nil
+}
+
+// DefaultRegion is the region a declaration without one gets.
+const DefaultRegion = "us-east-1"
+
+// FillRegion gives a declaration without a region the default one. It reports
+// whether that choice can change a result: it cannot when every node is of a
+// provider whose prices are the same everywhere (Cloudflare) or is an entry.
+func FillRegion(spec *model.Spec) (warn bool) {
+	if spec.Region != "" {
+		return false
+	}
+	spec.Region = DefaultRegion
+	anywhere := cloudflare.Registry()
+	for _, n := range spec.Nodes {
+		if _, ok := anywhere[n.Type]; !ok {
+			return true
+		}
+	}
+	return false
 }
