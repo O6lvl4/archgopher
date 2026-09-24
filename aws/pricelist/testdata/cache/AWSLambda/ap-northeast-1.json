@@ -1,0 +1,15 @@
+{
+  "products": {
+    "A": {"sku": "A", "productFamily": "Serverless", "attributes": {"usagetype": "APN1-Request", "group": "AWS-Lambda-Requests"}},
+    "B": {"sku": "B", "productFamily": "Serverless", "attributes": {"usagetype": "APN1-Lambda-GB-Second", "group": "AWS-Lambda-Duration"}},
+    "C": {"sku": "C", "productFamily": "Serverless", "attributes": {"usagetype": "APN1-Lambda-GB-Second-ARM", "group": "AWS-Lambda-Duration-ARM"}}
+  },
+  "terms": {"OnDemand": {
+    "A": {"A.t": {"priceDimensions": {"A.t.1": {"unit": "Request", "beginRange": "0", "endRange": "Inf", "pricePerUnit": {"USD": "0.0000002"}}}}},
+    "B": {"B.t": {"priceDimensions": {
+      "B.t.2": {"unit": "Lambda-GB-Second", "beginRange": "6000000000", "endRange": "15000000000", "pricePerUnit": {"USD": "0.000015"}},
+      "B.t.1": {"unit": "Lambda-GB-Second", "beginRange": "0", "endRange": "6000000000", "pricePerUnit": {"USD": "0.0000166667"}}
+    }}},
+    "C": {"C.t": {"priceDimensions": {"C.t.1": {"unit": "Lambda-GB-Second", "beginRange": "0", "endRange": "Inf", "pricePerUnit": {"USD": "0.0000133334"}}}}}
+  }}
+}

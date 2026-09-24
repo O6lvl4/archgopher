@@ -1,0 +1,6 @@
+/arch-scouter
+/dist/
+sync.txt
+
+# The example variables are part of the example.
+!examples/**/terraform.tfvars
