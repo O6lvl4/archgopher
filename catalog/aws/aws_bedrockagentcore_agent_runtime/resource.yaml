@@ -1,0 +1,35 @@
+type: aws_bedrockagentcore_agent_runtime
+label: AgentCore Runtime
+category: AI
+description: "Session compute: active CPU, and peak memory for the whole session, on platform V1 or V2. Headroom is concurrent sessions, session creation, data-plane calls and session length."
+kinds: [session]
+sla: aws.agentcore
+attributes:
+  - { key: max_lifetime, label: Max session lifetime, type: number, unit: s, optional: true, path: lifecycle_configuration.max_lifetime }
+  - { key: idle_runtime_session_timeout, label: Idle timeout, type: number, unit: s, optional: true, path: lifecycle_configuration.idle_runtime_session_timeout }
+assumptions:
+  - { key: platformVersion, label: Platform version, type: choice, options: [V1, V2], default: V1, hint: "V2 starts from snapshots and frees memory idle for 120 s, at a higher rate" }
+  - { key: callsPerSession, label: Invocations per session, type: number, default: 1, hint: "InvokeAgentRuntime calls, such as the turns of a conversation" }
+includes: [session, logs]
+let:
+  - version: 'platformVersion == "V2" ? "v2." : ""'
+readings:
+  - session:
+      count: total.monthly
+      peak: total.peak
+      sessionSeconds: sessionSeconds
+      activeVcpuSeconds: activeVcpuSeconds
+      memoryGb: peakMemoryGb
+      vcpuPrice: "aws.agentcore.runtime.{version}vcpu_hour"
+      memoryPrice: "aws.agentcore.runtime.{version}gb_hour"
+      concurrentQuota: aws.agentcore.runtime.active_sessions
+  - rate: { name: Session creation, unit: requests/second, quota: aws.agentcore.runtime.session_rate, peak: total.peak }
+  - rate: { name: Data-plane calls, unit: requests/second, quota: aws.agentcore.runtime.dataplane_rps, peak: total.peak * callsPerSession }
+  - limit: { name: Session length, demand: sessionSeconds, unit: seconds, quota: aws.agentcore.runtime.max_session_seconds, capacity: max_lifetime }
+  - logs: { count: total.monthly, kb: logKbPerCall, retentionDays: logRetentionDays, ingest: aws.logs.ingest, storage: aws.logs.storage }
+terraform:
+  frontDoor: true
+  aliases: { aws_bedrockagentcore_agent_runtime_endpoint: agent_runtime_id }
+  ignoreRefs: [agent_runtime_artifact, network_configuration, authorizer_configuration, filesystem_configuration, request_header_configuration]
+iam:
+  session: ["bedrock-agentcore:InvokeAgentRuntime"]

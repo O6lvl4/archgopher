@@ -1,0 +1,90 @@
+{
+  "aws.agentcore.gateway.invocations": {
+    "unit": "invocation",
+    "source": "https://aws.amazon.com/bedrock/agentcore/pricing/",
+    "sync": {
+      "service": "AmazonBedrockAgentCore",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?Gateway:Consumption-based:API-Invocations"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.000005,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.000005,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.agentcore.gateway.search": {
+    "unit": "invocation",
+    "source": "https://aws.amazon.com/bedrock/agentcore/pricing/",
+    "sync": {
+      "service": "AmazonBedrockAgentCore",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?Gateway:Consumption-based:Search-API"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.000025,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.000025,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.agentcore.gateway.tool_index": {
+    "unit": "tool-month",
+    "source": "https://aws.amazon.com/bedrock/agentcore/pricing/",
+    "sync": {
+      "service": "AmazonBedrockAgentCore",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?Gateway:Consumption-based:Tool-Indexing"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0002,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.0002,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.agentcore.gateway.vpc_gb": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/bedrock/agentcore/pricing/",
+    "sync": {
+      "service": "AmazonBedrockAgentCore",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?Gateway:Consumption-based:TargetVpc-DataProcessing-Bytes"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

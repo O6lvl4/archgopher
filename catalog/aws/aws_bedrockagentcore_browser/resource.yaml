@@ -1,0 +1,26 @@
+type: aws_bedrockagentcore_browser
+label: AgentCore Browser
+category: AI
+description: "Session compute: active CPU, and peak memory for the whole session. Headroom is concurrent sessions, session starts, calls per second and session length."
+kinds: [session]
+sla: aws.agentcore
+assumptions:
+  - { key: invocationsPerSession, label: Browser actions per session, type: number, default: 1 }
+includes: [session]
+readings:
+  - session:
+      count: total.monthly
+      peak: total.peak
+      sessionSeconds: sessionSeconds
+      activeVcpuSeconds: activeVcpuSeconds
+      memoryGb: peakMemoryGb
+      vcpuPrice: aws.agentcore.browser.vcpu_hour
+      memoryPrice: aws.agentcore.browser.gb_hour
+      concurrentQuota: aws.agentcore.browser.concurrent
+  - rate: { name: Session starts, unit: requests/second, quota: aws.agentcore.browser.start_rps, peak: total.peak }
+  - rate: { name: Browser actions, unit: requests/second, quota: aws.agentcore.browser.invoke_rps, peak: total.peak * invocationsPerSession }
+  - limit: { name: Session length, demand: sessionSeconds, unit: seconds, quota: aws.agentcore.browser.max_session_seconds }
+terraform:
+  ignoreRefs: [network_configuration, certificate, recording, enterprise_policy]
+iam:
+  session: ["bedrock-agentcore:StartBrowserSession"]

@@ -1,0 +1,14 @@
+{
+  "aws.agentcore.identity.token_rps": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/bedrock-agentcore-limits.html",
+    "note": "GetResourceOauth2Token and GetResourceApiKey each. Adjustable",
+    "values": {
+      "*": {
+        "value": 200,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

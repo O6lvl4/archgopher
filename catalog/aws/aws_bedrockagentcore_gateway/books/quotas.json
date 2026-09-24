@@ -1,0 +1,26 @@
+{
+  "aws.agentcore.gateway.search_rpm": {
+    "unit": "requests/minute",
+    "source": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/bedrock-agentcore-limits.html",
+    "note": "Search-based tool calls per minute. Adjustable",
+    "values": {
+      "*": {
+        "value": 25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.agentcore.gateway.tool_call_rps": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/bedrock-agentcore-limits.html",
+    "note": "Tool calls and tool lists per gateway (and per account). Adjustable",
+    "values": {
+      "*": {
+        "value": 200,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

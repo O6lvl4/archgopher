@@ -41,7 +41,7 @@ export function App() {
   };
 
   const addNode = (type: string) => {
-    const id = freshId(ws.spec, type);
+    const id = freshId(ws.spec, ws.catalogMap.get(type)?.label ?? type);
     const box = document.querySelector(".canvas")?.getBoundingClientRect();
     const center = flow.screenToFlowPosition({ x: (box?.left ?? 0) + (box?.width ?? 600) / 2, y: (box?.top ?? 0) + (box?.height ?? 400) / 2 });
     const position = freeSpot(ws.spec, { x: Math.round(center.x - NODE_WIDTH / 2), y: Math.round(center.y - NODE_HEIGHT / 2) });

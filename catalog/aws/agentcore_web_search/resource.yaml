@@ -1,0 +1,10 @@
+type: agentcore_web_search
+label: AgentCore Web Search
+category: AI
+description: Web search queries through the managed tool. Not a Terraform resource; place it by hand.
+kinds: [query]
+sla: aws.agentcore
+external: true
+readings:
+  - cost: { name: Queries, quantity: total.monthly, unit: query, price: aws.agentcore.web_search.queries }
+  - rate: { name: Query rate, unit: requests/second, quota: aws.agentcore.web_search.rps, peak: total.peak }

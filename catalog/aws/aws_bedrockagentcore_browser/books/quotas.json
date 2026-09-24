@@ -1,0 +1,49 @@
+{
+  "aws.agentcore.browser.concurrent": {
+    "unit": "sessions",
+    "source": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/bedrock-agentcore-limits.html",
+    "note": "Concurrent sessions per account. Adjustable",
+    "values": {
+      "*": {
+        "value": 1000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.agentcore.browser.invoke_rps": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/bedrock-agentcore-limits.html",
+    "note": "InvokeBrowser. Adjustable",
+    "values": {
+      "*": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.agentcore.browser.max_session_seconds": {
+    "unit": "seconds",
+    "source": "https://docs.aws.amazon.com/bedrock-agentcore/latest/APIReference/API_StartBrowserSession.html",
+    "note": "Session timeout maximum; default 3,600 s",
+    "values": {
+      "*": {
+        "value": 28800,
+        "verified": false
+      }
+    }
+  },
+  "aws.agentcore.browser.start_rps": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/bedrock-agentcore-limits.html",
+    "note": "StartBrowserSession. Adjustable",
+    "values": {
+      "*": {
+        "value": 30,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

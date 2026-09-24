@@ -1,0 +1,71 @@
+{
+  "aws.agentcore.knowledge_base.agentic_retrieval": {
+    "unit": "query",
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "From the AWS Price List (AmazonBedrockAgentCore); the AgentCore pricing page refers to Amazon Bedrock pricing",
+    "sync": {
+      "service": "AmazonBedrockAgentCore",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?Knowledge-Base:Consumption-based:AgenticRetrieval"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.004,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.004,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.agentcore.knowledge_base.retrieval": {
+    "unit": "query",
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "From the AWS Price List (AmazonBedrockAgentCore); the AgentCore pricing page refers to Amazon Bedrock pricing",
+    "sync": {
+      "service": "AmazonBedrockAgentCore",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?Knowledge-Base:Consumption-based:Retrieval"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.agentcore.knowledge_base.storage": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "From the AWS Price List (AmazonBedrockAgentCore); the AgentCore pricing page refers to Amazon Bedrock pricing",
+    "sync": {
+      "service": "AmazonBedrockAgentCore",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?Knowledge-Base:Consumption-based:Storage"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

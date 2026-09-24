@@ -1,0 +1,28 @@
+type: aws_bedrockagentcore_gateway
+label: AgentCore Gateway
+category: AI
+description: API invocations, semantic search, tool indexing and VPC data processing. Headroom is tool calls per second and search-based calls per minute.
+kinds: [tool_call, search]
+sla: aws.agentcore
+attributes:
+  - { key: protocol_type, label: Protocol, type: choice, options: [MCP], optional: true, hint: "Empty for HTTP targets" }
+assumptions:
+  - { key: invocationsPerToolCall, label: API invocations per tool call, type: number, default: 1, hint: "ListTools and Ping calls count as invocations too" }
+  - { key: toolsIndexed, label: Tools indexed for search, type: number, default: 0, hint: "Billed per tool per month" }
+  - { key: vpcKbPerCall, label: Data sent to VPC targets per call, type: number, unit: KB, default: 0 }
+readings:
+  - cost: { name: API invocations, quantity: demand.tool_call.monthly * invocationsPerToolCall, unit: invocation, price: aws.agentcore.gateway.invocations }
+  - cost: { name: Search API, quantity: demand.search.monthly, unit: invocation, price: aws.agentcore.gateway.search }
+  - cost: { when: toolsIndexed > 0, name: Tool indexing, quantity: toolsIndexed, unit: tool-month, price: aws.agentcore.gateway.tool_index }
+  - cost: { when: vpcKbPerCall > 0, name: VPC data processing, quantity: demand.tool_call.monthly * vpcKbPerCall / 1024 / 1024, unit: GB, price: aws.agentcore.gateway.vpc_gb }
+  - rate: { name: Tool calls, unit: requests/second, quota: aws.agentcore.gateway.tool_call_rps, peak: demand.tool_call.peak * invocationsPerToolCall }
+  - rate: { name: Search-based tool calls, unit: requests/minute, quota: aws.agentcore.gateway.search_rpm, peak: demand.search.peak * 60 }
+terraform:
+  frontDoor: true
+  links:
+    - type: aws_bedrockagentcore_gateway_target
+      from: gateway_identifier
+      to: [target_configuration.mcp.lambda.lambda_arn, target_configuration.http.agentcore_runtime.arn, target_configuration.mcp.api_gateway.rest_api_id]
+  ignoreRefs: [authorizer_configuration, policy_engine_configuration]
+iam:
+  tool_call: ["bedrock-agentcore:InvokeGateway"]

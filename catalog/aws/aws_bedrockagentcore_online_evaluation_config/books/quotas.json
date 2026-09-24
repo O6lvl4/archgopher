@@ -1,0 +1,26 @@
+{
+  "aws.agentcore.evaluation.builtin_input_tpm": {
+    "unit": "tokens/minute",
+    "source": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/bedrock-agentcore-limits.html",
+    "note": "Built-in evaluators; not adjustable",
+    "values": {
+      "*": {
+        "value": 1000000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.agentcore.evaluation.per_minute": {
+    "unit": "evaluations/minute",
+    "source": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/bedrock-agentcore-limits.html",
+    "note": "Built-in evaluators; 200 in Mumbai and Singapore; not adjustable",
+    "values": {
+      "*": {
+        "value": 1200,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

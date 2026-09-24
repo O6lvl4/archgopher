@@ -1,0 +1,13 @@
+type: agentcore_knowledge_base
+label: AgentCore Knowledge Base
+category: AI
+description: Retrieval or agentic retrieval queries and storage. Not a Terraform resource; place it by hand.
+kinds: [query]
+sla: aws.agentcore
+external: true
+assumptions:
+  - { key: retrieval, label: Retrieval, type: choice, options: [standard, agentic], default: standard, hint: "Agentic retrieval costs four times as much" }
+  - { key: storageGb, label: Storage, type: number, unit: GB, default: 0 }
+readings:
+  - cost: { name: Queries, quantity: total.monthly, unit: query, price: 'aws.agentcore.knowledge_base.{retrieval == "agentic" ? "agentic_retrieval" : "retrieval"}' }
+  - storage: { name: Storage, gb: storageGb, price: aws.agentcore.knowledge_base.storage }

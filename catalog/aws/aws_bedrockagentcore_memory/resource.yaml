@@ -1,0 +1,39 @@
+type: aws_bedrockagentcore_memory
+label: AgentCore Memory
+category: AI
+description: Short-term events, long-term records stored and retrieved. Headroom is CreateEvent and retrieval rates, and extraction tokens per minute for built-in strategies.
+kinds: [event, retrieve]
+sla: aws.agentcore
+attributes:
+  - { key: event_expiry_duration, label: Event expiry, type: number, unit: days, optional: true, hint: "Short-term events are billed when created, not while kept" }
+assumptions:
+  - { key: longTermStrategy, label: Long-term strategy, type: choice, options: [none, built_in, custom], default: none, hint: "custom (override or self-managed) also bills its model use in your account" }
+  - { key: recordsPerEvent, label: Long-term records per event, type: number, default: 0, hint: "Records extracted per short-term event" }
+  - { key: retentionMonths, label: Months records are kept, type: number, default: 12, hint: "Stored records at steady state are monthly new records times this" }
+  - { key: recordsPerRetrieval, label: Records per retrieval, type: number, default: 5, hint: "Billed per record retrieved" }
+  - { key: extractionTokensPerEvent, label: Extraction tokens per event, type: number, optional: true, hint: "Checked against the extraction tokens per minute quota" }
+let:
+  - longTerm: 'longTermStrategy != "none"'
+readings:
+  - cost: { name: Short-term events, quantity: demand.event.monthly, unit: event, price: aws.agentcore.memory.short_term_events }
+  - fail: { when: longTerm && recordsPerEvent == 0, message: "set recordsPerEvent to count long-term records", continue: true }
+  - cost:
+      when: longTerm
+      name: Long-term records stored
+      quantity: demand.event.monthly * recordsPerEvent * retentionMonths
+      unit: record-month
+      price: 'aws.agentcore.memory.long_term_{longTermStrategy == "custom" ? "custom" : "builtin"}'
+  - cost: { name: Long-term retrievals, quantity: demand.retrieve.monthly * recordsPerRetrieval, unit: record, price: aws.agentcore.memory.long_term_retrieval }
+  - rate: { name: CreateEvent rate, unit: requests/second, quota: aws.agentcore.memory.create_event_rps, peak: demand.event.peak }
+  - rate: { name: RetrieveMemoryRecords rate, unit: requests/second, quota: aws.agentcore.memory.retrieve_rps, peak: demand.retrieve.peak }
+  - limit:
+      when: 'longTermStrategy == "built_in" && extractionTokensPerEvent != nil'
+      name: Extraction tokens
+      demand: "demand.event.peak * 60 * (extractionTokensPerEvent ?? 0)"
+      unit: tokens/minute
+      quota: aws.agentcore.memory.extraction_tpm
+terraform:
+  ignoreRefs: [encryption_key_arn, memory_execution_role_arn]
+iam:
+  event: ["bedrock-agentcore:CreateEvent"]
+  retrieve: ["bedrock-agentcore:RetrieveMemoryRecords", "bedrock-agentcore:ListMemoryRecords"]

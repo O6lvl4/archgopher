@@ -1,0 +1,38 @@
+{
+  "aws.agentcore.memory.create_event_rps": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/bedrock-agentcore-limits.html",
+    "note": "CreateEvent per account. Adjustable; 5 TPS per actor and session with conversation payload",
+    "values": {
+      "*": {
+        "value": 200,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.agentcore.memory.extraction_tpm": {
+    "unit": "tokens/minute",
+    "source": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/bedrock-agentcore-limits.html",
+    "note": "Long-term extraction by built-in strategies. Adjustable",
+    "values": {
+      "*": {
+        "value": 150000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.agentcore.memory.retrieve_rps": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/bedrock-agentcore-limits.html",
+    "note": "RetrieveMemoryRecords per account. Adjustable",
+    "values": {
+      "*": {
+        "value": 30,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

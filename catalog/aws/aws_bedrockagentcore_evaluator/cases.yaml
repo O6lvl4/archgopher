@@ -1,0 +1,10 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: custom evaluations
+  region: us-east-1
+  demand:
+    evaluation:
+      monthly: 50000
+      peak: 1
+  costs:
+    Custom evaluations: 75.0

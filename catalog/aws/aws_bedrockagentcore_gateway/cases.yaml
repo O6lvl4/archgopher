@@ -1,0 +1,23 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: MCP gateway with search, indexing and a VPC target
+  region: us-east-1
+  assumptions:
+    invocationsPerToolCall: 2
+    toolsIndexed: 200
+    vpcKbPerCall: 10
+  demand:
+    tool_call:
+      monthly: 5000000.0
+      peak: 50
+    search:
+      monthly: 100000.0
+      peak: 2
+  costs:
+    API invocations: 50.0
+    Search API: 2.5
+    Tool indexing: 0.04
+    VPC data processing: 0.286102295
+  limits:
+    Tool calls: 100
+    Search-based tool calls: 120

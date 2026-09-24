@@ -104,7 +104,7 @@ func (s *syncer) value(w io.Writer, id, region string, e book.Entry, spec pricel
 		fmt.Fprintf(w, "%s\t%s\t%s\t-\t%v\n", id, region, show(old.Value), err)
 		return old
 	}
-	v := round(m.USD * perOf(e))
+	v := round(spec.PerUnit(m.USD) * perOf(e))
 	result := "same"
 	if old.Value == nil || !close(*old.Value, v) {
 		result = "changed"

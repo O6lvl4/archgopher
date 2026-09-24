@@ -1,0 +1,12 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: queries
+  region: us-east-1
+  demand:
+    query:
+      monthly: 200000.0
+      peak: 3
+  costs:
+    Queries: 1400.0
+  limits:
+    Query rate: 3

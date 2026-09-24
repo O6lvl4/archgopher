@@ -1,0 +1,8 @@
+type: aws_bedrockagentcore_evaluator
+label: AgentCore custom evaluator
+category: AI
+description: Custom evaluations; the judge model (or Lambda) is billed separately, so connect it to a Bedrock model node.
+kinds: [evaluation]
+sla: aws.agentcore
+readings:
+  - cost: { name: Custom evaluations, quantity: total.monthly, unit: evaluation, price: aws.agentcore.evaluation.custom }

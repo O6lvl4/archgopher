@@ -1,0 +1,14 @@
+{
+  "aws.agentcore.web_search.rps": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/bedrock-agentcore-limits.html",
+    "note": "Web Search tool calls. Adjustable",
+    "values": {
+      "*": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

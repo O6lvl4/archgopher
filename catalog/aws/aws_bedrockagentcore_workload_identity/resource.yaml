@@ -1,0 +1,19 @@
+type: aws_bedrockagentcore_workload_identity
+label: AgentCore Identity
+category: AI
+description: Token and API key requests for non-AWS resources; free when agents use Identity through Runtime or Gateway. Headroom is token requests per second.
+kinds: [token]
+sla: aws.agentcore
+assumptions:
+  - { key: credential, label: Credential, type: choice, options: [oauth2, api_key], default: oauth2 }
+  - { key: throughRuntimeOrGateway, label: Used through Runtime or Gateway, type: boolean, default: true, hint: "Then requests cost nothing" }
+readings:
+  - cost:
+      when: "!throughRuntimeOrGateway"
+      name: Credential requests
+      quantity: total.monthly
+      unit: request
+      price: "aws.agentcore.identity.{credential}"
+  - rate: { name: Token requests, unit: requests/second, quota: aws.agentcore.identity.token_rps, peak: total.peak }
+iam:
+  token: ["bedrock-agentcore:GetResourceOauth2Token", "bedrock-agentcore:GetResourceApiKey", "bedrock-agentcore:GetWorkloadAccessToken"]

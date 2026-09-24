@@ -1,0 +1,46 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: V1, 10-minute sessions with 1 minute of CPU
+  region: us-east-1
+  assumptions:
+    sessionSeconds: 600
+    activeVcpuSeconds: 60
+    peakMemoryGb: 1
+    callsPerSession: 5
+  demand:
+    session:
+      monthly: 30000
+      peak: 0.5
+  costs:
+    Active CPU: 44.75
+    Memory: 47.25
+  limits:
+    Concurrent sessions: 300
+    Session creation: 0.5
+    Data-plane calls: 2.5
+    Session length: 600
+- name: V2 in Tokyo, 128 MB minimum, logs, sessions longer than max_lifetime
+  region: ap-northeast-1
+  attributes:
+    max_lifetime: 900
+  assumptions:
+    platformVersion: V2
+    sessionSeconds: 1200
+    activeVcpuSeconds: 30
+    peakMemoryGb: 0.1
+    logKbPerCall: 4
+    logRetentionDays: 30
+  demand:
+    session:
+      monthly: 10000
+      peak: 0.2
+  costs:
+    Active CPU: 10.633333333
+    Memory: 7.041666667
+    Log ingestion: 0.028991699
+    Log storage: 0.001242286
+  limits:
+    Concurrent sessions: 240
+    Session creation: 0.2
+    Data-plane calls: 0.2
+    Session length: 1200

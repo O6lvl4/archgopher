@@ -50,6 +50,7 @@ var kinds = map[string]map[string]param{
 	"limit":       {"name": reqTxt, "demand": reqNum, "unit": reqTxt, "quota": optTxt, "capacity": nilNum},
 	"logs":        {"count": reqNum, "kb": reqNum, "retentionDays": reqNum, "ingest": reqTxt, "storage": reqTxt},
 	"tokens":      {"prefix": reqTxt, "monthly": reqNum, "peak": reqNum, "input": reqNum, "output": reqNum, "cacheRead": optNum, "cacheWrite": optNum},
+	"session":     {"count": reqNum, "peak": reqNum, "sessionSeconds": reqNum, "activeVcpuSeconds": reqNum, "memoryGb": reqNum, "vcpuPrice": reqTxt, "memoryPrice": reqTxt, "concurrentQuota": reqTxt},
 	"fail":        {"message": reqTxt, "continue": {flag, false}},
 }
 
@@ -231,6 +232,10 @@ var record = map[string]func(v values, r *meter.Recorder){
 	},
 	"logs": func(v values, r *meter.Recorder) {
 		facet.Logs{IngestPriceID: v.texts["ingest"], StoragePriceID: v.texts["storage"]}.Read(r, v.n("count"), facet.LogAssume{LogKb: v.n("kb"), LogRetentionDays: v.n("retentionDays")})
+	},
+	"session": func(v values, r *meter.Recorder) {
+		a := facet.SessionAssume{SessionSeconds: v.n("sessionSeconds"), ActiveVcpuSeconds: v.n("activeVcpuSeconds"), PeakMemoryGb: v.n("memoryGb")}
+		facet.Session{VcpuPriceID: v.texts["vcpuPrice"], MemoryPriceID: v.texts["memoryPrice"], ConcurrentQuotaID: v.texts["concurrentQuota"]}.Read(r, v.n("count"), v.n("peak"), a)
 	},
 	"tokens": func(v values, r *meter.Recorder) {
 		a := facet.TokenAssume{InputTokens: v.n("input"), OutputTokens: v.n("output"), CacheReadShare: v.n("cacheRead"), CacheWriteShare: v.n("cacheWrite")}

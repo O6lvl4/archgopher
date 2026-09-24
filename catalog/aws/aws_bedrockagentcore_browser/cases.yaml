@@ -1,0 +1,21 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 15-minute browsing sessions
+  region: us-east-1
+  assumptions:
+    sessionSeconds: 900
+    activeVcpuSeconds: 120
+    peakMemoryGb: 1.5
+    invocationsPerSession: 20
+  demand:
+    session:
+      monthly: 5000
+      peak: 0.1
+  costs:
+    Active CPU: 14.916666667
+    Memory: 17.71875
+  limits:
+    Concurrent sessions: 90
+    Session starts: 0.1
+    Browser actions: 2
+    Session length: 900

@@ -1,0 +1,21 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 5-minute sessions
+  region: us-east-1
+  assumptions:
+    sessionSeconds: 300
+    activeVcpuSeconds: 45
+    peakMemoryGb: 2
+    invocationsPerSession: 4
+  demand:
+    session:
+      monthly: 20000
+      peak: 1
+  costs:
+    Active CPU: 22.375
+    Memory: 31.5
+  limits:
+    Concurrent sessions: 300
+    Session starts: 1
+    Code executions: 4
+    Session length: 300

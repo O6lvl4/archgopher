@@ -1,0 +1,102 @@
+{
+  "aws.agentcore.evaluation.builtin_batch_input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/agentcore/pricing/",
+    "note": "Batch evaluation (tier 2), 25% below on demand; the tier-to-mode mapping is inferred from the matching rates",
+    "sync": {
+      "service": "AmazonBedrockAgentCore",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?Evaluations:Consumption-based:BuiltIn-Input:Tier2"
+      },
+      "listPer": 1000000.0
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 1.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 1.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.agentcore.evaluation.builtin_batch_output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/agentcore/pricing/",
+    "note": "Batch evaluation (tier 2), 25% below on demand; the tier-to-mode mapping is inferred from the matching rates",
+    "sync": {
+      "service": "AmazonBedrockAgentCore",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?Evaluations:Consumption-based:BuiltIn-Output:Tier2"
+      },
+      "listPer": 1000000.0
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 9,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 9,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.agentcore.evaluation.builtin_input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/agentcore/pricing/",
+    "note": "On-demand (tier 1)",
+    "sync": {
+      "service": "AmazonBedrockAgentCore",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?Evaluations:Consumption-based:BuiltIn-Input:Tier1"
+      },
+      "listPer": 1000000.0
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 2.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 2.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.agentcore.evaluation.builtin_output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/agentcore/pricing/",
+    "note": "On-demand (tier 1)",
+    "sync": {
+      "service": "AmazonBedrockAgentCore",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?Evaluations:Consumption-based:BuiltIn-Output:Tier1"
+      },
+      "listPer": 1000000.0
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 12,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 12,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

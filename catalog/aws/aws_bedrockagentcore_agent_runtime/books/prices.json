@@ -1,0 +1,90 @@
+{
+  "aws.agentcore.runtime.gb_hour": {
+    "unit": "GB-hour",
+    "source": "https://aws.amazon.com/bedrock/agentcore/pricing/",
+    "sync": {
+      "service": "AmazonBedrockAgentCore",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?Runtime:Consumption-based:Memory"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.00945,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.00945,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.agentcore.runtime.v2.gb_hour": {
+    "unit": "GB-hour",
+    "source": "https://aws.amazon.com/bedrock/agentcore/pricing/",
+    "sync": {
+      "service": "AmazonBedrockAgentCore",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?Runtime:Consumption-based:Memory-v2"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0169,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.0169,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.agentcore.runtime.v2.vcpu_hour": {
+    "unit": "vCPU-hour",
+    "source": "https://aws.amazon.com/bedrock/agentcore/pricing/",
+    "sync": {
+      "service": "AmazonBedrockAgentCore",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?Runtime:Consumption-based:vCPU-v2"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.1276,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.1276,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.agentcore.runtime.vcpu_hour": {
+    "unit": "vCPU-hour",
+    "source": "https://aws.amazon.com/bedrock/agentcore/pricing/",
+    "sync": {
+      "service": "AmazonBedrockAgentCore",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?Runtime:Consumption-based:vCPU"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0895,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.0895,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

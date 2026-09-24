@@ -1,0 +1,22 @@
+type: aws_bedrockagentcore_online_evaluation_config
+label: AgentCore online evaluation
+category: AI
+description: Built-in evaluator tokens for the sampled share of sessions. Headroom is input tokens and evaluations per minute.
+kinds: [session]
+sla: aws.agentcore
+attributes:
+  - { key: sampling_percentage, label: Sampled sessions, type: number, unit: "%", default: 100, path: rule.sampling_config.sampling_percentage }
+assumptions:
+  - { key: builtInEvaluators, label: Built-in evaluators per session, type: number, default: 1 }
+  - { key: inputTokensPerEvaluation, label: Input tokens per evaluation, type: number, unit: tokens }
+  - { key: outputTokensPerEvaluation, label: Output tokens per evaluation, type: number, unit: tokens }
+  - { key: mode, label: Mode, type: choice, options: [on_demand, batch], default: on_demand, hint: "Batch is 25% cheaper" }
+let:
+  - evaluations: total.monthly * sampling_percentage / 100 * builtInEvaluators
+  - peakPerMinute: total.peak * 60 * sampling_percentage / 100 * builtInEvaluators
+  - tier: 'mode == "batch" ? "batch_" : ""'
+readings:
+  - cost: { name: Evaluation input tokens, quantity: evaluations * inputTokensPerEvaluation, unit: token, price: "aws.agentcore.evaluation.builtin_{tier}input" }
+  - cost: { name: Evaluation output tokens, quantity: evaluations * outputTokensPerEvaluation, unit: token, price: "aws.agentcore.evaluation.builtin_{tier}output" }
+  - limit: { name: Input tokens per minute, demand: peakPerMinute * inputTokensPerEvaluation, unit: tokens/minute, quota: aws.agentcore.evaluation.builtin_input_tpm }
+  - limit: { name: Evaluations per minute, demand: peakPerMinute, unit: evaluations/minute, quota: aws.agentcore.evaluation.per_minute }

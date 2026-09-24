@@ -1,0 +1,44 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: built-in long-term strategy
+  region: us-east-1
+  assumptions:
+    longTermStrategy: built_in
+    recordsPerEvent: 0.1
+    retentionMonths: 12
+    recordsPerRetrieval: 5
+    extractionTokensPerEvent: 500
+  demand:
+    event:
+      monthly: 1000000.0
+      peak: 20
+    retrieve:
+      monthly: 200000.0
+      peak: 5
+  costs:
+    Short-term events: 250.0
+    Long-term records stored: 900.0
+    Long-term retrievals: 500.0
+  limits:
+    CreateEvent rate: 20
+    RetrieveMemoryRecords rate: 5
+    Extraction tokens: 600000
+- name: custom strategy without records per event
+  region: us-east-1
+  assumptions:
+    longTermStrategy: custom
+  demand:
+    event:
+      monthly: 1000
+      peak: 1
+    retrieve:
+      monthly: 0
+      peak: 0
+  costs:
+    Short-term events: 0.25
+    Long-term records stored: 0
+    Long-term retrievals: 0
+  limits:
+    CreateEvent rate: 1
+    RetrieveMemoryRecords rate: 0
+  error: set recordsPerEvent to count long-term records

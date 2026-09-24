@@ -61,6 +61,17 @@ type Spec struct {
 	OfferRegion string `json:"offerRegion,omitempty"`
 	// RegionFilters override Filters per book region (US- or JP- edge prefixes).
 	RegionFilters map[string]map[string]string `json:"regionFilters,omitempty"`
+	// ListPer is how many units the Price List price covers when its unit is a
+	// bundle ("1M Input Tokens" is 1e6). 0 means one unit.
+	ListPer float64 `json:"listPer,omitempty"`
+}
+
+// PerUnit converts a Price List price to the price of one unit.
+func (s Spec) PerUnit(usd float64) float64 {
+	if s.ListPer == 0 {
+		return usd
+	}
+	return usd / s.ListPer
 }
 
 // For returns the filters and offer region to use for one book region.

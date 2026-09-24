@@ -1,0 +1,23 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: through Runtime or Gateway, free
+  region: us-east-1
+  demand:
+    token:
+      monthly: 1000000.0
+      peak: 10
+  limits:
+    Token requests: 10
+- name: API keys used directly
+  region: us-east-1
+  assumptions:
+    credential: api_key
+    throughRuntimeOrGateway: false
+  demand:
+    token:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Credential requests: 10.0
+  limits:
+    Token requests: 10

@@ -1,0 +1,39 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: on demand, 20% sampled, two evaluators
+  region: us-east-1
+  attributes:
+    sampling_percentage: 20
+  assumptions:
+    builtInEvaluators: 2
+    inputTokensPerEvaluation: 3000
+    outputTokensPerEvaluation: 200
+  demand:
+    session:
+      monthly: 100000.0
+      peak: 2
+  costs:
+    Evaluation input tokens: 288.0
+    Evaluation output tokens: 96.0
+  limits:
+    Input tokens per minute: 144000
+    Evaluations per minute: 48
+- name: batch
+  region: us-east-1
+  attributes:
+    sampling_percentage: 20
+  assumptions:
+    builtInEvaluators: 2
+    inputTokensPerEvaluation: 3000
+    outputTokensPerEvaluation: 200
+    mode: batch
+  demand:
+    session:
+      monthly: 100000.0
+      peak: 2
+  costs:
+    Evaluation input tokens: 216.0
+    Evaluation output tokens: 72.0
+  limits:
+    Input tokens per minute: 144000
+    Evaluations per minute: 48

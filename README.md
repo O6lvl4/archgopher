@@ -161,7 +161,7 @@ arch-scouter explore AWSLambda ap-northeast-1 'usagetype=.*GB-Second.*'
 
 Quotas are the published defaults. Some are account-specific in practice
 (Lambda concurrency on new accounts, Bedrock tokens per minute), and their
-notes say so. A value AWS does not publish stays unknown: the report shows
+notes say so. AgentCore publishes no SLA, so its availability stays unknown. A value AWS does not publish stays unknown: the report shows
 the demand and says the capacity is unknown.
 
 ## Scouters
@@ -181,6 +181,13 @@ the demand and says the capacity is unknown.
 | `aws_scheduler_schedule` | Invocations | - |
 | `aws_cloudwatch_event_rule` | Nothing (scheduled rules are free) | - |
 | `bedrock_model` | Input, output, cache read and cache write tokens (Claude 4.5 models) | Tokens per minute (output × burndown, cache reads excluded) and requests per minute |
+| `aws_bedrockagentcore_agent_runtime` | Active vCPU-hours and peak-memory GB-hours per session (platform V1 or V2), logs | Concurrent sessions, session creation rate, data-plane calls, session length |
+| `aws_bedrockagentcore_memory` | Short-term events, long-term records stored (built-in or custom strategy), retrievals | CreateEvent and retrieval rates, extraction tokens per minute |
+| `aws_bedrockagentcore_gateway` | API invocations, search, tool indexing, VPC data processing | Tool calls and search calls per second |
+| `aws_bedrockagentcore_code_interpreter` / `aws_bedrockagentcore_browser` | Session vCPU-hours and memory GB-hours | Concurrent sessions, session starts, invocations, session length |
+| `aws_bedrockagentcore_workload_identity` | Credential requests, free through Runtime or Gateway | Token requests per second |
+| `aws_bedrockagentcore_evaluator` / `aws_bedrockagentcore_online_evaluation_config` | Custom evaluations / sampled built-in evaluator tokens (on demand or batch) | Evaluation tokens and evaluations per minute |
+| `agentcore_web_search` / `agentcore_knowledge_base` | Queries / retrievals and storage (external, placed by hand) | Query rate |
 | `entry` | Nothing; checks that load is set | - |
 
 `arch-scouter catalog` prints every scouter with its fields as JSON.
@@ -231,6 +238,7 @@ iam:
 | `rate` | Peak rate against a quota, optionally scaled |
 | `concurrency` | Little's law: peak × duration against a quota or a set capacity |
 | `logs` / `tokens` | Log ingestion and retention / model tokens with cache and burndown |
+| `session` | Session compute: active vCPU-hours, peak-memory GB-hours, concurrent sessions |
 | `cost` / `limit` | Any quantity × price / any demand against a quota or capacity |
 | `fail` | A problem with the declaration; stops the node unless `continue: true` |
 

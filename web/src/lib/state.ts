@@ -85,9 +85,9 @@ export function closesCycle(spec: Spec, from: string, to: string): boolean {
   return false;
 }
 
-/** A fresh id based on the type: "lambda", "lambda-2", ... */
-export function freshId(spec: Spec, type: string): string {
-  const base = type.replace(/^aws_/, "").split("_")[0] ?? "node";
+/** A fresh id from the display name: "agentcore-runtime", "agentcore-runtime-2", ... */
+export function freshId(spec: Spec, label: string): string {
+  const base = label.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "node";
   const taken = new Set(spec.nodes.map((n) => n.id));
   if (!taken.has(base)) return base;
   let i = 2;

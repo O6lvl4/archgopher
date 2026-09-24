@@ -1,0 +1,48 @@
+{
+  "aws.agentcore.identity.api_key": {
+    "unit": "request",
+    "source": "https://aws.amazon.com/bedrock/agentcore/pricing/",
+    "note": "Free when agents use Identity through AgentCore Runtime or Gateway; the Price List carries it under AmazonCognito",
+    "sync": {
+      "service": "AmazonCognito",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?Bedrock-Agent-Core:Auth-Request:API-Keys"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.00001,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.00001,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.agentcore.identity.oauth2": {
+    "unit": "request",
+    "source": "https://aws.amazon.com/bedrock/agentcore/pricing/",
+    "note": "Free when agents use Identity through AgentCore Runtime or Gateway; the Price List carries it under AmazonCognito",
+    "sync": {
+      "service": "AmazonCognito",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?Bedrock-Agent-Core:Auth-Request:Oauth2"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.00001,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.00001,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

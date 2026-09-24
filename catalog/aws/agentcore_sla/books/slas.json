@@ -1,0 +1,13 @@
+{
+  "aws.agentcore": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/bedrock/agentcore/",
+    "note": "No published SLA for Amazon Bedrock AgentCore",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": false
+      }
+    }
+  }
+}

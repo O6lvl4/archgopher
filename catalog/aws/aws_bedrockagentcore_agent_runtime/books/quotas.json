@@ -1,0 +1,55 @@
+{
+  "aws.agentcore.runtime.active_sessions": {
+    "unit": "sessions",
+    "source": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/bedrock-agentcore-limits.html",
+    "note": "Active session workloads per account; 5,000 in us-east-1 and us-west-2, 2,500 elsewhere. Adjustable",
+    "values": {
+      "ap-northeast-1": {
+        "value": 2500,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 5000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.agentcore.runtime.dataplane_rps": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/bedrock-agentcore-limits.html",
+    "note": "InvokeAgentRuntime and the other data-plane APIs share this rate. Adjustable",
+    "values": {
+      "*": {
+        "value": 1000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.agentcore.runtime.max_session_seconds": {
+    "unit": "seconds",
+    "source": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/bedrock-agentcore-limits.html",
+    "note": "Maximum session lifetime, 8 hours; lower it with lifecycle_configuration.max_lifetime",
+    "values": {
+      "*": {
+        "value": 28800,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.agentcore.runtime.session_rate": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/bedrock-agentcore-limits.html",
+    "note": "New session creation rate per account. Adjustable",
+    "values": {
+      "*": {
+        "value": 25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

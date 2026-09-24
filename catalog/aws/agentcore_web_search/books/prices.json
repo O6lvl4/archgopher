@@ -1,0 +1,24 @@
+{
+  "aws.agentcore.web_search.queries": {
+    "unit": "query",
+    "source": "https://aws.amazon.com/bedrock/agentcore/pricing/",
+    "sync": {
+      "service": "AmazonBedrockAgentCore",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?WebSearchTool:Consumption-based:Queries"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.007,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.007,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

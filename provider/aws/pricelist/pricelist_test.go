@@ -64,3 +64,13 @@ func TestRegionFiltersOverride(t *testing.T) {
 		t.Fatalf("got %v", f)
 	}
 }
+
+func TestBundledListPrices(t *testing.T) {
+	s := Spec{ListPer: 1e6}
+	if got := s.PerUnit(2.4); got != 2.4e-6 {
+		t.Fatalf("a price per 1M tokens is %v per token, want 2.4e-6", got)
+	}
+	if got := (Spec{}).PerUnit(0.5); got != 0.5 {
+		t.Fatalf("without a bundle the price is unchanged, got %v", got)
+	}
+}

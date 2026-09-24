@@ -1,0 +1,14 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: agentic retrieval with 20 GB
+  region: us-east-1
+  assumptions:
+    retrieval: agentic
+    storageGb: 20
+  demand:
+    query:
+      monthly: 100000.0
+      peak: 1
+  costs:
+    Queries: 400.0
+    Storage: 100
