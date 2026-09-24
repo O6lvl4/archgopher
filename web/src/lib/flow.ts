@@ -1,6 +1,6 @@
 import type { Edge, Node } from "@xyflow/react";
 import { num } from "./format";
-import { fitAround, rectOf } from "./frames";
+import { frameRect, type Rect } from "./frames";
 import type { CatalogEntry, NodeResult, Result, Spec, SpecGroup, SpecNode } from "./types";
 
 export interface CardData extends Record<string, unknown> {
@@ -23,11 +23,15 @@ export type FlowNode = CardNode | FrameNode;
 export const frameNodeId = (group: string) => `group:${group}`;
 export const groupOfFrame = (nodeId: string) => (nodeId.startsWith("group:") ? nodeId.slice("group:".length) : undefined);
 
-/** Frames drawn where the layout put each group, behind the cards. */
-export function toFrames(spec: Spec, result: Result | undefined, selected: string | undefined): FrameNode[] {
+/**
+ * Frames around each group's cards, behind them. `held` keeps frames where
+ * they were while a card is dragged, so dragging it out does not stretch them.
+ * The label drags a frame with its cards.
+ */
+export function toFrames(spec: Spec, result: Result | undefined, selected: string | undefined, held?: Map<string, Rect>): FrameNode[] {
   const readings = new Map((result?.groups ?? []).map((r) => [r.id, r]));
   return (spec.groups ?? []).flatMap((group) => {
-    const r = rectOf(group) ?? fitAround(spec, group.id);
+    const r = held?.get(group.id) ?? frameRect(spec, group);
     if (!r) return [];
     const frame: FrameNode = {
       id: frameNodeId(group.id),
@@ -37,7 +41,7 @@ export function toFrames(spec: Spec, result: Result | undefined, selected: strin
       height: r.height,
       data: { group, reading: readings.get(group.id) },
       selected: group.id === selected,
-      draggable: false,
+      dragHandle: ".frame-label",
       selectable: false,
       focusable: false,
       deletable: false,

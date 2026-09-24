@@ -1,9 +1,11 @@
-import { Background, Controls, MiniMap, Panel, ReactFlow, applyNodeChanges, useReactFlow, type Connection, type EdgeChange, type NodeChange } from "@xyflow/react";
+import { Background, ControlButton, Controls, MiniMap, Panel, ReactFlow, ViewportPortal, applyNodeChanges, useReactFlow, type Connection, type EdgeChange, type NodeChange } from "@xyflow/react";
 import { useEffect, useMemo, useState, type Dispatch } from "react";
 import { groupOfFrame, toFlowEdges, toFlowNodes, toFrames, type CardNode, type FlowNode } from "../../lib/flow";
 import { closesCycle, type Action, type Selection } from "../../lib/state";
 import type { CatalogEntry, Result, Spec } from "../../lib/types";
 import { GroupFrame } from "../../composites/GroupFrame";
+import type { Guides } from "../../lib/snap";
+import { useDrag } from "./useDrag";
 import { ScouterNode } from "../../composites/ScouterNode";
 
 interface Props {
@@ -47,38 +49,50 @@ function useDeleteGroup(group: string | undefined, dispatch: Dispatch<Action>) {
   }, [group, dispatch]);
 }
 
-/** The graph is laid out again when its shape changes; bring all of it into view then. */
+/** Brings everything into view when nodes or frames come or go. */
 function useFitOnReshape(spec: Spec) {
   const flow = useReactFlow();
-  const shape = `${spec.nodes.map((n) => `${n.id}@${n.group ?? ""}`).join()}|${spec.edges.map((e) => `${e.from}>${e.to}`).join()}|${(spec.groups ?? []).map((g) => g.id).join()}`;
+  const shape = `${spec.nodes.map((n) => n.id).join()}|${(spec.groups ?? []).map((g) => g.id).join()}`;
   useEffect(() => {
     const t = window.setTimeout(() => void flow.fitView({ padding: 0.08, maxZoom: 1, duration: 300 }), 50);
     return () => window.clearTimeout(t);
   }, [shape, flow]);
 }
 
+/** The lines a dragged card lines up with, drawn across the canvas. */
+function GuideLines({ guides }: { guides: Guides }) {
+  return (
+    <ViewportPortal>
+      {guides.x !== undefined && <div className="guide guide-x" style={{ transform: `translate(${guides.x}px, -5000px)` }} />}
+      {guides.y !== undefined && <div className="guide guide-y" style={{ transform: `translate(-5000px, ${guides.y}px)` }} />}
+    </ViewportPortal>
+  );
+}
+
 export function Canvas({ spec, result, catalog, selection, dispatch, onSelect, onNotice }: Props) {
   const [nodes, setNodes] = useState<FlowNode[]>([]);
+  const drag = useDrag(spec);
   const selectedNode = selection?.kind === "node" ? selection.id : undefined;
   const selectedGroup = selection?.kind === "group" ? selection.id : undefined;
   const selectedEdge = selection?.kind === "edge" ? selection.index : undefined;
   useEffect(() => {
     setNodes((prev) => [
-      ...toFrames(spec, result, selectedGroup),
+      ...toFrames(spec, result, selectedGroup, drag.held),
       ...toFlowNodes(spec, result, catalog, prev.filter(isCard)).map((n) => ({ ...n, selected: n.id === selectedNode })),
     ]);
-  }, [spec, result, catalog, selectedNode, selectedGroup]);
+  }, [spec, result, catalog, selectedNode, selectedGroup, drag.held]);
   const edges = useMemo(() => toFlowEdges(spec, result, selectedEdge), [spec, result, selectedEdge]);
   useDeleteGroup(selectedGroup, dispatch);
   useFitOnReshape(spec);
 
   const onNodesChange = (changes: NodeChange<FlowNode>[]) => {
-    setNodes((ns) => applyNodeChanges(changes, ns));
+    setNodes((ns) => applyNodeChanges(drag.adjust(changes, ns), ns));
     for (const c of changes) if (c.type === "remove" && !groupOfFrame(c.id)) dispatch({ type: "removeNode", id: c.id });
   };
-  // A dropped card may have joined or left a frame; the layout follows either way.
-  const onDragStop = (dragged: FlowNode[]) =>
-    dispatch({ type: "drop", positions: Object.fromEntries(dragged.filter(isCard).map((n) => [n.id, n.position])) });
+  const onDragStop = (dragged: FlowNode[]) => {
+    const drop = drag.stop(dragged, nodes);
+    dispatch(drop.groups ? { type: "drop", positions: drop.positions, groups: drop.groups } : { type: "move", positions: drop.positions, frames: drop.frames });
+  };
 
   const onEdgesChange = (changes: EdgeChange[]) => {
     const removed = changes.filter((c) => c.type === "remove").map((c) => edgeIndex(c.id));
@@ -106,6 +120,7 @@ export function Canvas({ spec, result, catalog, selection, dispatch, onSelect, o
       }}
       onEdgeClick={(_, e) => onSelect({ kind: "edge", index: edgeIndex(e.id) })}
       onPaneClick={() => onSelect(undefined)}
+      onNodeDragStart={() => drag.start(nodes)}
       onNodeDragStop={(_, __, dragged) => onDragStop(dragged)}
       deleteKeyCode={["Backspace", "Delete"]}
       elevateNodesOnSelect={false}
@@ -122,7 +137,12 @@ export function Canvas({ spec, result, catalog, selection, dispatch, onSelect, o
         </Panel>
       )}
       <Background gap={24} />
-      <Controls showInteractive={false} />
+      <GuideLines guides={drag.guides} />
+      <Controls showInteractive={false}>
+        <ControlButton onClick={() => dispatch({ type: "tidy" })} title="Lay everything out again" aria-label="Lay everything out again">
+          ⇶
+        </ControlButton>
+      </Controls>
       {spec.nodes.length > 0 && <MiniMap pannable zoomable nodeClassName={(n) => (n.type === "frame" ? "minimap-frame" : "")} />}
     </ReactFlow>
   );

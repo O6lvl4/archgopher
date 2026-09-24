@@ -1,5 +1,5 @@
-import { assign, framed } from "./frames";
-import { autoLayout } from "./layout";
+import { framed } from "./frames";
+import { autoLayout, freeSpot } from "./layout";
 import type { Position, Spec, SpecEdge, SpecGroup, SpecNode, Values } from "./types";
 
 /** What the user has selected on the canvas. */
@@ -14,7 +14,9 @@ export type Action =
   | { type: "updateNode"; id: string; patch: Partial<SpecNode> }
   | { type: "renameNode"; id: string; to: string }
   | { type: "removeNode"; id: string }
-  | { type: "drop"; positions: Record<string, Position> }
+  | { type: "move"; positions: Record<string, Position>; frames?: Record<string, Position> }
+  | { type: "drop"; positions: Record<string, Position>; groups: Record<string, string | undefined> }
+  | { type: "tidy" }
   | { type: "addEdge"; edge: SpecEdge }
   | { type: "updateEdge"; index: number; patch: Partial<SpecEdge> }
   | { type: "removeEdge"; index: number }
@@ -45,7 +47,7 @@ function move(spec: Spec, positions: Record<string, Position>): Spec {
 type Handlers = { [K in Action["type"]]: (spec: Spec, a: Extract<Action, { type: K }>) => Spec };
 
 const handlers: Handlers = {
-  load: (_, a) => ({ ...a.spec, nodes: a.spec.nodes ?? [], edges: a.spec.edges ?? [] }),
+  load: (_, a) => placed({ ...a.spec, nodes: a.spec.nodes ?? [], edges: a.spec.edges ?? [] }),
   meta: (spec, a) => ({ ...spec, name: a.name ?? spec.name, region: a.region ?? spec.region }),
   addNode: (spec, a) => ({ ...spec, nodes: [...spec.nodes, a.node] }),
   updateNode: (spec, a) => mapNode(spec, a.id, (n) => ({ ...n, ...a.patch })),
@@ -59,8 +61,13 @@ const handlers: Handlers = {
   updateEdge: (spec, a) => ({ ...spec, edges: spec.edges.map((e, i) => (i === a.index ? { ...e, ...a.patch } : e)) }),
   removeEdge: (spec, a) => ({ ...spec, edges: spec.edges.filter((_, i) => i !== a.index) }),
   updateGroup: (spec, a) => ({ ...spec, groups: (spec.groups ?? []).map((g) => (g.id === a.id ? { ...g, ...a.patch } : g)) }),
-  // A dropped card joins the frame its center is in, or leaves the one it was in.
-  drop: (spec, a) => assign(move(spec, a.positions), Object.keys(a.positions)),
+  move: (spec, a) => ({
+    ...move(spec, a.positions),
+    groups: spec.groups?.map((g) => (a.frames?.[g.id] ? { ...g, position: a.frames[g.id] } : g)),
+  }),
+  // Dropped cards take the frame they landed in, and step aside if they cover another card.
+  drop: (spec, a) => clear(regroup(move(spec, a.positions), a.groups), Object.keys(a.positions)),
+  tidy: (spec) => tidy(spec),
   addGroup: (spec, a) => ({ ...spec, groups: [...(spec.groups ?? []), a.group] }),
   removeGroup: (spec, a) => ({
     ...spec,
@@ -83,19 +90,37 @@ export function tidy(spec: Spec): Spec {
   };
 }
 
-// The layout is always derived: loading, a change of shape, or a dropped card
-// (which may have joined or left a frame) lays everything out again. Edits to
-// numbers do not move anything.
-const reshapes = new Set<Action["type"]>(["load", "addNode", "removeNode", "addEdge", "removeEdge", "addGroup", "removeGroup", "drop"]);
-const regroups = new Set<Action["type"]>(["updateNode"]);
-const grouping = (s: Spec) => s.nodes.map((n) => `${n.id}@${n.group ?? ""}`).join("|");
+/** Lays out a declaration whose nodes have no place yet; one that has them keeps them. */
+export function placed(spec: Spec): Spec {
+  return spec.nodes.some((n) => !n.position) ? tidy(spec) : framed(spec);
+}
+
+function regroup(spec: Spec, groups: Record<string, string | undefined>): Spec {
+  return {
+    ...spec,
+    nodes: spec.nodes.map((n) => {
+      if (!(n.id in groups)) return n;
+      const { group: _, ...rest } = n;
+      const g = groups[n.id];
+      return g ? { ...rest, group: g } : rest;
+    }),
+  };
+}
+
+/** Moves each of the cards that covers another to the nearest free spot below. */
+function clear(spec: Spec, ids: string[]): Spec {
+  return ids.reduce((s, id) => {
+    const n = s.nodes.find((x) => x.id === id);
+    if (!n?.position) return s;
+    const others = { ...s, nodes: s.nodes.filter((x) => x.id !== id) };
+    const spot = freeSpot(others, n.position);
+    return spot.x === n.position.x && spot.y === n.position.y ? s : move(s, { [id]: spot });
+  }, spec);
+}
 
 export function reducer(spec: Spec, a: Action): Spec {
   const handle = handlers[a.type] as (spec: Spec, a: Action) => Spec;
-  const next = handle(spec, a);
-  if (next === spec) return next;
-  const regrouped = regroups.has(a.type) && grouping(next) !== grouping(spec);
-  return reshapes.has(a.type) || regrouped ? tidy(next) : next;
+  return handle(spec, a);
 }
 
 /** Returns values with key set, or removed when v is undefined. */

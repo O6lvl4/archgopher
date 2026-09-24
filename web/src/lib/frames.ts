@@ -1,9 +1,9 @@
 import { NODE_HEIGHT, NODE_WIDTH } from "./layout";
 import type { Position, Spec, SpecGroup } from "./types";
 
-// A group is drawn as a frame with a place and a size of its own, so it can
-// be empty and a card can be dragged out of it. A card belongs to the frame
-// its center is in when it is dropped.
+// A group is drawn as a frame around its cards. An empty one keeps a place and
+// a size of its own so cards can be dropped in it. A card belongs to the frame
+// its center is in when it is dropped; frames hold still during a drag.
 
 export interface Rect {
   x: number;
@@ -44,27 +44,16 @@ export function framed(spec: Spec, refit = false): Spec {
 
 const contains = (r: Rect, p: Position) => p.x >= r.x && p.x <= r.x + r.width && p.y >= r.y && p.y <= r.y + r.height;
 
-/** The smallest frame the point is in. */
-export function groupAt(spec: Spec, p: Position): string | undefined {
+/** The smallest of the frames the point is in. */
+export function groupAt(frames: Map<string, Rect>, p: Position): string | undefined {
   let best: { id: string; area: number } | undefined;
-  for (const g of spec.groups ?? []) {
-    const r = rectOf(g);
-    if (r && contains(r, p) && (!best || r.width * r.height < best.area)) best = { id: g.id, area: r.width * r.height };
+  for (const [id, r] of frames) {
+    if (contains(r, p) && (!best || r.width * r.height < best.area)) best = { id, area: r.width * r.height };
   }
   return best?.id;
 }
 
-/** Puts each of the cards in the frame its center is in, or in none. */
-export function assign(spec: Spec, ids: string[]): Spec {
-  const which = new Set(ids);
-  return {
-    ...spec,
-    nodes: spec.nodes.map((n) => {
-      if (!which.has(n.id) || !n.position) return n;
-      const group = groupAt(spec, { x: n.position.x + NODE_WIDTH / 2, y: n.position.y + NODE_HEIGHT / 2 });
-      if (group === n.group) return n;
-      const { group: _, ...rest } = n;
-      return group ? { ...rest, group } : rest;
-    }),
-  };
+/** Where a frame is drawn: around its cards, or where it was put when it has none. */
+export function frameRect(spec: Spec, g: SpecGroup): Rect | undefined {
+  return fitAround(spec, g.id) ?? rectOf(g);
 }

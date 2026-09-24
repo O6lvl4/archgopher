@@ -80,13 +80,16 @@ terms.
 
 Frames are drawn from the catalog too: pick VPC (or VNet, VPC network) under
 Network and an empty frame appears. Drop a card inside it to put the node in
-the VPC, drag it out to take it out. Clicking the frame's label opens its
-zones and the traffic it reads; Delete removes it and keeps its cards.
+the VPC, drag it out to take it out; the frame fits around its cards. Its
+label drags it with its cards, clicking the label opens its zones and the
+traffic it reads, and Delete removes it and keeps its cards.
 
-The canvas lays itself out. Positions are derived, never kept: loading, adding
-or removing anything, and every dropped card lay the graph out again left to
-right, with each frame's cards together and the frame fitted around them.
-Dragging a card only says which frame it belongs in.
+Cards stay where you put them, and line up while you move them: an edge or
+center that comes near another card's snaps to it and shows a guide line,
+otherwise the card snaps to a 16 px grid, and a card dropped on another steps
+aside. A declaration without positions (from Terraform or an example) is laid
+out left to right on load; the button under the zoom controls lays everything
+out again.
 
 ## The declaration
 

@@ -8,7 +8,9 @@ import { TerraformDialog, type ImportRequest } from "../features/terraform/Terra
 import { download, slug } from "../lib/download";
 import { engine } from "../lib/engine";
 import { examples } from "../lib/examples";
+import { useReactFlow } from "@xyflow/react";
 import { NEW_FRAME } from "../lib/frames";
+import { freeSpot, NODE_HEIGHT, NODE_WIDTH } from "../lib/layout";
 import { freshGroupId, freshId, type Selection } from "../lib/state";
 import type { CatalogEntry } from "../lib/types";
 import { message, useWorkspace } from "./workspace";
@@ -24,6 +26,7 @@ function useNotice() {
 }
 
 export function App() {
+  const flow = useReactFlow();
   const ws = useWorkspace();
   const [selection, setSelection] = useState<Selection>();
   const [importing, setImporting] = useState(false);
@@ -39,18 +42,28 @@ export function App() {
     }
   };
 
-  /** A boundary from the catalog is an empty frame; cards dropped in it join it. The layout places both. */
+  const viewCenter = () => {
+    const box = document.querySelector(".canvas")?.getBoundingClientRect();
+    return flow.screenToFlowPosition({ x: (box?.left ?? 0) + (box?.width ?? 600) / 2, y: (box?.top ?? 0) + (box?.height ?? 400) / 2 });
+  };
+
+  /** A boundary from the catalog is an empty frame in the middle of the view; cards dropped in it join it. */
   const addGroup = (entry: CatalogEntry) => {
     const id = freshGroupId(ws.spec, entry.label);
-    ws.dispatch({ type: "addGroup", group: { id, kind: entry.label, label: id, type: entry.type, size: NEW_FRAME } });
+    const c = viewCenter();
+    const position = { x: Math.round(c.x - NEW_FRAME.width / 2), y: Math.round(c.y - NEW_FRAME.height / 2) };
+    ws.dispatch({ type: "addGroup", group: { id, kind: entry.label, label: id, type: entry.type, position, size: NEW_FRAME } });
     setSelection({ kind: "group", id });
   };
 
+  /** A node from the catalog goes to the first free spot at the middle of the view. */
   const addNode = (type: string) => {
     const entry = ws.catalogMap.get(type);
     if (entry?.boundary) return addGroup(entry);
     const id = freshId(ws.spec, entry?.label ?? type);
-    ws.dispatch({ type: "addNode", node: { id, type } });
+    const c = viewCenter();
+    const position = freeSpot(ws.spec, { x: Math.round(c.x - NODE_WIDTH / 2), y: Math.round(c.y - NODE_HEIGHT / 2) });
+    ws.dispatch({ type: "addNode", node: { id, type, position } });
     setSelection({ kind: "node", id });
   };
 

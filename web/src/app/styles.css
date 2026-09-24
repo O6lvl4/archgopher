@@ -168,6 +168,9 @@ button.link:hover { text-decoration: underline; background: none; }
 .frame-label { pointer-events: auto; cursor: pointer; }
 .frame-cost { font-weight: 500; color: var(--muted); font-variant-numeric: tabular-nums; }
 .frame-kind { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.guide { position: absolute; pointer-events: none; z-index: 10; }
+.guide-x { width: 0; height: 10000px; border-left: 1px dashed var(--accent); }
+.guide-y { height: 0; width: 10000px; border-top: 1px dashed var(--accent); }
 .minimap-frame { fill: transparent; stroke: var(--muted); stroke-dasharray: 4 3; }
 .card-top { display: flex; gap: 8px; align-items: flex-start; }
 .card-icon { flex: none; border-radius: 6px; }
