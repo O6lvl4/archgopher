@@ -1,0 +1,14 @@
+{
+  "aws.transitgateway.bandwidth_gbps": {
+    "unit": "Gbps",
+    "source": "https://docs.aws.amazon.com/vpc/latest/tgw/transit-gateway-quotas.html",
+    "note": "Per VPC attachment per Availability Zone, each direction; the peak is read as if it all went through one zone",
+    "values": {
+      "*": {
+        "value": 100,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

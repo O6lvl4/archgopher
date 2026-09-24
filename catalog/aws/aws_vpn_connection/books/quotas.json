@@ -1,0 +1,26 @@
+{
+  "aws.vpn.large.tunnel_gbps": {
+    "unit": "Gbps",
+    "source": "https://docs.aws.amazon.com/vpn/latest/s2svpn/vpn-limits.html",
+    "note": "Per large bandwidth tunnel. Not adjustable",
+    "values": {
+      "*": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.vpn.standard.tunnel_gbps": {
+    "unit": "Gbps",
+    "source": "https://docs.aws.amazon.com/vpn/latest/s2svpn/vpn-limits.html",
+    "note": "Per standard tunnel; one tunnel carries the traffic unless ECMP spreads it over both on a transit gateway. Not adjustable",
+    "values": {
+      "*": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

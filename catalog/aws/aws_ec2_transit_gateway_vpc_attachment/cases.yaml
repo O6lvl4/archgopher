@@ -9,7 +9,9 @@
   costs:
     Attachment hours: 51.1
     Data processed: 0
-- name: 100 GB sent (us-east-1)
+  limits:
+    Bandwidth per zone: 0
+- name: 100 GB sent outside the drawn load (us-east-1)
   region: us-east-1
   assumptions:
     gbPerMonth: 100
@@ -20,3 +22,26 @@
   costs:
     Attachment hours: 36.5
     Data processed: 2.0
+  limits:
+    Bandwidth per zone: 0
+- name: 10 million requests of 4 KB pass through (us-east-1)
+  region: us-east-1
+  assumptions:
+    kbPerUnit: 4
+  demand:
+    traffic:
+      monthly: 1e+07
+      peak: 100
+  # 1e7 × 4 KB = 38.14697265625 GB × $0.02; 100/s × 4 KB × 8 bit = 0.0030517578125 Gbps
+  costs:
+    Attachment hours: 36.5
+    Data processed: 0.762939453125
+  limits:
+    Bandwidth per zone: 0.0030517578125
+- name: load passes through without a size (us-east-1)
+  region: us-east-1
+  demand:
+    traffic:
+      monthly: 1000
+      peak: 1
+  error: "load passes through this attachment: set kbPerUnit, the data each unit sends"

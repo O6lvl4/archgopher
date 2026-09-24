@@ -2,7 +2,7 @@ type: aws_vpc_endpoint
 label: VPC endpoint
 category: Network
 icon: privatelink
-description: "Gateway endpoints (S3, DynamoDB) cost nothing. Interface endpoints cost an endpoint-hour in each Availability Zone plus each GB processed. Traffic through an endpoint is an assumption, not load: references to it are mentions."
+description: "Gateway endpoints (S3, DynamoDB) cost nothing. Interface endpoints cost an endpoint-hour in each Availability Zone plus each GB processed, in both directions. Place it on the path: load that passes through carries kbPerUnit each and flows on to the service behind it. Terraform references to it are mentions, so draw the traffic through it by hand."
 kinds: [request]
 sla: aws.privatelink
 attributes:
@@ -10,14 +10,17 @@ attributes:
   - { key: subnet_ids, label: Subnets, type: list, optional: true, hint: "One endpoint network interface per subnet, one subnet per Availability Zone" }
 assumptions:
   - { key: azs, label: Availability Zones, type: number, default: 2, hint: "Used when the subnets are not known from Terraform" }
-  - { key: gbPerMonth, label: Data processed per month, type: number, unit: GB, default: 0 }
+  - { key: kbPerUnit, label: Data per unit, type: number, unit: KB, optional: true, hint: "Per request passing through, request and response together; needed for Interface endpoints" }
+  - { key: gbPerMonth, label: Other data per month, type: number, unit: GB, default: 0, hint: "Traffic not drawn as load" }
 let:
   - interface: 'vpc_endpoint_type == "Interface"'
   - zones: 'len(subnet_ids) > 0 ? float(len(subnet_ids)) : azs'
+  - gb: 'gbPerMonth + total.monthly * (kbPerUnit != nil ? kbPerUnit : 0.0) / 1024 / 1024'
 readings:
   - fail: { when: 'vpc_endpoint_type not in ["Gateway", "Interface"]', message: "{vpc_endpoint_type} endpoints are not priced yet: only Gateway and Interface endpoints are" }
+  - fail: { when: 'interface && total.monthly > 0 && kbPerUnit == nil', message: "load passes through this endpoint: set kbPerUnit, the data each request carries" }
   - cost: { when: interface, name: Endpoint hours, quantity: zones * 730, unit: hour, price: aws.vpce.interface_hour }
-  - cost: { when: interface, name: Data processed, quantity: gbPerMonth, unit: GB, price: aws.vpce.data_processed }
+  - cost: { when: interface, name: Data processed, quantity: gb, unit: GB, price: aws.vpce.data_processed }
 terraform:
   mentioned: true
   ignoreRefs: [vpc_id, route_table_ids, security_group_ids, policy, dns_options, subnet_configuration]

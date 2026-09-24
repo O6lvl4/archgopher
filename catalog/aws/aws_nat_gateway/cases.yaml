@@ -1,0 +1,36 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 10 million requests of 4 KB (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    kbPerUnit: 4
+  demand:
+    traffic:
+      monthly: 1e+07
+      peak: 100
+  # 730 h × $0.062; 1e7 × 4 KB = 38.14697265625 GB × $0.062; 100/s × 4 KB × 8 bit
+  costs:
+    Gateway hours: 45.26
+    Data processed: 2.3651123046875
+  limits:
+    Bandwidth: 0.0030517578125
+- name: idle gateway with 20 GB of downloads (us-east-1)
+  region: us-east-1
+  assumptions:
+    gbPerMonth: 20
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  costs:
+    Gateway hours: 32.85
+    Data processed: 0.9
+  limits:
+    Bandwidth: 0
+- name: load passes through without a size (us-east-1)
+  region: us-east-1
+  demand:
+    traffic:
+      monthly: 1000
+      peak: 1
+  error: "load passes through this NAT gateway: set kbPerUnit, the data each unit carries"

@@ -1,0 +1,14 @@
+{
+  "aws.vpn": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/vpn/site-to-site-vpn-sla/",
+    "note": "Per Site-to-Site VPN connection",
+    "values": {
+      "*": {
+        "value": 0.9995,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

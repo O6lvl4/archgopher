@@ -2,15 +2,22 @@ type: aws_ec2_transit_gateway_vpc_attachment
 label: Transit Gateway attachment
 category: Network
 icon: transit-gateway
-description: "Attachment-hours and data processed. The transit gateway itself is free; each VPC attachment is billed to the account that owns it, which in a shared network is often the VPC owner, not the network team. Bandwidth (up to 100 Gbps per zone) is not read."
+description: "Attachment-hours and data processed. Place it on the path: load that passes through carries kbPerUnit each, and what flows in flows on to the next node. The transit gateway itself is free; each VPC attachment is billed to the account that owns it, which in a shared network is often the VPC owner, not the network team."
 kinds: [traffic]
 sla: aws.transitgateway
 assumptions:
-  - { key: gbPerMonth, label: Data sent into the transit gateway, type: number, unit: GB, default: 0, hint: "Data processing is charged to the attachment that sends the traffic" }
+  - { key: kbPerUnit, label: Data this VPC sends per unit, type: number, unit: KB, optional: true, hint: "Per request or message passing through. Data processing is charged to the attachment that sends the traffic, so count what this VPC sends" }
+  - { key: gbPerMonth, label: Other data sent per month, type: number, unit: GB, default: 0, hint: "Traffic not drawn as load, such as backups or batch copies" }
+let:
+  - perUnit: 'kbPerUnit != nil ? kbPerUnit : 0.0'
+  - gb: 'gbPerMonth + total.monthly * perUnit / 1024 / 1024'
 readings:
+  - fail: { when: 'total.monthly > 0 && kbPerUnit == nil', message: "load passes through this attachment: set kbPerUnit, the data each unit sends" }
   - cost: { name: Attachment hours, quantity: 730, unit: hour, price: aws.transitgateway.vpc_attachment_hour }
-  - cost: { name: Data processed, quantity: gbPerMonth, unit: GB, price: aws.transitgateway.data_processed }
+  - cost: { name: Data processed, quantity: gb, unit: GB, price: aws.transitgateway.data_processed }
+  - limit: { name: Bandwidth per zone, demand: 'total.peak * perUnit * 8 / 1024 / 1024', unit: Gbps, quota: aws.transitgateway.bandwidth_gbps }
 terraform:
   # Route tables and security rules name the attachment; nothing calls it.
+  # Draw the traffic through it by hand.
   mentioned: true
   passive: true

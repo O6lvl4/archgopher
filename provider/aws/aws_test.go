@@ -20,6 +20,11 @@ var attrs = map[string]map[string]any{
 var assume = map[string]map[string]any{
 	"aws_rds_cluster":       {"ioPerQuery": 2.0, "peakAcu": 4.0},
 	"aws_sfn_state_machine": {"transitionsPerExecution": 5.0},
+	// Network nodes that load passes through need the data each unit carries.
+	"aws_ec2_transit_gateway_vpc_attachment": {"kbPerUnit": 4.0},
+	"aws_vpc_endpoint":                       {"kbPerUnit": 4.0},
+	"aws_vpn_connection":                     {"kbPerUnit": 4.0},
+	"aws_nat_gateway":                        {"kbPerUnit": 4.0},
 }
 
 // TestRegionalQuotas pins quotas that differ by region, read from each

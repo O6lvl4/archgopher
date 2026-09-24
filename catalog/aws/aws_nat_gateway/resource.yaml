@@ -1,0 +1,22 @@
+type: aws_nat_gateway
+label: NAT gateway
+category: Network
+icon: nat-gateway
+description: "Gateway-hours and data processed in both directions. Place it on the path to the internet: load that passes through carries kbPerUnit each and flows on. Transfer out to the internet is charged on top and is not read here; regional NAT gateways are not priced yet."
+kinds: [traffic]
+sla: aws.nat
+assumptions:
+  - { key: kbPerUnit, label: Data per unit, type: number, unit: KB, optional: true, hint: "Per request passing through, request and response together" }
+  - { key: gbPerMonth, label: Other data per month, type: number, unit: GB, default: 0, hint: "Traffic not drawn as load, such as package downloads" }
+let:
+  - perUnit: 'kbPerUnit != nil ? kbPerUnit : 0.0'
+readings:
+  - fail: { when: 'total.monthly > 0 && kbPerUnit == nil', message: "load passes through this NAT gateway: set kbPerUnit, the data each unit carries" }
+  - cost: { name: Gateway hours, quantity: 730, unit: hour, price: aws.nat.hour }
+  - cost: { name: Data processed, quantity: 'gbPerMonth + total.monthly * perUnit / 1024 / 1024', unit: GB, price: aws.nat.data_processed }
+  - limit: { name: Bandwidth, demand: 'total.peak * perUnit * 8 / 1024 / 1024', unit: Gbps, quota: aws.nat.bandwidth_gbps }
+terraform:
+  # Route tables name the gateway; nothing calls it. Draw the traffic through it by hand.
+  mentioned: true
+  passive: true
+  ignoreRefs: [subnet_id, allocation_id, secondary_allocation_ids]

@@ -1,0 +1,39 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: standard tunnels, 10 million requests of 4 KB (us-east-1)
+  region: us-east-1
+  assumptions:
+    kbPerUnit: 4
+  demand:
+    traffic:
+      monthly: 1e+07
+      peak: 100
+  # 730 h × $0.05; 1e7 × 4 KB = 38.14697265625 GB × $0.09; 100/s × 4 KB × 8 bit
+  costs:
+    Connection hours (standard): 36.5
+    Data sent out: 3.4332275390625
+  limits:
+    Bandwidth per tunnel: 0.0030517578125
+- name: large tunnels, 50 GB outside the drawn load (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    tunnel_bandwidth: large
+  assumptions:
+    gbPerMonth: 50
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # 730 h × $0.60; 50 GB × $0.114
+  costs:
+    Connection hours (large): 438
+    Data sent out: 5.7
+  limits:
+    Bandwidth per tunnel: 0
+- name: load passes through without a size (us-east-1)
+  region: us-east-1
+  demand:
+    traffic:
+      monthly: 1000
+      peak: 1
+  error: "load passes through this VPN: set kbPerUnit, the data each unit sends"

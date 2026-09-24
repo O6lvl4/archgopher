@@ -1,0 +1,25 @@
+type: aws_vpn_connection
+label: Site-to-Site VPN
+category: Network
+icon: vpn
+description: "Connection-hours and data sent out through the VPN at the transfer-out price. Place it on the path to the other side: load that passes through carries kbPerUnit each and flows on. Data coming in is free."
+kinds: [traffic]
+sla: aws.vpn
+attributes:
+  - { key: tunnel_bandwidth, label: Tunnel bandwidth, type: choice, options: [standard, large], default: standard, hint: "large (5 Gbps a tunnel) is for transit gateway VPNs and costs more an hour" }
+assumptions:
+  - { key: kbPerUnit, label: Data sent per unit, type: number, unit: KB, optional: true, hint: "Per request or message passing through, what AWS sends to the other side" }
+  - { key: gbPerMonth, label: Other data sent per month, type: number, unit: GB, default: 0, hint: "Traffic not drawn as load" }
+let:
+  - perUnit: 'kbPerUnit != nil ? kbPerUnit : 0.0'
+readings:
+  - fail: { when: 'total.monthly > 0 && kbPerUnit == nil', message: "load passes through this VPN: set kbPerUnit, the data each unit sends" }
+  - cost: { name: "Connection hours ({tunnel_bandwidth})", quantity: 730, unit: hour, price: "aws.vpn.{tunnel_bandwidth}.connection_hour" }
+  - cost: { name: Data sent out, quantity: 'gbPerMonth + total.monthly * perUnit / 1024 / 1024', unit: GB, price: aws.transfer.internet_out }
+  - limit: { name: Bandwidth per tunnel, demand: 'total.peak * perUnit * 8 / 1024 / 1024', unit: Gbps, quota: "aws.vpn.{tunnel_bandwidth}.tunnel_gbps" }
+terraform:
+  # Gateways and routes name the connection; nothing calls it. Draw the traffic
+  # through it by hand, toward the other side.
+  mentioned: true
+  passive: true
+  ignoreRefs: [customer_gateway_id, transit_gateway_id, vpn_gateway_id, vpn_concentrator_id]

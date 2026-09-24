@@ -223,7 +223,9 @@ the demand and says the capacity is unknown.
 | `aws_wafv2_web_acl` | Web ACL-months, rule-months, requests by inspection capacity | Requests per web ACL (regional) |
 | `aws_cloudfront_function` | Invocations | - |
 | `aws_vpc_endpoint` | Interface endpoint-hours per zone and data processed; Gateway endpoints are free | - |
-| `aws_ec2_transit_gateway_vpc_attachment` | Attachment-hours and data processed, billed to the attachment owner | - |
+| `aws_ec2_transit_gateway_vpc_attachment` | Attachment-hours and data processed, billed to the attachment owner | Bandwidth per zone |
+| `aws_vpn_connection` | Connection-hours (standard or large tunnels), data sent out | Bandwidth per tunnel |
+| `aws_nat_gateway` | Gateway-hours and data processed | Bandwidth |
 | `aws_cloudwatch_metric_alarm` | Alarm metric-months, standard or high resolution, anomaly detection | - |
 | `aws_bedrock_guardrail` | Text units per configured policy (content, topics, sensitive information, contextual grounding) | ApplyGuardrail and per-policy text units per second (varies by region) |
 | `bedrock_model` | Input, output, cache read and cache write tokens (Claude 4.5 models), global or regional inference | Tokens per minute (output × burndown, cache reads excluded) and requests per minute |
@@ -238,6 +240,14 @@ the demand and says the capacity is unknown.
 | `aws_bedrockagentcore_evaluator` / `aws_bedrockagentcore_online_evaluation_config` | Custom evaluations / sampled built-in evaluator tokens (on demand or batch) | Evaluation tokens and evaluations per minute |
 | `agentcore_web_search` / `agentcore_knowledge_base` | Queries / retrievals and storage (external, placed by hand) | Query rate |
 | `entry` | Nothing; checks that load is set | - |
+
+Network resources sit on the path. Terraform cannot tell which calls go
+through a transit gateway, VPN, NAT gateway or endpoint, so draw the edge
+through the node by hand: load that reaches it carries `kbPerUnit` each, turns
+into GB and bandwidth, and flows on to the next node, which then counts the
+hop in the path's latency and availability. `gbPerMonth` adds traffic that is
+not drawn as load. A node that load reaches without `kbPerUnit` is an error,
+not zero.
 
 ### Azure
 

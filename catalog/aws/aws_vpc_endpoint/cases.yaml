@@ -16,18 +16,29 @@
     - c
   assumptions:
     gbPerMonth: 100
+    kbPerUnit: 2
   demand: *id001
+  # 100 GB + 1e6 × 2 KB (1.9073486328125 GB) at $0.01
   costs:
     Endpoint hours: 30.66
-    Data processed: 1.0
+    Data processed: 1.019073486328125
 - name: Interface with unknown subnets uses two zones (us-east-1)
   region: us-east-1
   attributes:
     vpc_endpoint_type: Interface
+  assumptions:
+    kbPerUnit: 1
   demand: *id001
+  # 1e6 × 1 KB = 0.95367431640625 GB at $0.01
   costs:
     Endpoint hours: 14.6
-    Data processed: 0
+    Data processed: 0.0095367431640625
+- name: Interface with load and no size (us-east-1)
+  region: us-east-1
+  attributes:
+    vpc_endpoint_type: Interface
+  demand: *id001
+  error: "load passes through this endpoint: set kbPerUnit, the data each request carries"
 - name: Gateway Load Balancer endpoints are not priced
   region: us-east-1
   attributes:

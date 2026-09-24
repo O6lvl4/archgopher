@@ -1,0 +1,14 @@
+{
+  "aws.nat.bandwidth_gbps": {
+    "unit": "Gbps",
+    "source": "https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-basics.html",
+    "note": "Starts at 5 Gbps and scales automatically up to 100 Gbps",
+    "values": {
+      "*": {
+        "value": 100,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}
