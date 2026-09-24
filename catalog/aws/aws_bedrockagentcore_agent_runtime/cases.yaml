@@ -19,6 +19,7 @@
     Session creation: 0.5
     Data-plane calls: 2.5
     Session length: 600
+    Memory per session: 1
 - name: V2 in Tokyo, 128 MB minimum, logs, sessions longer than max_lifetime
   region: ap-northeast-1
   attributes:
@@ -44,3 +45,4 @@
     Session creation: 0.2
     Data-plane calls: 0.2
     Session length: 1200
+    Memory per session: 0.1

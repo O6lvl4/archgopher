@@ -30,7 +30,20 @@
     "values": {
       "*": {
         "value": 28800,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.agentcore.browser.memory_per_session_gb": {
+    "unit": "GB",
+    "source": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/bedrock-agentcore-limits.html",
+    "note": "Hardware per session is 1 vCPU / 4 GB; not adjustable",
+    "values": {
+      "*": {
+        "value": 4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
       }
     }
   },

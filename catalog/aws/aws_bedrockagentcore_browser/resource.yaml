@@ -19,6 +19,7 @@ readings:
       concurrentQuota: aws.agentcore.browser.concurrent
   - rate: { name: Session starts, unit: requests/second, quota: aws.agentcore.browser.start_rps, peak: total.peak }
   - rate: { name: Browser actions, unit: requests/second, quota: aws.agentcore.browser.invoke_rps, peak: total.peak * invocationsPerSession }
+  - limit: { name: Memory per session, demand: peakMemoryGb, unit: GB, quota: aws.agentcore.browser.memory_per_session_gb }
   - limit: { name: Session length, demand: sessionSeconds, unit: seconds, quota: aws.agentcore.browser.max_session_seconds }
 terraform:
   ignoreRefs: [network_configuration, certificate, recording, enterprise_policy]

@@ -25,6 +25,7 @@ readings:
       concurrentQuota: aws.agentcore.runtime.active_sessions
   - rate: { name: Session creation, unit: requests/second, quota: aws.agentcore.runtime.session_rate, peak: total.peak }
   - rate: { name: Data-plane calls, unit: requests/second, quota: aws.agentcore.runtime.dataplane_rps, peak: total.peak * callsPerSession }
+  - limit: { name: Memory per session, demand: peakMemoryGb, unit: GB, quota: aws.agentcore.runtime.memory_per_session_gb }
   - limit: { name: Session length, demand: sessionSeconds, unit: seconds, quota: aws.agentcore.runtime.max_session_seconds, capacity: max_lifetime }
   - logs: { count: total.monthly, kb: logKbPerCall, retentionDays: logRetentionDays, ingest: aws.logs.ingest, storage: aws.logs.storage }
 terraform:

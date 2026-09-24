@@ -19,3 +19,23 @@
     Session starts: 0.1
     Browser actions: 2
     Session length: 900
+    Memory per session: 1.5
+- name: 6 GB sessions exceed the 4 GB browser hardware
+  region: us-east-1
+  assumptions:
+    sessionSeconds: 600
+    activeVcpuSeconds: 60
+    peakMemoryGb: 6
+  demand:
+    session:
+      monthly: 1000
+      peak: 0.01
+  costs:
+    Active CPU: 1.491666667
+    Memory: 9.45
+  limits:
+    Concurrent sessions: 6
+    Session starts: 0.01
+    Browser actions: 0.01
+    Memory per session: 6
+    Session length: 600

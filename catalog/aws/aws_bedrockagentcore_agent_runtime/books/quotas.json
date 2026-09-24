@@ -40,6 +40,18 @@
       }
     }
   },
+  "aws.agentcore.runtime.memory_per_session_gb": {
+    "unit": "GB",
+    "source": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/bedrock-agentcore-limits.html",
+    "note": "Maximum hardware per session is 2 vCPU / 8 GB; not adjustable",
+    "values": {
+      "*": {
+        "value": 8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
   "aws.agentcore.runtime.session_rate": {
     "unit": "requests/second",
     "source": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/bedrock-agentcore-limits.html",
