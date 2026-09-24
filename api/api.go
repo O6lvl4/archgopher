@@ -1,4 +1,4 @@
-// Package api is the JSON-in, JSON-out surface of arch-scouter. The browser
+// Package api is the JSON-in, JSON-out surface of archgopher. The browser
 // build calls it through WebAssembly; it holds no logic of its own, so the
 // web UI and the CLI read an architecture the same way.
 package api
@@ -11,17 +11,17 @@ import (
 	"strings"
 	"testing/fstest"
 
-	"github.com/O6lvl4/arch-scouter/book"
-	"github.com/O6lvl4/arch-scouter/engine"
-	"github.com/O6lvl4/arch-scouter/field"
-	"github.com/O6lvl4/arch-scouter/model"
-	"github.com/O6lvl4/arch-scouter/pattern"
-	"github.com/O6lvl4/arch-scouter/provider/aws"
-	awspattern "github.com/O6lvl4/arch-scouter/provider/aws/pattern"
-	"github.com/O6lvl4/arch-scouter/scouter"
-	"github.com/O6lvl4/arch-scouter/terraform/eval"
-	"github.com/O6lvl4/arch-scouter/terraform/infer"
-	"github.com/O6lvl4/arch-scouter/terraform/merge"
+	"github.com/O6lvl4/archgopher/book"
+	"github.com/O6lvl4/archgopher/engine"
+	"github.com/O6lvl4/archgopher/field"
+	"github.com/O6lvl4/archgopher/model"
+	"github.com/O6lvl4/archgopher/pattern"
+	"github.com/O6lvl4/archgopher/provider/aws"
+	awspattern "github.com/O6lvl4/archgopher/provider/aws/pattern"
+	"github.com/O6lvl4/archgopher/scouter"
+	"github.com/O6lvl4/archgopher/terraform/eval"
+	"github.com/O6lvl4/archgopher/terraform/infer"
+	"github.com/O6lvl4/archgopher/terraform/merge"
 )
 
 // CatalogEntry is a scouter with the fields a form needs.

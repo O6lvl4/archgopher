@@ -9,11 +9,11 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/O6lvl4/arch-scouter/facet"
-	"github.com/O6lvl4/arch-scouter/field"
-	"github.com/O6lvl4/arch-scouter/meter"
-	"github.com/O6lvl4/arch-scouter/model"
-	"github.com/O6lvl4/arch-scouter/scouter"
+	"github.com/O6lvl4/archgopher/facet"
+	"github.com/O6lvl4/archgopher/field"
+	"github.com/O6lvl4/archgopher/meter"
+	"github.com/O6lvl4/archgopher/model"
+	"github.com/O6lvl4/archgopher/scouter"
 )
 
 // File is resource.yaml.

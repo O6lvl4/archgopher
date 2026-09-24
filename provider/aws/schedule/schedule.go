@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/O6lvl4/arch-scouter/model"
+	"github.com/O6lvl4/archgopher/model"
 )
 
 // Load turns rate() and cron() expressions into a load. The peak rate

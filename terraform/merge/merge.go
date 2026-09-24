@@ -5,7 +5,7 @@ package merge
 import (
 	"fmt"
 
-	"github.com/O6lvl4/arch-scouter/model"
+	"github.com/O6lvl4/archgopher/model"
 )
 
 // Merge folds a freshly built declaration into an existing one. The address is

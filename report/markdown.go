@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/O6lvl4/arch-scouter/engine"
+	"github.com/O6lvl4/archgopher/engine"
 )
 
 // JSON writes the result as indented JSON.

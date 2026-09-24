@@ -1,8 +1,8 @@
 package definition
 
 import (
-	"github.com/O6lvl4/arch-scouter/scouter"
-	"github.com/O6lvl4/arch-scouter/terraform/infer"
+	"github.com/O6lvl4/archgopher/scouter"
+	"github.com/O6lvl4/archgopher/terraform/infer"
 )
 
 // Rules is the resource's share of the Terraform rules. Schedules name the

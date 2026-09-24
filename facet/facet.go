@@ -11,8 +11,8 @@ package facet
 import (
 	"math"
 
-	"github.com/O6lvl4/arch-scouter/meter"
-	"github.com/O6lvl4/arch-scouter/model"
+	"github.com/O6lvl4/archgopher/meter"
+	"github.com/O6lvl4/archgopher/model"
 )
 
 // Requests prices a count of requests, optionally billed in size chunks

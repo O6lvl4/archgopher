@@ -3,7 +3,7 @@ import type { Spec } from "./types";
 // Browser storage keeps the declaration being edited for this viewer only.
 // It may be unavailable (private windows, blocked storage), so every access is guarded.
 
-const KEY = "arch-scouter:spec";
+const KEY = "archgopher:spec";
 
 export function loadSaved(): Spec | undefined {
   try {

@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/O6lvl4/arch-scouter/book"
+	"github.com/O6lvl4/archgopher/book"
 )
 
 // Cost is one priced component: quantity × unit price.

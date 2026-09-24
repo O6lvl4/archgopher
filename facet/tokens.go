@@ -1,8 +1,8 @@
 package facet
 
 import (
-	"github.com/O6lvl4/arch-scouter/book"
-	"github.com/O6lvl4/arch-scouter/meter"
+	"github.com/O6lvl4/archgopher/book"
+	"github.com/O6lvl4/archgopher/meter"
 )
 
 // TokenAssume is embedded in a model scouter's assumptions.

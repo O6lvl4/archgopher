@@ -11,12 +11,12 @@ import (
 
 	"gopkg.in/yaml.v3"
 
-	"github.com/O6lvl4/arch-scouter/book"
-	"github.com/O6lvl4/arch-scouter/definition"
-	"github.com/O6lvl4/arch-scouter/field"
-	"github.com/O6lvl4/arch-scouter/meter"
-	"github.com/O6lvl4/arch-scouter/model"
-	"github.com/O6lvl4/arch-scouter/scouter"
+	"github.com/O6lvl4/archgopher/book"
+	"github.com/O6lvl4/archgopher/definition"
+	"github.com/O6lvl4/archgopher/field"
+	"github.com/O6lvl4/archgopher/meter"
+	"github.com/O6lvl4/archgopher/model"
+	"github.com/O6lvl4/archgopher/scouter"
 )
 
 var regions = []string{"us-east-1", "ap-northeast-1"}

@@ -4,7 +4,7 @@ import (
 	"math"
 	"testing"
 
-	"github.com/O6lvl4/arch-scouter/model"
+	"github.com/O6lvl4/archgopher/model"
 )
 
 func TestScheduleLoad(t *testing.T) {

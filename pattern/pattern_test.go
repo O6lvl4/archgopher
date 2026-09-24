@@ -5,12 +5,12 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/O6lvl4/arch-scouter/engine"
-	"github.com/O6lvl4/arch-scouter/model"
-	"github.com/O6lvl4/arch-scouter/pattern"
-	"github.com/O6lvl4/arch-scouter/provider/aws"
-	awspattern "github.com/O6lvl4/arch-scouter/provider/aws/pattern"
-	"github.com/O6lvl4/arch-scouter/scouter"
+	"github.com/O6lvl4/archgopher/engine"
+	"github.com/O6lvl4/archgopher/model"
+	"github.com/O6lvl4/archgopher/pattern"
+	"github.com/O6lvl4/archgopher/provider/aws"
+	awspattern "github.com/O6lvl4/archgopher/provider/aws/pattern"
+	"github.com/O6lvl4/archgopher/scouter"
 )
 
 func run(t *testing.T, spec model.Spec) (engine.Result, pattern.Expansion) {

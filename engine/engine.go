@@ -9,10 +9,10 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/O6lvl4/arch-scouter/book"
-	"github.com/O6lvl4/arch-scouter/meter"
-	"github.com/O6lvl4/arch-scouter/model"
-	"github.com/O6lvl4/arch-scouter/scouter"
+	"github.com/O6lvl4/archgopher/book"
+	"github.com/O6lvl4/archgopher/meter"
+	"github.com/O6lvl4/archgopher/model"
+	"github.com/O6lvl4/archgopher/scouter"
 )
 
 // Result is everything the engine read from a spec.

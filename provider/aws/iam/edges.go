@@ -4,8 +4,8 @@ import (
 	"path"
 	"strings"
 
-	"github.com/O6lvl4/arch-scouter/terraform/eval"
-	"github.com/O6lvl4/arch-scouter/terraform/infer"
+	"github.com/O6lvl4/archgopher/terraform/eval"
+	"github.com/O6lvl4/archgopher/terraform/infer"
 )
 
 // RoleLink says a resource of Type attaches policies to the role referenced

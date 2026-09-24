@@ -1,12 +1,12 @@
 import type { CatalogEntry, Result, Spec, TerraformResponse } from "./types";
 
 // The engine is the Go package api compiled to WebAssembly. It registers a
-// global archScouter(name, input) that returns {"ok": ...} or {"error": ...}.
+// global archGopher(name, input) that returns {"ok": ...} or {"error": ...}.
 
 declare global {
   interface Window {
     Go?: new () => { importObject: WebAssembly.Imports; run(instance: WebAssembly.Instance): Promise<void> };
-    archScouter?: (name: string, input: string) => string;
+    archGopher?: (name: string, input: string) => string;
   }
 }
 
@@ -30,8 +30,8 @@ async function start(): Promise<void> {
   const GoRuntime = window.Go;
   if (!GoRuntime) throw new EngineError("wasm_exec.js did not define Go");
   const go = new GoRuntime();
-  const ready = new Promise<void>((resolve) => window.addEventListener("arch-scouter-ready", () => resolve(), { once: true }));
-  const { instance } = await WebAssembly.instantiateStreaming(fetch(`${base}arch-scouter.wasm`), go.importObject);
+  const ready = new Promise<void>((resolve) => window.addEventListener("archgopher-ready", () => resolve(), { once: true }));
+  const { instance } = await WebAssembly.instantiateStreaming(fetch(`${base}archgopher.wasm`), go.importObject);
   void go.run(instance);
   await ready;
 }
@@ -43,7 +43,7 @@ export function loadEngine(): Promise<void> {
 }
 
 function call<T>(name: string, input = ""): T {
-  const fn = window.archScouter;
+  const fn = window.archGopher;
   if (!fn) throw new EngineError("the engine is not loaded");
   const reply = JSON.parse(fn(name, input)) as { ok?: T; error?: string };
   if (reply.error !== undefined) throw new EngineError(reply.error);

@@ -20,7 +20,7 @@ jobs:
         with:
           go-version-file: go.mod
       - name: Sync prices
-        run: go run ./cmd/arch-scouter sync | tee sync.txt
+        run: go run ./cmd/archgopher sync | tee sync.txt
       - name: Open a pull request
         uses: peter-evans/create-pull-request@v7
         with:

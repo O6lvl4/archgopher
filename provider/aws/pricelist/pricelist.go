@@ -110,7 +110,7 @@ func NewClient() *Client {
 	if err != nil {
 		dir = os.TempDir()
 	}
-	return &Client{HTTP: &http.Client{Timeout: 5 * time.Minute}, CacheDir: filepath.Join(dir, "arch-scouter", "pricelist"), MaxAge: 24 * time.Hour}
+	return &Client{HTTP: &http.Client{Timeout: 5 * time.Minute}, CacheDir: filepath.Join(dir, "archgopher", "pricelist"), MaxAge: 24 * time.Hour}
 }
 
 // Offer returns the offer file of a service in a region.

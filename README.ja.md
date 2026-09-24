@@ -1,4 +1,4 @@
-# arch-scouter
+# archgopher
 
 作る前に構成を読むためのツールです。Terraform を資源のグラフにし、想定する負荷を入口から流して、
 ノードごとに4つの次元を読みます。
@@ -11,7 +11,7 @@
 | 可用性 | サービスの SLA | 経路上の積 |
 
 [Infracost](https://github.com/infracost/infracost) のようなコスト計算は資源を1つずつ値付けします。
-arch-scouter が答えるのは別の問いです。「入口に月3,000万件が来たとき、後ろの資源はそれぞれ何件を受け、
+archgopher が答えるのは別の問いです。「入口に月3,000万件が来たとき、後ろの資源はそれぞれ何件を受け、
 いくらかかり、どこが最初に上限に当たるか」。
 
 [English README](README.md)
@@ -19,12 +19,12 @@ arch-scouter が答えるのは別の問いです。「入口に月3,000万件�
 ## 使い方
 
 ```sh
-go install github.com/O6lvl4/arch-scouter/cmd/arch-scouter@latest
+go install github.com/O6lvl4/archgopher/cmd/archgopher@latest
 
-arch-scouter tf ./infra -o app.scouter.yaml                    # Terraform から宣言を作る。init・plan・認証は不要
+archgopher tf ./infra -o app.scouter.yaml                    # Terraform から宣言を作る。init・plan・認証は不要
 $EDITOR app.scouter.yaml                                        # 入口の負荷と、null のまま残った前提を埋める
-arch-scouter scout app.scouter.yaml                             # Markdown の表で読む（--json で機械可読）
-arch-scouter tf ./infra --merge app.scouter.yaml -o app.scouter.yaml   # Terraform の変更を合流させる
+archgopher scout app.scouter.yaml                             # Markdown の表で読む（--json で機械可読）
+archgopher tf ./infra --merge app.scouter.yaml -o app.scouter.yaml   # Terraform の変更を合流させる
 ```
 
 合流の継ぎ目は Terraform のアドレスです。Terraform が持つのは型と属性だけで、

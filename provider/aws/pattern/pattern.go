@@ -3,9 +3,9 @@
 package pattern
 
 import (
-	"github.com/O6lvl4/arch-scouter/model"
-	"github.com/O6lvl4/arch-scouter/pattern"
-	"github.com/O6lvl4/arch-scouter/scouter"
+	"github.com/O6lvl4/archgopher/model"
+	"github.com/O6lvl4/archgopher/pattern"
+	"github.com/O6lvl4/archgopher/scouter"
 )
 
 func f(v float64) *float64 { return &v }

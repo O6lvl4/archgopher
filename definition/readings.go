@@ -8,8 +8,8 @@ import (
 	"github.com/expr-lang/expr"
 	"github.com/expr-lang/expr/vm"
 
-	"github.com/O6lvl4/arch-scouter/facet"
-	"github.com/O6lvl4/arch-scouter/meter"
+	"github.com/O6lvl4/archgopher/facet"
+	"github.com/O6lvl4/archgopher/meter"
 )
 
 // Params are one reading's parameters as written in YAML.

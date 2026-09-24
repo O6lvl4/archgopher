@@ -10,9 +10,9 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/O6lvl4/arch-scouter/model"
-	"github.com/O6lvl4/arch-scouter/scouter"
-	"github.com/O6lvl4/arch-scouter/terraform/eval"
+	"github.com/O6lvl4/archgopher/model"
+	"github.com/O6lvl4/archgopher/scouter"
+	"github.com/O6lvl4/archgopher/terraform/eval"
 )
 
 // Rules tell the builder how a provider's resources form a load graph.

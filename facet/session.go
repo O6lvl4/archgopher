@@ -1,6 +1,6 @@
 package facet
 
-import "github.com/O6lvl4/arch-scouter/meter"
+import "github.com/O6lvl4/archgopher/meter"
 
 // SessionAssume is embedded by resources billed as sessions of microVM
 // compute (AgentCore Runtime, Code Interpreter, Browser).

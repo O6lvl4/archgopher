@@ -8,9 +8,9 @@ import (
 	"reflect"
 	"sort"
 
-	"github.com/O6lvl4/arch-scouter/field"
-	"github.com/O6lvl4/arch-scouter/meter"
-	"github.com/O6lvl4/arch-scouter/model"
+	"github.com/O6lvl4/archgopher/field"
+	"github.com/O6lvl4/archgopher/meter"
+	"github.com/O6lvl4/archgopher/model"
 )
 
 // Common assumption keys every node accepts. The engine reads them itself.

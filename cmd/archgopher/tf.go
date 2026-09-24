@@ -7,11 +7,11 @@ import (
 	"os"
 	"strings"
 
-	"github.com/O6lvl4/arch-scouter/model"
-	"github.com/O6lvl4/arch-scouter/provider/aws"
-	"github.com/O6lvl4/arch-scouter/terraform/eval"
-	"github.com/O6lvl4/arch-scouter/terraform/infer"
-	"github.com/O6lvl4/arch-scouter/terraform/merge"
+	"github.com/O6lvl4/archgopher/model"
+	"github.com/O6lvl4/archgopher/provider/aws"
+	"github.com/O6lvl4/archgopher/terraform/eval"
+	"github.com/O6lvl4/archgopher/terraform/infer"
+	"github.com/O6lvl4/archgopher/terraform/merge"
 )
 
 type multi []string

@@ -10,8 +10,8 @@ import (
 	"github.com/expr-lang/expr"
 	"github.com/expr-lang/expr/vm"
 
-	"github.com/O6lvl4/arch-scouter/field"
-	"github.com/O6lvl4/arch-scouter/model"
+	"github.com/O6lvl4/archgopher/field"
+	"github.com/O6lvl4/archgopher/model"
 )
 
 // Flow is how expressions see a load: demand.read.monthly, total.peak.

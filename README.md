@@ -1,6 +1,6 @@
-# arch-scouter
+# archgopher
 
-Read an architecture before you build it. arch-scouter turns Terraform into a
+Read an architecture before you build it. archgopher turns Terraform into a
 graph of resources, pushes your expected load through it, and reads every node
 on four dimensions:
 
@@ -12,7 +12,7 @@ on four dimensions:
 | Availability | The service SLA | Product along a path |
 
 Cost tools such as [Infracost](https://github.com/infracost/infracost) price
-each resource on its own. arch-scouter asks a different question: *if 30
+each resource on its own. archgopher asks a different question: *if 30
 million requests a month arrive at the front door, what does every resource
 behind it see, what does it cost, and where does it run out of room first?*
 
@@ -21,22 +21,22 @@ behind it see, what does it cost, and where does it run out of room first?*
 ## Quick start
 
 ```sh
-go install github.com/O6lvl4/arch-scouter/cmd/arch-scouter@latest
+go install github.com/O6lvl4/archgopher/cmd/archgopher@latest
 
 # 1. Build a declaration from Terraform. No terraform init, plan or credentials.
-arch-scouter tf ./infra -o app.scouter.yaml
+archgopher tf ./infra -o app.scouter.yaml
 
 # 2. Fill in what Terraform cannot know: the load at the entry and the
 #    assumptions left as null (duration per call, item size, ...).
 $EDITOR app.scouter.yaml
 
 # 3. Read it.
-arch-scouter scout app.scouter.yaml          # Markdown tables
-arch-scouter scout app.scouter.yaml --json   # machine-readable
+archgopher scout app.scouter.yaml          # Markdown tables
+archgopher scout app.scouter.yaml --json   # machine-readable
 
 # 4. After Terraform changes, fold them in. Your assumptions, load, notes and
 #    edges stay; only types and attributes follow Terraform.
-arch-scouter tf ./infra --merge app.scouter.yaml -o app.scouter.yaml
+archgopher tf ./infra --merge app.scouter.yaml -o app.scouter.yaml
 ```
 
 A worked example lives in [`examples/serverless-api`](examples/serverless-api):
@@ -102,7 +102,7 @@ of being ignored.
 
 ## Terraform import
 
-`arch-scouter tf` evaluates HCL statically with
+`archgopher tf` evaluates HCL statically with
 [hashicorp/hcl](https://github.com/hashicorp/hcl) and
 [go-cty](https://github.com/zclconf/go-cty). It runs without `terraform init`,
 without state and without cloud credentials, so it also works on a pull request.
@@ -148,15 +148,15 @@ a value per region, a unit, a source URL and a `verified` flag.
   `GB-month` is an error, not a wrong number.
 - **Unverified values are listed.** Any value nobody has checked, or that is
   unknown, appears at the end of every report.
-- **Prices sync from the public Price List.** `arch-scouter sync` reads the
+- **Prices sync from the public Price List.** `archgopher sync` reads the
   AWS Price List bulk files (no credentials) and marks each price verified.
   A weekly workflow opens a pull request when a price changes.
-  `arch-scouter explore <service> <region> [attr=regex...]` helps you write the
+  `archgopher explore <service> <region> [attr=regex...]` helps you write the
   filters for a new price.
 
 ```sh
-arch-scouter sync --check      # exit 1 if the book is out of date
-arch-scouter explore AWSLambda ap-northeast-1 'usagetype=.*GB-Second.*'
+archgopher sync --check      # exit 1 if the book is out of date
+archgopher explore AWSLambda ap-northeast-1 'usagetype=.*GB-Second.*'
 ```
 
 Quotas are the published defaults. Some are account-specific in practice
@@ -190,7 +190,7 @@ the demand and says the capacity is unknown.
 | `agentcore_web_search` / `agentcore_knowledge_base` | Queries / retrievals and storage (external, placed by hand) | Query rate |
 | `entry` | Nothing; checks that load is set | - |
 
-`arch-scouter catalog` prints every scouter with its fields as JSON.
+`archgopher catalog` prints every scouter with its fields as JSON.
 
 ### Adding a resource
 
@@ -258,7 +258,7 @@ what changes least. A test in [`internal/layers`](internal/layers) fails when
 an import breaks the rule, and `web/scripts/layers.mjs` does the same for the UI.
 
 ```text
-cmd/arch-scouter, cmd/wasm          edges of the system
+cmd/archgopher, cmd/wasm          edges of the system
         │
        api                          JSON in, JSON out; what the browser calls
         │

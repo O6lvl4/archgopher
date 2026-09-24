@@ -1,4 +1,4 @@
 node_modules/
 dist/
-public/arch-scouter.wasm
+public/archgopher.wasm
 public/wasm_exec.js

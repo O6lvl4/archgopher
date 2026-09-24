@@ -1,6 +1,6 @@
 package aws
 
-import "github.com/O6lvl4/arch-scouter/terraform/infer"
+import "github.com/O6lvl4/archgopher/terraform/infer"
 
 // roleAttrs are attribute paths through which a resource acts as an IAM role.
 var roleAttrs = []string{"role", "role_arn", "task_role_arn"}

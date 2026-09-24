@@ -10,7 +10,7 @@ import (
 
 	"gopkg.in/yaml.v3"
 
-	"github.com/O6lvl4/arch-scouter/book"
+	"github.com/O6lvl4/archgopher/book"
 )
 
 // Unit is one directory of a catalog: a resource (resource.yaml), the books

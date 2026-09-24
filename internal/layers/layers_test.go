@@ -14,7 +14,7 @@ import (
 	"testing"
 )
 
-const module = "github.com/O6lvl4/arch-scouter/"
+const module = "github.com/O6lvl4/archgopher/"
 
 // allowed maps a package (or a prefix ending in /*) to the internal packages it may import.
 var allowed = map[string][]string{
@@ -47,9 +47,9 @@ var allowed = map[string][]string{
 	"provider/aws":           {"book", "catalog", "definition", "scouter", "terraform/infer", "provider/aws/iam", "provider/aws/schedule"},
 
 	// Edges of the system.
-	"api":              {"book", "engine", "field", "model", "pattern", "scouter", "provider/aws", "provider/aws/pattern", "terraform/eval", "terraform/infer", "terraform/merge"},
-	"cmd/arch-scouter": {"api", "book", "model", "report", "provider/aws", "provider/aws/pricelist", "terraform/eval", "terraform/infer", "terraform/merge"},
-	"cmd/wasm":         {"api"},
+	"api":            {"book", "engine", "field", "model", "pattern", "scouter", "provider/aws", "provider/aws/pattern", "terraform/eval", "terraform/infer", "terraform/merge"},
+	"cmd/archgopher": {"api", "book", "model", "report", "provider/aws", "provider/aws/pricelist", "terraform/eval", "terraform/infer", "terraform/merge"},
+	"cmd/wasm":       {"api"},
 }
 
 func rule(pkg string) ([]string, bool) {

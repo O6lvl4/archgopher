@@ -42,7 +42,7 @@ export function Header({ result, actions }: { result: Result | undefined; action
   return (
     <header className="topbar">
       <div className="brand">
-        <strong>arch-scouter</strong>
+        <strong>archgopher</strong>
         <span className="muted">cost · headroom · latency · availability</span>
       </div>
       <div className="totals" aria-live="polite">

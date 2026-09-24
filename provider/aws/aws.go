@@ -8,13 +8,13 @@ import (
 	"sort"
 	"sync"
 
-	"github.com/O6lvl4/arch-scouter/book"
-	"github.com/O6lvl4/arch-scouter/catalog"
-	"github.com/O6lvl4/arch-scouter/definition"
-	"github.com/O6lvl4/arch-scouter/provider/aws/iam"
-	"github.com/O6lvl4/arch-scouter/provider/aws/schedule"
-	"github.com/O6lvl4/arch-scouter/scouter"
-	"github.com/O6lvl4/arch-scouter/terraform/infer"
+	"github.com/O6lvl4/archgopher/book"
+	"github.com/O6lvl4/archgopher/catalog"
+	"github.com/O6lvl4/archgopher/definition"
+	"github.com/O6lvl4/archgopher/provider/aws/iam"
+	"github.com/O6lvl4/archgopher/provider/aws/schedule"
+	"github.com/O6lvl4/archgopher/scouter"
+	"github.com/O6lvl4/archgopher/terraform/infer"
 )
 
 var (
@@ -33,7 +33,7 @@ func mustUnits() []definition.Unit {
 	u, err := Units()
 	if err != nil {
 		// The catalog is embedded and tested; a broken one is a build defect.
-		panic("arch-scouter: AWS catalog: " + err.Error())
+		panic("archgopher: AWS catalog: " + err.Error())
 	}
 	return u
 }

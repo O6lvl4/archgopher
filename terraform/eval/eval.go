@@ -7,7 +7,7 @@ package eval
 import (
 	"fmt"
 
-	"github.com/O6lvl4/arch-scouter/terraform/config"
+	"github.com/O6lvl4/archgopher/terraform/config"
 	"io/fs"
 	"math/big"
 	"os"

@@ -10,7 +10,7 @@ import (
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
 
-	"github.com/O6lvl4/arch-scouter/terraform/eval"
+	"github.com/O6lvl4/archgopher/terraform/eval"
 )
 
 const policyDocument = "aws_iam_policy_document"

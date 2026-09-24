@@ -14,8 +14,8 @@ import (
 	"text/tabwriter"
 	"time"
 
-	"github.com/O6lvl4/arch-scouter/book"
-	"github.com/O6lvl4/arch-scouter/provider/aws/pricelist"
+	"github.com/O6lvl4/archgopher/book"
+	"github.com/O6lvl4/archgopher/provider/aws/pricelist"
 )
 
 func cmdSync(args []string, out io.Writer) error {

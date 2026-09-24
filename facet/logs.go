@@ -1,6 +1,6 @@
 package facet
 
-import "github.com/O6lvl4/arch-scouter/meter"
+import "github.com/O6lvl4/archgopher/meter"
 
 // LogAssume is embedded in a scouter's assumptions to count the logs each
 // call writes.

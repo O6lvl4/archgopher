@@ -1,4 +1,4 @@
-// Command arch-scouter reads an architecture on cost, headroom, latency and availability.
+// Command archgopher reads an architecture on cost, headroom, latency and availability.
 package main
 
 import (
@@ -10,19 +10,19 @@ import (
 	"os"
 	"strings"
 
-	"github.com/O6lvl4/arch-scouter/api"
-	"github.com/O6lvl4/arch-scouter/model"
-	"github.com/O6lvl4/arch-scouter/report"
+	"github.com/O6lvl4/archgopher/api"
+	"github.com/O6lvl4/archgopher/model"
+	"github.com/O6lvl4/archgopher/report"
 )
 
-const usage = `arch-scouter reads an architecture on cost, headroom, latency and availability.
+const usage = `archgopher reads an architecture on cost, headroom, latency and availability.
 
 Usage:
-  arch-scouter scout <spec.yaml> [--json]     Read a declaration
-  arch-scouter tf <dir> [flags]               Build a declaration from Terraform
-  arch-scouter catalog                        List scouters and their fields as JSON
-  arch-scouter sync [--check]                 Verify the price book against the AWS Price List
-  arch-scouter explore <service> <region> [attr=regex...]
+  archgopher scout <spec.yaml> [--json]     Read a declaration
+  archgopher tf <dir> [flags]               Build a declaration from Terraform
+  archgopher catalog                        List scouters and their fields as JSON
+  archgopher sync [--check]                 Verify the price book against the AWS Price List
+  archgopher explore <service> <region> [attr=regex...]
                                               Search the Price List to write sync filters
 
 Run a subcommand with -h for its flags.
@@ -31,7 +31,7 @@ Run a subcommand with -h for its flags.
 func main() {
 	if err := run(os.Args[1:], os.Stdout); err != nil {
 		if !errors.Is(err, flag.ErrHelp) {
-			fmt.Fprintln(os.Stderr, "arch-scouter:", err)
+			fmt.Fprintln(os.Stderr, "archgopher:", err)
 		}
 		os.Exit(1)
 	}

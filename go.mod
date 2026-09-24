@@ -1,4 +1,4 @@
-module github.com/O6lvl4/arch-scouter
+module github.com/O6lvl4/archgopher
 
 go 1.26.1
 
