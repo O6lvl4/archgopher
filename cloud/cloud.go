@@ -9,6 +9,7 @@ import (
 	"github.com/O6lvl4/archgopher/provider/aws"
 	awspattern "github.com/O6lvl4/archgopher/provider/aws/pattern"
 	"github.com/O6lvl4/archgopher/provider/azure"
+	"github.com/O6lvl4/archgopher/provider/gcp"
 	"github.com/O6lvl4/archgopher/scouter"
 	"github.com/O6lvl4/archgopher/terraform/infer"
 )
@@ -16,7 +17,7 @@ import (
 // Registry holds every provider's resources and the entry.
 func Registry() scouter.Registry {
 	reg := scouter.Registry{}
-	for _, r := range []scouter.Registry{aws.Registry(), azure.Registry()} {
+	for _, r := range []scouter.Registry{aws.Registry(), azure.Registry(), gcp.Registry()} {
 		for t, s := range r {
 			reg[t] = s
 		}
@@ -34,12 +35,16 @@ func Books() (book.Books, error) {
 	if err != nil {
 		return book.Books{}, err
 	}
-	return book.Merge(a, z)
+	g, err := gcp.Books()
+	if err != nil {
+		return book.Books{}, err
+	}
+	return book.Merge(a, z, g)
 }
 
 // TerraformRules combine every provider's rules.
 func TerraformRules() infer.Rules {
-	return infer.Combine(aws.TerraformRules(), azure.TerraformRules())
+	return infer.Combine(aws.TerraformRules(), azure.TerraformRules(), gcp.TerraformRules())
 }
 
 // Patterns are the L3 patterns.
@@ -62,5 +67,13 @@ func Regions() ([]RegionGroup, error) {
 	if err != nil {
 		return nil, err
 	}
-	return []RegionGroup{{Provider: "aws", Label: "AWS", Regions: a}, {Provider: "azure", Label: "Azure", Regions: z}}, nil
+	g, err := gcp.Regions()
+	if err != nil {
+		return nil, err
+	}
+	return []RegionGroup{
+		{Provider: "aws", Label: "AWS", Regions: a},
+		{Provider: "azure", Label: "Azure", Regions: z},
+		{Provider: "gcp", Label: "Google Cloud", Regions: g},
+	}, nil
 }

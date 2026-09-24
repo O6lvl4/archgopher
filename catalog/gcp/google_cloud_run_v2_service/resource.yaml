@@ -1,0 +1,29 @@
+type: google_cloud_run_v2_service
+label: Cloud Run service
+category: Compute
+description: "Request-based billing: vCPU- and GiB-seconds while instances serve requests, and requests. Headroom is instances needed against max instances."
+kinds: [request]
+sla: gcp.cloudrun
+attributes:
+  - { key: cpu, label: CPU limit, type: string, default: "1", path: template.containers.resources.limits.cpu, hint: "1, 2 or 1000m" }
+  - { key: memory, label: Memory limit, type: string, default: "512Mi", path: template.containers.resources.limits.memory, hint: "512Mi or 1Gi" }
+  - { key: max_instance_count, label: Max instances, type: number, default: 100, path: template.scaling.max_instance_count }
+  - { key: concurrency, label: Requests per instance, type: number, default: 80, path: template.max_instance_request_concurrency }
+assumptions:
+  - { key: durationMs, label: Request duration, type: number, unit: ms }
+  - { key: packing, label: Share of concurrency used, type: number, default: 1, hint: "1 bills each instance-second once for all its concurrent requests; lower when requests rarely overlap" }
+let:
+  - vcpu: 'cpu endsWith "m" ? float(trimSuffix(cpu, "m")) / 1000 : float(cpu)'
+  - gib: 'memory endsWith "Gi" ? float(trimSuffix(memory, "Gi")) : memory endsWith "Mi" ? float(trimSuffix(memory, "Mi")) / 1024 : memory endsWith "G" ? float(trimSuffix(memory, "G")) * 1e9 / 1073741824 : float(trimSuffix(memory, "M")) * 1e6 / 1073741824'
+  - perInstance: 'max(concurrency * packing, 1)'
+  - instanceSeconds: 'total.monthly * durationMs / 1000 / perInstance'
+readings:
+  - cost: { name: vCPU, quantity: instanceSeconds * vcpu, unit: vCPU-second, price: gcp.cloudrun.cpu }
+  - cost: { name: Memory, quantity: instanceSeconds * gib, unit: GiB-second, price: gcp.cloudrun.memory }
+  - requests: { name: Requests, price: gcp.cloudrun.requests, count: total.monthly }
+  - limit: { name: Instances, demand: 'ceilDiv(total.peak * durationMs / 1000, perInstance)', unit: instances, quota: gcp.cloudrun.max_instances, capacity: max_instance_count }
+terraform:
+  frontDoor: true
+  ignoreRefs: [template.service_account, template.vpc_access, template.volumes]
+iam:
+  request: ["roles/run.invoker"]

@@ -1,0 +1,24 @@
+{
+  "gcp.cloudrun": {
+    "unit": "fraction",
+    "source": "https://cloud.google.com/run/sla",
+    "note": "Cloud Run service (non-GPU); 99.9% in Mexico and Stockholm",
+    "values": {
+      "*": {
+        "value": 0.9995,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "europe-north2": {
+        "value": 0.999,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northamerica-south1": {
+        "value": 0.999,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

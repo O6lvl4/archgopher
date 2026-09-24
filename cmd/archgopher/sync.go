@@ -46,6 +46,9 @@ func cmdSync(args []string, out io.Writer) error {
 		return err
 	}
 	fmt.Fprintf(out, "\n%d changed, %d not in the price lists, %d could not be resolved\n", s.changed, s.absent, s.failed)
+	if s.skipped > 0 {
+		fmt.Fprintf(out, "%d rows skipped: their price list needs credentials this environment does not have\n", s.skipped)
+	}
 	if len(s.add) > 0 {
 		if err := byHand(out, files, s.add); err != nil {
 			return err
@@ -62,6 +65,7 @@ type syncer struct {
 	today, regions          string
 	add                     []string
 	changed, absent, failed int
+	skipped                 int
 }
 
 // file verifies one price book against the Price List and rewrites it unless checking.
@@ -125,6 +129,12 @@ func (s *syncer) file(w io.Writer, path string, check bool) error {
 func (s *syncer) value(w io.Writer, id, region string, e book.Entry, spec priceSource) (book.Value, bool) {
 	old, had := e.Values[region]
 	q, err := spec.quote(region)
+	if unauthorized(err) {
+		// A price list that needs credentials the environment does not have
+		// is skipped, not failed: its rows stay as they are.
+		s.skipped++
+		return old, false
+	}
 	if absent(err) && (!had || old.Value == nil) {
 		s.absent++
 		fmt.Fprintf(w, "%s\t%s\t%s\t-\tnot offered (%v)\n", id, region, show(old.Value), err)

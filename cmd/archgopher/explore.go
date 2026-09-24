@@ -8,19 +8,21 @@ import (
 
 	"github.com/O6lvl4/archgopher/provider/aws/pricelist"
 	"github.com/O6lvl4/archgopher/provider/azure/retailprices"
+	"github.com/O6lvl4/archgopher/provider/gcp/billingcatalog"
 )
 
 // cmdExplore lists the prices that match filters, to write a sync spec:
 //
 //	explore <AWS service code> <region> [attr=regex...]
 //	explore azure <Azure service name> <region> [attr=regex...]
+//	explore gcp <Billing Catalog service id> <region> [attr=regex...]
 func cmdExplore(args []string, out io.Writer) error {
-	azure := len(args) > 0 && args[0] == retailprices.Source
-	if azure {
-		args = args[1:]
+	cloud := ""
+	if len(args) > 0 && (args[0] == retailprices.Source || args[0] == billingcatalog.Source) {
+		cloud, args = args[0], args[1:]
 	}
 	if len(args) < 2 {
-		return fmt.Errorf("explore takes [azure] a service, a region and optional attr=regex filters")
+		return fmt.Errorf("explore takes [azure|gcp] a service, a region and optional attr=regex filters")
 	}
 	filters := map[string]string{}
 	for _, f := range args[2:] {
@@ -31,11 +33,16 @@ func cmdExplore(args []string, out io.Writer) error {
 		filters[k] = v
 	}
 	w := tabwriter.NewWriter(out, 0, 0, 2, ' ', 0)
-	if azure {
-		if err := exploreAzure(w, args[0], args[1], filters); err != nil {
-			return err
-		}
-	} else if err := exploreAWS(w, args[0], args[1], filters); err != nil {
+	var err error
+	switch cloud {
+	case retailprices.Source:
+		err = exploreAzure(w, args[0], args[1], filters)
+	case billingcatalog.Source:
+		err = exploreGCP(w, args[0], args[1], filters)
+	default:
+		err = exploreAWS(w, args[0], args[1], filters)
+	}
+	if err != nil {
 		return err
 	}
 	return w.Flush()
@@ -70,6 +77,26 @@ func exploreAzure(w io.Writer, service, region string, filters map[string]string
 	fmt.Fprintln(w, "PRODUCT\tSKU\tARMSKU\tMETER\tUNIT\tTIER\tUSD\tTYPE")
 	for _, m := range ms {
 		fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%s\t%g\t%g\t%s\n", m.ProductName, m.SkuName, m.ArmSkuName, m.MeterName, m.UnitOfMeasure, m.TierMinimum, m.RetailPrice, m.Type)
+	}
+	return nil
+}
+
+func exploreGCP(w io.Writer, service, region string, filters map[string]string) error {
+	skus, err := billingcatalog.NewClient().Skus(service)
+	if err != nil {
+		return err
+	}
+	ms, err := billingcatalog.Find(skus, region, filters)
+	if err != nil {
+		return err
+	}
+	fmt.Fprintln(w, "DESCRIPTION\tFAMILY\tGROUP\tUNIT\tTIERS (start:usd)\tREGIONS")
+	for _, m := range ms {
+		var tiers []string
+		for _, r := range m.Rates() {
+			tiers = append(tiers, fmt.Sprintf("%g:%g", r.Start, r.UnitPrice.USD()))
+		}
+		fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%s\t%s\n", m.Description, m.Category.ResourceFamily, m.Category.ResourceGroup, m.Unit(), strings.Join(tiers, " "), trim(strings.Join(m.ServiceRegions, ","), 40))
 	}
 	return nil
 }

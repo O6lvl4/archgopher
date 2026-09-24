@@ -5,8 +5,8 @@
   </picture>
 </h1>
 
-Read an architecture before you build it. archgopher turns Terraform (AWS and
-Azure) into a graph of resources, pushes your expected load through it, and reads every node
+Read an architecture before you build it. archgopher turns Terraform (AWS, Azure
+and Google Cloud) into a graph of resources, pushes your expected load through it, and reads every node
 on four dimensions:
 
 | Dimension | What you get | How paths combine |
@@ -155,7 +155,11 @@ a value per region, a unit, a source URL and a `verified` flag.
   unknown, appears at the end of every report.
 - **Prices sync from the public price lists.** `archgopher sync` reads the
   AWS Price List bulk files and the Azure Retail Prices API (neither needs
-  credentials) and marks each price verified.
+  credentials) and the Google Cloud Billing Catalog, and marks each price
+  verified. The Billing Catalog needs credentials: set `ARCHGOPHER_GCP_TOKEN`,
+  `ARCHGOPHER_GCP_ACCOUNT` (a gcloud account to take a token from) or
+  `ARCHGOPHER_GCP_API_KEY`. Without them, Google Cloud rows are skipped, not
+  failed, and keep their values.
   A weekly workflow opens a pull request when a price changes.
   `archgopher explore <service> <region> [attr=regex...]` helps you write the
   filters for a new price.
@@ -165,13 +169,17 @@ archgopher sync --check      # exit 1 if the book is out of date
 archgopher sync --add-regions eu-west-2   # add a region to every price
 archgopher explore AWSLambda ap-northeast-1 'usagetype=.*GB-Second.*'
 archgopher explore azure Functions japaneast 'meterName=Standard.*'
+ARCHGOPHER_GCP_ACCOUNT=you@example.com archgopher explore gcp 152E-C115-5142 asia-northeast1
 ```
 
 **Regions.** Ten AWS regions are covered: us-east-1, us-east-2, us-west-2,
 eu-west-1, eu-central-1, ap-northeast-1, ap-northeast-2, ap-southeast-1,
 ap-southeast-2 and ap-south-1. Ten Azure regions match them: eastus, eastus2,
 westus2, northeurope, germanywestcentral, japaneast, koreacentral,
-southeastasia, australiaeast and centralindia. A row that is the same everywhere is `*`; a
+southeastasia, australiaeast and centralindia. Ten Google Cloud regions match
+them too: us-east4, us-east5, us-west1, europe-west1, europe-west3,
+asia-northeast1, asia-northeast3, asia-southeast1, australia-southeast1 and
+asia-south1. A row that is the same everywhere is `*`; a
 quota that differs names its regions over a `*` default ("2,500 elsewhere").
 `sync --add-regions` reads every price from the Price List for the new region
 and lists anything left to fill by hand. Where the Price List has no price, the
@@ -249,12 +257,19 @@ resource whose managed identity holds the role (system- or user-assigned) to
 the resource it is scoped to, with the kinds the role grants. Each resource's
 `iam` lists Azure role names per kind, where AWS resources list IAM actions.
 
+### Google Cloud
+
+| Type | Reads | Headroom |
+| --- | --- | --- |
+| `google_cloud_run_v2_service` | Request-based vCPU- and GiB-seconds from the container limits and concurrency, requests | Instances against max instances |
+
 `archgopher catalog` prints every scouter with its fields as JSON.
 
 ### Adding a resource
 
-Every resource is a directory in [`catalog/aws`](catalog/aws) or
-[`catalog/azure`](catalog/azure), named after its type. It holds everything about that resource and nothing else; adding one
+Every resource is a directory in [`catalog/aws`](catalog/aws),
+[`catalog/azure`](catalog/azure) or [`catalog/gcp`](catalog/gcp), named after
+its type. It holds everything about that resource and nothing else; adding one
 needs no Go code.
 
 ```text

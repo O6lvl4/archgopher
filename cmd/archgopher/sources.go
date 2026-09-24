@@ -7,6 +7,7 @@ import (
 
 	"github.com/O6lvl4/archgopher/provider/aws/pricelist"
 	"github.com/O6lvl4/archgopher/provider/azure/retailprices"
+	"github.com/O6lvl4/archgopher/provider/gcp/billingcatalog"
 )
 
 // quote is one price read from a public price list, per unit of the book.
@@ -27,11 +28,18 @@ type priceSource interface {
 type sources struct {
 	aws   *pricelist.Client
 	azure *retailprices.Client
+	gcp   *billingcatalog.Client
 }
 
 // absent reports an error that means the price list offers nothing there.
 func absent(err error) bool {
-	return errors.Is(err, pricelist.ErrAbsent) || errors.Is(err, retailprices.ErrAbsent)
+	return errors.Is(err, pricelist.ErrAbsent) || errors.Is(err, retailprices.ErrAbsent) || errors.Is(err, billingcatalog.ErrAbsent)
+}
+
+// unauthorized reports an error that means the price list needs credentials
+// this environment does not have.
+func unauthorized(err error) bool {
+	return errors.Is(err, billingcatalog.ErrNoCredentials)
 }
 
 func (s *sources) of(raw json.RawMessage) (priceSource, error) {
@@ -60,6 +68,15 @@ func (s *sources) of(raw json.RawMessage) (priceSource, error) {
 			s.azure = retailprices.NewClient()
 		}
 		return azureSource{s.azure, spec}, nil
+	case billingcatalog.Source:
+		var spec billingcatalog.Spec
+		if err := json.Unmarshal(raw, &spec); err != nil {
+			return nil, err
+		}
+		if s.gcp == nil {
+			s.gcp = billingcatalog.NewClient()
+		}
+		return gcpSource{s.gcp, spec}, nil
 	}
 	return nil, fmt.Errorf("unknown price source %q", probe.Source)
 }
@@ -93,3 +110,18 @@ func (a azureSource) quote(region string) (quote, error) {
 }
 
 func (a azureSource) global() bool { return a.spec.Region != "" }
+
+type gcpSource struct {
+	c    *billingcatalog.Client
+	spec billingcatalog.Spec
+}
+
+func (g gcpSource) quote(region string) (quote, error) {
+	p, err := g.c.Resolve(g.spec, region)
+	if err != nil {
+		return quote{}, err
+	}
+	return quote{g.spec.PerUnit(p.Rate.UnitPrice.USD()), p.Sku.Description + ", " + p.Sku.Unit()}, nil
+}
+
+func (g gcpSource) global() bool { return g.spec.Region != "" }

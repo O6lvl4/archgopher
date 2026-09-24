@@ -53,12 +53,16 @@ var allowed = map[string][]string{
 	"provider/azure/retailprices": {},
 	"provider/azure":              {"book", "catalog", "definition", "scouter", "terraform/eval", "terraform/infer"},
 
+	// Google Cloud provider: prices from the Billing Catalog.
+	"provider/gcp/billingcatalog": {},
+	"provider/gcp":                {"book", "catalog", "definition", "scouter", "terraform/eval", "terraform/infer"},
+
 	// The one place that lists the providers.
-	"cloud": {"book", "pattern", "scouter", "terraform/infer", "provider/aws", "provider/aws/pattern", "provider/azure"},
+	"cloud": {"book", "pattern", "scouter", "terraform/infer", "provider/aws", "provider/aws/pattern", "provider/azure", "provider/gcp"},
 
 	// Edges of the system.
 	"api":            {"book", "cloud", "engine", "field", "model", "pattern", "scouter", "terraform/eval", "terraform/infer", "terraform/merge"},
-	"cmd/archgopher": {"api", "book", "cloud", "model", "report", "provider/aws/pricelist", "provider/azure/retailprices", "terraform/eval", "terraform/infer", "terraform/merge"},
+	"cmd/archgopher": {"api", "book", "cloud", "model", "report", "provider/aws/pricelist", "provider/azure/retailprices", "provider/gcp/billingcatalog", "terraform/eval", "terraform/infer", "terraform/merge"},
 	"cmd/wasm":       {"api"},
 }
 

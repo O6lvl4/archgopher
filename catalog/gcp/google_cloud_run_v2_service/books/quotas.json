@@ -1,0 +1,13 @@
+{
+  "gcp.cloudrun.max_instances": {
+    "unit": "instances",
+    "source": "https://cloud.google.com/run/quotas",
+    "note": "Default maximum instances per service when max_instance_count is unset",
+    "values": {
+      "*": {
+        "value": 100,
+        "verified": false
+      }
+    }
+  }
+}

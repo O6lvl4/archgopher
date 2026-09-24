@@ -21,3 +21,11 @@ var Azure embed.FS
 
 // AzureRoot is the directory of the Azure catalog inside Azure.
 const AzureRoot = "azure"
+
+// GCP is the Google Cloud catalog.
+//
+//go:embed gcp
+var GCP embed.FS
+
+// GCPRoot is the directory of the Google Cloud catalog inside GCP.
+const GCPRoot = "gcp"
