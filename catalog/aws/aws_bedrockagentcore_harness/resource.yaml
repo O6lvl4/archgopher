@@ -1,0 +1,35 @@
+type: aws_bedrockagentcore_harness
+label: AgentCore Harness
+category: AI
+description: "A managed agent loop on a managed Runtime: session compute at Runtime prices, under Runtime quotas. Model tokens are read by the model node it calls; managed memory is billed as AgentCore Memory."
+kinds: [session]
+sla: aws.agentcore
+attributes:
+  - { key: managed_memory, label: Managed memory, type: boolean, default: false, path: memory.managed_memory_configuration, hint: "Written in Terraform when the memory block uses managed memory" }
+assumptions:
+  - { key: platformVersion, label: Platform version, type: choice, options: [V1, V2], default: V1, hint: "The Runtime platform the harness runs on; V2 costs more per hour" }
+  - { key: callsPerSession, label: Invocations per session, type: number, default: 1, hint: "InvokeHarness calls, such as the turns of a conversation" }
+includes: [session, logs]
+let:
+  - version: 'platformVersion == "V2" ? "v2." : ""'
+readings:
+  - session:
+      count: total.monthly
+      peak: total.peak
+      sessionSeconds: sessionSeconds
+      activeVcpuSeconds: activeVcpuSeconds
+      memoryGb: peakMemoryGb
+      vcpuPrice: "aws.agentcore.runtime.{version}vcpu_hour"
+      memoryPrice: "aws.agentcore.runtime.{version}gb_hour"
+      concurrentQuota: aws.agentcore.runtime.active_sessions
+  - rate: { name: Session creation, unit: requests/second, quota: aws.agentcore.runtime.session_rate, peak: total.peak }
+  - rate: { name: Data-plane calls, unit: requests/second, quota: aws.agentcore.runtime.dataplane_rps, peak: total.peak * callsPerSession }
+  - limit: { name: Memory per session, demand: peakMemoryGb, unit: GB, quota: aws.agentcore.runtime.memory_per_session_gb }
+  - limit: { name: Session length, demand: sessionSeconds, unit: seconds, quota: aws.agentcore.runtime.max_session_seconds }
+  - logs: { count: total.monthly, kb: logKbPerCall, retentionDays: logRetentionDays, ingest: aws.logs.ingest, storage: aws.logs.storage }
+  - fail: { when: managed_memory, message: "managed memory is billed as AgentCore Memory: add a Memory node and connect this harness to it", continue: true }
+terraform:
+  frontDoor: true
+  ignoreRefs: [environment, environment_artifact, authorizer_configuration, tool, skill]
+iam:
+  session: ["bedrock-agentcore:InvokeHarness"]

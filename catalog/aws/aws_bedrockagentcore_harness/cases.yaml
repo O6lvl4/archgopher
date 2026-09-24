@@ -1,0 +1,46 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 5-minute conversations on V1
+  region: us-east-1
+  assumptions:
+    sessionSeconds: 300
+    activeVcpuSeconds: 30
+    peakMemoryGb: 1
+    callsPerSession: 3
+  demand:
+    session:
+      monthly: 10000
+      peak: 0.1
+  costs:
+    Active CPU: 7.458333333
+    Memory: 7.875
+  limits:
+    Concurrent sessions: 30
+    Session creation: 0.1
+    Data-plane calls: 0.3
+    Memory per session: 1
+    Session length: 300
+- name: managed memory asks for a Memory node
+  region: us-east-1
+  attributes:
+    managed_memory: true
+  assumptions:
+    sessionSeconds: 300
+    activeVcpuSeconds: 30
+    peakMemoryGb: 1
+    callsPerSession: 3
+  demand:
+    session:
+      monthly: 10000
+      peak: 0.1
+  costs:
+    Active CPU: 7.458333333
+    Memory: 7.875
+  limits:
+    Concurrent sessions: 30
+    Session creation: 0.1
+    Data-plane calls: 0.3
+    Memory per session: 1
+    Session length: 300
+  error: 'managed memory is billed as AgentCore Memory: add a Memory node and connect
+    this harness to it'

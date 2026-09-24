@@ -1,0 +1,21 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: authorizing a million tool calls
+  region: us-east-1
+  demand:
+    authorize:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Authorization requests: 25.0
+- name: with natural-language policy generation
+  region: us-east-1
+  assumptions:
+    generationTokensPerMonth: 200000
+  demand:
+    authorize:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Authorization requests: 25.0
+    Policy generation tokens: 26.0

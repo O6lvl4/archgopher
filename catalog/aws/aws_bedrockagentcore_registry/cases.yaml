@@ -1,0 +1,15 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 20,000 records and 2 million searches
+  region: us-east-1
+  assumptions:
+    records: 20000
+  demand:
+    search:
+      monthly: 2000000.0
+      peak: 5
+  costs:
+    Records stored: 8.0
+    Search API: 40.0
+  limits:
+    Search rate: 5

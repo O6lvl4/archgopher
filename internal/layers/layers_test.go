@@ -35,7 +35,7 @@ var allowed = map[string][]string{
 	// Terraform adapter: read, evaluate, infer, merge. No provider knowledge.
 	"terraform/config": {},
 	"terraform/eval":   {"terraform/config"},
-	"terraform/infer":  {"model", "scouter", "terraform/eval"},
+	"terraform/infer":  {"field", "model", "scouter", "terraform/eval"},
 	"terraform/merge":  {"model"},
 
 	// AWS provider: resources are data in catalog/aws; the provider adds IAM,

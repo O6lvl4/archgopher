@@ -193,6 +193,9 @@ the demand and says the capacity is unknown.
 | `aws_cloudwatch_event_rule` | Nothing (scheduled rules are free) | - |
 | `bedrock_model` | Input, output, cache read and cache write tokens (Claude 4.5 models), global or regional inference | Tokens per minute (output × burndown, cache reads excluded) and requests per minute |
 | `aws_bedrockagentcore_agent_runtime` | Active vCPU-hours and peak-memory GB-hours per session (platform V1 or V2), logs | Concurrent sessions, session creation rate, data-plane calls, session length |
+| `aws_bedrockagentcore_harness` | Session compute at Runtime prices, logs; managed memory asks for a Memory node | Runtime quotas: concurrent sessions, session creation, data-plane calls, session length |
+| `aws_bedrockagentcore_policy_engine` | Authorization requests for the tool calls of its gateways, policy generation tokens | - |
+| `aws_bedrockagentcore_registry` | Records stored, search calls | Search calls per second |
 | `aws_bedrockagentcore_memory` | Short-term events, long-term records stored (built-in or custom strategy), retrievals | CreateEvent and retrieval rates, extraction tokens per minute |
 | `aws_bedrockagentcore_gateway` | API invocations, search, tool indexing, VPC data processing | Tool calls and search calls per second |
 | `aws_bedrockagentcore_code_interpreter` / `aws_bedrockagentcore_browser` | Session vCPU-hours and memory GB-hours | Concurrent sessions, session starts, invocations, session length |

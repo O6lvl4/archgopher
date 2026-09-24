@@ -6,6 +6,7 @@ package infer
 
 import (
 	"fmt"
+	"github.com/O6lvl4/archgopher/field"
 	"path/filepath"
 	"sort"
 	"strings"
@@ -172,6 +173,9 @@ func (b *builder) node(r *eval.Resource) model.Node {
 		for _, f := range s.Attributes() {
 			if v := lookupPath(r.Attrs, f.TerraformPath()); v != nil {
 				n.Attributes[f.Key] = v
+			} else if f.Type == field.Flag && hasBlock(r.Attrs, f.TerraformPath()) {
+				// A boolean that points at a block reads whether the block is written.
+				n.Attributes[f.Key] = true
 			}
 		}
 		for _, f := range s.Assumptions() {
@@ -429,6 +433,49 @@ func lookupPath(m map[string]any, path string) any {
 		}
 	}
 	return cur
+}
+
+// hasBlock reports whether "a.b" names a block that is written, even empty.
+func hasBlock(m map[string]any, path string) bool {
+	parts := strings.Split(path, ".")
+	parent, last := m, parts[len(parts)-1]
+	if len(parts) > 1 {
+		p, ok := lookupBlock(m, strings.Join(parts[:len(parts)-1], "."))
+		if !ok {
+			return false
+		}
+		parent = p
+	}
+	switch v := parent[last].(type) {
+	case []any:
+		return len(v) > 0
+	case map[string]any:
+		return true
+	}
+	return false
+}
+
+// lookupBlock walks "a.b" through blocks and returns the first instance.
+func lookupBlock(m map[string]any, path string) (map[string]any, bool) {
+	cur := m
+	for _, part := range strings.Split(path, ".") {
+		switch v := cur[part].(type) {
+		case []any:
+			if len(v) == 0 {
+				return nil, false
+			}
+			next, ok := v[0].(map[string]any)
+			if !ok {
+				return nil, false
+			}
+			cur = next
+		case map[string]any:
+			cur = v
+		default:
+			return nil, false
+		}
+	}
+	return cur, true
 }
 
 func sortedPaths(m map[string][]string) []string {

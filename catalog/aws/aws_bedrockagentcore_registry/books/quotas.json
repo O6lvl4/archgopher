@@ -1,0 +1,13 @@
+{
+  "aws.agentcore.registry.search_rps": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/bedrock-agentcore-limits.html",
+    "note": "Listed as the SearchDiscoverableRegistryRecords API rate; assumed to cover SearchRegistryRecords. Adjustable",
+    "values": {
+      "*": {
+        "value": 10,
+        "verified": false
+      }
+    }
+  }
+}

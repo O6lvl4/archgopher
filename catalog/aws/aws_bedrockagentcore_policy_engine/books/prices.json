@@ -1,0 +1,27 @@
+{
+  "aws.agentcore.policy.authorization": {
+    "unit": "request",
+    "source": "https://aws.amazon.com/bedrock/agentcore/pricing/",
+    "note": "$0.000025 per authorization request. From the pricing page; not in the Price List, so sync cannot check it and regional prices are not published",
+    "values": {
+      "*": {
+        "value": 0.000025,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.agentcore.policy.input_tokens": {
+    "unit": "token",
+    "per": 1000,
+    "source": "https://aws.amazon.com/bedrock/agentcore/pricing/",
+    "note": "Input tokens processed, $0.13 per 1,000; read here as natural-language policy generation. From the pricing page; not in the Price List, so sync cannot check it and regional prices are not published",
+    "values": {
+      "*": {
+        "value": 0.13,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

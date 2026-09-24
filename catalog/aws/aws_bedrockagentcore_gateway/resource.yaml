@@ -23,6 +23,6 @@ terraform:
     - type: aws_bedrockagentcore_gateway_target
       from: gateway_identifier
       to: [target_configuration.mcp.lambda.lambda_arn, target_configuration.http.agentcore_runtime.arn, target_configuration.mcp.api_gateway.rest_api_id]
-  ignoreRefs: [authorizer_configuration, policy_engine_configuration]
+  ignoreRefs: [authorizer_configuration]
 iam:
   tool_call: ["bedrock-agentcore:InvokeGateway"]

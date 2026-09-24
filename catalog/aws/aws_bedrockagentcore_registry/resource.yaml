@@ -1,0 +1,16 @@
+type: aws_bedrockagentcore_registry
+label: Agent Registry
+category: AI
+description: "Records stored and search calls. The monthly free tier (5,000 records and 1,000,000 searches per account) is ignored, as for every resource."
+kinds: [search]
+sla: aws.agentcore
+assumptions:
+  - { key: records, label: Registry records, type: number, unit: records }
+readings:
+  - cost: { name: Records stored, quantity: records, unit: record-month, price: aws.agentcore.registry.records }
+  - cost: { name: Search API, quantity: total.monthly, unit: request, price: aws.agentcore.registry.search }
+  - rate: { name: Search rate, unit: requests/second, quota: aws.agentcore.registry.search_rps, peak: total.peak }
+terraform:
+  ignoreRefs: [authorizer_configuration]
+iam:
+  search: ["bedrock-agentcore:SearchRegistryRecords"]

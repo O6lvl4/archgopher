@@ -1,0 +1,14 @@
+type: aws_bedrockagentcore_policy_engine
+label: AgentCore Policy
+category: AI
+description: "Authorization requests for every tool call of the gateways that use it, and input tokens processed when policies are generated from natural language."
+kinds: [authorize]
+sla: aws.agentcore
+assumptions:
+  - { key: generationTokensPerMonth, label: Policy generation tokens per month, type: number, unit: tokens, default: 0, hint: "Natural-language policy authoring; 0 when Cedar is written by hand" }
+readings:
+  - cost: { name: Authorization requests, quantity: total.monthly, unit: request, price: aws.agentcore.policy.authorization }
+  - cost: { when: generationTokensPerMonth > 0, name: Policy generation tokens, quantity: generationTokensPerMonth, unit: token, price: aws.agentcore.policy.input_tokens }
+terraform:
+  aliases: { aws_bedrockagentcore_policy: policy_engine_id }
+  ignoreRefs: [encryption_key_arn]

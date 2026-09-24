@@ -1,0 +1,28 @@
+{
+  "aws.agentcore.registry.records": {
+    "unit": "record-month",
+    "per": 1000,
+    "source": "https://aws.amazon.com/bedrock/agentcore/pricing/",
+    "note": "$0.40 per 1,000 records a month after the first 5,000 free. From the pricing page; not in the Price List, so sync cannot check it and regional prices are not published",
+    "values": {
+      "*": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.agentcore.registry.search": {
+    "unit": "request",
+    "per": 1000,
+    "source": "https://aws.amazon.com/bedrock/agentcore/pricing/",
+    "note": "$0.020 per 1,000 search calls after the first 1,000,000 free. From the pricing page; not in the Price List, so sync cannot check it and regional prices are not published",
+    "values": {
+      "*": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}
