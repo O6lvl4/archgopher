@@ -1,4 +1,9 @@
-# archgopher
+<h1 align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logo-dark.png">
+    <img src="assets/logo.png" alt="archgopher" width="280">
+  </picture>
+</h1>
 
 Read an architecture before you build it. archgopher turns Terraform into a
 graph of resources, pushes your expected load through it, and reads every node

@@ -1,4 +1,9 @@
-# archgopher
+<h1 align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logo-dark.png">
+    <img src="assets/logo.png" alt="archgopher" width="280">
+  </picture>
+</h1>
 
 作る前に構成を読むためのツールです。Terraform を資源のグラフにし、想定する負荷を入口から流して、
 ノードごとに4つの次元を読みます。
