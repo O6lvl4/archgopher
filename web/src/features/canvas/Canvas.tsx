@@ -1,4 +1,4 @@
-import { Background, Controls, MiniMap, Panel, ReactFlow, applyNodeChanges, type Connection, type EdgeChange, type NodeChange } from "@xyflow/react";
+import { Background, Controls, MiniMap, Panel, ReactFlow, applyNodeChanges, useReactFlow, type Connection, type EdgeChange, type NodeChange } from "@xyflow/react";
 import { useEffect, useMemo, useState, type Dispatch } from "react";
 import { groupOfFrame, toFlowEdges, toFlowNodes, toFrames, type CardNode, type FlowNode } from "../../lib/flow";
 import type { Rect } from "../../lib/frames";
@@ -53,6 +53,29 @@ function frameRect(n: FlowNode): Rect {
   return { x: n.position.x, y: n.position.y, width: n.width ?? n.measured?.width ?? 0, height: n.height ?? n.measured?.height ?? 0 };
 }
 
+/** Delete or Backspace removes the selected frame (its cards stay), unless typing in a field. */
+function useDeleteGroup(group: string | undefined, dispatch: Dispatch<Action>) {
+  useEffect(() => {
+    if (!group) return;
+    const onKey = (e: KeyboardEvent) => {
+      const typing = e.target instanceof HTMLElement && e.target.closest("input, textarea, select, [contenteditable]");
+      if ((e.key === "Delete" || e.key === "Backspace") && !typing) dispatch({ type: "removeGroup", id: group });
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [group, dispatch]);
+}
+
+/** The graph is laid out again when its shape changes; bring all of it into view then. */
+function useFitOnReshape(spec: Spec) {
+  const flow = useReactFlow();
+  const shape = `${spec.nodes.map((n) => `${n.id}@${n.group ?? ""}`).join()}|${spec.edges.map((e) => `${e.from}>${e.to}`).join()}|${(spec.groups ?? []).map((g) => g.id).join()}`;
+  useEffect(() => {
+    const t = window.setTimeout(() => void flow.fitView({ padding: 0.08, maxZoom: 1, duration: 300 }), 50);
+    return () => window.clearTimeout(t);
+  }, [shape, flow]);
+}
+
 export function Canvas({ spec, result, catalog, selection, dispatch, onSelect, onNotice }: Props) {
   const [nodes, setNodes] = useState<FlowNode[]>([]);
   const selectedNode = selection?.kind === "node" ? selection.id : undefined;
@@ -66,6 +89,8 @@ export function Canvas({ spec, result, catalog, selection, dispatch, onSelect, o
     ]);
   }, [spec, result, catalog, selectedNode, selectedGroup, dispatch]);
   const edges = useMemo(() => toFlowEdges(spec, result, selectedEdge), [spec, result, selectedEdge]);
+  useDeleteGroup(selectedGroup, dispatch);
+  useFitOnReshape(spec);
 
   const onNodesChange = (changes: NodeChange<FlowNode>[]) => {
     setNodes((ns) => applyNodeChanges([...changes, ...followFrames(changes, ns, spec)], ns));
@@ -109,6 +134,7 @@ export function Canvas({ spec, result, catalog, selection, dispatch, onSelect, o
       onPaneClick={() => onSelect(undefined)}
       onNodeDragStop={(_, __, dragged) => onDragStop(dragged)}
       deleteKeyCode={["Backspace", "Delete"]}
+      elevateNodesOnSelect={false}
       colorMode="system"
       fitView
       fitViewOptions={{ padding: 0.08, maxZoom: 1 }}

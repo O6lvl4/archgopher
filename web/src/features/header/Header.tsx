@@ -9,7 +9,6 @@ export interface HeaderActions {
   onOpen: (file: File) => void;
   onSave: () => void;
   onTerraform: () => void;
-  onLayout: () => void;
 }
 
 function counts(result: Result | undefined) {
@@ -55,7 +54,6 @@ export function Header({ result, actions }: { result: Result | undefined; action
         <button onClick={actions.onTerraform}>Import Terraform</button>
         <FileButton onOpen={actions.onOpen} />
         <button onClick={actions.onSave}>Save YAML</button>
-        <button onClick={actions.onLayout}>Tidy</button>
         <select className="button" value="" aria-label="Open an example" onChange={(e) => e.target.value && actions.onExample(e.target.value)}>
           <option value="">Examples…</option>
           {exampleNames.map((n) => (

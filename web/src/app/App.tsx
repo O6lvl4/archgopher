@@ -9,7 +9,7 @@ import { TerraformDialog, type ImportRequest } from "../features/terraform/Terra
 import { download, slug } from "../lib/download";
 import { engine } from "../lib/engine";
 import { examples } from "../lib/examples";
-import { autoLayout, freeSpot, NODE_HEIGHT, NODE_WIDTH } from "../lib/layout";
+import { freeSpot, NODE_HEIGHT, NODE_WIDTH } from "../lib/layout";
 import { NEW_FRAME } from "../lib/frames";
 import { freshGroupId, freshId, type Selection } from "../lib/state";
 import type { CatalogEntry } from "../lib/types";
@@ -87,10 +87,6 @@ export function App() {
     },
     onSave: () => replace(() => download(`${slug(ws.spec.name)}.scouter.yaml`, engine.toYaml(ws.spec))),
     onTerraform: () => setImporting(true),
-    onLayout: () => {
-      ws.dispatch({ type: "layout", positions: autoLayout(ws.spec) });
-      ws.setGeneration((g) => g + 1);
-    },
   };
 
   if (ws.fatal) return <p className="fatal">The engine did not load: {ws.fatal}</p>;

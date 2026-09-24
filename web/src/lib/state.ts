@@ -1,4 +1,5 @@
 import { assign, framed, type Rect } from "./frames";
+import { autoLayout } from "./layout";
 import type { Position, Spec, SpecEdge, SpecGroup, SpecNode, Values } from "./types";
 
 /** What the user has selected on the canvas. */
@@ -15,7 +16,6 @@ export type Action =
   | { type: "removeNode"; id: string }
   | { type: "move"; positions: Record<string, Position> }
   | { type: "drop"; positions: Record<string, Position> }
-  | { type: "layout"; positions: Record<string, Position> }
   | { type: "addEdge"; edge: SpecEdge }
   | { type: "updateEdge"; index: number; patch: Partial<SpecEdge> }
   | { type: "removeEdge"; index: number }
@@ -49,8 +49,7 @@ type Handlers = { [K in Action["type"]]: (spec: Spec, a: Extract<Action, { type:
 const handlers: Handlers = {
   load: (_, a) => ({ ...a.spec, nodes: a.spec.nodes ?? [], edges: a.spec.edges ?? [] }),
   meta: (spec, a) => ({ ...spec, name: a.name ?? spec.name, region: a.region ?? spec.region }),
-  // A card placed inside a frame joins it.
-  addNode: (spec, a) => assign({ ...spec, nodes: [...spec.nodes, a.node] }, [a.node.id]),
+  addNode: (spec, a) => ({ ...spec, nodes: [...spec.nodes, a.node] }),
   updateNode: (spec, a) => mapNode(spec, a.id, (n) => ({ ...n, ...a.patch })),
   renameNode: (spec, a) => rename(spec, a.id, a.to),
   removeNode: (spec, a) => ({
@@ -65,7 +64,6 @@ const handlers: Handlers = {
   updateGroup: (spec, a) => ({ ...spec, groups: (spec.groups ?? []).map((g) => (g.id === a.id ? { ...g, ...a.patch } : g)) }),
   // A dropped card joins the frame its center is in, or leaves the one it was in.
   drop: (spec, a) => assign(move(spec, a.positions), Object.keys(a.positions)),
-  layout: (spec, a) => framed(move(spec, a.positions), true),
   addGroup: (spec, a) => ({ ...spec, groups: [...(spec.groups ?? []), a.group] }),
   removeGroup: (spec, a) => ({
     ...spec,
@@ -83,9 +81,31 @@ const handlers: Handlers = {
   },
 };
 
+/** Lays everything out again: cards by dagre, frames fitted around their cards, empty frames given room. */
+export function tidy(spec: Spec): Spec {
+  const layout = autoLayout(spec);
+  const laid = framed(move(spec, layout), true);
+  return {
+    ...laid,
+    groups: laid.groups?.map((g) => {
+      const p = layout[`group:${g.id}`];
+      return p ? { ...g, position: p } : g;
+    }),
+  };
+}
+
+// Changes to the shape of the graph lay it out again; edits to numbers and
+// small moves of a card do not.
+const reshapes = new Set<Action["type"]>(["addNode", "removeNode", "addEdge", "removeEdge", "addGroup", "removeGroup"]);
+const regroups = new Set<Action["type"]>(["drop", "frame", "updateNode"]);
+const grouping = (s: Spec) => s.nodes.map((n) => `${n.id}@${n.group ?? ""}`).join("|");
+
 export function reducer(spec: Spec, a: Action): Spec {
   const handle = handlers[a.type] as (spec: Spec, a: Action) => Spec;
-  return handle(spec, a);
+  const next = handle(spec, a);
+  if (next === spec) return next;
+  const regrouped = regroups.has(a.type) && grouping(next) !== grouping(spec);
+  return reshapes.has(a.type) || regrouped ? tidy(next) : next;
 }
 
 /** Returns values with key set, or removed when v is undefined. */

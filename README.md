@@ -81,9 +81,13 @@ terms.
 Frames are drawn from the catalog too: pick VPC (or VNet, VPC network) under
 Network and an empty frame appears. Drop a card inside it to put the node in
 the VPC, drag it out to take it out. The frame's label drags it with its
-cards, its corners resize it when selected, and clicking the label opens its
-zones and the traffic it reads. Frames imported from Terraform start around
-their cards; Tidy fits them again.
+cards, its corners resize it when selected, Delete removes it (its cards
+stay), and clicking the label opens its zones and the traffic it reads.
+
+The canvas lays itself out: adding or removing a node, an edge or a frame, or
+moving a card into or out of a frame, lays the graph out again left to right
+with each frame's cards together and the frame fitted around them. Editing
+numbers or nudging a card leaves the layout alone.
 
 ## The declaration
 

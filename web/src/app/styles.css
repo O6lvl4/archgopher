@@ -12,6 +12,7 @@
   --bad: #c42b1c;
   --bad-soft: #fdecea;
   --warn-soft: #fdf3e3;
+  --edge: #8a94a6;
   --prov-aws: #232f3e;
   --prov-azure: #0078d4;
   --prov-gcp: linear-gradient(90deg, #4285f4 0 25%, #ea4335 25% 50%, #fbbc04 50% 75%, #34a853 75%);
@@ -39,6 +40,7 @@
     --bad: #f87171;
     --bad-soft: #3a1d1d;
     --warn-soft: #3a2e14;
+    --edge: #6b7486;
     --prov-aws: #8b98a9;
     --prov-azure: #3a96dd;
     --prov-gcp: linear-gradient(90deg, #8ab4f8 0 25%, #f28b82 25% 50%, #fdd663 50% 75%, #81c995 75%);
@@ -136,7 +138,8 @@ button.link:hover { text-decoration: underline; background: none; }
 .empty-hint { color: var(--muted); font-size: 14px; margin-top: 30vh; text-align: center; max-width: calc(100% - 32px); }
 .react-flow__edge-textbg { fill: var(--surface); }
 .react-flow__edge-text { fill: var(--muted); font-size: 11px; }
-.react-flow__edge.selected .react-flow__edge-path { stroke: var(--accent); stroke-width: 2; }
+.react-flow .react-flow__edge-path { stroke: var(--edge); stroke-width: 2; }
+.react-flow .react-flow__edge.selected .react-flow__edge-path { stroke: var(--accent); stroke-width: 3; }
 .toast {
   position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%);
   background: var(--text); color: var(--bg); padding: 8px 14px; border-radius: 8px; box-shadow: var(--shadow); max-width: 80%;
