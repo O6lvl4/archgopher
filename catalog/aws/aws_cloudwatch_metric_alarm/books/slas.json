@@ -1,0 +1,14 @@
+{
+  "aws.cloudwatch": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/cloudwatch/sla/",
+    "note": "Per function (metrics, logs ingestion, alarms) per region",
+    "values": {
+      "*": {
+        "value": 0.999,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

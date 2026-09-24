@@ -1,0 +1,40 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: content, topics and PII on 2,500-character assessments (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    content: true
+    topics: true
+    pii: true
+  assumptions:
+    charactersPerCall: 2500
+  demand:
+    apply:
+      monthly: 100000
+      peak: 2
+  costs:
+    Content filter text units: 45.0
+    Denied topic text units: 45.0
+    PII filter text units: 30.0
+  limits:
+    ApplyGuardrail requests: 2
+    Content filter text units: 6
+    Denied topic text units: 6
+    Sensitive information text units: 6
+- name: grounding and free word filters (us-east-1)
+  region: us-east-1
+  attributes:
+    grounding: true
+    words: true
+  assumptions:
+    charactersPerCall: 1000
+  demand:
+    apply:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Contextual grounding text units: 100.0
+  limits:
+    ApplyGuardrail requests: 10
+    Word filter text units: 10
+    Contextual grounding text units: 10

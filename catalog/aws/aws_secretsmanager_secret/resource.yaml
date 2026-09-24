@@ -1,0 +1,17 @@
+type: aws_secretsmanager_secret
+label: Secrets Manager secret
+category: Security
+description: "Secret-months and API calls per 10,000. Headroom is the GetSecretValue rate. Each replica region is billed as another secret."
+kinds: [read]
+sla: aws.secretsmanager
+assumptions:
+  - { key: replicas, label: Replica regions, type: number, default: 0, hint: "Each replica is billed as a secret" }
+readings:
+  - cost: { name: Secrets, quantity: 1 + replicas, unit: secret-month, price: aws.secretsmanager.secret }
+  - requests: { name: API calls, price: aws.secretsmanager.api, count: total.monthly }
+  - rate: { name: GetSecretValue rate, unit: requests/second, quota: aws.secretsmanager.get_secret_value_rps, peak: total.peak }
+terraform:
+  aliases: { aws_secretsmanager_secret_version: secret_id, aws_secretsmanager_secret_rotation: secret_id, aws_secretsmanager_secret_policy: secret_arn }
+  ignoreRefs: [kms_key_id]
+iam:
+  read: ["secretsmanager:GetSecretValue"]

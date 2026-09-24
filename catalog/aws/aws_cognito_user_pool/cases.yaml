@@ -1,0 +1,47 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Essentials, 50,000 users
+  region: us-east-1
+  assumptions:
+    monthlyActiveUsers: 50000
+  demand:
+    sign_in:
+      monthly: 400000
+      peak: 10
+  costs:
+    Monthly active users: 750.0
+  limits:
+    Sign-in requests: 20
+- name: Lite across three volume tiers, with sign-ups
+  region: us-east-1
+  attributes:
+    user_pool_tier: LITE
+  assumptions:
+    monthlyActiveUsers: 1200000
+    signUpShare: 0.1
+  demand:
+    sign_in:
+      monthly: 5000000
+      peak: 10
+  costs:
+    Monthly active users (first 90,000): 495.0
+    Monthly active users (next 900,000): 4140.0
+    Monthly active users (next 9,000,000): 682.5
+  limits:
+    Sign-in requests: 20
+    Sign-up requests: 2
+- name: Plus in Tokyo
+  region: ap-northeast-1
+  attributes:
+    user_pool_tier: PLUS
+  assumptions:
+    monthlyActiveUsers: 20000
+    authRequestsPerSignIn: 3
+  demand:
+    sign_in:
+      monthly: 100000
+      peak: 2
+  costs:
+    Monthly active users: 400.0
+  limits:
+    Sign-in requests: 6

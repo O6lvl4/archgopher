@@ -1,0 +1,35 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: standard parameter is free
+  region: us-east-1
+  demand:
+    read:
+      monthly: 1000000.0
+      peak: 10
+  limits:
+    GetParameter rate: 10
+- name: advanced parameter
+  region: us-east-1
+  attributes:
+    tier: Advanced
+  demand:
+    read:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Advanced parameter: 0.0511
+    API interactions (advanced): 5.0
+  limits:
+    GetParameter rate: 10
+- name: higher throughput
+  region: us-east-1
+  assumptions:
+    highThroughput: true
+  demand:
+    read:
+      monthly: 1000000.0
+      peak: 100
+  costs:
+    API interactions (higher throughput): 5.0
+  limits:
+    GetParameter rate: 100

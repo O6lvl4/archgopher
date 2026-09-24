@@ -1,0 +1,26 @@
+{
+  "aws.ecr.batch_get_image_rps": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/general/latest/gr/ecr.html",
+    "note": "Once per image pull, per account and region. Adjustable",
+    "values": {
+      "*": {
+        "value": 2000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.ecr.layer_url_rps": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/general/latest/gr/ecr.html",
+    "note": "Once per layer not already cached, per account and region. Adjustable",
+    "values": {
+      "*": {
+        "value": 3000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

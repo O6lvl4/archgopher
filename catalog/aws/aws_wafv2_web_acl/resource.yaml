@@ -1,0 +1,25 @@
+type: aws_wafv2_web_acl
+label: WAF web ACL
+category: Security
+description: "The web ACL and its rules by the month, and inspected requests priced by the capacity (WCU) the web ACL uses. CLOUDFRONT scope is priced in us-east-1. Bot Control, Fraud Control, CAPTCHA and body inspection over the default are extra and not read."
+kinds: [request]
+sla: aws.waf
+attributes:
+  - { key: scope, label: Scope, type: choice, options: [REGIONAL, CLOUDFRONT], default: REGIONAL }
+assumptions:
+  - { key: rules, label: Rules, type: number, default: 1, hint: "Rules and rule group references; Terraform rule blocks are not counted" }
+  - { key: capacityUnits, label: Capacity used, type: number, unit: WCU, default: 1500, hint: "Up to 1,500 WCU costs the base request price; each 500 above costs more per request" }
+let:
+  - s: 'scope == "CLOUDFRONT" ? "cloudfront" : "regional"'
+  - band: 'capacityUnits <= 1500 ? 1500.0 : ceilDiv(capacityUnits, 500) * 500'
+readings:
+  - cost: { name: Web ACL, quantity: 1, unit: web-ACL-month, price: "aws.waf.{s}.web_acl" }
+  - cost: { name: Rules, quantity: rules, unit: rule-month, price: "aws.waf.{s}.rule" }
+  - requests: { when: capacityUnits <= 5000, name: Inspected requests, price: "aws.waf.{s}.requests_{band}wcu", count: total.monthly }
+  - rate: { when: 'scope == "REGIONAL"', name: Requests per web ACL, unit: requests/second, quota: aws.waf.web_acl_rps, peak: total.peak }
+  - limit: { name: Capacity, demand: capacityUnits, unit: WCU, quota: aws.waf.web_acl_wcu }
+terraform:
+  # A regional association sends the protected resource's requests through the web ACL.
+  links:
+    - { type: aws_wafv2_web_acl_association, from: resource_arn, to: [web_acl_arn] }
+  ignoreRefs: [rule, default_action, visibility_config, custom_response_body, association_config, captcha_config, challenge_config, token_domains]

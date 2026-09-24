@@ -1,0 +1,10 @@
+type: aws_cloudfront_function
+label: CloudFront Function
+category: Edge
+description: "Invocations at the edge: one per viewer request or response of the cache behaviors it is associated with. Free tier is ignored."
+kinds: [request]
+sla: aws.cloudfront
+readings:
+  - requests: { name: Invocations, price: aws.cloudfront.function.invocations, unit: invocation, count: total.monthly }
+terraform:
+  ignoreRefs: [key_value_store_associations]

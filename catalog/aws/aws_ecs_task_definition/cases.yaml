@@ -1,0 +1,59 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 1 vCPU, 2 GB, 5-minute x86 runs
+  region: us-east-1
+  attributes:
+    requires_compatibilities:
+    - FARGATE
+    cpu: 1024
+    memory: 2048
+  assumptions:
+    taskSeconds: 300
+  demand:
+    run:
+      monthly: 10000
+      peak: 0.5
+  costs:
+    vCPU (x86_64): 33.733333333
+    Memory (x86_64): 7.408333333
+  limits:
+    vCPUs running: 150
+    Task launch rate: 0.5
+    RunTask calls: 0.5
+- name: 20-second ARM runs billed as a minute, with 50 GiB ephemeral storage
+  region: ap-northeast-1
+  attributes:
+    requires_compatibilities:
+    - FARGATE
+    cpu: '256'
+    memory: '512'
+    cpu_architecture: ARM64
+    ephemeral_storage: 50
+  assumptions:
+    taskSeconds: 20
+  demand:
+    run:
+      monthly: 30000
+      peak: 0.2
+  costs:
+    vCPU (arm64): 5.05625
+    Memory (arm64): 1.105
+    Ephemeral storage over 20 GB: 1.995
+  limits:
+    vCPUs running: 1
+    Task launch rate: 0.2
+    RunTask calls: 0.2
+- name: EC2 launch type is not read
+  region: us-east-1
+  attributes:
+    requires_compatibilities:
+    - EC2
+    cpu: 1024
+    memory: 2048
+  assumptions:
+    taskSeconds: 300
+  demand:
+    run:
+      monthly: 100
+      peak: 0.01
+  error: 'only Fargate tasks are read: requires_compatibilities has no FARGATE'

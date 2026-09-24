@@ -188,9 +188,20 @@ the demand and says the capacity is unknown.
 | `aws_sqs_queue` | Requests in 64 KB chunks | FIFO send rate, by region in high throughput mode |
 | `aws_sns_topic` | Publishes in 64 KB chunks | Publish rate |
 | `aws_sfn_state_machine` | Transitions (standard), requests and GB-seconds (express) | StartExecution rate |
-| `aws_rds_cluster` | Aurora Serverless v2 ACU-hours, storage, I/O (Standard or I/O-Optimized) | Peak ACU against max capacity |
+| `aws_rds_cluster` | Aurora Serverless v2 ACU-hours, storage, I/O (Standard or I/O-Optimized), the managed master password secret | Peak ACU against max capacity |
 | `aws_scheduler_schedule` | Invocations | - |
 | `aws_cloudwatch_event_rule` | Nothing (scheduled rules are free) | - |
+| `aws_ecs_task_definition` | Fargate vCPU and GB hours per run (1-minute minimum, x86_64 or arm64), ephemeral storage above 20 GB | vCPUs running against the Fargate quota, task launch rate, RunTask calls |
+| `aws_ecr_repository` | Image storage | Image pulls and layer downloads per second |
+| `aws_kms_key` | Key-months with rotated versions, requests | Cryptographic requests per second (varies by region). References to a key are mentions: connect callers by hand |
+| `aws_secretsmanager_secret` | Secret-months with replicas, API calls | GetSecretValue rate |
+| `aws_ssm_parameter` | Advanced parameter-hours, API interactions (advanced or higher throughput) | GetParameter rate, standard or higher throughput |
+| `aws_cognito_user_pool` | Monthly active users by feature plan (Lite tiered, Essentials, Plus) | Authentication and user creation rates |
+| `aws_wafv2_web_acl` | Web ACL-months, rule-months, requests by inspection capacity | Requests per web ACL (regional) |
+| `aws_cloudfront_function` | Invocations | - |
+| `aws_vpc_endpoint` | Interface endpoint-hours per zone and data processed; Gateway endpoints are free | - |
+| `aws_cloudwatch_metric_alarm` | Alarm metric-months, standard or high resolution, anomaly detection | - |
+| `aws_bedrock_guardrail` | Text units per configured policy (content, topics, sensitive information, contextual grounding) | ApplyGuardrail and per-policy text units per second (varies by region) |
 | `bedrock_model` | Input, output, cache read and cache write tokens (Claude 4.5 models), global or regional inference | Tokens per minute (output × burndown, cache reads excluded) and requests per minute |
 | `aws_bedrockagentcore_agent_runtime` | Active vCPU-hours and peak-memory GB-hours per session (platform V1 or V2), logs | Concurrent sessions, session creation rate, data-plane calls, session length |
 | `aws_bedrockagentcore_harness` | Session compute at Runtime prices, logs; managed memory asks for a Memory node | Runtime quotas: concurrent sessions, session creation, data-plane calls, session length |

@@ -1,0 +1,14 @@
+{
+  "aws.privatelink": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/privatelink/sla/",
+    "note": "Multi-AZ PrivateLink; a single-AZ endpoint is 99.9%. Gateway endpoints are not PrivateLink and have no SLA of their own",
+    "values": {
+      "*": {
+        "value": 0.9999,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

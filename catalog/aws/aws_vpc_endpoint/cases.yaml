@@ -1,0 +1,37 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Gateway endpoints are free
+  region: us-east-1
+  demand: &id001
+    request:
+      monthly: 1000000.0
+      peak: 1
+- name: Interface in three subnets, 100 GB (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    vpc_endpoint_type: Interface
+    subnet_ids:
+    - a
+    - b
+    - c
+  assumptions:
+    gbPerMonth: 100
+  demand: *id001
+  costs:
+    Endpoint hours: 30.66
+    Data processed: 1.0
+- name: Interface with unknown subnets uses two zones (us-east-1)
+  region: us-east-1
+  attributes:
+    vpc_endpoint_type: Interface
+  demand: *id001
+  costs:
+    Endpoint hours: 14.6
+    Data processed: 0
+- name: Gateway Load Balancer endpoints are not priced
+  region: us-east-1
+  attributes:
+    vpc_endpoint_type: GatewayLoadBalancer
+  demand: *id001
+  error: 'GatewayLoadBalancer endpoints are not priced yet: only Gateway and Interface
+    endpoints are'

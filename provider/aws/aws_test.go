@@ -44,9 +44,10 @@ func sample(fields []field.Field, over map[string]any) map[string]any {
 
 // attrs makes each scouter take its main code path.
 var attrs = map[string]map[string]any{
-	"aws_rds_cluster":       {"max_capacity": 16.0, "min_capacity": 0.5},
-	"aws_dynamodb_table":    {"billing_mode": "PAY_PER_REQUEST"},
-	"aws_sfn_state_machine": {"type": "STANDARD"},
+	"aws_rds_cluster":         {"max_capacity": 16.0, "min_capacity": 0.5},
+	"aws_dynamodb_table":      {"billing_mode": "PAY_PER_REQUEST"},
+	"aws_sfn_state_machine":   {"type": "STANDARD"},
+	"aws_ecs_task_definition": {"cpu": 256.0, "memory": 512.0},
 }
 
 var assume = map[string]map[string]any{

@@ -1,0 +1,23 @@
+{
+  "aws.cloudfront.function.invocations": {
+    "unit": "invocation",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/cloudfront/pricing/",
+    "note": "CloudFront Functions executions, paid tier (the free first 2,000,000 are ignored)",
+    "sync": {
+      "service": "AmazonCloudFront",
+      "offerRegion": "aws-other",
+      "filters": {
+        "usagetype": "Executions-CloudFrontFunctions"
+      },
+      "tier": "2000000"
+    },
+    "values": {
+      "*": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

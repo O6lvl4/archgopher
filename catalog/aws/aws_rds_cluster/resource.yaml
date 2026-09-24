@@ -8,6 +8,7 @@ attributes:
   - { key: storage_type, label: Storage type, type: choice, options: ["", aurora, aurora-iopt1], default: "", hint: "aurora-iopt1 (I/O-Optimized) has no I/O charge" }
   - { key: min_capacity, label: Min ACU, type: number, optional: true, path: serverlessv2_scaling_configuration.min_capacity }
   - { key: max_capacity, label: Max ACU, type: number, optional: true, path: serverlessv2_scaling_configuration.max_capacity }
+  - { key: manage_master_user_password, label: Master password in Secrets Manager, type: boolean, default: false, hint: "RDS creates and rotates a Secrets Manager secret, billed as one" }
 assumptions:
   - { key: averageAcu, label: Average ACU, type: number, hint: "Billed capacity averaged over the month" }
   - { key: peakAcu, label: Peak ACU, type: number, optional: true, hint: "Compared with max capacity" }
@@ -22,6 +23,7 @@ readings:
   - storage: { name: Storage, gb: storageGb, price: 'aws.aurora.{iopt ? "iopt.storage" : "storage"}' }
   - fail: { when: "!iopt && ioPerQuery == nil", message: ioPerQuery is required for standard storage, continue: true }
   - cost: { when: "!iopt && ioPerQuery != nil", name: I/O, quantity: "total.monthly * (ioPerQuery ?? 0)", unit: I/O request, price: aws.aurora.io }
+  - cost: { when: manage_master_user_password, name: Master password secret, quantity: 1, unit: secret-month, price: aws.secretsmanager.secret }
   - limit: { when: peakAcu != nil, name: ACU, demand: "peakAcu ?? 0", unit: ACU, capacity: max_capacity }
 iam:
   query: ["rds-data:ExecuteStatement", "rds-data:BatchExecuteStatement", "rds-db:connect"]

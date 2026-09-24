@@ -1,0 +1,10 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: viewer-request function
+  region: eu-west-1
+  demand:
+    request:
+      monthly: 30000000.0
+      peak: 50
+  costs:
+    Invocations: 3.0

@@ -1,0 +1,19 @@
+type: aws_cloudwatch_metric_alarm
+label: CloudWatch alarm
+category: Monitoring
+description: "A fixed monthly cost per metric the alarm evaluates: standard resolution for periods of 60 s or more, high resolution below. Anomaly detection alarms count 3 metrics each. Load does not flow through an alarm."
+kinds: [alarm]
+sla: aws.cloudwatch
+attributes:
+  - { key: period, label: Period, type: number, unit: s, optional: true, hint: "Unset when the alarm uses metric queries" }
+  - { key: threshold_metric_id, label: Anomaly band, type: string, optional: true, hint: "Set on anomaly detection alarms" }
+assumptions:
+  - { key: metrics, label: Metrics in the alarm, type: number, default: 1, hint: "Metric queries that read a metric; math expressions over them are free" }
+  - { key: highResolution, label: High resolution, type: boolean, default: false, hint: "Used when the period is not known from Terraform" }
+let:
+  - high: 'period != nil ? period < 60 : highResolution'
+  - billed: 'metrics * (threshold_metric_id != nil ? 3 : 1)'
+readings:
+  - cost: { name: 'Alarm metrics ({high ? "high" : "standard"} resolution)', quantity: billed, unit: alarm-metric-month, price: 'aws.cloudwatch.alarm.{high ? "high_resolution" : "standard"}' }
+terraform:
+  ignoreRefs: [dimensions, alarm_actions, ok_actions, insufficient_data_actions, metric_query]

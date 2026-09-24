@@ -1,0 +1,129 @@
+{
+  "aws.vpce.data_processed": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/privatelink/pricing/",
+    "note": "Interface endpoint data processed, first 1 PB a month tier",
+    "sync": {
+      "service": "AmazonVPC",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-VpcEndpoint-Bytes"
+      },
+      "tier": "first"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.vpce.interface_hour": {
+    "unit": "hour",
+    "source": "https://aws.amazon.com/privatelink/pricing/",
+    "note": "Interface endpoint, per endpoint network interface (one per Availability Zone)",
+    "sync": {
+      "service": "AmazonVPC",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-VpcEndpoint-Hours"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.014,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 0.013,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 0.013,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 0.013,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.013,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.011,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

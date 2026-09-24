@@ -1,0 +1,48 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: regional, three rules, base capacity
+  region: us-east-1
+  assumptions:
+    rules: 3
+  demand:
+    request:
+      monthly: 10000000.0
+      peak: 100
+  costs:
+    Web ACL: 5
+    Rules: 3
+    Inspected requests: 6.0
+  limits:
+    Requests per web ACL: 100
+    Capacity: 1500
+- name: CLOUDFRONT scope at 2,300 WCU, from Tokyo
+  region: ap-northeast-1
+  attributes:
+    scope: CLOUDFRONT
+  assumptions:
+    rules: 2
+    capacityUnits: 2300
+  demand:
+    request:
+      monthly: 50000000.0
+      peak: 300
+  costs:
+    Web ACL: 5
+    Rules: 2
+    Inspected requests: 50.0
+  limits:
+    Capacity: 2300
+- name: over the 5,000 WCU maximum
+  region: us-east-1
+  assumptions:
+    capacityUnits: 6000
+  demand:
+    request:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Web ACL: 5
+    Rules: 1
+  limits:
+    Requests per web ACL: 10
+    Capacity: 6000

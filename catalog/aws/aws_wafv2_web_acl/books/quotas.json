@@ -1,0 +1,26 @@
+{
+  "aws.waf.web_acl_rps": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/waf/latest/developerguide/limits.html",
+    "note": "Per web ACL, same in every region; for CLOUDFRONT scope CloudFront's own limit applies instead. Adjustable",
+    "values": {
+      "*": {
+        "value": 100000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.waf.web_acl_wcu": {
+    "unit": "WCU",
+    "source": "https://docs.aws.amazon.com/waf/latest/developerguide/limits.html",
+    "note": "Maximum web ACL capacity units; fixed",
+    "values": {
+      "*": {
+        "value": 5000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

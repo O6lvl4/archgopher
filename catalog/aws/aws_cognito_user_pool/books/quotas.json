@@ -1,0 +1,26 @@
+{
+  "aws.cognito.user_authentication_rps": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/cognito/latest/developerguide/quotas.html",
+    "note": "UserAuthentication category: InitiateAuth, RespondToAuthChallenge, token refresh and managed login sign-ins, across all user pools in the region; same default in every region. Adjustable",
+    "values": {
+      "*": {
+        "value": 120,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.cognito.user_creation_rps": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/cognito/latest/developerguide/quotas.html",
+    "note": "UserCreation category: SignUp, ConfirmSignUp, AdminCreateUser, AdminConfirmSignUp; same default in every region. Adjustable",
+    "values": {
+      "*": {
+        "value": 50,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

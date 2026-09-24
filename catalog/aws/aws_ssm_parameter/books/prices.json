@@ -1,0 +1,193 @@
+{
+  "aws.ssm.advanced_parameter": {
+    "unit": "parameter-hour",
+    "source": "https://aws.amazon.com/systems-manager/pricing/",
+    "note": "Advanced parameter, prorated hourly ($0.05 a month)",
+    "sync": {
+      "service": "AWSSystemsManager",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-PS-Advanced-Param-Tier1"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.00007,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 0.00007,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 0.00007,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 0.00007,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.00007,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.00007,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.00007,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.00007,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.00007,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 0.00007,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.ssm.interactions_advanced": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://aws.amazon.com/systems-manager/pricing/",
+    "note": "API interactions with Advanced parameters at standard throughput",
+    "sync": {
+      "service": "AWSSystemsManager",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-PS-Param-Processed-Tier1"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.ssm.interactions_high": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://aws.amazon.com/systems-manager/pricing/",
+    "note": "Every API interaction while higher throughput is enabled",
+    "sync": {
+      "service": "AWSSystemsManager",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-PS-Param-Processed-Tier2"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

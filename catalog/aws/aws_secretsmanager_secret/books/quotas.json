@@ -1,0 +1,14 @@
+{
+  "aws.secretsmanager.get_secret_value_rps": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_limits.html",
+    "note": "Rate of GetSecretValue API requests in each supported region; not adjustable. BatchGetSecretValue has its own 100 per second",
+    "values": {
+      "*": {
+        "value": 10000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

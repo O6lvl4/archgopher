@@ -1,0 +1,64 @@
+{
+  "aws.kms.symmetric_rps": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html",
+    "note": "Cryptographic operations (symmetric) request rate, shared by every symmetric and HMAC key in the account and region, including requests AWS services make for you. Adjustable",
+    "values": {
+      "*": {
+        "value": 10000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-1": {
+        "value": 20000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 20000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 20000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 20000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-south-2": {
+        "value": 20000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 100000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-2": {
+        "value": 20000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 100000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 20000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 100000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

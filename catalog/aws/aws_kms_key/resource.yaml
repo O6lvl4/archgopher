@@ -1,0 +1,24 @@
+type: aws_kms_key
+label: KMS key
+category: Security
+description: "Key-months, including rotated key versions, and requests per 10,000. Headroom is the account's shared symmetric request rate, which differs by region. References to a key are mentions, not load: services cache data keys (S3 bucket keys, DynamoDB), so add an edge with a per-unit rate when you know how often a caller reaches KMS."
+kinds: [crypt]
+sla: aws.kms
+attributes:
+  - { key: customer_master_key_spec, label: Key spec, type: string, optional: true, hint: "SYMMETRIC_DEFAULT unless set" }
+  - { key: enable_key_rotation, label: Automatic rotation, type: boolean, default: false }
+assumptions:
+  - { key: rotationsSoFar, label: Rotations so far, type: number, default: 0, hint: "Each of the first two rotations adds one billed key version; later rotations are free" }
+let:
+  - symmetric: 'customer_master_key_spec == nil || customer_master_key_spec == "SYMMETRIC_DEFAULT" || customer_master_key_spec startsWith "HMAC_"'
+readings:
+  - fail: { when: "!symmetric", message: "only symmetric and HMAC keys are priced: {customer_master_key_spec ?? \"\"} requests cost more and have their own quota" }
+  - cost: { name: Key versions, quantity: '1 + (enable_key_rotation ? min(rotationsSoFar, 2) : 0)', unit: key-month, price: aws.kms.key }
+  - requests: { name: Requests, price: aws.kms.requests, count: total.monthly }
+  - rate: { name: Symmetric request rate, unit: requests/second, quota: aws.kms.symmetric_rps, peak: total.peak }
+terraform:
+  # Services cache data keys, so a reference says nothing about the call rate.
+  mentioned: true
+  aliases: { aws_kms_alias: target_key_id }
+iam:
+  crypt: ["kms:Decrypt", "kms:GenerateDataKey", "kms:Encrypt"]

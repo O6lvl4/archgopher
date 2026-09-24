@@ -1,0 +1,317 @@
+{
+  "aws.fargate.arm64.gb_hour": {
+    "unit": "GB-hour",
+    "source": "https://aws.amazon.com/fargate/pricing/",
+    "note": "Linux/ARM (Graviton), per GB-hour",
+    "sync": {
+      "service": "AmazonECS",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-Fargate-ARM-GB-Hours"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.00442,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 0.00409,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 0.00261,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 0.00442,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.00426,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.00409,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.00356,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.00356,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.00356,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 0.00356,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.fargate.arm64.vcpu_hour": {
+    "unit": "vCPU-hour",
+    "source": "https://aws.amazon.com/fargate/pricing/",
+    "note": "Linux/ARM (Graviton), per vCPU-hour",
+    "sync": {
+      "service": "AmazonECS",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-Fargate-ARM-vCPU-Hours:perCPU"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.04045,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 0.03725,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 0.02383,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 0.04045,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.03885,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.03725,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.03238,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.03238,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.03238,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 0.03238,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.fargate.ephemeral_gb_hour": {
+    "unit": "GB-hour",
+    "source": "https://aws.amazon.com/fargate/pricing/",
+    "note": "Ephemeral storage beyond the 20 GB included",
+    "sync": {
+      "service": "AmazonECS",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-Fargate-EphemeralStorage-GB-Hours"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.000133,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 0.000127,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 0.000127,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 0.000133,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.000133,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.000132,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.000122,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.000111,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.000111,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 0.000111,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.fargate.x86_64.gb_hour": {
+    "unit": "GB-hour",
+    "source": "https://aws.amazon.com/fargate/pricing/",
+    "note": "Linux/x86, per GB-hour",
+    "sync": {
+      "service": "AmazonECS",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-Fargate-GB-Hours"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.00553,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 0.00511,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 0.004655,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 0.00553,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.00532,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.00511,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.004445,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.004445,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.004445,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 0.004445,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.fargate.x86_64.vcpu_hour": {
+    "unit": "vCPU-hour",
+    "source": "https://aws.amazon.com/fargate/pricing/",
+    "note": "Linux/x86, per vCPU-hour, billed per second with a 1-minute minimum",
+    "sync": {
+      "service": "AmazonECS",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-Fargate-vCPU-Hours:perCPU"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.05056,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 0.04656,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 0.04256,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 0.05056,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.04856,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.04656,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.04048,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.04048,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.04048,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 0.04048,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

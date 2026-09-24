@@ -1,0 +1,14 @@
+{
+  "aws.ssm": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/systems-manager/sla/",
+    "note": "Covers each priced feature of Systems Manager; free Standard parameters are not named",
+    "values": {
+      "*": {
+        "value": 0.999,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

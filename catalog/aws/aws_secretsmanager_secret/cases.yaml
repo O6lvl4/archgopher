@@ -1,0 +1,15 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: one replica
+  region: us-east-1
+  assumptions:
+    replicas: 1
+  demand:
+    read:
+      monthly: 1000000.0
+      peak: 20
+  costs:
+    Secrets: 0.8
+    API calls: 5.0
+  limits:
+    GetSecretValue rate: 20

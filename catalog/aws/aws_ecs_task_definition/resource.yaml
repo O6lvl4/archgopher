@@ -1,0 +1,35 @@
+type: aws_ecs_task_definition
+label: ECS task (Fargate)
+category: Compute
+description: "Task runs on Fargate: vCPU and memory billed per second with a 1-minute minimum, and ephemeral storage above 20 GB. Headroom is vCPUs running, the task launch rate and RunTask calls."
+kinds: [run]
+sla: aws.ecs
+attributes:
+  - { key: requires_compatibilities, label: Launch types, type: list, optional: true, hint: "Empty is read as Fargate" }
+  - { key: cpu, label: Task CPU, type: number, unit: CPU units, hint: "1024 units are one vCPU" }
+  - { key: memory, label: Task memory, type: number, unit: MiB }
+  - { key: cpu_architecture, label: CPU architecture, type: choice, options: [X86_64, ARM64], default: X86_64, path: runtime_platform.cpu_architecture, hint: "ARM64 (Graviton) has a lower price" }
+  - { key: operating_system_family, label: Operating system, type: string, optional: true, path: runtime_platform.operating_system_family }
+  - { key: ephemeral_storage, label: Ephemeral storage, type: number, unit: GiB, default: 20, path: ephemeral_storage.size_in_gib, hint: "The first 20 GiB are included" }
+assumptions:
+  - { key: taskSeconds, label: Task run time, type: number, unit: s, hint: "From start to stop of one task" }
+let:
+  - fargate: 'requires_compatibilities == nil || "FARGATE" in requires_compatibilities'
+  - windows: 'operating_system_family != nil && operating_system_family startsWith "WINDOWS"'
+  - arch: 'cpu_architecture == "ARM64" ? "arm64" : "x86_64"'
+  - vcpu: cpu / 1024
+  - gb: memory / 1024
+  - billedHours: max(taskSeconds, 60) / 3600
+readings:
+  - fail: { when: '!fargate', message: "only Fargate tasks are read: requires_compatibilities has no FARGATE" }
+  - fail: { when: windows, message: "only Linux tasks are priced; Windows adds an OS license per vCPU" }
+  - cost: { name: "vCPU ({arch})", quantity: total.monthly * vcpu * billedHours, unit: vCPU-hour, price: "aws.fargate.{arch}.vcpu_hour" }
+  - cost: { name: "Memory ({arch})", quantity: total.monthly * gb * billedHours, unit: GB-hour, price: "aws.fargate.{arch}.gb_hour" }
+  - cost: { when: ephemeral_storage > 20, name: Ephemeral storage over 20 GB, quantity: total.monthly * (ephemeral_storage - 20) * billedHours, unit: GB-hour, price: aws.fargate.ephemeral_gb_hour }
+  - limit: { name: vCPUs running, demand: total.peak * taskSeconds * vcpu, unit: vCPUs, quota: aws.fargate.ondemand_vcpu }
+  - rate: { name: Task launch rate, unit: tasks/second, quota: aws.fargate.ondemand_launch_rate, peak: total.peak }
+  - rate: { name: RunTask calls, unit: requests/second, quota: aws.fargate.run_task_rps, peak: total.peak }
+terraform:
+  ignoreRefs: [volume, placement_constraints, proxy_configuration, inference_accelerator]
+iam:
+  run: ["ecs:RunTask"]

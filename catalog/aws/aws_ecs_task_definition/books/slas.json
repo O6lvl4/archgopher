@@ -1,0 +1,14 @@
+{
+  "aws.ecs": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/ecs/sla/",
+    "note": "Region level, Multi-AZ, for Amazon ECS and Fargate; a single task is 99.5%",
+    "values": {
+      "*": {
+        "value": 0.9999,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

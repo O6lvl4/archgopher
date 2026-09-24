@@ -1,0 +1,838 @@
+{
+  "aws.waf.cloudfront.requests_1500wcu": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/waf/pricing/",
+    "note": "CLOUDFRONT scope: the web ACL lives in us-east-1, so its price is the us-east-1 price everywhere; requests inspected by a web ACL using up to 1500 WCU",
+    "sync": {
+      "service": "awswaf",
+      "offerRegion": "us-east-1",
+      "filters": {
+        "usagetype": "USE1-RequestV2-Tier1"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.waf.cloudfront.requests_2000wcu": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/waf/pricing/",
+    "note": "CLOUDFRONT scope: the web ACL lives in us-east-1, so its price is the us-east-1 price everywhere; requests inspected by a web ACL using up to 2000 WCU",
+    "sync": {
+      "service": "awswaf",
+      "offerRegion": "us-east-1",
+      "filters": {
+        "usagetype": "USE1-RequestV2-Tier2-2000WCU"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.waf.cloudfront.requests_2500wcu": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/waf/pricing/",
+    "note": "CLOUDFRONT scope: the web ACL lives in us-east-1, so its price is the us-east-1 price everywhere; requests inspected by a web ACL using up to 2500 WCU",
+    "sync": {
+      "service": "awswaf",
+      "offerRegion": "us-east-1",
+      "filters": {
+        "usagetype": "USE1-RequestV2-Tier3-2500WCU"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.waf.cloudfront.requests_3000wcu": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/waf/pricing/",
+    "note": "CLOUDFRONT scope: the web ACL lives in us-east-1, so its price is the us-east-1 price everywhere; requests inspected by a web ACL using up to 3000 WCU",
+    "sync": {
+      "service": "awswaf",
+      "offerRegion": "us-east-1",
+      "filters": {
+        "usagetype": "USE1-RequestV2-Tier4-3000WCU"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.waf.cloudfront.requests_3500wcu": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/waf/pricing/",
+    "note": "CLOUDFRONT scope: the web ACL lives in us-east-1, so its price is the us-east-1 price everywhere; requests inspected by a web ACL using up to 3500 WCU",
+    "sync": {
+      "service": "awswaf",
+      "offerRegion": "us-east-1",
+      "filters": {
+        "usagetype": "USE1-RequestV2-Tier5-3500WCU"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 1.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.waf.cloudfront.requests_4000wcu": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/waf/pricing/",
+    "note": "CLOUDFRONT scope: the web ACL lives in us-east-1, so its price is the us-east-1 price everywhere; requests inspected by a web ACL using up to 4000 WCU",
+    "sync": {
+      "service": "awswaf",
+      "offerRegion": "us-east-1",
+      "filters": {
+        "usagetype": "USE1-RequestV2-Tier6-4000WCU"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 1.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.waf.cloudfront.requests_4500wcu": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/waf/pricing/",
+    "note": "CLOUDFRONT scope: the web ACL lives in us-east-1, so its price is the us-east-1 price everywhere; requests inspected by a web ACL using up to 4500 WCU",
+    "sync": {
+      "service": "awswaf",
+      "offerRegion": "us-east-1",
+      "filters": {
+        "usagetype": "USE1-RequestV2-Tier7-4500WCU"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 1.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.waf.cloudfront.requests_5000wcu": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/waf/pricing/",
+    "note": "CLOUDFRONT scope: the web ACL lives in us-east-1, so its price is the us-east-1 price everywhere; requests inspected by a web ACL using up to 5000 WCU",
+    "sync": {
+      "service": "awswaf",
+      "offerRegion": "us-east-1",
+      "filters": {
+        "usagetype": "USE1-RequestV2-Tier8-5000WCU"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.waf.cloudfront.rule": {
+    "unit": "rule-month",
+    "source": "https://aws.amazon.com/waf/pricing/",
+    "note": "CLOUDFRONT scope: the web ACL lives in us-east-1, so its price is the us-east-1 price everywhere; per rule or rule group reference, prorated hourly",
+    "sync": {
+      "service": "awswaf",
+      "offerRegion": "us-east-1",
+      "filters": {
+        "usagetype": "USE1-RuleV2"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.waf.cloudfront.web_acl": {
+    "unit": "web-ACL-month",
+    "source": "https://aws.amazon.com/waf/pricing/",
+    "note": "CLOUDFRONT scope: the web ACL lives in us-east-1, so its price is the us-east-1 price everywhere; per web ACL, prorated hourly",
+    "sync": {
+      "service": "awswaf",
+      "offerRegion": "us-east-1",
+      "filters": {
+        "usagetype": "USE1-WebACLV2"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.waf.regional.requests_1500wcu": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/waf/pricing/",
+    "note": "REGIONAL scope; requests inspected by a web ACL using up to 1500 WCU",
+    "sync": {
+      "service": "awswaf",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-RequestV2-Tier1"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.waf.regional.requests_2000wcu": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/waf/pricing/",
+    "note": "REGIONAL scope; requests inspected by a web ACL using up to 2000 WCU",
+    "sync": {
+      "service": "awswaf",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-RequestV2-Tier2-2000WCU"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.waf.regional.requests_2500wcu": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/waf/pricing/",
+    "note": "REGIONAL scope; requests inspected by a web ACL using up to 2500 WCU",
+    "sync": {
+      "service": "awswaf",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-RequestV2-Tier3-2500WCU"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.waf.regional.requests_3000wcu": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/waf/pricing/",
+    "note": "REGIONAL scope; requests inspected by a web ACL using up to 3000 WCU",
+    "sync": {
+      "service": "awswaf",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-RequestV2-Tier4-3000WCU"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.waf.regional.requests_3500wcu": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/waf/pricing/",
+    "note": "REGIONAL scope; requests inspected by a web ACL using up to 3500 WCU",
+    "sync": {
+      "service": "awswaf",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-RequestV2-Tier5-3500WCU"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 1.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 1.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 1.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 1.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 1.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 1.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 1.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 1.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 1.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 1.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.waf.regional.requests_4000wcu": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/waf/pricing/",
+    "note": "REGIONAL scope; requests inspected by a web ACL using up to 4000 WCU",
+    "sync": {
+      "service": "awswaf",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-RequestV2-Tier6-4000WCU"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 1.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 1.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 1.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 1.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 1.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 1.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 1.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 1.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 1.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 1.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.waf.regional.requests_4500wcu": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/waf/pricing/",
+    "note": "REGIONAL scope; requests inspected by a web ACL using up to 4500 WCU",
+    "sync": {
+      "service": "awswaf",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-RequestV2-Tier7-4500WCU"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 1.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 1.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 1.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 1.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 1.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 1.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 1.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 1.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 1.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 1.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.waf.regional.requests_5000wcu": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/waf/pricing/",
+    "note": "REGIONAL scope; requests inspected by a web ACL using up to 5000 WCU",
+    "sync": {
+      "service": "awswaf",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-RequestV2-Tier8-5000WCU"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.waf.regional.rule": {
+    "unit": "rule-month",
+    "source": "https://aws.amazon.com/waf/pricing/",
+    "note": "REGIONAL scope; per rule or rule group reference, prorated hourly",
+    "sync": {
+      "service": "awswaf",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-RuleV2"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.waf.regional.web_acl": {
+    "unit": "web-ACL-month",
+    "source": "https://aws.amazon.com/waf/pricing/",
+    "note": "REGIONAL scope; per web ACL, prorated hourly",
+    "sync": {
+      "service": "awswaf",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-WebACLV2"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

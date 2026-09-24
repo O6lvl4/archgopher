@@ -28,4 +28,5 @@ terraform:
   # The outermost front door: references to it (callback URLs, links in emails) are mentions.
   frontDoor: true
   mentioned: true
-  ignoreRefs: [web_acl_id, viewer_certificate]
+  # web_acl_id and function associations are edges: every viewer request passes through them.
+  ignoreRefs: [viewer_certificate]

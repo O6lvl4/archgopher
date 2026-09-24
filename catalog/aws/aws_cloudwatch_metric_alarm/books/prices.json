@@ -1,0 +1,128 @@
+{
+  "aws.cloudwatch.alarm.high_resolution": {
+    "unit": "alarm-metric-month",
+    "source": "https://aws.amazon.com/cloudwatch/pricing/",
+    "note": "Metric alarm, high resolution (period under 60 s), per metric",
+    "sync": {
+      "service": "AmazonCloudWatch",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?CW:HighResAlarmMonitorUsage"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.cloudwatch.alarm.standard": {
+    "unit": "alarm-metric-month",
+    "source": "https://aws.amazon.com/cloudwatch/pricing/",
+    "note": "Metric alarm, standard resolution (period 60 s or more), per metric",
+    "sync": {
+      "service": "AmazonCloudWatch",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?CW:AlarmMonitorUsage"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

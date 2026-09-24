@@ -13,8 +13,8 @@
     storageGb: 100
   demand:
     query:
-        monthly: 2e+06
-        peak: 40
+      monthly: 2e+06
+      peak: 40
   costs:
     Capacity: 175.2
     I/O: 1.2
@@ -32,8 +32,8 @@
     storageGb: 50
   demand:
     query:
-        monthly: 2e+06
-        peak: 40
+      monthly: 2e+06
+      peak: 40
   costs:
     Capacity: 116.8
     Storage: 11.25
@@ -49,14 +49,14 @@
     storageGb: 10
   demand:
     query:
-        monthly: 2e+06
-        peak: 40
+      monthly: 2e+06
+      peak: 40
   costs:
     Capacity: 87.6
     Storage: 1
-  error: |-
-    averageAcu 1 is below min_capacity 2
-    ioPerQuery is required for standard storage
+  error: 'averageAcu 1 is below min_capacity 2
+
+    ioPerQuery is required for standard storage'
 - name: not serverless v2 (us-east-1)
   region: us-east-1
   assumptions:
@@ -64,9 +64,10 @@
     storageGb: 10
   demand:
     query:
-        monthly: 2e+06
-        peak: 40
-  error: 'only Aurora Serverless v2 is supported: serverlessv2_scaling_configuration is missing'
+      monthly: 2e+06
+      peak: 40
+  error: 'only Aurora Serverless v2 is supported: serverlessv2_scaling_configuration
+    is missing'
 - name: standard storage (ap-northeast-1)
   region: ap-northeast-1
   attributes:
@@ -79,8 +80,8 @@
     storageGb: 100
   demand:
     query:
-        monthly: 2e+06
-        peak: 40
+      monthly: 2e+06
+      peak: 40
   costs:
     Capacity: 219
     I/O: 1.44
@@ -98,8 +99,8 @@
     storageGb: 50
   demand:
     query:
-        monthly: 2e+06
-        peak: 40
+      monthly: 2e+06
+      peak: 40
   costs:
     Capacity: 146
     Storage: 13.5
@@ -115,14 +116,14 @@
     storageGb: 10
   demand:
     query:
-        monthly: 2e+06
-        peak: 40
+      monthly: 2e+06
+      peak: 40
   costs:
     Capacity: 109.5
     Storage: 1.2
-  error: |-
-    averageAcu 1 is below min_capacity 2
-    ioPerQuery is required for standard storage
+  error: 'averageAcu 1 is below min_capacity 2
+
+    ioPerQuery is required for standard storage'
 - name: not serverless v2 (ap-northeast-1)
   region: ap-northeast-1
   assumptions:
@@ -130,6 +131,29 @@
     storageGb: 10
   demand:
     query:
-        monthly: 2e+06
-        peak: 40
-  error: 'only Aurora Serverless v2 is supported: serverlessv2_scaling_configuration is missing'
+      monthly: 2e+06
+      peak: 40
+  error: 'only Aurora Serverless v2 is supported: serverlessv2_scaling_configuration
+    is missing'
+- name: standard storage with a managed master password (us-east-1)
+  region: us-east-1
+  attributes:
+    max_capacity: 16
+    min_capacity: 0.5
+    manage_master_user_password: true
+  assumptions:
+    averageAcu: 2
+    ioPerQuery: 3
+    peakAcu: 8
+    storageGb: 100
+  demand:
+    query:
+      monthly: 2e+06
+      peak: 40
+  costs:
+    Capacity: 175.2
+    I/O: 1.2
+    Storage: 10
+    Master password secret: 0.4
+  limits:
+    ACU: 8

@@ -1,0 +1,22 @@
+type: aws_vpc_endpoint
+label: VPC endpoint
+category: Network
+description: "Gateway endpoints (S3, DynamoDB) cost nothing. Interface endpoints cost an endpoint-hour in each Availability Zone plus each GB processed. Traffic through an endpoint is an assumption, not load: references to it are mentions."
+kinds: [request]
+sla: aws.privatelink
+attributes:
+  - { key: vpc_endpoint_type, label: Endpoint type, type: choice, options: [Gateway, Interface, GatewayLoadBalancer, Resource, ServiceNetwork], default: Gateway }
+  - { key: subnet_ids, label: Subnets, type: list, optional: true, hint: "One endpoint network interface per subnet, one subnet per Availability Zone" }
+assumptions:
+  - { key: azs, label: Availability Zones, type: number, default: 2, hint: "Used when the subnets are not known from Terraform" }
+  - { key: gbPerMonth, label: Data processed per month, type: number, unit: GB, default: 0 }
+let:
+  - interface: 'vpc_endpoint_type == "Interface"'
+  - zones: 'len(subnet_ids) > 0 ? float(len(subnet_ids)) : azs'
+readings:
+  - fail: { when: 'vpc_endpoint_type not in ["Gateway", "Interface"]', message: "{vpc_endpoint_type} endpoints are not priced yet: only Gateway and Interface endpoints are" }
+  - cost: { when: interface, name: Endpoint hours, quantity: zones * 730, unit: hour, price: aws.vpce.interface_hour }
+  - cost: { when: interface, name: Data processed, quantity: gbPerMonth, unit: GB, price: aws.vpce.data_processed }
+terraform:
+  mentioned: true
+  ignoreRefs: [vpc_id, route_table_ids, security_group_ids, policy, dns_options, subnet_configuration]

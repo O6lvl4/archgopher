@@ -103,6 +103,21 @@ func TestReferencesToCloudFrontAreMentions(t *testing.T) {
 	}
 }
 
+func TestDataSourcesAreNotNodes(t *testing.T) {
+	spec, _ := build(t, "testdata/datasources", eval.Options{})
+	var ids []string
+	for _, n := range spec.Nodes {
+		ids = append(ids, n.ID)
+	}
+	sort.Strings(ids)
+	if got := strings.Join(ids, " "); got != "fn own" {
+		t.Errorf("a table read with a data source is managed elsewhere, want only owned nodes: %s", got)
+	}
+	if got := strings.Join(edges(spec), " "); got != "fn>own:read" {
+		t.Errorf("edges: %s", got)
+	}
+}
+
 func TestPoliciesForEachAndFunctions(t *testing.T) {
 	spec, warnings := build(t, "testdata/policies", eval.Options{})
 	if len(warnings) > 0 {

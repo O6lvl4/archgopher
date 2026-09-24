@@ -129,13 +129,13 @@ func Build(ev *eval.Evaluated, rules Rules, name string) (model.Spec, []string) 
 		spec.Region = rules.Region(ev.Providers)
 	}
 	for _, r := range ev.Resources {
-		if rules.NodeTypes[r.Type] {
+		if b.owned(r) {
 			spec.Nodes = append(spec.Nodes, b.node(r))
 		}
 	}
 	var off []string
 	for _, r := range ev.Removed {
-		if rules.NodeTypes[r.Type] {
+		if b.owned(r) {
 			off = append(off, r.Address)
 		}
 	}
@@ -164,7 +164,14 @@ func (b *builder) mentioned(addr string) bool {
 
 func (b *builder) isNode(addr string) bool {
 	r, ok := b.byAddr[addr]
-	return ok && b.rules.NodeTypes[r.Type]
+	return ok && b.owned(r)
+}
+
+// owned reports whether r is a node of this configuration. A data source
+// reads something managed elsewhere: its cost belongs there, and several
+// modules reading the same thing would otherwise count it once each.
+func (b *builder) owned(r *eval.Resource) bool {
+	return b.rules.NodeTypes[r.Type] && r.Mode != "data"
 }
 
 func (b *builder) node(r *eval.Resource) model.Node {

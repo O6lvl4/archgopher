@@ -1,0 +1,35 @@
+type: aws_bedrock_guardrail
+label: Bedrock guardrail
+category: AI
+description: "Text units (up to 1,000 characters each) per assessment, priced per configured policy: content filters, denied topics, PII filters and contextual grounding. Word filters and regexes are free. Quotas count against the calling account; the pricing pages do not say which account pays when the guardrail belongs to another account."
+kinds: [apply]
+sla: aws.bedrock
+attributes:
+  - { key: content, label: Content filters, type: boolean, default: false, path: content_policy_config }
+  - { key: content_tier, label: Content filter tier, type: choice, options: [CLASSIC, STANDARD], default: CLASSIC, path: content_policy_config.tier_config.tier_name }
+  - { key: topics, label: Denied topics, type: boolean, default: false, path: topic_policy_config }
+  - { key: topic_tier, label: Denied topic tier, type: choice, options: [CLASSIC, STANDARD], default: CLASSIC, path: topic_policy_config.tier_config.tier_name }
+  - { key: pii, label: PII filters, type: boolean, default: false, path: sensitive_information_policy_config.pii_entities_config }
+  - { key: regexes, label: Regex filters, type: boolean, default: false, path: sensitive_information_policy_config.regexes_config }
+  - { key: words, label: Word filters, type: boolean, default: false, path: word_policy_config }
+  - { key: grounding, label: Contextual grounding, type: boolean, default: false, path: contextual_grounding_policy_config }
+assumptions:
+  - { key: charactersPerCall, label: Characters per assessment, type: number, unit: characters, hint: "A model call with a guardrail assesses the prompt and the response separately: each is one assessment" }
+let:
+  - units: 'total.monthly * ceilDiv(charactersPerCall, 1000)'
+  - unitsPerSecond: 'total.peak * ceilDiv(charactersPerCall, 1000)'
+readings:
+  - cost: { when: content, name: Content filter text units, quantity: units, unit: text-unit, price: aws.bedrock.guardrail.content }
+  - cost: { when: topics, name: Denied topic text units, quantity: units, unit: text-unit, price: aws.bedrock.guardrail.topics }
+  - cost: { when: pii, name: PII filter text units, quantity: units, unit: text-unit, price: aws.bedrock.guardrail.pii }
+  - cost: { when: grounding, name: Contextual grounding text units, quantity: units, unit: text-unit, price: aws.bedrock.guardrail.grounding }
+  - rate: { name: ApplyGuardrail requests, unit: requests/second, quota: aws.bedrock.guardrail.apply_rps, peak: total.peak }
+  - rate: { when: content, name: Content filter text units, unit: text-units/second, quota: 'aws.bedrock.guardrail.content_{content_tier == "STANDARD" ? "standard" : "classic"}_tps', peak: unitsPerSecond }
+  - rate: { when: topics, name: Denied topic text units, unit: text-units/second, quota: 'aws.bedrock.guardrail.topics_{topic_tier == "STANDARD" ? "standard" : "classic"}_tps', peak: unitsPerSecond }
+  - rate: { when: pii || regexes, name: Sensitive information text units, unit: text-units/second, quota: aws.bedrock.guardrail.sensitive_tps, peak: unitsPerSecond }
+  - rate: { when: words, name: Word filter text units, unit: text-units/second, quota: aws.bedrock.guardrail.words_tps, peak: unitsPerSecond }
+  - rate: { when: grounding, name: Contextual grounding text units, unit: text-units/second, quota: aws.bedrock.guardrail.grounding_tps, peak: unitsPerSecond }
+terraform:
+  ignoreRefs: [kms_key_arn, cross_region_config]
+iam:
+  apply: ["bedrock:ApplyGuardrail"]

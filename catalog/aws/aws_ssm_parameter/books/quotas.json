@@ -1,0 +1,26 @@
+{
+  "aws.ssm.get_parameter_high_tps": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/general/latest/gr/ssm.html",
+    "note": "Higher throughput: GetParameter 10,000 TPS (GetParameters 1,000, GetParametersByPath 100). SecureString reads are also bound by the KMS request rate",
+    "values": {
+      "*": {
+        "value": 10000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.ssm.get_parameter_tps": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/general/latest/gr/ssm.html",
+    "note": "Default throughput: 40 TPS shared by GetParameter, GetParameters and GetParametersByPath",
+    "values": {
+      "*": {
+        "value": 40,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

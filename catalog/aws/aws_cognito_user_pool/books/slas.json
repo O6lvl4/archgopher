@@ -1,0 +1,13 @@
+{
+  "aws.cognito": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/cognito/sla/",
+    "values": {
+      "*": {
+        "value": 0.999,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

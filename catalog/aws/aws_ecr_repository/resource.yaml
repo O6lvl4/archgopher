@@ -1,0 +1,18 @@
+type: aws_ecr_repository
+label: ECR repository
+category: Compute
+description: "Image storage. Pulls in the same region are free; data transfer to other regions or the internet is not modeled. Headroom is the BatchGetImage and GetDownloadUrlForLayer rates."
+kinds: [pull]
+sla: aws.ecr
+assumptions:
+  - { key: imageGb, label: Stored images, type: number, unit: GB, hint: "All images kept after the lifecycle policy" }
+  - { key: layersPerPull, label: Layers downloaded per pull, type: number, default: 1, hint: "Layers already cached on the host are not fetched again" }
+readings:
+  - storage: { name: Image storage, gb: imageGb, price: aws.ecr.storage }
+  - rate: { name: BatchGetImage, unit: requests/second, quota: aws.ecr.batch_get_image_rps, peak: total.peak }
+  - rate: { name: GetDownloadUrlForLayer, unit: requests/second, quota: aws.ecr.layer_url_rps, peak: total.peak * layersPerPull }
+terraform:
+  aliases: { aws_ecr_lifecycle_policy: repository, aws_ecr_repository_policy: repository }
+  ignoreRefs: [encryption_configuration, image_scanning_configuration]
+iam:
+  pull: ["ecr:BatchGetImage", "ecr:GetDownloadUrlForLayer"]

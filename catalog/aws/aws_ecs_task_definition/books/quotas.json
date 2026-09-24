@@ -1,0 +1,118 @@
+{
+  "aws.fargate.ondemand_launch_rate": {
+    "unit": "tasks/second",
+    "source": "https://docs.aws.amazon.com/general/latest/gr/ecs-service.html",
+    "note": "Fargate On-Demand sustained launch rate; burst 100 (25 where the rate is 5). Regions introduced after 2025-05-20 get 5. Adjustable",
+    "values": {
+      "*": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-1": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ca-central-1": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-north-1": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-2": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-3": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "sa-east-1": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-1": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.fargate.ondemand_vcpu": {
+    "unit": "vCPUs",
+    "source": "https://docs.aws.amazon.com/general/latest/gr/ecs-service.html",
+    "note": "Fargate On-Demand vCPU resource count, initial default; Fargate raises it automatically with usage, so check Service Quotas. Adjustable",
+    "values": {
+      "*": {
+        "value": 6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.fargate.run_task_rps": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/throttling.html",
+    "note": "RunTask on Fargate, burst and sustained; read as one task per call (a call can launch up to 10)",
+    "values": {
+      "*": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}
