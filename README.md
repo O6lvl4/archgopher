@@ -185,7 +185,7 @@ the demand and says the capacity is unknown.
 | `aws_cloudfront_distribution` | HTTPS requests, transfer out, by the price zone of the viewers (the region's zone unless set) | Requests per distribution |
 | `aws_dynamodb_table` | On-demand request units or provisioned capacity (4 KB / 1 KB steps, consistency, transactions), storage | Table throughput or provisioned capacity |
 | `aws_s3_bucket` | GET, PUT, storage (Standard) | Per-prefix request rate × prefixes |
-| `aws_sqs_queue` | Requests in 64 KB chunks | FIFO send rate |
+| `aws_sqs_queue` | Requests in 64 KB chunks | FIFO send rate, by region in high throughput mode |
 | `aws_sns_topic` | Publishes in 64 KB chunks | Publish rate |
 | `aws_sfn_state_machine` | Transitions (standard), requests and GB-seconds (express) | StartExecution rate |
 | `aws_rds_cluster` | Aurora Serverless v2 ACU-hours, storage, I/O (Standard or I/O-Optimized) | Peak ACU against max capacity |

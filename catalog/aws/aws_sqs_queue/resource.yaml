@@ -1,14 +1,18 @@
 type: aws_sqs_queue
 label: SQS
 category: Messaging
-description: API requests in 64 KB chunks (send, receive, delete). FIFO queues have a per-API rate limit.
+description: "API requests in 64 KB chunks (send, receive, delete). FIFO queues have a per-API rate limit, higher and set by region in high throughput mode."
 kinds: [send]
 sla: aws.sqs
 attributes:
   - { key: fifo_queue, label: FIFO, type: boolean, default: false }
+  - { key: fifo_throughput_limit, label: FIFO throughput limit, type: choice, options: [perQueue, perMessageGroupId], default: perQueue }
+  - { key: deduplication_scope, label: Deduplication scope, type: choice, options: [queue, messageGroup], default: queue }
 assumptions:
   - { key: messageKb, label: Message size, type: number, unit: KB, default: 1, hint: "Billed in 64 KB chunks" }
   - { key: requestsPerMessage, label: API requests per message, type: number, default: 3, hint: "Send, receive and delete; lower with batching" }
+let:
+  - highThroughput: 'fifo_queue && fifo_throughput_limit == "perMessageGroupId" && deduplication_scope == "messageGroup"'
 readings:
   - requests:
       name: Requests
@@ -16,7 +20,7 @@ readings:
       count: total.monthly * requestsPerMessage
       chunkKb: 64
       sizeKb: messageKb
-  - rate: { when: fifo_queue, name: FIFO send rate, unit: messages/second, quota: aws.sqs.fifo.tps, peak: total.peak }
+  - rate: { when: fifo_queue, name: FIFO send rate, unit: messages/second, quota: 'aws.sqs.fifo.{highThroughput ? "high_throughput_tps" : "tps"}', peak: total.peak }
 terraform:
   ignoreRefs: [redrive_policy, redrive_allow_policy]
 iam:

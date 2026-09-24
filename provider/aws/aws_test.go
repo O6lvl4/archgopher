@@ -147,6 +147,13 @@ func TestRegionalQuotas(t *testing.T) {
 		{"aws.agentcore.runtime.active_sessions", "ap-northeast-1", 2500},
 		{"aws.agentcore.evaluation.per_minute", "ap-southeast-1", 200},
 		{"aws.agentcore.evaluation.per_minute", "eu-west-1", 1200},
+		{"aws.sqs.fifo.high_throughput_tps", "us-west-2", 70000},
+		{"aws.sqs.fifo.high_throughput_tps", "eu-central-1", 19000},
+		{"aws.sqs.fifo.high_throughput_tps", "ap-northeast-1", 9000},
+		{"aws.sqs.fifo.high_throughput_tps", "ap-northeast-2", 2400},
+		{"aws.sqs.fifo.tps", "ap-northeast-2", 300},
+		{"aws.apigateway.account_rps", "ap-northeast-1", 10000},
+		{"aws.apigateway.account_rps", "ap-southeast-4", 2500},
 	} {
 		_, v, err := books.Quotas.Lookup(c.id, c.region)
 		if err != nil || v.Value == nil || *v.Value != c.want {

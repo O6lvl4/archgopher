@@ -55,7 +55,7 @@ cd web && pnpm install && pnpm run dev   # エンジンを WebAssembly にビル
 | 未知のキー | 誤りにする | `durationMS` のような打ち間違いを黙って無視しない |
 | 単位 | 読み値の単位と参照表の単位が違えば誤り | 「100万件あたり」や GB と GB-月の取り違えを数値の誤りにしない |
 | 単価 | AWS の公開 Price List から取り込み、確認済みの印を付ける | 認証不要。週1回 CI が読み直し、値が変われば PR を開く |
-| 地域 | 10地域（us-east-1・us-east-2・us-west-2・eu-west-1・eu-central-1・ap-northeast-1・ap-northeast-2・ap-southeast-1・ap-southeast-2・ap-south-1）。全地域で同じ値は `*`、地域で違う上限は `*` の既定に地域名の例外を重ねる | `sync --add-regions` で単価を Price List から一括で足せる。台帳の全行が全地域の値を持つことをテストで保つ |
+| 地域 | 10地域（us-east-1・us-east-2・us-west-2・eu-west-1・eu-central-1・ap-northeast-1・ap-northeast-2・ap-southeast-1・ap-southeast-2・ap-south-1）。全地域で同じ値は `*`、地域で違う上限は `*` の既定に地域名の例外を重ねる。地域差は全上限について各サービスの上限ページで確認した（API Gateway・SNS・SQS 高スループット・Step Functions・AgentCore Runtime と評価に差がある） | `sync --add-regions` で単価を Price List から一括で足せる。台帳の全行が全地域の値を持つことをテストで保つ |
 | 提供のない地域 | Price List に単価が無い行は「提供なし」として記録し、その単価を使うノードは誤りにする | 0円として黙って通さない。Opus 4.5 を東京から呼ぶ構成などを、作る前に止める |
 | CloudFront の単価 | 見る人の価格区分で引く。既定はリソースの地域の区分 | CloudFront の料金は配信先で決まり、リソースの地域では決まらない |
 | Bedrock の単価 | global と regional（地域プロファイル・リージョン内）を前提で選ぶ。既定は global | regional は global の1.1倍。上限は両者で別枠だが既定値は同じ |

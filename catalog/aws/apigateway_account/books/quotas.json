@@ -2,10 +2,75 @@
   "aws.apigateway.account_rps": {
     "unit": "requests/second",
     "source": "https://docs.aws.amazon.com/apigateway/latest/developerguide/limits.html",
-    "note": "Default account throttle; 2,500 in some newer regions",
+    "note": "Default account throttle, burst 5,000; 2,500 (burst 1,250) in the newer regions listed. Adjustable",
     "values": {
       "*": {
         "value": 10000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "af-south-1": {
+        "value": 2500,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-2": {
+        "value": 2500,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-3": {
+        "value": 2500,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-4": {
+        "value": 2500,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-5": {
+        "value": 2500,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-7": {
+        "value": 2500,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ca-west-1": {
+        "value": 2500,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-2": {
+        "value": 2500,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-south-1": {
+        "value": 2500,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-south-2": {
+        "value": 2500,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "il-central-1": {
+        "value": 2500,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "me-central-1": {
+        "value": 2500,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "mx-central-1": {
+        "value": 2500,
         "verified": true,
         "checkedAt": "2026-09-24"
       }
