@@ -151,6 +151,18 @@ button.link:hover { text-decoration: underline; background: none; }
   border-radius: var(--radius) var(--radius) 0 0; background: var(--prov-line, var(--prov-general));
   box-shadow: var(--prov-edge, none);
 }
+/* group frames: a boundary around its cards, under everything, never in the way */
+.react-flow__node-frame { pointer-events: none !important; }
+.frame {
+  position: relative; border: 2px dashed var(--muted); border-radius: 14px;
+  background: color-mix(in srgb, var(--surface-2) 45%, transparent);
+}
+.frame-label {
+  position: absolute; top: 6px; left: 12px; display: flex; gap: 6px; align-items: baseline;
+  font-size: 12px; font-weight: 600; color: var(--text);
+}
+.frame-kind { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.minimap-frame { fill: transparent; stroke: var(--muted); stroke-dasharray: 4 3; }
 .card-top { display: flex; gap: 8px; align-items: flex-start; }
 .card-icon { flex: none; border-radius: 6px; }
 .card-names { min-width: 0; flex: 1; }

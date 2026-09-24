@@ -9,8 +9,8 @@ import (
 )
 
 // Merge folds a freshly built declaration into an existing one. The address is
-// the seam: Terraform owns type and attributes; people own ids, assumptions,
-// load, notes, positions and edges. Nodes that left Terraform are kept and
+// the seam: Terraform owns type, attributes and the group a node sits in;
+// people own ids, assumptions, load, notes, positions and edges. Nodes that left Terraform are kept and
 // marked stale, never deleted.
 func Merge(existing, fresh model.Spec) (model.Spec, []string) {
 	var warnings []string
@@ -32,6 +32,7 @@ func Merge(existing, fresh model.Spec) (model.Spec, []string) {
 		used[n.ID] = true
 	}
 	out.Nodes = append([]model.Node(nil), existing.Nodes...)
+	groupID := mergeGroups(existing.Groups, fresh.Groups, &out)
 	rename := map[string]string{} // fresh id -> final id
 	seen := map[int]bool{}
 	for _, f := range fresh.Nodes {
@@ -47,7 +48,7 @@ func Merge(existing, fresh model.Spec) (model.Spec, []string) {
 		if i, ok := byAddr[f.Address]; ok {
 			seen[i] = true
 			n := &out.Nodes[i]
-			n.Type, n.Attributes, n.Stale = f.Type, f.Attributes, false
+			n.Type, n.Attributes, n.Stale, n.Group = f.Type, f.Attributes, false, groupID[f.Group]
 			for k, v := range f.Assumptions {
 				if _, has := n.Assumptions[k]; !has {
 					if n.Assumptions == nil {
@@ -68,6 +69,7 @@ func Merge(existing, fresh model.Spec) (model.Spec, []string) {
 		}
 		used[id] = true
 		f.ID = id
+		f.Group = groupID[f.Group]
 		rename[orig] = id
 		out.Nodes = append(out.Nodes, f)
 	}
@@ -91,5 +93,54 @@ func Merge(existing, fresh model.Spec) (model.Spec, []string) {
 		e.From, e.To = from, to
 		out.Edges = append(out.Edges, e)
 	}
+	out.Groups = usedGroups(out.Groups, out.Nodes)
 	return out, warnings
+}
+
+// mergeGroups adds the fresh groups to out and maps each fresh id to its id
+// there: the same kind and label is the same group, and a different group
+// with a taken id gets a new one.
+func mergeGroups(existing, fresh []model.Group, out *model.Spec) map[string]string {
+	ids := map[string]string{"": ""}
+	byID := map[string]model.Group{}
+	for _, g := range existing {
+		byID[g.ID] = g
+	}
+	out.Groups = append([]model.Group(nil), existing...)
+	for _, f := range fresh {
+		orig, id := f.ID, ""
+		for _, g := range out.Groups {
+			if g.Kind == f.Kind && g.Label == f.Label {
+				id = g.ID
+				break
+			}
+		}
+		if id == "" {
+			id = f.ID
+			for i := 2; byID[id].ID != ""; i++ {
+				id = fmt.Sprintf("%s-%d", f.ID, i)
+			}
+			f.ID = id
+			byID[id] = f
+			out.Groups = append(out.Groups, f)
+		}
+		ids[orig] = id
+	}
+	return ids
+}
+
+// usedGroups keeps the groups some node sits in; a boundary with nothing in
+// it draws nothing.
+func usedGroups(groups []model.Group, nodes []model.Node) []model.Group {
+	in := map[string]bool{}
+	for _, n := range nodes {
+		in[n.Group] = true
+	}
+	var out []model.Group
+	for _, g := range groups {
+		if in[g.ID] {
+			out = append(out, g)
+		}
+	}
+	return out
 }

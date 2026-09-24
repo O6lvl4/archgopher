@@ -83,3 +83,22 @@ func TestMissingParametersAreErrors(t *testing.T) {
 		t.Fatalf("want a missing parameter, got %v", err)
 	}
 }
+
+func TestPatternKeepsItsGroup(t *testing.T) {
+	spec := model.Spec{Region: "us-east-1", Groups: []model.Group{{ID: "vpc", Kind: "VPC"}}, Nodes: []model.Node{
+		{ID: "u", Type: scouter.EntryType, Load: &model.Load{Monthly: 1000, PeakPerSecond: 1}},
+		{ID: "jobs", Type: "aws.pattern.queue_worker", Group: "vpc", Assumptions: map[string]any{"durationMs": 2000}},
+	}, Edges: []model.Edge{{From: "u", To: "jobs"}}}
+	expanded, _, err := pattern.Expand(spec, awspattern.Registry())
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(expanded.Groups) != 1 {
+		t.Fatalf("groups: %+v", expanded.Groups)
+	}
+	for _, n := range expanded.Nodes {
+		if n.ID != "u" && n.Group != "vpc" {
+			t.Errorf("%s sits in %q, want the pattern's group", n.ID, n.Group)
+		}
+	}
+}

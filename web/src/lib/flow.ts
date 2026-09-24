@@ -1,6 +1,7 @@
 import type { Edge, Node } from "@xyflow/react";
 import { num } from "./format";
-import type { CatalogEntry, NodeResult, Result, Spec, SpecNode } from "./types";
+import { NODE_HEIGHT, NODE_WIDTH } from "./layout";
+import type { CatalogEntry, NodeResult, Result, Spec, SpecGroup, SpecNode } from "./types";
 
 export interface CardData extends Record<string, unknown> {
   node: SpecNode;
@@ -9,6 +10,48 @@ export interface CardData extends Record<string, unknown> {
 }
 
 export type CardNode = Node<CardData, "scouter">;
+
+export interface FrameData extends Record<string, unknown> {
+  group: SpecGroup;
+}
+
+export type FrameNode = Node<FrameData, "frame">;
+
+const FRAME_PAD = 20;
+const FRAME_HEAD = 26;
+
+/**
+ * Frames around the cards of each group, sized from where the cards are now
+ * (so they follow a drag) and how big React Flow measured them.
+ */
+export function toFrames(spec: Spec, cards: CardNode[]): FrameNode[] {
+  const byId = new Map(cards.map((c) => [c.id, c]));
+  return (spec.groups ?? []).flatMap((group) => {
+    const members = spec.nodes.flatMap((n) => {
+      const c = n.group === group.id ? byId.get(n.id) : undefined;
+      return c ? [c] : [];
+    });
+    if (members.length === 0) return [];
+    const left = Math.min(...members.map((c) => c.position.x));
+    const top = Math.min(...members.map((c) => c.position.y));
+    const right = Math.max(...members.map((c) => c.position.x + (c.measured?.width ?? NODE_WIDTH)));
+    const bottom = Math.max(...members.map((c) => c.position.y + (c.measured?.height ?? NODE_HEIGHT)));
+    const frame: FrameNode = {
+      id: `group:${group.id}`,
+      type: "frame",
+      position: { x: left - FRAME_PAD, y: top - FRAME_PAD - FRAME_HEAD },
+      width: right - left + 2 * FRAME_PAD,
+      height: bottom - top + 2 * FRAME_PAD + FRAME_HEAD,
+      data: { group },
+      selectable: false,
+      draggable: false,
+      focusable: false,
+      deletable: false,
+      zIndex: -1,
+    };
+    return [frame];
+  });
+}
 
 export function readingsById(result: Result | undefined): Map<string, NodeResult> {
   return new Map((result?.nodes ?? []).map((r) => [r.id, r]));

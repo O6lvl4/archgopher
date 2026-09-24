@@ -22,6 +22,15 @@ export interface SpecNode {
   note?: string;
   position?: Position;
   stale?: boolean;
+  /** The id of the boundary the node sits in (a VPC). */
+  group?: string;
+}
+
+/** A boundary nodes sit in: a VPC, a virtual network. */
+export interface SpecGroup {
+  id: string;
+  kind: string;
+  label?: string;
 }
 
 export interface SpecEdge {
@@ -37,6 +46,7 @@ export interface Spec {
   region: string;
   nodes: SpecNode[];
   edges: SpecEdge[];
+  groups?: SpecGroup[];
 }
 
 export type FieldType = "number" | "string" | "boolean" | "list" | "choice";

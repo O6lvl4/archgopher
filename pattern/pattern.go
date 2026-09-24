@@ -113,7 +113,7 @@ func Expand(spec model.Spec, reg Registry) (model.Spec, Expansion, error) {
 }
 
 func expandOnce(spec model.Spec, reg Registry, exp Expansion) (model.Spec, bool, error) {
-	out := model.Spec{Name: spec.Name, Region: spec.Region}
+	out := model.Spec{Name: spec.Name, Region: spec.Region, Groups: spec.Groups}
 	ends := map[string]Fragment{}
 	for _, n := range spec.Nodes {
 		p, ok := reg[n.Type]
@@ -168,6 +168,10 @@ func inner(host model.Node, f Fragment) []model.Node {
 	out := make([]model.Node, 0, len(f.Nodes))
 	for _, n := range f.Nodes {
 		n.ID = host.ID + Sep + n.ID
+		// The pattern's resources sit where the pattern was placed.
+		if n.Group == "" {
+			n.Group = host.Group
+		}
 		if n.ID == host.ID+Sep+f.In && host.Load != nil {
 			l := *host.Load
 			if n.Load != nil {

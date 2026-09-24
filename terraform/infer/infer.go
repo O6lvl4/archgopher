@@ -48,6 +48,10 @@ type Rules struct {
 	Region func(ev *eval.Evaluated) string
 	// Scouters supply the fields to copy from Terraform and the assumptions to ask for.
 	Scouters scouter.Registry
+	// Boundaries are types that nodes sit in (a VPC), mapped to what people
+	// call them. A node's boundary is found through the helpers it references:
+	// security groups, subnets, subnet groups.
+	Boundaries map[string]string
 }
 
 // Link connects the node(s) referenced by From to the node(s) referenced by To.
@@ -89,7 +93,7 @@ func Combine(parts ...Rules) Rules {
 	out := Rules{
 		NodeTypes: map[string]bool{}, Aliases: map[string]string{}, Mentioned: map[string]bool{}, Passive: map[string]bool{},
 		FrontDoors: map[string]bool{}, FrontDoorAliases: map[string]string{}, Schedules: map[string]string{},
-		Scouters: scouter.Registry{},
+		Scouters: scouter.Registry{}, Boundaries: map[string]string{},
 	}
 	for _, p := range parts {
 		copyMap(out.NodeTypes, p.NodeTypes)
@@ -100,6 +104,7 @@ func Combine(parts ...Rules) Rules {
 		copyMap(out.FrontDoorAliases, p.FrontDoorAliases)
 		copyMap(out.Schedules, p.Schedules)
 		copyMap(out.Scouters, p.Scouters)
+		copyMap(out.Boundaries, p.Boundaries)
 		out.Links = append(out.Links, p.Links...)
 		out.IgnoreRefs = append(out.IgnoreRefs, p.IgnoreRefs...)
 		out.Sources = append(out.Sources, p.Sources...)
@@ -161,6 +166,7 @@ func Build(ev *eval.Evaluated, rules Rules, name string) (model.Spec, []string) 
 	if len(off) > 0 {
 		b.warnings = append(b.warnings, fmt.Sprintf("off with the current variables (count or for_each is 0), pass --var to include: %s", strings.Join(off, ", ")))
 	}
+	spec.Groups = b.groups(spec.Nodes)
 	edges := b.edges()
 	spec.Nodes, edges = b.frontDoors(spec.Nodes, edges)
 	spec.Edges = b.breakCycles(spec.Nodes, edges)

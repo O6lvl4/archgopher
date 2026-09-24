@@ -46,6 +46,17 @@ type Spec struct {
 	Region string `yaml:"region" json:"region"`
 	Nodes  []Node `yaml:"nodes" json:"nodes"`
 	Edges  []Edge `yaml:"edges" json:"edges"`
+	// Groups are boundaries drawn around nodes, such as a VPC. The engine
+	// reads nothing from them.
+	Groups []Group `yaml:"groups,omitempty" json:"groups,omitempty"`
+}
+
+// Group is a boundary nodes sit in: a VPC, a virtual network.
+type Group struct {
+	ID string `yaml:"id" json:"id"`
+	// Kind names the boundary for people ("VPC", "VNet").
+	Kind  string `yaml:"kind" json:"kind"`
+	Label string `yaml:"label,omitempty" json:"label,omitempty"`
 }
 
 // Node is one resource (or one external dependency such as a model API).
@@ -63,6 +74,8 @@ type Node struct {
 	Load     *Load     `yaml:"load,omitempty" json:"load,omitempty"`
 	Note     string    `yaml:"note,omitempty" json:"note,omitempty"`
 	Position *Position `yaml:"position,omitempty" json:"position,omitempty"`
+	// Group is the id of the boundary the node sits in; empty for none.
+	Group string `yaml:"group,omitempty" json:"group,omitempty"`
 	// Stale marks a node whose Terraform address disappeared on the last merge.
 	Stale bool `yaml:"stale,omitempty" json:"stale,omitempty"`
 }

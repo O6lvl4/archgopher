@@ -101,10 +101,12 @@ func TestNodeErrorsDoNotStopTheFlow(t *testing.T) {
 
 func TestStructuralErrors(t *testing.T) {
 	cases := map[string]model.Spec{
-		"cycle":     {Region: "r1", Nodes: []model.Node{node("a", 1), node("b", 1)}, Edges: []model.Edge{{From: "a", To: "b"}, {From: "b", To: "a"}}},
-		"dangling":  {Region: "r1", Nodes: []model.Node{node("a", 1)}, Edges: []model.Edge{{From: "a", To: "z"}}},
-		"duplicate": {Region: "r1", Nodes: []model.Node{node("a", 1), node("a", 1)}},
-		"kind":      {Region: "r1", Nodes: []model.Node{node("a", 1), node("b", 1)}, Edges: []model.Edge{{From: "a", To: "b", Kind: "delete"}}},
+		"cycle":      {Region: "r1", Nodes: []model.Node{node("a", 1), node("b", 1)}, Edges: []model.Edge{{From: "a", To: "b"}, {From: "b", To: "a"}}},
+		"dangling":   {Region: "r1", Nodes: []model.Node{node("a", 1)}, Edges: []model.Edge{{From: "a", To: "z"}}},
+		"duplicate":  {Region: "r1", Nodes: []model.Node{node("a", 1), node("a", 1)}},
+		"kind":       {Region: "r1", Nodes: []model.Node{node("a", 1), node("b", 1)}, Edges: []model.Edge{{From: "a", To: "b", Kind: "delete"}}},
+		"no group":   {Region: "r1", Nodes: []model.Node{grouped("a", "vpc")}},
+		"two groups": {Region: "r1", Groups: []model.Group{{ID: "vpc", Kind: "VPC"}, {ID: "vpc", Kind: "VPC"}}},
 	}
 	for name, spec := range cases {
 		if _, err := Run(spec, registry(), books()); err == nil {
@@ -131,5 +133,28 @@ func TestEntryNeedsLoad(t *testing.T) {
 	}
 	if res.Nodes[0].Error == "" {
 		t.Fatal("an entry without load must be an error")
+	}
+}
+
+func grouped(id, group string) model.Node {
+	n := node(id, 1)
+	n.Group = group
+	return n
+}
+
+// Groups are drawn, not read: a node in a group reads the same as without one.
+func TestGroupsDoNotChangeReadings(t *testing.T) {
+	plain := model.Spec{Region: "r1", Nodes: []model.Node{node("a", 1)}}
+	boxed := model.Spec{Region: "r1", Nodes: []model.Node{grouped("a", "vpc")}, Groups: []model.Group{{ID: "vpc", Kind: "VPC"}}}
+	a, err := Run(plain, registry(), books())
+	if err != nil {
+		t.Fatal(err)
+	}
+	b, err := Run(boxed, registry(), books())
+	if err != nil {
+		t.Fatal(err)
+	}
+	if a.MonthlyUSD != b.MonthlyUSD {
+		t.Errorf("monthly %v with a group, %v without", b.MonthlyUSD, a.MonthlyUSD)
 	}
 }

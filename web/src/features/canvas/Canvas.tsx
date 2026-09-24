@@ -1,8 +1,9 @@
 import { Background, Controls, MiniMap, Panel, ReactFlow, applyNodeChanges, type Connection, type EdgeChange, type NodeChange } from "@xyflow/react";
 import { useEffect, useMemo, useState, type Dispatch } from "react";
-import { toFlowEdges, toFlowNodes, type CardNode } from "../../lib/flow";
+import { toFlowEdges, toFlowNodes, toFrames, type CardNode, type FrameNode } from "../../lib/flow";
 import { closesCycle, type Action, type Selection } from "../../lib/state";
 import type { CatalogEntry, Result, Spec } from "../../lib/types";
+import { GroupFrame } from "../../composites/GroupFrame";
 import { ScouterNode } from "../../composites/ScouterNode";
 
 interface Props {
@@ -15,7 +16,7 @@ interface Props {
   onNotice: (text: string) => void;
 }
 
-const nodeTypes = { scouter: ScouterNode };
+const nodeTypes = { scouter: ScouterNode, frame: GroupFrame };
 
 function edgeIndex(id: string): number {
   return Number(id.slice(1));
@@ -37,10 +38,12 @@ export function Canvas({ spec, result, catalog, selection, dispatch, onSelect, o
     setNodes((prev) => toFlowNodes(spec, result, catalog, prev).map((n) => ({ ...n, selected: n.id === selectedNode })));
   }, [spec, result, catalog, selectedNode]);
   const edges = useMemo(() => toFlowEdges(spec, result, selectedEdge), [spec, result, selectedEdge]);
+  const shown = useMemo<(CardNode | FrameNode)[]>(() => [...toFrames(spec, nodes), ...nodes], [spec, nodes]);
 
-  const onNodesChange = (changes: NodeChange<CardNode>[]) => {
-    setNodes((ns) => applyNodeChanges(changes, ns));
-    for (const c of changes) if (c.type === "remove") dispatch({ type: "removeNode", id: c.id });
+  const onNodesChange = (changes: NodeChange<CardNode | FrameNode>[]) => {
+    const cards = changes.filter((c) => !("id" in c && c.id.startsWith("group:"))) as NodeChange<CardNode>[];
+    setNodes((ns) => applyNodeChanges(cards, ns));
+    for (const c of cards) if (c.type === "remove") dispatch({ type: "removeNode", id: c.id });
   };
   const onEdgesChange = (changes: EdgeChange[]) => {
     const removed = changes.filter((c) => c.type === "remove").map((c) => edgeIndex(c.id));
@@ -56,13 +59,13 @@ export function Canvas({ spec, result, catalog, selection, dispatch, onSelect, o
 
   return (
     <ReactFlow
-      nodes={nodes}
+      nodes={shown}
       edges={edges}
       nodeTypes={nodeTypes}
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
-      onNodeClick={(_, n) => onSelect({ kind: "node", id: n.id })}
+      onNodeClick={(_, n) => n.type === "scouter" && onSelect({ kind: "node", id: n.id })}
       onEdgeClick={(_, e) => onSelect({ kind: "edge", index: edgeIndex(e.id) })}
       onPaneClick={() => onSelect(undefined)}
       onNodeDragStop={(_, __, dragged) => dispatch({ type: "move", positions: Object.fromEntries(dragged.map((n) => [n.id, n.position])) })}
@@ -81,7 +84,7 @@ export function Canvas({ spec, result, catalog, selection, dispatch, onSelect, o
       )}
       <Background gap={24} />
       <Controls showInteractive={false} />
-      {spec.nodes.length > 0 && <MiniMap pannable zoomable />}
+      {spec.nodes.length > 0 && <MiniMap pannable zoomable nodeClassName={(n) => (n.type === "frame" ? "minimap-frame" : "")} />}
     </ReactFlow>
   );
 }

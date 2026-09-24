@@ -104,6 +104,7 @@ edges:
 | `assumptions` | Numbers Terraform cannot know. A missing required assumption is an error on that node, never a silent default. |
 | `kind` | The work the downstream node receives (`read` / `write` for DynamoDB). Defaults to the node's first kind. |
 | `perUnit` | Downstream units per upstream unit. Defaults to 1. |
+| `groups` / `group` | Boundaries drawn around nodes, such as a VPC (`{ id, kind, label }`), and the one a node sits in. They are drawn, not read: a node reads the same inside a group as outside. |
 
 Load flows in topological order: a node's total throughput times `perUnit`
 lands on the downstream node under `kind`. Cycles are errors.
@@ -135,6 +136,14 @@ without state and without cloud credentials, so it also works on a pull request.
 - **Entries.** Front doors nobody calls (CloudFront, API Gateway, load
   balancers, Cognito, Lambda function URLs) get a shared `users` entry.
   `rate()` and `cron()` schedules become the load of their rule.
+- **Boundaries.** A node that references a security group, subnet or subnet
+  group leading to a VPC (an `aws_vpc`, a VNet, a Google Cloud network, managed
+  or looked up with a data source) sits in that VPC's frame. Only placement
+  attributes (`vpc_config`, `subnet_ids`, `network_configuration`, ...) are
+  followed from the node, and never through another node, so a function that
+  calls a database is not placed in the database's VPC. Modules that each look
+  up the same VPC share one frame. Subnets and Availability Zones are not
+  frames: resources usually span several.
 - **Mentions.** A reference to a CloudFront distribution (a callback URL, a
   link in an invitation email) is a mention, not a call, and makes no edge.
 - **Resources that are off.** Resources and modules whose `count` or

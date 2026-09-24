@@ -134,6 +134,7 @@ func TerraformRules() infer.Rules {
 		Scouters:     Registry(),
 		Sources:      []infer.EdgeSource{iam.Source(IAM())},
 		ScheduleLoad: schedule.Load,
+		Boundaries:   map[string]string{"aws_vpc": "VPC"},
 	}}
 	for _, u := range mustUnits() {
 		if u.Resource != nil {

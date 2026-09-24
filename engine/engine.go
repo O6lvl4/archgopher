@@ -195,6 +195,16 @@ type graph struct {
 
 func buildGraph(spec model.Spec, reg scouter.Registry) (*graph, error) {
 	g := &graph{nodes: map[string]model.Node{}, outgoing: map[string][]model.Edge{}, kinds: map[string]string{}}
+	groups := map[string]bool{}
+	for _, gr := range spec.Groups {
+		if gr.ID == "" {
+			return nil, fmt.Errorf("a %s group has no id", gr.Kind)
+		}
+		if groups[gr.ID] {
+			return nil, fmt.Errorf("duplicate group id %q", gr.ID)
+		}
+		groups[gr.ID] = true
+	}
 	var ids []string
 	for _, n := range spec.Nodes {
 		if n.ID == "" {
@@ -202,6 +212,9 @@ func buildGraph(spec model.Spec, reg scouter.Registry) (*graph, error) {
 		}
 		if _, dup := g.nodes[n.ID]; dup {
 			return nil, fmt.Errorf("duplicate node id %q", n.ID)
+		}
+		if n.Group != "" && !groups[n.Group] {
+			return nil, fmt.Errorf("node %q: no group %q", n.ID, n.Group)
 		}
 		g.nodes[n.ID] = n
 		ids = append(ids, n.ID)

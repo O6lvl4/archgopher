@@ -180,3 +180,55 @@ func TestMergeKeepsPeoplesWork(t *testing.T) {
 		t.Error("merging twice must not add anything")
 	}
 }
+
+func TestNodesSitInTheirVPC(t *testing.T) {
+	spec, _ := build(t, "testdata/boundaries", eval.Options{})
+	var groups []string
+	for _, g := range spec.Groups {
+		groups = append(groups, g.ID+"="+g.Kind+":"+g.Label)
+	}
+	sort.Strings(groups)
+	if got := strings.Join(groups, " "); got != "own=VPC:own shared=VPC:shared" {
+		t.Errorf("one group per VPC, lookups of the same VPC agreeing: %s", got)
+	}
+	var placed []string
+	for _, n := range spec.Nodes {
+		placed = append(placed, n.ID+"@"+n.Group)
+	}
+	sort.Strings(placed)
+	want := "db@shared flow@ inside@own outside@ s3@shared"
+	if got := strings.Join(placed, " "); got != want {
+		t.Errorf("placement:\n got %s\nwant %s", got, want)
+	}
+}
+
+func TestMergeFollowsTerraformGroups(t *testing.T) {
+	fresh, _ := build(t, "testdata/boundaries", eval.Options{})
+	// A group of someone else's with the id Terraform would use, and a node
+	// placed by hand in a group Terraform no longer names.
+	existing := model.Spec{Name: "mine", Region: "us-east-1",
+		Groups: []model.Group{{ID: "own", Kind: "Account", Label: "billing"}, {ID: "old", Kind: "VPC", Label: "old"}},
+		Nodes: []model.Node{
+			{ID: "fn", Type: "aws_lambda_function", Address: "aws_lambda_function.inside", Group: "old"},
+			{ID: "ledger", Type: "aws_dynamodb_table", Group: "own"},
+		},
+	}
+	merged, _ := merge.Merge(existing, fresh)
+	var groups []string
+	for _, g := range merged.Groups {
+		groups = append(groups, g.ID+"="+g.Kind+":"+g.Label)
+	}
+	if got := strings.Join(groups, " "); got != "own=Account:billing own-2=VPC:own shared=VPC:shared" {
+		t.Errorf("groups: %s", got)
+	}
+	if g := nodeByID(merged, "fn").Group; g != "own-2" {
+		t.Errorf("Terraform owns where fn sits: %q", g)
+	}
+	if g := nodeByID(merged, "ledger").Group; g != "own" {
+		t.Errorf("a node outside Terraform keeps its group: %q", g)
+	}
+	again, _ := merge.Merge(merged, fresh)
+	if len(again.Groups) != len(merged.Groups) {
+		t.Error("merging twice must not add groups")
+	}
+}
