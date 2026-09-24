@@ -118,6 +118,13 @@ func TestDataSourcesAreNotNodes(t *testing.T) {
 	}
 }
 
+func TestPassiveResourcesMakeNoEdges(t *testing.T) {
+	spec, _ := build(t, "testdata/passive", eval.Options{})
+	if got := strings.Join(edges(spec), " "); got != "" {
+		t.Errorf("an alarm watches a function, it does not call it: %s", got)
+	}
+}
+
 func TestPoliciesForEachAndFunctions(t *testing.T) {
 	spec, warnings := build(t, "testdata/policies", eval.Options{})
 	if len(warnings) > 0 {

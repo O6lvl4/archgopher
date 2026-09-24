@@ -29,6 +29,8 @@ type Rules struct {
 	// them, so references to them (callback URLs, links in emails, CORS origins)
 	// are mentions, not edges.
 	Mentioned map[string]bool
+	// Passive types watch or describe others (alarms): their references are never calls.
+	Passive map[string]bool
 	// FrontDoors get a shared "users" entry when nothing inside the graph calls them.
 	FrontDoors map[string]bool
 	// FrontDoorAliases are helper resources that expose a node to users (a Lambda function URL).
@@ -84,7 +86,7 @@ func (g *Graph) Targets(ref string) []string { return g.b.targets(ref) }
 // non-nil function wins.
 func Combine(parts ...Rules) Rules {
 	out := Rules{
-		NodeTypes: map[string]bool{}, Aliases: map[string]string{}, Mentioned: map[string]bool{},
+		NodeTypes: map[string]bool{}, Aliases: map[string]string{}, Mentioned: map[string]bool{}, Passive: map[string]bool{},
 		FrontDoors: map[string]bool{}, FrontDoorAliases: map[string]string{}, Schedules: map[string]string{},
 		Scouters: scouter.Registry{},
 	}
@@ -92,6 +94,7 @@ func Combine(parts ...Rules) Rules {
 		copyMap(out.NodeTypes, p.NodeTypes)
 		copyMap(out.Aliases, p.Aliases)
 		copyMap(out.Mentioned, p.Mentioned)
+		copyMap(out.Passive, p.Passive)
 		copyMap(out.FrontDoors, p.FrontDoors)
 		copyMap(out.FrontDoorAliases, p.FrontDoorAliases)
 		copyMap(out.Schedules, p.Schedules)
@@ -260,7 +263,7 @@ func (b *builder) edges() []edgeKey {
 		}
 	}
 	for _, r := range b.ev.Resources {
-		if !b.isNode(r.Address) {
+		if !b.isNode(r.Address) || b.rules.Passive[r.Type] {
 			continue
 		}
 		for _, path := range sortedPaths(r.Refs) {

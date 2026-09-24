@@ -39,8 +39,10 @@ type File struct {
 
 // Terraform is the resource's share of the rules that turn Terraform into a graph.
 type Terraform struct {
-	FrontDoor        bool              `yaml:"frontDoor"`
-	Mentioned        bool              `yaml:"mentioned"`
+	FrontDoor bool `yaml:"frontDoor"`
+	Mentioned bool `yaml:"mentioned"`
+	// Passive: references from this resource are never calls (an alarm names what it watches).
+	Passive          bool              `yaml:"passive"`
 	Links            []Link            `yaml:"links"`
 	Aliases          map[string]string `yaml:"aliases"`
 	FrontDoorAliases map[string]string `yaml:"frontDoorAliases"`
