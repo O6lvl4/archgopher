@@ -347,3 +347,7 @@ and a feature never imports another feature.
 ## License
 
 [Apache License 2.0](LICENSE)
+
+The archgopher logo is derived from the Go gopher, designed by
+[Renée French](https://reneefrench.blogspot.com/) and licensed under
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).

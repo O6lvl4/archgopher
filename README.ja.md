@@ -108,3 +108,6 @@ Go のコードは書かない。
 ## ライセンス
 
 [Apache License 2.0](LICENSE)
+
+archgopher のロゴは、[Renée French](https://reneefrench.blogspot.com/) による Go gopher をもとにしています。
+Go gopher は [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) で公開されています。
