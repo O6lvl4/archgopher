@@ -1,0 +1,66 @@
+{
+  "aws.transfer.internet_out": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/ec2/pricing/on-demand/#Data_Transfer",
+    "note": "Data transfer out to the internet, first 10 TB a month tier. The 100 GB a month free across the account is ignored, as every free tier. Transfer to CloudFront and within the region is free",
+    "sync": {
+      "service": "AWSDataTransfer",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?DataTransfer-Out-Bytes"
+      },
+      "tier": "0"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.114,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 0.126,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 0.1093,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.114,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.09,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.09,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.09,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.09,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 0.09,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

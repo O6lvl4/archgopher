@@ -1,0 +1,130 @@
+{
+  "aws.transitgateway.data_processed": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/transit-gateway/pricing/",
+    "note": "Data processed by a VPC attachment, charged to the sender",
+    "sync": {
+      "service": "AmazonVPC",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-TransitGateway-Bytes",
+        "operation": "TransitGatewayVPC"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.transitgateway.vpc_attachment_hour": {
+    "unit": "hour",
+    "source": "https://aws.amazon.com/transit-gateway/pricing/",
+    "note": "Per VPC attachment",
+    "sync": {
+      "service": "AmazonVPC",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-TransitGateway-Hours",
+        "operation": "TransitGatewayVPC"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.07,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 0.07,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 0.07,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 0.07,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.07,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

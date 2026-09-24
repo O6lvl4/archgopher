@@ -1,0 +1,22 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: one attachment, no traffic (ap-northeast-1)
+  region: ap-northeast-1
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  costs:
+    Attachment hours: 51.1
+    Data processed: 0
+- name: 100 GB sent (us-east-1)
+  region: us-east-1
+  assumptions:
+    gbPerMonth: 100
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  costs:
+    Attachment hours: 36.5
+    Data processed: 2.0

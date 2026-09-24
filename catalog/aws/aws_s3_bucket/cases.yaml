@@ -7,11 +7,11 @@
     storageGb: 300
   demand:
     read:
-        monthly: 2e+06
-        peak: 40
+      monthly: 2e+06
+      peak: 40
     write:
-        monthly: 2.5e+06
-        peak: 50
+      monthly: 2500000.0
+      peak: 50
   costs:
     GET requests: 0.8
     PUT requests: 12.5
@@ -26,11 +26,11 @@
     storageGb: 10
   demand:
     read:
-        monthly: 2e+06
-        peak: 40
+      monthly: 2e+06
+      peak: 40
     write:
-        monthly: 2.5e+06
-        peak: 50
+      monthly: 2500000.0
+      peak: 50
   costs:
     GET requests: 0.8
     PUT requests: 12.5
@@ -44,11 +44,11 @@
     storageGb: 300
   demand:
     read:
-        monthly: 2e+06
-        peak: 40
+      monthly: 2e+06
+      peak: 40
     write:
-        monthly: 2.5e+06
-        peak: 50
+      monthly: 2500000.0
+      peak: 50
   costs:
     GET requests: 0.74
     PUT requests: 11.75
@@ -63,11 +63,11 @@
     storageGb: 10
   demand:
     read:
-        monthly: 2e+06
-        peak: 40
+      monthly: 2e+06
+      peak: 40
     write:
-        monthly: 2.5e+06
-        peak: 50
+      monthly: 2500000.0
+      peak: 50
   costs:
     GET requests: 0.74
     PUT requests: 11.75
@@ -75,3 +75,23 @@
   limits:
     GET rate: 40
     PUT rate: 50
+- name: direct downloads to the internet (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    storageGb: 5
+    internetGbPerMonth: 17.62
+  demand:
+    read:
+      monthly: 10000
+      peak: 1
+    write:
+      monthly: 0
+      peak: 0
+  costs:
+    GET requests: 0.0037
+    Storage: 0.125
+    Transfer out to the internet: 2.00868
+    PUT requests: 0
+  limits:
+    GET rate: 1
+    PUT rate: 0

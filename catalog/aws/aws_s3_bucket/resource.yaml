@@ -1,16 +1,18 @@
 type: aws_s3_bucket
 label: S3
 category: Storage
-description: S3 Standard GET, PUT and storage. Headroom is the per-prefix request rate times the prefixes in use.
+description: S3 Standard GET, PUT, storage and direct transfer out to the internet. Headroom is the per-prefix request rate times the prefixes in use.
 kinds: [read, write]
 sla: aws.s3
 assumptions:
   - { key: storageGb, label: Storage, type: number, unit: GB }
   - { key: prefixes, label: Prefixes the load spreads over, type: number, default: 1, hint: "Request rate limits apply per prefix" }
+  - { key: internetGbPerMonth, label: Downloaded to the internet, type: number, unit: GB, default: 0, hint: "Direct downloads only: reads through CloudFront or from the same region transfer for free" }
 readings:
   - requests: { name: GET requests, price: aws.s3.standard.get, count: demand.read.monthly }
   - requests: { name: PUT requests, price: aws.s3.standard.put, count: demand.write.monthly }
   - storage: { name: Storage, gb: storageGb, price: aws.s3.standard.storage }
+  - cost: { when: internetGbPerMonth > 0, name: Transfer out to the internet, quantity: internetGbPerMonth, unit: GB, price: aws.transfer.internet_out }
   - rate: { name: GET rate, unit: requests/second, quota: aws.s3.prefix_get, peak: demand.read.peak, scale: prefixes }
   - rate: { name: PUT rate, unit: requests/second, quota: aws.s3.prefix_put, peak: demand.write.peak, scale: prefixes }
 terraform:

@@ -189,7 +189,7 @@ the demand and says the capacity is unknown.
 | `aws_apigatewayv2_api` | Requests in 512 KB steps (HTTP APIs) | Account throttle |
 | `aws_cloudfront_distribution` | HTTPS requests, transfer out, by the price zone of the viewers (the region's zone unless set) | Requests per distribution |
 | `aws_dynamodb_table` | On-demand request units or provisioned capacity (4 KB / 1 KB steps, consistency, transactions), storage | Table throughput or provisioned capacity |
-| `aws_s3_bucket` | GET, PUT, storage (Standard) | Per-prefix request rate × prefixes |
+| `aws_s3_bucket` | GET, PUT, storage (Standard), direct transfer out to the internet | Per-prefix request rate × prefixes |
 | `aws_sqs_queue` | Requests in 64 KB chunks | FIFO send rate, by region in high throughput mode |
 | `aws_sns_topic` | Publishes in 64 KB chunks | Publish rate |
 | `aws_sfn_state_machine` | Transitions (standard), requests and GB-seconds (express) | StartExecution rate |
@@ -205,6 +205,7 @@ the demand and says the capacity is unknown.
 | `aws_wafv2_web_acl` | Web ACL-months, rule-months, requests by inspection capacity | Requests per web ACL (regional) |
 | `aws_cloudfront_function` | Invocations | - |
 | `aws_vpc_endpoint` | Interface endpoint-hours per zone and data processed; Gateway endpoints are free | - |
+| `aws_ec2_transit_gateway_vpc_attachment` | Attachment-hours and data processed, billed to the attachment owner | - |
 | `aws_cloudwatch_metric_alarm` | Alarm metric-months, standard or high resolution, anomaly detection | - |
 | `aws_bedrock_guardrail` | Text units per configured policy (content, topics, sensitive information, contextual grounding) | ApplyGuardrail and per-policy text units per second (varies by region) |
 | `bedrock_model` | Input, output, cache read and cache write tokens (Claude 4.5 models), global or regional inference | Tokens per minute (output × burndown, cache reads excluded) and requests per minute |
