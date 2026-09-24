@@ -13,3 +13,11 @@ var AWS embed.FS
 
 // AWSRoot is the directory of the AWS catalog inside AWS.
 const AWSRoot = "aws"
+
+// Azure is the Azure catalog.
+//
+//go:embed azure
+var Azure embed.FS
+
+// AzureRoot is the directory of the Azure catalog inside Azure.
+const AzureRoot = "azure"

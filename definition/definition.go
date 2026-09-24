@@ -61,6 +61,7 @@ type Link struct {
 // Resource is a compiled definition. It implements scouter.Scouter.
 type Resource struct {
 	File        File
+	provider    string
 	attributes  []field.Field
 	assumptions []field.Field
 	lets        []let
@@ -128,7 +129,7 @@ func build(specs []field.Spec) ([]field.Field, error) {
 // Meta is the catalog entry.
 func (r *Resource) Meta() scouter.Meta {
 	f := r.File
-	return scouter.Meta{Type: f.Type, Label: f.Label, Category: f.Category, Description: f.Description, Kinds: f.Kinds, SLA: f.SLA, External: f.External}
+	return scouter.Meta{Type: f.Type, Label: f.Label, Category: f.Category, Provider: r.provider, Description: f.Description, Kinds: f.Kinds, SLA: f.SLA, External: f.External}
 }
 
 // Attributes lists the Terraform attributes the resource reads.

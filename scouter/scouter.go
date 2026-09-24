@@ -27,9 +27,12 @@ var LatencyFields = []field.Field{
 
 // Meta is what a catalog shows about a scouter.
 type Meta struct {
-	Type        string `json:"type"`
-	Label       string `json:"label"`
-	Category    string `json:"category"`
+	Type     string `json:"type"`
+	Label    string `json:"label"`
+	Category string `json:"category"`
+	// Provider is the cloud the resource belongs to ("aws", "azure"); empty
+	// for provider-neutral nodes such as the entry.
+	Provider    string `json:"provider,omitempty"`
 	Description string `json:"description"`
 	// Kinds is the work the node accepts; the first is the default for edges.
 	Kinds []string `json:"kinds"`

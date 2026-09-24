@@ -1,0 +1,23 @@
+type: azurerm_storage_account
+label: Storage account (Blob)
+category: Storage
+description: "Blob Storage on the hot tier: data stored, write and read operations, by redundancy. Headroom is the account request rate."
+kinds: [read, write]
+sla: azure.storage
+attributes:
+  - { key: account_replication_type, label: Redundancy, type: choice, options: [LRS, ZRS, GRS, RAGRS, GZRS, RAGZRS], default: LRS }
+  - { key: account_tier, label: Performance, type: choice, options: [Standard, Premium], default: Standard }
+  - { key: access_tier, label: Access tier, type: choice, options: [Hot, Cool, Cold, Premium], default: Hot }
+assumptions:
+  - { key: storageGb, label: Data stored, type: number, unit: GB }
+let:
+  - r: 'account_replication_type in ["LRS", "ZRS", "GRS", "RAGRS"] ? lower(account_replication_type) : "unread"'
+readings:
+  - fail: { when: 'account_tier != "Standard" || access_tier != "Hot"', message: "only Standard accounts on the Hot tier are read yet, not {account_tier} {access_tier}" }
+  - fail: { when: 'r == "unread"', message: "{account_replication_type} is not read yet: LRS, ZRS, GRS and RAGRS are" }
+  - storage: { name: Data stored, gb: storageGb, price: "azure.storage.hot.{r}.stored" }
+  - requests: { name: Write operations, price: "azure.storage.hot.{r}.write", count: demand.write.monthly }
+  - requests: { name: Read operations, price: "azure.storage.hot.{r}.read", count: demand.read.monthly }
+  - rate: { name: Request rate, unit: requests/second, quota: azure.storage.account_rps, peak: total.peak }
+terraform:
+  ignoreRefs: [network_rules, customer_managed_key, identity]

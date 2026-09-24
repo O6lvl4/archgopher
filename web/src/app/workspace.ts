@@ -3,7 +3,7 @@ import { engine, EngineError, loadEngine } from "../lib/engine";
 import { autoLayout, needsLayout } from "../lib/layout";
 import { emptySpec, reducer } from "../lib/state";
 import { loadSaved, save } from "../lib/storage";
-import type { CatalogEntry, Result, Spec } from "../lib/types";
+import type { CatalogEntry, RegionGroup, Result, Spec } from "../lib/types";
 
 function message(e: unknown): string {
   return e instanceof Error ? e.message : String(e);
@@ -32,7 +32,7 @@ export function useWorkspace() {
   const [ready, setReady] = useState(false);
   const [fatal, setFatal] = useState<string>();
   const [catalog, setCatalog] = useState<CatalogEntry[]>([]);
-  const [regions, setRegions] = useState<string[]>([]);
+  const [regions, setRegions] = useState<RegionGroup[]>([]);
   const [generation, setGeneration] = useState(0);
 
   const load = (next: Spec) => {

@@ -1,0 +1,52 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: LRS in Japan East
+  region: japaneast
+  assumptions:
+    storageGb: 100
+  demand:
+    read:
+      monthly: 2000000.0
+      peak: 20
+    write:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Data stored: 2.0
+    Write operations: 5.0
+    Read operations: 0.8
+  limits:
+    Request rate: 30
+- name: RA-GRS in East US
+  region: eastus
+  attributes:
+    account_replication_type: RAGRS
+  assumptions:
+    storageGb: 100
+  demand:
+    read:
+      monthly: 0
+      peak: 0
+    write:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Data stored: 5.89
+    Write operations: 10.0
+    Read operations: 0
+  limits:
+    Request rate: 10
+- name: GZRS is not read yet
+  region: japaneast
+  attributes:
+    account_replication_type: GZRS
+  assumptions:
+    storageGb: 1
+  demand:
+    read:
+      monthly: 1
+      peak: 1
+    write:
+      monthly: 1
+      peak: 1
+  error: 'GZRS is not read yet: LRS, ZRS, GRS and RAGRS are'

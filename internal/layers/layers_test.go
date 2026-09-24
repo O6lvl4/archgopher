@@ -38,17 +38,27 @@ var allowed = map[string][]string{
 	"terraform/infer":  {"field", "model", "scouter", "terraform/eval"},
 	"terraform/merge":  {"model"},
 
+	// Checks every provider catalog must pass, called from provider tests.
+	"internal/catalogtest": {"book", "definition", "field", "meter", "model", "scouter"},
+
 	// AWS provider: resources are data in catalog/aws; the provider adds IAM,
 	// the schedule syntax and account-wide rules.
 	"provider/aws/iam":       {"terraform/eval", "terraform/infer"},
 	"provider/aws/pricelist": {},
 	"provider/aws/pattern":   {"model", "pattern", "scouter"},
 	"provider/aws/schedule":  {"model"},
-	"provider/aws":           {"book", "catalog", "definition", "scouter", "terraform/infer", "provider/aws/iam", "provider/aws/schedule"},
+	"provider/aws":           {"book", "catalog", "definition", "scouter", "terraform/eval", "terraform/infer", "provider/aws/iam", "provider/aws/schedule"},
+
+	// Azure provider: resources are data in catalog/azure.
+	"provider/azure/retailprices": {},
+	"provider/azure":              {"book", "catalog", "definition", "scouter", "terraform/eval", "terraform/infer"},
+
+	// The one place that lists the providers.
+	"cloud": {"book", "pattern", "scouter", "terraform/infer", "provider/aws", "provider/aws/pattern", "provider/azure"},
 
 	// Edges of the system.
-	"api":            {"book", "engine", "field", "model", "pattern", "scouter", "provider/aws", "provider/aws/pattern", "terraform/eval", "terraform/infer", "terraform/merge"},
-	"cmd/archgopher": {"api", "book", "model", "report", "provider/aws", "provider/aws/pricelist", "terraform/eval", "terraform/infer", "terraform/merge"},
+	"api":            {"book", "cloud", "engine", "field", "model", "pattern", "scouter", "terraform/eval", "terraform/infer", "terraform/merge"},
+	"cmd/archgopher": {"api", "book", "cloud", "model", "report", "provider/aws/pricelist", "provider/azure/retailprices", "terraform/eval", "terraform/infer", "terraform/merge"},
 	"cmd/wasm":       {"api"},
 }
 

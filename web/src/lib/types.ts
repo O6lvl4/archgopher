@@ -58,6 +58,8 @@ export interface CatalogEntry {
   type: string;
   label: string;
   category: string;
+  /** The cloud: "aws", "azure"; absent for provider-neutral nodes such as the entry. */
+  provider?: string;
   description: string;
   kinds: string[];
   sla?: string;
@@ -136,4 +138,11 @@ export interface Result {
 export interface TerraformResponse {
   spec: Spec;
   warnings: string[];
+}
+
+/** One provider's regions, as the price books cover them. */
+export interface RegionGroup {
+  provider: string;
+  label: string;
+  regions: string[];
 }

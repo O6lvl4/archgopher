@@ -24,7 +24,8 @@ type Unit struct {
 	Cases    []Case
 }
 
-// LoadAll reads every unit directly under root.
+// LoadAll reads every unit directly under root, a provider's catalog
+// directory whose name is the provider of every resource in it.
 func LoadAll(fsys fs.FS, root string) ([]Unit, error) {
 	entries, err := fs.ReadDir(fsys, root)
 	if err != nil {
@@ -38,6 +39,10 @@ func LoadAll(fsys fs.FS, root string) ([]Unit, error) {
 		u, err := Load(fsys, path.Join(root, e.Name()))
 		if err != nil {
 			return nil, err
+		}
+		if u.Resource != nil {
+			// The catalog directory names the cloud: catalog/aws, catalog/azure.
+			u.Resource.provider = path.Base(root)
 		}
 		units = append(units, u)
 	}

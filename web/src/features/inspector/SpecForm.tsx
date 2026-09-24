@@ -1,8 +1,8 @@
 import type { Dispatch } from "react";
 import type { Action } from "../../lib/state";
-import type { Spec } from "../../lib/types";
+import type { RegionGroup, Spec } from "../../lib/types";
 
-export function SpecForm({ spec, regions, dispatch }: { spec: Spec; regions: string[]; dispatch: Dispatch<Action> }) {
+export function SpecForm({ spec, regions, dispatch }: { spec: Spec; regions: RegionGroup[]; dispatch: Dispatch<Action> }) {
   return (
     <div className="panel-body">
       <header className="panel-head">
@@ -15,11 +15,15 @@ export function SpecForm({ spec, regions, dispatch }: { spec: Spec; regions: str
       <label className="field">
         <span className="field-label">Region</span>
         <select value={spec.region} onChange={(e) => dispatch({ type: "meta", region: e.target.value })}>
-          {regions.map((r) => (
-            <option key={r}>{r}</option>
+          {regions.map((g) => (
+            <optgroup key={g.provider} label={g.label}>
+              {g.regions.map((r) => (
+                <option key={r}>{r}</option>
+              ))}
+            </optgroup>
           ))}
         </select>
-        <span className="field-hint">Prices and quotas are read for this region.</span>
+        <span className="field-hint">Prices and quotas are read for this region. Resources of another cloud have no prices here.</span>
       </label>
       <section className="panel-section">
         <h3>How to use</h3>

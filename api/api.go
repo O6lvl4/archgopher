@@ -11,12 +11,11 @@ import (
 	"strings"
 	"testing/fstest"
 
+	"github.com/O6lvl4/archgopher/cloud"
 	"github.com/O6lvl4/archgopher/engine"
 	"github.com/O6lvl4/archgopher/field"
 	"github.com/O6lvl4/archgopher/model"
 	"github.com/O6lvl4/archgopher/pattern"
-	"github.com/O6lvl4/archgopher/provider/aws"
-	awspattern "github.com/O6lvl4/archgopher/provider/aws/pattern"
 	"github.com/O6lvl4/archgopher/scouter"
 	"github.com/O6lvl4/archgopher/terraform/eval"
 	"github.com/O6lvl4/archgopher/terraform/infer"
@@ -33,13 +32,13 @@ type CatalogEntry struct {
 // Catalog lists every scouter, then every pattern, each sorted by type.
 // A pattern's parameters are its assumptions: it is placed and edited like a node.
 func Catalog() []CatalogEntry {
-	reg := aws.Registry()
+	reg := cloud.Registry()
 	var out []CatalogEntry
 	for _, t := range reg.Types() {
 		s := reg[t]
 		out = append(out, CatalogEntry{Meta: s.Meta(), Attributes: s.Attributes(), Assumptions: s.Assumptions()})
 	}
-	patterns := awspattern.Registry()
+	patterns := cloud.Patterns()
 	for _, t := range patterns.Types() {
 		p := patterns[t]
 		out = append(out, CatalogEntry{Meta: p.Meta(), Attributes: []field.Field{}, Assumptions: p.Params()})
@@ -50,16 +49,16 @@ func Catalog() []CatalogEntry {
 // Scout reads a declaration: patterns expand, the engine runs, and each
 // pattern gets a rolled-up result.
 func Scout(spec model.Spec) (engine.Result, error) {
-	books, err := aws.Books()
+	books, err := cloud.Books()
 	if err != nil {
 		return engine.Result{}, err
 	}
-	patterns := awspattern.Registry()
+	patterns := cloud.Patterns()
 	expanded, exp, err := pattern.Expand(spec, patterns)
 	if err != nil {
 		return engine.Result{}, err
 	}
-	res, err := engine.Run(expanded, aws.Registry(), books)
+	res, err := engine.Run(expanded, cloud.Registry(), books)
 	if err != nil {
 		return engine.Result{}, err
 	}
@@ -98,7 +97,7 @@ func Terraform(req TerraformRequest) (TerraformResponse, error) {
 	if name == "" {
 		name = path.Base(root)
 	}
-	spec, warnings := infer.Build(ev, aws.TerraformRules(), name)
+	spec, warnings := infer.Build(ev, cloud.TerraformRules(), name)
 	if req.Merge != nil {
 		var w []string
 		spec, w = merge.Merge(*req.Merge, spec)
@@ -106,7 +105,7 @@ func Terraform(req TerraformRequest) (TerraformResponse, error) {
 	}
 	if spec.Region == "" {
 		spec.Region = "us-east-1"
-		warnings = append(warnings, "no region found in the aws provider; using us-east-1")
+		warnings = append(warnings, "no region found in an aws provider block or an azurerm location; using us-east-1")
 	}
 	if warnings == nil {
 		warnings = []string{}
@@ -130,9 +129,9 @@ func RootCandidates(files map[string]string) []string {
 	return out
 }
 
-// Regions lists the regions the price book covers.
-func Regions() ([]string, error) {
-	return aws.Regions()
+// Regions lists each provider's regions.
+func Regions() ([]cloud.RegionGroup, error) {
+	return cloud.Regions()
 }
 
 // ParseYAML reads a declaration from YAML.

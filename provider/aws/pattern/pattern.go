@@ -24,7 +24,8 @@ type serverlessAPI struct {
 // outgoing edges leave from the function.
 var ServerlessAPI = pattern.Def[serverlessAPI]{
 	Info: scouter.Meta{
-		Type: "aws.pattern.serverless_api", Label: "Serverless API", Category: "Pattern", External: true,
+		Provider: "aws",
+		Type:     "aws.pattern.serverless_api", Label: "Serverless API", Category: "Pattern", External: true,
 		Description: "API Gateway (REST) → Lambda (arm64) → DynamoDB (on demand). Load enters at the API; edges out leave from the function.",
 		Kinds:       []string{"request"},
 	},
@@ -60,7 +61,8 @@ type queueWorker struct {
 // Load enters at the queue; outgoing edges leave from the function.
 var QueueWorker = pattern.Def[queueWorker]{
 	Info: scouter.Meta{
-		Type: "aws.pattern.queue_worker", Label: "Queue worker", Category: "Pattern", External: true,
+		Provider: "aws",
+		Type:     "aws.pattern.queue_worker", Label: "Queue worker", Category: "Pattern", External: true,
 		Description: "SQS → Lambda in batches. Load enters at the queue; edges out leave from the function, once per batch.",
 		Kinds:       []string{"send"},
 	},

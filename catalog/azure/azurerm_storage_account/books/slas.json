@@ -1,0 +1,13 @@
+{
+  "azure.storage": {
+    "unit": "fraction",
+    "source": "https://www.microsoft.com/licensing/docs/view/Service-Level-Agreements-SLA-for-Online-Services",
+    "note": "Hot tier read and write requests on LRS, ZRS and GRS; RA-GRS reads are 99.99%. From the consolidated SLA document, not machine-checked",
+    "values": {
+      "*": {
+        "value": 0.999,
+        "verified": false
+      }
+    }
+  }
+}

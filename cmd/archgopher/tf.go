@@ -7,8 +7,8 @@ import (
 	"os"
 	"strings"
 
+	"github.com/O6lvl4/archgopher/cloud"
 	"github.com/O6lvl4/archgopher/model"
-	"github.com/O6lvl4/archgopher/provider/aws"
 	"github.com/O6lvl4/archgopher/terraform/eval"
 	"github.com/O6lvl4/archgopher/terraform/infer"
 	"github.com/O6lvl4/archgopher/terraform/merge"
@@ -58,7 +58,7 @@ func cmdTerraform(args []string, out io.Writer) error {
 	if n == "" {
 		n = infer.DefaultName(dir)
 	}
-	spec, warnings := infer.Build(ev, aws.TerraformRules(), n)
+	spec, warnings := infer.Build(ev, cloud.TerraformRules(), n)
 	if *region != "" {
 		spec.Region = *region
 	}

@@ -1,7 +1,8 @@
 name: prices
 
-# Re-reads the public AWS Price List every week and opens a pull request when
-# a price in aws/books/prices.json changed. No AWS credentials are needed.
+# Re-reads the public price lists every week (the AWS Price List and the Azure
+# Retail Prices API, neither needs credentials) and opens a pull request when a
+# price in catalog/*/*/books/prices.json changed.
 on:
   schedule:
     - cron: "0 3 * * 1"
@@ -28,4 +29,4 @@ jobs:
           commit-message: Update prices from the AWS Price List
           title: Update prices from the AWS Price List
           body-path: sync.txt
-          add-paths: catalog/aws/*/books/prices.json
+          add-paths: catalog/*/*/books/prices.json

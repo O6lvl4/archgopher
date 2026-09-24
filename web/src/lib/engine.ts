@@ -1,4 +1,4 @@
-import type { CatalogEntry, Result, Spec, TerraformResponse } from "./types";
+import type { CatalogEntry, RegionGroup, Result, Spec, TerraformResponse } from "./types";
 
 // The engine is the Go package api compiled to WebAssembly. It registers a
 // global archGopher(name, input) that returns {"ok": ...} or {"error": ...}.
@@ -52,7 +52,7 @@ function call<T>(name: string, input = ""): T {
 
 export const engine = {
   catalog: () => call<CatalogEntry[]>("catalog"),
-  regions: () => call<string[]>("regions"),
+  regions: () => call<RegionGroup[]>("regions"),
   scout: (spec: Spec) => call<Result>("scout", JSON.stringify(spec)),
   parseYaml: (text: string) => call<Spec>("parseYaml", text),
   toYaml: (spec: Spec) => call<string>("toYaml", JSON.stringify(spec)),

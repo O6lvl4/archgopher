@@ -1,0 +1,159 @@
+{
+  "azure.storage.account_rps": {
+    "unit": "requests/second",
+    "source": "https://learn.microsoft.com/en-us/azure/storage/common/scalability-targets-standard-account",
+    "note": "General-purpose v2 accounts; 40,000 in the listed larger regions, 20,000 elsewhere. Higher by request",
+    "values": {
+      "*": {
+        "value": 20000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "australiaeast": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "brazilsouth": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "canadacentral": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralus": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "chinaeast2": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "chinanorth3": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastasia": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "francecentral": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "jioindiawest": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northcentralus": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "norwayeast": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southafricanorth": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southcentralus": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "swedencentral": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "uksouth": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "usgovarizona": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "usgovvirginia": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westeurope": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus3": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

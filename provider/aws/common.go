@@ -1,6 +1,9 @@
 package aws
 
-import "github.com/O6lvl4/archgopher/terraform/infer"
+import (
+	"github.com/O6lvl4/archgopher/terraform/eval"
+	"github.com/O6lvl4/archgopher/terraform/infer"
+)
 
 // roleAttrs are attribute paths through which a resource acts as an IAM role.
 var roleAttrs = []string{"role", "role_arn", "task_role_arn"}
@@ -33,8 +36,8 @@ func common() infer.Rules {
 			"execution_role_arn", "kms_key_arn", "kms_key_id", "kms_master_key_id", "policy",
 			"server_side_encryption", "encryption_configuration",
 		}, roleAttrs...),
-		Region: func(providers map[string]map[string]any) string {
-			r, _ := providers["aws"]["region"].(string)
+		Region: func(ev *eval.Evaluated) string {
+			r, _ := ev.Providers["aws"]["region"].(string)
 			return r
 		},
 	}

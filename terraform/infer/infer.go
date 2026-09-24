@@ -43,8 +43,9 @@ type Rules struct {
 	IgnoreRefs []string
 	// Sources add edges from knowledge the builder does not have, such as IAM permissions.
 	Sources []EdgeSource
-	// Region reads the region from the evaluated provider blocks.
-	Region func(providers map[string]map[string]any) string
+	// Region reads the region from the evaluated configuration: provider blocks
+	// (AWS) or resource locations (Azure). Empty when it cannot tell.
+	Region func(ev *eval.Evaluated) string
 	// Scouters supply the fields to copy from Terraform and the assumptions to ask for.
 	Scouters scouter.Registry
 }
@@ -105,11 +106,26 @@ func Combine(parts ...Rules) Rules {
 		if out.ScheduleLoad == nil {
 			out.ScheduleLoad = p.ScheduleLoad
 		}
-		if out.Region == nil {
-			out.Region = p.Region
-		}
+		out.Region = firstRegion(out.Region, p.Region)
 	}
 	return out
+}
+
+// firstRegion asks a, then b, for the region: a configuration of several
+// providers takes the first one that can tell.
+func firstRegion(a, b func(*eval.Evaluated) string) func(*eval.Evaluated) string {
+	if a == nil {
+		return b
+	}
+	if b == nil {
+		return a
+	}
+	return func(ev *eval.Evaluated) string {
+		if r := a(ev); r != "" {
+			return r
+		}
+		return b(ev)
+	}
 }
 
 func copyMap[K comparable, V any](dst, src map[K]V) {
@@ -129,7 +145,7 @@ func Build(ev *eval.Evaluated, rules Rules, name string) (model.Spec, []string) 
 	}
 	spec := model.Spec{Name: name}
 	if rules.Region != nil {
-		spec.Region = rules.Region(ev.Providers)
+		spec.Region = rules.Region(ev)
 	}
 	for _, r := range ev.Resources {
 		if b.owned(r) {

@@ -1,6 +1,6 @@
 import type { Dispatch } from "react";
 import type { Action, Selection } from "../../lib/state";
-import type { CatalogEntry, Result, Spec } from "../../lib/types";
+import type { CatalogEntry, RegionGroup, Result, Spec } from "../../lib/types";
 import { EdgeForm } from "./EdgeForm";
 import { NodeForm } from "./NodeForm";
 import { SpecForm } from "./SpecForm";
@@ -9,7 +9,7 @@ interface Props {
   spec: Spec;
   result: Result | undefined;
   catalog: Map<string, CatalogEntry>;
-  regions: string[];
+  regions: RegionGroup[];
   selection: Selection;
   dispatch: Dispatch<Action>;
 }
