@@ -94,7 +94,6 @@ func TerraformRules() infer.Rules {
 		Region:     Region,
 		Sources:    []infer.EdgeSource{RBAC(roles())},
 		IgnoreRefs: []string{"identity", "key_vault_reference_identity_id"},
-		Boundaries: map[string]string{"azurerm_virtual_network": "VNet"},
 	}}
 	for _, u := range mustUnits() {
 		if u.Resource != nil {

@@ -1,0 +1,14 @@
+type: aws_vpc
+label: VPC
+category: Network
+icon: vpc
+boundary: true
+description: "Drawn around the nodes that run in it. Reads data moved between Availability Zones: an edge between two nodes inside with kb set carries that much per unit, and the share that crosses zones is charged out of one zone and into the other. Traffic to regional services (S3, DynamoDB) does not cross zones: leave kb off those edges."
+kinds: [transfer]
+assumptions:
+  - { key: zones, label: Availability Zones the nodes spread over, type: number, hint: "With nodes spread evenly over n zones, (n - 1) / n of the traffic between them crosses zones" }
+let:
+  - crossing: 'zones > 1 ? total.monthly * (zones - 1) / zones : 0.0'
+readings:
+  - cost: { name: Out of one zone, quantity: crossing, unit: GB, price: aws.transfer.inter_az }
+  - cost: { name: Into the other zone, quantity: crossing, unit: GB, price: aws.transfer.inter_az }

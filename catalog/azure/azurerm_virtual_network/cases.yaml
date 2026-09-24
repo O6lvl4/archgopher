@@ -1,0 +1,7 @@
+# Worked examples: given these values and this load, the resource reads this.
+- name: traffic between zones is free (japaneast)
+  region: japaneast
+  demand:
+    transfer:
+      monthly: 300
+      peak: 0

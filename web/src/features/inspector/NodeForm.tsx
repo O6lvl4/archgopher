@@ -25,7 +25,7 @@ function IdInput({ node, dispatch }: Pick<Props, "node" | "dispatch">) {
   );
 }
 
-function Fields({ title, fields, values, onChange }: { title: string; fields: Field[]; values: Values | undefined; onChange: (key: string, v: unknown) => void }) {
+export function Fields({ title, fields, values, onChange }: { title: string; fields: Field[]; values: Values | undefined; onChange: (key: string, v: unknown) => void }) {
   if (fields.length === 0) return null;
   return (
     <section className="panel-section">
@@ -60,7 +60,7 @@ function LoadFields({ node, dispatch }: Pick<Props, "node" | "dispatch">) {
   );
 }
 
-function Problem({ reading }: { reading: NodeResult | undefined }) {
+export function Problem({ reading }: { reading: NodeResult | undefined }) {
   const text = reading?.error ?? reading?.skipped;
   if (!text) return null;
   return <p className={`notice ${reading?.error ? "tone-bad" : "tone-muted"}`}>{text}</p>;

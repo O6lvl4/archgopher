@@ -31,6 +31,9 @@ export interface SpecGroup {
   id: string;
   kind: string;
   label?: string;
+  /** The scouter that reads traffic between the group's nodes (aws_vpc). */
+  type?: string;
+  assumptions?: Values;
 }
 
 export interface SpecEdge {
@@ -38,6 +41,8 @@ export interface SpecEdge {
   to: string;
   kind?: string;
   perUnit?: number;
+  /** Data one unit moves over the edge, both ways; read between nodes of one group. */
+  kb?: number;
   note?: string;
 }
 
@@ -76,6 +81,8 @@ export interface CatalogEntry {
   external?: boolean;
   /** The picture: "<provider>/<name>", or "general/<name>" for provider-neutral nodes. */
   icon?: string;
+  /** A boundary drawn around nodes (a VPC), not placed as a node. */
+  boundary?: boolean;
   attributes: Field[] | null;
   assumptions: Field[] | null;
 }
@@ -141,6 +148,8 @@ export interface Result {
   region: string;
   nodes: NodeResult[] | null;
   paths: PathResult[] | null;
+  /** Readings of groups with traffic between their nodes. */
+  groups?: NodeResult[] | null;
   monthlyUsd: number;
   unpricedCosts: number;
   unverified: RefUse[] | null;

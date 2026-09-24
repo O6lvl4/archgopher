@@ -1,0 +1,13 @@
+type: google_compute_network
+label: VPC network
+category: Network
+icon: vpc-network
+boundary: true
+description: "Drawn around the nodes that run in it. Reads data moved between zones of the region: an edge between two nodes inside with kb set carries that much per unit, and the share that crosses zones is charged to the sender."
+kinds: [transfer]
+assumptions:
+  - { key: zones, label: Zones the nodes spread over, type: number, hint: "With nodes spread evenly over n zones, (n - 1) / n of the traffic between them crosses zones" }
+let:
+  - crossing: 'zones > 1 ? total.monthly * (zones - 1) / zones : 0.0'
+readings:
+  - cost: { name: Between zones, quantity: crossing, unit: GB, price: gcp.network.inter_zone }

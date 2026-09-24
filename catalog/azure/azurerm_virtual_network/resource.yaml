@@ -1,0 +1,7 @@
+type: azurerm_virtual_network
+label: VNet
+category: Network
+icon: virtual-network
+boundary: true
+description: "Drawn around the nodes that run in it. Azure does not charge for data moved between availability zones in a region, so traffic between the nodes inside costs nothing."
+kinds: [transfer]

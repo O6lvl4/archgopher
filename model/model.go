@@ -57,6 +57,11 @@ type Group struct {
 	// Kind names the boundary for people ("VPC", "VNet").
 	Kind  string `yaml:"kind" json:"kind"`
 	Label string `yaml:"label,omitempty" json:"label,omitempty"`
+	// Type selects the scouter that reads traffic between the group's nodes
+	// (aws_vpc reads what crosses Availability Zones); empty reads nothing.
+	Type string `yaml:"type,omitempty" json:"type,omitempty"`
+	// Assumptions are the group's numbers, such as how many zones it spans.
+	Assumptions map[string]any `yaml:"assumptions,omitempty" json:"assumptions,omitempty"`
 }
 
 // Node is one resource (or one external dependency such as a model API).
@@ -94,7 +99,10 @@ type Edge struct {
 	Kind string `yaml:"kind,omitempty" json:"kind,omitempty"`
 	// PerUnit is how many downstream units one upstream unit causes; nil means 1.
 	PerUnit *float64 `yaml:"perUnit,omitempty" json:"perUnit,omitempty"`
-	Note    string   `yaml:"note,omitempty" json:"note,omitempty"`
+	// KB is the data one downstream unit moves over the edge, both ways. Between
+	// two nodes of one group it is the traffic the group reads (zone crossings).
+	KB   *float64 `yaml:"kb,omitempty" json:"kb,omitempty"`
+	Note string   `yaml:"note,omitempty" json:"note,omitempty"`
 }
 
 // Factor returns PerUnit, defaulting to 1.

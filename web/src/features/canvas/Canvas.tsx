@@ -38,7 +38,7 @@ export function Canvas({ spec, result, catalog, selection, dispatch, onSelect, o
     setNodes((prev) => toFlowNodes(spec, result, catalog, prev).map((n) => ({ ...n, selected: n.id === selectedNode })));
   }, [spec, result, catalog, selectedNode]);
   const edges = useMemo(() => toFlowEdges(spec, result, selectedEdge), [spec, result, selectedEdge]);
-  const shown = useMemo<(CardNode | FrameNode)[]>(() => [...toFrames(spec, nodes), ...nodes], [spec, nodes]);
+  const shown = useMemo<(CardNode | FrameNode)[]>(() => [...toFrames(spec, nodes, result), ...nodes], [spec, nodes, result]);
 
   const onNodesChange = (changes: NodeChange<CardNode | FrameNode>[]) => {
     const cards = changes.filter((c) => !("id" in c && c.id.startsWith("group:"))) as NodeChange<CardNode>[];
@@ -65,7 +65,7 @@ export function Canvas({ spec, result, catalog, selection, dispatch, onSelect, o
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
-      onNodeClick={(_, n) => n.type === "scouter" && onSelect({ kind: "node", id: n.id })}
+      onNodeClick={(_, n) => onSelect(n.type === "frame" ? { kind: "group", id: n.id.slice("group:".length) } : { kind: "node", id: n.id })}
       onEdgeClick={(_, e) => onSelect({ kind: "edge", index: edgeIndex(e.id) })}
       onPaneClick={() => onSelect(undefined)}
       onNodeDragStop={(_, __, dragged) => dispatch({ type: "move", positions: Object.fromEntries(dragged.map((n) => [n.id, n.position])) })}

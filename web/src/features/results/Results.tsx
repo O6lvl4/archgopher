@@ -18,9 +18,9 @@ interface Problem {
   tone: string;
 }
 
-/** Leaf results only: a pattern's rolled-up row repeats its members' lines. */
+/** Leaf results and groups: a pattern's rolled-up row repeats its members' lines. */
 function leaves(r: Result | undefined): NodeResult[] {
-  return (r?.nodes ?? []).filter((n) => !n.members);
+  return [...(r?.nodes ?? []).filter((n) => !n.members), ...(r?.groups ?? [])];
 }
 
 function problems({ result, error, warnings }: Props): Problem[] {

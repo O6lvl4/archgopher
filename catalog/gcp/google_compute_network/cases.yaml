@@ -1,0 +1,13 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 300 GB between nodes spread over three zones (asia-northeast1)
+  region: asia-northeast1
+  assumptions:
+    zones: 3
+  demand:
+    transfer:
+      monthly: 300
+      peak: 0
+  # 2/3 of 300 GB = 200 GB crosses zones at $0.01, charged to the sender
+  costs:
+    Between zones: 2.0

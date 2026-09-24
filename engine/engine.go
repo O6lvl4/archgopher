@@ -17,10 +17,12 @@ import (
 
 // Result is everything the engine read from a spec.
 type Result struct {
-	Name       string       `json:"name"`
-	Region     string       `json:"region"`
-	Nodes      []NodeResult `json:"nodes"`
-	Paths      []PathResult `json:"paths"`
+	Name   string       `json:"name"`
+	Region string       `json:"region"`
+	Nodes  []NodeResult `json:"nodes"`
+	Paths  []PathResult `json:"paths"`
+	// Groups are the readings of groups with traffic between their nodes.
+	Groups     []NodeResult `json:"groups,omitempty"`
 	MonthlyUSD float64      `json:"monthlyUsd"`
 	// UnpricedCosts counts cost lines whose price is unknown; MonthlyUSD excludes them.
 	UnpricedCosts int `json:"unpricedCosts"`
@@ -111,9 +113,50 @@ func Run(spec model.Spec, reg scouter.Registry, books book.Books) (Result, error
 		}
 		res.Nodes = append(res.Nodes, nr)
 	}
+	var warnings []string
+	for _, gr := range spec.Groups {
+		gb := g.crossing(gr.ID, demand)
+		if gr.Type == "" || gb == 0 {
+			continue
+		}
+		n := model.Node{ID: gr.ID, Type: gr.Type, Assumptions: gr.Assumptions}
+		nr := readNode(n, model.Demand{GroupKind: {Monthly: gb}}, reg, books, spec.Region, unverified)
+		res.MonthlyUSD += nr.MonthlyUSD
+		for _, c := range nr.Costs {
+			if c.MonthlyUSD == nil {
+				res.UnpricedCosts++
+			}
+		}
+		res.Groups = append(res.Groups, nr)
+	}
+	for _, e := range spec.Edges {
+		if e.KB != nil && (g.nodes[e.From].Group == "" || g.nodes[e.From].Group != g.nodes[e.To].Group) {
+			warnings = append(warnings, fmt.Sprintf("edge %s -> %s: kb is read only between nodes of one group", e.From, e.To))
+		}
+	}
 	res.Unverified = sortedRefs(unverified)
-	res.Paths, res.Warnings = g.paths(res.Nodes)
+	var pathWarnings []string
+	res.Paths, pathWarnings = g.paths(res.Nodes)
+	res.Warnings = append(warnings, pathWarnings...)
 	return res, nil
+}
+
+// GroupKind is the demand a group's scouter reads: GB a month moved between
+// its nodes.
+const GroupKind = "transfer"
+
+// crossing is the GB a month that edges with kb move between two nodes of a group.
+func (g *graph) crossing(group string, demand map[string]model.Demand) float64 {
+	var gb float64
+	for _, id := range g.order {
+		for _, e := range g.outgoing[id] {
+			if e.KB == nil || g.nodes[e.From].Group != group || g.nodes[e.To].Group != group {
+				continue
+			}
+			gb += demand[e.From].Total().Monthly * e.Factor() * *e.KB / 1024 / 1024
+		}
+	}
+	return gb
 }
 
 func readNode(n model.Node, d model.Demand, reg scouter.Registry, books book.Books, region string, unverified map[meter.RefUse]bool) NodeResult {
@@ -238,6 +281,9 @@ func buildGraph(spec model.Spec, reg scouter.Registry) (*graph, error) {
 		}
 		if e.Factor() < 0 {
 			return nil, fmt.Errorf("%s: perUnit must not be negative", label)
+		}
+		if e.KB != nil && *e.KB < 0 {
+			return nil, fmt.Errorf("%s: kb must not be negative", label)
 		}
 		if s, ok := reg[to.Type]; ok && e.Kind != "" && !contains(s.Meta().Kinds, e.Kind) {
 			return nil, fmt.Errorf("%s: %s accepts %s, not %q", label, to.Type, strings.Join(s.Meta().Kinds, ", "), e.Kind)

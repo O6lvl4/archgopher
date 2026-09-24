@@ -13,6 +13,7 @@ export type CardNode = Node<CardData, "scouter">;
 
 export interface FrameData extends Record<string, unknown> {
   group: SpecGroup;
+  reading?: NodeResult;
 }
 
 export type FrameNode = Node<FrameData, "frame">;
@@ -24,8 +25,9 @@ const FRAME_HEAD = 26;
  * Frames around the cards of each group, sized from where the cards are now
  * (so they follow a drag) and how big React Flow measured them.
  */
-export function toFrames(spec: Spec, cards: CardNode[]): FrameNode[] {
+export function toFrames(spec: Spec, cards: CardNode[], result: Result | undefined): FrameNode[] {
   const byId = new Map(cards.map((c) => [c.id, c]));
+  const readings = new Map((result?.groups ?? []).map((r) => [r.id, r]));
   return (spec.groups ?? []).flatMap((group) => {
     const members = spec.nodes.flatMap((n) => {
       const c = n.group === group.id ? byId.get(n.id) : undefined;
@@ -42,7 +44,7 @@ export function toFrames(spec: Spec, cards: CardNode[]): FrameNode[] {
       position: { x: left - FRAME_PAD, y: top - FRAME_PAD - FRAME_HEAD },
       width: right - left + 2 * FRAME_PAD,
       height: bottom - top + 2 * FRAME_PAD + FRAME_HEAD,
-      data: { group },
+      data: { group, reading: readings.get(group.id) },
       selectable: false,
       draggable: false,
       focusable: false,

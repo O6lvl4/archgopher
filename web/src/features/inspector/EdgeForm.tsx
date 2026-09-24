@@ -37,6 +37,11 @@ export function EdgeForm({ edge, index, target, dispatch }: Props) {
         value={edge.perUnit}
         onChange={(v) => update({ perUnit: typeof v === "number" ? v : undefined })}
       />
+      <FieldInput
+        field={{ key: "kb", label: "Data per unit", type: "number", unit: "KB", required: false, hint: "Request and response together. Between two nodes of one VPC, the VPC reads the share that crosses zones" }}
+        value={edge.kb}
+        onChange={(v) => update({ kb: typeof v === "number" ? v : undefined })}
+      />
       <label className="field">
         <span className="field-label">Note</span>
         <textarea rows={3} value={edge.note ?? ""} onChange={(e) => update({ note: e.target.value || undefined })} />

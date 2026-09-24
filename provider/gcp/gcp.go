@@ -89,7 +89,6 @@ func TerraformRules() infer.Rules {
 	parts := []infer.Rules{{
 		Scouters: Registry(), Region: Region,
 		IgnoreRefs: []string{"service_account", "service_account_email", "encryption_key_name", "kms_key_name"},
-		Boundaries: map[string]string{"google_compute_network": "VPC network"},
 	}}
 	for _, u := range mustUnits() {
 		if u.Resource != nil {

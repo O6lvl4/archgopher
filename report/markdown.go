@@ -29,11 +29,11 @@ func Markdown(w io.Writer, r engine.Result) error {
 	b.WriteString("\n\n")
 
 	b.WriteString("## Nodes\n\n")
-	if len(members(r)) < len(r.Nodes) {
+	if len(members(r))-len(r.Groups) < len(r.Nodes) {
 		b.WriteString("Pattern rows sum the nodes they expand into.\n\n")
 	}
 	b.WriteString("| Node | Type | Monthly | Tightest headroom | p99 | SLA | Status |\n| --- | --- | ---: | ---: | ---: | ---: | --- |\n")
-	for _, n := range r.Nodes {
+	for _, n := range append(append([]engine.NodeResult(nil), r.Nodes...), r.Groups...) {
 		fmt.Fprintf(b, "| %s | %s | %s | %s | %s | %s | %s |\n",
 			n.ID, label(n), usd(n.MonthlyUSD), pct(n.MinHeadroom()), latency(n.Latency), sla(n.SLA), status(n))
 	}
@@ -71,7 +71,7 @@ func Markdown(w io.Writer, r engine.Result) error {
 	}
 
 	var problems []string
-	for _, n := range r.Nodes {
+	for _, n := range append(append([]engine.NodeResult(nil), r.Nodes...), r.Groups...) {
 		if n.Error != "" {
 			problems = append(problems, fmt.Sprintf("- **%s**: %s", n.ID, n.Error))
 		}
@@ -92,7 +92,8 @@ func Markdown(w io.Writer, r engine.Result) error {
 	return err
 }
 
-// members skips rolled-up pattern results, whose lines their members already list.
+// members skips rolled-up pattern results, whose lines their members already
+// list, and adds the groups, which have lines of their own.
 func members(r engine.Result) []engine.NodeResult {
 	var out []engine.NodeResult
 	for _, n := range r.Nodes {
@@ -100,7 +101,7 @@ func members(r engine.Result) []engine.NodeResult {
 			out = append(out, n)
 		}
 	}
-	return out
+	return append(out, r.Groups...)
 }
 
 func status(n engine.NodeResult) string {

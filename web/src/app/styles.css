@@ -161,6 +161,8 @@ button.link:hover { text-decoration: underline; background: none; }
   position: absolute; top: 6px; left: 12px; display: flex; gap: 6px; align-items: baseline;
   font-size: 12px; font-weight: 600; color: var(--text);
 }
+.frame-label { pointer-events: auto; cursor: pointer; }
+.frame-cost { font-weight: 500; color: var(--muted); font-variant-numeric: tabular-nums; }
 .frame-kind { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
 .minimap-frame { fill: transparent; stroke: var(--muted); stroke-dasharray: 4 3; }
 .card-top { display: flex; gap: 8px; align-items: flex-start; }

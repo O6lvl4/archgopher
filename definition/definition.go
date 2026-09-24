@@ -22,11 +22,14 @@ type File struct {
 	Label    string `yaml:"label"`
 	Category string `yaml:"category"`
 	// Icon is the picture's name among the provider's icons.
-	Icon        string       `yaml:"icon"`
-	Description string       `yaml:"description"`
-	Kinds       []string     `yaml:"kinds"`
-	SLA         string       `yaml:"sla"`
-	External    bool         `yaml:"external"`
+	Icon        string   `yaml:"icon"`
+	Description string   `yaml:"description"`
+	Kinds       []string `yaml:"kinds"`
+	SLA         string   `yaml:"sla"`
+	External    bool     `yaml:"external"`
+	// Boundary types are drawn around nodes (a VPC) instead of being nodes;
+	// they read the traffic between the nodes inside.
+	Boundary    bool         `yaml:"boundary"`
 	Attributes  []field.Spec `yaml:"attributes"`
 	Assumptions []field.Spec `yaml:"assumptions"`
 	// Includes pulls in a facet's assumption fields (logs, tokens).
@@ -131,7 +134,7 @@ func build(specs []field.Spec) ([]field.Field, error) {
 // Meta is the catalog entry.
 func (r *Resource) Meta() scouter.Meta {
 	f := r.File
-	return scouter.Meta{Type: f.Type, Label: f.Label, Category: f.Category, Provider: r.provider, Description: f.Description, Kinds: f.Kinds, SLA: f.SLA, External: f.External, Icon: iconPath(r.provider, f.Icon)}
+	return scouter.Meta{Type: f.Type, Label: f.Label, Category: f.Category, Provider: r.provider, Description: f.Description, Kinds: f.Kinds, SLA: f.SLA, External: f.External, Boundary: f.Boundary, Icon: iconPath(r.provider, f.Icon)}
 }
 
 // Attributes lists the Terraform attributes the resource reads.

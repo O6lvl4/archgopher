@@ -1,0 +1,66 @@
+{
+  "aws.transfer.inter_az": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/ec2/pricing/on-demand/#Data_Transfer_within_the_same_AWS_Region",
+    "note": "Data transferred between Availability Zones in a region, charged in each direction: out of one zone and into the other",
+    "sync": {
+      "service": "AWSDataTransfer",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?DataTransfer-Regional-Bytes"
+      },
+      "tier": "0"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-northeast-2": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-south-1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "ap-southeast-2": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-central-1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eu-west-1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-2": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west-2": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

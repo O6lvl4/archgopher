@@ -20,7 +20,10 @@ func (r *Resource) Rules() infer.Rules {
 		IgnoreRefs:       t.IgnoreRefs,
 		Scouters:         scouter.Registry{f.Type: r},
 	}
-	if !f.External {
+	switch {
+	case f.Boundary:
+		rules.Boundaries = map[string]string{f.Type: f.Label}
+	case !f.External:
 		rules.NodeTypes[f.Type] = true
 	}
 	if t.FrontDoor {

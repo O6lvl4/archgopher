@@ -98,7 +98,7 @@ export function App() {
       <aside className="panel">
         <Inspector spec={ws.spec} result={ws.result} catalog={ws.catalogMap} regions={ws.regions} selection={selection} dispatch={ws.dispatch} />
       </aside>
-      <Results result={ws.result} error={ws.error} warnings={warnings} onSelect={(id) => setSelection({ kind: "node", id })} />
+      <Results result={ws.result} error={ws.error} warnings={warnings} onSelect={(id) => setSelection((ws.spec.groups ?? []).some((g) => g.id === id) ? { kind: "group", id } : { kind: "node", id })} />
       {importing && <TerraformDialog canMerge={ws.spec.nodes.length > 0} onImport={onImport} onClose={() => setImporting(false)} />}
     </div>
   );

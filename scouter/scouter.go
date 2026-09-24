@@ -40,6 +40,8 @@ type Meta struct {
 	SLA string `json:"sla,omitempty"`
 	// External is true for nodes that are never Terraform resources (model APIs).
 	External bool `json:"external,omitempty"`
+	// Boundary types are groups drawn around nodes (a VPC), never nodes.
+	Boundary bool `json:"boundary,omitempty"`
 	// Icon names the picture the UI draws for the node: "<provider>/<name>",
 	// or "general/<name>" for provider-neutral nodes.
 	Icon string `json:"icon,omitempty"`

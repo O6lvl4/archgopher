@@ -104,7 +104,8 @@ edges:
 | `assumptions` | Numbers Terraform cannot know. A missing required assumption is an error on that node, never a silent default. |
 | `kind` | The work the downstream node receives (`read` / `write` for DynamoDB). Defaults to the node's first kind. |
 | `perUnit` | Downstream units per upstream unit. Defaults to 1. |
-| `groups` / `group` | Boundaries drawn around nodes, such as a VPC (`{ id, kind, label }`), and the one a node sits in. They are drawn, not read: a node reads the same inside a group as outside. |
+| `groups` / `group` | Boundaries drawn around nodes, such as a VPC (`{ id, kind, label, type, assumptions }`), and the one a node sits in. A node reads the same inside a group as outside; the group reads the traffic between its nodes. |
+| `kb` | Data one unit moves over the edge, both ways. Between two nodes of one group, the group's `type` reads it: `aws_vpc` charges the share that crosses Availability Zones, `(zones - 1) / zones`, out of one zone and into the other; a Google Cloud network charges the sender; an Azure VNet charges nothing. |
 
 Load flows in topological order: a node's total throughput times `perUnit`
 lands on the downstream node under `kind`. Cycles are errors.
@@ -249,6 +250,13 @@ the demand and says the capacity is unknown.
 | `aws_bedrockagentcore_evaluator` / `aws_bedrockagentcore_online_evaluation_config` | Custom evaluations / sampled built-in evaluator tokens (on demand or batch) | Evaluation tokens and evaluations per minute |
 | `agentcore_web_search` / `agentcore_knowledge_base` | Queries / retrievals and storage (external, placed by hand) | Query rate |
 | `entry` | Nothing; checks that load is set | - |
+
+Zone crossings are read by the VPC, not by a node. Set `kb` on an edge between
+two nodes inside it (a function and its database) and `zones` on the VPC: with
+the nodes spread evenly, two in three calls over three zones cross. Leave `kb`
+off edges to regional services such as S3 and DynamoDB, which do not cross
+zones. A `kb` on an edge that leaves the group is reported, not read. See
+[`examples/private-network`](examples/private-network).
 
 Network resources sit on the path. Terraform cannot tell which calls go
 through a transit gateway, VPN, NAT gateway or endpoint, so draw the edge

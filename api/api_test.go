@@ -1,7 +1,10 @@
 package api
 
 import (
+	"math"
+
 	"encoding/json"
+	"github.com/O6lvl4/archgopher/model"
 	"os"
 	"path/filepath"
 	"strings"
@@ -101,5 +104,35 @@ func TestEveryEntryHasAnIcon(t *testing.T) {
 	})
 	if err != nil {
 		t.Fatal(err)
+	}
+}
+
+// Traffic between two nodes of one VPC is read by the VPC: 10 million calls of
+// 30 KB over three zones cross 2/3 of 286.1 GB, charged out and in.
+func TestZoneCrossingsAreReadByTheVPC(t *testing.T) {
+	kb := 30.0
+	spec := model.Spec{Region: "ap-northeast-1",
+		Groups: []model.Group{{ID: "main", Kind: "VPC", Type: "aws_vpc", Assumptions: map[string]any{"zones": 3}}},
+		Nodes: []model.Node{
+			{ID: "u", Type: "entry", Load: &model.Load{Monthly: 1e7, PeakPerSecond: 10}},
+			{ID: "fn", Type: "aws_lambda_function", Group: "main", Assumptions: map[string]any{"durationMs": 50}},
+			{ID: "db", Type: "aws_rds_cluster", Group: "main", Assumptions: map[string]any{"averageAcu": 1, "storageGb": 1}},
+			{ID: "table", Type: "aws_dynamodb_table", Assumptions: map[string]any{"itemSizeKb": 1, "storageGb": 1}},
+		},
+		Edges: []model.Edge{{From: "u", To: "fn"}, {From: "fn", To: "db", KB: &kb}, {From: "fn", To: "table", Kind: "read", KB: &kb}},
+	}
+	res, err := Scout(spec)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(res.Groups) != 1 {
+		t.Fatalf("groups: %+v", res.Groups)
+	}
+	crossing := 1e7 * kb / 1024 / 1024 * 2 / 3
+	if got, want := res.Groups[0].MonthlyUSD, crossing*0.01*2; math.Abs(got-want) > 1e-9 {
+		t.Errorf("VPC reads $%v, want $%v", got, want)
+	}
+	if len(res.Warnings) == 0 || !strings.Contains(strings.Join(res.Warnings, " "), "fn -> table") {
+		t.Errorf("kb on an edge leaving the group is reported: %v", res.Warnings)
 	}
 }

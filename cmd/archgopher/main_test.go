@@ -9,7 +9,7 @@ import (
 
 // Every bundled example must read cleanly: no node errors, skips or warnings.
 func TestExamplesReadCleanly(t *testing.T) {
-	for _, path := range []string{"../../examples/serverless-api/notes.scouter.yaml", "../../examples/patterns/orders.scouter.yaml"} {
+	for _, path := range []string{"../../examples/serverless-api/notes.scouter.yaml", "../../examples/patterns/orders.scouter.yaml", "../../examples/private-network/reports.scouter.yaml"} {
 		var out bytes.Buffer
 		if err := run([]string{"scout", path}, &out); err != nil {
 			t.Fatalf("%s: %v", path, err)

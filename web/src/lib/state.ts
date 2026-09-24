@@ -1,7 +1,7 @@
-import type { Position, Spec, SpecEdge, SpecNode, Values } from "./types";
+import type { Position, Spec, SpecEdge, SpecGroup, SpecNode, Values } from "./types";
 
 /** What the user has selected on the canvas. */
-export type Selection = { kind: "node"; id: string } | { kind: "edge"; index: number } | undefined;
+export type Selection = { kind: "node"; id: string } | { kind: "edge"; index: number } | { kind: "group"; id: string } | undefined;
 
 // The declaration is the only state. Every edit in the UI is one of these actions.
 
@@ -15,7 +15,8 @@ export type Action =
   | { type: "move"; positions: Record<string, Position> }
   | { type: "addEdge"; edge: SpecEdge }
   | { type: "updateEdge"; index: number; patch: Partial<SpecEdge> }
-  | { type: "removeEdge"; index: number };
+  | { type: "removeEdge"; index: number }
+  | { type: "updateGroup"; id: string; patch: Partial<SpecGroup> };
 
 export const emptySpec: Spec = { name: "Untitled", region: "us-east-1", nodes: [], edges: [] };
 
@@ -54,6 +55,7 @@ const handlers: Handlers = {
   addEdge: (spec, a) => ({ ...spec, edges: [...spec.edges, a.edge] }),
   updateEdge: (spec, a) => ({ ...spec, edges: spec.edges.map((e, i) => (i === a.index ? { ...e, ...a.patch } : e)) }),
   removeEdge: (spec, a) => ({ ...spec, edges: spec.edges.filter((_, i) => i !== a.index) }),
+  updateGroup: (spec, a) => ({ ...spec, groups: (spec.groups ?? []).map((g) => (g.id === a.id ? { ...g, ...a.patch } : g)) }),
 };
 
 export function reducer(spec: Spec, a: Action): Spec {

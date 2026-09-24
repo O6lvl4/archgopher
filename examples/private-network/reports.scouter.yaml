@@ -1,0 +1,62 @@
+name: Reports service in a VPC (fictional example)
+region: ap-northeast-1
+groups:
+  - id: app-vpc
+    kind: VPC
+    label: app-vpc
+    type: aws_vpc
+    assumptions:
+      zones: 3
+nodes:
+  - id: users
+    type: entry
+    load:
+      monthly: 5000000
+      peakPerSecond: 40
+    note: 5 million report requests a month.
+  - id: api
+    type: aws_apigatewayv2_api
+  - id: reports
+    type: aws_lambda_function
+    group: app-vpc
+    attributes:
+      memory_size: 1024
+      architectures: [arm64]
+    assumptions:
+      durationMs: 180
+      latencyP99Ms: 600
+    note: Runs in the VPC's private subnets over three zones.
+  - id: db
+    type: aws_rds_cluster
+    group: app-vpc
+    attributes:
+      min_capacity: 0.5
+      max_capacity: 8
+    assumptions:
+      averageAcu: 1.5
+      ioPerQuery: 2
+      storageGb: 50
+    note: The writer sits in one zone, so two in three queries cross zones.
+  - id: secrets
+    type: aws_vpc_endpoint
+    group: app-vpc
+    attributes:
+      vpc_endpoint_type: Interface
+    assumptions:
+      azs: 3
+      kbPerUnit: 2
+  - id: db_password
+    type: aws_secretsmanager_secret
+  - id: nat
+    type: aws_nat_gateway
+    group: app-vpc
+    assumptions:
+      kbPerUnit: 20
+    note: Calls to the partner API leave through the NAT gateway.
+edges:
+  - { from: users, to: api }
+  - { from: api, to: reports }
+  - { from: reports, to: db, kb: 24, note: "Query and result rows" }
+  - { from: reports, to: secrets, perUnit: 0.01 }
+  - { from: secrets, to: db_password }
+  - { from: reports, to: nat, perUnit: 0.1 }

@@ -43,7 +43,7 @@ func (b *builder) groups(nodes []model.Node) []model.Group {
 			label := boundaryLabel(br)
 			id = groupID(label, used)
 			ids[key] = id
-			out = append(out, model.Group{ID: id, Kind: b.rules.Boundaries[br.Type], Label: label})
+			out = append(out, model.Group{ID: id, Kind: b.rules.Boundaries[br.Type], Label: label, Type: br.Type})
 		}
 		nodes[i].Group = id
 	}
