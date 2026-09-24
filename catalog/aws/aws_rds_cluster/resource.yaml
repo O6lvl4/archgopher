@@ -1,0 +1,27 @@
+type: aws_rds_cluster
+label: Aurora Serverless v2
+category: Database
+description: ACU-hours, storage and I/O. Headroom is peak ACU against max capacity.
+kinds: [query]
+sla: aws.aurora
+attributes:
+  - { key: storage_type, label: Storage type, type: choice, options: ["", aurora, aurora-iopt1], default: "", hint: "aurora-iopt1 (I/O-Optimized) has no I/O charge" }
+  - { key: min_capacity, label: Min ACU, type: number, optional: true, path: serverlessv2_scaling_configuration.min_capacity }
+  - { key: max_capacity, label: Max ACU, type: number, optional: true, path: serverlessv2_scaling_configuration.max_capacity }
+assumptions:
+  - { key: averageAcu, label: Average ACU, type: number, hint: "Billed capacity averaged over the month" }
+  - { key: peakAcu, label: Peak ACU, type: number, optional: true, hint: "Compared with max capacity" }
+  - { key: storageGb, label: Storage, type: number, unit: GB }
+  - { key: ioPerQuery, label: I/O per query, type: number, optional: true, hint: "Required for standard storage" }
+let:
+  - iopt: 'storage_type == "aurora-iopt1"'
+readings:
+  - fail: { when: max_capacity == nil, message: "only Aurora Serverless v2 is supported: serverlessv2_scaling_configuration is missing" }
+  - fail: { when: min_capacity != nil && averageAcu < min_capacity, message: "averageAcu {averageAcu} is below min_capacity {min_capacity}", continue: true }
+  - capacity: { name: Capacity, units: averageAcu, unit: ACU-hour, price: 'aws.aurora.{iopt ? "iopt" : "serverless_v2"}.acu_hour' }
+  - storage: { name: Storage, gb: storageGb, price: 'aws.aurora.{iopt ? "iopt.storage" : "storage"}' }
+  - fail: { when: "!iopt && ioPerQuery == nil", message: ioPerQuery is required for standard storage, continue: true }
+  - cost: { when: "!iopt && ioPerQuery != nil", name: I/O, quantity: "total.monthly * (ioPerQuery ?? 0)", unit: I/O request, price: aws.aurora.io }
+  - limit: { when: peakAcu != nil, name: ACU, demand: "peakAcu ?? 0", unit: ACU, capacity: max_capacity }
+iam:
+  query: ["rds-data:ExecuteStatement", "rds-data:BatchExecuteStatement", "rds-db:connect"]

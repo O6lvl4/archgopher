@@ -77,3 +77,35 @@ func TestEmbeddedStructsCompose(t *testing.T) {
 		t.Fatalf("decoded %+v", c)
 	}
 }
+
+func TestSpecAndDecodeValues(t *testing.T) {
+	var fields []Field
+	for _, s := range []Spec{
+		{Key: "size", Type: Number, Default: 128},
+		{Key: "need", Type: Number},
+		{Key: "maybe", Type: Number, Optional: true},
+		{Key: "arch", Type: Choice, Options: []string{"x86_64", "arm64"}, Multi: true, Default: []any{"x86_64"}},
+	} {
+		f, err := s.Build()
+		if err != nil {
+			t.Fatal(err)
+		}
+		fields = append(fields, f)
+	}
+	got, err := DecodeValues(fields, map[string]any{"need": 2}, "assumption")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got["size"] != 128.0 || got["need"] != 2.0 || got["arch"].([]string)[0] != "x86_64" {
+		t.Fatalf("got %v", got)
+	}
+	if _, set := got["maybe"]; set {
+		t.Fatal("an unset optional field must be absent")
+	}
+	if _, err := DecodeValues(fields, map[string]any{"typo": 1}, "assumption"); err == nil {
+		t.Fatal("want missing and unknown keys to fail")
+	}
+	if _, err := (Spec{Key: "x", Type: Choice}).Build(); err == nil {
+		t.Fatal("a choice without options must fail")
+	}
+}

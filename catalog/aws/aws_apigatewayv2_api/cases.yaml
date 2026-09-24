@@ -1,0 +1,65 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Monthly USD per cost line, peak demand per limit. After an intended change:
+#   go test ./provider/aws -run TestCases -update
+- name: HTTP with small payloads (us-east-1)
+  region: us-east-1
+  demand:
+    request:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    Requests: 2
+  limits:
+    Account throttle: 40
+- name: HTTP with 700 KB payloads (us-east-1)
+  region: us-east-1
+  assumptions:
+    payloadKb: 700
+  demand:
+    request:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    Requests: 4
+  limits:
+    Account throttle: 40
+- name: WebSocket is not read (us-east-1)
+  region: us-east-1
+  attributes:
+    protocol_type: WEBSOCKET
+  demand:
+    request:
+        monthly: 2e+06
+        peak: 40
+  error: WEBSOCKET APIs are not supported yet
+- name: HTTP with small payloads (ap-northeast-1)
+  region: ap-northeast-1
+  demand:
+    request:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    Requests: 2.58
+  limits:
+    Account throttle: 40
+- name: HTTP with 700 KB payloads (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    payloadKb: 700
+  demand:
+    request:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    Requests: 5.16
+  limits:
+    Account throttle: 40
+- name: WebSocket is not read (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    protocol_type: WEBSOCKET
+  demand:
+    request:
+        monthly: 2e+06
+        peak: 40
+  error: WEBSOCKET APIs are not supported yet

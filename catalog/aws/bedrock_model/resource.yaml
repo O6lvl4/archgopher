@@ -1,0 +1,20 @@
+type: bedrock_model
+label: Bedrock model
+category: AI
+description: "Input, output and prompt-cache tokens. Headroom is tokens and requests per minute: output counts with the burndown multiplier, cache reads do not count."
+kinds: [call]
+sla: aws.bedrock
+# A model is not a Terraform resource: place it by hand and connect its callers to it.
+external: true
+assumptions:
+  - { key: model, label: Model, type: choice, options: [claude-sonnet-4-5, claude-haiku-4-5, claude-opus-4-5] }
+includes: [tokens]
+readings:
+  - tokens:
+      prefix: "aws.bedrock.{model}"
+      monthly: total.monthly
+      peak: total.peak
+      input: inputTokensPerCall
+      output: outputTokensPerCall
+      cacheRead: cacheReadShare
+      cacheWrite: cacheWriteShare

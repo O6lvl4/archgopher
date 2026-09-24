@@ -1,0 +1,165 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Monthly USD per cost line, peak demand per limit. After an intended change:
+#   go test ./provider/aws -run TestCases -update
+- name: on demand, eventual reads (us-east-1)
+  region: us-east-1
+  attributes:
+    billing_mode: PAY_PER_REQUEST
+  assumptions:
+    itemSizeKb: 6
+    storageGb: 20
+  demand:
+    read:
+        monthly: 2e+06
+        peak: 40
+    write:
+        monthly: 2.5e+06
+        peak: 50
+  costs:
+    Read request units: 0.25
+    Storage: 5
+    Write request units: 9.375
+  limits:
+    Table reads: 40
+    Table writes: 300
+- name: on demand, transactional (us-east-1)
+  region: us-east-1
+  attributes:
+    billing_mode: PAY_PER_REQUEST
+  assumptions:
+    consistentRead: transactional
+    itemSizeKb: 2
+    storageGb: 1
+    transactionalWrites: true
+  demand:
+    read:
+        monthly: 2e+06
+        peak: 40
+    write:
+        monthly: 2.5e+06
+        peak: 50
+  costs:
+    Read request units: 0.5
+    Storage: 0.25
+    Write request units: 6.25
+  limits:
+    Table reads: 80
+    Table writes: 200
+- name: provisioned (us-east-1)
+  region: us-east-1
+  attributes:
+    read_capacity: 100
+    write_capacity: 20
+  assumptions:
+    itemSizeKb: 3
+    storageGb: 5
+  demand:
+    read:
+        monthly: 2e+06
+        peak: 40
+    write:
+        monthly: 2.5e+06
+        peak: 50
+  costs:
+    Provisioned reads: 9.49
+    Provisioned writes: 9.49
+    Storage: 1.25
+  limits:
+    Provisioned reads: 20
+    Provisioned writes: 150
+- name: provisioned without capacity (us-east-1)
+  region: us-east-1
+  assumptions:
+    itemSizeKb: 1
+    storageGb: 1
+  demand:
+    read:
+        monthly: 2e+06
+        peak: 40
+    write:
+        monthly: 2.5e+06
+        peak: 50
+  costs:
+    Storage: 0.25
+  error: provisioned tables need read_capacity and write_capacity
+- name: on demand, eventual reads (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    billing_mode: PAY_PER_REQUEST
+  assumptions:
+    itemSizeKb: 6
+    storageGb: 20
+  demand:
+    read:
+        monthly: 2e+06
+        peak: 40
+    write:
+        monthly: 2.5e+06
+        peak: 50
+  costs:
+    Read request units: 0.285
+    Storage: 5.7
+    Write request units: 10.725
+  limits:
+    Table reads: 40
+    Table writes: 300
+- name: on demand, transactional (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    billing_mode: PAY_PER_REQUEST
+  assumptions:
+    consistentRead: transactional
+    itemSizeKb: 2
+    storageGb: 1
+    transactionalWrites: true
+  demand:
+    read:
+        monthly: 2e+06
+        peak: 40
+    write:
+        monthly: 2.5e+06
+        peak: 50
+  costs:
+    Read request units: 0.57
+    Storage: 0.285
+    Write request units: 7.15
+  limits:
+    Table reads: 80
+    Table writes: 200
+- name: provisioned (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    read_capacity: 100
+    write_capacity: 20
+  assumptions:
+    itemSizeKb: 3
+    storageGb: 5
+  demand:
+    read:
+        monthly: 2e+06
+        peak: 40
+    write:
+        monthly: 2.5e+06
+        peak: 50
+  costs:
+    Provisioned reads: 10.8332
+    Provisioned writes: 10.8332
+    Storage: 1.425
+  limits:
+    Provisioned reads: 20
+    Provisioned writes: 150
+- name: provisioned without capacity (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    itemSizeKb: 1
+    storageGb: 1
+  demand:
+    read:
+        monthly: 2e+06
+        peak: 40
+    write:
+        monthly: 2.5e+06
+        peak: 50
+  costs:
+    Storage: 0.285
+  error: provisioned tables need read_capacity and write_capacity

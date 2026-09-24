@@ -1,0 +1,101 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Monthly USD per cost line, peak demand per limit. After an intended change:
+#   go test ./provider/aws -run TestCases -update
+- name: Sonnet with prompt cache (us-east-1)
+  region: us-east-1
+  assumptions:
+    cacheReadShare: 0.6
+    cacheWriteShare: 0.1
+    inputTokensPerCall: 3000
+    model: claude-sonnet-4-5
+    outputTokensPerCall: 400
+  demand:
+    call:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    Cache read tokens: 1080
+    Cache write tokens: 2250
+    Input tokens: 5400
+    Output tokens: 12000
+  limits:
+    Requests per minute: 2400
+    Tokens per minute: 7.68e+06
+- name: Haiku without cache (us-east-1)
+  region: us-east-1
+  assumptions:
+    inputTokensPerCall: 800
+    model: claude-haiku-4-5
+    outputTokensPerCall: 200
+  demand:
+    call:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    Input tokens: 1600
+    Output tokens: 2000
+  limits:
+    Requests per minute: 2400
+    Tokens per minute: 4.32e+06
+- name: cache shares over 1 (us-east-1)
+  region: us-east-1
+  assumptions:
+    cacheReadShare: 0.8
+    cacheWriteShare: 0.4
+    inputTokensPerCall: 1
+    model: claude-haiku-4-5
+    outputTokensPerCall: 1
+  demand:
+    call:
+        monthly: 2e+06
+        peak: 40
+  error: cache shares must be between 0 and 1 and add up to at most 1
+- name: Sonnet with prompt cache (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    cacheReadShare: 0.6
+    cacheWriteShare: 0.1
+    inputTokensPerCall: 3000
+    model: claude-sonnet-4-5
+    outputTokensPerCall: 400
+  demand:
+    call:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    Cache read tokens: 1188
+    Cache write tokens: 2475
+    Input tokens: 5940
+    Output tokens: 13200
+  limits:
+    Requests per minute: 2400
+    Tokens per minute: 7.68e+06
+- name: Haiku without cache (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    inputTokensPerCall: 800
+    model: claude-haiku-4-5
+    outputTokensPerCall: 200
+  demand:
+    call:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    Input tokens: 1760
+    Output tokens: 2200
+  limits:
+    Requests per minute: 2400
+    Tokens per minute: 4.32e+06
+- name: cache shares over 1 (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    cacheReadShare: 0.8
+    cacheWriteShare: 0.4
+    inputTokensPerCall: 1
+    model: claude-haiku-4-5
+    outputTokensPerCall: 1
+  demand:
+    call:
+        monthly: 2e+06
+        peak: 40
+  error: cache shares must be between 0 and 1 and add up to at most 1

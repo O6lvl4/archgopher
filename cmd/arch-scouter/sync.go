@@ -20,7 +20,7 @@ import (
 
 func cmdSync(args []string, out io.Writer) error {
 	fs := flag.NewFlagSet("sync", flag.ContinueOnError)
-	pattern := fs.String("books", "provider/aws/service/*/books/prices.json", "price books to update in place (glob)")
+	pattern := fs.String("books", "catalog/aws/*/books/prices.json", "price books to update in place (glob)")
 	regions := fs.String("regions", "", "comma-separated regions (default: every region in the book)")
 	check := fs.Bool("check", false, "report differences without writing")
 	if err := fs.Parse(reorder(args)); err != nil {

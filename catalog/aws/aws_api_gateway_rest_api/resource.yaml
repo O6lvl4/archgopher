@@ -1,0 +1,14 @@
+type: aws_api_gateway_rest_api
+label: API Gateway (REST)
+category: Edge
+description: Requests; headroom is the account throttle shared by every API in the region.
+kinds: [request]
+sla: aws.apigateway
+readings:
+  - requests: { name: Requests, price: aws.apigateway.rest.requests, count: total.monthly }
+  - rate: { name: Account throttle, unit: requests/second, quota: aws.apigateway.account_rps, peak: total.peak }
+terraform:
+  frontDoor: true
+  links:
+    - { type: aws_api_gateway_integration, from: rest_api_id, to: [uri] }
+  aliases: { aws_api_gateway_stage: rest_api_id, aws_api_gateway_deployment: rest_api_id }

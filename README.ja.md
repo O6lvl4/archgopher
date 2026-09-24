@@ -74,17 +74,26 @@ Go の import を、`web/scripts/layers.mjs` が画面の import を検査し、
 | 計算 | `engine` | 検証、負荷の伝播、経路の合成。クラウドの知識を持たない |
 | L3 | `pattern` | 構成のひな型。1ノードとして置き、部分グラフに展開して読み、まとめ直す |
 | Terraform | `terraform/config` `eval` `infer` `merge` | 構文の読み込み、静的評価、グラフの推定、合流。クラウドの知識を持たない |
-| AWS | `provider/aws` と `service/*` | サービスごとにスカウター・参照表・Terraform 規則・IAM アクションを持ち、プロバイダが束ねる |
+| リソース | `definition` `catalog/aws` | リソースをデータとして1型1ディレクトリで持つ。定義は面を組み合わせたスカウターに組み上がる |
+| AWS | `provider/aws` | カタログを読み込み、IAM の辺・スケジュールの書式・アカウント全体の規則・L3 のひな型を足す |
 
 画面も同じ規則で、`lib` ← `ui` ← `composites` ← `features` ← `app` の向きにだけ依存し、機能どうしは互いを参照しない。
 
-## スカウターの追加
+## リソースの追加
 
-スカウターは、タグ付きの構造体2つと関数1つです。タグが Go の型・検証・カタログ・YAML の契約の
-唯一の出どころになります。ポインタでない項目で既定値が無いものは必須、ポインタの項目は任意です。
-新しいサービスは `provider/aws/service` の下に、スカウター・`books/`・Terraform 規則を持つパッケージとして足し、
-[`provider/aws/aws.go`](provider/aws/aws.go) の一覧に加えます。プロバイダのテストが「読む参照がすべての地域に、
-数える単位のまま存在するか」を確かめます。書き方は [README.md](README.md#adding-a-scouter) を見てください。
+リソースは [`catalog/aws`](catalog/aws) の下に、資源型の名前のディレクトリとして1つずつ置く。
+Go のコードは書かない。
+
+| ファイル | 持つもの |
+| --- | --- |
+| `resource.yaml` | 受け付ける属性と前提、負荷を読み値に変える面の組み合わせ、Terraform の規則、IAM アクション |
+| `books/prices.json` | 単価と、Price List で確かめるための取り込み条件 |
+| `books/quotas.json` `books/slas.json` | 上限と SLA |
+| `cases.yaml` | 入力と期待値の組。この前提とこの負荷なら、この金額と需要になる |
+
+数値は式で、文字列には `{式}` を埋め込める。式はカタログを読み込んだ時点で型まで検査するので、
+打ち間違いや型の食い違いが利用者の手元に届かない。`resource.yaml` を持たないディレクトリは、
+複数のリソースが読む行（ログの単価など）を共有する。書き方の全体は [README.md](README.md#adding-a-resource) を見てください。
 
 ## ライセンス
 

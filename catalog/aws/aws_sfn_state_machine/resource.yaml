@@ -1,0 +1,23 @@
+type: aws_sfn_state_machine
+label: Step Functions
+category: Compute
+description: Standard bills state transitions; express bills requests and GB-seconds. Headroom is the StartExecution rate.
+kinds: [execution]
+sla: aws.sfn
+attributes:
+  - { key: type, label: Workflow type, type: choice, options: [STANDARD, EXPRESS], default: STANDARD }
+assumptions:
+  - { key: transitionsPerExecution, label: State transitions per execution, type: number, optional: true, hint: "Standard workflows bill per transition" }
+  - { key: durationMs, label: Duration per execution, type: number, unit: ms, optional: true, hint: "Express workflows bill GB-seconds" }
+  - { key: memoryMb, label: Memory per execution, type: number, unit: MB, default: 64, hint: "Express bills in 64 MB steps" }
+let:
+  - express: 'type == "EXPRESS"'
+readings:
+  - fail: { when: express && durationMs == nil, message: durationMs is required for express workflows }
+  - requests: { when: express, name: Requests, price: aws.sfn.express.requests, count: total.monthly }
+  - compute: { when: express, name: Duration, price: aws.sfn.express.gb_second, count: total.monthly, seconds: "(durationMs ?? 0) / 1000", memoryMb: memoryMb, stepMb: 64 }
+  - fail: { when: "!express && transitionsPerExecution == nil", message: transitionsPerExecution is required for standard workflows }
+  - cost: { when: "!express", name: State transitions, quantity: "total.monthly * (transitionsPerExecution ?? 0)", unit: state transition, price: aws.sfn.standard.transitions }
+  - rate: { when: "!express", name: StartExecution rate, unit: requests/second, quota: aws.sfn.standard.start_execution, peak: total.peak }
+iam:
+  execution: ["states:StartExecution", "states:StartSyncExecution"]

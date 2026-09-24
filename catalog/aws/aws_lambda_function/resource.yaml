@@ -1,0 +1,40 @@
+type: aws_lambda_function
+label: Lambda
+category: Compute
+description: Requests and GB-seconds; headroom is concurrency (peak rate × duration). Logs are counted when set.
+kinds: [invoke]
+sla: aws.lambda
+attributes:
+  - { key: memory_size, label: Memory, type: number, unit: MB, default: 128 }
+  - { key: architectures, label: Architecture, type: choice, multi: true, options: [x86_64, arm64], default: [x86_64], hint: "arm64 has a lower GB-second price" }
+  - { key: reserved_concurrent_executions, label: Reserved concurrency, type: number, optional: true, hint: "Empty or -1 uses the account pool" }
+assumptions:
+  - { key: durationMs, label: Duration per invocation, type: number, unit: ms }
+includes: [logs]
+let:
+  - seconds: durationMs / 1000
+  - arch: 'len(architectures) > 0 ? architectures[0] : "x86_64"'
+readings:
+  - requests: { name: Requests, price: aws.lambda.requests, count: total.monthly }
+  - compute:
+      name: "Duration ({memory_size} MB, {arch})"
+      price: "aws.lambda.{arch}.gb_second"
+      count: total.monthly
+      seconds: seconds
+      memoryMb: memory_size
+  - concurrency:
+      name: Concurrency
+      unit: concurrent executions
+      quota: aws.lambda.concurrent_executions
+      peak: total.peak
+      seconds: seconds
+      capacity: "reserved_concurrent_executions != nil && reserved_concurrent_executions >= 0 ? reserved_concurrent_executions : nil"
+  - logs: { count: total.monthly, kb: logKbPerCall, retentionDays: logRetentionDays, ingest: aws.logs.ingest, storage: aws.logs.storage }
+terraform:
+  links:
+    - { type: aws_lambda_event_source_mapping, from: event_source_arn, to: [function_name] }
+  aliases: { aws_lambda_alias: function_name }
+  frontDoorAliases: { aws_lambda_function_url: function_name }
+  ignoreRefs: [layers, vpc_config, dead_letter_config, logging_config, tracing_config]
+iam:
+  invoke: ["lambda:InvokeFunction"]

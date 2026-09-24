@@ -1,0 +1,17 @@
+type: aws_cloudfront_distribution
+label: CloudFront
+category: Edge
+description: HTTPS requests and transfer out, priced at the edge nearest the spec region. Free tier is ignored.
+kinds: [request]
+sla: aws.cloudfront
+assumptions:
+  - { key: responseKb, label: Response size, type: number, unit: KB }
+readings:
+  - requests: { name: HTTPS requests, price: aws.cloudfront.https_requests, count: total.monthly }
+  - cost: { name: Transfer out, quantity: total.monthly * responseKb / 1024 / 1024, unit: GB, price: aws.cloudfront.transfer_out }
+  - rate: { name: Requests per distribution, unit: requests/second, quota: aws.cloudfront.distribution_rps, peak: total.peak }
+terraform:
+  # The outermost front door: references to it (callback URLs, links in emails) are mentions.
+  frontDoor: true
+  mentioned: true
+  ignoreRefs: [web_acl_id, viewer_certificate]

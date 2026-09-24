@@ -1,0 +1,29 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Monthly USD per cost line, peak demand per limit. After an intended change:
+#   go test ./provider/aws -run TestCases -update
+- name: 40 KB responses (us-east-1)
+  region: us-east-1
+  assumptions:
+    responseKb: 40
+  demand:
+    request:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    HTTPS requests: 2
+    Transfer out: 6.484985352
+  limits:
+    Requests per distribution: 40
+- name: 40 KB responses (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    responseKb: 40
+  demand:
+    request:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    HTTPS requests: 2.4
+    Transfer out: 8.697509766
+  limits:
+    Requests per distribution: 40

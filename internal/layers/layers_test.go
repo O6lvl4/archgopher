@@ -19,15 +19,18 @@ const module = "github.com/O6lvl4/arch-scouter/"
 // allowed maps a package (or a prefix ending in /*) to the internal packages it may import.
 var allowed = map[string][]string{
 	// Core: the vocabulary, then L1 meters, L2 facets, scouters and the engine.
-	"model":   {},
-	"field":   {},
-	"book":    {},
-	"meter":   {"book"},
-	"facet":   {"book", "meter", "model"},
-	"scouter": {"field", "meter", "model"},
-	"engine":  {"book", "meter", "model", "scouter"},
-	"pattern": {"engine", "field", "meter", "model", "scouter"},
-	"report":  {"engine", "meter", "model"},
+	"model": {},
+	"field": {},
+	"book":  {},
+	"meter": {"book"},
+	"facet": {"book", "meter", "model"},
+	// Resources as data: a definition compiles into a scouter from facets.
+	"definition": {"book", "facet", "field", "meter", "model", "scouter", "terraform/infer"},
+	"catalog":    {},
+	"scouter":    {"field", "meter", "model"},
+	"engine":     {"book", "meter", "model", "scouter"},
+	"pattern":    {"engine", "field", "meter", "model", "scouter"},
+	"report":     {"engine", "meter", "model"},
 
 	// Terraform adapter: read, evaluate, infer, merge. No provider knowledge.
 	"terraform/config": {},
@@ -35,13 +38,13 @@ var allowed = map[string][]string{
 	"terraform/infer":  {"model", "scouter", "terraform/eval"},
 	"terraform/merge":  {"model"},
 
-	// AWS provider: services know facets and the kit, never each other.
-	"provider/aws/kit":       {"book", "scouter", "terraform/infer"},
+	// AWS provider: resources are data in catalog/aws; the provider adds IAM,
+	// the schedule syntax and account-wide rules.
 	"provider/aws/iam":       {"terraform/eval", "terraform/infer"},
 	"provider/aws/pricelist": {},
 	"provider/aws/pattern":   {"model", "pattern", "scouter"},
-	"provider/aws/service/*": {"facet", "meter", "model", "scouter", "provider/aws/kit", "terraform/infer"},
-	"provider/aws":           {"book", "scouter", "terraform/infer", "provider/aws/iam", "provider/aws/kit", "provider/aws/service/*"},
+	"provider/aws/schedule":  {"model"},
+	"provider/aws":           {"book", "catalog", "definition", "scouter", "terraform/infer", "provider/aws/iam", "provider/aws/schedule"},
 
 	// Edges of the system.
 	"api":              {"book", "engine", "field", "model", "pattern", "scouter", "provider/aws", "provider/aws/pattern", "terraform/eval", "terraform/infer", "terraform/merge"},

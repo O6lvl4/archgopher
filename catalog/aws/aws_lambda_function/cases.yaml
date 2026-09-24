@@ -1,0 +1,125 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Monthly USD per cost line, peak demand per limit. After an intended change:
+#   go test ./provider/aws -run TestCases -update
+- name: x86_64 at the default memory (us-east-1)
+  region: us-east-1
+  assumptions:
+    durationMs: 200
+  demand:
+    invoke:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    Duration (128 MB, x86_64): 0.833335
+    Requests: 0.4
+  limits:
+    Concurrency: 8
+- name: arm64 with reserved concurrency and logs (us-east-1)
+  region: us-east-1
+  attributes:
+    architectures:
+        - arm64
+    memory_size: 1024
+    reserved_concurrent_executions: 50
+  assumptions:
+    durationMs: 800
+    logKbPerCall: 2
+    logRetentionDays: 14
+  demand:
+    invoke:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    Duration (1024 MB, arm64): 21.33344
+    Log ingestion: 1.907348633
+    Log storage: 0.052703054
+    Requests: 0.4
+  limits:
+    Concurrency: 32
+- name: logs that never expire (us-east-1)
+  region: us-east-1
+  attributes:
+    memory_size: 512
+  assumptions:
+    durationMs: 100
+    logKbPerCall: 1
+    logRetentionDays: 0
+  demand:
+    invoke:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    Duration (512 MB, x86_64): 1.66667
+    Log ingestion: 0.953674316
+    Log storage (after 12 months, never expires): 0.686645508
+    Requests: 0.4
+  limits:
+    Concurrency: 4
+- name: missing duration (us-east-1)
+  region: us-east-1
+  demand:
+    invoke:
+        monthly: 2e+06
+        peak: 40
+  error: missing assumption "durationMs"
+- name: x86_64 at the default memory (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    durationMs: 200
+  demand:
+    invoke:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    Duration (128 MB, x86_64): 0.833335
+    Requests: 0.4
+  limits:
+    Concurrency: 8
+- name: arm64 with reserved concurrency and logs (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    architectures:
+        - arm64
+    memory_size: 1024
+    reserved_concurrent_executions: 50
+  assumptions:
+    durationMs: 800
+    logKbPerCall: 2
+    logRetentionDays: 14
+  demand:
+    invoke:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    Duration (1024 MB, arm64): 21.33344
+    Log ingestion: 2.899169922
+    Log storage: 0.05797336
+    Requests: 0.4
+  limits:
+    Concurrency: 32
+- name: logs that never expire (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    memory_size: 512
+  assumptions:
+    durationMs: 100
+    logKbPerCall: 1
+    logRetentionDays: 0
+  demand:
+    invoke:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    Duration (512 MB, x86_64): 1.66667
+    Log ingestion: 1.449584961
+    Log storage (after 12 months, never expires): 0.755310059
+    Requests: 0.4
+  limits:
+    Concurrency: 4
+- name: missing duration (ap-northeast-1)
+  region: ap-northeast-1
+  demand:
+    invoke:
+        monthly: 2e+06
+        peak: 40
+  error: missing assumption "durationMs"

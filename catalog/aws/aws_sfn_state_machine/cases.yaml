@@ -1,0 +1,87 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Monthly USD per cost line, peak demand per limit. After an intended change:
+#   go test ./provider/aws -run TestCases -update
+- name: standard (us-east-1)
+  region: us-east-1
+  assumptions:
+    transitionsPerExecution: 12
+  demand:
+    execution:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    State transitions: 600
+  limits:
+    StartExecution rate: 40
+- name: express (us-east-1)
+  region: us-east-1
+  attributes:
+    type: EXPRESS
+  assumptions:
+    durationMs: 1500
+    memoryMb: 100
+  demand:
+    execution:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    Duration: 6.25125
+    Requests: 2
+- name: standard without transitions (us-east-1)
+  region: us-east-1
+  demand:
+    execution:
+        monthly: 2e+06
+        peak: 40
+  error: transitionsPerExecution is required for standard workflows
+- name: express without duration (us-east-1)
+  region: us-east-1
+  attributes:
+    type: EXPRESS
+  demand:
+    execution:
+        monthly: 2e+06
+        peak: 40
+  error: durationMs is required for express workflows
+- name: standard (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    transitionsPerExecution: 12
+  demand:
+    execution:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    State transitions: 600
+  limits:
+    StartExecution rate: 40
+- name: express (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    type: EXPRESS
+  assumptions:
+    durationMs: 1500
+    memoryMb: 100
+  demand:
+    execution:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    Duration: 6.25125
+    Requests: 2
+- name: standard without transitions (ap-northeast-1)
+  region: ap-northeast-1
+  demand:
+    execution:
+        monthly: 2e+06
+        peak: 40
+  error: transitionsPerExecution is required for standard workflows
+- name: express without duration (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    type: EXPRESS
+  demand:
+    execution:
+        monthly: 2e+06
+        peak: 40
+  error: durationMs is required for express workflows

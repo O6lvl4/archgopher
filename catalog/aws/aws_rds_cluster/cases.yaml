@@ -1,0 +1,135 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Monthly USD per cost line, peak demand per limit. After an intended change:
+#   go test ./provider/aws -run TestCases -update
+- name: standard storage (us-east-1)
+  region: us-east-1
+  attributes:
+    max_capacity: 16
+    min_capacity: 0.5
+  assumptions:
+    averageAcu: 2
+    ioPerQuery: 3
+    peakAcu: 8
+    storageGb: 100
+  demand:
+    query:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    Capacity: 175.2
+    I/O: 1.2
+    Storage: 10
+  limits:
+    ACU: 8
+- name: I/O-Optimized (us-east-1)
+  region: us-east-1
+  attributes:
+    max_capacity: 4
+    storage_type: aurora-iopt1
+  assumptions:
+    averageAcu: 1
+    peakAcu: 6
+    storageGb: 50
+  demand:
+    query:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    Capacity: 116.8
+    Storage: 11.25
+  limits:
+    ACU: 6
+- name: below min capacity and no I/O (us-east-1)
+  region: us-east-1
+  attributes:
+    max_capacity: 8
+    min_capacity: 2
+  assumptions:
+    averageAcu: 1
+    storageGb: 10
+  demand:
+    query:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    Capacity: 87.6
+    Storage: 1
+  error: |-
+    averageAcu 1 is below min_capacity 2
+    ioPerQuery is required for standard storage
+- name: not serverless v2 (us-east-1)
+  region: us-east-1
+  assumptions:
+    averageAcu: 1
+    storageGb: 10
+  demand:
+    query:
+        monthly: 2e+06
+        peak: 40
+  error: 'only Aurora Serverless v2 is supported: serverlessv2_scaling_configuration is missing'
+- name: standard storage (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    max_capacity: 16
+    min_capacity: 0.5
+  assumptions:
+    averageAcu: 2
+    ioPerQuery: 3
+    peakAcu: 8
+    storageGb: 100
+  demand:
+    query:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    Capacity: 219
+    I/O: 1.44
+    Storage: 12
+  limits:
+    ACU: 8
+- name: I/O-Optimized (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    max_capacity: 4
+    storage_type: aurora-iopt1
+  assumptions:
+    averageAcu: 1
+    peakAcu: 6
+    storageGb: 50
+  demand:
+    query:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    Capacity: 146
+    Storage: 13.5
+  limits:
+    ACU: 6
+- name: below min capacity and no I/O (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    max_capacity: 8
+    min_capacity: 2
+  assumptions:
+    averageAcu: 1
+    storageGb: 10
+  demand:
+    query:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    Capacity: 109.5
+    Storage: 1.2
+  error: |-
+    averageAcu 1 is below min_capacity 2
+    ioPerQuery is required for standard storage
+- name: not serverless v2 (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    averageAcu: 1
+    storageGb: 10
+  demand:
+    query:
+        monthly: 2e+06
+        peak: 40
+  error: 'only Aurora Serverless v2 is supported: serverlessv2_scaling_configuration is missing'

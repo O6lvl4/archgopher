@@ -1,0 +1,19 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Monthly USD per cost line, peak demand per limit. After an intended change:
+#   go test ./provider/aws -run TestCases -update
+- name: invocations (us-east-1)
+  region: us-east-1
+  demand:
+    fire:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    Invocations: 2
+- name: invocations (ap-northeast-1)
+  region: ap-northeast-1
+  demand:
+    fire:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    Invocations: 2.5

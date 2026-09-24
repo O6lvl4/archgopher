@@ -1,0 +1,51 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Monthly USD per cost line, peak demand per limit. After an intended change:
+#   go test ./provider/aws -run TestCases -update
+- name: standard, 100 KB messages (us-east-1)
+  region: us-east-1
+  assumptions:
+    messageKb: 100
+  demand:
+    send:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    Requests: 4.8
+- name: FIFO (us-east-1)
+  region: us-east-1
+  attributes:
+    fifo_queue: true
+  assumptions:
+    requestsPerMessage: 2
+  demand:
+    send:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    Requests: 2
+  limits:
+    FIFO send rate: 40
+- name: standard, 100 KB messages (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    messageKb: 100
+  demand:
+    send:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    Requests: 4.8
+- name: FIFO (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    fifo_queue: true
+  assumptions:
+    requestsPerMessage: 2
+  demand:
+    send:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    Requests: 2
+  limits:
+    FIFO send rate: 40

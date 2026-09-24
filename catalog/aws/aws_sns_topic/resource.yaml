@@ -1,0 +1,16 @@
+type: aws_sns_topic
+label: SNS
+category: Messaging
+description: Publishes in 64 KB chunks; delivery to Lambda and SQS is free. Headroom is the regional publish rate.
+kinds: [publish]
+sla: aws.sns
+assumptions:
+  - { key: messageKb, label: Message size, type: number, unit: KB, default: 1, hint: "Billed in 64 KB chunks" }
+readings:
+  - requests: { name: Publishes, price: aws.sns.publish, count: total.monthly, chunkKb: 64, sizeKb: messageKb }
+  - rate: { name: Publish rate, unit: requests/second, quota: aws.sns.publish_rps, peak: total.peak }
+terraform:
+  links:
+    - { type: aws_sns_topic_subscription, from: topic_arn, to: [endpoint] }
+iam:
+  publish: ["sns:Publish"]

@@ -1,0 +1,11 @@
+type: aws_scheduler_schedule
+label: EventBridge Scheduler
+category: Scheduling
+description: Invocations. Its schedule expression becomes the node's load on Terraform import. Free tier is ignored.
+kinds: [fire]
+sla: aws.scheduler
+readings:
+  - cost: { name: Invocations, quantity: total.monthly, unit: invocation, price: aws.scheduler.invocations }
+terraform:
+  schedule: schedule_expression
+  ignoreRefs: [target.role_arn, target.dead_letter_config, target.retry_policy]

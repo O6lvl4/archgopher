@@ -141,7 +141,7 @@ and appear in the report as skipped.
 
 ## Reference books
 
-Prices, quotas and SLAs live next to each service in `provider/aws/service/<name>/books`, one row per ID with
+Prices, quotas and SLAs live next to each resource in `catalog/aws/<type>/books`, one row per ID with
 a value per region, a unit, a source URL and a `verified` flag.
 
 - **Units are checked.** A reading that counts `GB` against a price per
@@ -185,35 +185,63 @@ the demand and says the capacity is unknown.
 
 `arch-scouter catalog` prints every scouter with its fields as JSON.
 
-### Adding a scouter
+### Adding a resource
 
-A scouter is two tagged structs and a function, usually built from facets.
-The tags are the single source for the Go types, validation, the catalog and
-the YAML contract.
+Every resource is a directory in [`catalog/aws`](catalog/aws), named after its
+type. It holds everything about that resource and nothing else; adding one
+needs no Go code.
 
-```go
-type queueAttrs struct {
-	Fifo bool `scout:"fifo_queue" label:"FIFO" default:"false"`
-}
-
-type queueAssume struct {
-	MessageKb float64 `scout:"messageKb" label:"Message size" unit:"KB" default:"1"`
-}
-
-var Queue = scouter.Def[queueAttrs, queueAssume]{
-	Info: scouter.Meta{Type: "aws_sqs_queue", Label: "SQS", Kinds: []string{"send"}, SLA: "aws.sqs"},
-	Run: func(a queueAttrs, p queueAssume, d model.Demand, r *meter.Recorder) {
-		facet.Requests{Name: "Requests", Unit: "request", PriceID: "aws.sqs.standard.requests", ChunkKB: 64}.
-			Read(r, d.Total().Monthly*3, p.MessageKb)
-	},
-}
+```text
+catalog/aws/aws_sqs_queue/
+  resource.yaml      what it accepts, how load becomes readings, Terraform rules, IAM actions
+  books/prices.json  its prices, with the Price List filters that verify them
+  books/quotas.json  its quotas
+  books/slas.json    its SLA
+  cases.yaml         worked examples: these values and this load read these costs
 ```
 
-A non-pointer field without a default is required. A pointer field is
-optional. A new service is a package under `provider/aws/service` with its
-scouters, a `books/` directory and its Terraform rules, listed in
-[`provider/aws/aws.go`](provider/aws/aws.go). The provider test checks that
-every reference a scouter reads exists in every region, in the unit it counts.
+A definition composes facets (the L2 readings in [`facet`](facet)). Numbers
+are expressions; text can embed `{expressions}`. Expressions are checked when
+the catalog loads, so a typo or a type mismatch never reaches a user.
+
+```yaml
+type: aws_sqs_queue
+kinds: [send]
+attributes:
+  - { key: fifo_queue, label: FIFO, type: boolean, default: false }
+assumptions:
+  - { key: messageKb, label: Message size, type: number, unit: KB, default: 1 }
+readings:
+  - requests:
+      name: Requests
+      price: 'aws.sqs.{fifo_queue ? "fifo" : "standard"}.requests'
+      count: total.monthly * 3
+      chunkKb: 64
+      sizeKb: messageKb
+  - rate: { when: fifo_queue, name: FIFO send rate, unit: messages/second, quota: aws.sqs.fifo.tps, peak: total.peak }
+iam:
+  send: ["sqs:SendMessage"]
+```
+
+| Reading | What it records |
+| --- | --- |
+| `requests` | Requests, optionally billed in size chunks |
+| `compute` | GB-seconds, optionally in memory steps |
+| `storage` / `capacity` | GB-months / units provisioned all month |
+| `rate` | Peak rate against a quota, optionally scaled |
+| `concurrency` | Little's law: peak × duration against a quota or a set capacity |
+| `logs` / `tokens` | Log ingestion and retention / model tokens with cache and burndown |
+| `cost` / `limit` | Any quantity × price / any demand against a quota or capacity |
+| `fail` | A problem with the declaration; stops the node unless `continue: true` |
+
+Expressions see every attribute and assumption by key (optional ones are nil
+when unset), `total.monthly` and `total.peak`, `demand.<kind>.monthly` and
+`.peak`, earlier `let` values, and `ceilDiv(a, b)`. `includes: [logs]` adds a
+facet's own assumption fields. A directory without `resource.yaml` holds rows
+several resources share, such as log prices.
+
+`go test ./provider/aws` loads the catalog, runs every resource's cases and
+checks that every row belongs to one directory.
 
 ## Architecture
 
@@ -226,8 +254,9 @@ cmd/arch-scouter, cmd/wasm          edges of the system
         │
        api                          JSON in, JSON out; what the browser calls
         │
-provider/aws ── service/<name>      one package per AWS service: scouters, books,
-   │      │     kit, iam, pattern   Terraform rules, IAM actions; L3 patterns
+provider/aws ── iam, schedule,     loads the catalog; IAM edges, schedule syntax,
+   │      │     pattern            account-wide rules; L3 patterns
+   │   definition ── catalog/aws    resources as data, one directory per type
    │      │
    │   terraform/infer ── merge     resources → declaration; fold into edits
    │   terraform/eval ── config     static HCL evaluation; module parsing
@@ -250,16 +279,8 @@ facet ── scouter                    L2 reusable readings; how one type is re
 | Engine | [`engine`](engine) | Validation, load propagation in topological order, path composition. No provider knowledge |
 | L3 | [`pattern`](pattern) | Reusable architectures that expand into nodes and edges, then roll up |
 | Terraform | [`terraform/config`](terraform/config), [`eval`](terraform/eval), [`infer`](terraform/infer), [`merge`](terraform/merge) | Parse, evaluate, infer a graph, merge into edits. No provider knowledge |
-| AWS | [`provider/aws`](provider/aws) and [`service/*`](provider/aws/service) | Each service owns its scouters, books, Terraform rules and IAM actions; the provider combines them |
-
-A scouter composes facets by embedding their assumption structs:
-
-```go
-type assume struct {
-	DurationMs float64 `scout:"durationMs" label:"Duration per invocation" unit:"ms"`
-	facet.LogAssume // adds logKbPerCall and logRetentionDays, with their validation and form
-}
-```
+| Resources | [`definition`](definition), [`catalog/aws`](catalog/aws) | Resources as data, one directory per type: a definition compiles into a scouter built from facets |
+| AWS | [`provider/aws`](provider/aws) | Loads the catalog and adds IAM edges, the schedule syntax, account-wide Terraform rules and the L3 patterns |
 
 A pattern is placed as one node and reads exactly like the nodes it expands
 into (a test checks this):

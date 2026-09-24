@@ -9,7 +9,10 @@ import (
 	"strings"
 	"testing"
 
+	"gopkg.in/yaml.v3"
+
 	"github.com/O6lvl4/arch-scouter/book"
+	"github.com/O6lvl4/arch-scouter/definition"
 	"github.com/O6lvl4/arch-scouter/field"
 	"github.com/O6lvl4/arch-scouter/meter"
 	"github.com/O6lvl4/arch-scouter/model"
@@ -124,11 +127,11 @@ func TestIAMKinds(t *testing.T) {
 
 var update = flag.Bool("update", false, "rewrite the bundled books in canonical form")
 
-// Every service's book files must be in the form sync writes, or a sync that
-// changes nothing would still produce a diff.
+// Every book file must be in the form sync writes, or a sync that changes
+// nothing would still produce a diff.
 // Fix with: go test ./provider/aws -run TestBooksAreCanonical -update
 func TestBooksAreCanonical(t *testing.T) {
-	files, err := filepath.Glob("service/*/books/*.json")
+	files, err := filepath.Glob("../../catalog/aws/*/books/*.json")
 	if err != nil || len(files) == 0 {
 		t.Fatalf("no book files: %v", err)
 	}
@@ -158,9 +161,60 @@ func TestBooksAreCanonical(t *testing.T) {
 	}
 }
 
-// Each service owns its ids: a row belongs to the service whose package holds it.
-func TestServicesDoNotShareIDs(t *testing.T) {
+// A row belongs to exactly one unit.
+func TestUnitsDoNotShareIDs(t *testing.T) {
 	if _, err := Books(); err != nil {
+		t.Fatal(err)
+	}
+}
+
+// Every resource carries worked examples, and every example holds. A case
+// never records a missing reference: that would be a broken book, not a result.
+// After an intended change, rewrite the expected values with:
+//
+//	go test ./provider/aws -run TestCases -update
+func TestCases(t *testing.T) {
+	books, err := Books()
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, u := range mustUnits() {
+		if u.Resource == nil {
+			continue
+		}
+		if len(u.Cases) == 0 {
+			t.Errorf("%s has no cases.yaml", u.Name)
+			continue
+		}
+		for i, c := range u.Cases {
+			if strings.Contains(c.Error, "no reference entry") || strings.Contains(c.Error, "but the reading counts") {
+				t.Errorf("%s case %q reads a missing or mismatched reference: %s", u.Name, c.Name, c.Error)
+			}
+			if *update {
+				costs, limits, err := c.Read(u.Resource, books)
+				u.Cases[i].Costs, u.Cases[i].Limits, u.Cases[i].Error = costs, limits, ""
+				if err != nil {
+					u.Cases[i].Error = err.Error()
+				}
+				continue
+			}
+			if err := c.Check(u.Resource, books); err != nil {
+				t.Errorf("%s: %v", u.Name, err)
+			}
+		}
+		if *update {
+			writeCases(t, u)
+		}
+	}
+}
+
+func writeCases(t *testing.T, u definition.Unit) {
+	data, err := yaml.Marshal(u.Cases)
+	if err != nil {
+		t.Fatal(err)
+	}
+	header := "# Worked examples: given these values and this load, the resource reads this.\n# Monthly USD per cost line, peak demand per limit. After an intended change:\n#   go test ./provider/aws -run TestCases -update\n"
+	if err := os.WriteFile(filepath.Join("..", "..", "catalog", "aws", u.Name, "cases.yaml"), append([]byte(header), data...), 0o644); err != nil {
 		t.Fatal(err)
 	}
 }

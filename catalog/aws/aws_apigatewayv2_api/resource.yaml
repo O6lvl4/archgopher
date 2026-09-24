@@ -1,0 +1,19 @@
+type: aws_apigatewayv2_api
+label: API Gateway (HTTP)
+category: Edge
+description: Requests in 512 KB steps; headroom is the account throttle. WebSocket APIs are not read yet.
+kinds: [request]
+sla: aws.apigateway
+attributes:
+  - { key: protocol_type, label: Protocol, type: choice, options: [HTTP, WEBSOCKET], default: HTTP }
+assumptions:
+  - { key: payloadKb, label: Request size, type: number, unit: KB, default: 1, hint: "Billed in 512 KB steps" }
+readings:
+  - fail: { when: 'protocol_type != "HTTP"', message: "{protocol_type} APIs are not supported yet" }
+  - requests: { name: Requests, price: aws.apigateway.http.requests, count: total.monthly, chunkKb: 512, sizeKb: payloadKb }
+  - rate: { name: Account throttle, unit: requests/second, quota: aws.apigateway.account_rps, peak: total.peak }
+terraform:
+  frontDoor: true
+  links:
+    - { type: aws_apigatewayv2_integration, from: api_id, to: [integration_uri] }
+  aliases: { aws_apigatewayv2_stage: api_id }
