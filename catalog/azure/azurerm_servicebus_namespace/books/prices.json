@@ -1,0 +1,271 @@
+{
+  "azure.servicebus.basic.operations": {
+    "unit": "operation",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/service-bus/",
+    "note": "Basic messaging operations, per 64 KB",
+    "sync": {
+      "source": "azure",
+      "service": "Service Bus",
+      "filters": {
+        "productName": "Service Bus",
+        "skuName": "Basic",
+        "meterName": "Basic Messaging Operations"
+      },
+      "listPer": 1000000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.servicebus.premium.messaging_unit": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/service-bus/",
+    "note": "Premium messaging unit",
+    "sync": {
+      "source": "azure",
+      "service": "Service Bus",
+      "filters": {
+        "productName": "Service Bus",
+        "skuName": "Premium",
+        "meterName": "Premium Messaging Unit"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.9275,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.9275,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.9275,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.9275,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.9275,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.9275,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.9275,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.9275,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.9275,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.9275,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.servicebus.standard.base": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/service-bus/",
+    "note": "Standard base fee, which includes 13 million operations a month",
+    "sync": {
+      "source": "azure",
+      "service": "Service Bus",
+      "filters": {
+        "productName": "Service Bus",
+        "skuName": "Standard",
+        "meterName": "Standard Base Unit",
+        "unitOfMeasure": "1/Hour"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.013441,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.013441,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.013441,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.013441,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.013441,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.013441,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.013441,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.013441,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.013441,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.013441,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.servicebus.standard.operations": {
+    "unit": "operation",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/service-bus/",
+    "note": "Standard operations from 13 to 100 million a month; later tiers are cheaper and not read",
+    "sync": {
+      "source": "azure",
+      "service": "Service Bus",
+      "filters": {
+        "productName": "Service Bus",
+        "skuName": "Standard",
+        "meterName": "Standard Messaging Operations"
+      },
+      "listPer": 1000000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

@@ -1,0 +1,334 @@
+{
+  "azure.containerapps.memory_active": {
+    "unit": "GiB-second",
+    "source": "https://azure.microsoft.com/pricing/details/container-apps/",
+    "note": "Consumption profile, replicas serving requests",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Container Apps",
+      "filters": {
+        "productName": "Azure Container Apps",
+        "skuName": "Standard",
+        "meterName": "Standard Memory Active Usage"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.000004,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.000003,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.000003,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.000003,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.000003,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.000003,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.000003,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.000003,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.000004,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.000004,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.containerapps.memory_idle": {
+    "unit": "GiB-second",
+    "source": "https://azure.microsoft.com/pricing/details/container-apps/",
+    "note": "Consumption profile, minimum replicas while idle",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Container Apps",
+      "filters": {
+        "productName": "Azure Container Apps",
+        "skuName": "Standard",
+        "meterName": "Standard Memory Idle Usage"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.000004,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.000003,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.000003,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.000003,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.000003,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.000003,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.000003,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.000003,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.000004,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.000004,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.containerapps.requests": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/container-apps/",
+    "note": "Consumption profile requests; the monthly free grant is ignored",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Container Apps",
+      "filters": {
+        "productName": "Azure Container Apps",
+        "skuName": "Standard",
+        "meterName": "Standard Requests"
+      },
+      "listPer": 1000000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.containerapps.vcpu_active": {
+    "unit": "vCPU-second",
+    "source": "https://azure.microsoft.com/pricing/details/container-apps/",
+    "note": "Consumption profile, replicas serving requests",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Container Apps",
+      "filters": {
+        "productName": "Azure Container Apps",
+        "skuName": "Standard",
+        "meterName": "Standard vCPU Active Usage"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.000034,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.000024,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.000024,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.000024,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.000024,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.000024,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.000024,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.000024,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.000034,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.000034,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.containerapps.vcpu_idle": {
+    "unit": "vCPU-second",
+    "source": "https://azure.microsoft.com/pricing/details/container-apps/",
+    "note": "Consumption profile, minimum replicas while idle",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Container Apps",
+      "filters": {
+        "productName": "Azure Container Apps",
+        "skuName": "Standard",
+        "meterName": "Standard vCPU Idle Usage"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.000004,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.000003,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.000003,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.000003,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.000003,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.000003,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.000003,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.000003,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.000004,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.000004,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

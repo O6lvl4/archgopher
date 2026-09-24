@@ -1,0 +1,98 @@
+{
+  "azure.apim.basic.rps_per_unit": {
+    "unit": "requests/second",
+    "source": "https://azure.microsoft.com/pricing/details/api-management/",
+    "note": "Estimated maximum throughput per unit from the pricing page, which says the figures are for information only and must not be relied on for capacity planning",
+    "values": {
+      "*": {
+        "value": 1000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.apim.basicv2.rps_per_unit": {
+    "unit": "requests/second",
+    "source": "https://azure.microsoft.com/pricing/details/api-management/",
+    "note": "Microsoft publishes no throughput figure for this tier",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.apim.consumption.rps_per_unit": {
+    "unit": "requests/second",
+    "source": "https://azure.microsoft.com/pricing/details/api-management/",
+    "note": "Microsoft publishes no throughput figure for this tier",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.apim.developer.rps_per_unit": {
+    "unit": "requests/second",
+    "source": "https://azure.microsoft.com/pricing/details/api-management/",
+    "note": "Estimated maximum throughput per unit from the pricing page, which says the figures are for information only and must not be relied on for capacity planning",
+    "values": {
+      "*": {
+        "value": 500,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.apim.premium.rps_per_unit": {
+    "unit": "requests/second",
+    "source": "https://azure.microsoft.com/pricing/details/api-management/",
+    "note": "Estimated maximum throughput per unit from the pricing page, which says the figures are for information only and must not be relied on for capacity planning",
+    "values": {
+      "*": {
+        "value": 4000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.apim.premiumv2.rps_per_unit": {
+    "unit": "requests/second",
+    "source": "https://azure.microsoft.com/pricing/details/api-management/",
+    "note": "Microsoft publishes no throughput figure for this tier",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.apim.standard.rps_per_unit": {
+    "unit": "requests/second",
+    "source": "https://azure.microsoft.com/pricing/details/api-management/",
+    "note": "Estimated maximum throughput per unit from the pricing page, which says the figures are for information only and must not be relied on for capacity planning",
+    "values": {
+      "*": {
+        "value": 2500,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.apim.standardv2.rps_per_unit": {
+    "unit": "requests/second",
+    "source": "https://azure.microsoft.com/pricing/details/api-management/",
+    "note": "Microsoft publishes no throughput figure for this tier",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

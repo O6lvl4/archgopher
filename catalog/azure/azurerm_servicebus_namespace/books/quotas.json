@@ -1,0 +1,14 @@
+{
+  "azure.servicebus.operations_per_second": {
+    "unit": "operations/second",
+    "source": "https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-quotas",
+    "note": "Basic and Standard namespaces; Premium has no fixed limit",
+    "values": {
+      "*": {
+        "value": 1000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

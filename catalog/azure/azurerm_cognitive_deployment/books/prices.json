@@ -1,0 +1,2414 @@
+{
+  "azure.openai.gpt-4.1-mini.datazonestandard.cached": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4.1-mini, Data Zone Standard, cached tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4\\.1[- ]mini[- ](cached|cchd)[- ](Inp|Input)[- ](Data Zone|DZone|DZ|DZn) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4.1-mini.datazonestandard.input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4.1-mini, Data Zone Standard, input tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4\\.1[- ]mini[- ](Inp|Input)[- ](Data Zone|DZone|DZ|DZn) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.44,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.44,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.44,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.44,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4.1-mini.datazonestandard.output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4.1-mini, Data Zone Standard, output tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4\\.1[- ]mini[- ](Outp|Output)[- ](Data Zone|DZone|DZ|DZn) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 1.76,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 1.76,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 1.76,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 1.76,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4.1-mini.globalstandard.cached": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4.1-mini, Global Standard, cached tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4\\.1[- ]mini[- ](cached|cchd)[- ](Inp|Input)[- ](glbl|global) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4.1-mini.globalstandard.input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4.1-mini, Global Standard, input tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4\\.1[- ]mini[- ](Inp|Input)[- ](glbl|global) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4.1-mini.globalstandard.output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4.1-mini, Global Standard, output tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4\\.1[- ]mini[- ](Outp|Output)[- ](glbl|global) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 1.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 1.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 1.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 1.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 1.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 1.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 1.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 1.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4.1-mini.standard.cached": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4.1-mini, Standard (regional), cached tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4\\.1[- ]mini[- ](cached|cchd)[- ](Inp|Input)[- ](regnl|regional|rgnl) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.121,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.132,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4.1-mini.standard.input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4.1-mini, Standard (regional), input tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4\\.1[- ]mini[- ](Inp|Input)[- ](regnl|regional|rgnl) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.44,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.44,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.44,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.484,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.528,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.44,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4.1-mini.standard.output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4.1-mini, Standard (regional), output tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4\\.1[- ]mini[- ](Outp|Output)[- ](regnl|regional|rgnl) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1.76,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 1.76,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 1.76,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 1.936,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 2.112,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 1.76,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4.1.datazonestandard.cached": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4.1, Data Zone Standard, cached tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4\\.1[- ](cached|cchd)[- ](Inp|Input)[- ](Data Zone|DZone|DZ|DZn) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.55,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.55,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.55,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.55,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.55,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4.1.datazonestandard.input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4.1, Data Zone Standard, input tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4\\.1[- ](Inp|Input)[- ](Data Zone|DZone|DZ|DZn) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 2.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 2.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 2.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 2.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 2.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4.1.datazonestandard.output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4.1, Data Zone Standard, output tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4\\.1[- ](Outp|Output)[- ](Data Zone|DZone|DZ|DZn) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 8.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 8.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 8.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 8.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 8.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4.1.globalstandard.cached": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4.1, Global Standard, cached tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4\\.1[- ](cached|cchd)[- ](Inp|Input)[- ](glbl|global) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4.1.globalstandard.input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4.1, Global Standard, input tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4\\.1[- ](Inp|Input)[- ](glbl|global) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4.1.globalstandard.output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4.1, Global Standard, output tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4\\.1[- ](Outp|Output)[- ](glbl|global) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4.1.standard.cached": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4.1, Standard (regional), cached tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4\\.1[- ](cached|cchd)[- ](Inp|Input)[- ](regnl|regional|rgnl) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.55,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.55,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.66,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.55,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4.1.standard.input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4.1, Standard (regional), input tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4\\.1[- ](Inp|Input)[- ](regnl|regional|rgnl) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 2.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 2.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 2.64,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 2.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4.1.standard.output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4.1, Standard (regional), output tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4\\.1[- ](Outp|Output)[- ](regnl|regional|rgnl) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 8.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 8.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 10.56,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 8.8,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4o-mini.datazonestandard.cached": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4o-mini, Data Zone Standard, cached tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4o[- ]mini[- ]0718[- ](cached|cchd)[- ](Inp|Input)[- ](Data Zone|DZone|DZ|DZn) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.083,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.083,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.083,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.083,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.083,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.083,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4o-mini.datazonestandard.input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4o-mini, Data Zone Standard, input tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4o[- ]mini[- ]0718[- ](Inp|Input)[- ](Data Zone|DZone|DZ|DZn) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.165,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.165,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.165,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.165,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.165,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.165,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4o-mini.datazonestandard.output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4o-mini, Data Zone Standard, output tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4o[- ]mini[- ]0718[- ](Outp|Output)[- ](Data Zone|DZone|DZ|DZn) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.66,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.66,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.66,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.66,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.66,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.66,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4o-mini.globalstandard.cached": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4o-mini, Global Standard, cached tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4o[- ]mini[- ]0718[- ](cached|cchd)[- ](Inp|Input)[- ](glbl|global) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.075,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.075,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.075,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.075,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.075,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.075,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.075,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.075,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.075,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4o-mini.globalstandard.input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4o-mini, Global Standard, input tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4o[- ]mini[- ]0718[- ](Inp|Input)[- ](glbl|global) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4o-mini.globalstandard.output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4o-mini, Global Standard, output tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4o[- ]mini[- ]0718[- ](Outp|Output)[- ](glbl|global) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4o-mini.standard.cached": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4o-mini, Standard (regional), cached tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4o[- ]mini[- ]0718[- ](cached|cchd)[- ](Inp|Input)[- ](regnl|regional|rgnl) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.083,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.083,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.099,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.099,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.083,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4o-mini.standard.input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4o-mini, Standard (regional), input tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4o[- ]mini[- ]0718[- ](Inp|Input)[- ](regnl|regional|rgnl) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.165,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.165,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.198,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.198,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.165,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4o-mini.standard.output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4o-mini, Standard (regional), output tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4o[- ]mini[- ]0718[- ](Outp|Output)[- ](regnl|regional|rgnl) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.66,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.66,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.792,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.792,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.66,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4o.datazonestandard.cached": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4o, Data Zone Standard, cached tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4o[- ]1120[- ](cached|cchd)[- ](Inp|Input)[- ](Data Zone|DZone|DZ|DZn) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 1.375,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 1.375,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 1.375,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 1.375,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 1.375,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4o.datazonestandard.input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4o, Data Zone Standard, input tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4o[- ]1120[- ](Inp|Input)[- ](Data Zone|DZone|DZ|DZn) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 2.75,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 2.75,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 2.75,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 2.75,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 2.75,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4o.datazonestandard.output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4o, Data Zone Standard, output tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4o[- ]1120[- ](Outp|Output)[- ](Data Zone|DZone|DZ|DZn) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4o.globalstandard.cached": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4o, Global Standard, cached tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4o[- ]1120[- ](cached|cchd)[- ](Inp|Input)[- ](glbl|global) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4o.globalstandard.input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4o, Global Standard, input tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4o[- ]1120[- ](Inp|Input)[- ](glbl|global) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 2.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 2.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 2.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 2.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 2.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 2.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 2.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4o.globalstandard.output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4o, Global Standard, output tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4o[- ]1120[- ](Outp|Output)[- ](glbl|global) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4o.standard.cached": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4o, Standard (regional), cached tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4o[- ]1120[- ](cached|cchd)[- ](Inp|Input)[- ](regnl|regional|rgnl) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1.375,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 1.375,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 1.375,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 1.513,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 1.65,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4o.standard.input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4o, Standard (regional), input tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4o[- ]1120[- ](Inp|Input)[- ](regnl|regional|rgnl) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 2.75,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 2.75,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 2.75,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 3.025,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 3.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4o.standard.output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/",
+    "note": "gpt-4o, Standard (regional), output tokens",
+    "sync": {
+      "source": "azure",
+      "service": "Foundry Models",
+      "filters": {
+        "productName": "Azure OpenAI",
+        "meterName": "gpt[- ]4o[- ]1120[- ](Outp|Output)[- ](regnl|regional|rgnl) Tokens"
+      },
+      "listPer": 1000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 12.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 13.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

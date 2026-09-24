@@ -1,0 +1,506 @@
+{
+  "azure.frontdoor.premium.base": {
+    "unit": "month",
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Premium profile base fee, the same in every zone",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 1",
+      "filters": {
+        "productName": "Azure Front Door",
+        "skuName": "Premium",
+        "meterName": "Premium Base Fees"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 330,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.frontdoor.premium.zone1.requests": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Premium requests served from edges in billing Zone 1 (North America, Europe, Middle East and Africa; the zone-to-geography mapping is not on the billing page and not machine-checked)",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 1",
+      "filters": {
+        "productName": "Azure Front Door",
+        "skuName": "Premium",
+        "meterName": "Premium Requests"
+      },
+      "listPer": 10000
+    },
+    "values": {
+      "*": {
+        "value": 0.015,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.frontdoor.premium.zone1.transfer_out": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Premium data transfer to clients, first 10 TB, served from edges in billing Zone 1 (North America, Europe, Middle East and Africa; the zone-to-geography mapping is not on the billing page and not machine-checked)",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 1",
+      "filters": {
+        "productName": "Azure Front Door",
+        "skuName": "Premium",
+        "meterName": "Premium Data Transfer Out"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.0825,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.frontdoor.premium.zone2.requests": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Premium requests served from edges in billing Zone 2 (Asia Pacific including Japan; the zone-to-geography mapping is not on the billing page and not machine-checked)",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 2",
+      "filters": {
+        "productName": "Azure Front Door",
+        "skuName": "Premium",
+        "meterName": "Premium Requests"
+      },
+      "listPer": 10000
+    },
+    "values": {
+      "*": {
+        "value": 0.0168,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.frontdoor.premium.zone2.transfer_out": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Premium data transfer to clients, first 10 TB, served from edges in billing Zone 2 (Asia Pacific including Japan; the zone-to-geography mapping is not on the billing page and not machine-checked)",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 2",
+      "filters": {
+        "productName": "Azure Front Door",
+        "skuName": "Premium",
+        "meterName": "Premium Data Transfer Out"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.115,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.frontdoor.premium.zone3.requests": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Premium requests served from edges in billing Zone 3 (South America; the zone-to-geography mapping is not on the billing page and not machine-checked)",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 3",
+      "filters": {
+        "productName": "Azure Front Door",
+        "skuName": "Premium",
+        "meterName": "Premium Requests"
+      },
+      "listPer": 10000
+    },
+    "values": {
+      "*": {
+        "value": 0.0259,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.frontdoor.premium.zone3.transfer_out": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Premium data transfer to clients, first 10 TB, served from edges in billing Zone 3 (South America; the zone-to-geography mapping is not on the billing page and not machine-checked)",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 3",
+      "filters": {
+        "productName": "Azure Front Door",
+        "skuName": "Premium",
+        "meterName": "Premium Data Transfer Out"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.frontdoor.premium.zone4.requests": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Premium requests served from edges in billing Zone 4 (Australia; the zone-to-geography mapping is not on the billing page and not machine-checked)",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 4",
+      "filters": {
+        "productName": "Azure Front Door",
+        "skuName": "Premium",
+        "meterName": "Premium Requests"
+      },
+      "listPer": 10000
+    },
+    "values": {
+      "*": {
+        "value": 0.0173,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.frontdoor.premium.zone4.transfer_out": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Premium data transfer to clients, first 10 TB, served from edges in billing Zone 4 (Australia; the zone-to-geography mapping is not on the billing page and not machine-checked)",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 4",
+      "filters": {
+        "productName": "Azure Front Door",
+        "skuName": "Premium",
+        "meterName": "Premium Data Transfer Out"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.112,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.frontdoor.premium.zone5.requests": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Premium requests served from edges in billing Zone 5 (India; the zone-to-geography mapping is not on the billing page and not machine-checked)",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 5",
+      "filters": {
+        "productName": "Azure Front Door",
+        "skuName": "Premium",
+        "meterName": "Premium Requests"
+      },
+      "listPer": 10000
+    },
+    "values": {
+      "*": {
+        "value": 0.0168,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.frontdoor.premium.zone5.transfer_out": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Premium data transfer to clients, first 10 TB, served from edges in billing Zone 5 (India; the zone-to-geography mapping is not on the billing page and not machine-checked)",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 5",
+      "filters": {
+        "productName": "Azure Front Door",
+        "skuName": "Premium",
+        "meterName": "Premium Data Transfer Out"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.109,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.frontdoor.standard.base": {
+    "unit": "month",
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Standard profile base fee, the same in every zone",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 1",
+      "filters": {
+        "productName": "Azure Front Door",
+        "skuName": "Standard",
+        "meterName": "Standard Base Fees"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 35,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.frontdoor.standard.zone1.requests": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Standard requests served from edges in billing Zone 1 (North America, Europe, Middle East and Africa; the zone-to-geography mapping is not on the billing page and not machine-checked)",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 1",
+      "filters": {
+        "productName": "Azure Front Door",
+        "skuName": "Standard",
+        "meterName": "Standard Requests"
+      },
+      "listPer": 10000
+    },
+    "values": {
+      "*": {
+        "value": 0.009,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.frontdoor.standard.zone1.transfer_out": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Standard data transfer to clients, first 10 TB, served from edges in billing Zone 1 (North America, Europe, Middle East and Africa; the zone-to-geography mapping is not on the billing page and not machine-checked)",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 1",
+      "filters": {
+        "productName": "Azure Front Door",
+        "skuName": "Standard",
+        "meterName": "Standard Data Transfer Out"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.0825,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.frontdoor.standard.zone2.requests": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Standard requests served from edges in billing Zone 2 (Asia Pacific including Japan; the zone-to-geography mapping is not on the billing page and not machine-checked)",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 2",
+      "filters": {
+        "productName": "Azure Front Door",
+        "skuName": "Standard",
+        "meterName": "Standard Requests"
+      },
+      "listPer": 10000
+    },
+    "values": {
+      "*": {
+        "value": 0.0108,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.frontdoor.standard.zone2.transfer_out": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Standard data transfer to clients, first 10 TB, served from edges in billing Zone 2 (Asia Pacific including Japan; the zone-to-geography mapping is not on the billing page and not machine-checked)",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 2",
+      "filters": {
+        "productName": "Azure Front Door",
+        "skuName": "Standard",
+        "meterName": "Standard Data Transfer Out"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.115,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.frontdoor.standard.zone3.requests": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Standard requests served from edges in billing Zone 3 (South America; the zone-to-geography mapping is not on the billing page and not machine-checked)",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 3",
+      "filters": {
+        "productName": "Azure Front Door",
+        "skuName": "Standard",
+        "meterName": "Standard Requests"
+      },
+      "listPer": 10000
+    },
+    "values": {
+      "*": {
+        "value": 0.0199,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.frontdoor.standard.zone3.transfer_out": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Standard data transfer to clients, first 10 TB, served from edges in billing Zone 3 (South America; the zone-to-geography mapping is not on the billing page and not machine-checked)",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 3",
+      "filters": {
+        "productName": "Azure Front Door",
+        "skuName": "Standard",
+        "meterName": "Standard Data Transfer Out"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.frontdoor.standard.zone4.requests": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Standard requests served from edges in billing Zone 4 (Australia; the zone-to-geography mapping is not on the billing page and not machine-checked)",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 4",
+      "filters": {
+        "productName": "Azure Front Door",
+        "skuName": "Standard",
+        "meterName": "Standard Requests"
+      },
+      "listPer": 10000
+    },
+    "values": {
+      "*": {
+        "value": 0.0113,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.frontdoor.standard.zone4.transfer_out": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Standard data transfer to clients, first 10 TB, served from edges in billing Zone 4 (Australia; the zone-to-geography mapping is not on the billing page and not machine-checked)",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 4",
+      "filters": {
+        "productName": "Azure Front Door",
+        "skuName": "Standard",
+        "meterName": "Standard Data Transfer Out"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.112,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.frontdoor.standard.zone5.requests": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Standard requests served from edges in billing Zone 5 (India; the zone-to-geography mapping is not on the billing page and not machine-checked)",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 5",
+      "filters": {
+        "productName": "Azure Front Door",
+        "skuName": "Standard",
+        "meterName": "Standard Requests"
+      },
+      "listPer": 10000
+    },
+    "values": {
+      "*": {
+        "value": 0.0108,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.frontdoor.standard.zone5.transfer_out": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Standard data transfer to clients, first 10 TB, served from edges in billing Zone 5 (India; the zone-to-geography mapping is not on the billing page and not machine-checked)",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 5",
+      "filters": {
+        "productName": "Azure Front Door",
+        "skuName": "Standard",
+        "meterName": "Standard Data Transfer Out"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.109,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

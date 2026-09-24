@@ -1,0 +1,38 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Standard in Japan East, beyond the included operations
+  region: japaneast
+  demand:
+    send:
+      monthly: 10000000.0
+      peak: 10
+  costs:
+    Base fee: 9.81193
+    Operations beyond the included 13 million: 5.6
+  limits:
+    Operations per second: 20
+- name: Basic in East US, 100 KB messages count twice
+  region: eastus
+  attributes:
+    sku: Basic
+  assumptions:
+    messageKb: 100
+  demand:
+    send:
+      monthly: 1000000.0
+      peak: 5
+  costs:
+    Operations: 0.2
+  limits:
+    Operations per second: 20
+- name: Premium with two messaging units
+  region: japaneast
+  attributes:
+    sku: Premium
+    capacity: 2
+  demand:
+    send:
+      monthly: 100000000.0
+      peak: 500
+  costs:
+    Messaging units: 1354.15

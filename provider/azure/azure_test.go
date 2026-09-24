@@ -7,14 +7,20 @@ import (
 
 	"github.com/O6lvl4/archgopher/internal/catalogtest"
 	"github.com/O6lvl4/archgopher/terraform/eval"
+	"github.com/O6lvl4/archgopher/terraform/infer"
 )
 
 var update = flag.Bool("update", false, "rewrite the bundled books in canonical form and the cases' expected values")
 
 // attrs and assume make each resource take its main code path.
 var (
-	attrs  = map[string]map[string]any{}
-	assume = map[string]map[string]any{}
+	attrs = map[string]map[string]any{
+		"azurerm_service_plan":         {"sku_name": "P1v3"},
+		"azurerm_cognitive_deployment": {"model_name": "gpt-4o"},
+	}
+	assume = map[string]map[string]any{
+		"azurerm_cosmosdb_account": {"provisionedRus": 400.0},
+	}
 )
 
 func under(t *testing.T) catalogtest.Catalog {
@@ -58,5 +64,25 @@ func TestRegionIsTheMostCommonLocation(t *testing.T) {
 	}}
 	if got := Region(ev); got != "japaneast" {
 		t.Errorf("want japaneast, got %q", got)
+	}
+}
+
+func TestRoleAssignmentsBecomeEdges(t *testing.T) {
+	ev, err := eval.Evaluate(filepath.Join("testdata", "rbac"), eval.Options{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	spec, _ := infer.Build(ev, TerraformRules(), "rbac")
+	if spec.Region != "japaneast" {
+		t.Errorf("region: %q", spec.Region)
+	}
+	got := map[string]bool{}
+	for _, e := range spec.Edges {
+		got[e.From+">"+e.To+":"+e.Kind] = true
+	}
+	for _, want := range []string{"api>data:read", "api>bus:send"} {
+		if !got[want] {
+			t.Errorf("want edge %s, got %v", want, spec.Edges)
+		}
 	}
 }

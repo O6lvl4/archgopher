@@ -1,0 +1,27 @@
+type: azurerm_postgresql_flexible_server
+label: PostgreSQL flexible server
+category: Database
+description: "Compute hours by SKU and provisioned storage; high availability runs a standby of the same size, so both double. Headroom is connections against the SKU's default max_connections."
+kinds: [query]
+sla: azure.postgresql.flexible
+attributes:
+  - { key: sku_name, label: SKU, type: choice, options: [B_Standard_B1ms, B_Standard_B2s, GP_Standard_D2s_v3, GP_Standard_D4s_v3, GP_Standard_D2ds_v5, GP_Standard_D4ds_v5, MO_Standard_E2ds_v5], default: GP_Standard_D2ds_v5 }
+  - { key: storage_mb, label: Storage, type: number, unit: MB, default: 32768 }
+  - { key: high_availability_mode, label: High availability, type: string, optional: true, path: high_availability.mode, hint: "ZoneRedundant or SameZone runs a standby" }
+assumptions:
+  - { key: peakConnections, label: Peak connections, type: number, hint: "Open connections at the busiest moment, pooled or not" }
+let:
+  - burst: 'sku_name in ["B_Standard_B1ms", "B_Standard_B2s"]'
+  - series: 'sku_name in ["GP_Standard_D2s_v3", "GP_Standard_D4s_v3"] ? "dsv3" : sku_name in ["GP_Standard_D2ds_v5", "GP_Standard_D4ds_v5"] ? "ddsv5" : sku_name == "MO_Standard_E2ds_v5" ? "edsv5" : "burstable"'
+  - vcores: 'sku_name in ["GP_Standard_D4s_v3", "GP_Standard_D4ds_v5"] ? 4.0 : 2.0'
+  - instance: 'sku_name == "B_Standard_B1ms" ? "b1ms" : "b2s"'
+  - servers: 'high_availability_mode != nil ? 2.0 : 1.0'
+  - skuKey: 'lower(replace(sku_name, "_Standard_", "_"))'
+readings:
+  - cost: { when: burst, name: Compute, quantity: 730 * servers, unit: hour, price: "azure.postgresql.flex.{instance}" }
+  - cost: { when: '!burst', name: Compute, quantity: 730 * vcores * servers, unit: vCore-hour, price: "azure.postgresql.flex.{series}.vcore" }
+  - storage: { name: Storage, gb: storage_mb / 1024 * servers, price: azure.postgresql.flex.storage }
+  - limit: { name: Connections, demand: peakConnections, unit: connections, quota: "azure.postgresql.flex.max_connections.{skuKey}" }
+terraform:
+  aliases: { azurerm_postgresql_flexible_server_database: server_id, azurerm_postgresql_flexible_server_configuration: server_id, azurerm_postgresql_flexible_server_firewall_rule: server_id, azurerm_postgresql_flexible_server_active_directory_administrator: server_name }
+  ignoreRefs: [delegated_subnet_id, private_dns_zone_id, customer_managed_key, identity, authentication]

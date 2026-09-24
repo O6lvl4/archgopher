@@ -1,0 +1,136 @@
+{
+  "azure.functions.consumption.executions": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/functions/",
+    "note": "Consumption plan executions; the monthly free grant is ignored",
+    "sync": {
+      "source": "azure",
+      "service": "Functions",
+      "filters": {
+        "productName": "Functions",
+        "skuName": "Standard",
+        "meterName": "Standard Total Executions"
+      },
+      "listPer": 10
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.functions.consumption.gb_second": {
+    "unit": "GB-second",
+    "source": "https://azure.microsoft.com/pricing/details/functions/",
+    "note": "Consumption plan execution time; the monthly free grant is ignored",
+    "sync": {
+      "source": "azure",
+      "service": "Functions",
+      "filters": {
+        "productName": "Functions",
+        "skuName": "Standard",
+        "meterName": "Standard Execution Time"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.000016,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.000016,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.000016,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.000016,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.000016,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.000016,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.000016,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.000016,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.000016,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.000016,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

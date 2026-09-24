@@ -1,0 +1,21 @@
+type: azurerm_key_vault
+label: Key Vault
+category: Security
+description: "Secret, key and certificate operations on software-protected keys. HSM-protected key-months on Premium vaults are not read. Headroom is the per-vault transaction rate."
+kinds: [read]
+sla: azure.keyvault
+attributes:
+  - { key: sku_name, label: SKU, type: choice, options: [standard, premium], default: standard }
+readings:
+  - requests: { name: Operations, price: "azure.keyvault.{sku_name}.operations", count: total.monthly }
+  - rate: { name: Transactions, unit: requests/second, quota: azure.keyvault.vault_rps, peak: total.peak }
+terraform:
+  # Secrets, keys and certificates live in the vault: reading one reads the vault.
+  aliases:
+    azurerm_key_vault_secret: key_vault_id
+    azurerm_key_vault_key: key_vault_id
+    azurerm_key_vault_certificate: key_vault_id
+    azurerm_key_vault_access_policy: key_vault_id
+  ignoreRefs: [network_acls, access_policy, contact]
+iam:
+  read: ["Key Vault Secrets User", "Key Vault Crypto User", "Key Vault Certificate User", "Key Vault Crypto Service Encryption User"]

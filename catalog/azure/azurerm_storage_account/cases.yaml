@@ -4,6 +4,7 @@
   region: japaneast
   assumptions:
     storageGb: 100
+    internetGbPerMonth: 20
   demand:
     read:
       monthly: 2000000.0
@@ -15,6 +16,7 @@
     Data stored: 2.0
     Write operations: 5.0
     Read operations: 0.8
+    Transfer out to the internet: 2.4
   limits:
     Request rate: 30
 - name: RA-GRS in East US

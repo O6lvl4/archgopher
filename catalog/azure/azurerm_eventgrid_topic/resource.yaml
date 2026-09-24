@@ -1,0 +1,22 @@
+type: azurerm_eventgrid_topic
+label: Event Grid topic
+category: Messaging
+description: "Custom topic (Basic tier): operations, each 64 KB of an event counted once when published and once per delivery to a subscription. The monthly free operations are not read. Headroom is the publish rate per topic."
+kinds: [publish]
+sla: azure.eventgrid
+assumptions:
+  - { key: eventKb, label: Event size, type: number, unit: KB, default: 1, hint: "Counted per 64 KB" }
+  - { key: subscriptionsPerEvent, label: Deliveries per event, type: number, default: 1, hint: "Event subscriptions that match each event" }
+let:
+  - chunks: ceilDiv(eventKb, 64)
+readings:
+  - requests: { name: Operations, unit: operation, price: azure.eventgrid.basic.operations, count: total.monthly * chunks * (1 + subscriptionsPerEvent) }
+  - rate: { name: Publish rate, unit: events/second, quota: azure.eventgrid.topic_publish_rate, peak: total.peak * chunks }
+terraform:
+  links:
+    - type: azurerm_eventgrid_event_subscription
+      from: scope
+      to: [azure_function_endpoint.function_id, webhook_endpoint.url, service_bus_queue_endpoint_id, service_bus_topic_endpoint_id, eventhub_endpoint_id, hybrid_connection_endpoint_id, storage_queue_endpoint.storage_account_id]
+  ignoreRefs: [identity, input_mapping_fields, inbound_ip_rule]
+iam:
+  publish: ["EventGrid Data Sender"]

@@ -1,0 +1,32 @@
+type: azurerm_cognitive_deployment
+label: Azure OpenAI deployment
+category: AI
+description: "Input, cached input and output tokens by model and deployment type (Standard is regional, GlobalStandard routes anywhere, DataZoneStandard stays in a data zone). Headroom is the deployment's capacity (1 unit = 1,000 tokens per minute) and, without one, the subscription's default Tier 1 quota."
+kinds: [call]
+sla: azure.openai
+attributes:
+  - { key: model_name, label: Model, type: choice, options: [gpt-4o, gpt-4o-mini, gpt-4.1, gpt-4.1-mini], path: model.name, hint: "gpt-4o is priced as 2024-11-20 and gpt-4o-mini as 2024-07-18" }
+  - { key: sku_name, label: Deployment type, type: choice, options: [GlobalStandard, DataZoneStandard, Standard], default: GlobalStandard, path: sku.name }
+  - { key: capacity, label: Capacity, type: number, unit: "1K TPM", optional: true, path: sku.capacity }
+assumptions:
+  - { key: inputTokensPerCall, label: Input tokens per call, type: number, unit: tokens, hint: "Include the system prompt and history" }
+  - { key: outputTokensPerCall, label: Output tokens per call, type: number, unit: tokens }
+  - { key: cachedShare, label: Share of input served from the prompt cache, type: number, default: 0 }
+let:
+  - d: lower(sku_name)
+  # Requests per minute per 1,000 tokens per minute, from the quota tables.
+  - rpmPerK: 'model_name == "gpt-4o" ? 6.0 : (model_name == "gpt-4o-mini" ? 10.0 : 1.0)'
+  - perMinute: total.peak * 60
+readings:
+  - fail: { when: cachedShare < 0 || cachedShare > 1, message: "the cached share must be between 0 and 1" }
+  - cost: { name: Input tokens, quantity: total.monthly * inputTokensPerCall * (1 - cachedShare), unit: token, price: "azure.openai.{model_name}.{d}.input" }
+  - cost: { when: cachedShare > 0, name: Cached input tokens, quantity: total.monthly * inputTokensPerCall * cachedShare, unit: token, price: "azure.openai.{model_name}.{d}.cached" }
+  - cost: { name: Output tokens, quantity: total.monthly * outputTokensPerCall, unit: token, price: "azure.openai.{model_name}.{d}.output" }
+  - limit: { name: Tokens per minute, demand: perMinute * (inputTokensPerCall + outputTokensPerCall), unit: tokens/minute, quota: "azure.openai.{model_name}.{d}.tpm", capacity: "capacity == nil ? nil : capacity * 1000" }
+  - limit: { name: Requests per minute, demand: perMinute, unit: requests/minute, quota: "azure.openai.{model_name}.{d}.rpm", capacity: "capacity == nil ? nil : capacity * rpmPerK" }
+  - limit: { when: capacity != nil, name: Capacity against the subscription quota, demand: capacity * 1000, unit: tokens/minute, quota: "azure.openai.{model_name}.{d}.tpm" }
+terraform:
+  # The deployment names its account; callers name the account's endpoint.
+  ignoreRefs: [cognitive_account_id, rai_policy_name]
+iam:
+  call: ["Cognitive Services OpenAI User", "Cognitive Services User"]

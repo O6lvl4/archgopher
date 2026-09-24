@@ -1,0 +1,48 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: serverless in Japan East
+  region: japaneast
+  attributes:
+    capability: EnableServerless
+  assumptions:
+    storageGb: 10
+  demand:
+    read:
+      monthly: 1000000.0
+      peak: 100
+    write:
+      monthly: 200000.0
+      peak: 20
+  costs:
+    Request units: 0.57
+    Storage: 2.825
+- name: 1,000 RU/s provisioned in East US
+  region: eastus
+  assumptions:
+    storageGb: 10
+    provisionedRus: 1000
+  demand:
+    read:
+      monthly: 1000000.0
+      peak: 100
+    write:
+      monthly: 200000.0
+      peak: 20
+  costs:
+    Provisioned throughput: 58.4
+    Storage: 2.5
+  limits:
+    Request units per second: 200
+- name: provisioned without throughput
+  region: eastus
+  assumptions:
+    storageGb: 1
+  demand:
+    read:
+      monthly: 1
+      peak: 1
+    write:
+      monthly: 1
+      peak: 1
+  error: 'set provisionedRus: the account is provisioned and its throughput lives
+    on databases or containers'

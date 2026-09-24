@@ -1,0 +1,924 @@
+{
+  "azure.appservice.linux.b1": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/app-service/",
+    "note": "Basic B1 on Linux, per instance",
+    "sync": {
+      "source": "azure",
+      "service": "Azure App Service",
+      "filters": {
+        "productName": "Azure App Service Basic Plan - Linux",
+        "skuName": "B1",
+        "meterName": "B1( App)?"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.019,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.018,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.017,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.017,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.01802,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.019,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.018,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.018,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.018,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.017,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.appservice.linux.b2": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/app-service/",
+    "note": "Basic B2 on Linux, per instance",
+    "sync": {
+      "source": "azure",
+      "service": "Azure App Service",
+      "filters": {
+        "productName": "Azure App Service Basic Plan - Linux",
+        "skuName": "B2",
+        "meterName": "B2( App)?"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.037,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.036,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.034,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.034,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.03604,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.037,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.036,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.035,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.036,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.034,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.appservice.linux.p0v3": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/app-service/",
+    "note": "Premium v3 P0v3 on Linux, per instance",
+    "sync": {
+      "source": "azure",
+      "service": "Azure App Service",
+      "filters": {
+        "productName": "Azure App Service Premium v3 Plan - Linux",
+        "skuName": "P0v3",
+        "meterName": "P0v3 App"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.092,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.082,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.0775,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.0775,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.089,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.094,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.0905,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.084,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.0915,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.0775,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.appservice.linux.p1v3": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/app-service/",
+    "note": "Premium v3 P1 v3 on Linux, per instance",
+    "sync": {
+      "source": "azure",
+      "service": "Azure App Service",
+      "filters": {
+        "productName": "Azure App Service Premium v3 Plan - Linux",
+        "skuName": "P1 v3",
+        "meterName": "P1 v3 App"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.184,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.164,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.155,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.155,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.178,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.188,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.181,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.168,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.183,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.155,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.appservice.linux.p2v3": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/app-service/",
+    "note": "Premium v3 P2 v3 on Linux, per instance",
+    "sync": {
+      "source": "azure",
+      "service": "Azure App Service",
+      "filters": {
+        "productName": "Azure App Service Premium v3 Plan - Linux",
+        "skuName": "P2 v3",
+        "meterName": "P2 v3 App"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.368,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.328,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.31,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.31,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.356,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.376,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.362,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.336,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.366,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.31,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.appservice.linux.s1": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/app-service/",
+    "note": "Standard S1 on Linux, per instance",
+    "sync": {
+      "source": "azure",
+      "service": "Azure App Service",
+      "filters": {
+        "productName": "Azure App Service Standard Plan - Linux",
+        "skuName": "S1",
+        "meterName": "S1 App"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.088,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.095,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.095,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.095,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.112,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.101,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.095,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.095,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.08,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.appservice.windows.b1": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/app-service/",
+    "note": "Basic B1 on Windows, per instance",
+    "sync": {
+      "source": "azure",
+      "service": "Azure App Service",
+      "filters": {
+        "productName": "Azure App Service Basic Plan",
+        "skuName": "B1",
+        "meterName": "B1( App)?"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.094,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.083,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.075,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.075,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.075,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.0885,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.085,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.075,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.075,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.075,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.appservice.windows.b2": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/app-service/",
+    "note": "Basic B2 on Windows, per instance",
+    "sync": {
+      "source": "azure",
+      "service": "Azure App Service",
+      "filters": {
+        "productName": "Azure App Service Basic Plan",
+        "skuName": "B2",
+        "meterName": "B2( App)?"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.188,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.165,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.177,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.17,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.appservice.windows.p0v3": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/app-service/",
+    "note": "Premium v3 P0v3 on Windows, per instance",
+    "sync": {
+      "source": "azure",
+      "service": "Azure App Service",
+      "filters": {
+        "productName": "Azure App Service Premium v3 Plan",
+        "skuName": "P0v3",
+        "meterName": "P0v3 App"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.172,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.162,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.1575,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.1575,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.169,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.174,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.1705,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.164,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.1715,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.1575,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.appservice.windows.p1v3": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/app-service/",
+    "note": "Premium v3 P1 v3 on Windows, per instance",
+    "sync": {
+      "source": "azure",
+      "service": "Azure App Service",
+      "filters": {
+        "productName": "Azure App Service Premium v3 Plan",
+        "skuName": "P1 v3",
+        "meterName": "P1 v3 App"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.344,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.324,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.315,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.315,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.338,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.348,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.341,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.328,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.343,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.315,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.appservice.windows.p2v3": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/app-service/",
+    "note": "Premium v3 P2 v3 on Windows, per instance",
+    "sync": {
+      "source": "azure",
+      "service": "Azure App Service",
+      "filters": {
+        "productName": "Azure App Service Premium v3 Plan",
+        "skuName": "P2 v3",
+        "meterName": "P2 v3 App"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.688,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.649,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.63,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.63,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.677,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.696,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.682,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.656,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.686,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.63,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.appservice.windows.s1": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/app-service/",
+    "note": "Standard S1 on Windows, per instance",
+    "sync": {
+      "source": "azure",
+      "service": "Azure App Service",
+      "filters": {
+        "productName": "Azure App Service Standard Plan",
+        "skuName": "S1",
+        "meterName": "S1 App"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.126,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.118,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.106,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.functions.premium.gib_hour": {
+    "unit": "GiB-hour",
+    "source": "https://azure.microsoft.com/pricing/details/functions/",
+    "note": "Elastic Premium (EP) plan memory, 3.5 GiB per vCPU",
+    "sync": {
+      "source": "azure",
+      "service": "Functions",
+      "filters": {
+        "productName": "Premium Functions",
+        "meterName": "Premium Memory Duration"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.013,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.013,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.0123,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.0114,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.0121,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.014,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.0129,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.0119,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.0127,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.0114,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.functions.premium.vcpu_hour": {
+    "unit": "vCPU-hour",
+    "source": "https://azure.microsoft.com/pricing/details/functions/",
+    "note": "Elastic Premium (EP) plan, per vCPU of each instance: EP1 1, EP2 2, EP3 4",
+    "sync": {
+      "source": "azure",
+      "service": "Functions",
+      "filters": {
+        "productName": "Premium Functions",
+        "meterName": "Premium vCPU Duration"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.182,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.182,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.173,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.16,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.169,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.196,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.18,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.167,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.178,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.16,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

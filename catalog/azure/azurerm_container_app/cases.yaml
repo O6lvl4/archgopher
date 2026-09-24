@@ -1,0 +1,35 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: scale to zero, 0.5 vCPU
+  region: japaneast
+  assumptions:
+    requestMs: 200
+  demand:
+    request:
+      monthly: 1000000.0
+      peak: 5
+  costs:
+    Requests: 0.4
+    Active vCPU: 0.24
+    Active memory: 0.06
+  limits:
+    Replicas: 0.1
+- name: one warm replica of 1 vCPU
+  region: japaneast
+  attributes:
+    cpu: 1
+    min_replicas: 1
+  assumptions:
+    requestMs: 200
+  demand:
+    request:
+      monthly: 1000000.0
+      peak: 5
+  costs:
+    Requests: 0.4
+    Active vCPU: 0.48
+    Active memory: 0.12
+    Idle vCPU: 7.824
+    Idle memory: 15.648
+  limits:
+    Replicas: 0.1

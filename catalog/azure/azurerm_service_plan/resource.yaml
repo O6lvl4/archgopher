@@ -1,0 +1,22 @@
+type: azurerm_service_plan
+label: App Service plan
+category: Compute
+description: "Instance-hours for Basic, Standard and Premium v3 plans, and vCPU and memory hours for Elastic Premium (EP) plans, times the worker count. Consumption (Y1) and Flex Consumption (FC1) plans cost nothing here: their apps are billed per execution."
+kinds: [host]
+sla: azure.appservice
+attributes:
+  - { key: sku_name, label: SKU, type: choice, options: [B1, B2, S1, P0v3, P1v3, P2v3, EP1, EP2, EP3, Y1, FC1] }
+  - { key: os_type, label: OS, type: choice, options: [Linux, Windows, WindowsContainer], default: Linux }
+  - { key: worker_count, label: Instances, type: number, default: 1 }
+let:
+  - os: 'os_type == "Linux" ? "linux" : "windows"'
+  - sku: lower(sku_name)
+  - dedicated: 'sku in ["b1", "b2", "s1", "p0v3", "p1v3", "p2v3"]'
+  - elastic: 'sku in ["ep1", "ep2", "ep3"]'
+  - vcpu: 'sku == "ep1" ? 1.0 : sku == "ep2" ? 2.0 : 4.0'
+readings:
+  - cost: { when: dedicated, name: Instance hours, quantity: 730 * worker_count, unit: hour, price: "azure.appservice.{os}.{sku}" }
+  - cost: { when: elastic, name: vCPU hours, quantity: 730 * worker_count * vcpu, unit: vCPU-hour, price: azure.functions.premium.vcpu_hour }
+  - cost: { when: elastic, name: Memory hours, quantity: 730 * worker_count * vcpu * 3.5, unit: GiB-hour, price: azure.functions.premium.gib_hour }
+terraform:
+  ignoreRefs: [app_service_environment_id]

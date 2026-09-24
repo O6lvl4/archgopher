@@ -1,0 +1,47 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Consumption in Japan East
+  region: japaneast
+  demand:
+    request:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Calls: 4.25
+  limits:
+    Throughput: 10
+- name: Standard, two units, in East US
+  region: eastus
+  attributes:
+    sku_name: Standard_2
+  demand:
+    request:
+      monthly: 5000000.0
+      peak: 100
+  costs:
+    Units: 1373.422
+  limits:
+    Throughput: 100
+- name: Standard v2, three units, beyond the included calls
+  region: japaneast
+  attributes:
+    sku_name: StandardV2_3
+  demand:
+    request:
+      monthly: 60000000.0
+      peak: 20
+  costs:
+    Units: 699.997
+    Secondary units: 999.9978
+    Calls beyond the included volume: 25.0
+  limits:
+    Throughput: 20
+- name: Isolated is not read yet
+  region: japaneast
+  attributes:
+    sku_name: Isolated_1
+  demand:
+    request:
+      monthly: 1
+      peak: 1
+  error: API Management tier Isolated is not read yet

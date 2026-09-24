@@ -1,0 +1,14 @@
+{
+  "azure.containerapps.max_replicas": {
+    "unit": "replicas",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-functions/functions-scale",
+    "note": "Overall maximum of max_replicas (default 10), honored while the environment's consumption cores quota allows",
+    "values": {
+      "*": {
+        "value": 1000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

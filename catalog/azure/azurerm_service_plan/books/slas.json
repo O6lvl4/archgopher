@@ -1,0 +1,13 @@
+{
+  "azure.appservice": {
+    "unit": "fraction",
+    "source": "https://www.microsoft.com/licensing/docs/view/Service-Level-Agreements-SLA-for-Online-Services",
+    "note": "App Service apps on Basic and higher plans; from the consolidated SLA document, not machine-checked",
+    "values": {
+      "*": {
+        "value": 0.9995,
+        "verified": false
+      }
+    }
+  }
+}

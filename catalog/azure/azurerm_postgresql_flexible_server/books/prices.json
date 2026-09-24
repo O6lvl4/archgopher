@@ -1,0 +1,398 @@
+{
+  "azure.postgresql.flex.b1ms": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/postgresql/flexible-server/",
+    "note": "Burstable B1MS, per instance-hour",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Database for PostgreSQL",
+      "filters": {
+        "productName": "Azure Database for PostgreSQL Flexible Server Burstable BS Series Compute",
+        "skuName": "B1MS",
+        "meterName": "B1MS"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.026,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.0245,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.017,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.017,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.0199,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.026,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.026,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.018,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.026,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.017,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.postgresql.flex.b2s": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/postgresql/flexible-server/",
+    "note": "Burstable B2S, per instance-hour",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Database for PostgreSQL",
+      "filters": {
+        "productName": "Azure Database for PostgreSQL Flexible Server Burstable BS Series Compute",
+        "skuName": "B2S",
+        "meterName": "B2S"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.104,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.098,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.068,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.068,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.0796,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.104,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.104,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.072,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.104,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.068,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.postgresql.flex.ddsv5.vcore": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/postgresql/flexible-server/",
+    "note": "General Purpose Ddsv5 series, per vCore-hour",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Database for PostgreSQL",
+      "filters": {
+        "productName": "Azure Database for PostgreSQL Flexible Server General Purpose Ddsv5 Series Compute",
+        "skuName": "vCore",
+        "meterName": "vCore"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.122,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.089,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.089,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.106,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.122,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.123,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.0988,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.122,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.089,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.postgresql.flex.dsv3.vcore": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/postgresql/flexible-server/",
+    "note": "General Purpose Dsv3 series, per vCore-hour",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Database for PostgreSQL",
+      "filters": {
+        "productName": "Azure Database for PostgreSQL Flexible Server General Purpose Dsv3 Series Compute",
+        "skuName": "vCore",
+        "meterName": "vCore"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.1175,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.1205,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.0855,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.0855,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.1015,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.1175,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.118,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.0945,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.1175,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.0855,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.postgresql.flex.edsv5.vcore": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/postgresql/flexible-server/",
+    "note": "Memory Optimized Edsv5 series, per vCore-hour",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Database for PostgreSQL",
+      "filters": {
+        "productName": "Azure Database for PostgreSQL Flexible Server Memory Optimized Edsv5 Series Compute",
+        "skuName": "vCore",
+        "meterName": "vCore"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.142,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.151,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.139,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.postgresql.flex.storage": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/postgresql/flexible-server/",
+    "note": "Premium SSD storage provisioned",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Database for PostgreSQL",
+      "filters": {
+        "productName": "Azure Database for PostgreSQL Flex Server Storage",
+        "skuName": "Storage",
+        "meterName": "Storage Data Stored"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.138,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.131,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.115,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.115,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.137,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.138,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.131,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.1265,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.138,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.115,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

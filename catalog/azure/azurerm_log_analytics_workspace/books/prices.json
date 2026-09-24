@@ -1,0 +1,134 @@
+{
+  "azure.loganalytics.ingestion": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/monitor/",
+    "note": "Analytics logs, pay-as-you-go; the first 5 GB a month per billing account are free (ignored, as every free tier)",
+    "sync": {
+      "source": "azure",
+      "service": "Log Analytics",
+      "filters": {
+        "productName": "Log Analytics",
+        "skuName": "Analytics Logs",
+        "meterName": "Analytics Logs Data Ingestion"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 3.34,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 3.22,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 2.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 2.76,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 2.99,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 3.34,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 3.11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 2.76,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 2.99,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 2.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.loganalytics.retention": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/monitor/",
+    "note": "Interactive retention of Analytics logs beyond the 31 days included",
+    "sync": {
+      "source": "azure",
+      "service": "Log Analytics",
+      "filters": {
+        "productName": "Log Analytics",
+        "skuName": "Analytics Logs",
+        "meterName": "Analytics Logs Data Retention"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.14,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.13,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.14,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.13,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

@@ -1,0 +1,282 @@
+{
+  "azure.openai.gpt-4.1-mini.datazonestandard.rpm": {
+    "unit": "requests/minute",
+    "source": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/quotas-limits",
+    "note": "Default quota tier 1 (new subscriptions); higher tiers are assigned with usage. Shared by the subscription's deployments of this model and type",
+    "values": {
+      "*": {
+        "value": 2000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4.1-mini.datazonestandard.tpm": {
+    "unit": "tokens/minute",
+    "source": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/quotas-limits",
+    "note": "Default quota tier 1 (new subscriptions); higher tiers are assigned with usage. Shared by the subscription's deployments of this model and type",
+    "values": {
+      "*": {
+        "value": 2000000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4.1-mini.globalstandard.rpm": {
+    "unit": "requests/minute",
+    "source": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/quotas-limits",
+    "note": "Default quota tier 1 (new subscriptions); higher tiers are assigned with usage. Shared by the subscription's deployments of this model and type",
+    "values": {
+      "*": {
+        "value": 5000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4.1-mini.globalstandard.tpm": {
+    "unit": "tokens/minute",
+    "source": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/quotas-limits",
+    "note": "Default quota tier 1 (new subscriptions); higher tiers are assigned with usage. Shared by the subscription's deployments of this model and type",
+    "values": {
+      "*": {
+        "value": 5000000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4.1-mini.standard.rpm": {
+    "unit": "requests/minute",
+    "source": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/quotas-limits",
+    "note": "Default quota tier 1 (new subscriptions); higher tiers are assigned with usage. Shared by the subscription's deployments of this model and type",
+    "values": {
+      "*": {
+        "value": 6000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4.1-mini.standard.tpm": {
+    "unit": "tokens/minute",
+    "source": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/quotas-limits",
+    "note": "Default quota tier 1 (new subscriptions); higher tiers are assigned with usage. Shared by the subscription's deployments of this model and type",
+    "values": {
+      "*": {
+        "value": 6000000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4.1.datazonestandard.rpm": {
+    "unit": "requests/minute",
+    "source": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/quotas-limits",
+    "note": "Default quota tier 1 (new subscriptions); higher tiers are assigned with usage. Shared by the subscription's deployments of this model and type",
+    "values": {
+      "*": {
+        "value": 300,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4.1.datazonestandard.tpm": {
+    "unit": "tokens/minute",
+    "source": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/quotas-limits",
+    "note": "Default quota tier 1 (new subscriptions); higher tiers are assigned with usage. Shared by the subscription's deployments of this model and type",
+    "values": {
+      "*": {
+        "value": 300000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4.1.globalstandard.rpm": {
+    "unit": "requests/minute",
+    "source": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/quotas-limits",
+    "note": "Default quota tier 1 (new subscriptions); higher tiers are assigned with usage. Shared by the subscription's deployments of this model and type",
+    "values": {
+      "*": {
+        "value": 1000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4.1.globalstandard.tpm": {
+    "unit": "tokens/minute",
+    "source": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/quotas-limits",
+    "note": "Default quota tier 1 (new subscriptions); higher tiers are assigned with usage. Shared by the subscription's deployments of this model and type",
+    "values": {
+      "*": {
+        "value": 1000000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4.1.standard.rpm": {
+    "unit": "requests/minute",
+    "source": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/quotas-limits",
+    "note": "Not listed in the tier 1 table; check the subscription's quota",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": false
+      }
+    }
+  },
+  "azure.openai.gpt-4.1.standard.tpm": {
+    "unit": "tokens/minute",
+    "source": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/quotas-limits",
+    "note": "Not listed in the tier 1 table; check the subscription's quota",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": false
+      }
+    }
+  },
+  "azure.openai.gpt-4o-mini.datazonestandard.rpm": {
+    "unit": "requests/minute",
+    "source": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/quotas-limits",
+    "note": "Default quota tier 1 (new subscriptions); higher tiers are assigned with usage. Shared by the subscription's deployments of this model and type",
+    "values": {
+      "*": {
+        "value": 10000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4o-mini.datazonestandard.tpm": {
+    "unit": "tokens/minute",
+    "source": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/quotas-limits",
+    "note": "Default quota tier 1 (new subscriptions); higher tiers are assigned with usage. Shared by the subscription's deployments of this model and type",
+    "values": {
+      "*": {
+        "value": 1000000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4o-mini.globalstandard.rpm": {
+    "unit": "requests/minute",
+    "source": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/quotas-limits",
+    "note": "Default quota tier 1 (new subscriptions); higher tiers are assigned with usage. Shared by the subscription's deployments of this model and type",
+    "values": {
+      "*": {
+        "value": 20000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4o-mini.globalstandard.tpm": {
+    "unit": "tokens/minute",
+    "source": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/quotas-limits",
+    "note": "Default quota tier 1 (new subscriptions); higher tiers are assigned with usage. Shared by the subscription's deployments of this model and type",
+    "values": {
+      "*": {
+        "value": 2000000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4o-mini.standard.rpm": {
+    "unit": "requests/minute",
+    "source": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/quotas-limits",
+    "note": "Not listed in the tier 1 table; check the subscription's quota",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": false
+      }
+    }
+  },
+  "azure.openai.gpt-4o-mini.standard.tpm": {
+    "unit": "tokens/minute",
+    "source": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/quotas-limits",
+    "note": "Not listed in the tier 1 table; check the subscription's quota",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": false
+      }
+    }
+  },
+  "azure.openai.gpt-4o.datazonestandard.rpm": {
+    "unit": "requests/minute",
+    "source": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/quotas-limits",
+    "note": "Default quota tier 1 (new subscriptions); higher tiers are assigned with usage. Shared by the subscription's deployments of this model and type (300 per 10 seconds)",
+    "values": {
+      "*": {
+        "value": 1800,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4o.datazonestandard.tpm": {
+    "unit": "tokens/minute",
+    "source": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/quotas-limits",
+    "note": "Default quota tier 1 (new subscriptions); higher tiers are assigned with usage. Shared by the subscription's deployments of this model and type",
+    "values": {
+      "*": {
+        "value": 300000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.openai.gpt-4o.globalstandard.rpm": {
+    "unit": "requests/minute",
+    "source": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/quotas-limits",
+    "note": "Not listed in the tier 1 table; check the subscription's quota",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": false
+      }
+    }
+  },
+  "azure.openai.gpt-4o.globalstandard.tpm": {
+    "unit": "tokens/minute",
+    "source": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/quotas-limits",
+    "note": "Not listed in the tier 1 table; check the subscription's quota",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": false
+      }
+    }
+  },
+  "azure.openai.gpt-4o.standard.rpm": {
+    "unit": "requests/minute",
+    "source": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/quotas-limits",
+    "note": "Not listed in the tier 1 table; check the subscription's quota",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": false
+      }
+    }
+  },
+  "azure.openai.gpt-4o.standard.tpm": {
+    "unit": "tokens/minute",
+    "source": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/quotas-limits",
+    "note": "Not listed in the tier 1 table; check the subscription's quota",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": false
+      }
+    }
+  }
+}

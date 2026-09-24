@@ -1,0 +1,866 @@
+{
+  "azure.apim.basic.unit": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/api-management/",
+    "note": "Basic tier, per unit",
+    "sync": {
+      "source": "azure",
+      "service": "API Management",
+      "filters": {
+        "productName": "API Management",
+        "skuName": "Basic",
+        "meterName": "Basic Unit"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.2016,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.2016,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.2016,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.2016,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.2016,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.2016,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.2016,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.2016,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.2016,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.2016,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.apim.basicv2.calls": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://azure.microsoft.com/pricing/details/api-management/",
+    "note": "Basic v2 calls beyond the 10 million included",
+    "sync": {
+      "source": "azure",
+      "service": "API Management",
+      "filters": {
+        "productName": "API Management",
+        "skuName": "Basic v2",
+        "meterName": "Basic v2 Calls"
+      },
+      "listPer": 10000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.apim.basicv2.secondary_unit": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/api-management/",
+    "note": "Basic v2, each unit after the first",
+    "sync": {
+      "source": "azure",
+      "service": "API Management",
+      "filters": {
+        "productName": "API Management",
+        "skuName": "Basic v2",
+        "meterName": "Basic v2 Secondary Unit"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.20548,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.20548,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.20548,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.20548,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.20548,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.20548,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.20548,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.20548,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.20548,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.20548,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.apim.basicv2.unit": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/api-management/",
+    "note": "Basic v2, first unit",
+    "sync": {
+      "source": "azure",
+      "service": "API Management",
+      "filters": {
+        "productName": "API Management",
+        "skuName": "Basic v2",
+        "meterName": "Basic v2 Unit"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.20548,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.20548,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.20548,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.20548,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.20548,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.20548,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.20548,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.20548,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.20548,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.20548,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.apim.consumption.calls": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://azure.microsoft.com/pricing/details/api-management/",
+    "note": "Consumption tier calls; the first million a month per subscription is free, and ignored as every free tier",
+    "sync": {
+      "source": "azure",
+      "service": "API Management",
+      "filters": {
+        "productName": "API Management",
+        "skuName": "Consumption",
+        "meterName": "Consumption Calls"
+      },
+      "listPer": 10000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.035,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.035,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.035,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.035,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.035,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.0425,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.035,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.035,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.0425,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.035,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.apim.developer.unit": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/api-management/",
+    "note": "Developer tier, per unit; no SLA",
+    "sync": {
+      "source": "azure",
+      "service": "API Management",
+      "filters": {
+        "productName": "API Management",
+        "skuName": "Developer",
+        "meterName": "Developer Unit"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.0658,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.0658,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.0658,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.0658,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.0658,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.0658,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.0658,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.0658,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.0658,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.0658,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.apim.premium.unit": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/api-management/",
+    "note": "Premium tier, per unit",
+    "sync": {
+      "source": "azure",
+      "service": "API Management",
+      "filters": {
+        "productName": "API Management",
+        "skuName": "Premium",
+        "meterName": "Premium Unit"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 3.829,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 3.829,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 3.829,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 3.829,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 3.829,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 3.829,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 3.829,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 3.829,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 3.829,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 3.829,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.apim.premiumv2.secondary_unit": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/api-management/",
+    "note": "Premium v2, each unit after the first",
+    "sync": {
+      "source": "azure",
+      "service": "API Management",
+      "filters": {
+        "productName": "API Management",
+        "skuName": "Premium v2",
+        "meterName": "Premium v2 Secondary Unit"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1.91781,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 1.91781,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 1.91781,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 1.91781,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 1.91781,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 1.91781,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 1.91781,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 1.91781,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 1.91781,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 1.91781,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.apim.premiumv2.unit": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/api-management/",
+    "note": "Premium v2, first unit",
+    "sync": {
+      "source": "azure",
+      "service": "API Management",
+      "filters": {
+        "productName": "API Management",
+        "skuName": "Premium v2",
+        "meterName": "Premium v2 Unit"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 3.83562,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 3.83562,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 3.83562,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 3.83562,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 3.83562,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 3.83562,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 3.83562,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 3.83562,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 3.83562,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 3.83562,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.apim.standard.unit": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/api-management/",
+    "note": "Standard tier, per unit",
+    "sync": {
+      "source": "azure",
+      "service": "API Management",
+      "filters": {
+        "productName": "API Management",
+        "skuName": "Standard",
+        "meterName": "Standard Unit"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.9407,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.9407,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.9407,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.9407,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.9407,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.9407,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.9407,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.9407,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.9407,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.9407,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.apim.standardv2.calls": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://azure.microsoft.com/pricing/details/api-management/",
+    "note": "Standard v2 calls beyond the 50 million included",
+    "sync": {
+      "source": "azure",
+      "service": "API Management",
+      "filters": {
+        "productName": "API Management",
+        "skuName": "Standard v2",
+        "meterName": "Standard v2 Calls"
+      },
+      "listPer": 10000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.apim.standardv2.secondary_unit": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/api-management/",
+    "note": "Standard v2, each unit after the first",
+    "sync": {
+      "source": "azure",
+      "service": "API Management",
+      "filters": {
+        "productName": "API Management",
+        "skuName": "Standard v2",
+        "meterName": "Standard v2 Secondary Unit"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.68493,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.68493,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.68493,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.68493,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.68493,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.68493,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.68493,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.68493,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.68493,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.68493,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.apim.standardv2.unit": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/api-management/",
+    "note": "Standard v2, first unit",
+    "sync": {
+      "source": "azure",
+      "service": "API Management",
+      "filters": {
+        "productName": "API Management",
+        "skuName": "Standard v2",
+        "meterName": "Standard v2 Unit"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.9589,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.9589,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.9589,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.9589,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.9589,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.9589,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.9589,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.9589,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.9589,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.9589,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

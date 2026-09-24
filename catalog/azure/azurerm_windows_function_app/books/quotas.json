@@ -1,0 +1,14 @@
+{
+  "azure.functions.consumption.windows_instances": {
+    "unit": "instances",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-functions/functions-scale",
+    "note": "Consumption plan on Windows, per function app",
+    "values": {
+      "*": {
+        "value": 200,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

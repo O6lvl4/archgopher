@@ -1,0 +1,33 @@
+type: azurerm_cosmosdb_account
+label: Cosmos DB
+category: Database
+description: "Request units and storage. Serverless bills request units consumed; provisioned bills RU/s-hours set on its databases or containers (from the assumption, as throughput is not on the account), single-region writes. The free tier is ignored, as every free tier."
+kinds: [read, write]
+sla: azure.cosmosdb
+attributes:
+  - { key: capability, label: First capability, type: string, optional: true, path: capabilities.name, hint: "EnableServerless makes the account serverless" }
+assumptions:
+  - { key: storageGb, label: Data and index stored, type: number, unit: GB }
+  - { key: ruPerRead, label: Request units per read, type: number, default: 1, hint: "A 1 KB point read costs 1 RU" }
+  - { key: ruPerWrite, label: Request units per write, type: number, default: 5, hint: "A 1 KB write with default indexing costs about 5 RU" }
+  - { key: provisionedRus, label: Provisioned throughput, type: number, unit: RU/s, optional: true, hint: "Sum of the RU/s set on databases and containers; manual throughput is at least 400 per container" }
+  - { key: regions, label: Regions, type: number, default: 1, hint: "Each extra region bills throughput and storage again" }
+let:
+  - serverless: 'capability == "EnableServerless"'
+  - rus: 'demand.read.monthly * ruPerRead + demand.write.monthly * ruPerWrite'
+  - peakRus: 'demand.read.peak * ruPerRead + demand.write.peak * ruPerWrite'
+readings:
+  - fail: { when: '!serverless && provisionedRus == nil', message: "set provisionedRus: the account is provisioned and its throughput lives on databases or containers" }
+  - fail: { when: 'serverless && regions > 1', message: "a serverless account runs in one region" }
+  - cost: { when: serverless, name: Request units, quantity: rus, unit: request unit, price: azure.cosmosdb.serverless.ru }
+  - cost: { when: '!serverless', name: Provisioned throughput, quantity: '(provisionedRus ?? 0) / 100 * 730 * regions', unit: 100 RU/s-hour, price: azure.cosmosdb.provisioned.ru100_hour }
+  - storage: { name: Storage, gb: storageGb * regions, price: azure.cosmosdb.storage }
+  - limit: { when: '!serverless', name: Request units per second, demand: peakRus, unit: RU/s, capacity: provisionedRus }
+terraform:
+  aliases: { azurerm_cosmosdb_sql_database: account_name, azurerm_cosmosdb_sql_container: account_name, azurerm_cosmosdb_sql_role_assignment: account_name, azurerm_cosmosdb_sql_role_definition: account_name }
+  ignoreRefs: [identity, key_vault_key_id, virtual_network_rule, backup]
+# Cosmos DB data-plane access is Cosmos DB's own RBAC (built-in SQL role
+# definitions), not Azure RBAC.
+iam:
+  read: ["Cosmos DB Built-in Data Reader", "Cosmos DB Built-in Data Contributor"]
+  write: ["Cosmos DB Built-in Data Contributor"]

@@ -1,0 +1,138 @@
+{
+  "azure.keyvault.premium.operations": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://azure.microsoft.com/pricing/details/key-vault/",
+    "note": "Premium vault operations on secrets, software keys and certificates",
+    "sync": {
+      "source": "azure",
+      "service": "Key Vault",
+      "filters": {
+        "productName": "Key Vault",
+        "skuName": "Premium",
+        "meterName": "Operations"
+      },
+      "listPer": 10000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.keyvault.standard.operations": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://azure.microsoft.com/pricing/details/key-vault/",
+    "note": "Standard vault operations on secrets, software keys and certificates",
+    "sync": {
+      "source": "azure",
+      "service": "Key Vault",
+      "filters": {
+        "productName": "Key Vault",
+        "skuName": "Standard",
+        "meterName": "Operations"
+      },
+      "listPer": 10000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

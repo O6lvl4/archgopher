@@ -1,0 +1,43 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Consumption, 250 ms at 256 MB (eastus)
+  region: eastus
+  assumptions:
+    executionMs: 250
+    memoryMb: 256
+  demand:
+    invoke:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Executions: 0.2
+    Execution time: 1.0
+  limits:
+    Instances: 0.025
+    Execution time limit: 0.25
+- name: short executions bill 100 ms and 128 MB steps
+  region: japaneast
+  assumptions:
+    executionMs: 50
+    memoryMb: 200
+  demand:
+    invoke:
+      monthly: 100000.0
+      peak: 1
+  costs:
+    Executions: 0.02
+    Execution time: 0.04
+  limits:
+    Instances: 0.001
+    Execution time limit: 0.05
+- name: on a dedicated plan the plan node carries the cost
+  region: japaneast
+  assumptions:
+    plan: dedicated
+    executionMs: 250
+  demand:
+    invoke:
+      monthly: 1000000.0
+      peak: 10
+  costs: {}
+  limits: {}

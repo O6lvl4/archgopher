@@ -1,0 +1,47 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: two P1v3 Linux instances
+  region: japaneast
+  attributes:
+    sku_name: P1v3
+    os_type: Linux
+    worker_count: 2
+  demand:
+    host:
+      monthly: 0
+      peak: 0
+  costs:
+    Instance hours: 274.48
+- name: EP1 Elastic Premium
+  region: japaneast
+  attributes:
+    sku_name: EP1
+    os_type: Windows
+  demand:
+    host:
+      monthly: 0
+      peak: 0
+  costs:
+    vCPU hours: 143.08
+    Memory hours: 35.77
+- name: B1 Windows in East US
+  region: eastus
+  attributes:
+    sku_name: B1
+    os_type: Windows
+  demand:
+    host:
+      monthly: 0
+      peak: 0
+  costs:
+    Instance hours: 54.75
+- name: a Consumption plan costs nothing itself
+  region: japaneast
+  attributes:
+    sku_name: Y1
+    os_type: Windows
+  demand:
+    host:
+      monthly: 0
+      peak: 0
+  costs: {}

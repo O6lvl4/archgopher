@@ -1,0 +1,33 @@
+type: azurerm_servicebus_namespace
+label: Service Bus
+category: Messaging
+description: "Basic: operations. Standard: the base fee and operations beyond the 13 million it includes (volume discounts above 100 million are not read). Premium: messaging-unit hours. Operations are counted per 64 KB. Headroom is operations per second on Basic and Standard; Premium has no fixed limit."
+kinds: [send]
+sla: azure.servicebus
+attributes:
+  - { key: sku, label: Tier, type: choice, options: [Basic, Standard, Premium], default: Standard }
+  - { key: capacity, label: Messaging units, type: number, default: 0, hint: "Premium only: 1, 2, 4, 8 or 16" }
+assumptions:
+  - { key: messageKb, label: Message size, type: number, unit: KB, default: 1, hint: "Operations are counted per 64 KB" }
+  - { key: operationsPerMessage, label: Operations per message, type: number, default: 2, hint: "Send and receive; settling, peeking and management calls add more" }
+let:
+  - perMessage: operationsPerMessage * ceilDiv(messageKb, 64)
+  - ops: total.monthly * perMessage
+readings:
+  - requests: { when: 'sku == "Basic"', name: Operations, unit: operation, price: azure.servicebus.basic.operations, count: ops }
+  - cost: { when: 'sku == "Standard"', name: Base fee, quantity: 730, unit: hour, price: azure.servicebus.standard.base }
+  - requests: { when: 'sku == "Standard"', name: Operations beyond the included 13 million, unit: operation, price: azure.servicebus.standard.operations, count: 'max(ops - 13000000, 0.0)' }
+  - cost: { when: 'sku == "Premium"', name: Messaging units, quantity: 'max(capacity, 1.0) * 730', unit: hour, price: azure.servicebus.premium.messaging_unit }
+  - rate: { when: 'sku != "Premium"', name: Operations per second, unit: operations/second, quota: azure.servicebus.operations_per_second, peak: total.peak * perMessage }
+terraform:
+  aliases:
+    azurerm_servicebus_queue: namespace_id
+    azurerm_servicebus_topic: namespace_id
+    azurerm_servicebus_subscription: topic_id
+    azurerm_servicebus_subscription_rule: subscription_id
+    azurerm_servicebus_namespace_authorization_rule: namespace_id
+    azurerm_servicebus_queue_authorization_rule: queue_id
+    azurerm_servicebus_topic_authorization_rule: topic_id
+  ignoreRefs: [identity, customer_managed_key, network_rule_set]
+iam:
+  send: ["Azure Service Bus Data Sender", "Azure Service Bus Data Owner"]

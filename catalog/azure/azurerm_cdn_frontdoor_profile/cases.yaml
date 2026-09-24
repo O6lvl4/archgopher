@@ -1,0 +1,41 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Standard in Japan East picks the Asia Pacific zone
+  region: japaneast
+  assumptions:
+    responseKb: 50
+  demand:
+    request:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Base fee: 35
+    Requests: 1.08
+    Transfer to clients: 5.483627319
+- name: Premium in East US for viewers in India
+  region: eastus
+  attributes:
+    sku_name: Premium_AzureFrontDoor
+  assumptions:
+    responseKb: 50
+    viewers: india
+  demand:
+    request:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Base fee: 330
+    Requests: 1.68
+    Transfer to clients: 5.197525024
+- name: Standard in East US picks the North America and Europe zone
+  region: eastus
+  assumptions:
+    responseKb: 50
+  demand:
+    request:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Base fee: 35
+    Requests: 0.9
+    Transfer to clients: 3.933906555

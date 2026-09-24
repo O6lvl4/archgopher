@@ -1,0 +1,14 @@
+{
+  "azure.keyvault.vault_rps": {
+    "unit": "requests/second",
+    "source": "https://learn.microsoft.com/en-us/azure/key-vault/general/service-limits",
+    "note": "All other transactions (secret and software-key GET): 4,000 per 10 seconds per vault per region; the subscription-wide limit is five times that",
+    "values": {
+      "*": {
+        "value": 400,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 type: azurerm_storage_account
 label: Storage account (Blob)
 category: Storage
-description: "Blob Storage on the hot tier: data stored, write and read operations, by redundancy. Headroom is the account request rate."
+description: "Blob Storage on the hot tier: data stored, write and read operations by redundancy, and direct transfer out to the internet. Headroom is the account request rate."
 kinds: [read, write]
 sla: azure.storage
 attributes:
@@ -10,6 +10,7 @@ attributes:
   - { key: access_tier, label: Access tier, type: choice, options: [Hot, Cool, Cold, Premium], default: Hot }
 assumptions:
   - { key: storageGb, label: Data stored, type: number, unit: GB }
+  - { key: internetGbPerMonth, label: Downloaded to the internet, type: number, unit: GB, default: 0, hint: "Direct downloads only: reads through Front Door or from the same region transfer for free" }
 let:
   - r: 'account_replication_type in ["LRS", "ZRS", "GRS", "RAGRS"] ? lower(account_replication_type) : "unread"'
 readings:
@@ -18,6 +19,10 @@ readings:
   - storage: { name: Data stored, gb: storageGb, price: "azure.storage.hot.{r}.stored" }
   - requests: { name: Write operations, price: "azure.storage.hot.{r}.write", count: demand.write.monthly }
   - requests: { name: Read operations, price: "azure.storage.hot.{r}.read", count: demand.read.monthly }
+  - cost: { when: internetGbPerMonth > 0, name: Transfer out to the internet, quantity: internetGbPerMonth, unit: GB, price: azure.bandwidth.internet_out }
   - rate: { name: Request rate, unit: requests/second, quota: azure.storage.account_rps, peak: total.peak }
 terraform:
   ignoreRefs: [network_rules, customer_managed_key, identity]
+iam:
+  read: ["Storage Blob Data Reader", "Storage Blob Data Contributor", "Storage Blob Data Owner"]
+  write: ["Storage Blob Data Contributor", "Storage Blob Data Owner"]

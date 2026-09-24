@@ -5,8 +5,8 @@
   </picture>
 </h1>
 
-Read an architecture before you build it. archgopher turns Terraform into a
-graph of resources, pushes your expected load through it, and reads every node
+Read an architecture before you build it. archgopher turns Terraform (AWS and
+Azure) into a graph of resources, pushes your expected load through it, and reads every node
 on four dimensions:
 
 | Dimension | What you get | How paths combine |
@@ -153,8 +153,9 @@ a value per region, a unit, a source URL and a `verified` flag.
   `GB-month` is an error, not a wrong number.
 - **Unverified values are listed.** Any value nobody has checked, or that is
   unknown, appears at the end of every report.
-- **Prices sync from the public Price List.** `archgopher sync` reads the
-  AWS Price List bulk files (no credentials) and marks each price verified.
+- **Prices sync from the public price lists.** `archgopher sync` reads the
+  AWS Price List bulk files and the Azure Retail Prices API (neither needs
+  credentials) and marks each price verified.
   A weekly workflow opens a pull request when a price changes.
   `archgopher explore <service> <region> [attr=regex...]` helps you write the
   filters for a new price.
@@ -163,11 +164,14 @@ a value per region, a unit, a source URL and a `verified` flag.
 archgopher sync --check      # exit 1 if the book is out of date
 archgopher sync --add-regions eu-west-2   # add a region to every price
 archgopher explore AWSLambda ap-northeast-1 'usagetype=.*GB-Second.*'
+archgopher explore azure Functions japaneast 'meterName=Standard.*'
 ```
 
-**Regions.** Ten regions are covered: us-east-1, us-east-2, us-west-2,
+**Regions.** Ten AWS regions are covered: us-east-1, us-east-2, us-west-2,
 eu-west-1, eu-central-1, ap-northeast-1, ap-northeast-2, ap-southeast-1,
-ap-southeast-2 and ap-south-1. A row that is the same everywhere is `*`; a
+ap-southeast-2 and ap-south-1. Ten Azure regions match them: eastus, eastus2,
+westus2, northeurope, germanywestcentral, japaneast, koreacentral,
+southeastasia, australiaeast and centralindia. A row that is the same everywhere is `*`; a
 quota that differs names its regions over a `*` default ("2,500 elsewhere").
 `sync --add-regions` reads every price from the Price List for the new region
 and lists anything left to fill by hand. Where the Price List has no price, the
@@ -221,12 +225,36 @@ the demand and says the capacity is unknown.
 | `agentcore_web_search` / `agentcore_knowledge_base` | Queries / retrievals and storage (external, placed by hand) | Query rate |
 | `entry` | Nothing; checks that load is set | - |
 
+### Azure
+
+| Type | Reads | Headroom |
+| --- | --- | --- |
+| `azurerm_linux_function_app` / `azurerm_windows_function_app` | Consumption executions and GB-seconds (other plans are priced on the plan) | Instances and timeout |
+| `azurerm_function_app_flex_consumption` | On-demand executions and GB-seconds, always-ready baseline | Instances per function group |
+| `azurerm_service_plan` | Instance-hours by SKU and OS, times workers | - |
+| `azurerm_container_app` | Consumption vCPU- and GiB-seconds, active and idle, requests | Replicas |
+| `azurerm_storage_account` | Hot tier storage, write and read operations by redundancy, transfer out to the internet | Account request rate (varies by region) |
+| `azurerm_cosmosdb_account` | Serverless request units or provisioned RU/s-hours, storage, per region | Provisioned RU/s |
+| `azurerm_postgresql_flexible_server` | Compute by SKU (doubled with high availability), storage | Connections by SKU |
+| `azurerm_api_management` | Consumption calls, or unit-hours by tier with included calls | Requests per unit (published guidance) |
+| `azurerm_cdn_frontdoor_profile` | Base fee, requests and transfer out by the viewers' zone | - |
+| `azurerm_servicebus_namespace` | Operations (Basic, Standard with its base fee), or Premium messaging units | Operations per second |
+| `azurerm_eventgrid_topic` | Operations | Events per second |
+| `azurerm_key_vault` | Operations | Requests per vault |
+| `azurerm_log_analytics_workspace` | Ingestion (Application Insights folds in) and retention beyond 31 days | - |
+| `azurerm_cognitive_deployment` | Azure OpenAI input, cached and output tokens by model and deployment type | Tokens and requests per minute from capacity or quota |
+
+Role assignments become edges: an `azurerm_role_assignment` connects the
+resource whose managed identity holds the role (system- or user-assigned) to
+the resource it is scoped to, with the kinds the role grants. Each resource's
+`iam` lists Azure role names per kind, where AWS resources list IAM actions.
+
 `archgopher catalog` prints every scouter with its fields as JSON.
 
 ### Adding a resource
 
-Every resource is a directory in [`catalog/aws`](catalog/aws), named after its
-type. It holds everything about that resource and nothing else; adding one
+Every resource is a directory in [`catalog/aws`](catalog/aws) or
+[`catalog/azure`](catalog/azure), named after its type. It holds everything about that resource and nothing else; adding one
 needs no Go code.
 
 ```text

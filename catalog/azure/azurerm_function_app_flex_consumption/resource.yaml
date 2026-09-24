@@ -1,0 +1,23 @@
+type: azurerm_function_app_flex_consumption
+label: Function app (Flex Consumption)
+category: Compute
+description: "On-demand executions and GB-seconds at the instance memory size, plus the baseline of always-ready instances. Executions on always-ready instances are counted at on-demand rates, a small overestimate. Headroom is on-demand instances per function group."
+kinds: [invoke]
+sla: azure.functions
+attributes:
+  - { key: instance_memory_in_mb, label: Instance memory, type: number, unit: MB, default: 2048 }
+  - { key: maximum_instance_count, label: Maximum instances, type: number, default: 100 }
+  - { key: always_ready, label: Always-ready instances, type: number, default: 0, path: always_ready.instance_count }
+assumptions:
+  - { key: executionMs, label: Execution time, type: number, unit: ms }
+  - { key: concurrencyPerInstance, label: Executions per instance, type: number, default: 16, hint: "HTTP concurrency per instance: 16 is the usual default at 2,048 MB" }
+let:
+  - seconds: executionMs / 1000
+readings:
+  - requests: { name: Executions, count: total.monthly, price: azure.functions.flex.executions }
+  - compute: { name: Execution time, count: total.monthly, seconds: seconds, memoryMb: instance_memory_in_mb, price: azure.functions.flex.gb_second }
+  - cost: { when: always_ready > 0, name: Always-ready baseline, quantity: always_ready * instance_memory_in_mb / 1024 * 730 * 3600, unit: GB-second, price: azure.functions.flex.always_ready_baseline }
+  - concurrency: { name: Instances, peak: total.peak, seconds: seconds / concurrencyPerInstance, unit: instances, quota: azure.functions.flex.max_instances, capacity: maximum_instance_count }
+terraform:
+  frontDoor: true
+  ignoreRefs: [identity, storage_access_key, storage_user_assigned_identity_id, site_config.application_insights_connection_string, site_config.application_insights_key]

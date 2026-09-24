@@ -1,0 +1,47 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: D2ds_v5 in Japan East
+  region: japaneast
+  assumptions:
+    peakConnections: 100
+  demand:
+    query:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Compute: 178.12
+    Storage: 4.416
+  limits:
+    Connections: 100
+- name: B1ms with zone-redundant HA in East US
+  region: eastus
+  attributes:
+    sku_name: B_Standard_B1ms
+    high_availability_mode: ZoneRedundant
+  assumptions:
+    peakConnections: 20
+  demand:
+    query:
+      monthly: 100000.0
+      peak: 1
+  costs:
+    Compute: 24.82
+    Storage: 7.36
+  limits:
+    Connections: 20
+- name: D4s_v3 with 128 GB in East US
+  region: eastus
+  attributes:
+    sku_name: GP_Standard_D4s_v3
+    storage_mb: 131072
+  assumptions:
+    peakConnections: 500
+  demand:
+    query:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Compute: 249.66
+    Storage: 14.72
+  limits:
+    Connections: 500

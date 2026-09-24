@@ -1,0 +1,34 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: one always-ready instance at 2,048 MB
+  region: japaneast
+  attributes:
+    always_ready: 1
+  assumptions:
+    executionMs: 500
+  demand:
+    invoke:
+      monthly: 1000000.0
+      peak: 20
+  costs:
+    Executions: 0.4
+    Execution time: 26.0
+    Always-ready baseline: 21.024
+  limits:
+    Instances: 0.625
+- name: on demand only at 512 MB (eastus)
+  region: eastus
+  attributes:
+    instance_memory_in_mb: 512
+  assumptions:
+    executionMs: 100
+    concurrencyPerInstance: 4
+  demand:
+    invoke:
+      monthly: 2000000.0
+      peak: 40
+  costs:
+    Executions: 0.8
+    Execution time: 2.6
+  limits:
+    Instances: 1.0

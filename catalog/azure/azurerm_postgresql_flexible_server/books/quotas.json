@@ -1,0 +1,86 @@
+{
+  "azure.postgresql.flex.max_connections.b_b1ms": {
+    "unit": "connections",
+    "source": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-limits",
+    "note": "Default max_connections; 15 are reserved for replication and monitoring. The same in every region",
+    "values": {
+      "*": {
+        "value": 50,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.postgresql.flex.max_connections.b_b2s": {
+    "unit": "connections",
+    "source": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-limits",
+    "note": "Default max_connections; 15 are reserved for replication and monitoring. The same in every region",
+    "values": {
+      "*": {
+        "value": 429,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.postgresql.flex.max_connections.gp_d2ds_v5": {
+    "unit": "connections",
+    "source": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-limits",
+    "note": "Default max_connections; 15 are reserved for replication and monitoring. The same in every region",
+    "values": {
+      "*": {
+        "value": 859,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.postgresql.flex.max_connections.gp_d2s_v3": {
+    "unit": "connections",
+    "source": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-limits",
+    "note": "Default max_connections; 15 are reserved for replication and monitoring. The same in every region",
+    "values": {
+      "*": {
+        "value": 859,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.postgresql.flex.max_connections.gp_d4ds_v5": {
+    "unit": "connections",
+    "source": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-limits",
+    "note": "Default max_connections; 15 are reserved for replication and monitoring. The same in every region",
+    "values": {
+      "*": {
+        "value": 1718,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.postgresql.flex.max_connections.gp_d4s_v3": {
+    "unit": "connections",
+    "source": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-limits",
+    "note": "Default max_connections; 15 are reserved for replication and monitoring. The same in every region",
+    "values": {
+      "*": {
+        "value": 1718,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.postgresql.flex.max_connections.mo_e2ds_v5": {
+    "unit": "connections",
+    "source": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-limits",
+    "note": "Default max_connections; 15 are reserved for replication and monitoring. The same in every region",
+    "values": {
+      "*": {
+        "value": 1718,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

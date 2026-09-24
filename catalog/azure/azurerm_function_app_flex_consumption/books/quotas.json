@@ -1,0 +1,14 @@
+{
+  "azure.functions.flex.max_instances": {
+    "unit": "instances",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-functions/functions-scale",
+    "note": "On-demand instances per function group, always-ready instances excluded; a regional subscription memory quota also applies",
+    "values": {
+      "*": {
+        "value": 1000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

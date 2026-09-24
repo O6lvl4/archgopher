@@ -1,0 +1,202 @@
+{
+  "azure.cosmosdb.provisioned.ru100_hour": {
+    "unit": "100 RU/s-hour",
+    "source": "https://azure.microsoft.com/pricing/details/cosmos-db/",
+    "note": "Standard (manual) provisioned throughput, single-region writes, per 100 RU/s per hour",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Cosmos DB",
+      "filters": {
+        "productName": "Azure Cosmos DB",
+        "skuName": "RUs",
+        "meterName": "100 RU/s"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.0092,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.0091,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.009,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.cosmosdb.serverless.ru": {
+    "unit": "request unit",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cosmos-db/",
+    "note": "Serverless request units, per million",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Cosmos DB",
+      "filters": {
+        "productName": "Azure Cosmos DB serverless",
+        "skuName": "RUs",
+        "meterName": "1M RUs"
+      },
+      "listPer": 1000000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.285,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.285,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.305,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.285,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.271,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.283,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.285,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.cosmosdb.storage": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/cosmos-db/",
+    "note": "Transactional storage, data and index, same for serverless and provisioned",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Cosmos DB",
+      "filters": {
+        "productName": "Azure Cosmos DB",
+        "skuName": "RUs",
+        "meterName": "Data Stored"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.2875,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.285,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.2825,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

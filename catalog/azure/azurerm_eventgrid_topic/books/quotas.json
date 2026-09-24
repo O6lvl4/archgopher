@@ -1,0 +1,14 @@
+{
+  "azure.eventgrid.topic_publish_rate": {
+    "unit": "events/second",
+    "source": "https://learn.microsoft.com/en-us/azure/event-grid/quotas-limits",
+    "note": "Custom and partner topics: 5,000 events or 5 MB a second, whichever comes first; an event counts per 64 KB",
+    "values": {
+      "*": {
+        "value": 5000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

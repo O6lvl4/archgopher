@@ -1,6 +1,7 @@
 // Package azure is the Azure provider. Resources live as data in
 // catalog/azure, one directory per resource type; this package loads them and
-// adds what is not per resource: the region reader and account-wide rules.
+// adds what is not per resource: the region reader, the role assignment edge
+// source and account-wide rules.
 package azure
 
 import (
@@ -84,9 +85,16 @@ func Regions() ([]string, error) {
 	return out, nil
 }
 
-// TerraformRules combine the region reader and every resource's rules.
+// TerraformRules combine the region reader, the role assignment edge source
+// and every resource's rules. Identities and role assignments name what they
+// grant; they are not calls.
 func TerraformRules() infer.Rules {
-	parts := []infer.Rules{{Scouters: Registry(), Region: Region}}
+	parts := []infer.Rules{{
+		Scouters:   Registry(),
+		Region:     Region,
+		Sources:    []infer.EdgeSource{RBAC(roles())},
+		IgnoreRefs: []string{"identity", "key_vault_reference_identity_id"},
+	}}
 	for _, u := range mustUnits() {
 		if u.Resource != nil {
 			parts = append(parts, u.Resource.Rules())

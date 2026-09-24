@@ -1,0 +1,22 @@
+type: azurerm_windows_function_app
+label: Function app (Windows)
+category: Compute
+description: "On the Consumption plan: executions and GB-seconds (memory rounded up to 128 MB, at least 100 ms). On a Premium or App Service plan the app costs nothing itself: the azurerm_service_plan node carries the cost. Headroom is scale-out instances and the 10-minute timeout."
+kinds: [invoke]
+sla: azure.functions
+assumptions:
+  - { key: plan, label: Hosting plan, type: choice, options: [consumption, dedicated], default: consumption, hint: "dedicated: a Premium (EP) or App Service plan, priced on its azurerm_service_plan node" }
+  - { key: executionMs, label: Execution time, type: number, unit: ms }
+  - { key: memoryMb, label: Memory used, type: number, unit: MB, default: 128, hint: "Consumption bills observed memory, rounded up to 128 MB" }
+  - { key: concurrencyPerInstance, label: Executions per instance, type: number, default: 100, hint: "HTTP triggers take up to 100 concurrent requests per instance on Consumption (host.json maxConcurrentRequests)" }
+let:
+  - consumption: 'plan == "consumption"'
+  - seconds: max(executionMs, 100) / 1000
+readings:
+  - requests: { when: consumption, name: Executions, count: total.monthly, price: azure.functions.consumption.executions }
+  - compute: { when: consumption, name: Execution time, count: total.monthly, seconds: seconds, memoryMb: memoryMb, stepMb: 128, price: azure.functions.consumption.gb_second }
+  - concurrency: { when: consumption, name: Instances, peak: total.peak, seconds: seconds / concurrencyPerInstance, unit: instances, quota: azure.functions.consumption.windows_instances }
+  - limit: { when: consumption, name: Execution time limit, demand: executionMs / 1000, unit: seconds, quota: azure.functions.consumption.max_seconds }
+terraform:
+  frontDoor: true
+  ignoreRefs: [identity, key_vault_reference_identity_id, storage_account_access_key, site_config.application_insights_connection_string, site_config.application_insights_key]

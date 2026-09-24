@@ -1,0 +1,34 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 10 GB a month kept 90 days (Japan East)
+  region: japaneast
+  attributes:
+    retention_in_days: 90
+  assumptions:
+    gbPerMonth: 10
+  demand:
+    ingest:
+      monthly: 0
+      peak: 0
+  costs:
+    Data ingested: 33.4
+    Retention beyond 31 days: 2.911184211
+- name: telemetry from connected apps (East US)
+  region: eastus
+  assumptions:
+    kbPerEvent: 2
+  demand:
+    ingest:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Data ingested: 4.386901855
+- name: only pay-as-you-go is read
+  region: eastus
+  attributes:
+    sku: Free
+  demand:
+    ingest:
+      monthly: 0
+      peak: 0
+  error: only the pay-as-you-go tier (PerGB2018) is read yet, not Free

@@ -1,0 +1,70 @@
+{
+  "azure.eventgrid.basic.operations": {
+    "unit": "operation",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/event-grid/",
+    "note": "Operations on custom, system and partner topics and domains (Basic tier). The API meter is named Standard Operations, priced per 100,000; the Event Grid namespace meters (Standard Event Operations, throughput units) are the Standard tier and not read here",
+    "sync": {
+      "source": "azure",
+      "service": "Event Grid",
+      "filters": {
+        "productName": "Event Grid",
+        "skuName": "Standard",
+        "meterName": "Standard Operations"
+      },
+      "listPer": 100000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

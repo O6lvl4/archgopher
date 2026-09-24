@@ -1,0 +1,24 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: standard vault in Japan East
+  region: japaneast
+  demand:
+    read:
+      monthly: 2000000.0
+      peak: 50
+  costs:
+    Operations: 6.0
+  limits:
+    Transactions: 50
+- name: premium vault in East US
+  region: eastus
+  attributes:
+    sku_name: premium
+  demand:
+    read:
+      monthly: 1000000.0
+      peak: 5
+  costs:
+    Operations: 3.0
+  limits:
+    Transactions: 5

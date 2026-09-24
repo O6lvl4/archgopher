@@ -1,0 +1,26 @@
+{
+  "azure.functions.consumption.linux_instances": {
+    "unit": "instances",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-functions/functions-scale",
+    "note": "Consumption plan on Linux, per function app; the Linux Consumption plan retires on 30 September 2028",
+    "values": {
+      "*": {
+        "value": 100,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.functions.consumption.max_seconds": {
+    "unit": "seconds",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-functions/functions-scale",
+    "note": "Consumption plan functionTimeout maximum, 10 minutes (default 5); HTTP responses are cut at 230 s whatever the timeout",
+    "values": {
+      "*": {
+        "value": 600,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

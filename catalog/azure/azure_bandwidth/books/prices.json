@@ -1,0 +1,67 @@
+{
+  "azure.bandwidth.internet_out": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/bandwidth/",
+    "note": "Data transfer out to the internet over the Microsoft network (routing preference), first paid tier; the first 100 GB a month are free (ignored, as every free tier). Transfer within a region is free",
+    "sync": {
+      "source": "azure",
+      "service": "Bandwidth",
+      "filters": {
+        "productName": "Rtn Preference: MGN",
+        "meterName": "Standard Data Transfer Out"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.087,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.087,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.087,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.087,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.087,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

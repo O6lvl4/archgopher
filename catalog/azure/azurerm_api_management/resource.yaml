@@ -1,0 +1,36 @@
+type: azurerm_api_management
+label: API Management
+category: Edge
+description: "Consumption: calls. Classic tiers (Developer, Basic, Standard, Premium): unit-hours times capacity. v2 tiers: unit-hours, extra units at the secondary rate, and calls beyond the included volume. Headroom is the published throughput per unit, where Microsoft publishes one; it is for information only."
+kinds: [request]
+sla: azure.apim
+attributes:
+  - { key: sku_name, label: SKU, type: string, default: "Consumption_0", hint: "Tier and capacity, as Terraform writes them: Consumption_0, Standard_1, StandardV2_2" }
+let:
+  - tier: 'split(sku_name, "_")[0]'
+  - units: 'max(float(split(sku_name, "_")[1]), 1.0)'
+  - known: 'tier in ["Consumption", "Developer", "Basic", "Standard", "Premium", "BasicV2", "StandardV2", "PremiumV2"]'
+  - t: 'known ? lower(tier) : "unread"'
+  - v2: 'tier in ["BasicV2", "StandardV2", "PremiumV2"]'
+  - included: 'tier == "BasicV2" ? 10000000.0 : tier == "StandardV2" ? 50000000.0 : 0.0'
+readings:
+  - fail: { when: "!known", message: "API Management tier {tier} is not read yet" }
+  - requests: { when: 't == "consumption"', name: Calls, price: azure.apim.consumption.calls, count: total.monthly }
+  - cost: { when: 't != "consumption"', name: Units, quantity: "(v2 ? 1 : units) * 730", unit: hour, price: "azure.apim.{t}.unit" }
+  - cost: { when: "v2 && units > 1", name: Secondary units, quantity: (units - 1) * 730, unit: hour, price: "azure.apim.{t}.secondary_unit" }
+  - requests: { when: 't in ["basicv2", "standardv2"]', name: Calls beyond the included volume, price: "azure.apim.{t}.calls", count: 'max(total.monthly - included, 0.0)' }
+  - rate: { name: Throughput, unit: requests/second, quota: "azure.apim.{t}.rps_per_unit", peak: total.peak, scale: units }
+terraform:
+  # A front door when nothing in the graph calls it; Front Door origins often do.
+  frontDoor: true
+  aliases:
+    azurerm_api_management_api: api_management_name
+    azurerm_api_management_api_operation: api_management_name
+    azurerm_api_management_api_policy: api_management_name
+    azurerm_api_management_backend: api_management_name
+    azurerm_api_management_product: api_management_name
+    azurerm_api_management_subscription: api_management_name
+    azurerm_api_management_named_value: api_management_name
+  links:
+    - { type: azurerm_api_management_backend, from: api_management_name, to: [url, resource_id] }
+  ignoreRefs: [identity, virtual_network_configuration, certificate, hostname_configuration]

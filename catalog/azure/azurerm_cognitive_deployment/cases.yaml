@@ -1,0 +1,62 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: gpt-4o Global Standard with 100K TPM and a prompt cache (East US)
+  region: eastus
+  attributes:
+    model_name: gpt-4o
+    sku_name: GlobalStandard
+    capacity: 100
+  assumptions:
+    inputTokensPerCall: 2000
+    outputTokensPerCall: 500
+    cachedShare: 0.25
+  demand:
+    call:
+      monthly: 1000000.0
+      peak: 5
+  costs:
+    Input tokens: 3750.0
+    Cached input tokens: 625.0
+    Output tokens: 5000.0
+  limits:
+    Tokens per minute: 750000
+    Requests per minute: 300
+    Capacity against the subscription quota: 100000
+- name: gpt-4.1-mini Global Standard on the subscription quota (Japan East)
+  region: japaneast
+  attributes:
+    model_name: gpt-4.1-mini
+    sku_name: GlobalStandard
+  assumptions:
+    inputTokensPerCall: 1000
+    outputTokensPerCall: 200
+  demand:
+    call:
+      monthly: 100000.0
+      peak: 1
+  costs:
+    Input tokens: 40.0
+    Output tokens: 32.0
+  limits:
+    Tokens per minute: 72000
+    Requests per minute: 60
+- name: gpt-4.1 Standard is not offered in Japan East
+  region: japaneast
+  attributes:
+    model_name: gpt-4.1
+    sku_name: Standard
+  assumptions:
+    inputTokensPerCall: 1000
+    outputTokensPerCall: 200
+  demand:
+    call:
+      monthly: 1000
+      peak: 1
+  limits:
+    Tokens per minute: 72000
+    Requests per minute: 60
+  error: 'Input tokens is not offered in japaneast (no "azure.openai.gpt-4.1.standard.input"
+    price)
+
+    Output tokens is not offered in japaneast (no "azure.openai.gpt-4.1.standard.output"
+    price)'

@@ -1,0 +1,202 @@
+{
+  "azure.functions.flex.always_ready_baseline": {
+    "unit": "GB-second",
+    "source": "https://azure.microsoft.com/pricing/details/functions/",
+    "note": "Always-ready instances, baseline while idle",
+    "sync": {
+      "source": "azure",
+      "service": "Functions",
+      "filters": {
+        "productName": "Flex Consumption",
+        "skuName": "Always Ready",
+        "meterName": "Always Ready Baseline"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.000005,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.000005,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.000004,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.000004,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.000005,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.000004,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.000005,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.000004,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.000005,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.000004,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.functions.flex.executions": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/functions/",
+    "note": "Flex Consumption on-demand executions; the monthly free grant is ignored",
+    "sync": {
+      "source": "azure",
+      "service": "Functions",
+      "filters": {
+        "productName": "Flex Consumption",
+        "skuName": "On Demand",
+        "meterName": "On Demand Total Executions"
+      },
+      "listPer": 10
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "azure.functions.flex.gb_second": {
+    "unit": "GB-second",
+    "source": "https://azure.microsoft.com/pricing/details/functions/",
+    "note": "Flex Consumption on-demand execution time at the instance memory size; the monthly free grant is ignored",
+    "sync": {
+      "source": "azure",
+      "service": "Functions",
+      "filters": {
+        "productName": "Flex Consumption",
+        "skuName": "On Demand",
+        "meterName": "On Demand Execution Time"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.000037,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "centralindia": {
+        "value": 0.000037,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus": {
+        "value": 0.000026,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "eastus2": {
+        "value": 0.000026,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "germanywestcentral": {
+        "value": 0.000037,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "japaneast": {
+        "value": 0.000026,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "koreacentral": {
+        "value": 0.000037,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northeurope": {
+        "value": 0.000026,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "southeastasia": {
+        "value": 0.000037,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "westus2": {
+        "value": 0.000026,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}
