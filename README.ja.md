@@ -47,6 +47,8 @@ Bedrock のモデルを持ちます。
 画面は式を持たず、入力欄はエンジンが返すスカウターの項目定義から組み立てます。
 カードには、サービスのアイコン（`resource.yaml` の `icon`）とプロバイダの色の線（AWS・Azure・Google Cloud の4色・Cloudflare）が付きます。
 アイコンは各社の構成図用アイコン集から取っており、出典と利用条件は [web/src/ui/icons/NOTICE.md](web/src/ui/icons/NOTICE.md) にあります。
+枠も左の一覧から置けます。Network の下の VPC（VNet・VPC network）を選ぶと空の枠が出て、カードを枠の中に落とせばそのノードは VPC に入り、外へ出せば抜けます。
+枠は見出しをつかむと中のカードごと動き、選択中は四隅で大きさを変えられます。見出しをクリックすると AZ 数と読み値が出ます。Terraform から読んだ枠はカードを囲む大きさで始まり、Tidy で囲み直します。
 
 ```sh
 cd web && pnpm install && pnpm run dev   # エンジンを WebAssembly にビルドして http://localhost:5176 で開く

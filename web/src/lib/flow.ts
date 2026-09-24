@@ -1,6 +1,6 @@
 import type { Edge, Node } from "@xyflow/react";
 import { num } from "./format";
-import { NODE_HEIGHT, NODE_WIDTH } from "./layout";
+import { fitAround, rectOf, type Rect } from "./frames";
 import type { CatalogEntry, NodeResult, Result, Spec, SpecGroup, SpecNode } from "./types";
 
 export interface CardData extends Record<string, unknown> {
@@ -14,39 +14,33 @@ export type CardNode = Node<CardData, "scouter">;
 export interface FrameData extends Record<string, unknown> {
   group: SpecGroup;
   reading?: NodeResult;
+  /** Called when the frame has been resized, with where it is now. */
+  onResized: (rect: Rect) => void;
 }
 
 export type FrameNode = Node<FrameData, "frame">;
 
-const FRAME_PAD = 20;
-const FRAME_HEAD = 26;
+export type FlowNode = CardNode | FrameNode;
 
-/**
- * Frames around the cards of each group, sized from where the cards are now
- * (so they follow a drag) and how big React Flow measured them.
- */
-export function toFrames(spec: Spec, cards: CardNode[], result: Result | undefined): FrameNode[] {
-  const byId = new Map(cards.map((c) => [c.id, c]));
+export const frameNodeId = (group: string) => `group:${group}`;
+export const groupOfFrame = (nodeId: string) => (nodeId.startsWith("group:") ? nodeId.slice("group:".length) : undefined);
+
+/** Frames drawn from where each group says it is, behind the cards; only the label drags. */
+export function toFrames(spec: Spec, result: Result | undefined, selected: string | undefined, onResized: (id: string, rect: Rect) => void): FrameNode[] {
   const readings = new Map((result?.groups ?? []).map((r) => [r.id, r]));
   return (spec.groups ?? []).flatMap((group) => {
-    const members = spec.nodes.flatMap((n) => {
-      const c = n.group === group.id ? byId.get(n.id) : undefined;
-      return c ? [c] : [];
-    });
-    if (members.length === 0) return [];
-    const left = Math.min(...members.map((c) => c.position.x));
-    const top = Math.min(...members.map((c) => c.position.y));
-    const right = Math.max(...members.map((c) => c.position.x + (c.measured?.width ?? NODE_WIDTH)));
-    const bottom = Math.max(...members.map((c) => c.position.y + (c.measured?.height ?? NODE_HEIGHT)));
+    const r = rectOf(group) ?? fitAround(spec, group.id);
+    if (!r) return [];
     const frame: FrameNode = {
-      id: `group:${group.id}`,
+      id: frameNodeId(group.id),
       type: "frame",
-      position: { x: left - FRAME_PAD, y: top - FRAME_PAD - FRAME_HEAD },
-      width: right - left + 2 * FRAME_PAD,
-      height: bottom - top + 2 * FRAME_PAD + FRAME_HEAD,
-      data: { group, reading: readings.get(group.id) },
+      position: { x: r.x, y: r.y },
+      width: r.width,
+      height: r.height,
+      data: { group, reading: readings.get(group.id), onResized: (rect) => onResized(group.id, rect) },
+      selected: group.id === selected,
+      dragHandle: ".frame-label",
       selectable: false,
-      draggable: false,
       focusable: false,
       deletable: false,
       zIndex: -1,

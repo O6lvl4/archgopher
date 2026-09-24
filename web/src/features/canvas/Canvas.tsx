@@ -1,6 +1,7 @@
 import { Background, Controls, MiniMap, Panel, ReactFlow, applyNodeChanges, type Connection, type EdgeChange, type NodeChange } from "@xyflow/react";
 import { useEffect, useMemo, useState, type Dispatch } from "react";
-import { toFlowEdges, toFlowNodes, toFrames, type CardNode, type FrameNode } from "../../lib/flow";
+import { groupOfFrame, toFlowEdges, toFlowNodes, toFrames, type CardNode, type FlowNode } from "../../lib/flow";
+import type { Rect } from "../../lib/frames";
 import { closesCycle, type Action, type Selection } from "../../lib/state";
 import type { CatalogEntry, Result, Spec } from "../../lib/types";
 import { GroupFrame } from "../../composites/GroupFrame";
@@ -30,20 +31,55 @@ function refusal(spec: Spec, c: Connection): string | undefined {
   return undefined;
 }
 
+const isCard = (n: FlowNode): n is CardNode => n.type === "scouter";
+
+/** While a frame is dragged, the cards in it move by the same amount. */
+function followFrames(changes: NodeChange<FlowNode>[], nodes: FlowNode[], spec: Spec): NodeChange<FlowNode>[] {
+  const byId = new Map(nodes.map((n) => [n.id, n]));
+  return changes.flatMap((c) => {
+    const group = c.type === "position" && c.dragging && c.position ? groupOfFrame(c.id) : undefined;
+    const frame = c.type === "position" ? byId.get(c.id) : undefined;
+    if (!group || !frame || c.type !== "position" || !c.position) return [];
+    const dx = c.position.x - frame.position.x;
+    const dy = c.position.y - frame.position.y;
+    return spec.nodes.flatMap((n) => {
+      const card = n.group === group ? byId.get(n.id) : undefined;
+      return card ? [{ type: "position" as const, id: card.id, position: { x: card.position.x + dx, y: card.position.y + dy }, dragging: true }] : [];
+    });
+  });
+}
+
+function frameRect(n: FlowNode): Rect {
+  return { x: n.position.x, y: n.position.y, width: n.width ?? n.measured?.width ?? 0, height: n.height ?? n.measured?.height ?? 0 };
+}
+
 export function Canvas({ spec, result, catalog, selection, dispatch, onSelect, onNotice }: Props) {
-  const [nodes, setNodes] = useState<CardNode[]>([]);
+  const [nodes, setNodes] = useState<FlowNode[]>([]);
   const selectedNode = selection?.kind === "node" ? selection.id : undefined;
+  const selectedGroup = selection?.kind === "group" ? selection.id : undefined;
   const selectedEdge = selection?.kind === "edge" ? selection.index : undefined;
   useEffect(() => {
-    setNodes((prev) => toFlowNodes(spec, result, catalog, prev).map((n) => ({ ...n, selected: n.id === selectedNode })));
-  }, [spec, result, catalog, selectedNode]);
+    const onResized = (id: string, rect: Rect) => dispatch({ type: "frame", id, rect, positions: {} });
+    setNodes((prev) => [
+      ...toFrames(spec, result, selectedGroup, onResized),
+      ...toFlowNodes(spec, result, catalog, prev.filter(isCard)).map((n) => ({ ...n, selected: n.id === selectedNode })),
+    ]);
+  }, [spec, result, catalog, selectedNode, selectedGroup, dispatch]);
   const edges = useMemo(() => toFlowEdges(spec, result, selectedEdge), [spec, result, selectedEdge]);
-  const shown = useMemo<(CardNode | FrameNode)[]>(() => [...toFrames(spec, nodes, result), ...nodes], [spec, nodes, result]);
 
-  const onNodesChange = (changes: NodeChange<CardNode | FrameNode>[]) => {
-    const cards = changes.filter((c) => !("id" in c && c.id.startsWith("group:"))) as NodeChange<CardNode>[];
-    setNodes((ns) => applyNodeChanges(cards, ns));
-    for (const c of cards) if (c.type === "remove") dispatch({ type: "removeNode", id: c.id });
+  const onNodesChange = (changes: NodeChange<FlowNode>[]) => {
+    setNodes((ns) => applyNodeChanges([...changes, ...followFrames(changes, ns, spec)], ns));
+    for (const c of changes) if (c.type === "remove" && !groupOfFrame(c.id)) dispatch({ type: "removeNode", id: c.id });
+  };
+  const onDragStop = (dragged: FlowNode[]) => {
+    const frame = dragged.find((n) => groupOfFrame(n.id));
+    const group = frame && groupOfFrame(frame.id);
+    if (frame && group) {
+      const members = new Set(spec.nodes.filter((n) => n.group === group).map((n) => n.id));
+      const positions = Object.fromEntries(nodes.filter((n) => members.has(n.id)).map((n) => [n.id, n.position]));
+      return dispatch({ type: "frame", id: group, rect: frameRect(frame), positions });
+    }
+    dispatch({ type: "drop", positions: Object.fromEntries(dragged.filter(isCard).map((n) => [n.id, n.position])) });
   };
   const onEdgesChange = (changes: EdgeChange[]) => {
     const removed = changes.filter((c) => c.type === "remove").map((c) => edgeIndex(c.id));
@@ -59,16 +95,19 @@ export function Canvas({ spec, result, catalog, selection, dispatch, onSelect, o
 
   return (
     <ReactFlow
-      nodes={shown}
+      nodes={nodes}
       edges={edges}
       nodeTypes={nodeTypes}
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
-      onNodeClick={(_, n) => onSelect(n.type === "frame" ? { kind: "group", id: n.id.slice("group:".length) } : { kind: "node", id: n.id })}
+      onNodeClick={(_, n) => {
+        const group = groupOfFrame(n.id);
+        onSelect(group ? { kind: "group", id: group } : { kind: "node", id: n.id });
+      }}
       onEdgeClick={(_, e) => onSelect({ kind: "edge", index: edgeIndex(e.id) })}
       onPaneClick={() => onSelect(undefined)}
-      onNodeDragStop={(_, __, dragged) => dispatch({ type: "move", positions: Object.fromEntries(dragged.map((n) => [n.id, n.position])) })}
+      onNodeDragStop={(_, __, dragged) => onDragStop(dragged)}
       deleteKeyCode={["Backspace", "Delete"]}
       colorMode="system"
       fitView

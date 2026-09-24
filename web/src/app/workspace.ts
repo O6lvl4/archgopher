@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useReducer, useRef, useState } from "react";
 import { engine, EngineError, loadEngine } from "../lib/engine";
+import { framed } from "../lib/frames";
 import { autoLayout, needsLayout } from "../lib/layout";
 import { emptySpec, reducer } from "../lib/state";
 import { loadSaved, save } from "../lib/storage";
@@ -9,11 +10,14 @@ function message(e: unknown): string {
   return e instanceof Error ? e.message : String(e);
 }
 
-/** Places every node that has no position yet, keeping the others where they are. */
+/**
+ * Places every node that has no position yet, keeping the others where they
+ * are, then gives each group without a frame one around its cards.
+ */
 export function placed(spec: Spec): Spec {
-  if (!needsLayout(spec)) return spec;
+  if (!needsLayout(spec)) return framed(spec);
   const layout = autoLayout(spec);
-  return { ...spec, nodes: spec.nodes.map((n) => (n.position ? n : { ...n, position: layout[n.id] })) };
+  return framed({ ...spec, nodes: spec.nodes.map((n) => (n.position ? n : { ...n, position: layout[n.id] })) });
 }
 
 function read(spec: Spec, ready: boolean): { result?: Result; error?: string } {

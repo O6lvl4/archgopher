@@ -78,6 +78,13 @@ Cloudflare. The icons come from each provider's architecture icon set; see
 [web/src/ui/icons/NOTICE.md](web/src/ui/icons/NOTICE.md) for their sources and
 terms.
 
+Frames are drawn from the catalog too: pick VPC (or VNet, VPC network) under
+Network and an empty frame appears. Drop a card inside it to put the node in
+the VPC, drag it out to take it out. The frame's label drags it with its
+cards, its corners resize it when selected, and clicking the label opens its
+zones and the traffic it reads. Frames imported from Terraform start around
+their cards; Tidy fits them again.
+
 ## The declaration
 
 ```yaml

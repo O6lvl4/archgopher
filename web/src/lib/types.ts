@@ -34,6 +34,9 @@ export interface SpecGroup {
   /** The scouter that reads traffic between the group's nodes (aws_vpc). */
   type?: string;
   assumptions?: Values;
+  /** Where the frame is drawn; the engine ignores it. */
+  position?: Position;
+  size?: { width: number; height: number };
 }
 
 export interface SpecEdge {

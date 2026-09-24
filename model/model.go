@@ -62,6 +62,15 @@ type Group struct {
 	Type string `yaml:"type,omitempty" json:"type,omitempty"`
 	// Assumptions are the group's numbers, such as how many zones it spans.
 	Assumptions map[string]any `yaml:"assumptions,omitempty" json:"assumptions,omitempty"`
+	// Position and Size are where the UI draws the frame. The engine ignores them.
+	Position *Position `yaml:"position,omitempty" json:"position,omitempty"`
+	Size     *Size     `yaml:"size,omitempty" json:"size,omitempty"`
+}
+
+// Size is how big the UI draws a frame.
+type Size struct {
+	Width  float64 `yaml:"width" json:"width"`
+	Height float64 `yaml:"height" json:"height"`
 }
 
 // Node is one resource (or one external dependency such as a model API).

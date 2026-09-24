@@ -21,11 +21,19 @@ export function GroupForm({ group, entry, reading, dispatch }: Props) {
       <header className="panel-head">
         <div>
           <div className="panel-kind">{group.kind}</div>
-          <code className="panel-address">{group.label ?? group.id}</code>
+          <code className="panel-address">{group.id}</code>
         </div>
+        <button className="danger" onClick={() => dispatch({ type: "removeGroup", id: group.id })}>
+          Delete
+        </button>
       </header>
       {entry && <p className="panel-desc">{entry.description}</p>}
       <Problem reading={reading} />
+      <label className="field">
+        <span className="field-label">Name</span>
+        <input value={group.label ?? ""} placeholder={group.id} onChange={(e) => dispatch({ type: "updateGroup", id: group.id, patch: { label: e.target.value || undefined } })} />
+      </label>
+      <p className="panel-desc">Drop a card inside the frame to put it in; drag it out to take it out. Deleting the frame keeps its cards.</p>
       <Fields
         title="Assumptions"
         fields={(entry?.assumptions ?? []).filter((f) => !hopFields.has(f.key))}

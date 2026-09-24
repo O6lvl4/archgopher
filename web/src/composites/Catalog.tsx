@@ -20,7 +20,7 @@ function groups(catalog: CatalogEntry[]): [string, [string, CatalogEntry[]][]][]
 export function Catalog({ catalog, onAdd }: { catalog: CatalogEntry[]; onAdd: (type: string) => void }) {
   return (
     <nav className="catalog" aria-label="Scouters">
-      {groups(catalog.filter((e) => !e.boundary)).map(([provider, categories]) => (
+      {groups(catalog).map(([provider, categories]) => (
         <section key={provider} className={`catalog-provider prov-${provider || "general"}`}>
           <h2>{providerLabels[provider] ?? provider}</h2>
           {categories.map(([category, entries]) => (

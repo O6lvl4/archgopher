@@ -10,7 +10,9 @@ import { download, slug } from "../lib/download";
 import { engine } from "../lib/engine";
 import { examples } from "../lib/examples";
 import { autoLayout, freeSpot, NODE_HEIGHT, NODE_WIDTH } from "../lib/layout";
-import { freshId, type Selection } from "../lib/state";
+import { NEW_FRAME } from "../lib/frames";
+import { freshGroupId, freshId, type Selection } from "../lib/state";
+import type { CatalogEntry } from "../lib/types";
 import { message, useWorkspace } from "./workspace";
 
 function useNotice() {
@@ -40,10 +42,25 @@ export function App() {
     }
   };
 
-  const addNode = (type: string) => {
-    const id = freshId(ws.spec, ws.catalogMap.get(type)?.label ?? type);
+  const canvasCenter = () => {
     const box = document.querySelector(".canvas")?.getBoundingClientRect();
-    const center = flow.screenToFlowPosition({ x: (box?.left ?? 0) + (box?.width ?? 600) / 2, y: (box?.top ?? 0) + (box?.height ?? 400) / 2 });
+    return flow.screenToFlowPosition({ x: (box?.left ?? 0) + (box?.width ?? 600) / 2, y: (box?.top ?? 0) + (box?.height ?? 400) / 2 });
+  };
+
+  /** A boundary from the catalog is an empty frame in the middle of the view; cards dropped in it join it. */
+  const addGroup = (entry: CatalogEntry) => {
+    const id = freshGroupId(ws.spec, entry.label);
+    const center = canvasCenter();
+    const position = { x: Math.round(center.x - NEW_FRAME.width / 2), y: Math.round(center.y - NEW_FRAME.height / 2) };
+    ws.dispatch({ type: "addGroup", group: { id, kind: entry.label, label: id, type: entry.type, position, size: NEW_FRAME } });
+    setSelection({ kind: "group", id });
+  };
+
+  const addNode = (type: string) => {
+    const entry = ws.catalogMap.get(type);
+    if (entry?.boundary) return addGroup(entry);
+    const id = freshId(ws.spec, entry?.label ?? type);
+    const center = canvasCenter();
     const position = freeSpot(ws.spec, { x: Math.round(center.x - NODE_WIDTH / 2), y: Math.round(center.y - NODE_HEIGHT / 2) });
     ws.dispatch({ type: "addNode", node: { id, type, position } });
     setSelection({ kind: "node", id });
@@ -71,7 +88,7 @@ export function App() {
     onSave: () => replace(() => download(`${slug(ws.spec.name)}.scouter.yaml`, engine.toYaml(ws.spec))),
     onTerraform: () => setImporting(true),
     onLayout: () => {
-      ws.dispatch({ type: "move", positions: autoLayout(ws.spec) });
+      ws.dispatch({ type: "layout", positions: autoLayout(ws.spec) });
       ws.setGeneration((g) => g + 1);
     },
   };

@@ -1,3 +1,4 @@
+import { assign, framed, type Rect } from "./frames";
 import type { Position, Spec, SpecEdge, SpecGroup, SpecNode, Values } from "./types";
 
 /** What the user has selected on the canvas. */
@@ -13,10 +14,15 @@ export type Action =
   | { type: "renameNode"; id: string; to: string }
   | { type: "removeNode"; id: string }
   | { type: "move"; positions: Record<string, Position> }
+  | { type: "drop"; positions: Record<string, Position> }
+  | { type: "layout"; positions: Record<string, Position> }
   | { type: "addEdge"; edge: SpecEdge }
   | { type: "updateEdge"; index: number; patch: Partial<SpecEdge> }
   | { type: "removeEdge"; index: number }
-  | { type: "updateGroup"; id: string; patch: Partial<SpecGroup> };
+  | { type: "updateGroup"; id: string; patch: Partial<SpecGroup> }
+  | { type: "addGroup"; group: SpecGroup }
+  | { type: "removeGroup"; id: string }
+  | { type: "frame"; id: string; rect: Rect; positions: Record<string, Position> };
 
 export const emptySpec: Spec = { name: "Untitled", region: "us-east-1", nodes: [], edges: [] };
 
@@ -43,7 +49,8 @@ type Handlers = { [K in Action["type"]]: (spec: Spec, a: Extract<Action, { type:
 const handlers: Handlers = {
   load: (_, a) => ({ ...a.spec, nodes: a.spec.nodes ?? [], edges: a.spec.edges ?? [] }),
   meta: (spec, a) => ({ ...spec, name: a.name ?? spec.name, region: a.region ?? spec.region }),
-  addNode: (spec, a) => ({ ...spec, nodes: [...spec.nodes, a.node] }),
+  // A card placed inside a frame joins it.
+  addNode: (spec, a) => assign({ ...spec, nodes: [...spec.nodes, a.node] }, [a.node.id]),
   updateNode: (spec, a) => mapNode(spec, a.id, (n) => ({ ...n, ...a.patch })),
   renameNode: (spec, a) => rename(spec, a.id, a.to),
   removeNode: (spec, a) => ({
@@ -56,6 +63,24 @@ const handlers: Handlers = {
   updateEdge: (spec, a) => ({ ...spec, edges: spec.edges.map((e, i) => (i === a.index ? { ...e, ...a.patch } : e)) }),
   removeEdge: (spec, a) => ({ ...spec, edges: spec.edges.filter((_, i) => i !== a.index) }),
   updateGroup: (spec, a) => ({ ...spec, groups: (spec.groups ?? []).map((g) => (g.id === a.id ? { ...g, ...a.patch } : g)) }),
+  // A dropped card joins the frame its center is in, or leaves the one it was in.
+  drop: (spec, a) => assign(move(spec, a.positions), Object.keys(a.positions)),
+  layout: (spec, a) => framed(move(spec, a.positions), true),
+  addGroup: (spec, a) => ({ ...spec, groups: [...(spec.groups ?? []), a.group] }),
+  removeGroup: (spec, a) => ({
+    ...spec,
+    groups: (spec.groups ?? []).filter((g) => g.id !== a.id),
+    nodes: spec.nodes.map((n) => (n.group === a.id ? { ...n, group: undefined } : n)),
+  }),
+  // A frame moved or resized: its cards moved with it, and every card is placed again.
+  frame: (spec, a) => {
+    const moved = move(spec, a.positions);
+    const groups = (moved.groups ?? []).map((g) =>
+      g.id === a.id ? { ...g, position: { x: a.rect.x, y: a.rect.y }, size: { width: a.rect.width, height: a.rect.height } } : g,
+    );
+    const next = { ...moved, groups };
+    return assign(next, next.nodes.map((n) => n.id));
+  },
 };
 
 export function reducer(spec: Spec, a: Action): Spec {
@@ -87,12 +112,20 @@ export function closesCycle(spec: Spec, from: string, to: string): boolean {
   return false;
 }
 
-/** A fresh id from the display name: "agentcore-runtime", "agentcore-runtime-2", ... */
-export function freshId(spec: Spec, label: string): string {
-  const base = label.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "node";
-  const taken = new Set(spec.nodes.map((n) => n.id));
+function unused(taken: Set<string>, label: string, fallback: string): string {
+  const base = label.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || fallback;
   if (!taken.has(base)) return base;
   let i = 2;
   while (taken.has(`${base}-${i}`)) i++;
   return `${base}-${i}`;
+}
+
+/** A fresh id from the display name: "agentcore-runtime", "agentcore-runtime-2", ... */
+export function freshId(spec: Spec, label: string): string {
+  return unused(new Set(spec.nodes.map((n) => n.id)), label, "node");
+}
+
+/** A fresh group id: "vpc", "vpc-2", ... */
+export function freshGroupId(spec: Spec, label: string): string {
+  return unused(new Set((spec.groups ?? []).map((g) => g.id)), label, "group");
 }
