@@ -1,0 +1,13 @@
+{
+  "aws.cloudfront.distribution_rps": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html",
+    "values": {
+      "*": {
+        "value": 250000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

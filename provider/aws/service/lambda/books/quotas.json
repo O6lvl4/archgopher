@@ -1,0 +1,14 @@
+{
+  "aws.lambda.concurrent_executions": {
+    "unit": "concurrent executions",
+    "source": "https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html",
+    "note": "Default account quota; new accounts may start lower",
+    "values": {
+      "*": {
+        "value": 1000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

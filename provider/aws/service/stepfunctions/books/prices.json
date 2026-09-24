@@ -1,0 +1,71 @@
+{
+  "aws.sfn.express.gb_second": {
+    "unit": "GB-second",
+    "source": "https://aws.amazon.com/step-functions/pricing/",
+    "note": "First tier",
+    "sync": {
+      "service": "AmazonStates",
+      "filters": {
+        "usagetype": "[A-Z]+[0-9]-StepFunctions-GB-Second"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.00001667,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.00001667,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.sfn.express.requests": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/step-functions/pricing/",
+    "sync": {
+      "service": "AmazonStates",
+      "filters": {
+        "usagetype": "[A-Z]+[0-9]-StepFunctions-Request"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.sfn.standard.transitions": {
+    "unit": "state transition",
+    "per": 1000,
+    "source": "https://aws.amazon.com/step-functions/pricing/",
+    "sync": {
+      "service": "AmazonStates",
+      "filters": {
+        "usagetype": "[A-Z]+[0-9]-StateTransition"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

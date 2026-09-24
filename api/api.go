@@ -11,19 +11,28 @@ import (
 	"strings"
 	"testing/fstest"
 
-	"github.com/O6lvl4/arch-scouter/aws"
-	"github.com/O6lvl4/arch-scouter/scout"
-	"github.com/O6lvl4/arch-scouter/terraform"
+	"github.com/O6lvl4/arch-scouter/book"
+	"github.com/O6lvl4/arch-scouter/engine"
+	"github.com/O6lvl4/arch-scouter/field"
+	"github.com/O6lvl4/arch-scouter/model"
+	"github.com/O6lvl4/arch-scouter/pattern"
+	"github.com/O6lvl4/arch-scouter/provider/aws"
+	awspattern "github.com/O6lvl4/arch-scouter/provider/aws/pattern"
+	"github.com/O6lvl4/arch-scouter/scouter"
+	"github.com/O6lvl4/arch-scouter/terraform/eval"
+	"github.com/O6lvl4/arch-scouter/terraform/infer"
+	"github.com/O6lvl4/arch-scouter/terraform/merge"
 )
 
 // CatalogEntry is a scouter with the fields a form needs.
 type CatalogEntry struct {
-	scout.Meta
-	Attributes  []scout.Field `json:"attributes"`
-	Assumptions []scout.Field `json:"assumptions"`
+	scouter.Meta
+	Attributes  []field.Field `json:"attributes"`
+	Assumptions []field.Field `json:"assumptions"`
 }
 
-// Catalog lists every scouter, sorted by type.
+// Catalog lists every scouter, then every pattern, each sorted by type.
+// A pattern's parameters are its assumptions: it is placed and edited like a node.
 func Catalog() []CatalogEntry {
 	reg := aws.Registry()
 	var out []CatalogEntry
@@ -31,16 +40,31 @@ func Catalog() []CatalogEntry {
 		s := reg[t]
 		out = append(out, CatalogEntry{Meta: s.Meta(), Attributes: s.Attributes(), Assumptions: s.Assumptions()})
 	}
+	patterns := awspattern.Registry()
+	for _, t := range patterns.Types() {
+		p := patterns[t]
+		out = append(out, CatalogEntry{Meta: p.Meta(), Attributes: []field.Field{}, Assumptions: p.Params()})
+	}
 	return out
 }
 
-// Scout reads a declaration.
-func Scout(spec scout.Spec) (scout.Result, error) {
+// Scout reads a declaration: patterns expand, the engine runs, and each
+// pattern gets a rolled-up result.
+func Scout(spec model.Spec) (engine.Result, error) {
 	books, err := aws.Books()
 	if err != nil {
-		return scout.Result{}, err
+		return engine.Result{}, err
 	}
-	return scout.Run(spec, aws.Registry(), books)
+	patterns := awspattern.Registry()
+	expanded, exp, err := pattern.Expand(spec, patterns)
+	if err != nil {
+		return engine.Result{}, err
+	}
+	res, err := engine.Run(expanded, aws.Registry(), books)
+	if err != nil {
+		return engine.Result{}, err
+	}
+	return pattern.Rollup(res, spec, exp, patterns), nil
 }
 
 // TerraformRequest carries a Terraform tree as file contents keyed by
@@ -51,12 +75,12 @@ type TerraformRequest struct {
 	Vars  map[string]string `json:"vars,omitempty"`
 	Name  string            `json:"name,omitempty"`
 	// Merge folds the result into this declaration when set.
-	Merge *scout.Spec `json:"merge,omitempty"`
+	Merge *model.Spec `json:"merge,omitempty"`
 }
 
 // TerraformResponse is the declaration built from Terraform.
 type TerraformResponse struct {
-	Spec     scout.Spec `json:"spec"`
+	Spec     model.Spec `json:"spec"`
 	Warnings []string   `json:"warnings"`
 }
 
@@ -67,7 +91,7 @@ func Terraform(req TerraformRequest) (TerraformResponse, error) {
 		fsys[strings.TrimPrefix(path.Clean(name), "/")] = &fstest.MapFile{Data: []byte(data)}
 	}
 	root := path.Clean(strings.TrimPrefix(req.Root, "/"))
-	ev, err := terraform.EvaluateFS(fsys, root, terraform.Options{Vars: req.Vars})
+	ev, err := eval.EvaluateFS(fsys, root, eval.Options{Vars: req.Vars})
 	if err != nil {
 		return TerraformResponse{}, err
 	}
@@ -75,10 +99,10 @@ func Terraform(req TerraformRequest) (TerraformResponse, error) {
 	if name == "" {
 		name = path.Base(root)
 	}
-	spec, warnings := terraform.Build(ev, aws.TerraformRules(), name)
+	spec, warnings := infer.Build(ev, aws.TerraformRules(), name)
 	if req.Merge != nil {
 		var w []string
-		spec, w = terraform.Merge(*req.Merge, spec)
+		spec, w = merge.Merge(*req.Merge, spec)
 		warnings = append(warnings, w...)
 	}
 	if spec.Region == "" {
@@ -116,7 +140,7 @@ func Regions() ([]string, error) {
 	set := map[string]bool{}
 	for _, e := range books.Prices {
 		for r := range e.Values {
-			if r != scout.AnyRegion {
+			if r != book.AnyRegion {
 				set[r] = true
 			}
 		}
@@ -130,11 +154,11 @@ func Regions() ([]string, error) {
 }
 
 // ParseYAML reads a declaration from YAML.
-func ParseYAML(text string) (scout.Spec, error) { return scout.ParseSpec([]byte(text)) }
+func ParseYAML(text string) (model.Spec, error) { return model.ParseSpec([]byte(text)) }
 
 // MarshalYAML writes a declaration as YAML.
-func MarshalYAML(spec scout.Spec) (string, error) {
-	b, err := scout.MarshalSpec(spec)
+func MarshalYAML(spec model.Spec) (string, error) {
+	b, err := model.MarshalSpec(spec)
 	return string(b), err
 }
 
@@ -160,7 +184,7 @@ func call(name, input string) (any, error) {
 	case "regions":
 		return Regions()
 	case "scout":
-		var spec scout.Spec
+		var spec model.Spec
 		if err := json.Unmarshal([]byte(input), &spec); err != nil {
 			return nil, err
 		}
@@ -180,7 +204,7 @@ func call(name, input string) (any, error) {
 	case "parseYaml":
 		return ParseYAML(input)
 	case "toYaml":
-		var spec scout.Spec
+		var spec model.Spec
 		if err := json.Unmarshal([]byte(input), &spec); err != nil {
 			return nil, err
 		}

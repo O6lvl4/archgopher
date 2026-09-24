@@ -7,18 +7,20 @@ import (
 	"testing"
 )
 
-// The bundled example must read cleanly: no node errors, skips or warnings.
-func TestExampleReadsCleanly(t *testing.T) {
-	var out bytes.Buffer
-	if err := run([]string{"scout", "../../examples/serverless-api/notes.scouter.yaml"}, &out); err != nil {
-		t.Fatal(err)
-	}
-	md := out.String()
-	if !strings.Contains(md, "Monthly cost: **$") {
-		t.Fatalf("no total in:\n%s", md)
-	}
-	if strings.Contains(md, "## Problems") {
-		t.Fatalf("the example has problems:\n%s", md[strings.Index(md, "## Problems"):])
+// Every bundled example must read cleanly: no node errors, skips or warnings.
+func TestExamplesReadCleanly(t *testing.T) {
+	for _, path := range []string{"../../examples/serverless-api/notes.scouter.yaml", "../../examples/patterns/orders.scouter.yaml"} {
+		var out bytes.Buffer
+		if err := run([]string{"scout", path}, &out); err != nil {
+			t.Fatalf("%s: %v", path, err)
+		}
+		md := out.String()
+		if !strings.Contains(md, "Monthly cost: **$") {
+			t.Fatalf("%s: no total in:\n%s", path, md)
+		}
+		if strings.Contains(md, "## Problems") {
+			t.Fatalf("%s has problems:\n%s", path, md[strings.Index(md, "## Problems"):])
+		}
 	}
 }
 

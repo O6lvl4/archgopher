@@ -1,0 +1,14 @@
+{
+  "aws.dynamodb": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/dynamodb/sla/",
+    "note": "Standard tables; global tables are 99.999%",
+    "values": {
+      "*": {
+        "value": 0.9999,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

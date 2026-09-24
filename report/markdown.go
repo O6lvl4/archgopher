@@ -8,18 +8,18 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/O6lvl4/arch-scouter/scout"
+	"github.com/O6lvl4/arch-scouter/engine"
 )
 
 // JSON writes the result as indented JSON.
-func JSON(w io.Writer, r scout.Result) error {
+func JSON(w io.Writer, r engine.Result) error {
 	enc := json.NewEncoder(w)
 	enc.SetIndent("", "  ")
 	return enc.Encode(r)
 }
 
 // Markdown writes the result as Markdown tables.
-func Markdown(w io.Writer, r scout.Result) error {
+func Markdown(w io.Writer, r engine.Result) error {
 	b := &strings.Builder{}
 	fmt.Fprintf(b, "# %s (%s)\n\n", orDash(r.Name), r.Region)
 	fmt.Fprintf(b, "Monthly cost: **%s**", usd(r.MonthlyUSD))
@@ -28,21 +28,25 @@ func Markdown(w io.Writer, r scout.Result) error {
 	}
 	b.WriteString("\n\n")
 
-	b.WriteString("## Nodes\n\n| Node | Type | Monthly | Tightest headroom | p99 | SLA | Status |\n| --- | --- | ---: | ---: | ---: | ---: | --- |\n")
+	b.WriteString("## Nodes\n\n")
+	if len(members(r)) < len(r.Nodes) {
+		b.WriteString("Pattern rows sum the nodes they expand into.\n\n")
+	}
+	b.WriteString("| Node | Type | Monthly | Tightest headroom | p99 | SLA | Status |\n| --- | --- | ---: | ---: | ---: | ---: | --- |\n")
 	for _, n := range r.Nodes {
 		fmt.Fprintf(b, "| %s | %s | %s | %s | %s | %s | %s |\n",
-			n.ID, n.Label, usd(n.MonthlyUSD), pct(n.MinHeadroom()), latency(n.Latency), sla(n.SLA), status(n))
+			n.ID, label(n), usd(n.MonthlyUSD), pct(n.MinHeadroom()), latency(n.Latency), sla(n.SLA), status(n))
 	}
 
 	b.WriteString("\n## Cost lines\n\n| Node | Component | Quantity | Unit | Unit price | Monthly |\n| --- | --- | ---: | --- | ---: | ---: |\n")
-	for _, n := range r.Nodes {
+	for _, n := range members(r) {
 		for _, c := range n.Costs {
 			fmt.Fprintf(b, "| %s | %s | %s | %s | %s | %s |\n", n.ID, c.Name, num(c.Quantity), c.Unit, price(c.UnitPrice), usdPtr(c.MonthlyUSD))
 		}
 	}
 
 	b.WriteString("\n## Limits\n\n| Node | Limit | Peak demand | Capacity | Unit | Headroom |\n| --- | --- | ---: | ---: | --- | ---: |\n")
-	for _, n := range r.Nodes {
+	for _, n := range members(r) {
 		for _, l := range n.Limits {
 			fmt.Fprintf(b, "| %s | %s | %s | %s | %s | %s |\n", n.ID, l.Name, num(l.Demand), numPtr(l.Capacity), l.Unit, pct(l.Headroom))
 		}
@@ -88,7 +92,18 @@ func Markdown(w io.Writer, r scout.Result) error {
 	return err
 }
 
-func status(n scout.NodeResult) string {
+// members skips rolled-up pattern results, whose lines their members already list.
+func members(r engine.Result) []engine.NodeResult {
+	var out []engine.NodeResult
+	for _, n := range r.Nodes {
+		if len(n.Members) == 0 {
+			out = append(out, n)
+		}
+	}
+	return out
+}
+
+func status(n engine.NodeResult) string {
 	switch {
 	case n.Error != "":
 		return "error"
@@ -103,7 +118,7 @@ func status(n scout.NodeResult) string {
 	return "ok"
 }
 
-func missing(p scout.PathResult) string {
+func missing(p engine.PathResult) string {
 	var parts []string
 	if len(p.MissingLatency) > 0 {
 		parts = append(parts, "latency: "+strings.Join(p.MissingLatency, ", "))
@@ -178,14 +193,14 @@ func pct(v *float64) string {
 	return strconv.FormatFloat(*v*100, 'f', 1, 64) + "%"
 }
 
-func latency(l *scout.Latency) string {
+func latency(l *engine.Latency) string {
 	if l == nil {
 		return "-"
 	}
 	return num(l.P99Ms) + " ms"
 }
 
-func sla(a *scout.Availability) string {
+func sla(a *engine.Availability) string {
 	if a == nil {
 		return "-"
 	}
@@ -196,3 +211,10 @@ func sla(a *scout.Availability) string {
 }
 
 func availability(v float64) string { return strconv.FormatFloat(v*100, 'f', 3, 64) + "%" }
+
+func label(n engine.NodeResult) string {
+	if len(n.Members) > 0 {
+		return n.Label + " (pattern)"
+	}
+	return n.Label
+}

@@ -1,0 +1,138 @@
+{
+  "aws.bedrock.claude-haiku-4-5.output_burndown": {
+    "unit": "multiplier",
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/quotas-token-burndown.html",
+    "note": "Output tokens count 5 times against tokens per minute for Anthropic models up to 4.7; cache reads do not count",
+    "values": {
+      "*": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-haiku-4-5.rpm": {
+    "unit": "requests/minute",
+    "source": "https://docs.aws.amazon.com/general/latest/gr/bedrock.html",
+    "note": "Published default for cross-region inference; the applied value is account-specific, so check Service Quotas",
+    "values": {
+      "ap-northeast-1": {
+        "value": 10000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 10000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-haiku-4-5.tpm": {
+    "unit": "tokens/minute",
+    "source": "https://docs.aws.amazon.com/general/latest/gr/bedrock.html",
+    "note": "Published default for cross-region inference; the applied value is account-specific, so check Service Quotas",
+    "values": {
+      "ap-northeast-1": {
+        "value": 5000000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 5000000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-opus-4-5.output_burndown": {
+    "unit": "multiplier",
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/quotas-token-burndown.html",
+    "note": "Output tokens count 5 times against tokens per minute for Anthropic models up to 4.7; cache reads do not count",
+    "values": {
+      "*": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-opus-4-5.rpm": {
+    "unit": "requests/minute",
+    "source": "https://docs.aws.amazon.com/general/latest/gr/bedrock.html",
+    "note": "Published default for cross-region inference; the applied value is account-specific, so check Service Quotas. Not offered through the jp. profile",
+    "values": {
+      "ap-northeast-1": {
+        "value": null,
+        "verified": false
+      },
+      "us-east-1": {
+        "value": 10000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-opus-4-5.tpm": {
+    "unit": "tokens/minute",
+    "source": "https://docs.aws.amazon.com/general/latest/gr/bedrock.html",
+    "note": "Published default for cross-region inference; the applied value is account-specific, so check Service Quotas. Not offered through the jp. profile",
+    "values": {
+      "ap-northeast-1": {
+        "value": null,
+        "verified": false
+      },
+      "us-east-1": {
+        "value": 2000000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-sonnet-4-5.output_burndown": {
+    "unit": "multiplier",
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/quotas-token-burndown.html",
+    "note": "Output tokens count 5 times against tokens per minute for Anthropic models up to 4.7; cache reads do not count",
+    "values": {
+      "*": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-sonnet-4-5.rpm": {
+    "unit": "requests/minute",
+    "source": "https://docs.aws.amazon.com/general/latest/gr/bedrock.html",
+    "note": "Published default for cross-region inference; the applied value is account-specific, so check Service Quotas",
+    "values": {
+      "ap-northeast-1": {
+        "value": 10000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 10000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-sonnet-4-5.tpm": {
+    "unit": "tokens/minute",
+    "source": "https://docs.aws.amazon.com/general/latest/gr/bedrock.html",
+    "note": "Published default for cross-region inference; the applied value is account-specific, so check Service Quotas",
+    "values": {
+      "ap-northeast-1": {
+        "value": 5000000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 5000000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

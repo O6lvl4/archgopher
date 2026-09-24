@@ -1,0 +1,13 @@
+{
+  "aws.sns": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/messaging/sla/",
+    "values": {
+      "*": {
+        "value": 0.999,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

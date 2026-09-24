@@ -7,42 +7,71 @@ import (
 	"io"
 	"math"
 	"os"
+	"path/filepath"
 	"sort"
 	"strconv"
 	"strings"
 	"text/tabwriter"
 	"time"
 
-	"github.com/O6lvl4/arch-scouter/aws/pricelist"
-	"github.com/O6lvl4/arch-scouter/scout"
+	"github.com/O6lvl4/arch-scouter/book"
+	"github.com/O6lvl4/arch-scouter/provider/aws/pricelist"
 )
 
 func cmdSync(args []string, out io.Writer) error {
 	fs := flag.NewFlagSet("sync", flag.ContinueOnError)
-	book := fs.String("book", "aws/books/prices.json", "price book to update in place")
+	pattern := fs.String("books", "provider/aws/service/*/books/prices.json", "price books to update in place (glob)")
 	regions := fs.String("regions", "", "comma-separated regions (default: every region in the book)")
 	check := fs.Bool("check", false, "report differences without writing")
 	if err := fs.Parse(reorder(args)); err != nil {
 		return err
 	}
-	data, err := os.ReadFile(*book)
+	files, err := filepath.Glob(*pattern)
 	if err != nil {
 		return err
 	}
-	var prices scout.Book
-	if err := json.Unmarshal(data, &prices); err != nil {
+	if len(files) == 0 {
+		return fmt.Errorf("no price books match %s (run from the repository root)", *pattern)
+	}
+	s := syncer{client: pricelist.NewClient(), today: time.Now().UTC().Format("2006-01-02"), regions: *regions}
+	w := tabwriter.NewWriter(out, 0, 0, 2, ' ', 0)
+	fmt.Fprintln(w, "ID\tREGION\tBOOK\tPRICE LIST\tRESULT")
+	for _, f := range files {
+		if err := s.file(w, f, *check); err != nil {
+			return err
+		}
+	}
+	if err := w.Flush(); err != nil {
 		return err
 	}
-	client := pricelist.NewClient()
-	today := time.Now().UTC().Format("2006-01-02")
+	fmt.Fprintf(out, "\n%d changed, %d could not be resolved\n", s.changed, s.failed)
+	if *check && (s.changed > 0 || s.failed > 0) {
+		return fmt.Errorf("the price books are out of date")
+	}
+	return nil
+}
+
+type syncer struct {
+	client          *pricelist.Client
+	today, regions  string
+	changed, failed int
+}
+
+// file verifies one price book against the Price List and rewrites it unless checking.
+func (s *syncer) file(w io.Writer, path string, check bool) error {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return err
+	}
+	var prices book.Book
+	if err := json.Unmarshal(data, &prices); err != nil {
+		return fmt.Errorf("%s: %w", path, err)
+	}
 	ids := make([]string, 0, len(prices))
 	for id := range prices {
 		ids = append(ids, id)
 	}
 	sort.Strings(ids)
-	w := tabwriter.NewWriter(out, 0, 0, 2, ' ', 0)
-	fmt.Fprintln(w, "ID\tREGION\tBOOK\tPRICE LIST\tRESULT")
-	changed, failed := 0, 0
 	for _, id := range ids {
 		e := prices[id]
 		if len(e.Sync) == 0 {
@@ -52,41 +81,40 @@ func cmdSync(args []string, out io.Writer) error {
 		if err := json.Unmarshal(e.Sync, &spec); err != nil {
 			return fmt.Errorf("%s: sync: %w", id, err)
 		}
-		for _, region := range pick(e, *regions) {
-			old := e.Values[region]
-			m, err := client.Resolve(spec, region)
-			if err != nil {
-				failed++
-				fmt.Fprintf(w, "%s\t%s\t%s\t-\t%v\n", id, region, show(old.Value), err)
-				continue
-			}
-			v := round(m.USD * perOf(e))
-			result := "same"
-			if old.Value == nil || !close(*old.Value, v) {
-				result, changed = "changed", changed+1
-			}
-			if result == "changed" || !old.Verified {
-				e.Values[region] = scout.Value{Value: &v, Verified: true, CheckedAt: today}
-			}
-			fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%s (%s, %s)\n", id, region, show(old.Value), show(&v), result, m.Product.Attributes["usagetype"], m.Dimension.Unit)
+		for _, region := range pick(e, s.regions) {
+			e.Values[region] = s.value(w, id, region, e, spec)
 		}
 		prices[id] = e
 	}
-	if err := w.Flush(); err != nil {
-		return err
-	}
-	fmt.Fprintf(out, "\n%d changed, %d could not be resolved\n", changed, failed)
-	if *check {
-		if changed > 0 || failed > 0 {
-			return fmt.Errorf("the price book is out of date")
-		}
+	if check {
 		return nil
 	}
-	data, err = scout.MarshalBook(prices)
+	out, err := book.Marshal(prices)
 	if err != nil {
 		return err
 	}
-	return os.WriteFile(*book, data, 0o644)
+	return os.WriteFile(path, out, 0o644)
+}
+
+func (s *syncer) value(w io.Writer, id, region string, e book.Entry, spec pricelist.Spec) book.Value {
+	old := e.Values[region]
+	m, err := s.client.Resolve(spec, region)
+	if err != nil {
+		s.failed++
+		fmt.Fprintf(w, "%s\t%s\t%s\t-\t%v\n", id, region, show(old.Value), err)
+		return old
+	}
+	v := round(m.USD * perOf(e))
+	result := "same"
+	if old.Value == nil || !close(*old.Value, v) {
+		result = "changed"
+		s.changed++
+	}
+	fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%s (%s, %s)\n", id, region, show(old.Value), show(&v), result, m.Product.Attributes["usagetype"], m.Dimension.Unit)
+	if result == "same" && old.Verified {
+		return old
+	}
+	return book.Value{Value: &v, Verified: true, CheckedAt: s.today}
 }
 
 func cmdExplore(args []string, out io.Writer) error {
@@ -118,10 +146,10 @@ func cmdExplore(args []string, out io.Writer) error {
 	return w.Flush()
 }
 
-func pick(e scout.Entry, only string) []string {
+func pick(e book.Entry, only string) []string {
 	var out []string
 	for r := range e.Values {
-		if r == scout.AnyRegion {
+		if r == book.AnyRegion {
 			continue
 		}
 		if only == "" || strings.Contains(","+only+",", ","+r+",") {
@@ -132,7 +160,7 @@ func pick(e scout.Entry, only string) []string {
 	return out
 }
 
-func perOf(e scout.Entry) float64 {
+func perOf(e book.Entry) float64 {
 	if e.Per == 0 {
 		return 1
 	}

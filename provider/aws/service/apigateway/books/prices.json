@@ -1,0 +1,50 @@
+{
+  "aws.apigateway.http.requests": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/api-gateway/pricing/",
+    "note": "First tier (up to 300 million per month)",
+    "sync": {
+      "service": "AmazonApiGateway",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?ApiGatewayHttpRequest"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 1.29,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.apigateway.rest.requests": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/api-gateway/pricing/",
+    "note": "First tier (up to 333 million per month)",
+    "sync": {
+      "service": "AmazonApiGateway",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?ApiGatewayRequest"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 4.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 3.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

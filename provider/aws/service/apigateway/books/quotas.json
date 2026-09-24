@@ -1,0 +1,14 @@
+{
+  "aws.apigateway.account_rps": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/apigateway/latest/developerguide/limits.html",
+    "note": "Default account throttle; 2,500 in some newer regions",
+    "values": {
+      "*": {
+        "value": 10000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

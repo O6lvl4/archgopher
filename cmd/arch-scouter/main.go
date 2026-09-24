@@ -11,9 +11,8 @@ import (
 	"strings"
 
 	"github.com/O6lvl4/arch-scouter/api"
-	"github.com/O6lvl4/arch-scouter/aws"
+	"github.com/O6lvl4/arch-scouter/model"
 	"github.com/O6lvl4/arch-scouter/report"
-	"github.com/O6lvl4/arch-scouter/scout"
 )
 
 const usage = `arch-scouter reads an architecture on cost, headroom, latency and availability.
@@ -74,15 +73,11 @@ func cmdScout(args []string, out io.Writer) error {
 	if err != nil {
 		return err
 	}
-	spec, err := scout.ParseSpec(data)
+	spec, err := model.ParseSpec(data)
 	if err != nil {
 		return err
 	}
-	books, err := aws.Books()
-	if err != nil {
-		return err
-	}
-	res, err := scout.Run(spec, aws.Registry(), books)
+	res, err := api.Scout(spec)
 	if err != nil {
 		return err
 	}

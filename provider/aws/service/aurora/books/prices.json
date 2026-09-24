@@ -1,0 +1,120 @@
+{
+  "aws.aurora.io": {
+    "unit": "I/O request",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/rds/aurora/pricing/",
+    "sync": {
+      "service": "AmazonRDS",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?Aurora:StorageIOUsage",
+        "operation": "CreateDBInstance:0021"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.24,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.aurora.iopt.acu_hour": {
+    "unit": "ACU-hour",
+    "source": "https://aws.amazon.com/rds/aurora/pricing/",
+    "note": "Aurora I/O-Optimized",
+    "sync": {
+      "service": "AmazonRDS",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?Aurora:ServerlessV2IOOptimizedUsage",
+        "operation": "CreateDBInstance:0021"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.16,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.aurora.iopt.storage": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/rds/aurora/pricing/",
+    "sync": {
+      "service": "AmazonRDS",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?Aurora:IO-OptimizedStorageUsage",
+        "operation": "CreateDBInstance:0021"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.27,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.225,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.aurora.serverless_v2.acu_hour": {
+    "unit": "ACU-hour",
+    "source": "https://aws.amazon.com/rds/aurora/pricing/",
+    "note": "Aurora Standard; the PostgreSQL row, which MySQL matches",
+    "sync": {
+      "service": "AmazonRDS",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?Aurora:ServerlessV2Usage",
+        "operation": "CreateDBInstance:0021"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.aurora.storage": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/rds/aurora/pricing/",
+    "sync": {
+      "service": "AmazonRDS",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?Aurora:StorageUsage",
+        "operation": "CreateDBInstance:0021"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

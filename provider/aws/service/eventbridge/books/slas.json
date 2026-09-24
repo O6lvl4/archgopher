@@ -1,0 +1,24 @@
+{
+  "aws.eventbridge": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/eventbridge/sla/",
+    "values": {
+      "*": {
+        "value": 0.9999,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.scheduler": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/eventbridge/sla/",
+    "note": "EventBridge Scheduler has no published SLA; the EventBridge SLA does not name it",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": false
+      }
+    }
+  }
+}

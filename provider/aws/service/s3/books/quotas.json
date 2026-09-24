@@ -1,0 +1,26 @@
+{
+  "aws.s3.prefix_get": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/optimizing-performance.html",
+    "note": "Per partitioned prefix",
+    "values": {
+      "*": {
+        "value": 5500,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.s3.prefix_put": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/optimizing-performance.html",
+    "note": "PUT, COPY, POST and DELETE per partitioned prefix",
+    "values": {
+      "*": {
+        "value": 3500,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

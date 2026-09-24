@@ -1,0 +1,71 @@
+{
+  "aws.s3.standard.get": {
+    "unit": "request",
+    "per": 1000,
+    "source": "https://aws.amazon.com/s3/pricing/",
+    "sync": {
+      "service": "AmazonS3",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?Requests-Tier2"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.00037,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.0004,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.s3.standard.put": {
+    "unit": "request",
+    "per": 1000,
+    "source": "https://aws.amazon.com/s3/pricing/",
+    "sync": {
+      "service": "AmazonS3",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?Requests-Tier1"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0047,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.s3.standard.storage": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/s3/pricing/",
+    "note": "First 50 TB tier",
+    "sync": {
+      "service": "AmazonS3",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?TimedStorage-ByteHrs"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

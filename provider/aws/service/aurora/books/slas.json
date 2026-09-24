@@ -1,0 +1,14 @@
+{
+  "aws.aurora": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/rds/aurora/sla/",
+    "note": "Multi-AZ clusters; single-AZ is 99.9%",
+    "values": {
+      "*": {
+        "value": 0.9999,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

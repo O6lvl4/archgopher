@@ -1,0 +1,214 @@
+{
+  "aws.bedrock.claude-haiku-4-5.cache_read": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "From the pricing page (not in the bulk Price List). us-east-1 is the global cross-region profile; ap-northeast-1 is the Japan geographic profile (jp.), 10% above global.",
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-haiku-4-5.cache_write": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "From the pricing page (not in the bulk Price List). us-east-1 is the global cross-region profile; ap-northeast-1 is the Japan geographic profile (jp.), 10% above global. Cache writes are the 5-minute price.",
+    "values": {
+      "ap-northeast-1": {
+        "value": 1.375,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-haiku-4-5.input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "From the pricing page (not in the bulk Price List). us-east-1 is the global cross-region profile; ap-northeast-1 is the Japan geographic profile (jp.), 10% above global.",
+    "values": {
+      "ap-northeast-1": {
+        "value": 1.1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-haiku-4-5.output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "From the pricing page (not in the bulk Price List). us-east-1 is the global cross-region profile; ap-northeast-1 is the Japan geographic profile (jp.), 10% above global.",
+    "values": {
+      "ap-northeast-1": {
+        "value": 5.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-opus-4-5.cache_read": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "From the pricing page (not in the bulk Price List). us-east-1 is the global cross-region profile; ap-northeast-1 is the Japan geographic profile (jp.), 10% above global. Opus 4.5 has no jp. profile price.",
+    "values": {
+      "ap-northeast-1": {
+        "value": null,
+        "verified": false
+      },
+      "us-east-1": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-opus-4-5.cache_write": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "From the pricing page (not in the bulk Price List). us-east-1 is the global cross-region profile; ap-northeast-1 is the Japan geographic profile (jp.), 10% above global. Cache writes are the 5-minute price. Opus 4.5 has no jp. profile price.",
+    "values": {
+      "ap-northeast-1": {
+        "value": null,
+        "verified": false
+      },
+      "us-east-1": {
+        "value": 6.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-opus-4-5.input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "From the pricing page (not in the bulk Price List). us-east-1 is the global cross-region profile; ap-northeast-1 is the Japan geographic profile (jp.), 10% above global. Opus 4.5 has no jp. profile price.",
+    "values": {
+      "ap-northeast-1": {
+        "value": null,
+        "verified": false
+      },
+      "us-east-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-opus-4-5.output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "From the pricing page (not in the bulk Price List). us-east-1 is the global cross-region profile; ap-northeast-1 is the Japan geographic profile (jp.), 10% above global. Opus 4.5 has no jp. profile price.",
+    "values": {
+      "ap-northeast-1": {
+        "value": null,
+        "verified": false
+      },
+      "us-east-1": {
+        "value": 25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-sonnet-4-5.cache_read": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "From the pricing page (not in the bulk Price List). us-east-1 is the global cross-region profile; ap-northeast-1 is the Japan geographic profile (jp.), 10% above global.",
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.33,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-sonnet-4-5.cache_write": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "From the pricing page (not in the bulk Price List). us-east-1 is the global cross-region profile; ap-northeast-1 is the Japan geographic profile (jp.), 10% above global. Cache writes are the 5-minute price.",
+    "values": {
+      "ap-northeast-1": {
+        "value": 4.125,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 3.75,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-sonnet-4-5.input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "From the pricing page (not in the bulk Price List). us-east-1 is the global cross-region profile; ap-northeast-1 is the Japan geographic profile (jp.), 10% above global.",
+    "values": {
+      "ap-northeast-1": {
+        "value": 3.3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-sonnet-4-5.output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "From the pricing page (not in the bulk Price List). us-east-1 is the global cross-region profile; ap-northeast-1 is the Japan geographic profile (jp.), 10% above global.",
+    "values": {
+      "ap-northeast-1": {
+        "value": 16.5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

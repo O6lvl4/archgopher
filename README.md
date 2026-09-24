@@ -141,7 +141,7 @@ and appear in the report as skipped.
 
 ## Reference books
 
-Prices, quotas and SLAs live in [`aws/books`](aws/books), one row per ID with
+Prices, quotas and SLAs live next to each service in `provider/aws/service/<name>/books`, one row per ID with
 a value per region, a unit, a source URL and a `verified` flag.
 
 - **Units are checked.** A reading that counts `GB` against a price per
@@ -187,8 +187,9 @@ the demand and says the capacity is unknown.
 
 ### Adding a scouter
 
-A scouter is two tagged structs and a function. The tags are the single
-source for the Go types, validation, the catalog and the YAML contract.
+A scouter is two tagged structs and a function, usually built from facets.
+The tags are the single source for the Go types, validation, the catalog and
+the YAML contract.
 
 ```go
 type queueAttrs struct {
@@ -199,32 +200,78 @@ type queueAssume struct {
 	MessageKb float64 `scout:"messageKb" label:"Message size" unit:"KB" default:"1"`
 }
 
-var SQS = scout.Def[queueAttrs, queueAssume]{
-	Info: scout.Meta{Type: "aws_sqs_queue", Label: "SQS", Kinds: []string{"send"}, SLA: "aws.sqs"},
-	Run: func(a queueAttrs, p queueAssume, d scout.Demand, r *scout.Recorder) {
-		r.Cost("Requests", d.Total().Monthly*scout.CeilDiv(p.MessageKb, 64)*3, "request", "aws.sqs.standard.requests")
+var Queue = scouter.Def[queueAttrs, queueAssume]{
+	Info: scouter.Meta{Type: "aws_sqs_queue", Label: "SQS", Kinds: []string{"send"}, SLA: "aws.sqs"},
+	Run: func(a queueAttrs, p queueAssume, d model.Demand, r *meter.Recorder) {
+		facet.Requests{Name: "Requests", Unit: "request", PriceID: "aws.sqs.standard.requests", ChunkKB: 64}.
+			Read(r, d.Total().Monthly*3, p.MessageKb)
 	},
 }
 ```
 
 A non-pointer field without a default is required. A pointer field is
-optional. Register the scouter in [`aws/aws.go`](aws/aws.go), add its prices
-to the books, and the registry test checks that every reference it reads
-exists in every region, in the unit it counts.
+optional. A new service is a package under `provider/aws/service` with its
+scouters, a `books/` directory and its Terraform rules, listed in
+[`provider/aws/aws.go`](provider/aws/aws.go). The provider test checks that
+every reference a scouter reads exists in every region, in the unit it counts.
 
-## Layout
+## Architecture
 
-| Package | Role |
-| --- | --- |
-| [`scout`](scout) | The engine: model, graph, load propagation, readings. No I/O, no provider knowledge. |
-| [`aws`](aws) | AWS scouters, reference books, Terraform rules. |
-| [`aws/pricelist`](aws/pricelist) | Reader for the public AWS Price List. |
-| [`terraform`](terraform) | Static HCL evaluation, graph building, merging. |
-| [`report`](report) | Markdown and JSON output. |
-| [`api`](api) | JSON in, JSON out: the surface the browser calls. |
-| [`cmd/arch-scouter`](cmd/arch-scouter) | The CLI. |
-| [`cmd/wasm`](cmd/wasm) | The WebAssembly entry that exposes `api` to JavaScript. |
-| [`web`](web) | The React Flow UI. |
+Packages are cut by the reason they change, and imports point one way, toward
+what changes least. A test in [`internal/layers`](internal/layers) fails when
+an import breaks the rule, and `web/scripts/layers.mjs` does the same for the UI.
+
+```text
+cmd/arch-scouter, cmd/wasm          edges of the system
+        │
+       api                          JSON in, JSON out; what the browser calls
+        │
+provider/aws ── service/<name>      one package per AWS service: scouters, books,
+   │      │     kit, iam, pattern   Terraform rules, IAM actions; L3 patterns
+   │      │
+   │   terraform/infer ── merge     resources → declaration; fold into edits
+   │   terraform/eval ── config     static HCL evaluation; module parsing
+   │
+pattern ── engine ── report         L3 expansion; the computation; output
+   │         │
+facet ── scouter                    L2 reusable readings; how one type is read
+   │         │
+ meter ── field                     L1 readings (quantity × price id); schemas
+   │         │
+ book      model                    reference books; the declaration
+```
+
+| Layer | Package | Holds |
+| --- | --- | --- |
+| Vocabulary | [`model`](model), [`field`](field), [`book`](book) | The declaration, tag-derived schemas, reference books |
+| L1 | [`meter`](meter) | The smallest readings: a cost is quantity × price id, a limit is peak demand ÷ quota id, units checked |
+| L2 | [`facet`](facet) | Reusable readings with their own assumption structs: requests in size chunks, GB-seconds, storage, provisioned capacity, Little's law concurrency, logs, tokens |
+| Scouter | [`scouter`](scouter) | How one resource type is read: catalog entry, fields, and a function built from facets |
+| Engine | [`engine`](engine) | Validation, load propagation in topological order, path composition. No provider knowledge |
+| L3 | [`pattern`](pattern) | Reusable architectures that expand into nodes and edges, then roll up |
+| Terraform | [`terraform/config`](terraform/config), [`eval`](terraform/eval), [`infer`](terraform/infer), [`merge`](terraform/merge) | Parse, evaluate, infer a graph, merge into edits. No provider knowledge |
+| AWS | [`provider/aws`](provider/aws) and [`service/*`](provider/aws/service) | Each service owns its scouters, books, Terraform rules and IAM actions; the provider combines them |
+
+A scouter composes facets by embedding their assumption structs:
+
+```go
+type assume struct {
+	DurationMs float64 `scout:"durationMs" label:"Duration per invocation" unit:"ms"`
+	facet.LogAssume // adds logKbPerCall and logRetentionDays, with their validation and form
+}
+```
+
+A pattern is placed as one node and reads exactly like the nodes it expands
+into (a test checks this):
+
+```yaml
+- id: orders
+  type: aws.pattern.serverless_api       # API Gateway → Lambda → DynamoDB
+  assumptions: { durationMs: 90, itemSizeKb: 3, storageGb: 40 }
+```
+
+The UI follows the same rule: `lib` ← `ui` ← `composites` ← `features` ← `app`,
+and a feature never imports another feature.
 
 ## Limits
 

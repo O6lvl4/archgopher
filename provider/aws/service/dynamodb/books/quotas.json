@@ -1,0 +1,25 @@
+{
+  "aws.dynamodb.ondemand.table_read": {
+    "unit": "read units/second",
+    "source": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ServiceQuotas.html",
+    "note": "On-demand table throughput quota",
+    "values": {
+      "*": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.dynamodb.ondemand.table_write": {
+    "unit": "write units/second",
+    "source": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ServiceQuotas.html",
+    "values": {
+      "*": {
+        "value": 40000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "aws.dynamodb.ondemand.read": {
+    "unit": "read request unit",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/dynamodb/pricing/",
+    "sync": {
+      "service": "AmazonDynamoDB",
+      "filters": {
+        "group": "DDB-ReadUnits",
+        "usagetype": "([A-Z]+[0-9]-)?ReadRequestUnits"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.1425,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.dynamodb.ondemand.write": {
+    "unit": "write request unit",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/dynamodb/pricing/",
+    "sync": {
+      "service": "AmazonDynamoDB",
+      "filters": {
+        "group": "DDB-WriteUnits",
+        "usagetype": "([A-Z]+[0-9]-)?WriteRequestUnits"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.715,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.625,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.dynamodb.provisioned.rcu": {
+    "unit": "RCU-hour",
+    "source": "https://aws.amazon.com/dynamodb/pricing/",
+    "sync": {
+      "service": "AmazonDynamoDB",
+      "filters": {
+        "group": "DDB-ReadUnits",
+        "usagetype": "([A-Z]+[0-9]-)?ReadCapacityUnit-Hrs"
+      },
+      "tier": "last"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0001484,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.00013,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.dynamodb.provisioned.wcu": {
+    "unit": "WCU-hour",
+    "source": "https://aws.amazon.com/dynamodb/pricing/",
+    "sync": {
+      "service": "AmazonDynamoDB",
+      "filters": {
+        "group": "DDB-WriteUnits",
+        "usagetype": "([A-Z]+[0-9]-)?WriteCapacityUnit-Hrs"
+      },
+      "tier": "last"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.000742,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.00065,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.dynamodb.storage": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/dynamodb/pricing/",
+    "note": "Standard table class, after the free 25 GB",
+    "sync": {
+      "service": "AmazonDynamoDB",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?TimedStorage-ByteHrs"
+      },
+      "tier": "last"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.285,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+name: Orders service from patterns (fictional example)
+region: us-east-1
+nodes:
+  - id: shoppers
+    type: entry
+    load:
+      monthly: 5000000
+      peakPerSecond: 40
+    note: Five million order-page requests a month.
+  - id: orders
+    type: aws.pattern.serverless_api
+    assumptions:
+      durationMs: 90
+      itemSizeKb: 3
+      storageGb: 40
+      writesPerRequest: 0.1
+    note: API Gateway, Lambda and DynamoDB, placed as one node.
+  - id: receipts
+    type: aws.pattern.queue_worker
+    assumptions:
+      durationMs: 4000
+      batchSize: 10
+    note: Renders a PDF receipt for each order.
+  - id: pdfs
+    type: aws_s3_bucket
+    assumptions:
+      storageGb: 250
+edges:
+  - from: shoppers
+    to: orders
+  - from: orders
+    to: receipts
+    kind: send
+    perUnit: 0.1
+  - from: receipts
+    to: pdfs
+    kind: write
+    perUnit: 10
+    note: One PDF per message; the worker runs once per batch of 10.

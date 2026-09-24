@@ -1,0 +1,63 @@
+{
+  "aws.cloudfront.https_requests": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://aws.amazon.com/cloudfront/pricing/",
+    "note": "Keyed by the edge nearest the region: us-east-1 is United States, ap-northeast-1 is Japan",
+    "sync": {
+      "service": "AmazonCloudFront",
+      "offerRegion": "aws-other",
+      "filters": {},
+      "regionFilters": {
+        "us-east-1": {
+          "usagetype": "US-Requests-Tier2-HTTPS"
+        },
+        "ap-northeast-1": {
+          "usagetype": "JP-Requests-Tier2-HTTPS"
+        }
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.cloudfront.transfer_out": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/cloudfront/pricing/",
+    "note": "First 10 TB tier; keyed like https_requests",
+    "sync": {
+      "service": "AmazonCloudFront",
+      "offerRegion": "aws-other",
+      "filters": {},
+      "regionFilters": {
+        "us-east-1": {
+          "usagetype": "US-DataTransfer-Out-Bytes"
+        },
+        "ap-northeast-1": {
+          "usagetype": "JP-DataTransfer-Out-Bytes"
+        }
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.114,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 0.085,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

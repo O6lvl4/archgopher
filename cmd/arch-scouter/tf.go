@@ -7,9 +7,11 @@ import (
 	"os"
 	"strings"
 
-	"github.com/O6lvl4/arch-scouter/aws"
-	"github.com/O6lvl4/arch-scouter/scout"
-	"github.com/O6lvl4/arch-scouter/terraform"
+	"github.com/O6lvl4/arch-scouter/model"
+	"github.com/O6lvl4/arch-scouter/provider/aws"
+	"github.com/O6lvl4/arch-scouter/terraform/eval"
+	"github.com/O6lvl4/arch-scouter/terraform/infer"
+	"github.com/O6lvl4/arch-scouter/terraform/merge"
 )
 
 type multi []string
@@ -19,7 +21,7 @@ func (m *multi) Set(v string) error { *m = append(*m, v); return nil }
 
 func cmdTerraform(args []string, out io.Writer) error {
 	fs := flag.NewFlagSet("tf", flag.ContinueOnError)
-	merge := fs.String("merge", "", "fold the result into this declaration, keeping its assumptions, load and edges")
+	mergePath := fs.String("merge", "", "fold the result into this declaration, keeping its assumptions, load and edges")
 	output := fs.String("o", "", "write to this file instead of stdout")
 	region := fs.String("region", "", "region when the aws provider does not set one")
 	name := fs.String("name", "", "declaration name (default: directory name)")
@@ -33,13 +35,13 @@ func cmdTerraform(args []string, out io.Writer) error {
 		return fmt.Errorf("tf takes one Terraform directory")
 	}
 	dir := fs.Arg(0)
-	opt := terraform.Options{Vars: map[string]string{}}
+	opt := eval.Options{Vars: map[string]string{}}
 	for _, f := range varFiles {
 		data, err := os.ReadFile(f)
 		if err != nil {
 			return err
 		}
-		opt.VarFiles = append(opt.VarFiles, terraform.File{Name: f, Data: data})
+		opt.VarFiles = append(opt.VarFiles, eval.File{Name: f, Data: data})
 	}
 	for _, v := range vars {
 		k, val, ok := strings.Cut(v, "=")
@@ -48,36 +50,36 @@ func cmdTerraform(args []string, out io.Writer) error {
 		}
 		opt.Vars[k] = val
 	}
-	ev, err := terraform.Evaluate(dir, opt)
+	ev, err := eval.Evaluate(dir, opt)
 	if err != nil {
 		return err
 	}
-	if *region != "" {
-		ev.Region = *region
-	}
 	n := *name
 	if n == "" {
-		n = terraform.DefaultName(dir)
+		n = infer.DefaultName(dir)
 	}
-	spec, warnings := terraform.Build(ev, aws.TerraformRules(), n)
-	if *merge != "" {
-		data, err := os.ReadFile(*merge)
+	spec, warnings := infer.Build(ev, aws.TerraformRules(), n)
+	if *region != "" {
+		spec.Region = *region
+	}
+	if *mergePath != "" {
+		data, err := os.ReadFile(*mergePath)
 		if err != nil {
 			return err
 		}
-		existing, err := scout.ParseSpec(data)
+		existing, err := model.ParseSpec(data)
 		if err != nil {
 			return err
 		}
 		var w []string
-		spec, w = terraform.Merge(existing, spec)
+		spec, w = merge.Merge(existing, spec)
 		warnings = append(warnings, w...)
 	}
 	if spec.Region == "" {
 		spec.Region = "us-east-1"
 		warnings = append(warnings, "no region found; using us-east-1 (set --region)")
 	}
-	data, err := scout.MarshalSpec(spec)
+	data, err := model.MarshalSpec(spec)
 	if err != nil {
 		return err
 	}

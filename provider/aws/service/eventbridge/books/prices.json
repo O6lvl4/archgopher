@@ -1,0 +1,27 @@
+{
+  "aws.scheduler.invocations": {
+    "unit": "invocation",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/eventbridge/pricing/",
+    "note": "After the free 14 million per month",
+    "sync": {
+      "service": "AWSEvents",
+      "filters": {
+        "usagetype": "([A-Z]+[0-9]-)?ScheduledInvocation"
+      },
+      "tier": "last"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east-1": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

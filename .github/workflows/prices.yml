@@ -28,4 +28,4 @@ jobs:
           commit-message: Update prices from the AWS Price List
           title: Update prices from the AWS Price List
           body-path: sync.txt
-          add-paths: aws/books/prices.json
+          add-paths: provider/aws/service/*/books/prices.json

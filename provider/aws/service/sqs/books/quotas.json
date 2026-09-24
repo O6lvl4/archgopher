@@ -1,0 +1,14 @@
+{
+  "aws.sqs.fifo.tps": {
+    "unit": "messages/second",
+    "source": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/quotas-messages.html",
+    "note": "Per partition and API action, without batching or high-throughput mode",
+    "values": {
+      "*": {
+        "value": 300,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "aws.s3": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/s3/sla/",
+    "note": "S3 Standard; Standard-IA and Glacier Instant Retrieval are lower",
+    "values": {
+      "*": {
+        "value": 0.999,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}
