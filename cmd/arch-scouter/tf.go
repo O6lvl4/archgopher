@@ -33,7 +33,14 @@ func cmdTerraform(args []string, out io.Writer) error {
 		return fmt.Errorf("tf takes one Terraform directory")
 	}
 	dir := fs.Arg(0)
-	opt := terraform.Options{VarFiles: varFiles, Vars: map[string]string{}}
+	opt := terraform.Options{Vars: map[string]string{}}
+	for _, f := range varFiles {
+		data, err := os.ReadFile(f)
+		if err != nil {
+			return err
+		}
+		opt.VarFiles = append(opt.VarFiles, terraform.File{Name: f, Data: data})
+	}
 	for _, v := range vars {
 		k, val, ok := strings.Cut(v, "=")
 		if !ok {

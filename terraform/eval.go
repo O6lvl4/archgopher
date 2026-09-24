@@ -2,8 +2,10 @@ package terraform
 
 import (
 	"fmt"
+	"io/fs"
 	"math/big"
 	"os"
+	"path"
 	"path/filepath"
 	"sort"
 	"strings"
@@ -43,8 +45,15 @@ type Statement struct {
 
 // Options tunes evaluation.
 type Options struct {
-	VarFiles []string
+	// VarFiles are extra .tfvars (or .tfvars.json) files, applied in order after the automatic ones.
+	VarFiles []File
 	Vars     map[string]string
+}
+
+// File is a named file content.
+type File struct {
+	Name string
+	Data []byte
 }
 
 // Evaluated is everything read from a root module.
@@ -57,15 +66,30 @@ type Evaluated struct {
 	Warnings []string
 }
 
-// Evaluate reads the root module in dir and every module it calls.
+// Evaluate reads the root module in an OS directory and every module it calls.
 func Evaluate(dir string, opt Options) (*Evaluated, error) {
-	ld := newLoader(dir)
+	abs, err := filepath.Abs(dir)
+	if err != nil {
+		return nil, err
+	}
+	vol := filepath.VolumeName(abs)
+	rel := strings.TrimPrefix(filepath.ToSlash(abs[len(vol):]), "/")
+	if rel == "" {
+		rel = "."
+	}
+	return EvaluateFS(os.DirFS(vol+string(filepath.Separator)), rel, opt)
+}
+
+// EvaluateFS reads the root module at dir inside fsys (slash-separated) and
+// every module it calls. Local module sources must stay inside fsys.
+func EvaluateFS(fsys fs.FS, dir string, opt Options) (*Evaluated, error) {
+	ld := newLoader(fsys, dir)
 	root, err := ld.load(dir)
 	if err != nil {
 		return nil, err
 	}
 	ev := &evaluator{ld: ld, rootDir: dir, funcs: functions(), memo: map[string][]string{}, visiting: map[string]bool{}}
-	vars, err := rootVars(root, dir, opt)
+	vars, err := rootVars(fsys, root, dir, opt)
 	if err != nil {
 		return nil, err
 	}
@@ -573,7 +597,7 @@ func (ev *evaluator) region(root *instance) string {
 
 // --- variables ---------------------------------------------------------------
 
-func rootVars(m *Module, dir string, opt Options) (map[string]cty.Value, error) {
+func rootVars(fsys fs.FS, m *Module, dir string, opt Options) (map[string]cty.Value, error) {
 	vars := map[string]cty.Value{}
 	for name, def := range m.Variables {
 		vars[name] = cty.DynamicVal
@@ -583,25 +607,27 @@ func rootVars(m *Module, dir string, opt Options) (map[string]cty.Value, error) 
 			}
 		}
 	}
-	files := []string{}
-	for _, f := range []string{"terraform.tfvars", "terraform.tfvars.json"} {
-		if _, err := os.Stat(filepath.Join(dir, f)); err == nil {
-			files = append(files, filepath.Join(dir, f))
-		}
-	}
-	auto, _ := filepath.Glob(filepath.Join(dir, "*.auto.tfvars"))
-	autoJSON, _ := filepath.Glob(filepath.Join(dir, "*.auto.tfvars.json"))
+	var files []File
+	names := []string{path.Join(dir, "terraform.tfvars"), path.Join(dir, "terraform.tfvars.json")}
+	auto, _ := fs.Glob(fsys, path.Join(dir, "*.auto.tfvars"))
+	autoJSON, _ := fs.Glob(fsys, path.Join(dir, "*.auto.tfvars.json"))
 	sort.Strings(auto)
 	sort.Strings(autoJSON)
-	files = append(append(append(files, auto...), autoJSON...), opt.VarFiles...)
+	for _, name := range append(append(names, auto...), autoJSON...) {
+		data, err := fs.ReadFile(fsys, name)
+		if err != nil {
+			continue
+		}
+		files = append(files, File{Name: name, Data: data})
+	}
 	p := hclparse.NewParser()
-	for _, path := range files {
+	for _, file := range append(files, opt.VarFiles...) {
 		var f *hcl.File
 		var diags hcl.Diagnostics
-		if strings.HasSuffix(path, ".json") {
-			f, diags = p.ParseJSONFile(path)
+		if strings.HasSuffix(file.Name, ".json") {
+			f, diags = p.ParseJSON(file.Data, file.Name)
 		} else {
-			f, diags = p.ParseHCLFile(path)
+			f, diags = p.ParseHCL(file.Data, file.Name)
 		}
 		if diags.HasErrors() {
 			return nil, fmt.Errorf("%s", diags.Error())

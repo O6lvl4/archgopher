@@ -1,0 +1,4 @@
+node_modules/
+dist/
+public/arch-scouter.wasm
+public/wasm_exec.js

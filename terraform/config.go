@@ -8,8 +8,8 @@ package terraform
 import (
 	"encoding/json"
 	"fmt"
-	"os"
-	"path/filepath"
+	"io/fs"
+	"path"
 	"sort"
 	"strings"
 
@@ -48,8 +48,8 @@ type ModuleCall struct {
 	ForEach hcl.Expression
 }
 
-func parseModule(dir string) (*Module, error) {
-	files, err := filepath.Glob(filepath.Join(dir, "*.tf"))
+func parseModule(fsys fs.FS, dir string) (*Module, error) {
+	files, err := fs.Glob(fsys, path.Join(dir, "*.tf"))
 	if err != nil {
 		return nil, err
 	}
@@ -59,8 +59,12 @@ func parseModule(dir string) (*Module, error) {
 	sort.Strings(files)
 	m := &Module{Dir: dir, Variables: map[string]hcl.Expression{}, Locals: map[string]hcl.Expression{}, Outputs: map[string]hcl.Expression{}}
 	p := hclparse.NewParser()
-	for _, path := range files {
-		f, diags := p.ParseHCLFile(path)
+	for _, name := range files {
+		src, err := fs.ReadFile(fsys, name)
+		if err != nil {
+			return nil, err
+		}
+		f, diags := p.ParseHCL(src, name)
 		if diags.HasErrors() {
 			return nil, fmt.Errorf("%s", diags.Error())
 		}
@@ -128,16 +132,18 @@ func attrExpr(body *hclsyntax.Body, name string) hcl.Expression {
 	return nil
 }
 
-// loader resolves module sources and caches parsed modules.
+// loader resolves module sources and caches parsed modules. Paths are
+// slash-separated and relative to the root of fsys.
 type loader struct {
+	fsys     fs.FS
 	root     string
 	cache    map[string]*Module
 	manifest map[string]string // module key ("a.b") -> directory, from terraform init
 }
 
-func newLoader(root string) *loader {
-	l := &loader{root: root, cache: map[string]*Module{}, manifest: map[string]string{}}
-	data, err := os.ReadFile(filepath.Join(root, ".terraform", "modules", "modules.json"))
+func newLoader(fsys fs.FS, root string) *loader {
+	l := &loader{fsys: fsys, root: root, cache: map[string]*Module{}, manifest: map[string]string{}}
+	data, err := fs.ReadFile(fsys, path.Join(root, ".terraform", "modules", "modules.json"))
 	if err != nil {
 		return l
 	}
@@ -146,18 +152,18 @@ func newLoader(root string) *loader {
 	}
 	if json.Unmarshal(data, &mf) == nil {
 		for _, m := range mf.Modules {
-			l.manifest[m.Key] = filepath.Join(root, m.Dir)
+			l.manifest[m.Key] = path.Join(root, m.Dir)
 		}
 	}
 	return l
 }
 
 func (l *loader) load(dir string) (*Module, error) {
-	dir = filepath.Clean(dir)
+	dir = path.Clean(dir)
 	if m, ok := l.cache[dir]; ok {
 		return m, nil
 	}
-	m, err := parseModule(dir)
+	m, err := parseModule(l.fsys, dir)
 	if err != nil {
 		return nil, err
 	}
@@ -168,7 +174,11 @@ func (l *loader) load(dir string) (*Module, error) {
 // resolve finds the directory of a module call. key is the dotted call path.
 func (l *loader) resolve(parentDir string, call *ModuleCall, key []string) (string, error) {
 	if strings.HasPrefix(call.Source, "./") || strings.HasPrefix(call.Source, "../") {
-		return filepath.Join(parentDir, call.Source), nil
+		dir := path.Join(parentDir, call.Source)
+		if dir == ".." || strings.HasPrefix(dir, "../") {
+			return "", fmt.Errorf("module %s: source %q is outside the files given", strings.Join(key, "."), call.Source)
+		}
+		return dir, nil
 	}
 	if dir, ok := l.manifest[strings.Join(key, ".")]; ok {
 		return dir, nil

@@ -10,6 +10,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/O6lvl4/arch-scouter/api"
 	"github.com/O6lvl4/arch-scouter/aws"
 	"github.com/O6lvl4/arch-scouter/report"
 	"github.com/O6lvl4/arch-scouter/scout"
@@ -91,22 +92,10 @@ func cmdScout(args []string, out io.Writer) error {
 	return report.Markdown(out, res)
 }
 
-type catalogEntry struct {
-	scout.Meta
-	Attributes  []scout.Field `json:"attributes"`
-	Assumptions []scout.Field `json:"assumptions"`
-}
-
 func cmdCatalog(out io.Writer) error {
-	reg := aws.Registry()
-	var entries []catalogEntry
-	for _, t := range reg.Types() {
-		s := reg[t]
-		entries = append(entries, catalogEntry{Meta: s.Meta(), Attributes: s.Attributes(), Assumptions: s.Assumptions()})
-	}
 	enc := json.NewEncoder(out)
 	enc.SetIndent("", "  ")
-	return enc.Encode(entries)
+	return enc.Encode(api.Catalog())
 }
 
 // reorder moves flags before positional arguments so "scout file --json" works.

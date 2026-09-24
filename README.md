@@ -51,6 +51,22 @@ DynamoDB, SQS, S3, an hourly cleanup job, and a Bedrock model added by hand.
 ...
 ```
 
+## Web UI
+
+The same engine runs in the browser as WebAssembly. Import a Terraform folder
+(read locally, never uploaded), place and connect nodes, fill in assumptions,
+and every edit re-reads the whole graph. Declarations open and save as the
+same YAML the CLI reads.
+
+```sh
+cd web
+pnpm install
+pnpm run dev      # builds the engine to WebAssembly, then serves http://localhost:5176
+```
+
+The UI holds no formulas. It asks the engine for the catalog of scouters and
+builds every form from the fields the Go structs declare.
+
 ## The declaration
 
 ```yaml
@@ -205,7 +221,10 @@ exists in every region, in the unit it counts.
 | [`aws/pricelist`](aws/pricelist) | Reader for the public AWS Price List. |
 | [`terraform`](terraform) | Static HCL evaluation, graph building, merging. |
 | [`report`](report) | Markdown and JSON output. |
+| [`api`](api) | JSON in, JSON out: the surface the browser calls. |
 | [`cmd/arch-scouter`](cmd/arch-scouter) | The CLI. |
+| [`cmd/wasm`](cmd/wasm) | The WebAssembly entry that exposes `api` to JavaScript. |
+| [`web`](web) | The React Flow UI. |
 
 ## Limits
 
