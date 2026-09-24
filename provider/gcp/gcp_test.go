@@ -13,8 +13,12 @@ var update = flag.Bool("update", false, "rewrite the bundled books in canonical 
 
 // attrs and assume make each resource take its main code path.
 var (
-	attrs  = map[string]map[string]any{}
-	assume = map[string]map[string]any{}
+	attrs = map[string]map[string]any{
+		"google_sql_database_instance": {"tier": "db-custom-2-7680", "database_version": "POSTGRES_16"},
+	}
+	assume = map[string]map[string]any{
+		"google_sql_database_instance": {"queryMs": 20.0},
+	}
 )
 
 func under(t *testing.T) catalogtest.Catalog {

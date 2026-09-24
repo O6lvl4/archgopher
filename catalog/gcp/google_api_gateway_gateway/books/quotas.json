@@ -1,0 +1,14 @@
+{
+  "gcp.apigateway.quota_units": {
+    "unit": "quota units/second",
+    "source": "https://cloud.google.com/api-gateway/docs/quotas",
+    "note": "10,000,000 quota units per 100 seconds per service producer project. A unit is one Service Control check or reported operation; caching means a call often uses none",
+    "values": {
+      "*": {
+        "value": 100000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

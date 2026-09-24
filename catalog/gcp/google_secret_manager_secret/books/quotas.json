@@ -1,0 +1,14 @@
+{
+  "gcp.secretmanager.access_rpm": {
+    "unit": "requests/minute",
+    "source": "https://cloud.google.com/secret-manager/quotas",
+    "note": "Access requests per minute per project, shared by every secret in it",
+    "values": {
+      "*": {
+        "value": 90000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

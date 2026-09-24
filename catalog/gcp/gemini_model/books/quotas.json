@@ -1,0 +1,104 @@
+{
+  "gcp.gemini.gemini-2.5-flash-lite.output_burndown": {
+    "unit": "multiplier",
+    "source": "https://cloud.google.com/vertex-ai/generative-ai/docs/dynamic-shared-quota",
+    "note": "No burndown multiplier is published; output tokens are taken to count once",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": false
+      }
+    }
+  },
+  "gcp.gemini.gemini-2.5-flash-lite.rpm": {
+    "unit": "requests/minute",
+    "source": "https://cloud.google.com/vertex-ai/generative-ai/docs/dynamic-shared-quota",
+    "note": "Standard PayGo has no requests-per-minute limit per tier; multimodal requests have separate system limits",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": false
+      }
+    }
+  },
+  "gcp.gemini.gemini-2.5-flash-lite.tpm": {
+    "unit": "tokens/minute",
+    "source": "https://cloud.google.com/vertex-ai/generative-ai/docs/dynamic-shared-quota",
+    "note": "Standard PayGo usage Tier 1 (30-day spend $10 to $250), org-level, per model, on the global endpoint. Higher tiers: 4M, 10M and 50M; bursts above it are served best effort",
+    "values": {
+      "*": {
+        "value": 2000000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "gcp.gemini.gemini-2.5-flash.output_burndown": {
+    "unit": "multiplier",
+    "source": "https://cloud.google.com/vertex-ai/generative-ai/docs/dynamic-shared-quota",
+    "note": "No burndown multiplier is published; output tokens are taken to count once",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": false
+      }
+    }
+  },
+  "gcp.gemini.gemini-2.5-flash.rpm": {
+    "unit": "requests/minute",
+    "source": "https://cloud.google.com/vertex-ai/generative-ai/docs/dynamic-shared-quota",
+    "note": "Standard PayGo has no requests-per-minute limit per tier; multimodal requests have separate system limits",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": false
+      }
+    }
+  },
+  "gcp.gemini.gemini-2.5-flash.tpm": {
+    "unit": "tokens/minute",
+    "source": "https://cloud.google.com/vertex-ai/generative-ai/docs/dynamic-shared-quota",
+    "note": "Standard PayGo usage Tier 1 (30-day spend $10 to $250), org-level, per model, on the global endpoint. Higher tiers: 4M, 10M and 50M; bursts above it are served best effort",
+    "values": {
+      "*": {
+        "value": 2000000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "gcp.gemini.gemini-2.5-pro.output_burndown": {
+    "unit": "multiplier",
+    "source": "https://cloud.google.com/vertex-ai/generative-ai/docs/dynamic-shared-quota",
+    "note": "No burndown multiplier is published; output tokens are taken to count once",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": false
+      }
+    }
+  },
+  "gcp.gemini.gemini-2.5-pro.rpm": {
+    "unit": "requests/minute",
+    "source": "https://cloud.google.com/vertex-ai/generative-ai/docs/dynamic-shared-quota",
+    "note": "Standard PayGo has no requests-per-minute limit per tier; multimodal requests have separate system limits",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": false
+      }
+    }
+  },
+  "gcp.gemini.gemini-2.5-pro.tpm": {
+    "unit": "tokens/minute",
+    "source": "https://cloud.google.com/vertex-ai/generative-ai/docs/dynamic-shared-quota",
+    "note": "Standard PayGo usage Tier 1 (30-day spend $10 to $250), org-level, per model, on the global endpoint. Higher tiers: 1M, 2M and 10M; bursts above it are served best effort",
+    "values": {
+      "*": {
+        "value": 500000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

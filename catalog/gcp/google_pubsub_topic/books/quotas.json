@@ -1,0 +1,74 @@
+{
+  "gcp.pubsub.publish_throughput": {
+    "unit": "kB/minute",
+    "source": "https://cloud.google.com/pubsub/quotas",
+    "note": "Publisher throughput per project per region: large regions 240,000,000, medium 48,000,000, all others 12,000,000 kB a minute",
+    "values": {
+      "*": {
+        "value": 12000000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "asia-east1": {
+        "value": 48000000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "asia-northeast1": {
+        "value": 48000000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "asia-southeast1": {
+        "value": 48000000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "europe-west1": {
+        "value": 240000000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "europe-west2": {
+        "value": 48000000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "europe-west3": {
+        "value": 48000000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "europe-west4": {
+        "value": 240000000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-central1": {
+        "value": 240000000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east1": {
+        "value": 240000000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-east4": {
+        "value": 240000000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west1": {
+        "value": 240000000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "us-west2": {
+        "value": 240000000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

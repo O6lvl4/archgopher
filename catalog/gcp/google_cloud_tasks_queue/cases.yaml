@@ -1,0 +1,26 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: small tasks under a queue rate limit
+  region: us-east4
+  attributes:
+    max_dispatches_per_second: 100
+  demand:
+    enqueue:
+      monthly: 1000000.0
+      peak: 50
+  costs:
+    Operations: 0.8
+  limits:
+    Dispatch rate: 50
+- name: 40 KB tasks count two chunks each
+  region: asia-northeast1
+  assumptions:
+    taskKb: 40
+  demand:
+    enqueue:
+      monthly: 1000000.0
+      peak: 50
+  costs:
+    Operations: 1.6
+  limits:
+    Dispatch rate: 50

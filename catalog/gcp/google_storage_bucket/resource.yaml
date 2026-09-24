@@ -1,0 +1,30 @@
+type: google_storage_bucket
+label: Cloud Storage bucket
+category: Storage
+description: "Standard storage in a regional bucket: Class B reads, Class A writes, storage and direct transfer out to the internet. Headroom is the bucket's initial IO capacity, which autoscales when the rate ramps up gradually."
+kinds: [read, write]
+sla: gcp.storage
+attributes:
+  - { key: location, label: Location, type: string, optional: true, path: location, hint: "A region such as ASIA-NORTHEAST1; multi-region and dual-region locations are not priced" }
+  - { key: storage_class, label: Storage class, type: choice, options: [STANDARD, REGIONAL, NEARLINE, COLDLINE, ARCHIVE, MULTI_REGIONAL, DURABLE_REDUCED_AVAILABILITY], default: STANDARD, path: storage_class }
+  - { key: data_locations, label: Dual-region locations, type: list, optional: true, path: custom_placement_config.data_locations }
+assumptions:
+  - { key: storageGb, label: Storage, type: number, unit: GB }
+  - { key: internetGbPerMonth, label: Downloaded to the internet, type: number, unit: GB, default: 0, hint: "Direct downloads only: reads through Cloud CDN or from the same region transfer for free" }
+let:
+  - where: 'lower(location ?? region)'
+readings:
+  - fail: { when: '!(where contains "-") || data_locations != nil', message: "only regional buckets are priced: {where} is a multi-region or dual-region location" }
+  - fail: { when: 'storage_class != "STANDARD" && storage_class != "REGIONAL"', message: "only the Standard storage class is priced: {storage_class} has retrieval fees and minimum storage durations" }
+  - fail: { when: where != region, message: "the bucket is in {where} but the prices are read for {region}", continue: true }
+  - requests: { name: Class B operations, price: gcp.storage.standard.class_b, unit: operation, count: demand.read.monthly }
+  - requests: { name: Class A operations, price: gcp.storage.standard.class_a, unit: operation, count: demand.write.monthly }
+  - storage: { name: Storage, gb: storageGb, price: gcp.storage.standard.storage }
+  - cost: { when: internetGbPerMonth > 0, name: Transfer out to the internet, quantity: internetGbPerMonth, unit: GB, price: gcp.network.internet_out }
+  - rate: { name: Read rate, unit: reads/second, quota: gcp.storage.bucket_read_rps, peak: demand.read.peak }
+  - rate: { name: Write rate, unit: writes/second, quota: gcp.storage.bucket_write_rps, peak: demand.write.peak }
+terraform:
+  aliases: { google_storage_bucket_object: bucket, google_storage_bucket_iam_member: bucket, google_storage_bucket_iam_binding: bucket }
+iam:
+  read: ["roles/storage.objectViewer"]
+  write: ["roles/storage.objectCreator", "roles/storage.objectAdmin"]

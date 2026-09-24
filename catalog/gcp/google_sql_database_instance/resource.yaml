@@ -1,0 +1,41 @@
+type: google_sql_database_instance
+label: Cloud SQL instance
+category: Database
+description: "Enterprise edition for MySQL and PostgreSQL: vCPU- and memory-hours (or a shared-core instance-hour) and SSD storage, at the high availability price when REGIONAL. Headroom is PostgreSQL's default max_connections for the memory size."
+kinds: [query]
+sla: gcp.sql
+attributes:
+  - { key: tier, label: Machine type, type: string, path: settings.tier, hint: "db-custom-<vCPUs>-<memory MB>, db-n1-standard-<n>, db-n1-highmem-<n>, db-f1-micro or db-g1-small" }
+  - { key: availability_type, label: Availability, type: choice, options: [ZONAL, REGIONAL], default: ZONAL, path: settings.availability_type, hint: "REGIONAL is high availability: a standby in a second zone, billed at the HA price" }
+  - { key: edition, label: Edition, type: choice, options: [ENTERPRISE, ENTERPRISE_PLUS], default: ENTERPRISE, path: settings.edition }
+  - { key: disk_type, label: Disk type, type: choice, options: [PD_SSD, PD_HDD], default: PD_SSD, path: settings.disk_type }
+  - { key: disk_size, label: Disk size, type: number, unit: GB, default: 10, path: settings.disk_size }
+  - { key: database_version, label: Database version, type: string, optional: true, path: database_version, hint: "POSTGRES_16, MYSQL_8_0 and so on" }
+assumptions:
+  - { key: queryMs, label: Query duration, type: number, unit: ms, optional: true, hint: "With one query per connection at a time, peak queries × duration is the connections in use" }
+  - { key: maxConnections, label: max_connections flag, type: number, optional: true, hint: "Set when a database flag overrides the default" }
+let:
+  - parts: 'split(tier, "-")'
+  - shared: 'tier == "db-f1-micro" || tier == "db-g1-small"'
+  - custom: 'tier startsWith "db-custom-" && len(parts) == 4'
+  - n1: '(tier startsWith "db-n1-standard-" || tier startsWith "db-n1-highmem-") && len(parts) == 4'
+  - vcpu: 'custom ? float(parts[2]) : n1 ? float(parts[3]) : 0.0'
+  - memGb: 'custom ? float(parts[3]) / 1024 : n1 ? vcpu * (parts[2] == "standard" ? 3.75 : 6.5) : tier == "db-f1-micro" ? 0.6 : 1.7'
+  - ha: 'availability_type == "REGIONAL"'
+  - postgres: 'database_version != nil && (database_version ?? "") startsWith "POSTGRES"'
+  - connTier: 'tier == "db-f1-micro" ? "tiny" : tier == "db-g1-small" ? "small" : memGb >= 120 ? "120" : memGb >= 60 ? "60" : memGb >= 30 ? "30" : memGb >= 15 ? "15" : memGb >= 7.5 ? "7_5" : memGb >= 6 ? "6" : "3_75"'
+readings:
+  - fail: { when: '!shared && !custom && !n1', message: "machine type {tier} is not priced: use db-custom-<vCPUs>-<memory MB>, db-n1-standard-<n>, db-n1-highmem-<n>, db-f1-micro or db-g1-small" }
+  - fail: { when: 'edition != "ENTERPRISE"', message: "only the Enterprise edition is priced" }
+  - fail: { when: '(database_version ?? "") startsWith "SQLSERVER"', message: "SQL Server is not priced: it adds a license per vCPU" }
+  - fail: { when: 'disk_type != "PD_SSD"', message: "only SSD storage is priced" }
+  - capacity: { when: "!shared", name: vCPU, units: vcpu, unit: vCPU-hour, price: 'gcp.sql.{ha ? "vcpu_ha" : "vcpu"}' }
+  - capacity: { when: "!shared", name: Memory, units: memGb, unit: GB-hour, price: 'gcp.sql.{ha ? "memory_ha" : "memory"}' }
+  - capacity: { when: shared, name: Shared-core instance, units: 1, unit: instance-hour, price: 'gcp.sql.{tier == "db-f1-micro" ? "f1_micro" : "g1_small"}{ha ? "_ha" : ""}' }
+  - storage: { name: SSD storage, gb: disk_size, price: 'gcp.sql.{ha ? "ssd_ha" : "ssd"}' }
+  - limit: { when: postgres && queryMs != nil, name: Connections, demand: 'ceilDiv(total.peak * (queryMs ?? 0) / 1000, 1)', unit: connections, quota: 'gcp.sql.postgres.max_connections.{connTier}', capacity: maxConnections }
+terraform:
+  aliases: { google_sql_database: instance, google_sql_user: instance }
+  ignoreRefs: [settings.ip_configuration]
+iam:
+  query: ["roles/cloudsql.client"]

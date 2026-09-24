@@ -1,0 +1,38 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo, 1 kB messages to one subscription
+  region: asia-northeast1
+  demand:
+    publish:
+      monthly: 1.0e+07
+      peak: 100
+  costs:
+    Throughput: 0.7275957614183426
+  limits:
+    Publish throughput: 6000
+- name: Northern Virginia, 4 kB messages fanned out to three subscriptions
+  region: us-east4
+  assumptions:
+    messageKb: 4
+    subscriptions: 3
+  demand:
+    publish:
+      monthly: 5.0e+07
+      peak: 200
+  costs:
+    Throughput: 29.103830456733704
+  limits:
+    Publish throughput: 48000
+- name: Mumbai, small messages bill 1,000 bytes and no subscription
+  region: asia-south1
+  assumptions:
+    messageKb: 0.5
+    subscriptions: 0
+  demand:
+    publish:
+      monthly: 1.0e+06
+      peak: 5
+  costs:
+    Throughput: 0.03637978807091713
+  limits:
+    Publish throughput: 300

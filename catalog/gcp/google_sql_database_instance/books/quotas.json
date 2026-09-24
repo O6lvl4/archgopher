@@ -1,0 +1,110 @@
+{
+  "gcp.sql.postgres.max_connections.120": {
+    "unit": "connections",
+    "source": "https://cloud.google.com/sql/docs/postgres/flags",
+    "note": "Default max_connections of Cloud SQL for PostgreSQL with 120 GB or more of memory; the max_connections flag overrides it",
+    "values": {
+      "*": {
+        "value": 1000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "gcp.sql.postgres.max_connections.15": {
+    "unit": "connections",
+    "source": "https://cloud.google.com/sql/docs/postgres/flags",
+    "note": "Default max_connections of Cloud SQL for PostgreSQL with 15 to 30 GB of memory; the max_connections flag overrides it",
+    "values": {
+      "*": {
+        "value": 500,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "gcp.sql.postgres.max_connections.30": {
+    "unit": "connections",
+    "source": "https://cloud.google.com/sql/docs/postgres/flags",
+    "note": "Default max_connections of Cloud SQL for PostgreSQL with 30 to 60 GB of memory; the max_connections flag overrides it",
+    "values": {
+      "*": {
+        "value": 600,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "gcp.sql.postgres.max_connections.3_75": {
+    "unit": "connections",
+    "source": "https://cloud.google.com/sql/docs/postgres/flags",
+    "note": "Default max_connections of Cloud SQL for PostgreSQL with 3.75 to 6 GB of memory; the max_connections flag overrides it",
+    "values": {
+      "*": {
+        "value": 100,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "gcp.sql.postgres.max_connections.6": {
+    "unit": "connections",
+    "source": "https://cloud.google.com/sql/docs/postgres/flags",
+    "note": "Default max_connections of Cloud SQL for PostgreSQL with 6 to 7.5 GB of memory; the max_connections flag overrides it",
+    "values": {
+      "*": {
+        "value": 200,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "gcp.sql.postgres.max_connections.60": {
+    "unit": "connections",
+    "source": "https://cloud.google.com/sql/docs/postgres/flags",
+    "note": "Default max_connections of Cloud SQL for PostgreSQL with 60 to 120 GB of memory; the max_connections flag overrides it",
+    "values": {
+      "*": {
+        "value": 800,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "gcp.sql.postgres.max_connections.7_5": {
+    "unit": "connections",
+    "source": "https://cloud.google.com/sql/docs/postgres/flags",
+    "note": "Default max_connections of Cloud SQL for PostgreSQL with 7.5 to 15 GB of memory; the max_connections flag overrides it",
+    "values": {
+      "*": {
+        "value": 400,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "gcp.sql.postgres.max_connections.small": {
+    "unit": "connections",
+    "source": "https://cloud.google.com/sql/docs/postgres/flags",
+    "note": "Default max_connections of Cloud SQL for PostgreSQL with about 1.7 GB (db-g1-small) of memory; the max_connections flag overrides it",
+    "values": {
+      "*": {
+        "value": 50,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "gcp.sql.postgres.max_connections.tiny": {
+    "unit": "connections",
+    "source": "https://cloud.google.com/sql/docs/postgres/flags",
+    "note": "Default max_connections of Cloud SQL for PostgreSQL with about 0.6 GB (db-f1-micro) of memory; the max_connections flag overrides it",
+    "values": {
+      "*": {
+        "value": 25,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

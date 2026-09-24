@@ -1,0 +1,542 @@
+{
+  "gcp.sql.f1_micro": {
+    "unit": "instance-hour",
+    "source": "https://cloud.google.com/sql/pricing",
+    "note": "Shared-core db-f1-micro, zonal. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "9662-B51E-5089",
+      "filters": {
+        "description": "Cloud SQL for PostgreSQL: Zonal - Micro instance in .+"
+      }
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.014,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.0137,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.0126,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.0147,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.0142,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.0105,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.0126,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.0112,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.0105,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.0105,
+        "verified": false
+      }
+    }
+  },
+  "gcp.sql.f1_micro_ha": {
+    "unit": "instance-hour",
+    "source": "https://cloud.google.com/sql/pricing",
+    "note": "Shared-core db-f1-micro, regional (high availability). From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "9662-B51E-5089",
+      "filters": {
+        "description": "Cloud SQL for PostgreSQL: Regional - Micro instance in .+"
+      }
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.0273,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.0273,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.0252,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.0294,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.0284,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.021,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.0252,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.0225,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.021,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.021,
+        "verified": false
+      }
+    }
+  },
+  "gcp.sql.g1_small": {
+    "unit": "instance-hour",
+    "source": "https://cloud.google.com/sql/pricing",
+    "note": "Shared-core db-g1-small, zonal. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "9662-B51E-5089",
+      "filters": {
+        "description": "Cloud SQL for PostgreSQL: Zonal - Small instance in .+"
+      }
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.046,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.0455,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.042,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.049,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.0473,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.035,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.042,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.0375,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.035,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.035,
+        "verified": false
+      }
+    }
+  },
+  "gcp.sql.g1_small_ha": {
+    "unit": "instance-hour",
+    "source": "https://cloud.google.com/sql/pricing",
+    "note": "Shared-core db-g1-small, regional (high availability). From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "9662-B51E-5089",
+      "filters": {
+        "description": "Cloud SQL for PostgreSQL: Regional - Small instance in .+"
+      }
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.091,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.091,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.084,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.098,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.0945,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.07,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.084,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.0749,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.07,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.07,
+        "verified": false
+      }
+    }
+  },
+  "gcp.sql.memory": {
+    "unit": "GB-hour",
+    "source": "https://cloud.google.com/sql/pricing",
+    "note": "Enterprise edition, general purpose, zonal instance memory (GiB-hour), MySQL and PostgreSQL. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "9662-B51E-5089",
+      "filters": {
+        "description": "Cloud SQL for PostgreSQL: Zonal - RAM in .+"
+      }
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.0091,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.0091,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.0084,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.0098,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.0095,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.007,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.0084,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.0075,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.007,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.007,
+        "verified": false
+      }
+    }
+  },
+  "gcp.sql.memory_ha": {
+    "unit": "GB-hour",
+    "source": "https://cloud.google.com/sql/pricing",
+    "note": "Enterprise edition, general purpose, regional (high availability) instance memory (GiB-hour), MySQL and PostgreSQL. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "9662-B51E-5089",
+      "filters": {
+        "description": "Cloud SQL for PostgreSQL: Regional - RAM in .+"
+      }
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.0182,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.0182,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.0168,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.0196,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.0189,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.014,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.0168,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.015,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.014,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.014,
+        "verified": false
+      }
+    }
+  },
+  "gcp.sql.ssd": {
+    "unit": "GB-month",
+    "source": "https://cloud.google.com/sql/pricing",
+    "note": "SSD storage capacity of a zonal instance (GiB-month). From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "9662-B51E-5089",
+      "filters": {
+        "description": "Cloud SQL for PostgreSQL: Zonal - Standard storage in .+"
+      }
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.221,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.221,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.204,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.238,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.2295,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.17,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.204,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.1819,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.17,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.17,
+        "verified": false
+      }
+    }
+  },
+  "gcp.sql.ssd_ha": {
+    "unit": "GB-month",
+    "source": "https://cloud.google.com/sql/pricing",
+    "note": "SSD storage capacity of a regional (high availability) instance (GiB-month). From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "9662-B51E-5089",
+      "filters": {
+        "description": "Cloud SQL for PostgreSQL: Regional - Standard storage in .+"
+      }
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.442,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.442,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.408,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.476,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.459,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.34,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.408,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.3638,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.34,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.34,
+        "verified": false
+      }
+    }
+  },
+  "gcp.sql.vcpu": {
+    "unit": "vCPU-hour",
+    "source": "https://cloud.google.com/sql/pricing",
+    "note": "Enterprise edition, general purpose, zonal (single zone) instance, MySQL and PostgreSQL. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "9662-B51E-5089",
+      "filters": {
+        "description": "Cloud SQL for PostgreSQL: Zonal - vCPU in .+"
+      }
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.0537,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.0537,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.0496,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.0578,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.0558,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.0413,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.0496,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.0442,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.0413,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.0413,
+        "verified": false
+      }
+    }
+  },
+  "gcp.sql.vcpu_ha": {
+    "unit": "vCPU-hour",
+    "source": "https://cloud.google.com/sql/pricing",
+    "note": "Enterprise edition, general purpose, regional (high availability) instance, MySQL and PostgreSQL. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "9662-B51E-5089",
+      "filters": {
+        "description": "Cloud SQL for PostgreSQL: Regional - vCPU in .+"
+      }
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.1074,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.1074,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.0991,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.1156,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.1115,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.0826,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.0991,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.0884,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.0826,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.0826,
+        "verified": false
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 2.5 Pro with half the input read from cache (Tokyo)
+  region: asia-northeast1
+  assumptions:
+    model: gemini-2.5-pro
+    inputTokensPerCall: 3000
+    outputTokensPerCall: 500
+    cacheReadShare: 0.5
+  demand:
+    call:
+      monthly: 1.0e+06
+      peak: 20
+  costs:
+    Input tokens: 1875
+    Cache read tokens: 187.5
+    Output tokens: 5000
+  limits:
+    Tokens per minute: 2.4e+06
+    Requests per minute: 1200
+- name: 2.5 Flash writing and reading an explicit cache (Northern Virginia)
+  region: us-east4
+  assumptions:
+    model: gemini-2.5-flash
+    inputTokensPerCall: 2000
+    outputTokensPerCall: 300
+    cacheReadShare: 0.2
+    cacheWriteShare: 0.2
+  demand:
+    call:
+      monthly: 1.0e+06
+      peak: 10
+  costs:
+    Input tokens: 360
+    Cache write tokens: 120
+    Cache read tokens: 12
+    Output tokens: 750
+  limits:
+    Tokens per minute: 1.14e+06
+    Requests per minute: 600
+- name: 2.5 Flash-Lite without cache (Tokyo)
+  region: asia-northeast1
+  assumptions:
+    model: gemini-2.5-flash-lite
+    inputTokensPerCall: 1000
+    outputTokensPerCall: 200
+  demand:
+    call:
+      monthly: 2.0e+06
+      peak: 30
+  costs:
+    Input tokens: 200
+    Output tokens: 160
+  limits:
+    Tokens per minute: 2.16e+06
+    Requests per minute: 1800

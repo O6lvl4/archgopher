@@ -1,0 +1,24 @@
+{
+  "gcp.firestore": {
+    "unit": "fraction",
+    "source": "https://cloud.google.com/firestore/sla",
+    "note": "Firestore Regional; 99.95% in Mexico and Stockholm. Multi-region locations are 99.999% but are not priced here",
+    "values": {
+      "*": {
+        "value": 0.9999,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "europe-north2": {
+        "value": 0.9995,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      },
+      "northamerica-south1": {
+        "value": 0.9995,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

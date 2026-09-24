@@ -1,0 +1,26 @@
+{
+  "gcp.storage.bucket_read_rps": {
+    "unit": "reads/second",
+    "source": "https://cloud.google.com/storage/quotas",
+    "note": "Initial IO capacity of a bucket for object reads (data, metadata, listing); it autoscales when the rate ramps up gradually",
+    "values": {
+      "*": {
+        "value": 5000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "gcp.storage.bucket_write_rps": {
+    "unit": "writes/second",
+    "source": "https://cloud.google.com/storage/quotas",
+    "note": "Initial IO capacity of a bucket for object writes (uploads, updates, deletes); it autoscales when the rate ramps up gradually",
+    "values": {
+      "*": {
+        "value": 1000,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "gcp.tasks.operations": {
+    "unit": "operation",
+    "per": 1000000,
+    "source": "https://cloud.google.com/tasks/pricing",
+    "note": "Billable operations in 32 KB chunks beyond the first million a month. Read from the pricing page; sync verifies it against the Billing Catalog once credentials are set and the service id below is filled in (GET /v1/services).",
+    "sync": {
+      "source": "gcp",
+      "service": "Cloud Tasks",
+      "region": "global",
+      "filters": {
+        "description": "Billable Operations"
+      },
+      "listPer": 1
+    },
+    "values": {
+      "*": {
+        "value": 0.4,
+        "verified": false
+      }
+    }
+  }
+}

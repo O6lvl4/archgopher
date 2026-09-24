@@ -1,0 +1,22 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo, one million calls
+  region: asia-northeast1
+  demand:
+    request:
+      monthly: 1.0e+06
+      peak: 10
+  costs:
+    Calls: 3
+  limits:
+    Service Control quota: 10
+- name: Northern Virginia, 500 million calls
+  region: us-east4
+  demand:
+    request:
+      monthly: 5.0e+08
+      peak: 2000
+  costs:
+    Calls: 1500
+  limits:
+    Service Control quota: 2000

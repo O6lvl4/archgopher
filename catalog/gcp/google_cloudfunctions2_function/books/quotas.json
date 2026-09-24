@@ -1,0 +1,14 @@
+{
+  "gcp.functions.max_instances": {
+    "unit": "instances",
+    "source": "https://cloud.google.com/functions/quotas",
+    "note": "Default maximum instances for 2nd gen HTTP functions when max_instance_count is unset; up to 1,000",
+    "values": {
+      "*": {
+        "value": 100,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

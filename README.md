@@ -262,6 +262,20 @@ the resource it is scoped to, with the kinds the role grants. Each resource's
 | Type | Reads | Headroom |
 | --- | --- | --- |
 | `google_cloud_run_v2_service` | Request-based vCPU- and GiB-seconds from the container limits and concurrency, requests | Instances against max instances |
+| `google_cloudfunctions2_function` | Cloud Run prices for its CPU and memory, invocations | Instances against max instances |
+| `google_cloud_scheduler_job` | Job-months | - |
+| `google_cloud_tasks_queue` | Operations in 32 KB chunks | Dispatch rate against max dispatches |
+| `google_storage_bucket` | Standard storage in a region, Class A and B operations, transfer out to the internet | Initial read and write rates per bucket |
+| `google_firestore_database` | Document reads, writes and deletes, stored data (Native mode, Standard edition) | - |
+| `google_sql_database_instance` | vCPU and memory hours or a shared-core instance, SSD, with high-availability prices | PostgreSQL connections by memory |
+| `google_pubsub_topic` | Throughput | Publish throughput per region (varies by region) |
+| `google_secret_manager_secret` | Active versions and access operations | Access requests per minute |
+| `google_api_gateway_gateway` | Calls | Quota units per second |
+| `gemini_model` | Gemini 2.5 input, cached and output tokens (placed by hand) | Tokens per minute |
+
+Google Cloud prices are read from the pricing pages until a credentialed
+`sync` checks them against the Billing Catalog; they are marked unverified
+until then.
 
 `archgopher catalog` prints every scouter with its fields as JSON.
 

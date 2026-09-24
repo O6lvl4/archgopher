@@ -1,0 +1,14 @@
+type: google_api_gateway_gateway
+label: API Gateway
+category: Networking
+description: "Calls per million at the 2M-to-1B tier; the free first 2M and the cheaper tier above 1B are ignored. Headroom is Service Control quota units, at most one per call."
+kinds: [request]
+sla: gcp.apigateway
+readings:
+  - requests: { name: Calls, price: gcp.apigateway.calls, unit: call, count: total.monthly }
+  - limit: { name: Service Control quota, demand: total.peak, unit: quota units/second, quota: gcp.apigateway.quota_units }
+terraform:
+  frontDoor: true
+  # The API and its config fold into the gateway: the gateway's reference to
+  # the config resolves to the backends its OpenAPI document names.
+  aliases: { google_api_gateway_api_config: openapi_documents }

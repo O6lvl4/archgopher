@@ -1,0 +1,34 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo (Tier 1), 256 MB with the CPU it comes with, one invocation per instance
+  region: asia-northeast1
+  assumptions:
+    durationMs: 200
+  demand:
+    invoke:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    vCPU: 0.8016
+    Memory: 0.11920929
+    Invocations: 0.4
+  limits:
+    Instances: 2
+- name: Frankfurt (Tier 2), 1 vCPU and 1 GiB, 10 per instance
+  region: europe-west3
+  attributes:
+    available_memory: 1Gi
+    available_cpu: '1'
+    concurrency: 10
+  assumptions:
+    durationMs: 500
+  demand:
+    invoke:
+      monthly: 1000000.0
+      peak: 20
+  costs:
+    vCPU: 1.68
+    Memory: 0.175
+    Invocations: 0.4
+  limits:
+    Instances: 1

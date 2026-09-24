@@ -1,0 +1,22 @@
+{
+  "gcp.apigateway.calls": {
+    "unit": "call",
+    "per": 1000000,
+    "source": "https://cloud.google.com/api-gateway/pricing",
+    "note": "2M to 1B calls a month; the first 2M are free and calls above 1B cost $1.50 per million, both ignored. From the pricing page; sync verifies it against the Billing Catalog once credentials are set. The SKU name is unconfirmed; the catalog lists the service (36A9-155B-23F0) but no public SKU group shows the call SKU. The SKU's list unit is unconfirmed.",
+    "sync": {
+      "source": "gcp",
+      "service": "36A9-155B-23F0",
+      "filters": {
+        "description": "(API Gateway )?API [Cc]alls"
+      },
+      "region": "global"
+    },
+    "values": {
+      "*": {
+        "value": 3,
+        "verified": false
+      }
+    }
+  }
+}

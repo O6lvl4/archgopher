@@ -1,0 +1,10 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: one hourly job
+  region: asia-northeast1
+  demand:
+    fire:
+      monthly: 730
+      peak: 0.0003
+  costs:
+    Jobs: 0.1

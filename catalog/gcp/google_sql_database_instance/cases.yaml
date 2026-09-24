@@ -1,0 +1,72 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo PostgreSQL, 2 vCPU and 7.5 GB, zonal
+  region: asia-northeast1
+  attributes:
+    tier: db-custom-2-7680
+    disk_size: 100
+    database_version: POSTGRES_16
+  assumptions:
+    queryMs: 20
+  demand:
+    query:
+      monthly: 1000000
+      peak: 500
+  costs:
+    vCPU: 78.402
+    Memory: 49.8225
+    SSD storage: 22.1
+  limits:
+    Connections: 10
+- name: Northern Virginia MySQL, 4 vCPU and 16 GB, high availability
+  region: us-east4
+  attributes:
+    tier: db-custom-4-16384
+    availability_type: REGIONAL
+    disk_size: 50
+    database_version: MYSQL_8_0
+  demand:
+    query:
+      monthly: 1000000
+      peak: 500
+  costs:
+    vCPU: 258.128
+    Memory: 175.2
+    SSD storage: 18.19
+- name: Tokyo PostgreSQL on db-f1-micro
+  region: asia-northeast1
+  attributes:
+    tier: db-f1-micro
+    database_version: POSTGRES_16
+  assumptions:
+    queryMs: 50
+  demand:
+    query:
+      monthly: 100000
+      peak: 100
+  costs:
+    Shared-core instance: 10.22
+    SSD storage: 2.21
+  limits:
+    Connections: 5
+- name: Northern Virginia db-g1-small, high availability
+  region: us-east4
+  attributes:
+    tier: db-g1-small
+    availability_type: REGIONAL
+  demand:
+    query:
+      monthly: 100000
+      peak: 10
+  costs:
+    Shared-core instance: 54.677
+    SSD storage: 3.638
+- name: Enterprise Plus machine type is not read
+  region: us-east4
+  attributes:
+    tier: db-perf-optimized-N-2
+  demand:
+    query:
+      monthly: 100000
+      peak: 10
+  error: "machine type db-perf-optimized-N-2 is not priced: use db-custom-<vCPUs>-<memory MB>, db-n1-standard-<n>, db-n1-highmem-<n>, db-f1-micro or db-g1-small"

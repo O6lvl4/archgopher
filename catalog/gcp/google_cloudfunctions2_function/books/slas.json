@@ -1,0 +1,14 @@
+{
+  "gcp.functions": {
+    "unit": "fraction",
+    "source": "https://cloud.google.com/functions/sla",
+    "note": "Cloud Run functions",
+    "values": {
+      "*": {
+        "value": 0.9995,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

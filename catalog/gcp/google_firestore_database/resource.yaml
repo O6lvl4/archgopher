@@ -1,0 +1,31 @@
+type: google_firestore_database
+label: Firestore database
+category: Database
+description: "Native mode, Standard edition, regional location: document reads, writes and deletes, and stored data. The free quota is ignored, as every free tier."
+kinds: [read, write]
+sla: gcp.firestore
+attributes:
+  - { key: location_id, label: Location, type: string, optional: true, path: location_id, hint: "A region such as asia-northeast1; multi-region locations (nam5, eur3) are not priced" }
+  - { key: type, label: Mode, type: choice, options: [FIRESTORE_NATIVE, DATASTORE_MODE], default: FIRESTORE_NATIVE, path: type }
+  - { key: database_edition, label: Edition, type: choice, options: [STANDARD, ENTERPRISE], default: STANDARD, path: database_edition }
+assumptions:
+  - { key: storageGb, label: Stored data, type: number, unit: GB, hint: "Documents and their index entries" }
+  - { key: docsPerRead, label: Documents per read, type: number, default: 1, hint: "A query is billed one read per document it returns (at least one)" }
+  - { key: docsPerWrite, label: Documents per write, type: number, default: 1, hint: "A batch or transaction is billed one write per document" }
+  - { key: deletesPerWrite, label: Deletes per write, type: number, default: 0, hint: "Documents deleted for each write; TTL deletes are billed the same" }
+let:
+  - where: 'lower(location_id ?? region)'
+readings:
+  - fail: { when: '!(where contains "-")', message: "only regional locations are priced: {where} is a multi-region location" }
+  - fail: { when: 'type != "FIRESTORE_NATIVE"', message: "only Native mode is priced" }
+  - fail: { when: 'database_edition != "STANDARD"', message: "only the Standard edition is priced: the Enterprise edition bills read and write units" }
+  - fail: { when: where != region, message: "the database is in {where} but the prices are read for {region}", continue: true }
+  - requests: { name: Document reads, price: gcp.firestore.reads, unit: document read, count: 'demand.read.monthly * max(docsPerRead, 1)' }
+  - requests: { name: Document writes, price: gcp.firestore.writes, unit: document write, count: demand.write.monthly * docsPerWrite }
+  - requests: { when: deletesPerWrite > 0, name: Document deletes, price: gcp.firestore.deletes, unit: document delete, count: demand.write.monthly * deletesPerWrite }
+  - storage: { name: Stored data, gb: storageGb, price: gcp.firestore.storage }
+terraform:
+  aliases: { google_firestore_index: database, google_firestore_document: database, google_firestore_field: database }
+iam:
+  read: ["roles/datastore.user"]
+  write: ["roles/datastore.user"]

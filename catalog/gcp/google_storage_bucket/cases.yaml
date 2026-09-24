@@ -1,0 +1,58 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo bucket with direct downloads
+  region: asia-northeast1
+  attributes:
+    location: ASIA-NORTHEAST1
+  assumptions:
+    storageGb: 100
+    internetGbPerMonth: 50
+  demand:
+    read:
+      monthly: 1000000
+      peak: 50
+    write:
+      monthly: 200000
+      peak: 10
+  costs:
+    Class B operations: 0.4
+    Class A operations: 1
+    Storage: 2.3
+    Transfer out to the internet: 6
+  limits:
+    Read rate: 50
+    Write rate: 10
+- name: Northern Virginia bucket, no internet transfer
+  region: us-east4
+  attributes:
+    location: US-EAST4
+  assumptions:
+    storageGb: 1000
+  demand:
+    read:
+      monthly: 5000000
+      peak: 100
+    write:
+      monthly: 1000000
+      peak: 20
+  costs:
+    Class B operations: 2
+    Class A operations: 5
+    Storage: 23
+  limits:
+    Read rate: 100
+    Write rate: 20
+- name: Multi-region bucket is not read
+  region: us-east4
+  attributes:
+    location: US
+  assumptions:
+    storageGb: 1000
+  demand:
+    read:
+      monthly: 5000000
+      peak: 100
+    write:
+      monthly: 1000000
+      peak: 20
+  error: "only regional buckets are priced: us is a multi-region or dual-region location"

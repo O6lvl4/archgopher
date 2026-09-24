@@ -1,0 +1,14 @@
+{
+  "gcp.scheduler": {
+    "unit": "fraction",
+    "source": "https://cloud.google.com/scheduler/sla",
+    "note": "Cloud Scheduler",
+    "values": {
+      "*": {
+        "value": 0.995,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

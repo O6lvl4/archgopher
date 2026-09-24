@@ -1,0 +1,53 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo, one document per read and write
+  region: asia-northeast1
+  attributes:
+    location_id: asia-northeast1
+  assumptions:
+    storageGb: 10
+  demand:
+    read:
+      monthly: 3000000
+      peak: 20
+    write:
+      monthly: 1000000
+      peak: 5
+  costs:
+    Document reads: 1.14
+    Document writes: 1.15
+    Stored data: 1.15
+- name: Northern Virginia, five-document queries and deletes
+  region: us-east4
+  attributes:
+    location_id: us-east4
+  assumptions:
+    storageGb: 50
+    docsPerRead: 5
+    deletesPerWrite: 0.5
+  demand:
+    read:
+      monthly: 1000000
+      peak: 20
+    write:
+      monthly: 200000
+      peak: 5
+  costs:
+    Document reads: 1.65
+    Document writes: 0.198
+    Document deletes: 0.011
+    Stored data: 4.95
+- name: Multi-region nam5 is not read
+  region: us-east4
+  attributes:
+    location_id: nam5
+  assumptions:
+    storageGb: 50
+  demand:
+    read:
+      monthly: 1000000
+      peak: 20
+    write:
+      monthly: 200000
+      peak: 5
+  error: "only regional locations are priced: nam5 is a multi-region location"

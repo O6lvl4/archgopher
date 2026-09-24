@@ -1,0 +1,14 @@
+{
+  "gcp.sql": {
+    "unit": "fraction",
+    "source": "https://cloud.google.com/sql/sla",
+    "note": "Enterprise edition with high availability (REGIONAL); zonal and shared-core instances are excluded from the SLA",
+    "values": {
+      "*": {
+        "value": 0.9995,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

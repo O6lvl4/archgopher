@@ -1,0 +1,31 @@
+type: google_cloudfunctions2_function
+label: Cloud Run function (2nd gen)
+category: Compute
+description: "Billed at Cloud Run prices: vCPU- and GiB-seconds while instances serve invocations, and invocations as requests. Headroom is instances needed against max instances. Event triggers are not read as edges yet."
+kinds: [invoke]
+sla: gcp.functions
+attributes:
+  - { key: available_memory, label: Memory, type: string, default: "256M", path: service_config.available_memory, hint: "256M, 512Mi or 1Gi" }
+  - { key: available_cpu, label: CPU, type: string, default: "auto", path: service_config.available_cpu, hint: "auto takes the CPU the memory size comes with: 0.167 for 256 MB, 0.583 for 1 GB, 1 for 2 GB" }
+  - { key: max_instance_count, label: Max instances, type: number, default: 100, path: service_config.max_instance_count }
+  - { key: concurrency, label: Invocations per instance, type: number, default: 1, path: service_config.max_instance_request_concurrency }
+assumptions:
+  - { key: durationMs, label: Invocation duration, type: number, unit: ms }
+  - { key: packing, label: Share of concurrency used, type: number, default: 1, hint: "1 bills each instance-second once for all its concurrent invocations; lower when invocations rarely overlap" }
+let:
+  - gib: 'available_memory endsWith "Gi" ? float(trimSuffix(available_memory, "Gi")) : available_memory endsWith "Mi" ? float(trimSuffix(available_memory, "Mi")) / 1024 : available_memory endsWith "G" ? float(trimSuffix(available_memory, "G")) * 1e9 / 1073741824 : float(trimSuffix(available_memory, "M")) * 1e6 / 1073741824'
+  - vcpu: 'available_cpu != "auto" ? (available_cpu endsWith "m" ? float(trimSuffix(available_cpu, "m")) / 1000 : float(available_cpu)) : gib <= 0.125 ? 0.083 : gib <= 0.25 ? 0.167 : gib <= 0.5 ? 0.333 : gib <= 1 ? 0.583 : gib <= 2 ? 1.0 : gib <= 8 ? 2.0 : gib <= 16 ? 4.0 : 8.0'
+  - perInstance: 'max(concurrency * packing, 1)'
+  - instanceSeconds: 'total.monthly * durationMs / 1000 / perInstance'
+readings:
+  - cost: { name: vCPU, quantity: instanceSeconds * vcpu, unit: vCPU-second, price: gcp.cloudrun.cpu }
+  - cost: { name: Memory, quantity: instanceSeconds * gib, unit: GiB-second, price: gcp.cloudrun.memory }
+  - requests: { name: Invocations, price: gcp.cloudrun.requests, count: total.monthly }
+  - limit: { name: Instances, demand: 'ceilDiv(total.peak * durationMs / 1000, perInstance)', unit: instances, quota: gcp.functions.max_instances, capacity: max_instance_count }
+terraform:
+  frontDoor: true
+  # event_trigger names the topic that invokes the function: the reference points
+  # the wrong way for an edge, so it is not one.
+  ignoreRefs: [service_config.service_account_email, service_config.vpc_connector, build_config, event_trigger]
+iam:
+  invoke: ["roles/run.invoker", "roles/cloudfunctions.invoker"]

@@ -1,0 +1,224 @@
+{
+  "gcp.firestore.deletes": {
+    "unit": "document delete",
+    "per": 100000,
+    "source": "https://cloud.google.com/firestore/pricing",
+    "note": "Standard edition, regional location, document deletes beyond the free quota. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "EE2C-7FAC-5E08",
+      "filters": {
+        "description": "Cloud Firestore Entity Deletes"
+      },
+      "listPer": 1
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.013,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.013,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.012,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.0123,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.013,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.011,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.013,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.011,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.01,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.01,
+        "verified": false
+      }
+    }
+  },
+  "gcp.firestore.reads": {
+    "unit": "document read",
+    "per": 100000,
+    "source": "https://cloud.google.com/firestore/pricing",
+    "note": "Standard edition, regional location, document reads beyond the free quota. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "EE2C-7FAC-5E08",
+      "filters": {
+        "description": "Cloud Firestore Read Ops"
+      },
+      "listPer": 1
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.038,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.038,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.035,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.0369,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.038,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.033,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.039,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.033,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.03,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.03,
+        "verified": false
+      }
+    }
+  },
+  "gcp.firestore.storage": {
+    "unit": "GB-month",
+    "source": "https://cloud.google.com/firestore/pricing",
+    "note": "Standard edition, regional location, stored data including index entries (GiB-month). From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "EE2C-7FAC-5E08",
+      "filters": {
+        "description": "Cloud Firestore Storage"
+      }
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.115,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.192,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.104,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.1846,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.115,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.165,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.117,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.099,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.15,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.15,
+        "verified": false
+      }
+    }
+  },
+  "gcp.firestore.writes": {
+    "unit": "document write",
+    "per": 100000,
+    "source": "https://cloud.google.com/firestore/pricing",
+    "note": "Standard edition, regional location, document writes beyond the free quota. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "EE2C-7FAC-5E08",
+      "filters": {
+        "description": "Cloud Firestore Entity Writes"
+      },
+      "listPer": 1
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.115,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.115,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.104,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.1107,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.115,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.099,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.117,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.099,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.09,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.09,
+        "verified": false
+      }
+    }
+  }
+}

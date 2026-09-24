@@ -1,0 +1,14 @@
+{
+  "gcp.tasks.dispatch_rps": {
+    "unit": "tasks/second",
+    "source": "https://cloud.google.com/tasks/docs/quotas",
+    "note": "Maximum dispatch rate per queue, a system limit; use more queues to go higher",
+    "values": {
+      "*": {
+        "value": 500,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

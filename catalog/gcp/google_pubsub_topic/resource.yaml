@@ -1,0 +1,20 @@
+type: google_pubsub_topic
+label: Pub/Sub topic
+category: Messaging
+description: "Throughput per TiB: each message is billed once published and once more for every subscription that receives it, at 1,000 bytes minimum. Message storage and BigQuery or Cloud Storage subscriptions are not counted. Headroom is the region's publish throughput."
+kinds: [publish]
+sla: gcp.pubsub
+assumptions:
+  - { key: messageKb, label: Message size, type: number, unit: kB, default: 1, hint: "1 kB is 1,000 bytes; each publish and delivery bills at least 1,000 bytes" }
+  - { key: subscriptions, label: Subscriptions, type: number, default: 1, hint: "Each subscription receives every message and bills its bytes again" }
+let:
+  - billedKb: 'max(messageKb, 1)'
+readings:
+  - cost: { name: Throughput, quantity: 'total.monthly * billedKb * 1000 / 1099511627776 * (1 + subscriptions)', unit: TiB, price: gcp.pubsub.throughput }
+  - limit: { name: Publish throughput, demand: 'total.peak * billedKb * 60', unit: kB/minute, quota: gcp.pubsub.publish_throughput }
+terraform:
+  links:
+    - { type: google_pubsub_subscription, from: topic, to: [push_config.push_endpoint] }
+  ignoreRefs: [kms_key_name, schema_settings]
+iam:
+  publish: ["roles/pubsub.publisher"]

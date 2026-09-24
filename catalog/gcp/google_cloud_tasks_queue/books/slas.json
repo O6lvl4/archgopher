@@ -1,0 +1,14 @@
+{
+  "gcp.tasks": {
+    "unit": "fraction",
+    "source": "https://cloud.google.com/tasks/sla",
+    "note": "Cloud Tasks CreateTask operation",
+    "values": {
+      "*": {
+        "value": 0.9995,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

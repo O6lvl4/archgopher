@@ -1,0 +1,14 @@
+{
+  "gcp.gemini": {
+    "unit": "fraction",
+    "source": "https://cloud.google.com/vertex-ai/generative-ai/sla",
+    "note": "generateContent and streamGenerateContent; 95% for models Google designates with shorter availability",
+    "values": {
+      "*": {
+        "value": 0.995,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  }
+}

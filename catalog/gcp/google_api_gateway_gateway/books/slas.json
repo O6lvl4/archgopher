@@ -1,0 +1,13 @@
+{
+  "gcp.apigateway": {
+    "unit": "fraction",
+    "source": "https://cloud.google.com/terms/sla",
+    "note": "API Gateway has no published SLA; the SLA index does not list it and /api-gateway/sla does not exist",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": false
+      }
+    }
+  }
+}
