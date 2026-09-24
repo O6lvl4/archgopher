@@ -8,5 +8,3 @@ export const examples: Record<string, string> = {
 };
 
 export const exampleNames = Object.keys(examples);
-
-export const exampleYaml = notes;

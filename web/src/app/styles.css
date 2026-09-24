@@ -140,6 +140,7 @@ button.link:hover { text-decoration: underline; background: none; }
 /* canvas */
 .canvas { grid-area: canvas; position: relative; min-height: 0; }
 .react-flow { --xy-background-color: var(--bg); }
+.empty-hint { color: var(--muted); font-size: 14px; margin-top: 30vh; text-align: center; max-width: calc(100% - 32px); }
 .react-flow__edge-textbg { fill: var(--surface); }
 .react-flow__edge-text { fill: var(--muted); font-size: 11px; }
 .react-flow__edge.selected .react-flow__edge-path { stroke: var(--accent); stroke-width: 2; }

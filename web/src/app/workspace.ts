@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useReducer, useRef, useState } from "react";
 import { engine, EngineError, loadEngine } from "../lib/engine";
-import { exampleYaml } from "../lib/examples";
 import { autoLayout, needsLayout } from "../lib/layout";
 import { emptySpec, reducer } from "../lib/state";
 import { loadSaved, save } from "../lib/storage";
@@ -47,7 +46,7 @@ export function useWorkspace() {
         setCatalog(engine.catalog());
         setRegions(engine.regions());
         setReady(true);
-        load(loadSaved() ?? engine.parseYaml(exampleYaml));
+        load(loadSaved() ?? emptySpec);
       })
       .catch((e: unknown) => setFatal(message(e)));
   }, []);

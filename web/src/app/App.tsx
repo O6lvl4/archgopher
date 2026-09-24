@@ -8,7 +8,7 @@ import { Results } from "../features/results/Results";
 import { TerraformDialog, type ImportRequest } from "../features/terraform/TerraformDialog";
 import { download, slug } from "../lib/download";
 import { engine } from "../lib/engine";
-import { examples, exampleYaml } from "../lib/examples";
+import { examples } from "../lib/examples";
 import { autoLayout, freeSpot, NODE_HEIGHT, NODE_WIDTH } from "../lib/layout";
 import { freshId, type Selection } from "../lib/state";
 import { message, useWorkspace } from "./workspace";
@@ -58,7 +58,10 @@ export function App() {
     });
 
   const actions = {
-    onExample: (name: string) => replace(() => ws.load(engine.parseYaml(examples[name] ?? exampleYaml))),
+    onExample: (name: string) => {
+      const yaml = examples[name];
+      if (yaml) replace(() => ws.load(engine.parseYaml(yaml)));
+    },
     onNew: () => replace(() => ws.load({ name: "Untitled", region: ws.spec.region, nodes: [{ id: "users", type: "entry" }], edges: [] })),
     onOpen: (f: File) => {
       f.text()

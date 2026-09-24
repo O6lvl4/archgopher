@@ -1,4 +1,4 @@
-import { Background, Controls, MiniMap, ReactFlow, applyNodeChanges, type Connection, type EdgeChange, type NodeChange } from "@xyflow/react";
+import { Background, Controls, MiniMap, Panel, ReactFlow, applyNodeChanges, type Connection, type EdgeChange, type NodeChange } from "@xyflow/react";
 import { useEffect, useMemo, useState, type Dispatch } from "react";
 import { toFlowEdges, toFlowNodes, type CardNode } from "../../lib/flow";
 import { closesCycle, type Action, type Selection } from "../../lib/state";
@@ -74,9 +74,14 @@ export function Canvas({ spec, result, catalog, selection, dispatch, onSelect, o
       proOptions={{ hideAttribution: true }}
       defaultEdgeOptions={{ type: "smoothstep" }}
     >
+      {spec.nodes.length === 0 && (
+        <Panel position="top-center" className="empty-hint">
+          Add a resource from the catalog, import a Terraform folder, or open an example.
+        </Panel>
+      )}
       <Background gap={24} />
       <Controls showInteractive={false} />
-      <MiniMap pannable zoomable />
+      {spec.nodes.length > 0 && <MiniMap pannable zoomable />}
     </ReactFlow>
   );
 }
