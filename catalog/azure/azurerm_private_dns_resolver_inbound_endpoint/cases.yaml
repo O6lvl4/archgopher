@@ -1,0 +1,18 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: inbound endpoint in Japan East
+  region: japaneast
+  demand:
+    query:
+      monthly: 100000000.0
+      peak: 800
+  costs:
+    Inbound endpoint: 180
+  limits:
+    Queries: 800
+- name: idle inbound endpoint in North Europe
+  region: northeurope
+  costs:
+    Inbound endpoint: 180
+  limits:
+    Queries: 0

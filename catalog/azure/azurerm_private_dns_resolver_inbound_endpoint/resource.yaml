@@ -1,0 +1,14 @@
+type: azurerm_private_dns_resolver_inbound_endpoint
+label: DNS resolver inbound endpoint
+category: Network
+icon: dns-private-resolver
+description: "The monthly endpoint fee. On-premises and peered clients send it queries for private DNS zones; draw them as load to read the headroom, the queries per second one endpoint serves."
+kinds: [query]
+sla: azure.dns.private_resolver
+readings:
+  - cost: { name: Inbound endpoint, quantity: 1, unit: month, price: azure.dns.private_resolver.inbound_endpoint }
+  - rate: { name: Queries, unit: queries/second, quota: azure.dns.private_resolver.endpoint_qps, peak: total.peak }
+terraform:
+  # Clients outside the configuration (on-premises DNS forwarders) call it; VNet DNS settings only name its address.
+  mentioned: true
+  passive: true

@@ -1,0 +1,13 @@
+{
+  "azure.dns.private_resolver": {
+    "unit": "fraction",
+    "source": "https://www.microsoft.com/licensing/docs/view/Service-Level-Agreements-SLA-for-Online-Services",
+    "note": "DNS Private Resolver query responses, with clients retrying failed requests. From the consolidated SLA document, not machine-checked",
+    "values": {
+      "*": {
+        "value": 0.9999,
+        "verified": false
+      }
+    }
+  }
+}

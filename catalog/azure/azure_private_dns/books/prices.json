@@ -1,0 +1,26 @@
+{
+  "azure.dns.private.queries": {
+    "unit": "query",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/dns/",
+    "note": "Queries answered from private DNS zones, the same in every public region (billing Zone 1). The price list has one tier for private queries",
+    "sync": {
+      "source": "azure",
+      "service": "Azure DNS",
+      "region": "Zone 1",
+      "filters": {
+        "productName": "Azure DNS",
+        "skuName": "Private",
+        "meterName": "Private Queries"
+      },
+      "listPer": 1000000
+    },
+    "values": {
+      "*": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

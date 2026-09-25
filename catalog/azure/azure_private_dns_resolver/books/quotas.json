@@ -1,0 +1,14 @@
+{
+  "azure.dns.private_resolver.endpoint_qps": {
+    "unit": "queries/second",
+    "source": "https://learn.microsoft.com/en-us/azure/dns/dns-private-resolver-overview#restrictions",
+    "note": "QPS per inbound or outbound endpoint of a DNS private resolver",
+    "values": {
+      "*": {
+        "value": 10000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}
