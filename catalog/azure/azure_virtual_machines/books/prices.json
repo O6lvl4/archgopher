@@ -5,7 +5,7 @@
     "note": "Pay-as-you-go Linux VM by size (armSkuName), without Spot or Low Priority; Windows with Azure Hybrid Benefit pays this base rate too",
     "sync": {
       "filters": {
-        "armSkuName": "{row}",
+        "armSkuName": "{row} *",
         "meterName": ".*[^de]",
         "productName": ".*([Ss]eries|Linux|Srs|Basic|RTX6kv6)",
         "skuName": "[^ ]*( [^SL][^ ]*)*"
@@ -21218,6 +21218,18 @@
         "southeastasia": null,
         "westus2": null
       },
+      "Standard_NM16ads_MA35D": {
+        "australiaeast": null,
+        "centralindia": null,
+        "eastus": 1.95,
+        "eastus2": null,
+        "germanywestcentral": null,
+        "japaneast": 2.828,
+        "koreacentral": null,
+        "northeurope": 2.34,
+        "southeastasia": 2.535,
+        "westus2": null
+      },
       "Standard_NP10s": {
         "australiaeast": null,
         "centralindia": null,
@@ -21552,7 +21564,7 @@
     "note": "Pay-as-you-go Windows VM by size (armSkuName), license included, without Spot or Low Priority",
     "sync": {
       "filters": {
-        "armSkuName": "{row}",
+        "armSkuName": "{row} *",
         "meterName": ".*[^de]",
         "productName": ".*(Windows|Win)",
         "skuName": "[^ ]*( [^SL][^ ]*)*"
@@ -41695,6 +41707,18 @@
         "koreacentral": null,
         "northeurope": null,
         "southeastasia": null,
+        "westus2": null
+      },
+      "Standard_NM16ads_MA35D": {
+        "australiaeast": null,
+        "centralindia": null,
+        "eastus": 2.686,
+        "eastus2": null,
+        "germanywestcentral": null,
+        "japaneast": 3.564,
+        "koreacentral": null,
+        "northeurope": 3.076,
+        "southeastasia": 3.271,
         "westus2": null
       },
       "Standard_NP10s": {

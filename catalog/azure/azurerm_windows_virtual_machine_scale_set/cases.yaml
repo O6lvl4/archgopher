@@ -12,3 +12,12 @@
   costs:
     Instance hours (Hybrid Benefit): 140.16
     OS disks (E10 LRS): 19.2
+- name: a Standard HDD data disk per instance with operations
+  region: eastus
+  attributes: { sku: Standard_D2s_v5, instances: 2, os_disk_type: Premium_LRS, data_disk_type: Standard_LRS, data_disk_size_gb: 1024 }
+  assumptions: { dataDiskOpsPerMonth: 20000000 }
+  costs:
+    Instance hours: 274.48
+    OS disks (P10 LRS): 39.42
+    Data disks (S30 LRS): 81.92
+    Data disk operations: 1

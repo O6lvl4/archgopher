@@ -2,7 +2,7 @@ type: azurerm_linux_virtual_machine_scale_set
 label: Linux VM scale set
 category: Compute
 icon: vm-scale-sets
-description: "Pay-as-you-go instance hours by SKU times the instances running, each with its OS disk's tier (and operations on Standard HDD and SSD), and the Ultra Disk reservation while Ultra Disk compatibility is on without an Ultra Disk attached. Spot, Low Priority and reserved prices are not read."
+description: "Pay-as-you-go instance hours by SKU times the instances running, each with its OS disk's and data disks' tiers (and operations on Standard HDD and SSD), and the Ultra Disk reservation while Ultra Disk compatibility is on without an Ultra Disk attached. Spot, Low Priority and reserved prices are not read."
 kinds: [request]
 sla: azure.vm.scale_set
 attributes:
@@ -10,11 +10,15 @@ attributes:
   - { key: instances, label: Instances, type: number, default: 0, hint: "The count Terraform sets; an autoscale setting moves it" }
   - { key: os_disk_type, label: OS disk type, type: choice, options: [Standard_LRS, StandardSSD_LRS, StandardSSD_ZRS, Premium_LRS, Premium_ZRS], path: os_disk.storage_account_type }
   - { key: os_disk_size_gb, label: OS disk size, type: number, unit: GiB, optional: true, path: os_disk.disk_size_gb, hint: "Unset takes the image's size, 30 GiB for most Linux images" }
+  - { key: data_disk_type, label: Data disk type, type: string, default: "", path: data_disk.storage_account_type, hint: "The first data_disk block" }
+  - { key: data_disk_size_gb, label: Data disk size, type: number, unit: GiB, optional: true, path: data_disk.disk_size_gb }
   - { key: ultra_ssd_enabled, label: Ultra Disk compatibility, type: boolean, default: false, path: additional_capabilities.ultra_ssd_enabled }
 assumptions:
   - { key: averageInstances, label: Average instances, type: number, optional: true, hint: "Instances running on average when autoscale moves the count; unset reads instances" }
   - { key: monthlyHours, label: Hours running, type: number, unit: hours, default: 730, hint: "Hours a month each instance is allocated" }
   - { key: osDiskOpsPerMonth, label: OS disk operations, type: number, default: 0, hint: "Per month across all instances; Standard HDD and SSD bill every 10,000" }
+  - { key: dataDisksPerInstance, label: Data disks per instance, type: number, default: 1, hint: "data_disk blocks of the first block's type and size; the import reads the first block only" }
+  - { key: dataDiskOpsPerMonth, label: Data disk operations, type: number, default: 0, hint: "Per month across all data disks; Standard HDD and SSD bill every 10,000" }
   - { key: ultraReservedVcpus, label: vCPUs reserved for Ultra Disk, type: number, default: 0, hint: "The SKU's vCPUs times the instances, while Ultra Disk compatibility is on and no Ultra Disk is attached" }
 let:
   - n: 'averageInstances != nil ? averageInstances : instances'
@@ -24,10 +28,20 @@ let:
   - dred: 'dtype endsWith "ZRS" ? "zrs" : "lrs"'
   - dnum: 'dsize <= 4 ? 1 : dsize <= 8 ? 2 : dsize <= 16 ? 3 : dsize <= 32 ? 4 : dsize <= 64 ? 6 : dsize <= 128 ? 10 : dsize <= 256 ? 15 : dsize <= 512 ? 20 : dsize <= 1024 ? 30 : dsize <= 2048 ? 40 : dsize <= 4096 ? 50 : dsize <= 8192 ? 60 : dsize <= 16384 ? 70 : 80'
   - dtier: 'dclass + string(dclass == "S" ? max(dnum, 4) : dnum)'
+  - xtype: data_disk_type
+  - xsize: 'data_disk_size_gb != nil ? data_disk_size_gb : 0.0'
+  - xclass: 'xtype startsWith "StandardSSD" ? "E" : xtype startsWith "Standard_" ? "S" : xtype startsWith "Premium_" ? "P" : xtype == "" ? "none" : "unread"'
+  - xred: 'xtype endsWith "ZRS" ? "zrs" : "lrs"'
+  - xnum: 'xsize <= 4 ? 1 : xsize <= 8 ? 2 : xsize <= 16 ? 3 : xsize <= 32 ? 4 : xsize <= 64 ? 6 : xsize <= 128 ? 10 : xsize <= 256 ? 15 : xsize <= 512 ? 20 : xsize <= 1024 ? 30 : xsize <= 2048 ? 40 : xsize <= 4096 ? 50 : xsize <= 8192 ? 60 : xsize <= 16384 ? 70 : 80'
+  - xtier: 'xclass + string(xclass == "S" ? max(xnum, 4) : xnum)'
 readings:
+  - fail: { when: 'xclass == "unread"', message: "only Standard HDD, Standard SSD and Premium SSD data disks are read, not {xtype}", continue: true }
   - cost: { name: Instance hours, quantity: n * monthlyHours, unit: instance-hour, price: "azure.vm.linux.{sku}" }
   - cost: { name: "OS disks ({dtier} {upper(dred)})", quantity: n, unit: disk-month, price: "azure.disk.{dred}.{dtier}" }
   - cost: { when: 'dclass != "P" && osDiskOpsPerMonth > 0', name: OS disk operations, quantity: osDiskOpsPerMonth, unit: operation, price: '{dclass == "S" ? "azure.disk.operations.standard_hdd_" : "azure.disk.operations.standard_ssd_"}{dred}' }
+  - fail: { when: 'xclass in ["S", "E", "P"] && xsize <= 0', message: "the data disk has no disk_size_gb" }
+  - cost: { when: 'xclass in ["S", "E", "P"]', name: "Data disks ({xtier} {upper(xred)})", quantity: n * dataDisksPerInstance, unit: disk-month, price: "azure.disk.{xred}.{xtier}" }
+  - cost: { when: 'xclass in ["S", "E"] && dataDiskOpsPerMonth > 0', name: Data disk operations, quantity: dataDiskOpsPerMonth, unit: operation, price: '{xclass == "S" ? "azure.disk.operations.standard_hdd_" : "azure.disk.operations.standard_ssd_"}{xred}' }
   - cost: { when: ultra_ssd_enabled, name: Ultra Disk reservation, quantity: 730 * ultraReservedVcpus, unit: vCPU-hour, price: azure.disk.ultra.vcpu_reservation }
 terraform:
   ignoreRefs: [network_interface, proximity_placement_group_id, host_group_id, capacity_reservation_group_id, source_image_id, os_disk, data_disk, identity, admin_ssh_key, secret, boot_diagnostics, gallery_application, health_probe_id, automatic_instance_repair, extension, rolling_upgrade_policy]

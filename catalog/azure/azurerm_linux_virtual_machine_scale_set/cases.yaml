@@ -13,3 +13,11 @@
   costs:
     Instance hours: 175.2
     OS disks (E6 LRS): 12
+- name: two instances with two 512 GiB Premium SSD data disks each
+  region: japaneast
+  attributes: { sku: Standard_D2s_v5, instances: 2, os_disk_type: Premium_LRS, data_disk_type: Premium_LRS, data_disk_size_gb: 512 }
+  assumptions: { dataDisksPerInstance: 2 }
+  costs:
+    Instance hours: 181.04
+    OS disks (P4 LRS): 12.1448
+    Data disks (P20 LRS): 336.8
