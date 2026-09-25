@@ -35,6 +35,20 @@ resource "azurerm_cosmosdb_cassandra_table" "events" {
   throughput            = 400
 }
 
+resource "azurerm_cosmosdb_account" "archive" {
+  name       = "archive"
+  location   = "japaneast"
+  offer_type = "Standard"
+}
+
+# A database read as a data source is not a node, but a call to it still
+# reaches its account.
+data "azurerm_cosmosdb_sql_database" "old" {
+  name                = "old"
+  resource_group_name = "rg"
+  account_name        = azurerm_cosmosdb_account.archive.name
+}
+
 resource "azurerm_service_plan" "plan" {
   name     = "plan"
   location = "japaneast"
@@ -51,5 +65,6 @@ resource "azurerm_linux_function_app" "api" {
     COSMOS_DATABASE  = azurerm_cosmosdb_sql_database.shop.name
     COSMOS_CONTAINER = azurerm_cosmosdb_sql_container.orders.name
     EVENTS_TABLE     = azurerm_cosmosdb_cassandra_table.events.name
+    ARCHIVE_DATABASE = data.azurerm_cosmosdb_sql_database.old.name
   }
 }

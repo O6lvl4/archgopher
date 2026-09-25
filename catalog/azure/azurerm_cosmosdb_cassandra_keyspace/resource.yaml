@@ -2,14 +2,14 @@ type: azurerm_cosmosdb_cassandra_keyspace
 label: Cosmos DB Cassandra keyspace
 category: Database
 icon: cosmos-db
-description: "Provisioned or autoscale throughput set on the keyspace (manual or autoscale, single- or multi-region writes, zone redundancy), transactional and analytical storage, analytical store operations, periodic backup copies beyond the two free ones or 30-day continuous backup, each in every region of the account, and point-in-time restores. Throughput set on the keyspace is shared by its containers that set none of their own. Calls reach its account, which bills serverless request units. The account's settings (regions, multi-region writes, zones, backup policy) are assumptions here."
+description: "Provisioned or autoscale throughput set on the keyspace (manual or autoscale, single- or multi-region writes, zone redundancy), transactional and analytical storage, analytical store operations, periodic backup copies beyond the two free ones or 30-day continuous backup, each in every region of the account, and point-in-time restores. Throughput set on the keyspace is shared by its tables that set none of their own. Calls reach its account, which bills serverless request units. The account's settings (regions, multi-region writes, zones, backup policy) are assumptions here."
 kinds: [read, write]
 sla: azure.cosmosdb
 attributes:
   - { key: throughput, label: Manual throughput, type: number, unit: RU/s, optional: true }
   - { key: max_throughput, label: Autoscale maximum, type: number, unit: RU/s, optional: true, path: autoscale_settings.max_throughput }
 assumptions:
-  - { key: storageGb, label: Data and index stored, type: number, unit: GB, default: 0, hint: "Data in containers Terraform does not declare; a declared container bills its own storage" }
+  - { key: storageGb, label: Data and index stored, type: number, unit: GB, default: 0, hint: "Data in tables Terraform does not declare; a declared table bills its own storage" }
   - { key: regions, label: Regions, type: number, default: 1, hint: "Entries in the account's geo_location: throughput, storage and backup are billed in each" }
   - { key: multiRegionWrites, label: Multi-region writes, type: boolean, default: false, hint: "The account's multiple_write_locations_enabled: throughput bills the multi-region write rate, autoscale included" }
   - { key: zoneRedundant, label: Zone redundant, type: boolean, default: false, hint: "zone_redundant in the account's geo_location: throughput of a single-region-write account costs 25% more" }

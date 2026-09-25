@@ -108,8 +108,9 @@ func TestCallsToCosmosDBContainersReachTheAccount(t *testing.T) {
 	sort.Strings(got)
 	// The API names a container and a Cassandra table: each is a node with its
 	// own throughput, and the calls also reach the account (through the
-	// keyspace for the table). Containers and keyspaces call nothing themselves.
-	want := "api>events api>log api>orders api>plan api>shop api>store users>api"
+	// keyspace for the table). A database read as a data source is no node but
+	// still reaches its account. Containers and keyspaces call nothing themselves.
+	want := "api>archive api>events api>log api>orders api>plan api>shop api>store users>api"
 	if strings.Join(got, " ") != want {
 		t.Errorf("edges: want %s, got %s", want, strings.Join(got, " "))
 	}

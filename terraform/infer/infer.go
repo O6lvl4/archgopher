@@ -365,6 +365,11 @@ func (b *builder) targets(ref string) []string {
 		}
 		return []string{ref}
 	}
+	// A data source of a forwarding type is not a node, but a call to it
+	// still reaches the node it names.
+	if path, ok := b.rules.Forward[r.Type]; ok {
+		return b.targetsAt(r, path)
+	}
 	if path, ok := b.rules.Aliases[r.Type]; ok {
 		return b.targetsAt(r, path)
 	}

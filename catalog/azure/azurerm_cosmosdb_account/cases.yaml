@@ -74,3 +74,55 @@
       monthly: 1
       peak: 1
   error: 'a serverless account has no provisioned throughput'
+# 2M RU x 0.285 per 1M x 1.25 for availability zones
+- name: zone-redundant serverless in Japan East
+  region: japaneast
+  attributes:
+    capability: EnableServerless
+    zone_redundant: true
+  demand:
+    read:
+      monthly: 1000000.0
+      peak: 100
+    write:
+      monthly: 200000.0
+      peak: 20
+  costs:
+    Request units: 0.7125
+# 10 x 730 x 1.25 x 0.008
+- name: 1,000 RU/s zone redundant with single-region writes in East US
+  region: eastus
+  attributes:
+    zone_redundant: true
+  assumptions:
+    provisionedRus: 1000
+  demand:
+    read:
+      monthly: 1000000.0
+      peak: 100
+    write:
+      monthly: 200000.0
+      peak: 20
+  costs:
+    Provisioned throughput: 73.0
+  limits:
+    Request units per second: 200
+# Multi-region writes (the provider 3.x name) take the mRU rate and no zone uplift: 10 x 730 x 0.016
+- name: 1,000 RU/s with enable_multiple_write_locations and zones in East US
+  region: eastus
+  attributes:
+    enable_multiple_write_locations: true
+    zone_redundant: true
+  assumptions:
+    provisionedRus: 1000
+  demand:
+    read:
+      monthly: 1000000.0
+      peak: 100
+    write:
+      monthly: 200000.0
+      peak: 20
+  costs:
+    Provisioned throughput: 116.8
+  limits:
+    Request units per second: 200

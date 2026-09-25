@@ -414,7 +414,7 @@ not zero.
 | `azurerm_service_plan` | Instance-hours by SKU and OS, times workers | - |
 | `azurerm_container_app` | Consumption vCPU- and GiB-seconds, active and idle, requests | Replicas |
 | `azurerm_storage_account` | Hot tier storage, write and read operations by redundancy, transfer out to the internet | Account request rate (varies by region) |
-| `azurerm_cosmosdb_account` | Serverless request units; RU/s-hours and storage of databases and containers not declared | Provisioned RU/s |
+| `azurerm_cosmosdb_account` | Serverless request units (1.25× with zones); RU/s-hours and storage of databases and containers not declared | Provisioned RU/s |
 | `azurerm_cosmosdb_sql_database` / `_sql_container`, `_mongo_database` / `_mongo_collection`, `_cassandra_keyspace` / `_cassandra_table`, `_gremlin_database` / `_gremlin_graph`, `azurerm_cosmosdb_table` | Manual or autoscale RU/s-hours (multi-region writes, zone redundancy), storage and analytical store per region, periodic or continuous backup, restores | RU/s against their throughput |
 | `azurerm_redis_cache` | Node-hours by tier and size, shards × (1 + replicas) in Premium | Memory and client connections by size, per shard |
 | `azurerm_managed_redis` | Instance-hours by SKU, doubled with high availability | Memory and client connections by SKU |
