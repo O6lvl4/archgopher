@@ -17,9 +17,14 @@ var (
 	attrs = map[string]map[string]any{
 		"azurerm_service_plan":         {"sku_name": "P1v3"},
 		"azurerm_cognitive_deployment": {"model_name": "gpt-4o"},
+		"azurerm_storage_management_policy": {
+			"coolAfterModification": 30.0, "coldAfterModification": 90.0, "archiveAfterModification": 180.0,
+		},
 	}
 	assume = map[string]map[string]any{
-		"azurerm_cosmosdb_account": {"provisionedRus": 400.0},
+		"azurerm_cosmosdb_account":          {"provisionedRus": 400.0},
+		"azurerm_storage_share":             {"storageGb": 1.0},
+		"azurerm_storage_management_policy": {"blobsAged": 1.0},
 	}
 )
 

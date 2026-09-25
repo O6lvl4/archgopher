@@ -47,7 +47,6 @@
     access_tier: Premium
     quota: 1024
   assumptions:
-    storageGb: 0
     snapshotsGb: 10
   demand:
     read:
@@ -61,3 +60,13 @@
     Snapshots: 1.63
   limits:
     IOPS: 2500
+- name: a standard share needs its stored data
+  region: japaneast
+  demand:
+    read:
+      monthly: 1
+      peak: 1
+    write:
+      monthly: 1
+      peak: 1
+  error: set storageGb, the data the share holds

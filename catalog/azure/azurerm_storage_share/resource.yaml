@@ -10,7 +10,7 @@ attributes:
   - { key: quota, label: Quota, type: number, unit: GB, optional: true, hint: "Provisioned size on premium shares" }
 assumptions:
   - { key: redundancy, label: Account redundancy, type: choice, options: [LRS, ZRS, GRS, RAGRS, GZRS, RAGZRS], default: LRS, hint: "account_replication_type of the storage account; file shares have no read access, so RA- accounts bill as GRS or GZRS" }
-  - { key: storageGb, label: Data stored, type: number, unit: GB, hint: "Standard tiers; premium bills the quota" }
+  - { key: storageGb, label: Data stored, type: number, unit: GB, optional: true, hint: "Standard tiers; premium bills the quota" }
   - { key: snapshotsGb, label: Snapshots, type: number, unit: GB, default: 0 }
   - { key: metadataGb, label: Metadata, type: number, unit: GB, default: 0, hint: "Hot and cool tiers" }
   - { key: listOperations, label: List operations, type: number, default: 0, hint: "Directory listings a month" }
@@ -25,6 +25,7 @@ let:
 readings:
   - fail: { when: 'premium && r in ["GRS", "GZRS"]', message: "premium file shares are LRS or ZRS, not {r}" }
   - fail: { when: 'premium && quota == nil', message: "a premium share needs its quota" }
+  - fail: { when: '!premium && storageGb == nil', message: "set storageGb, the data the share holds" }
   - storage: { when: '!premium', name: Data stored, gb: storageGb, price: "azure.storage.files.stored.{sku}" }
   - storage: { when: '!premium && snapshotsGb > 0', name: Snapshots, gb: snapshotsGb, price: "azure.storage.files.stored.{sku}" }
   - storage: { when: 'tier in ["Hot", "Cool"] && metadataGb > 0', name: Metadata, gb: metadataGb, price: "azure.storage.files.metadata.{sku}" }
