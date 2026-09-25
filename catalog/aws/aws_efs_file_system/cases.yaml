@@ -1,0 +1,91 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Bursting, regional, with a lifecycle policy (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    lifecycle_policy: true
+  assumptions:
+    storageGb: 100
+    iaGb: 400
+    iaReadGbPerMonth: 50
+    iaWriteGbPerMonth: 20
+    opKb: 64
+  demand:
+    read:
+      monthly: 1000000
+      peak: 50
+    write:
+      monthly: 500000
+      peak: 20
+  costs:
+    # 100 GB x 0.36, 400 GB x 0.0272, 50 GB x 0.012, 20 GB x 0.012
+    Standard storage: 36
+    Infrequent Access storage: 10.88
+    Infrequent Access reads: 0.6
+    Infrequent Access tiering and writes: 0.24
+  limits:
+    # 50/s x 64 KB = 3.125 MiB/s; 20/s x 64 KB = 1.25 MiB/s; baseline demand 3.125 / 3 + 1.25
+    Read throughput: 3.125
+    Write throughput: 1.25
+    Baseline throughput (bursts above it spend credits): 2.291666667
+- name: Elastic, regional, with Archive (us-east-1)
+  region: us-east-1
+  attributes:
+    throughput_mode: elastic
+  assumptions:
+    storageGb: 1000
+    archiveGb: 5000
+    archiveReadGbPerMonth: 10
+    opKb: 256
+  demand:
+    read:
+      monthly: 2000000
+      peak: 100
+    write:
+      monthly: 1000000
+      peak: 40
+  costs:
+    # 1000 x 0.30, 5000 x 0.008, 10 x 0.03
+    Standard storage: 300
+    Archive storage: 40
+    Archive reads: 0.3
+    # 2e6 x 256 KB = 488.28125 GB x 0.03; 1e6 x 256 KB = 244.140625 GB x 0.06
+    Elastic throughput reads: 14.6484375
+    Elastic throughput writes: 14.6484375
+  limits:
+    Read throughput: 25
+    Write throughput: 10
+- name: Provisioned One Zone (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    availability_zone_name: ap-northeast-1a
+    throughput_mode: provisioned
+    provisioned_throughput_in_mibps: 50
+  assumptions:
+    storageGb: 200
+    opKb: 1024
+  demand:
+    read:
+      monthly: 100000
+      peak: 10
+    write:
+      monthly: 50000
+      peak: 5
+  costs:
+    # 200 x 0.192; (50 - 200 / 20) MiBps x 7.2
+    One Zone storage: 38.4
+    Provisioned throughput: 288
+  limits:
+    Read throughput: 10
+    Write throughput: 5
+    Provisioned throughput: 8.333333333
+- name: Provisioned mode without a throughput
+  region: us-east-1
+  attributes:
+    throughput_mode: provisioned
+  assumptions:
+    storageGb: 10
+    opKb: 4
+  costs:
+    Standard storage: 3
+  error: provisioned_throughput_in_mibps

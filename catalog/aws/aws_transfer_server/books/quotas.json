@@ -1,0 +1,14 @@
+{
+  "aws.transfer_family.sessions_per_server": {
+    "unit": "sessions",
+    "source": "https://docs.aws.amazon.com/general/latest/gr/transfer-service.html",
+    "note": "Concurrent sessions per server, not adjustable",
+    "values": {
+      "*": {
+        "value": 10000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

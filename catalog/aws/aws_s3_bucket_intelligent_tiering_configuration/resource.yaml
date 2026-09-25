@@ -1,0 +1,28 @@
+type: aws_s3_bucket_intelligent_tiering_configuration
+label: S3 Intelligent-Tiering
+category: Storage
+icon: s3
+description: "The Intelligent-Tiering objects this configuration's filter covers: the monitoring and automation fee per object of 128 KB or more, and storage in each access tier. The configuration opts those objects into the Archive Access and Deep Archive Access tiers; while it is Disabled they stay in the other tiers."
+kinds: [tier]
+attributes:
+  - { key: status, label: Status, type: choice, options: [Enabled, Disabled], default: Enabled }
+assumptions:
+  - { key: monitoredObjects, label: Monitored objects, type: number, hint: "Objects of 128 KB or more; smaller objects are not monitored and stay in Frequent Access" }
+  - { key: frequentGb, label: Frequent Access tier, type: number, unit: GB, default: 0 }
+  - { key: infrequentGb, label: Infrequent Access tier, type: number, unit: GB, default: 0 }
+  - { key: archiveInstantGb, label: Archive Instant Access tier, type: number, unit: GB, default: 0 }
+  - { key: archiveGb, label: Archive Access tier, type: number, unit: GB, default: 0 }
+  - { key: deepArchiveGb, label: Deep Archive Access tier, type: number, unit: GB, default: 0 }
+let:
+  - enabled: 'status == "Enabled"'
+readings:
+  - cost: { name: Monitoring and automation, quantity: monitoredObjects, unit: object-month, price: aws.s3.intelligent_tiering.monitoring }
+  - storage: { when: frequentGb > 0, name: Frequent Access, gb: frequentGb, price: aws.s3.intelligent_tiering.frequent }
+  - storage: { when: infrequentGb > 0, name: Infrequent Access, gb: infrequentGb, price: aws.s3.intelligent_tiering.infrequent }
+  - storage: { when: archiveInstantGb > 0, name: Archive Instant Access, gb: archiveInstantGb, price: aws.s3.intelligent_tiering.archive_instant }
+  - fail: { when: '!enabled && archiveGb + deepArchiveGb > 0', message: "the configuration is Disabled, so no object moves to the Archive Access tiers: archiveGb and deepArchiveGb must be 0", continue: true }
+  - storage: { when: enabled && archiveGb > 0, name: Archive Access, gb: archiveGb, price: aws.s3.intelligent_tiering.archive }
+  - storage: { when: enabled && deepArchiveGb > 0, name: Deep Archive Access, gb: deepArchiveGb, price: aws.s3.intelligent_tiering.deep_archive }
+terraform:
+  # Names its bucket; calls nothing.
+  passive: true

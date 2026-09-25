@@ -1,0 +1,29 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: To Standard-IA (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    storage_class: STANDARD_IA
+  assumptions:
+    transitionsPerMonth: 200000
+    transitionedGb: 1000
+  costs:
+    # 200,000 / 1,000 x 0.01; 1000 GB x 0.0138
+    Transitions to STANDARD_IA: 2
+    Storage in STANDARD_IA: 13.8
+- name: To Glacier Deep Archive (us-east-1)
+  region: us-east-1
+  attributes:
+    storage_class: DEEP_ARCHIVE
+  assumptions:
+    transitionsPerMonth: 10000
+    transitionedGb: 50000
+  costs:
+    # 10,000 / 1,000 x 0.05; 50,000 GB x 0.00099
+    Transitions to DEEP_ARCHIVE: 0.5
+    Storage in DEEP_ARCHIVE: 49.5
+- name: Expiration only (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    transitionsPerMonth: 0
+    transitionedGb: 0

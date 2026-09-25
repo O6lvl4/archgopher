@@ -1,0 +1,13 @@
+{
+  "aws.backup": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/backup/sla/",
+    "values": {
+      "*": {
+        "value": 0.999,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

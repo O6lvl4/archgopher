@@ -1,0 +1,358 @@
+{
+  "aws.fsx.openzfs.backup": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/fsx/openzfs/pricing/",
+    "note": "Backup storage, Single-AZ file systems",
+    "sync": {
+      "service": "AmazonFSx",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?BackupUsage",
+        "operation": "CreateFileSystem:OpenZFS"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.055,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.054,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.fsx.openzfs.backup_multi_az": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/fsx/openzfs/pricing/",
+    "note": "Backup storage, Multi-AZ file systems",
+    "sync": {
+      "service": "AmazonFSx",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?BackupUsage\\.MAZ",
+        "operation": "CreateFileSystem:OpenZFS"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.055,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.054,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.fsx.openzfs.ssd_iops": {
+    "unit": "IOPS-month",
+    "source": "https://aws.amazon.com/fsx/openzfs/pricing/",
+    "note": "SSD IOPS provisioned above the 3 per GB included, by deployment type",
+    "sync": {
+      "service": "AmazonFSx",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?ProvisionedSSDIOPS\\.{row}",
+        "operation": "CreateFileSystem:OpenZFS"
+      }
+    },
+    "rows": {
+      "MAZ": {
+        "ap-northeast-1": 0.0288,
+        "ap-northeast-2": 0.0264,
+        "ap-south-1": 0.0264,
+        "ap-southeast-1": 0.0288,
+        "ap-southeast-2": 0.0288,
+        "eu-central-1": 0.0288,
+        "eu-west-1": 0.0264,
+        "us-east-1": 0.024,
+        "us-east-2": 0.024,
+        "us-west-2": 0.024
+      },
+      "SAZ": {
+        "ap-northeast-1": 0.0068,
+        "ap-northeast-2": 0.0062,
+        "ap-south-1": 0.0063,
+        "ap-southeast-1": 0.0066,
+        "ap-southeast-2": 0.0066,
+        "eu-central-1": 0.0072,
+        "eu-west-1": 0.0066,
+        "us-east-1": 0.006,
+        "us-east-2": 0.006,
+        "us-west-2": 0.006
+      },
+      "SAZ2": {
+        "ap-northeast-1": 0.0068,
+        "ap-northeast-2": 0.0062,
+        "ap-south-1": 0.0063,
+        "ap-southeast-1": 0.0066,
+        "ap-southeast-2": 0.0066,
+        "eu-central-1": 0.0072,
+        "eu-west-1": 0.0066,
+        "us-east-1": 0.006,
+        "us-east-2": 0.006,
+        "us-west-2": 0.006
+      },
+      "SAZ_HA": {
+        "ap-northeast-1": 0.0144,
+        "ap-northeast-2": 0.0132,
+        "ap-south-1": 0.0132,
+        "ap-southeast-1": 0.0144,
+        "ap-southeast-2": 0.0144,
+        "eu-central-1": 0.0144,
+        "eu-west-1": 0.0132,
+        "us-east-1": 0.012,
+        "us-east-2": 0.012,
+        "us-west-2": 0.012
+      },
+      "SAZ_HA2": {
+        "ap-northeast-1": 0.0144,
+        "ap-northeast-2": 0.0132,
+        "ap-south-1": 0.0132,
+        "ap-southeast-1": 0.0144,
+        "ap-southeast-2": 0.0144,
+        "eu-central-1": 0.0144,
+        "eu-west-1": 0.0132,
+        "us-east-1": 0.012,
+        "us-east-2": 0.012,
+        "us-west-2": 0.012
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "aws.fsx.openzfs.ssd_storage": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/fsx/openzfs/pricing/",
+    "note": "Provisioned SSD storage by deployment type",
+    "sync": {
+      "service": "AmazonFSx",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Storage\\.{row}:SSD",
+        "operation": "CreateFileSystem:OpenZFS"
+      }
+    },
+    "rows": {
+      "MAZ": {
+        "ap-northeast-1": 0.216,
+        "ap-northeast-2": 0.2052,
+        "ap-south-1": 0.18,
+        "ap-southeast-1": 0.216,
+        "ap-southeast-2": 0.216,
+        "eu-central-1": 0.2146,
+        "eu-west-1": 0.198,
+        "us-east-1": 0.18,
+        "us-east-2": 0.18,
+        "us-west-2": 0.18
+      },
+      "SAZ": {
+        "ap-northeast-1": 0.108,
+        "ap-northeast-2": 0.102,
+        "ap-south-1": 0.09,
+        "ap-southeast-1": 0.108,
+        "ap-southeast-2": 0.108,
+        "eu-central-1": 0.107,
+        "eu-west-1": 0.099,
+        "us-east-1": 0.09,
+        "us-east-2": 0.09,
+        "us-west-2": 0.09
+      },
+      "SAZ2": {
+        "ap-northeast-1": 0.108,
+        "ap-northeast-2": 0.102,
+        "ap-south-1": 0.09,
+        "ap-southeast-1": 0.108,
+        "ap-southeast-2": 0.108,
+        "eu-central-1": 0.107,
+        "eu-west-1": 0.099,
+        "us-east-1": 0.09,
+        "us-east-2": 0.09,
+        "us-west-2": 0.09
+      },
+      "SAZ_HA": {
+        "ap-northeast-1": 0.108,
+        "ap-northeast-2": 0.102,
+        "ap-south-1": 0.09,
+        "ap-southeast-1": 0.108,
+        "ap-southeast-2": 0.108,
+        "eu-central-1": 0.107,
+        "eu-west-1": 0.099,
+        "us-east-1": 0.09,
+        "us-east-2": 0.09,
+        "us-west-2": 0.09
+      },
+      "SAZ_HA2": {
+        "ap-northeast-1": 0.108,
+        "ap-northeast-2": 0.102,
+        "ap-south-1": 0.09,
+        "ap-southeast-1": 0.108,
+        "ap-southeast-2": 0.108,
+        "eu-central-1": 0.107,
+        "eu-west-1": 0.099,
+        "us-east-1": 0.09,
+        "us-east-2": 0.09,
+        "us-west-2": 0.09
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "aws.fsx.openzfs.throughput": {
+    "unit": "MBps-month",
+    "source": "https://aws.amazon.com/fsx/openzfs/pricing/",
+    "note": "Throughput capacity by deployment type: SAZ is SINGLE_AZ_1, SAZ2 SINGLE_AZ_2, SAZ_HA SINGLE_AZ_HA_1, SAZ_HA2 SINGLE_AZ_HA_2, MAZ MULTI_AZ_1",
+    "sync": {
+      "service": "AmazonFSx",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?ThroughputCapacity\\.{row}",
+        "operation": "CreateFileSystem:OpenZFS"
+      }
+    },
+    "rows": {
+      "MAZ": {
+        "ap-northeast-1": 1.0955,
+        "ap-northeast-2": 0.9824,
+        "ap-south-1": 0.87,
+        "ap-southeast-1": 1.0034,
+        "ap-southeast-2": 1.1361,
+        "eu-central-1": 0.9925,
+        "eu-west-1": 0.9824,
+        "us-east-1": 0.87,
+        "us-east-2": 0.87,
+        "us-west-2": 0.87
+      },
+      "SAZ": {
+        "ap-northeast-1": 0.35,
+        "ap-northeast-2": 0.291,
+        "ap-south-1": 0.3,
+        "ap-southeast-1": 0.293,
+        "ap-southeast-2": 0.299,
+        "eu-central-1": 0.35,
+        "eu-west-1": 0.286,
+        "us-east-1": 0.26,
+        "us-east-2": 0.26,
+        "us-west-2": 0.26
+      },
+      "SAZ2": {
+        "ap-northeast-1": 0.35,
+        "ap-northeast-2": 0.291,
+        "ap-south-1": 0.3,
+        "ap-southeast-1": 0.293,
+        "ap-southeast-2": 0.299,
+        "eu-central-1": 0.35,
+        "eu-west-1": 0.286,
+        "us-east-1": 0.26,
+        "us-east-2": 0.26,
+        "us-west-2": 0.26
+      },
+      "SAZ_HA": {
+        "ap-northeast-1": 0.7,
+        "ap-northeast-2": 0.582,
+        "ap-south-1": 0.6,
+        "ap-southeast-1": 0.586,
+        "ap-southeast-2": 0.598,
+        "eu-central-1": 0.7,
+        "eu-west-1": 0.572,
+        "us-east-1": 0.52,
+        "us-east-2": 0.52,
+        "us-west-2": 0.52
+      },
+      "SAZ_HA2": {
+        "ap-northeast-1": 0.7,
+        "ap-northeast-2": 0.582,
+        "ap-south-1": 0.6,
+        "ap-southeast-1": 0.586,
+        "ap-southeast-2": 0.598,
+        "eu-central-1": 0.7,
+        "eu-west-1": 0.572,
+        "us-east-1": 0.52,
+        "us-east-2": 0.52,
+        "us-west-2": 0.52
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

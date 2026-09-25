@@ -1,0 +1,14 @@
+{
+  "aws.transfer_family": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/transfer/sla/",
+    "note": "Service credits start below 99.9% monthly uptime",
+    "values": {
+      "*": {
+        "value": 0.999,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

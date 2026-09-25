@@ -1,0 +1,194 @@
+{
+  "aws.transfer_family.download": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/aws-transfer-family/pricing/",
+    "note": "Data downloaded over SFTP, FTPS or FTP; the same for every protocol and storage",
+    "sync": {
+      "service": "AWSTransfer",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?DownloadBytes",
+        "operation": "SFTP:S3"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.transfer_family.protocol_hour": {
+    "unit": "hour",
+    "source": "https://aws.amazon.com/aws-transfer-family/pricing/",
+    "note": "Each protocol enabled on a server, per hour; the same for S3 and EFS storage",
+    "sync": {
+      "service": "AWSTransfer",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?ProtocolHours",
+        "operation": "{row}(-HTTP)?:S3"
+      }
+    },
+    "rows": {
+      "AS2": {
+        "ap-northeast-1": 0.3,
+        "ap-northeast-2": 0.3,
+        "ap-south-1": 0.3,
+        "ap-southeast-1": 0.3,
+        "ap-southeast-2": 0.3,
+        "eu-central-1": 0.3,
+        "eu-west-1": 0.3,
+        "us-east-1": 0.3,
+        "us-east-2": 0.3,
+        "us-west-2": 0.3
+      },
+      "FTP": {
+        "ap-northeast-1": 0.3,
+        "ap-northeast-2": 0.3,
+        "ap-south-1": 0.3,
+        "ap-southeast-1": 0.3,
+        "ap-southeast-2": 0.3,
+        "eu-central-1": 0.3,
+        "eu-west-1": 0.3,
+        "us-east-1": 0.3,
+        "us-east-2": 0.3,
+        "us-west-2": 0.3
+      },
+      "FTPS": {
+        "ap-northeast-1": 0.3,
+        "ap-northeast-2": 0.3,
+        "ap-south-1": 0.3,
+        "ap-southeast-1": 0.3,
+        "ap-southeast-2": 0.3,
+        "eu-central-1": 0.3,
+        "eu-west-1": 0.3,
+        "us-east-1": 0.3,
+        "us-east-2": 0.3,
+        "us-west-2": 0.3
+      },
+      "SFTP": {
+        "ap-northeast-1": 0.3,
+        "ap-northeast-2": 0.3,
+        "ap-south-1": 0.3,
+        "ap-southeast-1": 0.3,
+        "ap-southeast-2": 0.3,
+        "eu-central-1": 0.3,
+        "eu-west-1": 0.3,
+        "us-east-1": 0.3,
+        "us-east-2": 0.3,
+        "us-west-2": 0.3
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "aws.transfer_family.upload": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/aws-transfer-family/pricing/",
+    "note": "Data uploaded over SFTP, FTPS or FTP; the same for every protocol and storage",
+    "sync": {
+      "service": "AWSTransfer",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?UploadBytes",
+        "operation": "SFTP:S3"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

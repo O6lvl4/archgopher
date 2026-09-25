@@ -1,0 +1,31 @@
+type: aws_fsx_openzfs_file_system
+label: FSx for OpenZFS
+category: Storage
+icon: fsx-openzfs
+description: "Throughput capacity, SSD storage capacity and SSD IOPS provisioned above the 3 per GB included, priced by deployment type, plus backup storage. Compression lets you provision less but does not change the price of what is provisioned. The Intelligent-Tiering storage class is not priced yet. Headroom is the data clients move against the throughput capacity. The SLA is the Single-AZ (non-HA) one; Single-AZ HA is 99.9% and Multi-AZ 99.99%."
+kinds: [read, write]
+sla: aws.fsx.openzfs
+attributes:
+  - { key: deployment_type, label: Deployment type, type: choice, options: [SINGLE_AZ_1, SINGLE_AZ_2, SINGLE_AZ_HA_1, SINGLE_AZ_HA_2, MULTI_AZ_1], default: SINGLE_AZ_1 }
+  - { key: storage_type, label: Storage type, type: choice, options: [SSD, INTELLIGENT_TIERING], default: SSD }
+  - { key: storage_capacity, label: Storage capacity, type: number, unit: GiB, default: 64, hint: "Terraform sets it for SSD file systems; 64 is the minimum" }
+  - { key: throughput_capacity, label: Throughput capacity, type: number, unit: MBps, default: 64, hint: "Terraform requires it; 64 is the minimum" }
+  - { key: iops_mode, label: SSD IOPS mode, type: choice, options: [AUTOMATIC, USER_PROVISIONED], default: AUTOMATIC, path: disk_iops_configuration.mode }
+  - { key: iops, label: SSD IOPS, type: number, optional: true, path: disk_iops_configuration.iops }
+assumptions:
+  - { key: backupGb, label: Backup storage, type: number, unit: GB, default: 0, hint: "Automatic daily and user-initiated backups, incremental after the first" }
+  - { key: opKb, label: Data per read or write, type: number, unit: KB, hint: "For operations whose edges give no kb" }
+let:
+  - code: 'deployment_type == "SINGLE_AZ_2" ? "SAZ2" : deployment_type == "SINGLE_AZ_HA_1" ? "SAZ_HA" : deployment_type == "SINGLE_AZ_HA_2" ? "SAZ_HA2" : deployment_type == "MULTI_AZ_1" ? "MAZ" : "SAZ"'
+  - extraIops: 'iops_mode == "USER_PROVISIONED" && iops != nil ? max(iops - 3 * storage_capacity, 0) : 0.0'
+readings:
+  - fail: { when: 'storage_type == "INTELLIGENT_TIERING"', message: "the Intelligent-Tiering storage class is not priced yet: only SSD file systems are" }
+  - cost: { name: Throughput capacity, quantity: throughput_capacity, unit: MBps-month, price: 'aws.fsx.openzfs.throughput.{code}' }
+  - storage: { name: SSD storage, gb: storage_capacity, price: 'aws.fsx.openzfs.ssd_storage.{code}' }
+  - cost: { when: extraIops > 0, name: Provisioned SSD IOPS, quantity: extraIops, unit: IOPS-month, price: 'aws.fsx.openzfs.ssd_iops.{code}' }
+  - storage: { when: backupGb > 0, name: Backup storage, gb: backupGb, price: 'aws.fsx.openzfs.{code == "MAZ" ? "backup_multi_az" : "backup"}' }
+  - limit: { name: Throughput, demand: '(peakUnits(demand.read, 1, opKb) + peakUnits(demand.write, 1, opKb)) / 1000', unit: MBps, capacity: throughput_capacity }
+  - limit: { name: Throughput capacity, demand: throughput_capacity, unit: MBps, quota: aws.fsx.openzfs.max_throughput_mbps }
+terraform:
+  # NFS clients call it; it calls nothing.
+  passive: true

@@ -1,0 +1,24 @@
+type: aws_transfer_server
+label: Transfer Family server
+category: Storage
+icon: transfer-family
+description: "An hourly fee for each protocol enabled (SFTP when protocols is unset) and a fee per GB uploaded and downloaded, the same for S3 and EFS storage. Clients connect from outside, so it is a front door: each upload or download is one file. AS2 messages, PGP decryption and SFTP connectors are not priced. The S3 bucket or EFS file system behind a user's home directory is not followed from aws_transfer_user, so add that edge by hand. Headroom is concurrent sessions per server."
+kinds: [upload, download]
+sla: aws.transfer_family
+attributes:
+  - { key: protocols, label: Protocols, type: list, optional: true, hint: "SFTP, FTPS, FTP, AS2; unset means SFTP" }
+assumptions:
+  - { key: fileMb, label: File size, type: number, unit: MB, hint: "For uploads and downloads whose edges give no kb" }
+  - { key: sessionSeconds, label: Session length, type: number, unit: s, default: 60, hint: "From connect to disconnect; one file per session" }
+readings:
+  - cost: { when: 'len(protocols) == 0 || "SFTP" in protocols', name: SFTP protocol enabled, quantity: 730, unit: hour, price: aws.transfer_family.protocol_hour.SFTP }
+  - cost: { when: '"FTPS" in protocols', name: FTPS protocol enabled, quantity: 730, unit: hour, price: aws.transfer_family.protocol_hour.FTPS }
+  - cost: { when: '"FTP" in protocols', name: FTP protocol enabled, quantity: 730, unit: hour, price: aws.transfer_family.protocol_hour.FTP }
+  - cost: { when: '"AS2" in protocols', name: AS2 protocol enabled, quantity: 730, unit: hour, price: aws.transfer_family.protocol_hour.AS2 }
+  - cost: { name: Data uploaded, quantity: 'units(demand.upload, 1, fileMb * 1024) / 1048576', unit: GB, price: aws.transfer_family.upload }
+  - cost: { name: Data downloaded, quantity: 'units(demand.download, 1, fileMb * 1024) / 1048576', unit: GB, price: aws.transfer_family.download }
+  - concurrency: { name: Concurrent sessions, peak: total.peak, seconds: sessionSeconds, unit: sessions, quota: aws.transfer_family.sessions_per_server }
+terraform:
+  # SFTP and FTP clients connect from outside. A Lambda or API Gateway identity provider is called at each login.
+  frontDoor: true
+  ignoreRefs: [logging_role, structured_log_destinations, workflow_details, host_key, directory_id]

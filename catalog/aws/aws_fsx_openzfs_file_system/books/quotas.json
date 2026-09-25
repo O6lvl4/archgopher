@@ -1,0 +1,14 @@
+{
+  "aws.fsx.openzfs.max_throughput_mbps": {
+    "unit": "MBps",
+    "source": "https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/limits.html",
+    "note": "Maximum throughput capacity of one file system (Single-AZ 1 tops out at 4,096)",
+    "values": {
+      "*": {
+        "value": 10240,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

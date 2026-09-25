@@ -1,0 +1,642 @@
+{
+  "aws.fsx.windows.multi_az.backup": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/fsx/windows/pricing/",
+    "note": "Multi-AZ backup storage",
+    "sync": {
+      "service": "AmazonFSx",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?BackupUsage.MultiAZ",
+        "operation": "CreateFileSystem:Windows"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.055,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.054,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.fsx.windows.multi_az.hdd_storage": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/fsx/windows/pricing/",
+    "note": "Multi-AZ HDD storage capacity",
+    "sync": {
+      "service": "AmazonFSx",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Storage.MultiAZ:HDD",
+        "operation": "CreateFileSystem:Windows"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.027,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.027,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.fsx.windows.multi_az.ssd_iops": {
+    "unit": "IOPS-month",
+    "source": "https://aws.amazon.com/fsx/windows/pricing/",
+    "note": "Multi-AZ SSD IOPS provisioned above the 3 per GB included",
+    "sync": {
+      "service": "AmazonFSx",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?ProvisionedSSDIOPS.MultiAZ",
+        "operation": "CreateFileSystem:Windows"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0288,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0264,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0264,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.0288,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.0288,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0288,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.0264,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.024,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.024,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.024,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.fsx.windows.multi_az.ssd_storage": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/fsx/windows/pricing/",
+    "note": "Multi-AZ SSD storage capacity",
+    "sync": {
+      "service": "AmazonFSx",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Storage.MultiAZ:SSD",
+        "operation": "CreateFileSystem:Windows"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.276,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.262,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.23,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.276,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.276,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.274,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.253,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.23,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.23,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.23,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.fsx.windows.multi_az.throughput": {
+    "unit": "MBps-month",
+    "source": "https://aws.amazon.com/fsx/windows/pricing/",
+    "note": "Multi-AZ throughput capacity",
+    "sync": {
+      "service": "AmazonFSx",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?ThroughputCapacity.MultiAZ",
+        "operation": "CreateFileSystem:Windows"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 5.175,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 5.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 4.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 5.085,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 5.175,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 4.95,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 4.95,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 4.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 4.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 4.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.fsx.windows.single_az.backup": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/fsx/windows/pricing/",
+    "note": "Single-AZ backup storage",
+    "sync": {
+      "service": "AmazonFSx",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?BackupUsage",
+        "operation": "CreateFileSystem:Windows"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.055,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.054,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.fsx.windows.single_az.hdd_storage": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/fsx/windows/pricing/",
+    "note": "Single-AZ HDD storage capacity",
+    "sync": {
+      "service": "AmazonFSx",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Storage:HDD",
+        "operation": "CreateFileSystem:Windows"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.014,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.014,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.013,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.013,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.013,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.013,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.fsx.windows.single_az.ssd_iops": {
+    "unit": "IOPS-month",
+    "source": "https://aws.amazon.com/fsx/windows/pricing/",
+    "note": "Single-AZ SSD IOPS provisioned above the 3 per GB included",
+    "sync": {
+      "service": "AmazonFSx",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?ProvisionedSSDIOPS",
+        "operation": "CreateFileSystem:Windows"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0144,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0132,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0132,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.0144,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.0144,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0144,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.0132,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.fsx.windows.single_az.ssd_storage": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/fsx/windows/pricing/",
+    "note": "Single-AZ SSD storage capacity",
+    "sync": {
+      "service": "AmazonFSx",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Storage",
+        "operation": "CreateFileSystem:Windows"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.156,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.148,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.13,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.156,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.156,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.155,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.143,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.13,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.13,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.13,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.fsx.windows.single_az.throughput": {
+    "unit": "MBps-month",
+    "source": "https://aws.amazon.com/fsx/windows/pricing/",
+    "note": "Single-AZ throughput capacity",
+    "sync": {
+      "service": "AmazonFSx",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?ThroughputCapacity",
+        "operation": "CreateFileSystem:Windows"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 2.53,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 2.46,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 2.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 2.479,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 2.53,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 2.42,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 2.42,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 2.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 2.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 2.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "aws.s3.lifecycle.transition": {
+    "unit": "request",
+    "per": 1000,
+    "source": "https://aws.amazon.com/s3/pricing/",
+    "note": "Lifecycle transition requests by target class: SIA Standard-IA, ZIA One Zone-IA, INT Intelligent-Tiering, GIR Glacier Instant Retrieval, Glacier Glacier Flexible Retrieval, GDA Glacier Deep Archive",
+    "sync": {
+      "service": "AmazonS3",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Requests-Tier[34]",
+        "operation": "S3-{row}Transition"
+      }
+    },
+    "rows": {
+      "GDA": {
+        "ap-northeast-1": 0.065,
+        "ap-northeast-2": 0.06,
+        "ap-south-1": 0.07,
+        "ap-southeast-1": 0.06,
+        "ap-southeast-2": 0.06,
+        "eu-central-1": 0.06,
+        "eu-west-1": 0.055,
+        "us-east-1": 0.05,
+        "us-east-2": 0.05,
+        "us-west-2": 0.05
+      },
+      "GIR": {
+        "ap-northeast-1": 0.02,
+        "ap-northeast-2": 0.02,
+        "ap-south-1": 0.02,
+        "ap-southeast-1": 0.02,
+        "ap-southeast-2": 0.02,
+        "eu-central-1": 0.02,
+        "eu-west-1": 0.02,
+        "us-east-1": 0.02,
+        "us-east-2": 0.02,
+        "us-west-2": 0.02
+      },
+      "Glacier": {
+        "ap-northeast-1": 0.03426,
+        "ap-northeast-2": 0.03258,
+        "ap-south-1": 0.036,
+        "ap-southeast-1": 0.036,
+        "ap-southeast-2": 0.036,
+        "eu-central-1": 0.036,
+        "eu-west-1": 0.033,
+        "us-east-1": 0.03,
+        "us-east-2": 0.03,
+        "us-west-2": 0.03
+      },
+      "INT": {
+        "ap-northeast-1": 0.01,
+        "ap-northeast-2": 0.01,
+        "ap-south-1": 0.01,
+        "ap-southeast-1": 0.01,
+        "ap-southeast-2": 0.01,
+        "eu-central-1": 0.01,
+        "eu-west-1": 0.01,
+        "us-east-1": 0.01,
+        "us-east-2": 0.01,
+        "us-west-2": 0.01
+      },
+      "SIA": {
+        "ap-northeast-1": 0.01,
+        "ap-northeast-2": 0.01,
+        "ap-south-1": 0.01,
+        "ap-southeast-1": 0.01,
+        "ap-southeast-2": 0.01,
+        "eu-central-1": 0.01,
+        "eu-west-1": 0.01,
+        "us-east-1": 0.01,
+        "us-east-2": 0.01,
+        "us-west-2": 0.01
+      },
+      "ZIA": {
+        "ap-northeast-1": 0.01,
+        "ap-northeast-2": 0.01,
+        "ap-south-1": 0.01,
+        "ap-southeast-1": 0.01,
+        "ap-southeast-2": 0.01,
+        "eu-central-1": 0.01,
+        "eu-west-1": 0.01,
+        "us-east-1": 0.01,
+        "us-east-2": 0.01,
+        "us-west-2": 0.01
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}
