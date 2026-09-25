@@ -2,7 +2,7 @@ type: aws_transfer_server
 label: Transfer Family server
 category: Storage
 icon: transfer-family
-description: "An hourly fee for each protocol enabled (SFTP when protocols is unset) and a fee per GB uploaded and downloaded, the same for S3 and EFS storage. Clients connect from outside, so it is a front door: each upload or download is one file. AS2 messages, PGP decryption and SFTP connectors are not priced. Headroom is concurrent sessions per server."
+description: "An hourly fee for each protocol enabled (SFTP when protocols is unset) and a fee per GB uploaded and downloaded, the same for S3 and EFS storage. Clients connect from outside, so it is a front door: each upload or download is one file. AS2 messages, PGP decryption and SFTP connectors are not priced. The S3 bucket or EFS file system behind a user's home directory is not followed from aws_transfer_user, so add that edge by hand. Headroom is concurrent sessions per server."
 kinds: [upload, download]
 sla: aws.transfer_family
 attributes:
