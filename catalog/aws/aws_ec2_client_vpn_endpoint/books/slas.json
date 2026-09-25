@@ -1,0 +1,14 @@
+{
+  "aws.clientvpn": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/vpn/client-vpn-sla/",
+    "note": "Client VPN in each region",
+    "values": {
+      "*": {
+        "value": 0.999,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

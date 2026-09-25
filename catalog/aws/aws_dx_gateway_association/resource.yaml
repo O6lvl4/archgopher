@@ -1,0 +1,23 @@
+type: aws_dx_gateway_association
+label: Direct Connect gateway association
+category: Network
+icon: direct-connect
+description: "Associating a Direct Connect gateway with a transit gateway creates a transit gateway attachment: attachment-hours and data processed. Associating it with a virtual private gateway is free. Place it on the path from the data center: load that passes through carries kbPerUnit each and flows on."
+kinds: [traffic]
+sla: aws.transitgateway
+assumptions:
+  - { key: gateway, label: Associated gateway, type: choice, options: [transit_gateway, virtual_private_gateway], default: transit_gateway, hint: "What associated_gateway_id names; Terraform knows it only after apply" }
+  - { key: kbPerUnit, label: Data the data center sends per unit, type: number, unit: KB, optional: true, hint: "Per request or message passing through; data processing is charged on what enters the transit gateway from Direct Connect" }
+  - { key: gbPerMonth, label: Other data sent per month, type: number, unit: GB, default: 0, hint: "Traffic not drawn as load" }
+let:
+  - transit: 'gateway == "transit_gateway"'
+  - perUnit: 'kbPerUnit != nil ? kbPerUnit : 0.0'
+readings:
+  - fail: { when: 'transit && total.monthly > 0 && kbPerUnit == nil', message: "load passes through this association: set kbPerUnit, the data each unit sends" }
+  - cost: { when: transit, name: Attachment hours, quantity: 730, unit: hour, price: aws.transitgateway.dx_attachment_hour }
+  - cost: { when: transit, name: Data processed, quantity: 'gbPerMonth + total.monthly * perUnit / 1024 / 1024', unit: GB, price: aws.transitgateway.dx_data_processed }
+  - limit: { when: transit, name: Bandwidth per zone, demand: 'total.peak * perUnit * 8 / 1024 / 1024', unit: Gbps, quota: aws.transitgateway.dx_bandwidth_gbps }
+terraform:
+  # It names the Direct Connect gateway and the gateway it joins; nothing calls it.
+  mentioned: true
+  passive: true

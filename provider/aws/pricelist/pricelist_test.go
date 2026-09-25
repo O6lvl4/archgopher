@@ -68,3 +68,11 @@ func TestBundledListPrices(t *testing.T) {
 		t.Fatalf("without a bundle the price is unchanged, got %v", got)
 	}
 }
+
+func TestRegionInFilters(t *testing.T) {
+	spec := Spec{Filters: map[string]string{"fromRegionCode": "{region}", "usagetype": "x"}}
+	got := spec.filtersFor("ap-northeast-1")
+	if got["fromRegionCode"] != `ap-northeast-1` || got["usagetype"] != "x" || spec.Filters["fromRegionCode"] != "{region}" {
+		t.Fatalf("got %v, spec %v", got, spec.Filters)
+	}
+}

@@ -1,0 +1,20 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: one mirrored interface (ap-northeast-1)
+  region: ap-northeast-1
+  demand:
+    mirror:
+      monthly: 0
+      peak: 0
+  # 730 h × $0.018
+  costs:
+    Mirrored interface hours: 13.14
+- name: one mirrored interface (us-east-1)
+  region: us-east-1
+  demand:
+    mirror:
+      monthly: 0
+      peak: 0
+  # 730 h × $0.015
+  costs:
+    Mirrored interface hours: 10.95

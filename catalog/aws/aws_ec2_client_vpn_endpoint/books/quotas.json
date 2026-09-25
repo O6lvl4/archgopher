@@ -1,0 +1,26 @@
+{
+  "aws.clientvpn.concurrent_connections": {
+    "unit": "connections",
+    "source": "https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/limits.html",
+    "note": "Concurrent client connections per Client VPN endpoint, by the number of subnets associated (the row), IPv4 and IPv6 together; adjustable",
+    "rows": {
+      "1": {
+        "*": 7000
+      },
+      "2": {
+        "*": 36500
+      },
+      "3": {
+        "*": 66500
+      },
+      "4": {
+        "*": 96500
+      },
+      "5": {
+        "*": 126000
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

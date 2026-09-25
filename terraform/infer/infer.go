@@ -209,6 +209,9 @@ func (b *builder) node(r *eval.Resource) model.Node {
 			} else if f.Type == field.Flag && hasBlock(r.Attrs, f.TerraformPath()) {
 				// A boolean that points at a block reads whether the block is written.
 				n.Attributes[f.Key] = true
+			} else if c, ok := countBlocks(r.Attrs, f.TerraformPath()); ok && f.Type == field.Number {
+				// A number that points at a block reads how many are written.
+				n.Attributes[f.Key] = c
 			}
 		}
 		for _, f := range s.Assumptions() {
@@ -511,6 +514,30 @@ func hasBlock(m map[string]any, path string) bool {
 		return true
 	}
 	return false
+}
+
+// countBlocks counts the blocks "a.b" names, when they are written: a
+// firewall's subnet_mapping blocks are its endpoints.
+func countBlocks(m map[string]any, path string) (int, bool) {
+	parts := strings.Split(path, ".")
+	parent, last := m, parts[len(parts)-1]
+	if len(parts) > 1 {
+		p, ok := lookupBlock(m, strings.Join(parts[:len(parts)-1], "."))
+		if !ok {
+			return 0, false
+		}
+		parent = p
+	}
+	list, ok := parent[last].([]any)
+	if !ok || len(list) == 0 {
+		return 0, false
+	}
+	for _, v := range list {
+		if _, isBlock := v.(map[string]any); !isBlock {
+			return 0, false
+		}
+	}
+	return len(list), true
 }
 
 // lookupBlock walks "a.b" through blocks and returns the first instance.

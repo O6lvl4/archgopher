@@ -1,0 +1,66 @@
+{
+  "aws.clientvpn.association_hour": {
+    "unit": "hour",
+    "source": "https://aws.amazon.com/vpn/pricing/",
+    "note": "Per subnet associated with a Client VPN endpoint, per hour or partial hour",
+    "sync": {
+      "service": "AmazonVPC",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?ClientVPN-EndpointHours",
+        "operation": "ClientVPNEndpoints"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

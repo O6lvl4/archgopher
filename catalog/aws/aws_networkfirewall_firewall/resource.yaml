@@ -1,0 +1,28 @@
+type: aws_networkfirewall_firewall
+label: Network Firewall
+category: Security
+icon: network-firewall
+description: "Endpoint-hours, one endpoint in each Availability Zone it has a subnet in (or each zone it serves on a transit gateway), and data processed. Place it on the path: load that passes through carries kbPerUnit each and flows on. A NAT gateway behind the firewall has its hours and data processing waived up to the firewall's; that waiver is not read. Advanced inspection and secondary endpoints are billed on top and are not read."
+kinds: [traffic]
+sla: aws.networkfirewall
+attributes:
+  - { key: subnet_mapping, label: Subnets, type: number, optional: true, hint: "One endpoint per subnet_mapping block, one subnet per zone" }
+  - { key: availability_zone_mapping, label: Zones on a transit gateway, type: number, optional: true, hint: "One endpoint per availability_zone_mapping block when the firewall is attached to a transit gateway" }
+assumptions:
+  - { key: zones, label: Availability Zones, type: number, default: 2, hint: "Used when the zones are not known from Terraform" }
+  - { key: kbPerUnit, label: Data per unit, type: number, unit: KB, optional: true, hint: "Per request passing through, request and response together" }
+  - { key: gbPerMonth, label: Other data per month, type: number, unit: GB, default: 0, hint: "Traffic not drawn as load" }
+let:
+  - onTransitGateway: 'availability_zone_mapping != nil && availability_zone_mapping > 0'
+  - endpoints: 'subnet_mapping != nil && subnet_mapping > 0 ? subnet_mapping : (onTransitGateway ? availability_zone_mapping : zones)'
+  - perUnit: 'kbPerUnit != nil ? kbPerUnit : 0.0'
+readings:
+  - fail: { when: 'total.monthly > 0 && kbPerUnit == nil', message: "load passes through this firewall: set kbPerUnit, the data each unit carries" }
+  - cost: { name: Endpoint hours, quantity: endpoints * 730, unit: hour, price: aws.networkfirewall.endpoint_hour }
+  - cost: { name: Data processed, quantity: 'gbPerMonth + total.monthly * perUnit / 1024 / 1024', unit: GB, price: 'aws.networkfirewall.{onTransitGateway ? "tgw_data_processed" : "data_processed"}' }
+  - limit: { name: Bandwidth per zone, demand: 'total.peak * perUnit * 8 / 1024 / 1024', unit: Gbps, quota: aws.networkfirewall.zone_bandwidth_gbps }
+terraform:
+  # Route tables send traffic to the firewall's endpoints; nothing calls it.
+  # Draw the traffic through it by hand.
+  mentioned: true
+  passive: true

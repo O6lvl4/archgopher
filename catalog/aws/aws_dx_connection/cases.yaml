@@ -1,0 +1,68 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 1 Gbps at Equinix TY2, 100 million requests of 16 KB (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    bandwidth: 1Gbps
+    location: EqTY2
+  assumptions:
+    kbPerUnit: 16
+  demand:
+    traffic:
+      monthly: 1e+08
+      peak: 2000
+  # 730 h × $0.285 (Japan); 1e8 × 16 KB = 1525.87890625 GB × $0.041; 2000/s × 16 KB × 8 bit against 1 Gbps
+  costs:
+    Port hours (dedicated 1Gbps): 208.05
+    Data sent out to EqTY2: 62.56103515625
+  limits:
+    Port bandwidth: 0.244140625
+- name: 10 Gbps at Equinix DC2 with 1 TB of backups (us-east-1)
+  region: us-east-1
+  attributes:
+    bandwidth: 10Gbps
+    location: EqDC2
+  assumptions:
+    gbPerMonth: 1000
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # 730 h × $2.25; 1000 GB × $0.02
+  costs:
+    Port hours (dedicated 10Gbps): 1642.5
+    Data sent out to EqDC2: 20.0
+  limits:
+    Port bandwidth: 0
+- name: hosted 500 Mbps from a partner at Equinix TY2 (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    bandwidth: 500Mbps
+    location: EqTY2
+  assumptions:
+    connectionType: hosted
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # 730 h × $0.19
+  costs:
+    Port hours (hosted 500Mbps): 138.7
+    Data sent out to EqTY2: 0
+  limits:
+    Port bandwidth: 0
+- name: a Tokyo location is not priced in another region (us-east-1)
+  region: us-east-1
+  attributes:
+    bandwidth: 1Gbps
+    location: EqTY2
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # The port is not offered in us-east-1; data sent to a far location is priced from any region
+  costs:
+    Data sent out to EqTY2: 0
+  limits:
+    Port bandwidth: 0
+  error: not offered

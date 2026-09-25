@@ -1,0 +1,24 @@
+type: aws_ec2_transit_gateway_peering_attachment
+label: Transit Gateway peering
+category: Network
+icon: transit-gateway
+description: "Attachment-hours, and data sent to the peer region at the inter-region transfer price; peering carries no data processing charge. Place it on the path: load that passes through carries kbPerUnit each and flows on. The hourly charge is read on the side that requests the peering, as Infracost does; data the other side sends back is billed to that side."
+kinds: [traffic]
+sla: aws.transitgateway
+attributes:
+  - { key: peer_region, label: Peer region, type: string, hint: "Peering within one region sends no inter-region data" }
+assumptions:
+  - { key: kbPerUnit, label: Data this side sends per unit, type: number, unit: KB, optional: true, hint: "Per request or message passing through, what this region sends to the peer" }
+  - { key: gbPerMonth, label: Other data sent per month, type: number, unit: GB, default: 0, hint: "Traffic not drawn as load, such as replication or backups" }
+let:
+  - perUnit: 'kbPerUnit != nil ? kbPerUnit : 0.0'
+  - gb: 'gbPerMonth + total.monthly * perUnit / 1024 / 1024'
+readings:
+  - fail: { when: 'total.monthly > 0 && kbPerUnit == nil', message: "load passes through this peering: set kbPerUnit, the data each unit sends" }
+  - cost: { name: Attachment hours, quantity: 730, unit: hour, price: aws.transitgateway.peering_hour }
+  - cost: { when: peer_region != region, name: "Data sent to {peer_region}", quantity: gb, unit: GB, price: "aws.transitgateway.peering.transfer_out.{peer_region}" }
+  - limit: { name: Bandwidth per zone, demand: 'total.peak * perUnit * 8 / 1024 / 1024', unit: Gbps, quota: aws.transitgateway.peering_bandwidth_gbps }
+terraform:
+  # Route tables name the attachment; nothing calls it. Draw the traffic through it by hand.
+  mentioned: true
+  passive: true

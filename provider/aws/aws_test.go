@@ -15,6 +15,9 @@ var attrs = map[string]map[string]any{
 	"aws_dynamodb_table":      {"billing_mode": "PAY_PER_REQUEST"},
 	"aws_sfn_state_machine":   {"type": "STANDARD"},
 	"aws_ecs_task_definition": {"cpu": 256.0, "memory": 512.0},
+	// A Direct Connect location is priced in its home region only.
+	"aws_dx_connection":                          {"bandwidth": "1Gbps", "location": "EqTY2"},
+	"aws_ec2_transit_gateway_peering_attachment": {"peer_region": "us-east-1"},
 }
 
 var assume = map[string]map[string]any{
@@ -23,10 +26,16 @@ var assume = map[string]map[string]any{
 	// Operations whose edges give no size take the table's item size.
 	"aws_dynamodb_table": {"itemSizeKb": 1.0},
 	// Network nodes that load passes through need the data each unit carries.
-	"aws_ec2_transit_gateway_vpc_attachment": {"kbPerUnit": 4.0},
-	"aws_vpc_endpoint":                       {"kbPerUnit": 4.0},
-	"aws_vpn_connection":                     {"kbPerUnit": 4.0},
-	"aws_nat_gateway":                        {"kbPerUnit": 4.0},
+	"aws_ec2_transit_gateway_vpc_attachment":     {"kbPerUnit": 4.0},
+	"aws_vpc_endpoint":                           {"kbPerUnit": 4.0},
+	"aws_vpn_connection":                         {"kbPerUnit": 4.0},
+	"aws_nat_gateway":                            {"kbPerUnit": 4.0},
+	"aws_ec2_transit_gateway_peering_attachment": {"kbPerUnit": 4.0},
+	"aws_dx_connection":                          {"kbPerUnit": 4.0},
+	"aws_dx_gateway_association":                 {"kbPerUnit": 4.0},
+	"aws_networkfirewall_firewall":               {"kbPerUnit": 4.0},
+	"aws_ec2_client_vpn_endpoint":                {"clients": 10.0},
+	"aws_flow_log":                               {"gbPerMonth": 10.0},
 }
 
 // TestRegionalQuotas pins quotas that differ by region, read from each

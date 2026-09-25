@@ -1,0 +1,38 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: transit gateway with 200 GB from the data center (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    gbPerMonth: 200
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # 730 h × $0.07; 200 GB × $0.02
+  costs:
+    Attachment hours: 51.1
+    Data processed: 4.0
+  limits:
+    Bandwidth per zone: 0
+- name: 10 million requests of 4 KB through a transit gateway (us-east-1)
+  region: us-east-1
+  assumptions:
+    kbPerUnit: 4
+  demand:
+    traffic:
+      monthly: 1e+07
+      peak: 100
+  # 730 h × $0.05; 1e7 × 4 KB = 38.14697265625 GB × $0.02; 100/s × 4 KB × 8 bit
+  costs:
+    Attachment hours: 36.5
+    Data processed: 0.762939453125
+  limits:
+    Bandwidth per zone: 0.0030517578125
+- name: a virtual private gateway costs nothing (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    gateway: virtual_private_gateway
+  demand:
+    traffic:
+      monthly: 1e+07
+      peak: 100

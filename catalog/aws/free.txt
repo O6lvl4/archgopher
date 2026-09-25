@@ -440,3 +440,7 @@ time_static
 tls_locally_signed_cert
 tls_private_key
 tls_self_signed_cert
+# Infracost registers these outside FreeResources, as resources with no price
+# ("Free resource."). A subnet only places nodes: public IPv4 addresses are
+# billed per address, not per subnet.
+aws_subnet
