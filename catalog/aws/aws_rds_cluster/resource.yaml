@@ -2,29 +2,40 @@ type: aws_rds_cluster
 label: Aurora cluster
 category: Database
 icon: aurora
-description: "Storage, I/O on Aurora Standard, and ACU-hours when the cluster runs Aurora Serverless v2. Provisioned instances are aws_rds_cluster_instance nodes. Headroom is peak ACU against max capacity."
+description: "Storage, I/O on Aurora Standard, ACU-hours when the cluster runs Aurora Serverless v2, backup storage beyond the free allowance, Backtrack change records and snapshot exports. Provisioned instances are aws_rds_cluster_instance nodes. Headroom is peak ACU against max capacity."
 kinds: [query]
 sla: aws.aurora
 attributes:
+  - { key: engine, label: Engine, type: string, default: aurora-mysql, hint: "aurora-mysql or aurora-postgresql; mysql and postgres make a Multi-AZ DB cluster, which is not priced" }
   - { key: storage_type, label: Storage type, type: choice, options: ["", aurora, aurora-iopt1], default: "", hint: "aurora-iopt1 (I/O-Optimized) has no I/O charge" }
   - { key: min_capacity, label: Min ACU, type: number, optional: true, path: serverlessv2_scaling_configuration.min_capacity }
   - { key: max_capacity, label: Max ACU, type: number, optional: true, path: serverlessv2_scaling_configuration.max_capacity }
+  - { key: backtrack_window, label: Backtrack window, type: number, unit: s, default: 0, hint: "Aurora MySQL only" }
   - { key: manage_master_user_password, label: Master password in Secrets Manager, type: boolean, default: false, hint: "RDS creates and rotates a Secrets Manager secret, billed as one" }
 assumptions:
   - { key: averageAcu, label: Average ACU, type: number, optional: true, hint: "Serverless v2: billed capacity of all its db.serverless instances, averaged over the month" }
   - { key: peakAcu, label: Peak ACU, type: number, optional: true, hint: "Compared with max capacity" }
   - { key: storageGb, label: Storage, type: number, unit: GB }
   - { key: ioPerQuery, label: I/O per query, type: number, optional: true, hint: "Required for standard storage" }
+  - { key: backupGb, label: Backup storage beyond the free allowance, type: number, unit: GB, default: 0, hint: "Backups up to the cluster volume within the retention period are free" }
+  - { key: changeRecordsPerQuery, label: Change records per query, type: number, optional: true, hint: "Required with a backtrack window: log records one query writes, kept for the window" }
+  - { key: snapshotExportGb, label: Snapshot export, type: number, unit: GB, default: 0, hint: "Snapshot size exported to S3 a month" }
 let:
   - iopt: 'storage_type == "aurora-iopt1"'
   - serverless: max_capacity != nil
+  - windowHours: backtrack_window / 3600
 readings:
+  - fail: { when: '!(engine in ["aurora", "aurora-mysql", "aurora-postgresql"])', message: 'engine "{engine}" is a Multi-AZ DB cluster, which is not priced: only Aurora clusters are' }
   - fail: { when: serverless && averageAcu == nil, message: averageAcu is required for Aurora Serverless v2, continue: true }
   - fail: { when: 'serverless && averageAcu != nil && min_capacity != nil && (averageAcu ?? 0) < (min_capacity ?? 0)', message: "averageAcu {averageAcu} is below min_capacity {min_capacity}", continue: true }
   - capacity: { when: serverless && averageAcu != nil, name: Capacity, units: 'averageAcu ?? 0', unit: ACU-hour, price: 'aws.aurora.{iopt ? "iopt" : "serverless_v2"}.acu_hour' }
   - storage: { name: Storage, gb: storageGb, price: 'aws.aurora.{iopt ? "iopt.storage" : "storage"}' }
   - fail: { when: "!iopt && ioPerQuery == nil", message: ioPerQuery is required for standard storage, continue: true }
   - cost: { when: "!iopt && ioPerQuery != nil", name: I/O, quantity: "total.monthly * (ioPerQuery ?? 0)", unit: I/O request, price: aws.aurora.io }
+  - storage: { when: backupGb > 0, name: Backup storage, gb: backupGb, price: aws.aurora.backup }
+  - fail: { when: backtrack_window > 0 && changeRecordsPerQuery == nil, message: changeRecordsPerQuery is required with a backtrack window, continue: true }
+  - cost: { when: backtrack_window > 0 && changeRecordsPerQuery != nil, name: Backtrack, quantity: 'total.monthly * (changeRecordsPerQuery ?? 0) * windowHours', unit: change-record-hour, price: aws.aurora.backtrack }
+  - cost: { when: snapshotExportGb > 0, name: Snapshot export, quantity: snapshotExportGb, unit: GB, price: aws.aurora.snapshot_export }
   - cost: { when: manage_master_user_password, name: Master password secret, quantity: 1, unit: secret-month, price: aws.secretsmanager.secret }
   - limit: { when: serverless && peakAcu != nil, name: ACU, demand: "peakAcu ?? 0", unit: ACU, capacity: max_capacity }
 iam:

@@ -6,6 +6,7 @@ description: "Cluster storage, I/O on standard storage and backup storage beyond
 kinds: [query]
 sla: aws.docdb
 attributes:
+  - { key: engine_version, label: Engine version, type: string, optional: true, hint: "8.0 and later hold 256 TiB, earlier versions 128 TiB" }
   - { key: storage_type, label: Storage type, type: choice, options: ["", standard, iopt1], default: "", hint: "iopt1 (I/O-Optimized) has no I/O charge" }
 assumptions:
   - { key: storageGb, label: Storage, type: number, unit: GB }
@@ -18,7 +19,7 @@ readings:
   - fail: { when: "!iopt && ioPerQuery == nil", message: ioPerQuery is required for standard storage, continue: true }
   - cost: { when: "!iopt && ioPerQuery != nil", name: I/O, quantity: 'total.monthly * (ioPerQuery ?? 0)', unit: I/O request, price: aws.docdb.io }
   - storage: { when: backupGb > 0, name: Backup storage, gb: backupGb, price: aws.docdb.backup }
-  - limit: { name: Cluster storage, demand: storageGb, unit: GiB, quota: aws.docdb.cluster_storage }
+  - limit: { name: Cluster storage, demand: storageGb, unit: GiB, quota: 'aws.docdb.cluster_storage{(engine_version ?? "") startsWith "8" ? ".v8" : ""}' }
 terraform:
   # A cluster names its subnet group and keys; it calls nothing.
   passive: true

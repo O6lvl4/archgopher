@@ -30,3 +30,19 @@
   assumptions: { storageGb: 100 }
   demand: { query: { monthly: 1e+07, peak: 100 } }
   error: needs at least two nodes
+- name: Multi-AZ RA3 bills the nodes in both zones (ap-northeast-1)
+  region: ap-northeast-1
+  attributes: { node_type: ra3.xlplus, number_of_nodes: 2, multi_az: true }
+  assumptions: { storageGb: 1024 }
+  demand: { query: { monthly: 1e+07, peak: 100 } }
+  costs:
+    Nodes (ra3.xlplus, Multi-AZ): 3731.76
+    Managed storage: 26.7264
+  limits:
+    Storage: 1
+- name: Multi-AZ on DC2 (us-east-1)
+  region: us-east-1
+  attributes: { node_type: dc2.large, number_of_nodes: 2, multi_az: true }
+  assumptions: { storageGb: 100 }
+  demand: { query: { monthly: 1e+07, peak: 100 } }
+  error: Multi-AZ needs an RA3 or RG node type

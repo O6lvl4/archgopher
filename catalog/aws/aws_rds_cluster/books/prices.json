@@ -1,4 +1,133 @@
 {
+  "aws.aurora.backtrack": {
+    "unit": "change-record-hour",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/rds/aurora/pricing/",
+    "note": "Aurora MySQL Backtrack: change records kept for the backtrack window, per hour",
+    "sync": {
+      "service": "AmazonRDS",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Aurora:BacktrackUsage",
+        "operation": "CreateDBInstance:0016"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.014,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.014,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.013,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.013,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.013,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.014,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.013,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.aurora.backup": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/rds/aurora/pricing/",
+    "note": "Backup storage beyond the free allowance (the cluster volume, and snapshots within the retention period)",
+    "sync": {
+      "service": "AmazonRDS",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Aurora:BackupUsage",
+        "operation": "CreateDBInstance:0021"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.021,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.021,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.021,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.021,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
   "aws.aurora.io": {
     "unit": "I/O request",
     "per": 1000000,
@@ -251,6 +380,70 @@
         "value": 0.12,
         "verified": true,
         "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.aurora.snapshot_export": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/rds/aurora/pricing/",
+    "note": "Snapshot size exported to S3, per export",
+    "sync": {
+      "service": "AmazonRDS",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Aurora:SnapshotExportToS3",
+        "operation": "CreateDBInstance:0021"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.011,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.011,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.013,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.011,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.011,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },

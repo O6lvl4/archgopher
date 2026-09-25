@@ -2,12 +2,13 @@ type: aws_redshift_cluster
 label: Redshift cluster
 category: Database
 icon: redshift
-description: "Node-hours, managed storage (RA3 and RG), concurrency scaling beyond the free credits, Spectrum scans and backup storage beyond the free allowance in three tiers. Headroom is stored data against the storage of the nodes. On-demand prices."
+description: "Node-hours (twice the nodes on a Multi-AZ cluster), managed storage (RA3 and RG), concurrency scaling beyond the free credits, Spectrum scans and backup storage beyond the free allowance in three tiers. Headroom is stored data against the storage of the nodes. On-demand prices."
 kinds: [query]
 sla: aws.redshift
 attributes:
   - { key: node_type, label: Node type, type: string }
   - { key: number_of_nodes, label: Nodes, type: number, default: 1 }
+  - { key: multi_az, label: Multi-AZ, type: boolean, default: false, hint: "RA3 and RG only: the same nodes run in a second Availability Zone and are billed too" }
 assumptions:
   - { key: storageGb, label: Data stored, type: number, unit: GB, hint: "Billed as managed storage on RA3 and RG nodes, compared with the nodes' storage" }
   - { key: concurrencyScalingSeconds, label: Concurrency scaling, type: number, unit: s, default: 0, hint: "Seconds a month beyond the free credits (one hour a day per cluster); billed per node of the cluster" }
@@ -16,13 +17,15 @@ assumptions:
 let:
   - managed: 'node_type startsWith "ra3." || node_type startsWith "rg."'
   - single: number_of_nodes == 1
+  - azs: 'multi_az ? 2 : 1'
   - singleOk: 'node_type in ["dc2.large", "ra3.large", "ra3.xlplus", "rg.large"]'
   - tier1: min(backupGb, 51200)
   - tier2: min(max(backupGb - 51200, 0), 460800)
   - tier3: max(backupGb - 512000, 0)
 readings:
   - fail: { when: single && !singleOk, message: "{node_type} needs at least two nodes" }
-  - cost: { name: "Nodes ({node_type})", quantity: number_of_nodes * 730, unit: node-hour, price: "aws.redshift.node.{node_type}" }
+  - fail: { when: multi_az && !managed, message: "Multi-AZ needs an RA3 or RG node type" }
+  - cost: { name: "Nodes ({node_type}{multi_az ? \", Multi-AZ\" : \"\"})", quantity: number_of_nodes * azs * 730, unit: node-hour, price: "aws.redshift.node.{node_type}" }
   - storage: { when: managed, name: Managed storage, gb: storageGb, price: "aws.redshift.managed_storage.{node_type}" }
   - cost: { when: concurrencyScalingSeconds > 0, name: Concurrency scaling, quantity: concurrencyScalingSeconds * number_of_nodes, unit: node-second, price: "aws.redshift.concurrency_scaling.{node_type}" }
   - cost: { when: spectrumTb > 0, name: Spectrum, quantity: spectrumTb, unit: TB, price: aws.redshift.spectrum }

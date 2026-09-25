@@ -159,3 +159,68 @@
     Master password secret: 0.4
   limits:
     ACU: 8
+- name: backups, Backtrack and a snapshot export (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    backtrack_window: 86400
+  assumptions:
+    storageGb: 100
+    ioPerQuery: 1
+    backupGb: 200
+    changeRecordsPerQuery: 2
+    snapshotExportGb: 500
+  demand:
+    query:
+      monthly: 1e+06
+      peak: 40
+  costs:
+    Storage: 12
+    I/O: 0.24
+    Backup storage: 4.6
+    Backtrack: 0.672
+    Snapshot export: 6
+- name: backups, Backtrack and a snapshot export (us-east-1)
+  region: us-east-1
+  attributes:
+    backtrack_window: 86400
+  assumptions:
+    storageGb: 100
+    ioPerQuery: 1
+    backupGb: 200
+    changeRecordsPerQuery: 2
+    snapshotExportGb: 500
+  demand:
+    query:
+      monthly: 1e+06
+      peak: 40
+  costs:
+    Storage: 10
+    I/O: 0.2
+    Backup storage: 4.2
+    Backtrack: 0.576
+    Snapshot export: 5
+- name: a Backtrack window without changeRecordsPerQuery (us-east-1)
+  region: us-east-1
+  attributes:
+    backtrack_window: 3600
+    storage_type: aurora-iopt1
+  assumptions:
+    storageGb: 100
+  demand:
+    query:
+      monthly: 1e+06
+      peak: 40
+  costs:
+    Storage: 22.5
+  error: changeRecordsPerQuery is required with a backtrack window
+- name: a Multi-AZ DB cluster is not Aurora (us-east-1)
+  region: us-east-1
+  attributes:
+    engine: postgres
+  assumptions:
+    storageGb: 100
+  demand:
+    query:
+      monthly: 1e+06
+      peak: 40
+  error: is a Multi-AZ DB cluster

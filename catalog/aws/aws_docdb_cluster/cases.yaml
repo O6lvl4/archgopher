@@ -29,3 +29,12 @@
   limits:
     Cluster storage: 100
   error: ioPerQuery is required for standard storage
+- name: engine 8.0 holds 256 TiB (us-east-1)
+  region: us-east-1
+  attributes: { storage_type: iopt1, engine_version: 8.0.0 }
+  assumptions: { storageGb: 200000 }
+  demand: { query: { monthly: 1e+07, peak: 100 } }
+  costs:
+    Storage: 60000
+  limits:
+    Cluster storage: 200000
