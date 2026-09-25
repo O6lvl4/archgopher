@@ -27,11 +27,16 @@ var attrs = map[string]map[string]any{
 	"aws_elasticache_replication_group": {"engine": "valkey", "node_type": "cache.r7g.large", "num_node_groups": 2.0, "replicas_per_node_group": 1.0, "snapshot_retention_limit": 3.0},
 	"aws_redshift_cluster":              {"node_type": "ra3.xlplus", "number_of_nodes": 2.0},
 	"aws_dms_replication_instance":      {"replication_instance_class": "dms.t3.medium", "multi_az": true, "allocated_storage": 100.0},
+	// Required in Terraform, so they have no default.
+	"aws_lambda_provisioned_concurrency_config": {"provisioned_concurrent_executions": 5.0},
+	"aws_sns_topic_subscription":                {"protocol": "https"},
 }
 
 var assume = map[string]map[string]any{
 	"aws_rds_cluster":       {"ioPerQuery": 2.0, "peakAcu": 4.0, "averageAcu": 2.0},
 	"aws_sfn_state_machine": {"transitionsPerExecution": 5.0},
+	// Invocations routed to provisioned concurrency need their duration.
+	"aws_lambda_provisioned_concurrency_config": {"durationMs": 100.0},
 	// Operations whose edges give no size take the table's item size.
 	"aws_dynamodb_table": {"itemSizeKb": 1.0},
 	// Network nodes that load passes through need the data each unit carries.

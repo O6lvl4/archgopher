@@ -64,11 +64,16 @@ type Rules struct {
 // Link connects the node(s) referenced by From to the node(s) referenced by To.
 // When the link's own type is a node, it sits in between: From calls it, and
 // its references (To among them) are its own calls.
+// A To path of Self names the link resource itself, for a helper that is a
+// node on the path (an SNS subscription between its topic and endpoint).
 type Link struct {
 	Type string
 	From string
 	To   []string
 }
+
+// Self in Link.To stands for the link resource itself when it is a node.
+const Self = "self"
 
 // Hint is an edge an EdgeSource proposes. Kind "" means the target's default.
 type Hint struct {
@@ -325,7 +330,11 @@ func (b *builder) edges() []edgeKey {
 				continue
 			}
 			for _, p := range l.To {
-				for _, to := range b.targetsAt(r, p) {
+				tos := b.targetsAt(r, p)
+				if p == Self && b.isNode(r.Address) {
+					tos = []string{r.Address}
+				}
+				for _, to := range tos {
 					for _, from := range froms {
 						add(from, to, "")
 					}

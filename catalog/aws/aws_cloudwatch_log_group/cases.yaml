@@ -1,0 +1,47 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: standard, 14 days, with queries
+  region: ap-northeast-1
+  attributes:
+    retention_in_days: 14
+  assumptions:
+    gbPerQuery: 2
+  demand:
+    ingest:
+      monthly: 1e+07
+      peak: 200
+    query:
+      monthly: 1000
+      peak: 1
+  costs:
+    Log ingestion (Standard): 7.247924805
+    Log storage: 0.144933399
+    Logs Insights data scanned: 15.2
+  limits:
+    PutLogEvents rate: 200
+- name: infrequent access, never expires, fed outside the graph
+  region: us-east-1
+  attributes:
+    log_group_class: INFREQUENT_ACCESS
+  assumptions:
+    ingestGb: 100
+  costs:
+    Log ingestion (Infrequent Access): 25
+    Log storage (after 12 months, never expires): 36
+  limits:
+    PutLogEvents rate: 0
+- name: delivery class
+  region: us-east-1
+  attributes:
+    log_group_class: DELIVERY
+  assumptions:
+    kbPerUnit: 2
+    eventsPerCall: 10
+  demand:
+    ingest:
+      monthly: 1e+07
+      peak: 200
+  costs:
+    Log delivery to S3 or Firehose: 4.768371582
+  limits:
+    PutLogEvents rate: 20

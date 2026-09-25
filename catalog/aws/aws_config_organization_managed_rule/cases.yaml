@@ -1,0 +1,20 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: change-triggered in ten accounts
+  region: us-east-1
+  assumptions:
+    accounts: 10
+    resources: 100
+    changesPerResource: 2
+  costs:
+    Rule evaluations (first 100K): 2
+- name: daily periodic rule in three accounts, tiered per account
+  region: ap-northeast-1
+  attributes:
+    maximum_execution_frequency: TwentyFour_Hours
+  assumptions:
+    accounts: 3
+    resources: 5000
+  costs:
+    Rule evaluations (first 100K): 300
+    Rule evaluations (next 400K): 125

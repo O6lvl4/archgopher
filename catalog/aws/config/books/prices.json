@@ -1,0 +1,194 @@
+{
+  "aws.config.evaluations_tier1": {
+    "unit": "evaluation",
+    "source": "https://aws.amazon.com/config/pricing/",
+    "note": "Config rule evaluations, first 100,000 per month in the account and region",
+    "sync": {
+      "service": "AWSConfig",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-ConfigRuleEvaluations"
+      },
+      "tier": "0"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.config.evaluations_tier2": {
+    "unit": "evaluation",
+    "source": "https://aws.amazon.com/config/pricing/",
+    "note": "Config rule evaluations, next 400,000",
+    "sync": {
+      "service": "AWSConfig",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-ConfigRuleEvaluations"
+      },
+      "tier": "100000"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.0008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.0008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.0008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.0008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.0008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.0008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.config.evaluations_tier3": {
+    "unit": "evaluation",
+    "source": "https://aws.amazon.com/config/pricing/",
+    "note": "Config rule evaluations over 500,000",
+    "sync": {
+      "service": "AWSConfig",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-ConfigRuleEvaluations"
+      },
+      "tier": "500000"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.0005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.0005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.0005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.0005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.0005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.0005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

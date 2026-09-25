@@ -1,0 +1,23 @@
+type: aws_lambda_provisioned_concurrency_config
+label: Lambda provisioned concurrency
+category: Compute
+icon: lambda
+description: "Provisioned concurrency kept warm (executions × memory × hours enabled), plus requests and the lower provisioned duration price for the invocations it serves. Route those invocations here and leave only the overflow on the function, so they are not counted twice. Headroom is the provisioned executions."
+kinds: [invoke]
+sla: aws.lambda
+attributes:
+  - { key: provisioned_concurrent_executions, label: Provisioned executions, type: number }
+assumptions:
+  - { key: memoryMb, label: Function memory, type: number, unit: MB, hint: "The function's memory_size" }
+  - { key: architecture, label: Architecture, type: choice, options: [x86_64, arm64], default: x86_64, hint: "The function's architecture" }
+  - { key: hoursEnabled, label: Hours enabled per month, type: number, unit: hours, default: 730, hint: "Lower when a schedule turns provisioned concurrency off at night" }
+  - { key: durationMs, label: Duration per invocation, type: number, unit: ms, optional: true, hint: "Needed when invocations are routed here" }
+readings:
+  - cost: { name: 'Provisioned concurrency ({memoryMb} MB, {architecture})', quantity: 'provisioned_concurrent_executions * memoryMb / 1024 * hoursEnabled * 3600', unit: GB-second, price: 'aws.lambda.{architecture}.provisioned_concurrency' }
+  - fail: { when: total.monthly > 0 && durationMs == nil, message: durationMs is required when invocations are routed to provisioned concurrency }
+  - requests: { when: total.monthly > 0, name: Requests, price: aws.lambda.requests, count: total.monthly }
+  - compute: { when: total.monthly > 0, name: 'Duration (provisioned, {architecture})', price: 'aws.lambda.{architecture}.provisioned_gb_second', count: total.monthly, seconds: '(durationMs ?? 0) / 1000', memoryMb: memoryMb }
+  - concurrency: { when: total.monthly > 0, name: Provisioned concurrency used, unit: concurrent executions, quota: aws.lambda.concurrent_executions, peak: total.peak, seconds: '(durationMs ?? 0) / 1000', capacity: provisioned_concurrent_executions }
+terraform:
+  # It names the function it keeps warm; it does not call it.
+  passive: true

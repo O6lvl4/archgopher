@@ -1,0 +1,31 @@
+type: aws_cloudwatch_log_group
+label: CloudWatch log group
+category: Monitoring
+icon: cloudwatch
+description: "Ingestion by log class, storage for the retention period, and Logs Insights queries by GB scanned. The Delivery class bills vended delivery to S3 or Firehose and keeps nothing. Writers reach it through IAM (logs:PutLogEvents) or references; a Lambda function that counts its own logs should not also send them here. Headroom is the account's PutLogEvents rate."
+kinds: [ingest, query]
+sla: aws.cloudwatch
+attributes:
+  - { key: log_group_class, label: Log class, type: choice, options: [STANDARD, INFREQUENT_ACCESS, DELIVERY], default: STANDARD, hint: "Infrequent Access has a lower ingestion price; storage and queries cost the same" }
+  - { key: retention_in_days, label: Retention, type: number, unit: days, default: 0, hint: "0 means never expire; storage is then shown after 12 months" }
+assumptions:
+  - { key: kbPerUnit, label: Log per unit written, type: number, unit: KB, default: 1, hint: "KB of log data each unit of ingest load writes (one invocation, one request)" }
+  - { key: ingestGb, label: Other ingestion per month, type: number, unit: GB, default: 0, hint: "Log data from writers not drawn as edges (VPC flow logs, the ECS awslogs driver, AWS services)" }
+  - { key: eventsPerCall, label: Units per PutLogEvents call, type: number, default: 1, hint: "Writers batch events; one call carries up to 1 MB" }
+  - { key: gbPerQuery, label: GB scanned per query, type: number, unit: GB, default: 0, hint: "Logs Insights scans the log data in the query's time range" }
+  - { key: scannedGb, label: Other GB scanned per month, type: number, unit: GB, default: 0, hint: "Queries run from the console or dashboards" }
+let:
+  - delivery: 'log_group_class == "DELIVERY"'
+  - gb: 'demand.ingest.monthly * kbPerUnit / 1048576 + ingestGb'
+  - months: 'retention_in_days > 0 ? retention_in_days / 30.4 : 12'
+  - scanned: 'demand.query.monthly * gbPerQuery + scannedGb'
+readings:
+  - cost: { when: 'log_group_class == "STANDARD"', name: Log ingestion (Standard), quantity: gb, unit: GB, price: aws.logs.ingest }
+  - cost: { when: 'log_group_class == "INFREQUENT_ACCESS"', name: Log ingestion (Infrequent Access), quantity: gb, unit: GB, price: aws.logs.infrequent_access.ingest }
+  - cost: { when: delivery, name: Log delivery to S3 or Firehose, quantity: gb, unit: GB, price: aws.logs.delivery }
+  - cost: { when: '!delivery', name: 'Log storage{retention_in_days > 0 ? "" : " (after 12 months, never expires)"}', quantity: gb * months, unit: GB-month, price: aws.logs.storage }
+  - cost: { when: '!delivery && scanned > 0', name: Logs Insights data scanned, quantity: scanned, unit: GB, price: aws.logs.insights.scanned }
+  - rate: { name: PutLogEvents rate, unit: requests/second, quota: aws.logs.put_log_events_tps, peak: demand.ingest.peak / eventsPerCall }
+iam:
+  ingest: ["logs:PutLogEvents"]
+  query: ["logs:StartQuery"]

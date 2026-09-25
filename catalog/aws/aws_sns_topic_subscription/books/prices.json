@@ -1,0 +1,451 @@
+{
+  "aws.sns.delivery.email": {
+    "unit": "notification",
+    "per": 100000,
+    "source": "https://aws.amazon.com/sns/pricing/",
+    "note": "Email and Email-JSON deliveries after the first 1,000 per month",
+    "sync": {
+      "service": "AmazonSNS",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?DeliveryAttempts-SMTP"
+      },
+      "tier": "last"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.sns.delivery.firehose": {
+    "unit": "notification",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/sns/pricing/",
+    "note": "Deliveries to Amazon Data Firehose",
+    "sync": {
+      "service": "AmazonSNS",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?DeliveryAttempts-FIREHOSE"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.258,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.229,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.239,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.254,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.225,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.236,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.19,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.19,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.19,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.19,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.sns.delivery.http": {
+    "unit": "notification",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/sns/pricing/",
+    "note": "HTTP/HTTPS deliveries after the first 100,000 per month",
+    "sync": {
+      "service": "AmazonSNS",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?DeliveryAttempts-HTTP"
+      },
+      "tier": "last"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.sns.delivery.mobile_push": {
+    "unit": "notification",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/sns/pricing/",
+    "note": "Mobile push deliveries (every platform has this price)",
+    "sync": {
+      "service": "AmazonSNS",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?DeliveryAttempts-APNS"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.sns.fifo.delivery": {
+    "unit": "message",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/sns/pricing/",
+    "note": "FIFO topic deliveries to SQS",
+    "sync": {
+      "service": "AmazonSNS",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?F-DA-SQS"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.013,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.011,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.013,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.013,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.011,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.sns.fifo.delivery_payload": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/sns/pricing/",
+    "note": "FIFO topic delivery payload to SQS",
+    "sync": {
+      "service": "AmazonSNS",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?F-Egress-SQS"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0013,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0011,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.0013,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.0013,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.0011,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.sns.filtering.payload": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/sns/pricing/",
+    "note": "Payload-based message filtering, per GB of messages scanned (matched and filtered out are priced the same)",
+    "sync": {
+      "service": "AmazonSNS",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?PL-Filter-Matched",
+        "group": "SNS-Standard-Payload-MessageFiltering-Filter-Matched"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.13,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.09,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.09,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.09,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.09,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

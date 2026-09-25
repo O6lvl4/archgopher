@@ -1,0 +1,12 @@
+type: aws_cloudwatch_dashboard
+label: CloudWatch dashboard
+category: Monitoring
+icon: cloudwatch
+description: "A fixed monthly price per custom dashboard, the same in every region. The three free dashboards per account are ignored, as is every free tier. Load does not flow through a dashboard."
+kinds: [view]
+sla: aws.cloudwatch
+readings:
+  - cost: { name: Dashboard, quantity: 1, unit: dashboard-month, price: aws.cloudwatch.dashboard }
+terraform:
+  # The dashboard body names the metrics it shows; it calls nothing.
+  passive: true

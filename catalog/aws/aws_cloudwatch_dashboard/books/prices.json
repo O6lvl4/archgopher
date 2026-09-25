@@ -1,0 +1,21 @@
+{
+  "aws.cloudwatch.dashboard": {
+    "unit": "dashboard-month",
+    "source": "https://aws.amazon.com/cloudwatch/pricing/",
+    "note": "Custom dashboard, prorated by the hour",
+    "sync": {
+      "service": "AmazonCloudWatch",
+      "offerRegion": "aws-other",
+      "filters": {
+        "usagetype": "DashboardsUsageHour"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

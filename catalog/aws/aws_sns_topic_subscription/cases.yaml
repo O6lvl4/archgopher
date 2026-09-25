@@ -1,0 +1,61 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: https in 64 KB chunks, half filtered out
+  region: us-east-1
+  attributes:
+    protocol: https
+  assumptions:
+    messageKb: 70
+    matchShare: 0.5
+  demand:
+    deliver:
+      monthly: 2e+06
+      peak: 40
+  costs:
+    HTTP/S deliveries: 1.2
+- name: email
+  region: ap-northeast-1
+  attributes:
+    protocol: email
+  demand:
+    deliver:
+      monthly: 50000
+      peak: 1
+  costs:
+    Email deliveries: 1
+- name: sqs behind a fifo topic
+  region: ap-northeast-1
+  attributes:
+    protocol: sqs
+  assumptions:
+    fifoTopic: true
+    messageKb: 4
+  demand:
+    deliver:
+      monthly: 1e+06
+      peak: 10
+  costs:
+    FIFO deliveries: 0.013
+    FIFO delivery payload: 0.004959106
+- name: lambda is free, payload filtering is not
+  region: us-east-1
+  attributes:
+    protocol: lambda
+    filter_policy_scope: MessageBody
+  assumptions:
+    messageKb: 10
+  demand:
+    deliver:
+      monthly: 1e+06
+      peak: 10
+  costs:
+    Payload filtering: 0.858306885
+- name: sms is not read
+  region: us-east-1
+  attributes:
+    protocol: sms
+  demand:
+    deliver:
+      monthly: 1000
+      peak: 1
+  error: SMS deliveries are priced by destination country

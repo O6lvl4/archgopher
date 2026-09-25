@@ -1,0 +1,254 @@
+{
+  "aws.lambda.arm64.provisioned_concurrency": {
+    "unit": "GB-second",
+    "source": "https://aws.amazon.com/lambda/pricing/",
+    "note": "Provisioned concurrency kept warm, arm64",
+    "sync": {
+      "service": "AWSLambda",
+      "filters": {
+        "group": "AWS-Lambda-Provisioned-Concurrency-ARM"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0000043068,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0000041003,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0000035988,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.0000041593,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.0000041888,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0000040118,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.0000037168,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.0000033334,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.0000033334,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.0000033334,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.lambda.arm64.provisioned_gb_second": {
+    "unit": "GB-second",
+    "source": "https://aws.amazon.com/lambda/pricing/",
+    "note": "Duration of invocations served by provisioned concurrency, arm64",
+    "sync": {
+      "service": "AWSLambda",
+      "filters": {
+        "group": "AWS-Lambda-Duration-Provisioned-ARM"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0000100492,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0000095674,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0000083973,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.000009705,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.0000097738,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0000093609,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.0000086726,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.0000077778,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.0000077778,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.0000077778,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.lambda.x86_64.provisioned_concurrency": {
+    "unit": "GB-second",
+    "source": "https://aws.amazon.com/lambda/pricing/",
+    "note": "Provisioned concurrency kept warm, x86_64",
+    "sync": {
+      "service": "AWSLambda",
+      "filters": {
+        "group": "AWS-Lambda-Provisioned-Concurrency"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0000053835,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0000051254,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0000044985,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.0000051991,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.000005236,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0000050147,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.000004646,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.0000041667,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.0000041667,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.0000041667,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.lambda.x86_64.provisioned_gb_second": {
+    "unit": "GB-second",
+    "source": "https://aws.amazon.com/lambda/pricing/",
+    "note": "Duration of invocations served by provisioned concurrency, x86_64",
+    "sync": {
+      "service": "AWSLambda",
+      "filters": {
+        "group": "AWS-Lambda-Duration-Provisioned"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0000125615,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0000119592,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0000104966,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.0000121313,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.0000122173,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0000117011,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.0000108407,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.0000097222,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.0000097222,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.0000097222,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: change-triggered and every six hours, two accounts
+  region: us-east-1
+  attributes:
+    maximum_execution_frequency: Six_Hours
+    trigger_types: [ConfigurationItemChangeNotification, ScheduledNotification]
+  assumptions:
+    accounts: 2
+    resources: 100
+    changesPerResource: 5
+  costs:
+    Rule evaluations (first 100K): 25.333333333
+- name: scheduled without a frequency runs daily
+  region: ap-northeast-1
+  attributes:
+    trigger_types: [ScheduledNotification]
+  assumptions:
+    resources: 1
+  costs:
+    Rule evaluations (first 100K): 0.030416667

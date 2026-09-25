@@ -1,0 +1,14 @@
+{
+  "aws.cloudtrail": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/cloudtrail/sla/",
+    "note": "Per region",
+    "values": {
+      "*": {
+        "value": 0.999,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

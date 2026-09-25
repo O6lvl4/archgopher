@@ -1,0 +1,21 @@
+type: aws_config_configuration_recorder
+label: Config recorder
+category: Management
+icon: config
+description: "Configuration items recorded: one per change of a recorded resource with continuous recording, or one per changed resource per day with daily recording. Custom configuration items come from PutResourceConfig calls, which reach the recorder through IAM."
+kinds: [record]
+sla: aws.config
+attributes:
+  - { key: recording_frequency, label: Recording frequency, type: choice, options: [CONTINUOUS, DAILY], default: CONTINUOUS, path: recording_mode.recording_frequency }
+assumptions:
+  - { key: configItems, label: Configuration items per month, type: number, unit: items, hint: "Continuous: every recorded change. Daily: each resource that changed, once per day. The Config dashboard or billing shows ConfigurationItemRecorded" }
+let:
+  - daily: 'recording_frequency == "DAILY"'
+readings:
+  - cost: { name: 'Configuration items ({daily ? "daily" : "continuous"})', quantity: configItems, unit: configuration item, price: 'aws.config.items.{daily ? "daily" : "continuous"}' }
+  - cost: { when: demand.record.monthly > 0, name: Custom configuration items, quantity: demand.record.monthly, unit: configuration item, price: aws.config.items.custom }
+terraform:
+  # The recorder watches the account on AWS's side; its role is not a call.
+  passive: true
+iam:
+  record: ["config:PutResourceConfig"]
