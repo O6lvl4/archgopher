@@ -408,6 +408,14 @@ not zero.
 | `azurerm_linux_function_app` / `azurerm_windows_function_app` | Consumption executions and GB-seconds (other plans are priced on the plan) | Instances and timeout |
 | `azurerm_function_app_flex_consumption` | On-demand executions and GB-seconds, always-ready baseline | Instances per function group |
 | `azurerm_service_plan` | Instance-hours by SKU and OS, times workers | - |
+| `azurerm_function_app` | Legacy function app: Consumption executions and GB-seconds (other plans are priced on the plan) | Instances and timeout |
+| `azurerm_app_service_plan` | Legacy plan: instance-hours by SKU (Shared to Isolated v4) and OS, or Elastic Premium vCPU and memory hours | - |
+| `azurerm_app_service_environment` | Stamp fee and one instance of the pricing tier | - |
+| `azurerm_app_service_certificate_order` / `azurerm_app_service_certificate_binding` / `azurerm_app_service_custom_hostname_binding` | Certificate per year / IP-based SSL bindings per month | - |
+| `azurerm_static_web_app` / `azurerm_static_site` | Standard plan fee and bandwidth above 100 GB | Free plan bandwidth |
+| `azurerm_container_registry` | Registry units by SKU, geo-replicas, storage above the included amount, build vCPU time | Read and write request rates, storage |
+| `azurerm_logic_app_standard` | Workflow Standard vCPU and memory hours, connector calls | - |
+| `azurerm_logic_app_integration_account` / `azurerm_integration_service_environment` | Account fee by SKU / base and scale unit-hours | - |
 | `azurerm_container_app` | Consumption vCPU- and GiB-seconds, active and idle, requests | Replicas |
 | `azurerm_storage_account` | Hot tier storage, write and read operations by redundancy, transfer out to the internet | Account request rate (varies by region) |
 | `azurerm_cosmosdb_account` | Serverless request units or provisioned RU/s-hours, storage, per region | Provisioned RU/s |

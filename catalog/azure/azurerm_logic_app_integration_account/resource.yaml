@@ -1,0 +1,13 @@
+type: azurerm_logic_app_integration_account
+label: Integration account
+category: Integration
+icon: integration-account
+description: "The monthly fee of a Basic, Standard or Premium integration account (B2B partners, agreements, maps and schemas for Logic Apps). The Free tier costs nothing and has no SLA."
+kinds: [call]
+sla: azure.logicapps
+attributes:
+  - { key: sku_name, label: SKU, type: choice, options: [Free, Basic, Standard, Premium], default: Free }
+readings:
+  - cost: { when: 'sku_name != "Free"', name: "Integration account ({sku_name})", quantity: 1, unit: month, price: "azure.logicapps.integration_account.{sku_name}" }
+terraform:
+  ignoreRefs: [integration_service_environment_id]

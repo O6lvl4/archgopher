@@ -1,0 +1,22 @@
+type: azurerm_static_web_app
+label: Static Web App
+category: Edge
+icon: static-apps
+description: "Standard plan: the monthly fee per app and bandwidth above the 100 GB a month each app includes. The Free plan costs nothing and stops at 100 GB a month per subscription. Standard is billed from a few regions only (of the catalog's, East US 2, Japan East and West US 2). The Azure Front Door add-on is not read."
+kinds: [request]
+sla: azure.staticwebapps
+attributes:
+  - { key: sku_tier, label: Tier, type: choice, options: [Free, Standard], default: Free }
+  - { key: sku_size, label: Size, type: choice, options: [Free, Standard], default: Free, hint: "Equivalent to sku_tier; either set to Standard makes the app Standard" }
+assumptions:
+  - { key: responseKb, label: Response size, type: number, unit: KB, hint: "Average bytes served per request, after compression" }
+let:
+  - standard: 'sku_tier == "Standard" || sku_size == "Standard"'
+  - gb: total.monthly * responseKb / 1024 / 1024
+readings:
+  - cost: { when: standard, name: Standard plan, quantity: 1, unit: month, price: azure.staticwebapps.standard.app }
+  - cost: { when: standard, name: Bandwidth above 100 GB, quantity: 'max(gb - 100, 0)', unit: GB, price: azure.staticwebapps.standard.bandwidth }
+  - limit: { when: '!standard', name: Free bandwidth, demand: gb, unit: GB/month, quota: azure.staticwebapps.free.bandwidth_gb }
+terraform:
+  frontDoor: true
+  ignoreRefs: [identity]

@@ -1,0 +1,17 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Basic account
+  region: japaneast
+  attributes:
+    sku_name: Basic
+  costs:
+    Integration account (Basic): 300
+- name: Standard account
+  region: eastus
+  attributes:
+    sku_name: Standard
+  costs:
+    Integration account (Standard): 1000
+- name: Free account costs nothing
+  region: japaneast
+  costs: {}

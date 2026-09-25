@@ -1,0 +1,14 @@
+{
+  "azure.staticwebapps.free.bandwidth_gb": {
+    "unit": "GB/month",
+    "source": "https://learn.microsoft.com/azure/static-web-apps/quotas",
+    "note": "Free plan bandwidth per subscription per month; there is no overage on Free",
+    "values": {
+      "*": {
+        "value": 100,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

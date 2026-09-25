@@ -1,0 +1,65 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+# Standard in Japan East, 150 GB, 10 build hours:
+#   registry 730 / 24 days x 0.6666 = 20.27575; storage (150 - 100) x 0.1 = 5; build 36000 s x 0.0001 = 3.6
+#   reads 5 pulls/s x 2 x 60 = 600/min; writes 1 push/s x 2 x 60 = 120/min
+- name: Standard registry with builds
+  region: japaneast
+  attributes:
+    sku: Standard
+  assumptions:
+    storageGb: 150
+    buildVcpuHours: 10
+  demand:
+    pull:
+      monthly: 100000
+      peak: 5
+    push:
+      monthly: 1000
+      peak: 1
+  costs:
+    Registry (Standard): 20.27575
+    Storage above 100 GB: 5
+    Build vCPU: 3.6
+  limits:
+    Read requests: 600
+    Write requests: 120
+    Storage: 150
+# Premium in East US with two geo-replicas, 300 GB (under the 500 GB included):
+#   registry 730 / 24 x 1.6666 = 50.692416667; replicas 2 x 730 / 24 x 1.6666 = 101.384833333
+- name: Premium registry with two replicas
+  region: eastus
+  attributes:
+    sku: Premium
+    replicas: 2
+  assumptions:
+    storageGb: 300
+  demand:
+    pull:
+      monthly: 1000000
+      peak: 50
+  costs:
+    Registry (Premium): 50.692416667
+    Geo-replication: 101.384833333
+    Storage above 500 GB: 0
+    Build vCPU: 0
+  limits:
+    Read requests: 6000
+    Write requests: 0
+    Storage: 300
+- name: replicas on Basic are refused
+  region: japaneast
+  attributes:
+    sku: Basic
+    replicas: 1
+  assumptions:
+    storageGb: 5
+  costs:
+    Registry (Basic): 5.067416667
+    Storage above 10 GB: 0
+    Build vCPU: 0
+  limits:
+    Read requests: 0
+    Write requests: 0
+    Storage: 5
+  error: georeplications need the Premium SKU

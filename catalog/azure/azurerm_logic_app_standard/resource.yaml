@@ -1,0 +1,22 @@
+type: azurerm_logic_app_standard
+label: Logic App (Standard)
+category: Integration
+icon: logic-apps
+description: "Single-tenant Logic Apps on a Workflow Standard (WS1 to WS3) plan: vCPU and memory hours of the plan's instances, as Infracost prices them on the app (the plan node reads nothing for WS SKUs), plus managed standard and enterprise connector calls per run. Built-in actions are free. The storage account it needs is its own node."
+kinds: [invoke]
+sla: azure.logicapps
+assumptions:
+  - { key: sku, label: Plan SKU, type: choice, options: [WS1, WS2, WS3], default: WS1, hint: "The sku of the App Service plan in app_service_plan_id: WS1 1 vCPU and 3.5 GiB, WS2 2 and 7, WS3 4 and 14" }
+  - { key: instances, label: Plan instances, type: number, default: 1, hint: "Instances the plan runs on average; several apps on one plan share them, so count them on one app only" }
+  - { key: standardCallsPerRun, label: Standard connector calls per run, type: number, default: 0, hint: "Managed connectors such as Office 365, SharePoint, Blob Storage (managed)" }
+  - { key: enterpriseCallsPerRun, label: Enterprise connector calls per run, type: number, default: 0, hint: "Managed enterprise connectors such as SAP, IBM MQ" }
+let:
+  - vcpu: 'sku == "WS1" ? 1.0 : sku == "WS2" ? 2.0 : 4.0'
+readings:
+  - cost: { name: "Workflow vCPU ({sku})", quantity: 730 * instances * vcpu, unit: vCPU-hour, price: azure.logicapps.standard.vcpu_hour }
+  - cost: { name: "Workflow memory ({sku})", quantity: 730 * instances * vcpu * 3.5, unit: GiB-hour, price: azure.logicapps.standard.gib_hour }
+  - cost: { name: Standard connector calls, quantity: total.monthly * standardCallsPerRun, unit: call, price: azure.logicapps.standard_connector }
+  - cost: { name: Enterprise connector calls, quantity: total.monthly * enterpriseCallsPerRun, unit: call, price: azure.logicapps.enterprise_connector }
+terraform:
+  frontDoor: true
+  ignoreRefs: [identity, storage_account_access_key]

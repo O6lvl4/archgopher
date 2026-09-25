@@ -1,0 +1,29 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+# Standard in Japan East, 10M requests of 50 KB: 500,000,000 KB / 1024 / 1024 = 476.837158203 GB
+#   plan 9; bandwidth (476.837158203 - 100) x 0.2 = 75.367431641
+- name: Standard app over the included bandwidth
+  region: japaneast
+  attributes:
+    sku_tier: Standard
+    sku_size: Standard
+  assumptions:
+    responseKb: 50
+  demand:
+    request:
+      monthly: 10000000
+      peak: 50
+  costs:
+    Standard plan: 9
+    Bandwidth above 100 GB: 75.367431641
+# Free in West US 2, 1M requests of 40 KB = 38.146972656 GB against the 100 GB cap; no cost
+- name: Free app under the bandwidth cap
+  region: westus2
+  assumptions:
+    responseKb: 40
+  demand:
+    request:
+      monthly: 1000000
+      peak: 10
+  limits:
+    Free bandwidth: 38.146972656

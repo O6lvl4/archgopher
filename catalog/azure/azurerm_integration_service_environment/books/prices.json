@@ -1,0 +1,199 @@
+{
+  "azure.logicapps.ise.developer.base": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/logic/",
+    "note": "Integration service environment, Developer base unit",
+    "sync": {
+      "filters": {
+        "meterName": "Base Unit",
+        "productName": "Logic Apps Integration Service Environment - Developer",
+        "skuName": "Base"
+      },
+      "service": "Logic Apps",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1.243,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1.219,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1.027,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1.027,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 1.171,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1.243,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1.195,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1.123,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1.171,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1.027,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.logicapps.ise.premium.base": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/logic/",
+    "note": "Integration service environment, Premium base unit",
+    "sync": {
+      "filters": {
+        "meterName": "Base Unit",
+        "productName": "Logic Apps Integration Service Environment",
+        "skuName": "Base"
+      },
+      "service": "Logic Apps",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 7.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 7.41,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 6.64,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 6.64,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 7.21,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 7.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 7.31,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 7.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 7.21,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 6.64,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.logicapps.ise.premium.scale": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/logic/",
+    "note": "Integration service environment, Premium scale unit, per unit",
+    "sync": {
+      "filters": {
+        "productName": "Logic Apps Integration Service Environment",
+        "skuName": "Scale"
+      },
+      "service": "Logic Apps",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 3.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 3.7,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 3.32,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 3.32,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 3.61,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 3.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 3.65,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 3.51,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 3.61,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 3.32,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

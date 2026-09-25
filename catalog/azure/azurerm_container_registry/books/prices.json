@@ -1,0 +1,231 @@
+{
+  "azure.containerregistry.build": {
+    "unit": "vCPU-second",
+    "source": "https://azure.microsoft.com/pricing/details/container-registry/",
+    "note": "ACR Tasks build vCPU time, by SKU; the free first 6,000 seconds a month are ignored",
+    "sync": {
+      "filters": {
+        "meterName": "Task vCPU Duration",
+        "productName": "Container Registry",
+        "skuName": "{row}"
+      },
+      "service": "Container Registry",
+      "source": "azure",
+      "tier": "6000"
+    },
+    "rows": {
+      "Basic": {
+        "australiaeast": 0.0001,
+        "centralindia": 0.0001,
+        "eastus": 0.0001,
+        "eastus2": 0.0001,
+        "germanywestcentral": 0.0001,
+        "japaneast": 0.0001,
+        "koreacentral": 0.0001,
+        "northeurope": 0.0001,
+        "southeastasia": 0.0001,
+        "westus2": 0.0001
+      },
+      "Premium": {
+        "australiaeast": 0.0001,
+        "centralindia": 0.0001,
+        "eastus": 0.0001,
+        "eastus2": 0.0001,
+        "germanywestcentral": 0.0001,
+        "japaneast": 0.0001,
+        "koreacentral": 0.0001,
+        "northeurope": 0.0001,
+        "southeastasia": 0.0001,
+        "westus2": 0.0001
+      },
+      "Standard": {
+        "australiaeast": 0.0001,
+        "centralindia": 0.0001,
+        "eastus": 0.0001,
+        "eastus2": 0.0001,
+        "germanywestcentral": 0.0001,
+        "japaneast": 0.0001,
+        "koreacentral": 0.0001,
+        "northeurope": 0.0001,
+        "southeastasia": 0.0001,
+        "westus2": 0.0001
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.containerregistry.premium.replication": {
+    "unit": "day",
+    "source": "https://azure.microsoft.com/pricing/details/container-registry/",
+    "note": "Premium geo-replica, per replicated region per day",
+    "sync": {
+      "filters": {
+        "meterName": "Premium Registry Replication Unit",
+        "productName": "Container Registry",
+        "skuName": "Premium"
+      },
+      "service": "Container Registry",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1.6666,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1.6666,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1.6666,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1.6666,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 1.6666,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1.6666,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1.6666,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1.6666,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1.6666,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1.6666,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.containerregistry.registry": {
+    "unit": "day",
+    "source": "https://azure.microsoft.com/pricing/details/container-registry/",
+    "note": "Registry unit per day, by SKU; includes 10 GB (Basic), 100 GB (Standard) or 500 GB (Premium) of storage",
+    "sync": {
+      "filters": {
+        "meterName": "{row} Registry Unit",
+        "productName": "Container Registry",
+        "skuName": "{row}"
+      },
+      "service": "Container Registry",
+      "source": "azure"
+    },
+    "rows": {
+      "Basic": {
+        "australiaeast": 0.1666,
+        "centralindia": 0.1666,
+        "eastus": 0.1666,
+        "eastus2": 0.1666,
+        "germanywestcentral": 0.1666,
+        "japaneast": 0.1666,
+        "koreacentral": 0.1666,
+        "northeurope": 0.1666,
+        "southeastasia": 0.1666,
+        "westus2": 0.1666
+      },
+      "Premium": {
+        "australiaeast": 1.6666,
+        "centralindia": 1.6666,
+        "eastus": 1.6666,
+        "eastus2": 1.6666,
+        "germanywestcentral": 1.6666,
+        "japaneast": 1.6666,
+        "koreacentral": 1.6666,
+        "northeurope": 1.6666,
+        "southeastasia": 1.6666,
+        "westus2": 1.6666
+      },
+      "Standard": {
+        "australiaeast": 0.6666,
+        "centralindia": 0.6666,
+        "eastus": 0.6666,
+        "eastus2": 0.6666,
+        "germanywestcentral": 0.6666,
+        "japaneast": 0.6666,
+        "koreacentral": 0.6666,
+        "northeurope": 0.6666,
+        "southeastasia": 0.6666,
+        "westus2": 0.6666
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.containerregistry.storage": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/container-registry/",
+    "note": "Storage above what the registry unit includes, by SKU",
+    "sync": {
+      "filters": {
+        "meterName": "Data Stored",
+        "productName": "Container Registry",
+        "skuName": "{row}"
+      },
+      "service": "Container Registry",
+      "source": "azure"
+    },
+    "rows": {
+      "Basic": {
+        "australiaeast": 0.1,
+        "centralindia": 0.1,
+        "eastus": 0.1,
+        "eastus2": 0.1,
+        "germanywestcentral": 0.1,
+        "japaneast": 0.1,
+        "koreacentral": 0.1,
+        "northeurope": 0.1,
+        "southeastasia": 0.1,
+        "westus2": 0.1
+      },
+      "Premium": {
+        "australiaeast": 0.1,
+        "centralindia": 0.1,
+        "eastus": 0.1,
+        "eastus2": 0.1,
+        "germanywestcentral": 0.1,
+        "japaneast": 0.1,
+        "koreacentral": 0.1,
+        "northeurope": 0.1,
+        "southeastasia": 0.1,
+        "westus2": 0.1
+      },
+      "Standard": {
+        "australiaeast": 0.1,
+        "centralindia": 0.1,
+        "eastus": 0.1,
+        "eastus2": 0.1,
+        "germanywestcentral": 0.1,
+        "japaneast": 0.1,
+        "koreacentral": 0.1,
+        "northeurope": 0.1,
+        "southeastasia": 0.1,
+        "westus2": 0.1
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

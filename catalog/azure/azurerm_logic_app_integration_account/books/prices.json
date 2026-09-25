@@ -1,0 +1,56 @@
+{
+  "azure.logicapps.integration_account": {
+    "unit": "month",
+    "source": "https://azure.microsoft.com/pricing/details/logic/",
+    "note": "Integration account, per account per month, by SKU; Free costs nothing",
+    "sync": {
+      "filters": {
+        "meterName": "{row} Unit",
+        "productName": "Logic Apps Integration Account",
+        "skuName": "{row}"
+      },
+      "service": "Logic Apps",
+      "source": "azure"
+    },
+    "rows": {
+      "Basic": {
+        "australiaeast": 300,
+        "centralindia": 300,
+        "eastus": 300,
+        "eastus2": 300,
+        "germanywestcentral": 300,
+        "japaneast": 300,
+        "koreacentral": 300,
+        "northeurope": 300,
+        "southeastasia": 300,
+        "westus2": 300
+      },
+      "Premium": {
+        "australiaeast": 1000,
+        "centralindia": 1000,
+        "eastus": 1000,
+        "eastus2": 1000,
+        "germanywestcentral": 1000,
+        "japaneast": 1000,
+        "koreacentral": 1000,
+        "northeurope": 1000,
+        "southeastasia": 1000,
+        "westus2": 1000
+      },
+      "Standard": {
+        "australiaeast": 1000,
+        "centralindia": 1000,
+        "eastus": 1000,
+        "eastus2": 1000,
+        "germanywestcentral": 1000,
+        "japaneast": 1000,
+        "koreacentral": 1000,
+        "northeurope": 1000,
+        "southeastasia": 1000,
+        "westus2": 1000
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

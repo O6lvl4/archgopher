@@ -1,0 +1,264 @@
+{
+  "azure.logicapps.enterprise_connector": {
+    "unit": "call",
+    "source": "https://azure.microsoft.com/pricing/details/logic/",
+    "note": "Managed enterprise connector call from a Standard workflow",
+    "sync": {
+      "filters": {
+        "meterName": "Consumption Enterprise Connector Actions",
+        "productName": "Logic Apps"
+      },
+      "service": "Logic Apps",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.logicapps.standard.gib_hour": {
+    "unit": "GiB-hour",
+    "source": "https://azure.microsoft.com/pricing/details/logic/",
+    "note": "Workflow Standard (WS) plan memory, 3.5 GiB per vCPU",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Memory Duration",
+        "productName": "Logic Apps",
+        "skuName": "Standard"
+      },
+      "service": "Logic Apps",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.0146,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.0146,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.0143,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.0137,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.0141,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.0153,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.0146,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.014,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.0145,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.0137,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.logicapps.standard.vcpu_hour": {
+    "unit": "vCPU-hour",
+    "source": "https://azure.microsoft.com/pricing/details/logic/",
+    "note": "Workflow Standard (WS) plan vCPU, per vCPU of each instance: WS1 1, WS2 2, WS3 4",
+    "sync": {
+      "filters": {
+        "meterName": "Standard vCPU Duration",
+        "productName": "Logic Apps",
+        "skuName": "Standard"
+      },
+      "service": "Logic Apps",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.205,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.205,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.1997,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.192,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.1968,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.2136,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.2042,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.1962,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.2025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.192,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.logicapps.standard_connector": {
+    "unit": "call",
+    "source": "https://azure.microsoft.com/pricing/details/logic/",
+    "note": "Managed standard connector call from a Standard workflow",
+    "sync": {
+      "filters": {
+        "meterName": "Consumption Standard Connector Actions",
+        "productName": "Logic Apps"
+      },
+      "service": "Logic Apps",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.00013,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.00013,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.000125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.000125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.000125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.00013,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.000145,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.000125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.000125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.000125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

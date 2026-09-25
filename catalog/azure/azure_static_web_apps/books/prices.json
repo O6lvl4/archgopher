@@ -1,0 +1,135 @@
+{
+  "azure.staticwebapps.standard.app": {
+    "unit": "month",
+    "source": "https://azure.microsoft.com/pricing/details/app-service/static/",
+    "note": "Standard plan, per app per month; priced only in the regions Static Web Apps is billed from",
+    "sync": {
+      "filters": {
+        "meterName": "Standard App",
+        "productName": "Static Web Apps",
+        "skuName": "Standard"
+      },
+      "service": "Azure App Service",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 9,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 9,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 9,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.staticwebapps.standard.bandwidth": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/app-service/static/",
+    "note": "Standard plan bandwidth above the 100 GB a month each app includes",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Bandwidth Usage",
+        "productName": "Static Web Apps",
+        "skuName": "Standard"
+      },
+      "service": "Azure App Service",
+      "source": "azure",
+      "tier": "100"
+    },
+    "values": {
+      "australiaeast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

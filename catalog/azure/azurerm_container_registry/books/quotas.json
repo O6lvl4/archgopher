@@ -1,0 +1,110 @@
+{
+  "azure.containerregistry.basic.read_ops": {
+    "unit": "requests/minute",
+    "source": "https://learn.microsoft.com/azure/container-registry/container-registry-skus",
+    "note": "DataplaneRead requests per minute per registry (Basic): manifest and layer reads during pulls; best-effort, not backed by the SLA",
+    "values": {
+      "*": {
+        "value": 10000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.containerregistry.basic.storage_gb": {
+    "unit": "GB",
+    "source": "https://learn.microsoft.com/azure/container-registry/container-registry-skus",
+    "note": "Storage limit of one registry (Basic), in GiB",
+    "values": {
+      "*": {
+        "value": 40960,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.containerregistry.basic.write_ops": {
+    "unit": "requests/minute",
+    "source": "https://learn.microsoft.com/azure/container-registry/container-registry-skus",
+    "note": "DataplaneWrite requests per minute per registry (Basic): manifest and layer writes during pushes; best-effort, not backed by the SLA",
+    "values": {
+      "*": {
+        "value": 2000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.containerregistry.premium.read_ops": {
+    "unit": "requests/minute",
+    "source": "https://learn.microsoft.com/azure/container-registry/container-registry-skus",
+    "note": "DataplaneRead requests per minute per registry (Premium): manifest and layer reads during pulls; best-effort, not backed by the SLA",
+    "values": {
+      "*": {
+        "value": 20000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.containerregistry.premium.storage_gb": {
+    "unit": "GB",
+    "source": "https://learn.microsoft.com/azure/container-registry/container-registry-skus",
+    "note": "Storage limit of one registry (Premium), in GiB",
+    "values": {
+      "*": {
+        "value": 102400,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.containerregistry.premium.write_ops": {
+    "unit": "requests/minute",
+    "source": "https://learn.microsoft.com/azure/container-registry/container-registry-skus",
+    "note": "DataplaneWrite requests per minute per registry (Premium): manifest and layer writes during pushes; best-effort, not backed by the SLA",
+    "values": {
+      "*": {
+        "value": 4000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.containerregistry.standard.read_ops": {
+    "unit": "requests/minute",
+    "source": "https://learn.microsoft.com/azure/container-registry/container-registry-skus",
+    "note": "DataplaneRead requests per minute per registry (Standard): manifest and layer reads during pulls; best-effort, not backed by the SLA",
+    "values": {
+      "*": {
+        "value": 10000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.containerregistry.standard.storage_gb": {
+    "unit": "GB",
+    "source": "https://learn.microsoft.com/azure/container-registry/container-registry-skus",
+    "note": "Storage limit of one registry (Standard), in GiB",
+    "values": {
+      "*": {
+        "value": 40960,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.containerregistry.standard.write_ops": {
+    "unit": "requests/minute",
+    "source": "https://learn.microsoft.com/azure/container-registry/container-registry-skus",
+    "note": "DataplaneWrite requests per minute per registry (Standard): manifest and layer writes during pushes; best-effort, not backed by the SLA",
+    "values": {
+      "*": {
+        "value": 2000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

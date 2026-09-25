@@ -1,0 +1,24 @@
+type: azurerm_app_service_plan
+label: App Service plan (legacy)
+category: Compute
+icon: app-service-plan
+description: "The azurerm_app_service_plan resource (superseded by azurerm_service_plan). Instance-hours of the SKU for Shared (D1), Basic, Standard, Premium (v1 to v4, memory-optimized, Windows containers) and Isolated plans, and vCPU and memory hours for Elastic Premium (EP) plans, times sku.capacity. Linux prices apply when kind is Linux or reserved is true. Free (F1) and Consumption (Y1) plans cost nothing here, and Workflow Standard (WS) plans are priced on their azurerm_logic_app_standard node, as Infracost does. Dev/test pricing is not read."
+kinds: [host]
+sla: azure.appservice
+attributes:
+  - { key: size, label: SKU, type: choice, path: sku.size, default: S1, options: [F1, D1, B1, B2, B3, S1, S2, S3, P1, P2, P3, P4, P1v2, P2v2, P3v2, P0v3, P1v3, P2v3, P3v3, P1mv3, P2mv3, P3mv3, P4mv3, P5mv3, P0v4, P1v4, P2v4, P3v4, P1mv4, P2mv4, P3mv4, P4mv4, P5mv4, PC2, PC3, PC4, I1, I2, I3, I1v2, I2v2, I3v2, I4v2, I5v2, I6v2, I1mv2, I2mv2, I3mv2, I4mv2, I5mv2, I1v4, I2v4, I3v4, I4v4, I5v4, I6v4, I1mv4, I2mv4, I3mv4, I4mv4, I5mv4, EP1, EP2, EP3, Y1, WS1, WS2, WS3], hint: "Terraform requires sku.size; the default stands in only while it is unknown" }
+  - { key: capacity, label: Instances, type: number, path: sku.capacity, default: 1 }
+  - { key: kind, label: Kind, type: string, default: Windows, hint: "Windows, Linux, elastic, FunctionApp or xenon" }
+  - { key: reserved, label: Linux (reserved), type: boolean, default: false }
+let:
+  - os: 'lower(kind) == "linux" || reserved ? "linux" : "windows"'
+  - key: 'size == "D1" ? "Shared" : size matches "^[PI][1-9]v[23]$" ? replace(size, "v", " v") : size'
+  - elastic: 'size in ["EP1", "EP2", "EP3"]'
+  - billed: '!elastic && !(size in ["F1", "Y1", "WS1", "WS2", "WS3"])'
+  - vcpu: 'size == "EP1" ? 1.0 : size == "EP2" ? 2.0 : 4.0'
+readings:
+  - cost: { when: billed, name: Instance hours, quantity: 730 * capacity, unit: hour, price: "azure.appservice.plan.{os}.{key}" }
+  - cost: { when: elastic, name: vCPU hours, quantity: 730 * capacity * vcpu, unit: vCPU-hour, price: azure.functions.premium.vcpu_hour }
+  - cost: { when: elastic, name: Memory hours, quantity: 730 * capacity * vcpu * 3.5, unit: GiB-hour, price: azure.functions.premium.gib_hour }
+terraform:
+  ignoreRefs: [app_service_environment_id]
