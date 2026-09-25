@@ -1,0 +1,202 @@
+{
+  "gcp.lb.data_processed": {
+    "unit": "GB",
+    "source": "https://cloud.google.com/load-balancing/pricing",
+    "note": "Inbound and outbound data processed by passthrough and proxy Network Load Balancers and external Application Load Balancers, each direction at this price (per GiB). From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "6F81-5844-456A",
+      "filters": {
+        "description": "Network Load Balancing: Data Processing Charge.*"
+      }
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.012,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.012,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.01,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.009,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.011,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.008,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.01,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.009,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.01,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.008,
+        "verified": false
+      }
+    }
+  },
+  "gcp.lb.forwarding_rule.additional": {
+    "unit": "hour",
+    "source": "https://cloud.google.com/load-balancing/pricing",
+    "note": "Each forwarding rule after the first five of a project. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "6F81-5844-456A",
+      "region": "global",
+      "filters": {
+        "description": "Network Load Balancing: Forwarding Rule Additional.*"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.01,
+        "verified": false
+      }
+    }
+  },
+  "gcp.lb.forwarding_rule.first5": {
+    "unit": "hour",
+    "source": "https://cloud.google.com/load-balancing/pricing",
+    "note": "The first five forwarding rules of a project, regional and global counted separately, cost this much an hour together, one rule or five. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "6F81-5844-456A",
+      "region": "global",
+      "filters": {
+        "description": "Network Load Balancing: Forwarding Rule Minimum.*"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.025,
+        "verified": false
+      }
+    }
+  },
+  "gcp.lb.internal.data_processed": {
+    "unit": "GB",
+    "source": "https://cloud.google.com/load-balancing/pricing",
+    "note": "Internal Application Load Balancers: requests and responses processed (per GiB). From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "6F81-5844-456A",
+      "filters": {
+        "description": "Network Internal Load Balancing: Data Processing.*"
+      }
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.008,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.008,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.008,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.008,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.011,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.008,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.008,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.008,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.008,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.008,
+        "verified": false
+      }
+    }
+  },
+  "gcp.lb.internal.proxy_instance": {
+    "unit": "hour",
+    "source": "https://cloud.google.com/load-balancing/pricing",
+    "note": "Internal Application Load Balancers (regional and cross-region): each managed Envoy proxy instance, at least three per INTERNAL_MANAGED forwarding rule; one instance handles 18 MB/s or 1,400 requests a second. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "6F81-5844-456A",
+      "filters": {
+        "description": "Network Load Balancing: Forwarding Rule Minimum Service Charge.*Internal.*|Internal (HTTP|Application) Load Balancing.*Proxy.*"
+      }
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.025,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.025,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.025,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.025,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.034,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.025,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.025,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.025,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.025,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.025,
+        "verified": false
+      }
+    }
+  }
+}

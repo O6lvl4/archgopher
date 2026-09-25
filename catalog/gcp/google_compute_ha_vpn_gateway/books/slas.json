@@ -1,0 +1,14 @@
+{
+  "gcp.vpn.ha": {
+    "unit": "fraction",
+    "source": "https://cloud.google.com/network-connectivity/docs/vpn/sla",
+    "note": "HA VPN with a tunnel on each interface; 99.9% when used only over Cloud Interconnect for non-critical applications",
+    "values": {
+      "*": {
+        "value": 0.9999,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

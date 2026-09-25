@@ -1,0 +1,16 @@
+type: google_compute_external_vpn_gateway
+label: External VPN gateway
+category: Network
+icon: cloud-vpn
+description: "Declares a VPN device outside Google Cloud (on premises or another cloud) that HA VPN tunnels connect to. Reads the IPsec traffic Google Cloud sends to it, at the internet transfer-out price of the region the traffic leaves from. Draw the traffic to it through the HA VPN gateway: load that arrives carries kbPerUnit each."
+kinds: [traffic]
+assumptions:
+  - { key: kbPerUnit, label: Data sent per unit, type: number, unit: KB, optional: true, hint: "Per request or message, what Google Cloud sends to this device" }
+  - { key: gbPerMonth, label: Other data sent per month, type: number, unit: GB, default: 0, hint: "Traffic not drawn as load" }
+readings:
+  - fail: { when: 'total.monthly > 0 && kbPerUnit == nil', message: "load reaches this VPN peer: set kbPerUnit, the data each unit sends" }
+  - cost: { name: IPsec traffic sent, quantity: 'gbPerMonth + total.monthly * (kbPerUnit != nil ? kbPerUnit : 0.0) / 1024 / 1024', unit: GB, price: gcp.network.internet_out }
+terraform:
+  # Tunnels name the peer; nothing calls it. Draw the traffic to it by hand.
+  mentioned: true
+  passive: true

@@ -1,0 +1,14 @@
+{
+  "gcp.vpn.classic": {
+    "unit": "fraction",
+    "source": "https://cloud.google.com/network-connectivity/docs/vpn/sla",
+    "note": "Classic VPN",
+    "values": {
+      "*": {
+        "value": 0.999,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

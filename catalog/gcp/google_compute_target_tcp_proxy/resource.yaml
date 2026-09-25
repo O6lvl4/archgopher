@@ -1,0 +1,16 @@
+type: google_compute_target_tcp_proxy
+label: Target TCP proxy
+category: Network
+icon: cloud-load-balancing
+description: "The proxy of a global proxy Network Load Balancer (TCP). Reads the data the load balancer processes, inbound and outbound together, at the Network Load Balancer price of the region where it is processed. The forwarding rule in front of it reads the rule hours; transfer out to the internet is charged on top and is not read here."
+kinds: [request]
+assumptions:
+  - { key: kbPerUnit, label: Data per unit, type: number, unit: KB, optional: true, hint: "Per request or connection, both directions together" }
+  - { key: gbPerMonth, label: Other data per month, type: number, unit: GB, default: 0, hint: "Traffic not drawn as load" }
+let:
+  - perUnit: 'kbPerUnit != nil ? kbPerUnit : 0.0'
+readings:
+  - fail: { when: 'total.monthly > 0 && kbPerUnit == nil', message: "load passes through this proxy: set kbPerUnit, the data each unit carries" }
+  - cost: { name: Data processed, quantity: 'gbPerMonth + total.monthly * perUnit / 1024 / 1024', unit: GB, price: gcp.lb.data_processed }
+terraform:
+  ignoreRefs: [backend_service]

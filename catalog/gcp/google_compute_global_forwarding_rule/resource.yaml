@@ -1,0 +1,23 @@
+type: google_compute_global_forwarding_rule
+label: Global forwarding rule
+category: Network
+icon: cloud-load-balancing
+description: "The front of a global load balancer (classic or global external Application Load Balancer, global proxy Network Load Balancer). The rule is billed by the hour: the first five global rules of a project cost $0.025 an hour together and each one after $0.01. The target proxy it points to reads the data processed. An INTERNAL_MANAGED rule (cross-region internal Application Load Balancer) is billed by proxy instances instead: at least three, more when the traffic needs them."
+kinds: [request]
+sla: gcp.lb
+attributes:
+  - { key: load_balancing_scheme, label: Load balancing scheme, type: string, default: EXTERNAL, hint: "EXTERNAL (classic), EXTERNAL_MANAGED, INTERNAL_MANAGED or INTERNAL_SELF_MANAGED; empty: a Private Service Connect endpoint" }
+assumptions:
+  - { key: otherRules, label: Other global forwarding rules in the project, type: number, default: 0, hint: "0 reads this rule as the one that pays the $0.025 minimum for the first five; 1 to 4 read it as covered by that minimum; 5 or more read it at $0.01 an hour" }
+  - { key: kbPerUnit, label: Data per unit, type: number, unit: KB, default: 0, hint: "Per request, request and response together; sizes the proxy instances of an INTERNAL_MANAGED rule" }
+let:
+  - managedInternal: 'load_balancing_scheme == "INTERNAL_MANAGED"'
+  - avgRps: 'total.monthly / 2628000'
+  - proxies: 'max(3.0, ceilDiv(avgRps, 1400), ceilDiv(avgRps * kbPerUnit / 1024, 18))'
+readings:
+  - fail: { when: 'load_balancing_scheme == ""', message: "Private Service Connect endpoints are not priced yet" }
+  - cost: { when: '!managedInternal', name: Forwarding rule hours, quantity: 'otherRules >= 1 && otherRules < 5 ? 0.0 : 730', unit: hour, price: 'gcp.lb.forwarding_rule.{otherRules >= 5 ? "additional" : "first5"}' }
+  - cost: { when: managedInternal, name: Proxy instances, quantity: proxies * 730, unit: hour, price: gcp.lb.internal.proxy_instance }
+terraform:
+  frontDoor: true
+  ignoreRefs: [ip_address, network, subnetwork, service_directory_registrations]

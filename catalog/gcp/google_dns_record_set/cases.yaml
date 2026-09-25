@@ -1,0 +1,24 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 10 million lookups (asia-northeast1)
+  region: asia-northeast1
+  demand:
+    query:
+      monthly: 1e+07
+      peak: 10
+  # 10 × $0.40 per million
+  costs:
+    Queries: 4
+- name: weighted routing, 1 million drawn and 5 million other lookups (us-west1)
+  region: us-west1
+  attributes:
+    routing_policy: true
+  assumptions:
+    queriesPerMonth: 5e+06
+  demand:
+    query:
+      monthly: 1e+06
+      peak: 1
+  # 6 × $0.70 per million
+  costs:
+    Queries: 4.2

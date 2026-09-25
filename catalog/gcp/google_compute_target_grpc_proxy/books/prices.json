@@ -1,0 +1,21 @@
+{
+  "gcp.servicemesh.client_hour": {
+    "unit": "client-hour",
+    "source": "https://cloud.google.com/service-mesh/pricing",
+    "note": "Cloud Service Mesh standalone: each client (proxyless gRPC instance, Envoy-enabled pod or Cloud Run instance) an hour, about $0.50 a month. From the pricing page; sync verifies it against the Billing Catalog once credentials are set. The service id below is a placeholder: fill it in from GET /v1/services.",
+    "sync": {
+      "source": "gcp",
+      "service": "Cloud Service Mesh",
+      "region": "global",
+      "filters": {
+        "description": ".*Service Mesh.*[Cc]lient.*"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.0006945,
+        "verified": false
+      }
+    }
+  }
+}

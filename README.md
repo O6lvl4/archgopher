@@ -439,6 +439,15 @@ the resource it is scoped to, with the kinds the role grants. Each resource's
 | `google_pubsub_topic` | Throughput | Publish throughput per region (varies by region) |
 | `google_secret_manager_secret` | Active versions and access operations | Access requests per minute |
 | `google_api_gateway_gateway` | Calls | Quota units per second |
+| `google_compute_forwarding_rule` / `google_compute_global_forwarding_rule` | Rule-hours (the first five of a project share one minimum), data processed by passthrough rules, proxy instances for INTERNAL_MANAGED rules | - |
+| `google_compute_target_http_proxy` / `_https_proxy` / `google_compute_region_target_http_proxy` / `_https_proxy` | Data processed, at the external or internal Application Load Balancer price | - |
+| `google_compute_target_tcp_proxy` / `google_compute_target_ssl_proxy` | Data processed by the proxy Network Load Balancer | - |
+| `google_compute_target_grpc_proxy` | Cloud Service Mesh client-hours | - |
+| `google_compute_router_nat` | Public NAT uptime by VM instances (capped from 33), NAT IP-hours, data processed; Private NAT uptime and data | Source ports on manual NAT addresses |
+| `google_compute_vpn_tunnel` | Tunnel-hours | - |
+| `google_compute_vpn_gateway` / `google_compute_ha_vpn_gateway` / `google_compute_external_vpn_gateway` | IPsec traffic sent: internet transfer out to a device outside Google Cloud (read on the External VPN gateway for HA VPN), between-zones to a gateway in the same region | - |
+| `google_service_networking_connection` | Data crossing zones to a Google-managed service network | - |
+| `google_dns_managed_zone` / `google_dns_record_set` | Zone-months by the account's zone count / queries, with routing policies priced higher | - |
 | `gemini_model` | Gemini 2.5 input, cached and output tokens (placed by hand) | Tokens per minute |
 
 Google Cloud prices are read from the pricing pages until a credentialed

@@ -1,0 +1,30 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 1 million connections of 64 KB (asia-northeast1)
+  region: asia-northeast1
+  assumptions:
+    kbPerUnit: 64
+  demand:
+    request:
+      monthly: 1e+06
+      peak: 10
+  # 1e6 × 64 KB in GiB × $0.012
+  costs:
+    Data processed: 0.732421875
+- name: 100 GB outside the drawn load (us-east5)
+  region: us-east5
+  assumptions:
+    gbPerMonth: 100
+  demand:
+    request:
+      monthly: 0
+      peak: 0
+  costs:
+    Data processed: 1
+- name: load passes through without a size (asia-northeast1)
+  region: asia-northeast1
+  demand:
+    request:
+      monthly: 1000
+      peak: 1
+  error: "load passes through this proxy: set kbPerUnit, the data each unit carries"

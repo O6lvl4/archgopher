@@ -1,0 +1,14 @@
+{
+  "gcp.nat": {
+    "unit": "fraction",
+    "source": "https://cloud.google.com/nat/sla",
+    "note": "Cloud NAT, per project per region",
+    "values": {
+      "*": {
+        "value": 0.9999,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

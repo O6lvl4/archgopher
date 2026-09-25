@@ -17,7 +17,19 @@ var (
 		"google_sql_database_instance": {"tier": "db-custom-2-7680", "database_version": "POSTGRES_16"},
 	}
 	assume = map[string]map[string]any{
-		"google_sql_database_instance": {"queryMs": 20.0},
+		"google_sql_database_instance":             {"queryMs": 20.0},
+		"google_compute_forwarding_rule":           {"kbPerUnit": 4.0},
+		"google_compute_target_http_proxy":         {"kbPerUnit": 4.0},
+		"google_compute_target_https_proxy":        {"kbPerUnit": 4.0},
+		"google_compute_region_target_http_proxy":  {"kbPerUnit": 4.0},
+		"google_compute_region_target_https_proxy": {"kbPerUnit": 4.0},
+		"google_compute_target_ssl_proxy":          {"kbPerUnit": 4.0},
+		"google_compute_target_tcp_proxy":          {"kbPerUnit": 4.0},
+		"google_compute_router_nat":                {"kbPerUnit": 4.0},
+		"google_compute_vpn_gateway":               {"kbPerUnit": 4.0},
+		"google_compute_ha_vpn_gateway":            {"kbPerUnit": 4.0, "peer": "same-region"},
+		"google_compute_external_vpn_gateway":      {"kbPerUnit": 4.0},
+		"google_service_networking_connection":     {"kbPerUnit": 4.0},
 	}
 )
 

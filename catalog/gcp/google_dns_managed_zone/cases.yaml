@@ -1,0 +1,30 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: the first zone of the account (asia-northeast1)
+  region: asia-northeast1
+  demand:
+    query:
+      monthly: 0
+      peak: 0
+  costs:
+    Managed zone: 0.2
+- name: the 31st zone (us-east4)
+  region: us-east4
+  assumptions:
+    otherZones: 30
+  demand:
+    query:
+      monthly: 0
+      peak: 0
+  costs:
+    Managed zone: 0.1
+- name: past 10,000 zones (europe-west1)
+  region: europe-west1
+  assumptions:
+    otherZones: 20000
+  demand:
+    query:
+      monthly: 0
+      peak: 0
+  costs:
+    Managed zone: 0.03

@@ -1,0 +1,31 @@
+type: google_compute_forwarding_rule
+label: Forwarding rule
+category: Network
+icon: cloud-load-balancing
+description: "The front of a regional load balancer. The rule is billed by the hour: the first five of a project cost $0.025 an hour together and each one after $0.01. A passthrough Network Load Balancer or protocol forwarding (EXTERNAL or INTERNAL) also bills the data it processes in both directions here; behind EXTERNAL_MANAGED the proxy reads the data. An INTERNAL_MANAGED rule (internal Application Load Balancer) is billed by proxy instances instead: at least three, more when the traffic needs them. Rules that carry ESP or IKE traffic to a Classic VPN gateway are free."
+kinds: [request]
+sla: gcp.lb
+attributes:
+  - { key: load_balancing_scheme, label: Load balancing scheme, type: string, default: EXTERNAL, hint: "EXTERNAL or INTERNAL: passthrough; EXTERNAL_MANAGED or INTERNAL_MANAGED: in front of a proxy; empty: a Private Service Connect endpoint" }
+  - { key: ip_protocol, label: Protocol, type: string, default: TCP }
+  - { key: port_range, label: Port range, type: string, default: "", hint: "UDP 500 and 4500 with ESP are the IKE and IPsec rules of a Classic VPN gateway" }
+assumptions:
+  - { key: otherRules, label: Other regional forwarding rules in the project, type: number, default: 0, hint: "0 reads this rule as the one that pays the $0.025 minimum for the first five; 1 to 4 read it as covered by that minimum; 5 or more read it at $0.01 an hour" }
+  - { key: kbPerUnit, label: Data per unit, type: number, unit: KB, optional: true, hint: "Per request passing through, request and response together; needed when a passthrough rule carries load, and sizes the proxy instances of an INTERNAL_MANAGED rule" }
+  - { key: gbPerMonth, label: Other data per month, type: number, unit: GB, default: 0, hint: "Traffic not drawn as load" }
+let:
+  - vpn: 'ip_protocol == "ESP" || (ip_protocol == "UDP" && port_range in ["500", "4500", "500-500", "4500-4500"])'
+  - managedInternal: 'load_balancing_scheme == "INTERNAL_MANAGED"'
+  - passthrough: 'load_balancing_scheme in ["EXTERNAL", "INTERNAL"] && !vpn'
+  - perUnit: 'kbPerUnit != nil ? kbPerUnit : 0.0'
+  - avgRps: 'total.monthly / 2628000'
+  - proxies: 'max(3.0, ceilDiv(avgRps, 1400), ceilDiv(avgRps * perUnit / 1024, 18))'
+readings:
+  - fail: { when: 'load_balancing_scheme == ""', message: "Private Service Connect endpoints are not priced yet" }
+  - fail: { when: 'passthrough && total.monthly > 0 && kbPerUnit == nil', message: "load passes through this forwarding rule: set kbPerUnit, the data each unit carries" }
+  - cost: { when: '!vpn && !managedInternal', name: Forwarding rule hours, quantity: 'otherRules >= 1 && otherRules < 5 ? 0.0 : 730', unit: hour, price: 'gcp.lb.forwarding_rule.{otherRules >= 5 ? "additional" : "first5"}' }
+  - cost: { when: managedInternal, name: Proxy instances, quantity: proxies * 730, unit: hour, price: gcp.lb.internal.proxy_instance }
+  - cost: { when: passthrough, name: Data processed, quantity: 'gbPerMonth + total.monthly * perUnit / 1024 / 1024', unit: GB, price: gcp.lb.data_processed }
+terraform:
+  frontDoor: true
+  ignoreRefs: [ip_address, network, subnetwork, service_directory_registrations]

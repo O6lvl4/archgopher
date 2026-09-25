@@ -1,0 +1,34 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: to a data center, 10 million requests of 4 KB (asia-northeast1)
+  region: asia-northeast1
+  assumptions:
+    kbPerUnit: 4
+  demand:
+    traffic:
+      monthly: 1e+07
+      peak: 100
+  # 38.14697265625 GiB × $0.12 internet transfer out
+  costs:
+    IPsec traffic sent: 4.57763671875
+- name: to a Cloud VPN gateway in the same region, 100 GB (us-west1)
+  region: us-west1
+  assumptions:
+    peer: same-region
+    gbPerMonth: 100
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # 100 GiB × $0.01 between zones
+  costs:
+    IPsec traffic sent: 1
+- name: to another region (asia-northeast1)
+  region: asia-northeast1
+  assumptions:
+    peer: other-region
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  error: inter-region rates, which are not priced yet

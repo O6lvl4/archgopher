@@ -1,0 +1,35 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: global external Application Load Balancer (asia-northeast1)
+  region: asia-northeast1
+  attributes:
+    load_balancing_scheme: EXTERNAL_MANAGED
+  demand:
+    request:
+      monthly: 1e+07
+      peak: 100
+  # 730 h × $0.025; the target proxy reads the data
+  costs:
+    Forwarding rule hours: 18.25
+- name: cross-region internal Application Load Balancer at its minimum (australia-southeast1)
+  region: australia-southeast1
+  attributes:
+    load_balancing_scheme: INTERNAL_MANAGED
+  demand:
+    request:
+      monthly: 1e+06
+      peak: 10
+  # 3 proxy instances × 730 h × $0.034
+  costs:
+    Proxy instances: 74.46
+- name: sixth global rule of the project (us-east5)
+  region: us-east5
+  assumptions:
+    otherRules: 5
+  demand:
+    request:
+      monthly: 0
+      peak: 0
+  # 730 h × $0.01
+  costs:
+    Forwarding rule hours: 7.3

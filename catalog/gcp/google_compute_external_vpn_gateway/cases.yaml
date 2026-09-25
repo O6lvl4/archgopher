@@ -1,0 +1,31 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 1 TB a month to a data center (asia-northeast1)
+  region: asia-northeast1
+  assumptions:
+    gbPerMonth: 1000
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # 1,000 GiB × $0.12 internet transfer out
+  costs:
+    IPsec traffic sent: 120
+- name: 10 million requests of 4 KB (australia-southeast1)
+  region: australia-southeast1
+  assumptions:
+    kbPerUnit: 4
+  demand:
+    traffic:
+      monthly: 1e+07
+      peak: 100
+  # 38.14697265625 GiB × $0.19
+  costs:
+    IPsec traffic sent: 7.2479248046875
+- name: load arrives without a size (asia-northeast1)
+  region: asia-northeast1
+  demand:
+    traffic:
+      monthly: 1000
+      peak: 1
+  error: "load reaches this VPN peer: set kbPerUnit, the data each unit sends"

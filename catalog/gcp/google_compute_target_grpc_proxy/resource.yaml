@@ -1,0 +1,12 @@
+type: google_compute_target_grpc_proxy
+label: Target gRPC proxy
+category: Network
+icon: traffic-director
+description: "Routes proxyless gRPC clients through Cloud Service Mesh (Traffic Director); no load balancer processes the data. Billed per mesh client: each gRPC client instance an hour."
+kinds: [request]
+assumptions:
+  - { key: clients, label: Mesh clients, type: number, default: 1, hint: "Proxyless gRPC client instances using this proxy, averaged over the month; each replica counts" }
+readings:
+  - cost: { name: Mesh clients, quantity: clients * 730, unit: client-hour, price: gcp.servicemesh.client_hour }
+terraform:
+  ignoreRefs: [url_map]

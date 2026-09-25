@@ -1,0 +1,43 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: external, 10 million requests of 4 KB (asia-northeast1)
+  region: asia-northeast1
+  assumptions:
+    kbPerUnit: 4
+  demand:
+    request:
+      monthly: 1e+07
+      peak: 100
+  # 1e7 × 4 KB in GiB × the external price
+  costs:
+    Data processed: 0.457763671875
+- name: internal, 200 GB outside the drawn load (us-east4)
+  region: us-east4
+  assumptions:
+    loadBalancer: internal
+    gbPerMonth: 200
+  demand:
+    request:
+      monthly: 0
+      peak: 0
+  costs:
+    Data processed: 1.6
+- name: load passes through without a size (asia-northeast1)
+  region: asia-northeast1
+  demand:
+    request:
+      monthly: 1000
+      peak: 1
+  error: "load passes through this proxy: set kbPerUnit, the data each request carries"
+- name: internal, 10 million requests of 4 KB (asia-northeast1)
+  region: asia-northeast1
+  assumptions:
+    loadBalancer: internal
+    kbPerUnit: 4
+  demand:
+    request:
+      monthly: 1e+07
+      peak: 100
+  # 38.14697265625 GiB × $0.008 (internal Application Load Balancer)
+  costs:
+    Data processed: 0.30517578125
