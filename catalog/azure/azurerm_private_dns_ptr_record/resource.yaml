@@ -1,0 +1,13 @@
+type: azurerm_private_dns_ptr_record
+label: Private DNS PTR record
+category: Network
+icon: dns-zones
+description: "Queries answered from this record set of a private DNS zone. Clients and resolvers cache answers for the TTL, so the queries that reach Azure DNS are fewer than the lookups an application makes. Queries are billed per zone; they are read here, on the record set they ask for."
+kinds: [query]
+assumptions:
+  - { key: queriesPerMonth, label: Other queries per month, type: number, unit: queries, default: 0, hint: "Queries not drawn as load, such as lookups by virtual machines and on-premises clients" }
+readings:
+  - requests: { name: DNS queries, unit: query, price: azure.dns.private.queries, count: total.monthly + queriesPerMonth }
+terraform:
+  # A record set names its zone and its targets; it calls neither.
+  passive: true

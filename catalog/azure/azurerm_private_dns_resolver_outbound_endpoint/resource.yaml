@@ -1,0 +1,13 @@
+type: azurerm_private_dns_resolver_outbound_endpoint
+label: DNS resolver outbound endpoint
+category: Network
+icon: dns-private-resolver
+description: "The monthly endpoint fee. Forwarding rulesets send it the queries they forward to DNS servers outside Azure; headroom is the queries per second one endpoint serves."
+kinds: [query]
+sla: azure.dns.private_resolver
+readings:
+  - cost: { name: Outbound endpoint, quantity: 1, unit: month, price: azure.dns.private_resolver.outbound_endpoint }
+  - rate: { name: Queries, unit: queries/second, quota: azure.dns.private_resolver.endpoint_qps, peak: total.peak }
+terraform:
+  # It forwards to addresses outside the configuration and calls no node.
+  passive: true

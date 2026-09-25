@@ -1,0 +1,14 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: ruleset in Japan East forwarding queries
+  region: japaneast
+  demand:
+    query:
+      monthly: 30000000.0
+      peak: 100
+  costs:
+    Forwarding ruleset: 2.5
+- name: ruleset in Central India
+  region: centralindia
+  costs:
+    Forwarding ruleset: 2.5

@@ -1,0 +1,24 @@
+{
+  "azure.dns.private_resolver.forwarding_ruleset": {
+    "unit": "month",
+    "source": "https://azure.microsoft.com/pricing/details/dns/",
+    "note": "DNS Private Resolver forwarding ruleset, the same in every public region (billing Zone 1)",
+    "sync": {
+      "source": "azure",
+      "service": "Azure DNS",
+      "region": "Zone 1",
+      "filters": {
+        "productName": "Azure DNS",
+        "skuName": "Private Resolver",
+        "meterName": "Private Resolver DNS Forwarding Ruleset"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 2.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

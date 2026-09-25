@@ -1,0 +1,8 @@
+type: azurerm_private_dns_resolver_dns_forwarding_ruleset
+label: DNS forwarding ruleset
+category: Network
+icon: dns-private-resolver
+description: "The monthly ruleset fee. Queries from the virtual networks linked to it that match a rule pass on to its outbound endpoints."
+kinds: [query]
+readings:
+  - cost: { name: Forwarding ruleset, quantity: 1, unit: month, price: azure.dns.private_resolver.forwarding_ruleset }

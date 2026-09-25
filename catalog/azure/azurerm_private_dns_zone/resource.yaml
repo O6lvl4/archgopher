@@ -1,0 +1,15 @@
+type: azurerm_private_dns_zone
+label: Private DNS zone
+category: Network
+icon: dns-zones
+description: "The monthly zone fee (the first 25 zones in a subscription at the full rate, the rest at the lower one) and the queries drawn to the zone itself. Draw queries to the zone or to its record sets, not both: record sets read their own. Record sets beyond the 25,000 included per zone are not read (25,000 is also the default limit)."
+kinds: [query]
+assumptions:
+  - { key: beyondFirst25, label: Beyond the first 25 zones, type: boolean, default: false, hint: "The subscription already has 25 or more DNS zones, so this one is billed at the lower rate" }
+readings:
+  - cost: { name: Hosted zone, quantity: 1, unit: month, price: 'azure.dns.private.{beyondFirst25 ? "zone_beyond_25" : "zone"}' }
+  - requests: { when: total.monthly > 0, name: DNS queries, unit: query, price: azure.dns.private.queries, count: total.monthly }
+terraform:
+  # Private endpoints, clusters and servers name the zone to register in it; nothing calls it.
+  mentioned: true
+  passive: true

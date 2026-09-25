@@ -1,0 +1,17 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: one of the first 25 zones in Japan East, queries read on its record sets
+  region: japaneast
+  costs:
+    Hosted zone: 0.5
+- name: zone beyond the first 25 in West US 2 with queries drawn to the zone
+  region: westus2
+  assumptions:
+    beyondFirst25: true
+  demand:
+    query:
+      monthly: 10000000.0
+      peak: 5
+  costs:
+    DNS queries: 4
+    Hosted zone: 0.1
