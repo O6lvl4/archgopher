@@ -1,0 +1,14 @@
+{
+  "aws.networkfirewall": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/network-firewall/sla/",
+    "note": "Across the firewalls of an account in a region",
+    "values": {
+      "*": {
+        "value": 0.9999,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

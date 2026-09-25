@@ -244,9 +244,20 @@ func begin(d Dimension) float64 {
 	return v
 }
 
+// filtersFor puts the region being resolved in place of "{region}", for
+// offers that list prices in both directions (data transfer between regions
+// is listed in the offer of either end, so "from this region" needs the name).
+func (s Spec) filtersFor(region string) map[string]string {
+	out := make(map[string]string, len(s.Filters))
+	for k, v := range s.Filters {
+		out[k] = strings.ReplaceAll(v, "{region}", regexp.QuoteMeta(region))
+	}
+	return out
+}
+
 // Resolve finds exactly one price for a spec, or explains why it cannot.
 func (c *Client) Resolve(spec Spec, region string) (Match, error) {
-	filters := spec.Filters
+	filters := spec.filtersFor(region)
 	o, err := c.Offer(spec.Service, spec.For(region))
 	if err != nil {
 		return Match{}, err

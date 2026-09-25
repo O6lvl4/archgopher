@@ -1,0 +1,21 @@
+type: aws_ec2_client_vpn_endpoint
+label: Client VPN endpoint
+category: Network
+icon: client-vpn
+description: "Connection-hours: each client connected is billed by the hour. Each subnet the endpoint is associated with is billed on its own association node. Place it on the path from remote users: load that passes through flows on and counts the hop, at no charge of its own; data sent back out to the clients is billed as transfer out to the internet and is not read here."
+kinds: [traffic]
+sla: aws.clientvpn
+assumptions:
+  - { key: clients, label: Clients, type: number, hint: "People or devices that connect in a month" }
+  - { key: hoursPerClient, label: Hours connected per client, type: number, unit: hour, default: 160, hint: "A working month is about 160 hours; an always-on device is 730" }
+  - { key: peakConnections, label: Connections at the peak, type: number, optional: true, hint: "Clients connected at the same time; all of them when unset" }
+  - { key: subnetAssociations, label: Subnet associations, type: number, default: 1, hint: "The connection quota grows with the subnets associated, up to five" }
+let:
+  - associations: 'subnetAssociations < 1 ? 1.0 : (subnetAssociations > 5 ? 5.0 : ceil(subnetAssociations))'
+readings:
+  - cost: { name: Connection hours, quantity: clients * hoursPerClient, unit: hour, price: aws.clientvpn.connection_hour }
+  - limit: { name: Concurrent connections, demand: 'peakConnections != nil ? peakConnections : clients', unit: connections, quota: "aws.clientvpn.concurrent_connections.{associations}" }
+terraform:
+  # Remote users connect from outside Terraform; the endpoint names certificates,
+  # directories, log streams and its VPC, and calls none of them.
+  passive: true

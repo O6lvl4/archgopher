@@ -1,0 +1,258 @@
+{
+  "aws.flowlogs.cloudwatch": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/cloudwatch/pricing/",
+    "note": "Vended logs (VPC flow logs) ingested into CloudWatch Logs, Standard class, first 10 TB a month tier; storage is billed on the log group",
+    "sync": {
+      "service": "AmazonCloudWatch",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-VendedLog-Bytes",
+        "group": "Ingested Logs"
+      },
+      "tier": "0"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.76,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.76,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.67,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.7,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.67,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.63,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.57,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.flowlogs.firehose": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/cloudwatch/pricing/",
+    "note": "Vended logs (VPC flow logs) delivered to Amazon Data Firehose, first 10 TB a month tier; the stream bills its own ingestion",
+    "sync": {
+      "service": "AmazonCloudWatch",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-FH-Egress-Bytes"
+      },
+      "tier": "0"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.38,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.38,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.335,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.35,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.335,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.285,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.285,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.flowlogs.parquet": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/cloudwatch/pricing/",
+    "note": "Vended logs converted to Apache Parquet on delivery to S3",
+    "sync": {
+      "service": "AmazonCloudWatch",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-S3-Egress-InputBytes"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.056,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.046,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.058,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.049,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.047,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.047,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.034,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.035,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.flowlogs.s3": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/cloudwatch/pricing/",
+    "note": "Vended logs (VPC flow logs) delivered to S3, first 10 TB a month tier; storage is billed on the bucket",
+    "sync": {
+      "service": "AmazonCloudWatch",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-S3-Egress-Bytes"
+      },
+      "tier": "0"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.38,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.38,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.335,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.35,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.335,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.285,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.285,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

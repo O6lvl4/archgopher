@@ -1,0 +1,31 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 20 people on a working month (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    clients: 20
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # 20 × 160 h = 3,200 connection-hours × $0.05
+  costs:
+    Connection hours: 160.0
+  limits:
+    Concurrent connections: 20
+- name: 500 always-on devices, 8,000 at the peak over two subnets (us-east-1)
+  region: us-east-1
+  assumptions:
+    clients: 500
+    hoursPerClient: 730
+    peakConnections: 8000
+    subnetAssociations: 2
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # 500 × 730 h = 365,000 connection-hours × $0.05; 8,000 against 36,500 with two subnets
+  costs:
+    Connection hours: 18250.0
+  limits:
+    Concurrent connections: 8000

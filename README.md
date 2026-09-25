@@ -384,6 +384,14 @@ the demand and says the capacity is unknown.
 | `aws_ec2_transit_gateway_vpc_attachment` | Attachment-hours and data processed, billed to the attachment owner | Bandwidth per zone |
 | `aws_vpn_connection` | Connection-hours (standard or large tunnels), data sent out | Bandwidth per tunnel |
 | `aws_nat_gateway` | Gateway-hours and data processed | Bandwidth |
+| `aws_ec2_transit_gateway_peering_attachment` | Attachment-hours, data sent to the peer region at the inter-region price | Bandwidth per zone |
+| `aws_dx_connection` | Port-hours by capacity and location (dedicated or hosted), data sent out to the location | Port bandwidth |
+| `aws_dx_gateway_association` | Transit gateway attachment-hours and data processed; free with a virtual private gateway | Bandwidth per zone |
+| `aws_networkfirewall_firewall` | Endpoint-hours per zone, data processed (in a VPC or on a transit gateway) | Bandwidth per zone |
+| `aws_ec2_client_vpn_endpoint` / `aws_ec2_client_vpn_network_association` | Connection-hours / association-hours per subnet | Concurrent connections by subnets associated |
+| `aws_ec2_traffic_mirror_session` | Mirrored interface-hours | - |
+| `aws_flow_log` | Vended log delivery to CloudWatch Logs, S3 or Firehose, Parquet conversion | - |
+| `aws_waf_web_acl` | WAF Classic: web ACL-months, rule-months, requests, at us-east-1 prices | - |
 | `aws_cloudwatch_metric_alarm` | Alarm metric-months, standard or high resolution, anomaly detection | - |
 | `aws_bedrock_guardrail` | Text units per configured policy (content, topics, sensitive information, contextual grounding) | ApplyGuardrail and per-policy text units per second (varies by region) |
 | `bedrock_model` | Input, output, cache read and cache write tokens (Claude 4.5 models), global or regional inference | Tokens per minute (output × burndown, cache reads excluded) and requests per minute |
@@ -634,7 +642,9 @@ Expressions see every attribute and assumption by key (optional ones are nil
 when unset), `total.monthly` and `total.peak`, `demand.<kind>.monthly` and
 `.peak`, `region`, earlier `let` values, and `ceilDiv(a, b)`. `includes: [logs]` adds a
 facet's own assumption fields. A directory without `resource.yaml` holds rows
-several resources share, such as log prices.
+several resources share, such as log prices. An attribute's `path` walks
+nested blocks (`destination_options.file_format`); a number whose path names
+repeated blocks reads how many are written (a firewall's `subnet_mapping`).
 
 An attribute's `path` says where it sits in the resource block (`sku.name`
 reads the first `sku` block, `boot_disk.initialize_params.size` a nested one).
@@ -653,7 +663,9 @@ class) are a table: one entry with `rows` instead of `values`, one number per
 region, `null` where the row is not offered. Row `t3.micro` of
 `aws.ec2.linux` is priced as `aws.ec2.linux.t3.micro`, so a reading names it
 with `'aws.ec2.linux.{instance_type}'`. `{row}` in the sync filters stands for
-the row key, so one spec verifies every row.
+the row key, so one spec verifies every row. `{region}` stands for the region
+being verified, for offers that list a price from both ends (data sent between
+regions: `"fromRegionCode": "{region}"`).
 
 ```json
 "aws.ec2.linux": {

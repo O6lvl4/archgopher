@@ -1,0 +1,20 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: one subnet (ap-northeast-1)
+  region: ap-northeast-1
+  demand:
+    associate:
+      monthly: 0
+      peak: 0
+  # 730 h × $0.15
+  costs:
+    Association hours: 109.5
+- name: one subnet (us-east-1)
+  region: us-east-1
+  demand:
+    associate:
+      monthly: 0
+      peak: 0
+  # 730 h × $0.10
+  costs:
+    Association hours: 73.0

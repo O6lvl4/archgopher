@@ -1,0 +1,14 @@
+{
+  "aws.networkfirewall.zone_bandwidth_gbps": {
+    "unit": "Gbps",
+    "source": "https://docs.aws.amazon.com/network-firewall/latest/developerguide/quotas.html",
+    "note": "A firewall's endpoints in one Availability Zone; traffic over it is dropped. The peak is read as if it all went through one zone",
+    "values": {
+      "*": {
+        "value": 100,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

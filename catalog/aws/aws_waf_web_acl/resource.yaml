@@ -1,0 +1,19 @@
+type: aws_waf_web_acl
+label: WAF Classic web ACL
+category: Security
+icon: waf
+description: "AWS WAF Classic, which serves CloudFront and is billed at the us-east-1 price in every region: the web ACL by the month, each rule and rule group in it by the month, and inspected requests. Rules inside referenced rule groups are billed too. AWS Marketplace rule group fees are not read. AWS has retired WAF Classic in favour of AWS WAF (aws_wafv2_web_acl)."
+kinds: [request]
+sla: aws.waf
+attributes:
+  - { key: rules, label: Rules and rule groups, type: number, default: 0, hint: "The rules blocks in Terraform" }
+assumptions:
+  - { key: ruleGroupRules, label: Rules inside rule groups, type: number, default: 0, hint: "Rules in the rule groups the web ACL references" }
+readings:
+  - cost: { name: Web ACL, quantity: 1, unit: web-ACL-month, price: aws.waf.classic.web_acl }
+  - cost: { name: Rules, quantity: rules + ruleGroupRules, unit: rule-month, price: aws.waf.classic.rule }
+  - requests: { name: Inspected requests, price: aws.waf.classic.requests, count: total.monthly }
+terraform:
+  # A CloudFront distribution names the web ACL in web_acl_id: every viewer request passes through it.
+  # logging_configuration sends a record per request to its Firehose stream, so it stays an edge.
+  ignoreRefs: [rules, default_action]

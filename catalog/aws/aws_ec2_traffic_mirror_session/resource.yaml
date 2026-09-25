@@ -1,0 +1,11 @@
+type: aws_ec2_traffic_mirror_session
+label: Traffic mirror session
+category: Network
+icon: vpc
+description: "Session-hours: each network interface with a mirror session is billed by the hour. Mirrored packets are ordinary VPC traffic to the target, so crossing zones is billed on top and is not read here. Load does not flow through a session."
+kinds: [mirror]
+readings:
+  - cost: { name: Mirrored interface hours, quantity: 730, unit: hour, price: aws.trafficmirror.session_hour }
+terraform:
+  # It names the source interface, the target and the filter; it calls none of them.
+  passive: true

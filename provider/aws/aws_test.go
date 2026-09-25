@@ -30,6 +30,9 @@ var attrs = map[string]map[string]any{
 	// Required in Terraform, so they have no default.
 	"aws_lambda_provisioned_concurrency_config": {"provisioned_concurrent_executions": 5.0},
 	"aws_sns_topic_subscription":                {"protocol": "https"},
+	// A Direct Connect location is priced in its home region only.
+	"aws_dx_connection":                          {"bandwidth": "1Gbps", "location": "EqTY2"},
+	"aws_ec2_transit_gateway_peering_attachment": {"peer_region": "us-east-1"},
 }
 
 var assume = map[string]map[string]any{
@@ -45,15 +48,21 @@ var assume = map[string]map[string]any{
 	"aws_vpn_connection":                     {"kbPerUnit": 4.0},
 	"aws_nat_gateway":                        {"kbPerUnit": 4.0},
 	// Databases: every per-vCPU, backup and headroom line.
-	"aws_db_instance":                   {"vcpus": 2.0, "ioPerQuery": 1.0, "backupGb": 10.0, "cpuCreditVcpuHours": 5.0, "extendedSupport": "year1_2", "insightsApiCalls": 1000.0},
-	"aws_rds_cluster_instance":          {"vcpus": 2.0, "cpuCreditVcpuHours": 5.0, "extendedSupport": "year3"},
-	"aws_docdb_cluster":                 {"ioPerQuery": 2.0, "backupGb": 10.0},
-	"aws_neptune_cluster":               {"ioPerQuery": 2.0, "backupGb": 10.0},
-	"aws_docdb_cluster_instance":        {"cpuCreditVcpuHours": 5.0},
-	"aws_neptune_cluster_instance":      {"cpuCreditVcpuHours": 5.0},
-	"aws_elasticache_cluster":           {"snapshotGb": 1.0, "datasetGb": 0.2},
-	"aws_elasticache_replication_group": {"snapshotGb": 5.0, "datasetGb": 10.0},
-	"aws_redshift_cluster":              {"concurrencyScalingSeconds": 100.0, "spectrumTb": 1.0, "backupGb": 60000.0},
+	"aws_db_instance":                            {"vcpus": 2.0, "ioPerQuery": 1.0, "backupGb": 10.0, "cpuCreditVcpuHours": 5.0, "extendedSupport": "year1_2", "insightsApiCalls": 1000.0},
+	"aws_rds_cluster_instance":                   {"vcpus": 2.0, "cpuCreditVcpuHours": 5.0, "extendedSupport": "year3"},
+	"aws_docdb_cluster":                          {"ioPerQuery": 2.0, "backupGb": 10.0},
+	"aws_neptune_cluster":                        {"ioPerQuery": 2.0, "backupGb": 10.0},
+	"aws_docdb_cluster_instance":                 {"cpuCreditVcpuHours": 5.0},
+	"aws_neptune_cluster_instance":               {"cpuCreditVcpuHours": 5.0},
+	"aws_elasticache_cluster":                    {"snapshotGb": 1.0, "datasetGb": 0.2},
+	"aws_elasticache_replication_group":          {"snapshotGb": 5.0, "datasetGb": 10.0},
+	"aws_redshift_cluster":                       {"concurrencyScalingSeconds": 100.0, "spectrumTb": 1.0, "backupGb": 60000.0},
+	"aws_ec2_transit_gateway_peering_attachment": {"kbPerUnit": 4.0},
+	"aws_dx_connection":                          {"kbPerUnit": 4.0},
+	"aws_dx_gateway_association":                 {"kbPerUnit": 4.0},
+	"aws_networkfirewall_firewall":               {"kbPerUnit": 4.0},
+	"aws_ec2_client_vpn_endpoint":                {"clients": 10.0},
+	"aws_flow_log":                               {"gbPerMonth": 10.0},
 }
 
 // TestRegionalQuotas pins quotas that differ by region, read from each

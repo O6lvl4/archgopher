@@ -1,0 +1,194 @@
+{
+  "aws.networkfirewall.data_processed": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/network-firewall/pricing/",
+    "note": "Data processed by a firewall endpoint in a VPC",
+    "sync": {
+      "service": "AWSNetworkFirewall",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?Traffic-GB-Processed",
+        "productFamily": "AWS Firewall"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.networkfirewall.endpoint_hour": {
+    "unit": "hour",
+    "source": "https://aws.amazon.com/network-firewall/pricing/",
+    "note": "Per firewall endpoint (one per Availability Zone), per hour",
+    "sync": {
+      "service": "AWSNetworkFirewall",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?Endpoint-Hour",
+        "productFamily": "AWS Firewall"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.networkfirewall.tgw_data_processed": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/network-firewall/pricing/",
+    "note": "Data processed by a firewall attached to a transit gateway",
+    "sync": {
+      "service": "AWSNetworkFirewall",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?Traffic-Bytes-Processed-Transit-Gateway",
+        "productFamily": "AWS Firewall"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

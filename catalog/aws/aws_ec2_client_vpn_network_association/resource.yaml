@@ -1,0 +1,11 @@
+type: aws_ec2_client_vpn_network_association
+label: Client VPN association
+category: Network
+icon: client-vpn
+description: "Association-hours: every subnet a Client VPN endpoint is associated with is billed by the hour, whether or not clients connect. Load does not flow through an association; draw it through the endpoint."
+kinds: [associate]
+readings:
+  - cost: { name: Association hours, quantity: 730, unit: hour, price: aws.clientvpn.association_hour }
+terraform:
+  # It names the endpoint and the subnet it joins; it calls neither.
+  passive: true

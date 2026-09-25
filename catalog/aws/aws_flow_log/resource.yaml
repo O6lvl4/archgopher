@@ -1,0 +1,19 @@
+type: aws_flow_log
+label: VPC flow log
+category: Monitoring
+icon: vpc
+description: "Flow log records are vended logs: each GB is billed on delivery to CloudWatch Logs, S3 or Amazon Data Firehose, and on conversion to Parquet. Storage is billed where the records land (the log group or the bucket) and is not read here. Load does not flow through a flow log."
+kinds: [record]
+attributes:
+  - { key: log_destination_type, label: Destination, type: choice, options: [cloud-watch-logs, s3, kinesis-data-firehose], default: cloud-watch-logs }
+  - { key: file_format, label: File format, type: choice, options: [plain-text, parquet], default: plain-text, path: destination_options.file_format, hint: "S3 only" }
+assumptions:
+  - { key: gbPerMonth, label: Flow records per month, type: number, unit: GB, hint: "About 100 bytes per record in the default format; one record per flow per aggregation interval" }
+let:
+  - destination: 'log_destination_type == "s3" ? "s3" : (log_destination_type == "cloud-watch-logs" ? "cloudwatch" : "firehose")'
+readings:
+  - cost: { name: "Logs delivered ({log_destination_type})", quantity: gbPerMonth, unit: GB, price: "aws.flowlogs.{destination}" }
+  - cost: { when: 'destination == "s3" && file_format == "parquet"', name: Parquet conversion, quantity: gbPerMonth, unit: GB, price: aws.flowlogs.parquet }
+terraform:
+  # It names what it watches and where it writes; it calls none of them.
+  passive: true

@@ -1,0 +1,46 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: three subnets, 10 million requests of 4 KB (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    subnet_mapping: 3
+  assumptions:
+    kbPerUnit: 4
+  demand:
+    traffic:
+      monthly: 1e+07
+      peak: 100
+  # 3 × 730 h × $0.395; 1e7 × 4 KB = 38.14697265625 GB × $0.065; 100/s × 4 KB × 8 bit
+  costs:
+    Endpoint hours: 865.05
+    Data processed: 2.47955322265625
+  limits:
+    Bandwidth per zone: 0.0030517578125
+- name: on a transit gateway in two zones with 1 TB inspected (us-east-1)
+  region: us-east-1
+  attributes:
+    availability_zone_mapping: 2
+  assumptions:
+    gbPerMonth: 1000
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # 2 × 730 h × $0.395; 1000 GB × $0.065
+  costs:
+    Endpoint hours: 576.7
+    Data processed: 65.0
+  limits:
+    Bandwidth per zone: 0
+- name: zones unknown from Terraform, idle (ap-northeast-1)
+  region: ap-northeast-1
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # 2 × 730 h × $0.395
+  costs:
+    Endpoint hours: 576.7
+    Data processed: 0
+  limits:
+    Bandwidth per zone: 0

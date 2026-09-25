@@ -1,0 +1,14 @@
+{
+  "aws.dx.single_connection": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/directconnect/sla/",
+    "note": "A single connection; two locations with redundant connections are 99.9% (non-redundant) or 99.99% (redundant) with Enterprise Support",
+    "values": {
+      "*": {
+        "value": 0.95,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

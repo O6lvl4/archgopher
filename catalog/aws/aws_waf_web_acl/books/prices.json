@@ -1,0 +1,60 @@
+{
+  "aws.waf.classic.requests": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/waf/pricing/",
+    "note": "AWS WAF Classic is global and serves CloudFront, billed at the us-east-1 price everywhere; per request inspected",
+    "sync": {
+      "service": "awswaf",
+      "filters": {
+        "usagetype": "USE1-Request"
+      },
+      "offerRegion": "us-east-1"
+    },
+    "values": {
+      "*": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.waf.classic.rule": {
+    "unit": "rule-month",
+    "source": "https://aws.amazon.com/waf/pricing/",
+    "note": "AWS WAF Classic is global and serves CloudFront, billed at the us-east-1 price everywhere; per rule, and per rule group, in a web ACL",
+    "sync": {
+      "service": "awswaf",
+      "filters": {
+        "usagetype": "USE1-Rule"
+      },
+      "offerRegion": "us-east-1"
+    },
+    "values": {
+      "*": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.waf.classic.web_acl": {
+    "unit": "web-ACL-month",
+    "source": "https://aws.amazon.com/waf/pricing/",
+    "note": "AWS WAF Classic is global and serves CloudFront, billed at the us-east-1 price everywhere; per web ACL",
+    "sync": {
+      "service": "awswaf",
+      "filters": {
+        "usagetype": "USE1-WebACL"
+      },
+      "offerRegion": "us-east-1"
+    },
+    "values": {
+      "*": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

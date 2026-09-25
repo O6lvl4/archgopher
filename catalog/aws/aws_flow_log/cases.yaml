@@ -1,0 +1,41 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 50 GB to CloudWatch Logs (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    gbPerMonth: 50
+  demand:
+    record:
+      monthly: 0
+      peak: 0
+  # 50 GB × $0.76
+  costs:
+    Logs delivered (cloud-watch-logs): 38.0
+- name: 200 GB to S3 as Parquet (us-east-1)
+  region: us-east-1
+  attributes:
+    log_destination_type: s3
+    file_format: parquet
+  assumptions:
+    gbPerMonth: 200
+  demand:
+    record:
+      monthly: 0
+      peak: 0
+  # 200 GB × $0.25 delivered, 200 GB × $0.03 converted
+  costs:
+    Logs delivered (s3): 50.0
+    Parquet conversion: 6.0
+- name: 10 GB to Firehose (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    log_destination_type: kinesis-data-firehose
+  assumptions:
+    gbPerMonth: 10
+  demand:
+    record:
+      monthly: 0
+      peak: 0
+  # 10 GB × $0.38
+  costs:
+    Logs delivered (kinesis-data-firehose): 3.8
