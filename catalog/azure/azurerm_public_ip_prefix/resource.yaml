@@ -1,0 +1,23 @@
+type: azurerm_public_ip_prefix
+label: Public IP prefix
+category: Network
+icon: public-ip-prefix
+description: "A range of contiguous IPv4 addresses, billed per address per hour from the moment it is created, in the regional or global tier. Prefixes derived from your own range (BYOIP, a custom IP prefix) are free. IPv6 and StandardV2 prefixes are not priced yet (the price list has no meter for them)."
+kinds: [traffic]
+attributes:
+  - { key: sku, label: SKU, type: choice, options: [Standard, StandardV2], default: Standard }
+  - { key: prefix_length, label: Prefix length, type: number, default: 28, hint: "/28 holds 16 addresses, /31 two" }
+  - { key: sku_tier, label: Tier, type: choice, options: [Regional, Global], default: Regional }
+  - { key: ip_version, label: IP version, type: choice, options: [IPv4, IPv6], default: IPv4 }
+assumptions:
+  - { key: byoip, label: From your own range, type: boolean, default: false, hint: "Set when custom_ip_prefix_id names a custom IP prefix (BYOIP); Terraform knows the id only after apply" }
+let:
+  - addresses: '2.0 ** (32 - prefix_length)'
+readings:
+  - fail: { when: 'ip_version == "IPv6"', message: "IPv6 prefixes are not priced yet" }
+  - fail: { when: 'sku == "StandardV2"', message: "StandardV2 prefixes have no meter in the Azure price list yet" }
+  - cost: { when: '!byoip', name: 'IP prefix (/{prefix_length}, {lower(sku_tier)})', quantity: 730 * addresses, unit: IP-hour, price: 'azure.publicip.prefix.{sku_tier == "Global" ? "global" : "standard"}' }
+terraform:
+  # Addresses and NAT gateways name the prefix; it calls nothing.
+  passive: true
+  mentioned: true

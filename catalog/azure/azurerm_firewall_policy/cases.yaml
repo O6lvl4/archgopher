@@ -1,0 +1,14 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: policy of a single firewall is free (japaneast)
+  region: japaneast
+  costs:
+    Policy: 0
+- name: policy of three firewalls in two regions, with analytics (eastus)
+  region: eastus
+  attributes: { insights: true }
+  assumptions: { firewalls: 3, regions: 2 }
+  # 2 regions × $100; 730 × $0.34246
+  costs:
+    Policy: 200
+    Policy analytics: 249.9958

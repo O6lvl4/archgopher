@@ -1,0 +1,13 @@
+{
+  "azure.bastion": {
+    "unit": "fraction",
+    "source": "https://www.microsoft.com/licensing/docs/view/Service-Level-Agreements-SLA-for-Online-Services",
+    "note": "Azure Bastion. From the consolidated SLA document, not machine-checked",
+    "values": {
+      "*": {
+        "value": 0.9995,
+        "verified": false
+      }
+    }
+  }
+}

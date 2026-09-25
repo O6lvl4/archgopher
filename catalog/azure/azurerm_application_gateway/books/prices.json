@@ -1,0 +1,255 @@
+{
+  "azure.appgw.v1.data_processed": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/application-gateway/",
+    "note": "v1 data processed by size, beyond the free allowance (Medium: first 10 TB, Large: first 40 TB a month); request and response bytes both count",
+    "sync": {
+      "source": "azure",
+      "service": "Application Gateway",
+      "filters": {
+        "productName": "Basic Application Gateway",
+        "meterName": "(?i){row} Data Processed"
+      }
+    },
+    "rows": {
+      "large": {
+        "australiaeast": 0.0035,
+        "centralindia": 0.0035,
+        "eastus": 0.0035,
+        "eastus2": 0.0035,
+        "germanywestcentral": 0.0035,
+        "japaneast": 0.0035,
+        "koreacentral": 0.0035,
+        "northeurope": 0.0035,
+        "southeastasia": 0.0035,
+        "westus2": 0.0035
+      },
+      "medium": {
+        "australiaeast": 0.007,
+        "centralindia": 0.007,
+        "eastus": 0.007,
+        "eastus2": 0.007,
+        "germanywestcentral": 0.007,
+        "japaneast": 0.007,
+        "koreacentral": 0.007,
+        "northeurope": 0.007,
+        "southeastasia": 0.007,
+        "westus2": 0.007
+      },
+      "small": {
+        "australiaeast": 0.008,
+        "centralindia": 0.008,
+        "eastus": 0.008,
+        "eastus2": 0.008,
+        "germanywestcentral": 0.008,
+        "japaneast": 0.008,
+        "koreacentral": 0.008,
+        "northeurope": 0.008,
+        "southeastasia": 0.008,
+        "westus2": 0.008
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.appgw.v1.standard": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/application-gateway/",
+    "note": "v1 Standard gateway instance-hour by size (v1 was retired on 28 April 2026)",
+    "sync": {
+      "source": "azure",
+      "service": "Application Gateway",
+      "filters": {
+        "productName": "Basic Application Gateway",
+        "meterName": "(?i){row} Gateway"
+      }
+    },
+    "rows": {
+      "large": {
+        "australiaeast": 0.3584,
+        "centralindia": 0.3584,
+        "eastus": 0.32,
+        "eastus2": 0.32,
+        "germanywestcentral": 0.358,
+        "japaneast": 0.3456,
+        "koreacentral": 0.3456,
+        "northeurope": 0.3584,
+        "southeastasia": 0.3584,
+        "westus2": 0.32
+      },
+      "medium": {
+        "australiaeast": 0.0784,
+        "centralindia": 0.0784,
+        "eastus": 0.07,
+        "eastus2": 0.07,
+        "germanywestcentral": 0.0784,
+        "japaneast": 0.0756,
+        "koreacentral": 0.0756,
+        "northeurope": 0.0784,
+        "southeastasia": 0.0784,
+        "westus2": 0.07
+      },
+      "small": {
+        "australiaeast": 0.028,
+        "centralindia": 0.028,
+        "eastus": 0.025,
+        "eastus2": 0.025,
+        "germanywestcentral": 0.028,
+        "japaneast": 0.027,
+        "koreacentral": 0.027,
+        "northeurope": 0.028,
+        "southeastasia": 0.028,
+        "westus2": 0.025
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.appgw.v1.waf": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/application-gateway/",
+    "note": "v1 WAF gateway instance-hour by size",
+    "sync": {
+      "source": "azure",
+      "service": "Application Gateway",
+      "filters": {
+        "productName": "WAF Application Gateway",
+        "meterName": "(?i){row} Gateway"
+      }
+    },
+    "rows": {
+      "large": {
+        "australiaeast": 0.50176,
+        "centralindia": 0.50176,
+        "eastus": 0.448,
+        "eastus2": 0.448,
+        "germanywestcentral": 0.502,
+        "japaneast": 0.48384,
+        "koreacentral": 0.604,
+        "northeurope": 0.50176,
+        "southeastasia": 0.50176,
+        "westus2": 0.448
+      },
+      "medium": {
+        "australiaeast": 0.14112,
+        "centralindia": 0.14112,
+        "eastus": 0.126,
+        "eastus2": 0.126,
+        "germanywestcentral": 0.141,
+        "japaneast": 0.13608,
+        "koreacentral": 0.1701,
+        "northeurope": 0.14112,
+        "southeastasia": 0.14112,
+        "westus2": 0.126
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.appgw.v2.capacity_unit": {
+    "unit": "CU-hour",
+    "source": "https://azure.microsoft.com/pricing/details/application-gateway/",
+    "note": "v2 capacity unit-hour: the larger of reserved (10 per manual or minimum instance) and used capacity",
+    "sync": {
+      "source": "azure",
+      "service": "Application Gateway",
+      "filters": {
+        "productName": "(?i)Application Gateway {row} v2",
+        "meterName": "(?i)(Basic|Standard) Capacity Units"
+      }
+    },
+    "rows": {
+      "basic": {
+        "australiaeast": 0.008,
+        "centralindia": 0.008,
+        "eastus": 0.008,
+        "eastus2": 0.008,
+        "germanywestcentral": 0.008,
+        "japaneast": 0.008,
+        "koreacentral": 0.008,
+        "northeurope": 0.008,
+        "southeastasia": 0.008,
+        "westus2": 0.008
+      },
+      "standard": {
+        "australiaeast": 0.008,
+        "centralindia": 0.008,
+        "eastus": 0.008,
+        "eastus2": 0.008,
+        "germanywestcentral": 0.008,
+        "japaneast": 0.008,
+        "koreacentral": 0.008,
+        "northeurope": 0.008,
+        "southeastasia": 0.008,
+        "westus2": 0.008
+      },
+      "waf": {
+        "australiaeast": 0.0144,
+        "centralindia": 0.0144,
+        "eastus": 0.0144,
+        "eastus2": 0.0144,
+        "germanywestcentral": 0.0144,
+        "japaneast": 0.0144,
+        "koreacentral": 0.0144,
+        "northeurope": 0.0144,
+        "southeastasia": 0.0144,
+        "westus2": 0.0144
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.appgw.v2.fixed": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/application-gateway/",
+    "note": "v2 gateway fixed fee per hour, whatever the instances: Basic, Standard_v2 or WAF_v2",
+    "sync": {
+      "source": "azure",
+      "service": "Application Gateway",
+      "filters": {
+        "productName": "(?i)Application Gateway {row} v2",
+        "meterName": "(?i)(Basic|Standard) Fixed Cost"
+      }
+    },
+    "rows": {
+      "basic": {
+        "australiaeast": 0.0252,
+        "centralindia": 0.0239,
+        "eastus": 0.0225,
+        "eastus2": 0.0225,
+        "germanywestcentral": 0.027,
+        "japaneast": 0.0243,
+        "koreacentral": 0.0225,
+        "northeurope": 0.0252,
+        "southeastasia": 0.0252,
+        "westus2": 0.0225
+      },
+      "standard": {
+        "australiaeast": 0.29,
+        "centralindia": 0.28,
+        "eastus": 0.2,
+        "eastus2": 0.2,
+        "germanywestcentral": 0.2,
+        "japaneast": 0.29,
+        "koreacentral": 0.27,
+        "northeurope": 0.24,
+        "southeastasia": 0.26,
+        "westus2": 0.2
+      },
+      "waf": {
+        "australiaeast": 0.522,
+        "centralindia": 0.504,
+        "eastus": 0.36,
+        "eastus2": 0.36,
+        "germanywestcentral": 0.36,
+        "japaneast": 0.522,
+        "koreacentral": 0.486,
+        "northeurope": 0.432,
+        "southeastasia": 0.468,
+        "westus2": 0.36
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

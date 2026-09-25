@@ -1,0 +1,782 @@
+{
+  "azure.firewall.basic.data_processed": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/azure-firewall/",
+    "note": "Basic firewall in a virtual network, data processed",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Firewall",
+      "filters": {
+        "skuName": "Basic",
+        "meterName": "Basic Data Processed"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.firewall.basic.deployment": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/azure-firewall/",
+    "note": "Basic firewall in a virtual network, deployment-hour",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Firewall",
+      "filters": {
+        "skuName": "Basic",
+        "meterName": "Basic Deployment"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.firewall.basic_hub.data_processed": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/azure-firewall/",
+    "note": "Basic firewall in a secured virtual hub, data processed",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Firewall",
+      "filters": {
+        "skuName": "Basic Secured Virtual Hub",
+        "meterName": "Basic Secured Virtual Hub Data Processed"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.firewall.basic_hub.deployment": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/azure-firewall/",
+    "note": "Basic firewall in a secured virtual hub, deployment-hour",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Firewall",
+      "filters": {
+        "skuName": "Basic Secured Virtual Hub",
+        "meterName": "Basic Secured Virtual Hub Deployment"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.395,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.firewall.premium.data_processed": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/azure-firewall/",
+    "note": "Premium firewall in a virtual network, data processed",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Firewall",
+      "filters": {
+        "skuName": "Premium",
+        "meterName": "Premium Data Processed"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.firewall.premium.deployment": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/azure-firewall/",
+    "note": "Premium firewall in a virtual network, deployment-hour",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Firewall",
+      "filters": {
+        "skuName": "Premium",
+        "meterName": "Premium Deployment"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 1.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.firewall.premium_hub.data_processed": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/azure-firewall/",
+    "note": "Premium firewall in a secured virtual hub, data processed",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Firewall",
+      "filters": {
+        "skuName": "Premium Secured Virtual Hub",
+        "meterName": "Premium Secured Virtual Hub Data Processed"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.firewall.premium_hub.deployment": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/azure-firewall/",
+    "note": "Premium firewall in a secured virtual hub, deployment-hour",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Firewall",
+      "filters": {
+        "skuName": "Premium Secured Virtual Hub",
+        "meterName": "Premium Secured Virtual Hub Deployment"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 1.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.firewall.standard.data_processed": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/azure-firewall/",
+    "note": "Standard firewall in a virtual network, data processed",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Firewall",
+      "filters": {
+        "skuName": "Standard",
+        "meterName": "Standard Data Processed"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.firewall.standard.deployment": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/azure-firewall/",
+    "note": "Standard firewall in a virtual network, deployment-hour",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Firewall",
+      "filters": {
+        "skuName": "Standard",
+        "meterName": "Standard Deployment"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.firewall.standard_hub.data_processed": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/azure-firewall/",
+    "note": "Standard firewall in a secured virtual hub, data processed",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Firewall",
+      "filters": {
+        "skuName": "Standard Secure Virtual Hub",
+        "meterName": "Standard Secure Virtual Hub Data Processed"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.firewall.standard_hub.deployment": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/azure-firewall/",
+    "note": "Standard firewall in a secured virtual hub, deployment-hour",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Firewall",
+      "filters": {
+        "skuName": "Standard Secure Virtual Hub",
+        "meterName": "Standard Secure Virtual Hub Deployment"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

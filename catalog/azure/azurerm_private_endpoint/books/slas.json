@@ -1,0 +1,13 @@
+{
+  "azure.privatelink": {
+    "unit": "fraction",
+    "source": "https://www.microsoft.com/licensing/docs/view/Service-Level-Agreements-SLA-for-Online-Services",
+    "note": "Azure Private Link. From the consolidated SLA document, not machine-checked",
+    "values": {
+      "*": {
+        "value": 0.9999,
+        "verified": false
+      }
+    }
+  }
+}

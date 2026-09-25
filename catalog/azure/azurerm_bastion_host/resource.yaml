@@ -1,0 +1,28 @@
+type: azurerm_bastion_host
+label: Bastion
+category: Network
+icon: bastion
+description: "Host-hours by SKU with two instances included, each further instance (scale unit) on Standard and Premium, and data sent out through the host. The Developer SKU is free. Headroom is concurrent sessions against the instances: about 20 RDP or 40 SSH sessions each for medium workloads."
+kinds: [traffic]
+sla: azure.bastion
+attributes:
+  - { key: sku, label: SKU, type: choice, options: [Developer, Basic, Standard, Premium], default: Basic }
+  - { key: scale_units, label: Instances, type: number, default: 2, hint: "2 to 50 on Standard and Premium; Basic always runs 2" }
+assumptions:
+  - { key: gbOutPerMonth, label: Data out per month, type: number, unit: GB, default: 0, hint: "Screens and files sent from the VMs to the people connected" }
+  - { key: peakSessions, label: Peak sessions, type: number, default: 0, hint: "Concurrent RDP or SSH sessions at the busiest moment" }
+  - { key: protocol, label: Mostly, type: choice, options: [RDP, SSH], default: RDP }
+let:
+  - s: lower(sku)
+  - paid: 'sku != "Developer"'
+  - scaled: 'sku in ["Standard", "Premium"]'
+  - instances: 'scaled ? max(scale_units, 2.0) : 2.0'
+readings:
+  - cost: { when: paid, name: Host hours, quantity: 730, unit: hour, price: "azure.bastion.{s}.hour" }
+  - cost: { when: scaled, name: Additional instances, quantity: '730 * (instances - 2)', unit: hour, price: "azure.bastion.{s}.instance_hour" }
+  - cost: { when: paid, name: Data out, quantity: gbOutPerMonth, unit: GB, price: azure.bastion.data_out }
+  - limit: { when: paid, name: Concurrent sessions, demand: peakSessions, unit: sessions, capacity: 'instances * (protocol == "SSH" ? 40.0 : 20.0)' }
+terraform:
+  # People connect through it to VMs Terraform does not link to it; it names its subnet and address.
+  passive: true
+  mentioned: true

@@ -1,0 +1,266 @@
+{
+  "azure.publicip.basic.dynamic": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/ip-addresses/",
+    "note": "Basic dynamic IPv4 address",
+    "sync": {
+      "source": "azure",
+      "service": "Virtual Network",
+      "filters": {
+        "productName": "IP Addresses",
+        "skuName": "Basic",
+        "meterName": "Basic IPv4 Dynamic Public IP"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.004,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.004,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.004,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.004,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.004,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.004,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.004,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.004,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.004,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.004,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.publicip.basic.static": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/ip-addresses/",
+    "note": "Basic static IPv4 address (Basic was retired on 30 September 2025)",
+    "sync": {
+      "source": "azure",
+      "service": "Virtual Network",
+      "filters": {
+        "productName": "IP Addresses",
+        "skuName": "Basic",
+        "meterName": "Basic IPv4 Static Public IP"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.0036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.0036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.0036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.0036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.0036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.0036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.0036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.0036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.0036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.0036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.publicip.global.static": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/ip-addresses/",
+    "note": "Standard static IPv4 address, global tier (cross-region load balancer frontends)",
+    "sync": {
+      "source": "azure",
+      "service": "Virtual Network",
+      "filters": {
+        "productName": "IP Addresses",
+        "skuName": "Global",
+        "meterName": "Global IPv4 Static Public IP"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.publicip.standard.static": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/ip-addresses/",
+    "note": "Standard static IPv4 address, regional tier, attached or idle",
+    "sync": {
+      "source": "azure",
+      "service": "Virtual Network",
+      "filters": {
+        "productName": "IP Addresses",
+        "skuName": "Standard",
+        "meterName": "Standard IPv4 Static Public IP"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

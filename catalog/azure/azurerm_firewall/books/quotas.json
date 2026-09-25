@@ -1,0 +1,38 @@
+{
+  "azure.firewall.basic.throughput_gbps": {
+    "unit": "Gbps",
+    "source": "https://learn.microsoft.com/azure/firewall/firewall-performance",
+    "note": "Basic: 250 Mbps",
+    "values": {
+      "*": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.firewall.premium.throughput_gbps": {
+    "unit": "Gbps",
+    "source": "https://learn.microsoft.com/azure/firewall/firewall-performance",
+    "note": "Premium: 100 Gbps, up to 22 Gbps with IDPS in Deny mode",
+    "values": {
+      "*": {
+        "value": 100,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.firewall.standard.throughput_gbps": {
+    "unit": "Gbps",
+    "source": "https://learn.microsoft.com/azure/firewall/firewall-performance",
+    "note": "Standard: 30 Gbps",
+    "values": {
+      "*": {
+        "value": 30,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

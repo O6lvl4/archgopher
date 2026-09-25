@@ -1,0 +1,33 @@
+type: azurerm_lb
+label: Load balancer
+category: Network
+icon: load-balancer
+description: "Standard and cross-region (Global tier) load balancers: the hourly fee that covers the first five load-balancing and outbound rules, and data processed. Each rule beyond the fifth is read on the rule itself. Gateway load balancers: gateway-hours, one chain-hour per chained frontend and data processed. Basic load balancers cost nothing (they were retired on 30 September 2025). A Standard load balancer without any rule is free; the fee is read as soon as it exists. Place it on the path: load that passes through carries kbPerUnit each and flows on to the backends."
+kinds: [traffic]
+sla: azure.lb
+attributes:
+  - { key: sku, label: SKU, type: choice, options: [Basic, Standard, Gateway], default: Standard }
+  - { key: sku_tier, label: Tier, type: choice, options: [Regional, Global], default: Regional, hint: "Global is a cross-region load balancer" }
+assumptions:
+  - { key: kbPerUnit, label: Data per unit, type: number, unit: KB, optional: true, hint: "Per request or flow passing through, request and response together" }
+  - { key: gbPerMonth, label: Other data per month, type: number, unit: GB, default: 0, hint: "Traffic not drawn as load" }
+  - { key: chains, label: Chained frontends, type: number, default: 1, hint: "Gateway load balancers: frontends of Standard load balancers or VMs that chain to it" }
+let:
+  - perUnit: 'kbPerUnit != nil ? kbPerUnit : 0.0'
+  - gb: 'gbPerMonth + total.monthly * perUnit / 1024 / 1024'
+  - standard: 'sku == "Standard"'
+  - gateway: 'sku == "Gateway"'
+  - tier: 'sku_tier == "Global" ? "global" : "standard"'
+readings:
+  - fail: { when: 'sku != "Basic" && total.monthly > 0 && kbPerUnit == nil', message: "load passes through this load balancer: set kbPerUnit, the data each unit carries" }
+  - cost: { when: standard, name: Rules (first five), quantity: 730, unit: hour, price: "azure.lb.{tier}.included_rules" }
+  - cost: { when: standard, name: Data processed, quantity: gb, unit: GB, price: "azure.lb.{tier}.data_processed" }
+  - cost: { when: gateway, name: Gateway hours, quantity: 730, unit: hour, price: azure.lb.gateway.hour }
+  - cost: { when: gateway, name: Chain hours, quantity: 730 * chains, unit: hour, price: azure.lb.gateway.chain_hour }
+  - cost: { when: gateway, name: Data processed, quantity: gb, unit: GB, price: azure.lb.gateway.data_processed }
+terraform:
+  # A front door when nothing in the graph calls it. Its frontends name public
+  # addresses and subnets (placement); a Standard load balancer chained to a
+  # gateway load balancer sends its traffic there, so that reference stays a call.
+  frontDoor: true
+  ignoreRefs: [frontend_ip_configuration.public_ip_address_id, frontend_ip_configuration.public_ip_prefix_id, frontend_ip_configuration.subnet_id]

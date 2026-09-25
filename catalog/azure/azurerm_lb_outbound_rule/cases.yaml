@@ -1,0 +1,20 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: sixth rule on a Standard load balancer (japaneast)
+  region: japaneast
+  assumptions: { beyondFirstFive: true }
+  # 730 h × $0.01
+  costs:
+    Rule hours: 7.3
+- name: one of the first five, covered by the load balancer's fee (japaneast)
+  region: japaneast
+  costs:
+    Rule hours: 0
+- name: seventh rule on a cross-region load balancer (eastus)
+  region: eastus
+  assumptions: { beyondFirstFive: true, lbSku: Global }
+  costs:
+    Rule hours: 7.3
+- name: rule on a gateway load balancer is not billed (eastus)
+  region: eastus
+  assumptions: { beyondFirstFive: true, lbSku: Gateway }

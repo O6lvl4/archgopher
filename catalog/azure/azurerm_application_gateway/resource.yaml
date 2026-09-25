@@ -1,0 +1,44 @@
+type: azurerm_application_gateway
+label: Application Gateway
+category: Edge
+icon: application-gateway
+description: "v2 (Basic, Standard_v2, WAF_v2): the fixed hourly fee and capacity unit-hours, the larger of the reserved units (10 per manual or minimum instance) and the units the traffic uses, averaged over the month: 1 GB an hour of throughput or one compute unit (new TLS connections per second for Basic and Standard_v2, requests per second for WAF_v2) each. Persistent connections are not read. v1 (Standard and WAF Small, Medium, Large, retired on 28 April 2026): instance-hours and data processed beyond the size's free allowance. Headroom is the instances the peak needs against the autoscale maximum or the manual count."
+kinds: [request]
+sla: azure.appgw
+attributes:
+  - { key: sku_name, label: SKU, type: choice, options: [Basic, Standard_v2, WAF_v2, Standard_Small, Standard_Medium, Standard_Large, WAF_Medium, WAF_Large], default: Standard_v2, path: sku.name }
+  - { key: capacity, label: Instances (manual), type: number, optional: true, path: sku.capacity, hint: "Unset when autoscaling" }
+  - { key: min_capacity, label: Autoscale minimum, type: number, optional: true, path: autoscale_configuration.min_capacity }
+  - { key: max_capacity, label: Autoscale maximum, type: number, optional: true, path: autoscale_configuration.max_capacity, hint: "Unset means the platform maximum, 125 instances" }
+assumptions:
+  - { key: kbPerUnit, label: Data per request, type: number, unit: KB, optional: true, hint: "Request and response together; both count as processed data" }
+  - { key: connectionsPerRequest, label: New TLS connections per request, type: number, default: 0.1, hint: "1 without keep-alive; browsers and API clients that reuse connections open far fewer" }
+  - { key: gbPerMonth, label: Other data per month, type: number, unit: GB, default: 0, hint: "Traffic not drawn as load" }
+let:
+  - v2: 'sku_name in ["Basic", "Standard_v2", "WAF_v2"]'
+  - tier: 'sku_name == "Basic" ? "basic" : sku_name startsWith "WAF" ? "waf" : "standard"'
+  - size: 'v2 ? "" : lower(split(sku_name, "_")[1])'
+  - perUnit: 'kbPerUnit != nil ? kbPerUnit : 0.0'
+  - gb: 'gbPerMonth + total.monthly * perUnit / 1024 / 1024'
+  - instances: 'capacity != nil ? capacity : min_capacity != nil ? min_capacity : 0.0'
+  # Requests (WAF_v2) or new TLS connections (Basic, Standard_v2) one compute unit handles per second.
+  - perComputeUnit: 'tier == "waf" ? 10.0 : tier == "basic" ? 10.0 : 50.0'
+  - computeRate: 'tier == "waf" ? 1.0 : connectionsPerRequest'
+  - used: 'max(gb / 730, total.monthly / 2628000 * computeRate / perComputeUnit)'
+  - units: 'max(instances * 10, used)'
+  - peakUnits: 'max(total.peak * perUnit * 3600 / 1024 / 1024, total.peak * computeRate / perComputeUnit)'
+  - ceiling: 'capacity != nil ? capacity : max_capacity != nil ? max_capacity : 125.0'
+  - freeGb: 'size == "medium" ? 10240.0 : size == "large" ? 40960.0 : 0.0'
+readings:
+  - fail: { when: 'total.monthly > 0 && kbPerUnit == nil', message: "load passes through this gateway: set kbPerUnit, the data each request carries" }
+  - cost: { when: v2, name: Fixed hours, quantity: 730, unit: hour, price: "azure.appgw.v2.fixed.{tier}" }
+  - cost: { when: v2, name: Capacity units, quantity: 730 * units, unit: CU-hour, price: "azure.appgw.v2.capacity_unit.{tier}" }
+  - limit: { when: v2, name: Instances at peak, demand: peakUnits / 10, unit: instances, capacity: ceiling }
+  - cost: { when: '!v2', name: Gateway hours, quantity: '730 * (capacity != nil ? capacity : 1.0)', unit: hour, price: "azure.appgw.v1.{tier}.{size}" }
+  - cost: { when: '!v2', name: Data processed, quantity: 'max(gb - freeGb, 0.0)', unit: GB, price: "azure.appgw.v1.data_processed.{size}" }
+terraform:
+  # A front door when nothing in the graph calls it. Backend pools that name
+  # other nodes (a web app's hostname) are calls; addresses, subnets,
+  # certificates and the WAF policy are not.
+  frontDoor: true
+  ignoreRefs: [frontend_ip_configuration.public_ip_address_id, frontend_ip_configuration.subnet_id, gateway_ip_configuration.subnet_id, ssl_certificate, trusted_root_certificate, firewall_policy_id]

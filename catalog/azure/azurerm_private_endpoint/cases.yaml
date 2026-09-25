@@ -1,0 +1,20 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 10 million requests of 4 KB (japaneast)
+  region: japaneast
+  assumptions: { kbPerUnit: 4 }
+  demand: { request: { monthly: 1e+07, peak: 100 } }
+  # 730 × $0.01; 38.14697265625 GB × $0.01
+  costs:
+    Endpoint hours: 7.3
+    Data processed: 0.3814697265625
+- name: idle endpoint with 500 GB of other traffic (eastus)
+  region: eastus
+  assumptions: { gbPerMonth: 500 }
+  costs:
+    Endpoint hours: 7.3
+    Data processed: 5
+- name: load passes through without a size (eastus)
+  region: eastus
+  demand: { request: { monthly: 1000, peak: 1 } }
+  error: "load passes through this private endpoint: set kbPerUnit"

@@ -1,0 +1,19 @@
+type: azurerm_private_endpoint
+label: Private endpoint
+category: Network
+icon: private-endpoint
+description: "Endpoint-hours and data processed in both directions, at the same rate each way (the first 1 PB a month; lower tiers beyond are not read). Place it on the path: load that passes through carries kbPerUnit each and flows on to the resource it connects to, which Terraform links. Clients name the resource, not the endpoint, so draw their traffic through it by hand."
+kinds: [request]
+sla: azure.privatelink
+assumptions:
+  - { key: kbPerUnit, label: Data per unit, type: number, unit: KB, optional: true, hint: "Per request passing through, request and response together" }
+  - { key: gbPerMonth, label: Other data per month, type: number, unit: GB, default: 0, hint: "Traffic not drawn as load" }
+let:
+  - perUnit: 'kbPerUnit != nil ? kbPerUnit : 0.0'
+readings:
+  - fail: { when: 'total.monthly > 0 && kbPerUnit == nil', message: "load passes through this private endpoint: set kbPerUnit, the data each unit carries" }
+  - cost: { name: Endpoint hours, quantity: 730, unit: hour, price: azure.privatelink.endpoint_hour }
+  - cost: { name: Data processed, quantity: 'gbPerMonth + total.monthly * perUnit / 1024 / 1024', unit: GB, price: azure.privatelink.data_processed }
+terraform:
+  # DNS records name its address; the resource it connects to is the call.
+  mentioned: true

@@ -440,6 +440,16 @@ not zero.
 | `azurerm_snapshot` / `azurerm_image` | Data held, at the snapshot price | - |
 | `azurerm_backup_protected_vm` / `azurerm_recovery_services_vault` | Protected instances by data size / backup storage by the vault's redundancy | - |
 | `azurerm_kubernetes_cluster` / `azurerm_kubernetes_cluster_node_pool` | Standard tier uptime SLA or Premium long-term support, node hours by size and OS, managed OS disks, load balancer data, the HTTP routing DNS zone | - |
+| `azurerm_lb` | Standard and cross-region: the fee covering the first five rules, data processed; gateway: gateway-, chain-hours and data processed (Basic is free) | - |
+| `azurerm_lb_rule` / `azurerm_lb_outbound_rule` | Rule-hours for each rule beyond a load balancer's first five | - |
+| `azurerm_application_gateway` | v2: fixed hours and capacity units, reserved or used (throughput, compute units); v1: instance-hours and data processed beyond the free allowance | Instances at peak against the autoscale maximum or manual count |
+| `azurerm_public_ip` / `azurerm_public_ip_prefix` | Address-hours by SKU, tier and allocation / address-hours for every address in the prefix | - |
+| `azurerm_nat_gateway` | Gateway-hours and data processed (Standard and StandardV2) | Bandwidth |
+| `azurerm_bastion_host` | Host-hours by SKU, instances beyond two, data out | Concurrent RDP or SSH sessions per instance |
+| `azurerm_firewall` | Deployment-hours and data processed by tier, in a VNet or a secured hub | Throughput by tier |
+| `azurerm_firewall_policy` | The fee per region once two or more firewalls use it, policy analytics; rule collection groups fold in | - |
+| `azurerm_private_endpoint` | Endpoint-hours and data processed | - |
+| `azurerm_virtual_network_peering` | Data sent and received, within a region or global | - |
 
 Role assignments become edges: an `azurerm_role_assignment` connects the
 resource whose managed identity holds the role (system- or user-assigned) to

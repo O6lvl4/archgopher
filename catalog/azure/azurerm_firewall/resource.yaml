@@ -1,0 +1,27 @@
+type: azurerm_firewall
+label: Azure Firewall
+category: Network
+icon: firewall
+description: "Deployment-hours and data processed by tier (Basic, Standard, Premium), in a virtual network or a secured virtual hub. Place it on the path: load that the routes send through it carries kbPerUnit each and flows on. Capacity units added by prescaling are not read. Headroom is the tier's published throughput. The SLA is 99.95% in one zone and 99.99% across two or more."
+kinds: [traffic]
+sla: azure.firewall
+attributes:
+  - { key: sku_tier, label: Tier, type: choice, options: [Basic, Standard, Premium], default: Standard }
+  - { key: virtual_hub, label: In a secured virtual hub, type: boolean, default: false, hint: "Written as a virtual_hub block (sku_name AZFW_Hub)" }
+assumptions:
+  - { key: kbPerUnit, label: Data per unit, type: number, unit: KB, optional: true, hint: "Per request passing through, request and response together" }
+  - { key: gbPerMonth, label: Other data per month, type: number, unit: GB, default: 0, hint: "Traffic not drawn as load, such as spoke-to-spoke or on-premises flows" }
+let:
+  - t: lower(sku_tier)
+  - key: 't + (virtual_hub ? "_hub" : "")'
+  - perUnit: 'kbPerUnit != nil ? kbPerUnit : 0.0'
+readings:
+  - fail: { when: 'total.monthly > 0 && kbPerUnit == nil', message: "load passes through this firewall: set kbPerUnit, the data each unit carries" }
+  - cost: { name: 'Deployment ({sku_tier}{virtual_hub ? ", secured hub" : ""})', quantity: 730, unit: hour, price: "azure.firewall.{key}.deployment" }
+  - cost: { name: Data processed, quantity: 'gbPerMonth + total.monthly * perUnit / 1024 / 1024', unit: GB, price: "azure.firewall.{key}.data_processed" }
+  - limit: { name: Throughput, demand: 'total.peak * perUnit * 8 / 1024 / 1024', unit: Gbps, quota: "azure.firewall.{t}.throughput_gbps" }
+terraform:
+  # Route tables send traffic to its private address; it names its subnets,
+  # addresses and policy. Draw the traffic through it by hand.
+  passive: true
+  mentioned: true

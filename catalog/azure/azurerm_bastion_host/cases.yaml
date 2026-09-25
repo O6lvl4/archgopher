@@ -1,0 +1,25 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Basic host with 50 GB out and 10 RDP sessions (japaneast)
+  region: japaneast
+  assumptions: { gbOutPerMonth: 50, peakSessions: 10 }
+  # 730 × $0.19; 50 GB × $0.12
+  costs:
+    Host hours: 138.7
+    Data out: 6
+  limits:
+    Concurrent sessions: 10
+- name: Standard host with 4 instances and 100 SSH sessions (eastus)
+  region: eastus
+  attributes: { sku: Standard, scale_units: 4 }
+  assumptions: { gbOutPerMonth: 100, peakSessions: 100, protocol: SSH }
+  # 730 × $0.29; 730 × 2 extra × $0.14; 100 GB × $0.087; capacity 4 × 40 sessions
+  costs:
+    Host hours: 211.7
+    Additional instances: 204.4
+    Data out: 8.7
+  limits:
+    Concurrent sessions: 100
+- name: Developer SKU is free (japaneast)
+  region: japaneast
+  attributes: { sku: Developer }

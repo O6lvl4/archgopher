@@ -1,0 +1,23 @@
+type: azurerm_virtual_network_peering
+label: VNet peering
+category: Network
+icon: virtual-network
+description: "Data moved over the peering, billed on each side: this virtual network pays for what it sends (egress) and what it receives (ingress), at its own region's rates. Within a region both are the same everywhere; global peering is priced by region. The peering in the other direction is its own resource and reads the other side. Place it on the path: load that passes through carries kbPerUnit each and flows on."
+kinds: [traffic]
+assumptions:
+  - { key: crossRegion, label: Remote network in another region, type: boolean, default: false, hint: "Terraform knows the remote network's id only after apply" }
+  - { key: kbPerUnit, label: Data sent per unit, type: number, unit: KB, optional: true, hint: "Per request passing through: what this network sends" }
+  - { key: kbBackPerUnit, label: Data received per unit, type: number, unit: KB, default: 0, hint: "Per request passing through: the response this network receives" }
+  - { key: gbOutPerMonth, label: Other data sent per month, type: number, unit: GB, default: 0, hint: "Traffic not drawn as load, such as backups or replication" }
+  - { key: gbInPerMonth, label: Other data received per month, type: number, unit: GB, default: 0 }
+let:
+  - scope: 'crossRegion ? "inter" : "intra"'
+  - perUnit: 'kbPerUnit != nil ? kbPerUnit : 0.0'
+readings:
+  - fail: { when: 'total.monthly > 0 && kbPerUnit == nil', message: "load passes through this peering: set kbPerUnit, the data each unit sends" }
+  - cost: { name: Outbound data transfer, quantity: 'gbOutPerMonth + total.monthly * perUnit / 1024 / 1024', unit: GB, price: "azure.vnet.peering.{scope}.egress" }
+  - cost: { name: Inbound data transfer, quantity: 'gbInPerMonth + total.monthly * kbBackPerUnit / 1024 / 1024', unit: GB, price: "azure.vnet.peering.{scope}.ingress" }
+terraform:
+  # It names both networks; nothing calls it. Draw the traffic through it by hand.
+  passive: true
+  mentioned: true

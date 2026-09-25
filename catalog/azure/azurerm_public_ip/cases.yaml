@@ -1,0 +1,26 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Standard static address (japaneast)
+  region: japaneast
+  # 730 h × $0.005
+  costs:
+    IP address (static, regional): 3.65
+- name: global tier address (eastus)
+  region: eastus
+  attributes: { sku_tier: Global }
+  costs:
+    IP address (static, global): 7.3
+- name: dynamic address is Basic (japaneast)
+  region: japaneast
+  attributes: { sku: Basic, allocation_method: Dynamic }
+  # 730 h × $0.004
+  costs:
+    IP address (dynamic, basic): 2.92
+- name: IPv6 is not priced (eastus)
+  region: eastus
+  attributes: { ip_version: IPv6 }
+  error: "IPv6 public addresses are not priced yet"
+- name: StandardV2 is not priced (eastus)
+  region: eastus
+  attributes: { sku: StandardV2 }
+  error: "StandardV2 public addresses have no meter"

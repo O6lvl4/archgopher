@@ -1,0 +1,134 @@
+{
+  "azure.publicip.prefix.global": {
+    "unit": "IP-hour",
+    "source": "https://azure.microsoft.com/pricing/details/ip-addresses/",
+    "note": "Public IPv4 prefix, global tier, per address per hour",
+    "sync": {
+      "source": "azure",
+      "service": "Virtual Network",
+      "filters": {
+        "productName": "Public IP Prefix",
+        "skuName": "Global",
+        "meterName": "Global Static Public IP"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.publicip.prefix.standard": {
+    "unit": "IP-hour",
+    "source": "https://azure.microsoft.com/pricing/details/ip-addresses/",
+    "note": "Public IPv4 prefix, regional tier, per address in the prefix per hour, from creation",
+    "sync": {
+      "source": "azure",
+      "service": "Virtual Network",
+      "filters": {
+        "productName": "Public IP Prefix",
+        "skuName": "Standard",
+        "meterName": "Standard Static IP Addresses"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

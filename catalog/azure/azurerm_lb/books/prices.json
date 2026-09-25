@@ -1,0 +1,149 @@
+{
+  "azure.lb.gateway.chain_hour": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/load-balancer/",
+    "note": "Each frontend (a Standard load balancer or VM address) chained to a gateway load balancer, per hour",
+    "sync": {
+      "source": "azure",
+      "service": "Load Balancer",
+      "region": "Global",
+      "filters": {
+        "skuName": "Gateway",
+        "meterName": "Gateway Chain"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.lb.gateway.data_processed": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/load-balancer/",
+    "note": "Data processed by a gateway load balancer",
+    "sync": {
+      "source": "azure",
+      "service": "Load Balancer",
+      "region": "Global",
+      "filters": {
+        "skuName": "Gateway",
+        "meterName": "Gateway Data Processed"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.004,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.lb.gateway.hour": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/load-balancer/",
+    "note": "Gateway load balancer-hour",
+    "sync": {
+      "source": "azure",
+      "service": "Load Balancer",
+      "region": "Global",
+      "filters": {
+        "skuName": "Gateway",
+        "meterName": "Gateway"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.lb.global.data_processed": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/load-balancer/",
+    "note": "Data processed by a cross-region load balancer",
+    "sync": {
+      "source": "azure",
+      "service": "Load Balancer",
+      "region": "Global",
+      "filters": {
+        "skuName": "Global",
+        "meterName": "Global Data Processed"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.lb.global.included_rules": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/load-balancer/",
+    "note": "Cross-region (Global tier) load balancer, hourly fee covering its first five rules",
+    "sync": {
+      "source": "azure",
+      "service": "Load Balancer",
+      "region": "Global",
+      "filters": {
+        "skuName": "Global",
+        "meterName": "Global Included LB Rules and Outbound Rules"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.lb.standard.data_processed": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/load-balancer/",
+    "note": "Data processed by a Standard load balancer, inbound and outbound",
+    "sync": {
+      "source": "azure",
+      "service": "Load Balancer",
+      "region": "Global",
+      "filters": {
+        "skuName": "Standard",
+        "meterName": "Standard Data Processed"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.lb.standard.included_rules": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/load-balancer/",
+    "note": "Standard load balancer, hourly fee covering its first five load-balancing and outbound rules; the same in every region",
+    "sync": {
+      "source": "azure",
+      "service": "Load Balancer",
+      "region": "Global",
+      "filters": {
+        "skuName": "Standard",
+        "meterName": "Standard Included LB Rules and Outbound Rules"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

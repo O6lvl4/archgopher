@@ -1,0 +1,44 @@
+{
+  "azure.nat.data_processed": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/azure-nat-gateway/",
+    "note": "Data processed by a NAT gateway, outbound and return traffic",
+    "sync": {
+      "source": "azure",
+      "service": "NAT Gateway",
+      "region": "Global",
+      "filters": {
+        "skuName": "Standard",
+        "meterName": "Standard Data Processed"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.045,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.nat.hour": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/azure-nat-gateway/",
+    "note": "NAT gateway resource-hour; Standard and StandardV2 are priced the same, in every region",
+    "sync": {
+      "source": "azure",
+      "service": "NAT Gateway",
+      "region": "Global",
+      "filters": {
+        "skuName": "Standard",
+        "meterName": "Standard Gateway"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.045,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

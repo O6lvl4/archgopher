@@ -1,0 +1,23 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: peering in one region, 10 million requests of 2 KB with 8 KB responses (japaneast)
+  region: japaneast
+  assumptions: { kbPerUnit: 2, kbBackPerUnit: 8 }
+  demand: { traffic: { monthly: 1e+07, peak: 100 } }
+  # 19.073486328125 GB sent × $0.01; 76.2939453125 GB received × $0.01
+  costs:
+    Outbound data transfer: 0.19073486328125
+    Inbound data transfer: 0.762939453125
+- name: global peering from Japan East, 1 TB sent and 200 GB received (japaneast)
+  region: japaneast
+  assumptions: { crossRegion: true, gbOutPerMonth: 1000, gbInPerMonth: 200 }
+  # 1000 × $0.09; 200 × $0.09
+  costs:
+    Outbound data transfer: 90
+    Inbound data transfer: 18
+- name: global peering from East US (eastus)
+  region: eastus
+  assumptions: { crossRegion: true, gbOutPerMonth: 1000, gbInPerMonth: 200 }
+  costs:
+    Outbound data transfer: 35
+    Inbound data transfer: 7

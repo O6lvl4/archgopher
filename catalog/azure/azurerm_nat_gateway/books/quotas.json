@@ -1,0 +1,26 @@
+{
+  "azure.nat.bandwidth_gbps": {
+    "unit": "Gbps",
+    "source": "https://learn.microsoft.com/azure/nat-gateway/nat-gateway-resource",
+    "note": "Standard: 50 Gbps per gateway, split 25 Gbps outbound and 25 Gbps return",
+    "values": {
+      "*": {
+        "value": 50,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.nat.v2.bandwidth_gbps": {
+    "unit": "Gbps",
+    "source": "https://learn.microsoft.com/azure/nat-gateway/nat-gateway-resource",
+    "note": "StandardV2: up to 100 Gbps per gateway",
+    "values": {
+      "*": {
+        "value": 100,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

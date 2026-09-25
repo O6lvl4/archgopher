@@ -1,0 +1,44 @@
+{
+  "azure.lb.global.overage_rule": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/load-balancer/",
+    "note": "Each rule beyond the first five on a cross-region load balancer, per rule-hour",
+    "sync": {
+      "source": "azure",
+      "service": "Load Balancer",
+      "region": "Global",
+      "filters": {
+        "skuName": "Global",
+        "meterName": "Global Overage LB Rules and Outbound Rules"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.lb.standard.overage_rule": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/load-balancer/",
+    "note": "Each load-balancing or outbound rule beyond the first five on a Standard load balancer, per rule-hour",
+    "sync": {
+      "source": "azure",
+      "service": "Load Balancer",
+      "region": "Global",
+      "filters": {
+        "skuName": "Standard",
+        "meterName": "Standard Overage LB Rules and Outbound Rules"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}
