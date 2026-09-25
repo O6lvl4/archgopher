@@ -499,6 +499,9 @@ func readAttribute(r *eval.Resource, f field.Field) any {
 		if x == "true" || x == "false" {
 			return x == "true"
 		}
+		if x == "" {
+			return false
+		}
 	}
 	return true
 }

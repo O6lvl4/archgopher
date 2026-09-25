@@ -417,8 +417,18 @@ not zero.
 | `azurerm_servicebus_namespace` | Operations (Basic, Standard with its base fee), or Premium messaging units | Operations per second |
 | `azurerm_eventgrid_topic` | Operations | Events per second |
 | `azurerm_key_vault` | Operations | Requests per vault |
-| `azurerm_log_analytics_workspace` | Ingestion (Application Insights folds in) and retention beyond 31 days | - |
+| `azurerm_log_analytics_workspace` | Ingestion and retention beyond 31 days | - |
 | `azurerm_cognitive_deployment` | Azure OpenAI input, cached and output tokens by model and deployment type | Tokens and requests per minute from capacity or quota |
+| `azurerm_application_insights` | Telemetry after sampling and the daily cap, and retention beyond 90 days, at the workspace's prices when workspace-based or classic prices | Events per second |
+| `azurerm_monitor_action_group` | Emails, push, ITSM events, webhooks (plain and secure), SMS and voice calls by country code, per time fired | Emails, SMS and calls per address or number |
+| `azurerm_monitor_metric_alert` | Time series monitored (resources in scope times criteria or dimension values), dynamic thresholds | - |
+| `azurerm_monitor_scheduled_query_rules_alert` / `azurerm_monitor_scheduled_query_rules_alert_v2` | The rule by evaluation frequency / and time series beyond the first | - |
+| `azurerm_monitor_data_collection_rule` | Custom metric samples; logs flow on to the workspace | - |
+| `azurerm_monitor_diagnostic_setting` | Platform logs sent to storage, an event hub or a partner | - |
+| `azurerm_log_analytics_solution` | Microsoft Sentinel analysis per GB; other solutions have no price of their own | - |
+| `azurerm_automation_account` | Job minutes and non-Azure configuration nodes | Job submissions and concurrent jobs |
+| `azurerm_automation_job_schedule` / `azurerm_automation_watcher` | Job minutes per run / watcher hours | - |
+| `azurerm_automation_dsc_configuration` / `azurerm_automation_dsc_nodeconfiguration` | Non-Azure configuration nodes | - |
 
 Role assignments become edges: an `azurerm_role_assignment` connects the
 resource whose managed identity holds the role (system- or user-assigned) to

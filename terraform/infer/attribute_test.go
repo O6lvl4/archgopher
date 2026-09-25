@@ -42,16 +42,19 @@ func TestReadAttributeFlagReadsWhetherWritten(t *testing.T) {
 		Attrs: map[string]any{
 			"enabled":             false,
 			"partner_solution_id": "/subscriptions/x/partner",
+			"storage_account_id":  "",
 			"aad_auth":            []any{map[string]any{}},
 		},
-		Refs: map[string][]string{"storage_account_id": {"azurerm_storage_account.logs"}},
+		Refs: map[string][]string{"log_analytics_workspace_id": {"azurerm_log_analytics_workspace.logs"}},
 	}
 	for path, want := range map[string]any{
 		"enabled":             false,
 		"partner_solution_id": true,
 		"aad_auth":            true,
+		// An empty string is not written.
+		"storage_account_id": false,
 		// An id known only after apply is still written.
-		"storage_account_id":             true,
+		"log_analytics_workspace_id":     true,
 		"eventhub_authorization_rule_id": nil,
 	} {
 		if got := readAttribute(r, field.Field{Key: "k", Type: field.Flag, Path: path}); got != want {

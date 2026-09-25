@@ -5,6 +5,7 @@
   attributes:
     scopes: 3
     criteria: 1
+    criteria_dimensions: 1
     criteria_values: 2
   demand:
     alarm:
@@ -29,6 +30,7 @@
   attributes:
     scopes: 2
     criteria: 1
+    criteria_dimensions: 1
     criteria_values: 1
   assumptions:
     timeSeries: 25
@@ -47,3 +49,17 @@
     alarm:
       monthly: 0
       peak: 0
+- name: one criterion split by two values and one without dimensions (Japan East)
+  region: japaneast
+  attributes:
+    scopes: 1
+    criteria: 2
+    criteria_dimensions: 1
+    criteria_values: 2
+  demand:
+    alarm:
+      monthly: 0
+      peak: 0
+  costs:
+    # 2 time series for the split criterion and 1 for the other, at 0.10
+    Time series monitored: 0.3

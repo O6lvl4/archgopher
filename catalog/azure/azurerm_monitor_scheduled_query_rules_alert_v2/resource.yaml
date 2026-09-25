@@ -11,7 +11,7 @@ attributes:
   - { key: scopes, label: Resources in scope, type: number, default: 0, path: "scopes.#" }
   - { key: dimension_values, label: Dimension values, type: number, default: 0, path: "criteria.dimension.values.#" }
 assumptions:
-  - { key: timeSeries, label: Time series per resource, type: number, optional: true, hint: "Set when a dimension splits by * or excludes values: the combinations the query returns for each resource" }
+  - { key: timeSeries, label: Time series per resource, type: number, optional: true, hint: "Set when a dimension splits by * or excludes values, or the query splits by several dimensions (their value counts multiply): the combinations the query returns for each resource" }
 let:
   - step: 'evaluation_frequency == "PT1M" ? 1 : evaluation_frequency == "PT5M" ? 5 : evaluation_frequency == "PT10M" ? 10 : 15'
   - series: 'max(scopes, 1) * (timeSeries != nil ? timeSeries : max(dimension_values, 1))'
