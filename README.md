@@ -31,8 +31,9 @@ go install github.com/O6lvl4/archgopher/cmd/archgopher@latest
 # 1. Build a declaration from Terraform. No terraform init, plan or credentials.
 archgopher tf ./infra -o app.scouter.yaml
 
-# 2. Fill in what Terraform cannot know: the load at the entry and the
-#    assumptions left as null (duration per call, item size, ...).
+# 2. List what Terraform cannot know, then fill it in: the load at the entry,
+#    calls made outside Terraform, call ratios, numbers left as null.
+archgopher gaps app.scouter.yaml           # --json for an agent's worklist
 $EDITOR app.scouter.yaml
 
 # 3. Read it.
@@ -225,6 +226,26 @@ without state and without cloud credentials, so it also works on a pull request.
 Resource types that should be nodes but have no scouter yet (ECS services,
 Kinesis streams, load balancers...) still become nodes: they pass load through
 and appear in the report as skipped.
+
+## Filling the gaps
+
+Terraform says what exists and what may call what, not how much is called or
+what calls from outside it. `archgopher gaps` lists those unknowns:
+
+| Kind | Listed when |
+| --- | --- |
+| `load` | An entry has no load or traffic |
+| `caller` | A node's readings grow with the work it receives, but no edge feeds it: calls from application code, roles made elsewhere, other accounts, or the platform itself (an encryption key used by storage). Found by reading the node once idle and once busy, so alarms and other fixed-price nodes are not listed |
+| `assumption` | A required number is null or missing |
+| `ratio` | An edge has neither `perUnit`, `ops` nor a `note`. A note saying why one call per unit holds closes it |
+| `failed` | The node could not be read for another reason |
+
+Filling them means reading the application code and the cloud's own
+measurements, which is work for an agent. [`skills/archgopher-gaps`](skills/archgopher-gaps/SKILL.md)
+is the procedure as a Claude Code skill (copy it into `.claude/skills/`). It
+holds for every provider: counts per resource, the front door's access log and
+billed usage quantities exist everywhere under different names, and traces are
+used when they exist. Provenance goes in `note`, which `tf --merge` keeps.
 
 ## Reference books
 
@@ -471,7 +492,7 @@ an import breaks the rule, and `web/scripts/layers.mjs` does the same for the UI
 ```text
 cmd/archgopher, cmd/wasm          edges of the system
         │
-       api                          JSON in, JSON out; what the browser calls
+       api ── gaps                  JSON in, JSON out; what the declaration does not know
         │
 provider/aws ── iam, schedule,     loads the catalog; IAM edges, schedule syntax,
    │      │     pattern            account-wide rules; L3 patterns
@@ -496,6 +517,7 @@ facet ── scouter                    L2 reusable readings; how one type is re
 | L2 | [`facet`](facet) | Reusable readings with their own assumption structs: requests in size chunks, GB-seconds, storage, provisioned capacity, Little's law concurrency, logs, tokens |
 | Scouter | [`scouter`](scouter) | How one resource type is read: catalog entry, fields, and a function built from facets |
 | Engine | [`engine`](engine) | Validation, load propagation in topological order, path composition. No provider knowledge |
+| Gaps | [`gaps`](gaps) | What a declaration does not know yet, found from the readings and the scouters' fields. No provider knowledge |
 | L3 | [`pattern`](pattern) | Reusable architectures that expand into nodes and edges, then roll up |
 | Terraform | [`terraform/config`](terraform/config), [`eval`](terraform/eval), [`infer`](terraform/infer), [`merge`](terraform/merge) | Parse, evaluate, infer a graph, merge into edits. No provider knowledge |
 | Resources | [`definition`](definition), [`catalog/aws`](catalog/aws) | Resources as data, one directory per type: a definition compiles into a scouter built from facets |

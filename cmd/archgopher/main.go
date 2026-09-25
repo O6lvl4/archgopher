@@ -11,6 +11,7 @@ import (
 	"strings"
 
 	"github.com/O6lvl4/archgopher/api"
+	"github.com/O6lvl4/archgopher/gaps"
 	"github.com/O6lvl4/archgopher/model"
 	"github.com/O6lvl4/archgopher/report"
 )
@@ -19,6 +20,7 @@ const usage = `archgopher reads an architecture on cost, headroom, latency and a
 
 Usage:
   archgopher scout <spec.yaml> [--json]     Read a declaration
+  archgopher gaps <spec.yaml> [--json]      List what the declaration does not know yet
   archgopher tf <dir> [flags]               Build a declaration from Terraform
   archgopher catalog                        List scouters and their fields as JSON
   archgopher sync [--check]                 Verify the price book against the AWS Price List
@@ -45,6 +47,8 @@ func run(args []string, out io.Writer) error {
 	switch args[0] {
 	case "scout":
 		return cmdScout(args[1:], out)
+	case "gaps":
+		return cmdGaps(args[1:], out)
 	case "tf":
 		return cmdTerraform(args[1:], out)
 	case "catalog":
@@ -61,19 +65,7 @@ func run(args []string, out io.Writer) error {
 }
 
 func cmdScout(args []string, out io.Writer) error {
-	fs := flag.NewFlagSet("scout", flag.ContinueOnError)
-	asJSON := fs.Bool("json", false, "write JSON instead of Markdown")
-	if err := fs.Parse(reorder(args)); err != nil {
-		return err
-	}
-	if fs.NArg() != 1 {
-		return fmt.Errorf("scout takes one declaration file")
-	}
-	data, err := os.ReadFile(fs.Arg(0))
-	if err != nil {
-		return err
-	}
-	spec, err := model.ParseSpec(data)
+	spec, asJSON, err := declaration("scout", args)
 	if err != nil {
 		return err
 	}
@@ -81,10 +73,49 @@ func cmdScout(args []string, out io.Writer) error {
 	if err != nil {
 		return err
 	}
-	if *asJSON {
+	if asJSON {
 		return report.JSON(out, res)
 	}
 	return report.Markdown(out, res)
+}
+
+func cmdGaps(args []string, out io.Writer) error {
+	spec, asJSON, err := declaration("gaps", args)
+	if err != nil {
+		return err
+	}
+	gs, err := api.Gaps(spec)
+	if err != nil {
+		return err
+	}
+	if asJSON {
+		if gs == nil {
+			gs = []gaps.Gap{}
+		}
+		enc := json.NewEncoder(out)
+		enc.SetIndent("", "  ")
+		return enc.Encode(gs)
+	}
+	_, err = io.WriteString(out, gaps.Text(gs))
+	return err
+}
+
+// declaration parses the flags of a command that reads one declaration file.
+func declaration(name string, args []string) (model.Spec, bool, error) {
+	fs := flag.NewFlagSet(name, flag.ContinueOnError)
+	asJSON := fs.Bool("json", false, "write JSON")
+	if err := fs.Parse(reorder(args)); err != nil {
+		return model.Spec{}, false, err
+	}
+	if fs.NArg() != 1 {
+		return model.Spec{}, false, fmt.Errorf("%s takes one declaration file", name)
+	}
+	data, err := os.ReadFile(fs.Arg(0))
+	if err != nil {
+		return model.Spec{}, false, err
+	}
+	spec, err := model.ParseSpec(data)
+	return spec, *asJSON, err
 }
 
 func cmdCatalog(out io.Writer) error {

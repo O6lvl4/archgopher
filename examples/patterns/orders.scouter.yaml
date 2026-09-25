@@ -28,6 +28,7 @@ nodes:
 edges:
   - from: shoppers
     to: orders
+    note: Every shopper request is one call to the orders API.
   - from: orders
     to: receipts
     kind: send

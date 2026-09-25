@@ -11,9 +11,11 @@ import (
 	"strings"
 	"testing/fstest"
 
+	"github.com/O6lvl4/archgopher/book"
 	"github.com/O6lvl4/archgopher/cloud"
 	"github.com/O6lvl4/archgopher/engine"
 	"github.com/O6lvl4/archgopher/field"
+	"github.com/O6lvl4/archgopher/gaps"
 	"github.com/O6lvl4/archgopher/model"
 	"github.com/O6lvl4/archgopher/pattern"
 	"github.com/O6lvl4/archgopher/scouter"
@@ -49,20 +51,44 @@ func Catalog() []CatalogEntry {
 // Scout reads a declaration: patterns expand, the engine runs, and each
 // pattern gets a rolled-up result.
 func Scout(spec model.Spec) (engine.Result, error) {
-	books, err := cloud.Books()
+	r, err := read(spec)
 	if err != nil {
 		return engine.Result{}, err
 	}
-	patterns := cloud.Patterns()
-	expanded, exp, err := pattern.Expand(spec, patterns)
+	return pattern.Rollup(r.res, spec, r.exp, cloud.Patterns()), nil
+}
+
+// Gaps lists what the declaration does not know yet: entries without load,
+// nodes nothing calls, unknown assumptions and edges whose ratio nobody set.
+func Gaps(spec model.Spec) ([]gaps.Gap, error) {
+	r, err := read(spec)
 	if err != nil {
-		return engine.Result{}, err
+		return nil, err
+	}
+	return gaps.Find(spec, r.expanded, cloud.Registry(), r.books, r.res), nil
+}
+
+type reading struct {
+	expanded model.Spec
+	exp      pattern.Expansion
+	books    book.Books
+	res      engine.Result
+}
+
+func read(spec model.Spec) (reading, error) {
+	books, err := cloud.Books()
+	if err != nil {
+		return reading{}, err
+	}
+	expanded, exp, err := pattern.Expand(spec, cloud.Patterns())
+	if err != nil {
+		return reading{}, err
 	}
 	res, err := engine.Run(expanded, cloud.Registry(), books)
 	if err != nil {
-		return engine.Result{}, err
+		return reading{}, err
 	}
-	return pattern.Rollup(res, spec, exp, patterns), nil
+	return reading{expanded, exp, books, res}, nil
 }
 
 // TerraformRequest carries a Terraform tree as file contents keyed by
@@ -169,6 +195,12 @@ func call(name, input string) (any, error) {
 			return nil, err
 		}
 		return Scout(spec)
+	case "gaps":
+		var spec model.Spec
+		if err := json.Unmarshal([]byte(input), &spec); err != nil {
+			return nil, err
+		}
+		return Gaps(spec)
 	case "terraform":
 		var req TerraformRequest
 		if err := json.Unmarshal([]byte(input), &req); err != nil {

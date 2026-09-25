@@ -83,6 +83,7 @@ nodes:
 edges:
   - from: users
     to: web
+    note: Every visit starts at CloudFront.
   - from: web
     to: assets
     perUnit: 0.6
@@ -92,9 +93,11 @@ edges:
     perUnit: 0.4
   - from: api
     to: api_handler
+    note: The proxy integration invokes the handler once per request.
   - from: api_handler
     to: notes
     kind: read
+    note: Every request reads the note it names.
   - from: api_handler
     to: notes
     kind: write
@@ -109,11 +112,14 @@ edges:
     perUnit: 0.001
   - from: exports-sqs
     to: exporter
+    note: Exports are rare, so a batch (up to 10) holds one message and each message is one invocation.
   - from: exporter
     to: exports
     kind: write
+    note: One export file per message.
   - from: cleanup
     to: cleanup-lambda
+    note: Each fire of the schedule runs the function once.
   - from: cleanup-lambda
     to: notes
     kind: read

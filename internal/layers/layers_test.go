@@ -33,6 +33,7 @@ var allowed = map[string][]string{
 	"engine":     {"book", "meter", "model", "scouter", "traffic"},
 	"pattern":    {"engine", "field", "meter", "model", "scouter"},
 	"report":     {"engine", "meter", "model"},
+	"gaps":       {"book", "engine", "field", "meter", "model", "scouter"},
 
 	// Terraform adapter: read, evaluate, infer, merge. No provider knowledge.
 	"terraform/config": {},
@@ -65,8 +66,8 @@ var allowed = map[string][]string{
 	"cloud": {"book", "model", "pattern", "scouter", "terraform/infer", "provider/aws", "provider/aws/pattern", "provider/azure", "provider/cloudflare", "provider/gcp"},
 
 	// Edges of the system.
-	"api":            {"book", "cloud", "engine", "field", "model", "pattern", "scouter", "terraform/eval", "terraform/infer", "terraform/merge"},
-	"cmd/archgopher": {"api", "book", "cloud", "model", "report", "provider/aws/pricelist", "provider/azure/retailprices", "provider/gcp/billingcatalog", "terraform/eval", "terraform/infer", "terraform/merge"},
+	"api":            {"book", "cloud", "engine", "field", "gaps", "model", "pattern", "scouter", "terraform/eval", "terraform/infer", "terraform/merge"},
+	"cmd/archgopher": {"api", "book", "cloud", "gaps", "model", "report", "provider/aws/pricelist", "provider/azure/retailprices", "provider/gcp/billingcatalog", "terraform/eval", "terraform/infer", "terraform/merge"},
 	"cmd/wasm":       {"api"},
 }
 

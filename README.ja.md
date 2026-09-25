@@ -27,7 +27,8 @@ archgopher が答えるのは別の問いです。「入口に月3,000万件が�
 go install github.com/O6lvl4/archgopher/cmd/archgopher@latest
 
 archgopher tf ./infra -o app.scouter.yaml                    # Terraform から宣言を作る。init・plan・認証は不要
-$EDITOR app.scouter.yaml                                        # 入口の負荷と、null のまま残った前提を埋める
+archgopher gaps app.scouter.yaml                              # Terraform から分からないものを並べる（--json で AI の作業リスト）
+$EDITOR app.scouter.yaml                                        # 入口の負荷・Terraform 外の呼び出し・呼び出しの比率・null の前提を埋める
 archgopher scout app.scouter.yaml                             # Markdown の表で読む（--json で機械可読）
 archgopher tf ./infra --merge app.scouter.yaml -o app.scouter.yaml   # Terraform の変更を合流させる
 ```
@@ -39,6 +40,24 @@ ID・前提・負荷・メモ・座標・辺は人が書いたものが残りま
 例は [`examples/serverless-api`](examples/serverless-api) にあります。架空のメモアプリで、CloudFront・
 API Gateway・ローカル module の Lambda・DynamoDB・SQS・S3・1時間ごとの掃除ジョブと、手で足した
 Bedrock のモデルを持ちます。
+
+### 分からないものを埋める
+
+Terraform が示すのは「何があり、何が何を呼べるか」までで、「どれだけ呼ぶか」と「Terraform の外から呼ぶもの」は示さない。
+`archgopher gaps` がそれを並べる。
+
+| 種類 | 出る条件 |
+| --- | --- |
+| `load` | 入口に負荷が無い |
+| `caller` | 受け取る仕事で読みが変わるのに、辺が1本も来ていない。アプリのコード・別の場所で作ったロール・別アカウント・基盤そのもの（保管に使う暗号鍵など）からの呼び出しを疑う。暇なときと忙しいときの2回読んで判定するので、アラームのような定額のノードは出ない |
+| `assumption` | 必須の前提が null か未記入 |
+| `ratio` | 辺に `perUnit` も `ops` も `note` も無い。1回ずつで正しいなら、その理由を `note` に書けば消える |
+| `failed` | そのほかの理由で読めない |
+
+埋めるにはアプリのコードとクラウドの計測値を読む必要があり、AI に向いた作業である。手順は Claude Code の skill として
+[`skills/archgopher-gaps`](skills/archgopher-gaps/SKILL.md) に置いた（`.claude/skills/` に写して使う）。
+資源ごとの件数・入口のアクセスログ・請求の使用量はどのクラウドにも名前を変えてあるので、手順はクラウドを問わない。
+トレースはあれば使う。値の出どころは `tf --merge` でも残る `note` に書く。
 
 ## 画面
 
@@ -95,6 +114,7 @@ Go の import を、`web/scripts/layers.mjs` が画面の import を検査し、
 | L2 | `facet` | 使い回す読み値。サイズ刻みのリクエスト課金、GB 秒、保管量、プロビジョンド容量、同時実行、ログ、トークン、セッション（AgentCore の CPU 時間とメモリ時間）。前提の構造体を埋め込みで渡す |
 | スカウター | `scouter` | 資源型1つの読み方。面を組み合わせて書く |
 | 計算 | `engine` | 検証、負荷の伝播、経路の合成。クラウドの知識を持たない |
+| 未知 | `gaps` | 宣言がまだ知らないもの。読み値とスカウターの項目定義から探す。クラウドの知識を持たない |
 | L3 | `pattern` | 構成のひな型。1ノードとして置き、部分グラフに展開して読み、まとめ直す |
 | Terraform | `terraform/config` `eval` `infer` `merge` | 構文の読み込み、静的評価、グラフの推定、合流。クラウドの知識を持たない |
 | リソース | `definition` `catalog/aws` | リソースをデータとして1型1ディレクトリで持つ。定義は面を組み合わせたスカウターに組み上がる |

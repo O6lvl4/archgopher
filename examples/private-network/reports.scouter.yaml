@@ -55,9 +55,9 @@ nodes:
       kbPerUnit: 20
     note: Calls to the partner API leave through the NAT gateway.
 edges:
-  - { from: users, to: api }
-  - { from: api, to: reports }
+  - { from: users, to: api, note: "Every report request comes through the API" }
+  - { from: api, to: reports, note: "The integration invokes the function once per request" }
   - { from: reports, to: db, kb: 24, note: "Query and result rows" }
   - { from: reports, to: secrets, perUnit: 0.01 }
-  - { from: secrets, to: db_password }
+  - { from: secrets, to: db_password, note: "Every call through the endpoint reads the password" }
   - { from: reports, to: nat, perUnit: 0.1 }

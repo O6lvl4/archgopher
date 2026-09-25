@@ -200,3 +200,45 @@ func TestOperationsOfOneEdge(t *testing.T) {
 		}
 	}
 }
+
+// Gaps name what infrastructure code cannot know: an entry's load, a node
+// nothing calls, an unknown number, and an edge whose ratio nobody set. A
+// fixed-price node without callers (an alarm) is no gap, nor is an edge with
+// a note saying why one call per unit holds.
+func TestGapsNameWhatIsUnknown(t *testing.T) {
+	spec, err := model.ParseSpec([]byte(`
+name: gaps
+region: ap-northeast-1
+nodes:
+  - { id: users, type: entry }
+  - { id: fn, type: aws_lambda_function, attributes: { memory_size: 512 } }
+  - { id: table, type: aws_dynamodb_table, attributes: { billing_mode: PAY_PER_REQUEST }, assumptions: { itemSizeKb: 1, storageGb: 1 } }
+  - { id: alarm, type: aws_cloudwatch_metric_alarm, attributes: { period: 60 } }
+  - { id: key, type: aws_kms_key }
+edges:
+  - { from: users, to: fn }
+  - { from: fn, to: table, kind: read, note: one read per call in the handler }
+`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	gs, err := Gaps(spec)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var got []string
+	for _, g := range gs {
+		where := g.Node
+		if g.From != "" {
+			where = g.From + "->" + g.To
+		}
+		if g.Key != "" {
+			where += "." + g.Key
+		}
+		got = append(got, string(g.Kind)+" "+where)
+	}
+	want := []string{"load users", "caller key", "assumption fn.durationMs", "ratio users->fn"}
+	if strings.Join(got, ", ") != strings.Join(want, ", ") {
+		t.Fatalf("gaps\n got  %v\n want %v", got, want)
+	}
+}
