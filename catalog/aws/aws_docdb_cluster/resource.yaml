@@ -1,0 +1,24 @@
+type: aws_docdb_cluster
+label: DocumentDB cluster
+category: Database
+icon: documentdb
+description: "Cluster storage, I/O on standard storage and backup storage beyond the free allowance. Instances are aws_docdb_cluster_instance nodes. Headroom is stored data against the cluster storage limit."
+kinds: [query]
+sla: aws.docdb
+attributes:
+  - { key: storage_type, label: Storage type, type: choice, options: ["", standard, iopt1], default: "", hint: "iopt1 (I/O-Optimized) has no I/O charge" }
+assumptions:
+  - { key: storageGb, label: Storage, type: number, unit: GB }
+  - { key: ioPerQuery, label: I/O per query, type: number, optional: true, hint: "Required for standard storage" }
+  - { key: backupGb, label: Backup storage beyond the free allowance, type: number, unit: GB, default: 0, hint: "Backups up to the cluster storage are free" }
+let:
+  - iopt: 'storage_type == "iopt1"'
+readings:
+  - storage: { name: Storage, gb: storageGb, price: 'aws.docdb.{iopt ? "iopt.storage" : "storage"}' }
+  - fail: { when: "!iopt && ioPerQuery == nil", message: ioPerQuery is required for standard storage, continue: true }
+  - cost: { when: "!iopt && ioPerQuery != nil", name: I/O, quantity: 'total.monthly * (ioPerQuery ?? 0)', unit: I/O request, price: aws.docdb.io }
+  - storage: { when: backupGb > 0, name: Backup storage, gb: backupGb, price: aws.docdb.backup }
+  - limit: { name: Cluster storage, demand: storageGb, unit: GiB, quota: aws.docdb.cluster_storage }
+terraform:
+  # A cluster names its subnet group and keys; it calls nothing.
+  passive: true

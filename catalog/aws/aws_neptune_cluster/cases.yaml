@@ -1,0 +1,31 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Monthly USD per cost line, peak demand per limit. After an intended change:
+#   go test ./provider/aws -update
+- name: standard storage (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions: { storageGb: 200, ioPerQuery: 5, backupGb: 100 }
+  demand: { query: { monthly: 1e+07, peak: 100 } }
+  costs:
+    Storage: 24
+    I/O: 12
+    Backup storage: 2.3
+  limits:
+    Cluster storage: 200
+- name: I/O-Optimized (us-east-1)
+  region: us-east-1
+  attributes: { storage_type: iopt1 }
+  assumptions: { storageGb: 200 }
+  demand: { query: { monthly: 1e+07, peak: 100 } }
+  costs:
+    Storage: 45
+  limits:
+    Cluster storage: 200
+- name: standard storage without ioPerQuery (us-east-1)
+  region: us-east-1
+  assumptions: { storageGb: 100 }
+  demand: { query: { monthly: 1e+07, peak: 100 } }
+  costs:
+    Storage: 10
+  limits:
+    Cluster storage: 100
+  error: ioPerQuery is required for standard storage

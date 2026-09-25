@@ -15,10 +15,22 @@ var attrs = map[string]map[string]any{
 	"aws_dynamodb_table":      {"billing_mode": "PAY_PER_REQUEST"},
 	"aws_sfn_state_machine":   {"type": "STANDARD"},
 	"aws_ecs_task_definition": {"cpu": 256.0, "memory": 512.0},
+	"aws_db_instance": {
+		"engine": "postgres", "instance_class": "db.t3.micro", "multi_az": true, "storage_type": "gp3",
+		"allocated_storage": 500.0, "iops": 15000.0, "storage_throughput": 600.0,
+		"performance_insights_enabled": true, "performance_insights_retention_period": 93.0,
+	},
+	"aws_rds_cluster_instance":          {"engine": "aurora-postgresql", "instance_class": "db.t4g.medium", "performance_insights_enabled": true, "performance_insights_retention_period": 31.0},
+	"aws_docdb_cluster_instance":        {"instance_class": "db.t3.medium"},
+	"aws_neptune_cluster_instance":      {"instance_class": "db.t3.medium"},
+	"aws_elasticache_cluster":           {"engine": "redis", "node_type": "cache.t4g.micro", "snapshot_retention_limit": 3.0},
+	"aws_elasticache_replication_group": {"engine": "valkey", "node_type": "cache.r7g.large", "num_node_groups": 2.0, "replicas_per_node_group": 1.0, "snapshot_retention_limit": 3.0},
+	"aws_redshift_cluster":              {"node_type": "ra3.xlplus", "number_of_nodes": 2.0},
+	"aws_dms_replication_instance":      {"replication_instance_class": "dms.t3.medium", "multi_az": true, "allocated_storage": 100.0},
 }
 
 var assume = map[string]map[string]any{
-	"aws_rds_cluster":       {"ioPerQuery": 2.0, "peakAcu": 4.0},
+	"aws_rds_cluster":       {"ioPerQuery": 2.0, "peakAcu": 4.0, "averageAcu": 2.0},
 	"aws_sfn_state_machine": {"transitionsPerExecution": 5.0},
 	// Operations whose edges give no size take the table's item size.
 	"aws_dynamodb_table": {"itemSizeKb": 1.0},
@@ -27,6 +39,16 @@ var assume = map[string]map[string]any{
 	"aws_vpc_endpoint":                       {"kbPerUnit": 4.0},
 	"aws_vpn_connection":                     {"kbPerUnit": 4.0},
 	"aws_nat_gateway":                        {"kbPerUnit": 4.0},
+	// Databases: every per-vCPU, backup and headroom line.
+	"aws_db_instance":                   {"vcpus": 2.0, "ioPerQuery": 1.0, "backupGb": 10.0, "cpuCreditVcpuHours": 5.0, "extendedSupport": "year1_2", "insightsApiCalls": 1000.0},
+	"aws_rds_cluster_instance":          {"vcpus": 2.0, "cpuCreditVcpuHours": 5.0, "extendedSupport": "year3"},
+	"aws_docdb_cluster":                 {"ioPerQuery": 2.0, "backupGb": 10.0},
+	"aws_neptune_cluster":               {"ioPerQuery": 2.0, "backupGb": 10.0},
+	"aws_docdb_cluster_instance":        {"cpuCreditVcpuHours": 5.0},
+	"aws_neptune_cluster_instance":      {"cpuCreditVcpuHours": 5.0},
+	"aws_elasticache_cluster":           {"snapshotGb": 1.0, "datasetGb": 0.2},
+	"aws_elasticache_replication_group": {"snapshotGb": 5.0, "datasetGb": 10.0},
+	"aws_redshift_cluster":              {"concurrencyScalingSeconds": 100.0, "spectrumTb": 1.0, "backupGb": 60000.0},
 }
 
 // TestRegionalQuotas pins quotas that differ by region, read from each

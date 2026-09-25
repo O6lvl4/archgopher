@@ -1,0 +1,1111 @@
+{
+  "aws.docdb.cpu_credits": {
+    "unit": "vCPU-hour",
+    "source": "https://aws.amazon.com/documentdb/pricing/",
+    "sync": {
+      "filters": {
+        "productFamily": "CPU Credits",
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?CPUCredits:{row}"
+      },
+      "service": "AmazonDocDB"
+    },
+    "rows": {
+      "db.t3": {
+        "ap-northeast-1": 0.09,
+        "ap-northeast-2": 0.09,
+        "ap-south-1": 0.09,
+        "ap-southeast-1": 0.09,
+        "ap-southeast-2": 0.09,
+        "eu-central-1": 0.09,
+        "eu-west-1": 0.09,
+        "us-east-1": 0.09,
+        "us-east-2": 0.09,
+        "us-west-2": 0.09
+      },
+      "db.t4g": {
+        "ap-northeast-1": 0.09,
+        "ap-northeast-2": 0.09,
+        "ap-south-1": 0.09,
+        "ap-southeast-1": 0.09,
+        "ap-southeast-2": 0.09,
+        "eu-central-1": 0.09,
+        "eu-west-1": 0.09,
+        "us-east-1": 0.09,
+        "us-east-2": 0.09,
+        "us-west-2": 0.09
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "aws.docdb.iopt": {
+    "unit": "instance-hour",
+    "source": "https://aws.amazon.com/documentdb/pricing/",
+    "note": "I/O-Optimized clusters",
+    "sync": {
+      "filters": {
+        "instanceType": "{row}",
+        "productFamily": "Database Instance",
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?InstanceUsageIOOptimized:.+"
+      },
+      "service": "AmazonDocDB"
+    },
+    "rows": {
+      "db.r4.16xlarge": {
+        "ap-northeast-1": null,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": null,
+        "eu-west-1": 10.7712,
+        "us-east-1": 9.7504,
+        "us-east-2": 9.7504,
+        "us-west-2": 9.7504
+      },
+      "db.r4.2xlarge": {
+        "ap-northeast-1": null,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": null,
+        "eu-west-1": 1.3464,
+        "us-east-1": 1.2188,
+        "us-east-2": 1.2188,
+        "us-west-2": 1.2188
+      },
+      "db.r4.4xlarge": {
+        "ap-northeast-1": null,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": null,
+        "eu-west-1": 2.6928,
+        "us-east-1": 2.4376,
+        "us-east-2": 2.4376,
+        "us-west-2": 2.4376
+      },
+      "db.r4.8xlarge": {
+        "ap-northeast-1": null,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": null,
+        "eu-west-1": 5.3856,
+        "us-east-1": 4.8752,
+        "us-east-2": 4.8752,
+        "us-west-2": 4.8752
+      },
+      "db.r4.large": {
+        "ap-northeast-1": null,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": null,
+        "eu-west-1": 0.3366,
+        "us-east-1": 0.3047,
+        "us-east-2": 0.3047,
+        "us-west-2": 0.3047
+      },
+      "db.r4.xlarge": {
+        "ap-northeast-1": null,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": null,
+        "eu-west-1": 0.6732,
+        "us-east-1": 0.6094,
+        "us-east-2": 0.6094,
+        "us-west-2": 0.6094
+      },
+      "db.r5.12xlarge": {
+        "ap-northeast-1": 8.8176,
+        "ap-northeast-2": 8.8176,
+        "ap-south-1": 8.316,
+        "ap-southeast-1": 8.8176,
+        "ap-southeast-2": 8.8176,
+        "eu-central-1": 8.8176,
+        "eu-west-1": 8.0784,
+        "us-east-1": 7.3128,
+        "us-east-2": 7.3128,
+        "us-west-2": 7.3128
+      },
+      "db.r5.16xlarge": {
+        "ap-northeast-1": 11.7656,
+        "ap-northeast-2": 11.7656,
+        "ap-south-1": 11.0933,
+        "ap-southeast-1": 11.7656,
+        "ap-southeast-2": 11.7656,
+        "eu-central-1": 11.7656,
+        "eu-west-1": 10.7571,
+        "us-east-1": 9.7486,
+        "us-east-2": 9.7486,
+        "us-west-2": 9.7486
+      },
+      "db.r5.24xlarge": {
+        "ap-northeast-1": 17.6352,
+        "ap-northeast-2": 17.6352,
+        "ap-south-1": 16.632,
+        "ap-southeast-1": 17.6352,
+        "ap-southeast-2": 17.6352,
+        "eu-central-1": 17.6352,
+        "eu-west-1": 16.1568,
+        "us-east-1": 14.6256,
+        "us-east-2": 14.6256,
+        "us-west-2": 14.6256
+      },
+      "db.r5.2xlarge": {
+        "ap-northeast-1": 1.4696,
+        "ap-northeast-2": 1.4696,
+        "ap-south-1": 1.386,
+        "ap-southeast-1": 1.4696,
+        "ap-southeast-2": 1.4696,
+        "eu-central-1": 1.4696,
+        "eu-west-1": 1.3464,
+        "us-east-1": 1.2188,
+        "us-east-2": 1.2188,
+        "us-west-2": 1.2188
+      },
+      "db.r5.4xlarge": {
+        "ap-northeast-1": 2.9392,
+        "ap-northeast-2": 2.9392,
+        "ap-south-1": 2.772,
+        "ap-southeast-1": 2.9392,
+        "ap-southeast-2": 2.9392,
+        "eu-central-1": 2.9392,
+        "eu-west-1": 2.6928,
+        "us-east-1": 2.4376,
+        "us-east-2": 2.4376,
+        "us-west-2": 2.4376
+      },
+      "db.r5.8xlarge": {
+        "ap-northeast-1": 5.8828,
+        "ap-northeast-2": 5.8828,
+        "ap-south-1": 5.5466,
+        "ap-southeast-1": 5.8828,
+        "ap-southeast-2": 5.8828,
+        "eu-central-1": 5.8828,
+        "eu-west-1": 5.3786,
+        "us-east-1": 4.8743,
+        "us-east-2": 4.8743,
+        "us-west-2": 4.8743
+      },
+      "db.r5.large": {
+        "ap-northeast-1": 0.3674,
+        "ap-northeast-2": 0.3674,
+        "ap-south-1": 0.3465,
+        "ap-southeast-1": 0.3674,
+        "ap-southeast-2": 0.3674,
+        "eu-central-1": 0.3674,
+        "eu-west-1": 0.3366,
+        "us-east-1": 0.3047,
+        "us-east-2": 0.3047,
+        "us-west-2": 0.3047
+      },
+      "db.r5.xlarge": {
+        "ap-northeast-1": 0.7348,
+        "ap-northeast-2": 0.7348,
+        "ap-south-1": 0.693,
+        "ap-southeast-1": 0.7348,
+        "ap-southeast-2": 0.7348,
+        "eu-central-1": 0.7348,
+        "eu-west-1": 0.6732,
+        "us-east-1": 0.6094,
+        "us-east-2": 0.6094,
+        "us-west-2": 0.6094
+      },
+      "db.r6g.12xlarge": {
+        "ap-northeast-1": 8.3767,
+        "ap-northeast-2": 8.3767,
+        "ap-south-1": 7.9002,
+        "ap-southeast-1": 8.3767,
+        "ap-southeast-2": 8.3767,
+        "eu-central-1": 8.3767,
+        "eu-west-1": 7.6745,
+        "us-east-1": 6.9472,
+        "us-east-2": 6.9472,
+        "us-west-2": 6.9472
+      },
+      "db.r6g.16xlarge": {
+        "ap-northeast-1": 11.1773,
+        "ap-northeast-2": 11.1773,
+        "ap-south-1": 10.5386,
+        "ap-southeast-1": 11.1773,
+        "ap-southeast-2": 11.1773,
+        "eu-central-1": 11.1773,
+        "eu-west-1": 10.2193,
+        "us-east-1": 9.2612,
+        "us-east-2": 9.2612,
+        "us-west-2": 9.2612
+      },
+      "db.r6g.2xlarge": {
+        "ap-northeast-1": 1.3961,
+        "ap-northeast-2": 1.3961,
+        "ap-south-1": 1.3167,
+        "ap-southeast-1": 1.3961,
+        "ap-southeast-2": 1.3961,
+        "eu-central-1": 1.3961,
+        "eu-west-1": 1.2791,
+        "us-east-1": 1.1579,
+        "us-east-2": 1.1579,
+        "us-west-2": 1.1579
+      },
+      "db.r6g.4xlarge": {
+        "ap-northeast-1": 2.7922,
+        "ap-northeast-2": 2.7922,
+        "ap-south-1": 2.6334,
+        "ap-southeast-1": 2.7922,
+        "ap-southeast-2": 2.7922,
+        "eu-central-1": 2.7922,
+        "eu-west-1": 2.5582,
+        "us-east-1": 2.3157,
+        "us-east-2": 2.3157,
+        "us-west-2": 2.3157
+      },
+      "db.r6g.8xlarge": {
+        "ap-northeast-1": 5.5887,
+        "ap-northeast-2": 5.5887,
+        "ap-south-1": 5.2693,
+        "ap-southeast-1": 5.5887,
+        "ap-southeast-2": 5.5887,
+        "eu-central-1": 5.5887,
+        "eu-west-1": 5.1096,
+        "us-east-1": 4.6306,
+        "us-east-2": 4.6306,
+        "us-west-2": 4.6306
+      },
+      "db.r6g.large": {
+        "ap-northeast-1": 0.349,
+        "ap-northeast-2": 0.349,
+        "ap-south-1": 0.3292,
+        "ap-southeast-1": 0.349,
+        "ap-southeast-2": 0.349,
+        "eu-central-1": 0.349,
+        "eu-west-1": 0.3198,
+        "us-east-1": 0.2895,
+        "us-east-2": 0.2895,
+        "us-west-2": 0.2895
+      },
+      "db.r6g.xlarge": {
+        "ap-northeast-1": 0.6981,
+        "ap-northeast-2": 0.6981,
+        "ap-south-1": 0.6584,
+        "ap-southeast-1": 0.6981,
+        "ap-southeast-2": 0.6981,
+        "eu-central-1": 0.6981,
+        "eu-west-1": 0.6395,
+        "us-east-1": 0.5789,
+        "us-east-2": 0.5789,
+        "us-west-2": 0.5789
+      },
+      "db.r6gd.12xlarge": {
+        "ap-northeast-1": 9.2905,
+        "ap-northeast-2": 9.2905,
+        "ap-south-1": 8.762,
+        "ap-southeast-1": 9.2905,
+        "ap-southeast-2": 9.2905,
+        "eu-central-1": 9.2905,
+        "eu-west-1": 8.5117,
+        "us-east-1": 7.705,
+        "us-east-2": 7.705,
+        "us-west-2": 7.705
+      },
+      "db.r6gd.16xlarge": {
+        "ap-northeast-1": 12.3967,
+        "ap-northeast-2": 12.3967,
+        "ap-south-1": 11.6883,
+        "ap-southeast-1": 12.3967,
+        "ap-southeast-2": 12.3967,
+        "eu-central-1": 12.3967,
+        "eu-west-1": 11.3341,
+        "us-east-1": 10.2715,
+        "us-east-2": 10.2715,
+        "us-west-2": 10.2715
+      },
+      "db.r6gd.2xlarge": {
+        "ap-northeast-1": 1.5484,
+        "ap-northeast-2": 1.5484,
+        "ap-south-1": 1.4603,
+        "ap-southeast-1": 1.5484,
+        "ap-southeast-2": 1.5484,
+        "eu-central-1": 1.5484,
+        "eu-west-1": 1.4186,
+        "us-east-1": 1.2842,
+        "us-east-2": 1.2842,
+        "us-west-2": 1.2842
+      },
+      "db.r6gd.4xlarge": {
+        "ap-northeast-1": 3.0968,
+        "ap-northeast-2": 3.0968,
+        "ap-south-1": 2.9207,
+        "ap-southeast-1": 3.0968,
+        "ap-southeast-2": 3.0968,
+        "eu-central-1": 3.0968,
+        "eu-west-1": 2.8372,
+        "us-east-1": 2.5683,
+        "us-east-2": 2.5683,
+        "us-west-2": 2.5683
+      },
+      "db.r6gd.8xlarge": {
+        "ap-northeast-1": 6.1983,
+        "ap-northeast-2": 6.1983,
+        "ap-south-1": 5.8441,
+        "ap-southeast-1": 6.1983,
+        "ap-southeast-2": 6.1983,
+        "eu-central-1": 6.1983,
+        "eu-west-1": 5.667,
+        "us-east-1": 5.1358,
+        "us-east-2": 5.1358,
+        "us-west-2": 5.1358
+      },
+      "db.r6gd.xlarge": {
+        "ap-northeast-1": 0.7742,
+        "ap-northeast-2": 0.7742,
+        "ap-south-1": 0.7302,
+        "ap-southeast-1": 0.7742,
+        "ap-southeast-2": 0.7742,
+        "eu-central-1": 0.7742,
+        "eu-west-1": 0.7093,
+        "us-east-1": 0.6421,
+        "us-east-2": 0.6421,
+        "us-west-2": 0.6421
+      },
+      "db.r8g.12xlarge": {
+        "ap-northeast-1": 8.7871583,
+        "ap-northeast-2": 8.7871583,
+        "ap-south-1": 8.2873098,
+        "ap-southeast-1": 8.7871583,
+        "ap-southeast-2": 8.7871583,
+        "eu-central-1": 8.7871583,
+        "eu-west-1": 8.0505505,
+        "us-east-1": 7.2876128,
+        "us-east-2": 7.2876128,
+        "us-west-2": 7.2876128
+      },
+      "db.r8g.16xlarge": {
+        "ap-northeast-1": 11.7249877,
+        "ap-northeast-2": 11.7249877,
+        "ap-south-1": 11.0549914,
+        "ap-southeast-1": 11.7249877,
+        "ap-southeast-2": 11.7249877,
+        "eu-central-1": 11.7249877,
+        "eu-west-1": 10.7200457,
+        "us-east-1": 9.7149988,
+        "us-east-2": 9.7149988,
+        "us-west-2": 9.7149988
+      },
+      "db.r8g.24xlarge": {
+        "ap-northeast-1": 17.574317,
+        "ap-northeast-2": 17.574317,
+        "ap-south-1": 16.57462,
+        "ap-southeast-1": 17.574317,
+        "ap-southeast-2": 17.574317,
+        "eu-central-1": 17.574317,
+        "eu-west-1": 16.101101,
+        "us-east-1": 14.575226,
+        "us-east-2": 14.575226,
+        "us-west-2": 14.575226
+      },
+      "db.r8g.2xlarge": {
+        "ap-northeast-1": 1.4645089,
+        "ap-northeast-2": 1.4645089,
+        "ap-south-1": 1.3812183,
+        "ap-southeast-1": 1.4645089,
+        "ap-southeast-2": 1.4645089,
+        "eu-central-1": 1.4645089,
+        "eu-west-1": 1.3417759,
+        "us-east-1": 1.2146371,
+        "us-east-2": 1.2146371,
+        "us-west-2": 1.2146371
+      },
+      "db.r8g.48xlarge": {
+        "ap-northeast-1": 35.148633,
+        "ap-northeast-2": 35.148633,
+        "ap-south-1": 33.149239,
+        "ap-southeast-1": 35.148633,
+        "ap-southeast-2": 35.148633,
+        "eu-central-1": 35.148633,
+        "eu-west-1": 32.202202,
+        "us-east-1": 29.150451,
+        "us-east-2": 29.150451,
+        "us-west-2": 29.150451
+      },
+      "db.r8g.4xlarge": {
+        "ap-northeast-1": 2.9290178,
+        "ap-northeast-2": 2.9290178,
+        "ap-south-1": 2.7624366,
+        "ap-southeast-1": 2.9290178,
+        "ap-southeast-2": 2.9290178,
+        "eu-central-1": 2.9290178,
+        "eu-west-1": 2.6835518,
+        "us-east-1": 2.4291693,
+        "us-east-2": 2.4291693,
+        "us-west-2": 2.4291693
+      },
+      "db.r8g.8xlarge": {
+        "ap-northeast-1": 5.8625463,
+        "ap-northeast-2": 5.8625463,
+        "ap-south-1": 5.5274957,
+        "ap-southeast-1": 5.8625463,
+        "ap-southeast-2": 5.8625463,
+        "eu-central-1": 5.8625463,
+        "eu-west-1": 5.3599704,
+        "us-east-1": 4.8574994,
+        "us-east-2": 4.8574994,
+        "us-west-2": 4.8574994
+      },
+      "db.r8g.large": {
+        "ap-northeast-1": 0.366101,
+        "ap-northeast-2": 0.366101,
+        "ap-south-1": 0.3453308,
+        "ap-southeast-1": 0.366101,
+        "ap-southeast-2": 0.366101,
+        "eu-central-1": 0.366101,
+        "eu-west-1": 0.3354702,
+        "us-east-1": 0.3036855,
+        "us-east-2": 0.3036855,
+        "us-west-2": 0.3036855
+      },
+      "db.r8g.xlarge": {
+        "ap-northeast-1": 0.7323069,
+        "ap-northeast-2": 0.7323069,
+        "ap-south-1": 0.6906616,
+        "ap-southeast-1": 0.7323069,
+        "ap-southeast-2": 0.7323069,
+        "eu-central-1": 0.7323069,
+        "eu-west-1": 0.6708355,
+        "us-east-1": 0.6072661,
+        "us-east-2": 0.6072661,
+        "us-west-2": 0.6072661
+      },
+      "db.t3.medium": {
+        "ap-northeast-1": 0.1309,
+        "ap-northeast-2": 0.1309,
+        "ap-south-1": 0.1243,
+        "ap-southeast-1": 0.132,
+        "ap-southeast-2": 0.1309,
+        "eu-central-1": 0.1012,
+        "eu-west-1": 0.0924,
+        "us-east-1": 0.0858,
+        "us-east-2": 0.0858,
+        "us-west-2": 0.0858
+      },
+      "db.t4g.medium": {
+        "ap-northeast-1": 0.127,
+        "ap-northeast-2": 0.127,
+        "ap-south-1": 0.1206,
+        "ap-southeast-1": 0.128,
+        "ap-southeast-2": 0.127,
+        "eu-central-1": 0.0982,
+        "eu-west-1": 0.0896,
+        "us-east-1": 0.0832,
+        "us-east-2": 0.0832,
+        "us-west-2": 0.0832
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "aws.docdb.iopt.serverless.dcu_hour": {
+    "unit": "DCU-hour",
+    "source": "https://aws.amazon.com/documentdb/pricing/",
+    "sync": {
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?DocumentDB:ServerlessIOOptimizedUsage"
+      },
+      "service": "AmazonDocDB"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.1091,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.1091,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.1029,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.1091,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.1091,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.1091,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.0999,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.0905,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.0905,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.0905,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.docdb.serverless.dcu_hour": {
+    "unit": "DCU-hour",
+    "source": "https://aws.amazon.com/documentdb/pricing/",
+    "sync": {
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?DocumentDB:ServerlessUsage"
+      },
+      "service": "AmazonDocDB"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0992,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0992,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0935,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.0992,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.0992,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0992,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.0908,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.0822,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.0822,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.0822,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.docdb.standard": {
+    "unit": "instance-hour",
+    "source": "https://aws.amazon.com/documentdb/pricing/",
+    "note": "Standard storage clusters",
+    "sync": {
+      "filters": {
+        "instanceType": "{row}",
+        "productFamily": "Database Instance",
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?InstanceUsage:.+"
+      },
+      "service": "AmazonDocDB"
+    },
+    "rows": {
+      "db.r4.16xlarge": {
+        "ap-northeast-1": null,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": null,
+        "eu-west-1": 9.792,
+        "us-east-1": 8.864,
+        "us-east-2": 8.864,
+        "us-west-2": 8.864
+      },
+      "db.r4.2xlarge": {
+        "ap-northeast-1": null,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": null,
+        "eu-west-1": 1.224,
+        "us-east-1": 1.108,
+        "us-east-2": 1.108,
+        "us-west-2": 1.108
+      },
+      "db.r4.4xlarge": {
+        "ap-northeast-1": null,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": null,
+        "eu-west-1": 2.448,
+        "us-east-1": 2.216,
+        "us-east-2": 2.216,
+        "us-west-2": 2.216
+      },
+      "db.r4.8xlarge": {
+        "ap-northeast-1": null,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": null,
+        "eu-west-1": 4.896,
+        "us-east-1": 4.432,
+        "us-east-2": 4.432,
+        "us-west-2": 4.432
+      },
+      "db.r4.large": {
+        "ap-northeast-1": null,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": null,
+        "eu-west-1": 0.306,
+        "us-east-1": 0.277,
+        "us-east-2": 0.277,
+        "us-west-2": 0.277
+      },
+      "db.r4.xlarge": {
+        "ap-northeast-1": null,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": null,
+        "eu-west-1": 0.612,
+        "us-east-1": 0.554,
+        "us-east-2": 0.554,
+        "us-west-2": 0.554
+      },
+      "db.r5.12xlarge": {
+        "ap-northeast-1": 8.016,
+        "ap-northeast-2": 8.016,
+        "ap-south-1": 7.56,
+        "ap-southeast-1": 8.016,
+        "ap-southeast-2": 8.016,
+        "eu-central-1": 8.016,
+        "eu-west-1": 7.344,
+        "us-east-1": 6.648,
+        "us-east-2": 6.648,
+        "us-west-2": 6.648
+      },
+      "db.r5.16xlarge": {
+        "ap-northeast-1": 10.696,
+        "ap-northeast-2": 10.696,
+        "ap-south-1": 10.0848,
+        "ap-southeast-1": 10.696,
+        "ap-southeast-2": 10.696,
+        "eu-central-1": 10.696,
+        "eu-west-1": 9.7792,
+        "us-east-1": 8.8624,
+        "us-east-2": 8.8624,
+        "us-west-2": 8.8624
+      },
+      "db.r5.24xlarge": {
+        "ap-northeast-1": 16.032,
+        "ap-northeast-2": 16.032,
+        "ap-south-1": 15.12,
+        "ap-southeast-1": 16.032,
+        "ap-southeast-2": 16.032,
+        "eu-central-1": 16.032,
+        "eu-west-1": 14.688,
+        "us-east-1": 13.296,
+        "us-east-2": 13.296,
+        "us-west-2": 13.296
+      },
+      "db.r5.2xlarge": {
+        "ap-northeast-1": 1.336,
+        "ap-northeast-2": 1.336,
+        "ap-south-1": 1.26,
+        "ap-southeast-1": 1.336,
+        "ap-southeast-2": 1.336,
+        "eu-central-1": 1.336,
+        "eu-west-1": 1.224,
+        "us-east-1": 1.108,
+        "us-east-2": 1.108,
+        "us-west-2": 1.108
+      },
+      "db.r5.4xlarge": {
+        "ap-northeast-1": 2.672,
+        "ap-northeast-2": 2.672,
+        "ap-south-1": 2.52,
+        "ap-southeast-1": 2.672,
+        "ap-southeast-2": 2.672,
+        "eu-central-1": 2.672,
+        "eu-west-1": 2.448,
+        "us-east-1": 2.216,
+        "us-east-2": 2.216,
+        "us-west-2": 2.216
+      },
+      "db.r5.8xlarge": {
+        "ap-northeast-1": 5.348,
+        "ap-northeast-2": 5.348,
+        "ap-south-1": 5.0424,
+        "ap-southeast-1": 5.348,
+        "ap-southeast-2": 5.348,
+        "eu-central-1": 5.348,
+        "eu-west-1": 4.8896,
+        "us-east-1": 4.4312,
+        "us-east-2": 4.4312,
+        "us-west-2": 4.4312
+      },
+      "db.r5.large": {
+        "ap-northeast-1": 0.334,
+        "ap-northeast-2": 0.334,
+        "ap-south-1": 0.315,
+        "ap-southeast-1": 0.334,
+        "ap-southeast-2": 0.334,
+        "eu-central-1": 0.334,
+        "eu-west-1": 0.306,
+        "us-east-1": 0.277,
+        "us-east-2": 0.277,
+        "us-west-2": 0.277
+      },
+      "db.r5.xlarge": {
+        "ap-northeast-1": 0.668,
+        "ap-northeast-2": 0.668,
+        "ap-south-1": 0.63,
+        "ap-southeast-1": 0.668,
+        "ap-southeast-2": 0.668,
+        "eu-central-1": 0.668,
+        "eu-west-1": 0.612,
+        "us-east-1": 0.554,
+        "us-east-2": 0.554,
+        "us-west-2": 0.554
+      },
+      "db.r6g.12xlarge": {
+        "ap-northeast-1": 7.6152,
+        "ap-northeast-2": 7.6152,
+        "ap-south-1": 7.182,
+        "ap-southeast-1": 7.6152,
+        "ap-southeast-2": 7.6152,
+        "eu-central-1": 7.6152,
+        "eu-west-1": 6.9768,
+        "us-east-1": 6.3156,
+        "us-east-2": 6.3156,
+        "us-west-2": 6.3156
+      },
+      "db.r6g.16xlarge": {
+        "ap-northeast-1": 10.1612,
+        "ap-northeast-2": 10.1612,
+        "ap-south-1": 9.58056,
+        "ap-southeast-1": 10.1612,
+        "ap-southeast-2": 10.1612,
+        "eu-central-1": 10.1612,
+        "eu-west-1": 9.29024,
+        "us-east-1": 8.41928,
+        "us-east-2": 8.41928,
+        "us-west-2": 8.41928
+      },
+      "db.r6g.2xlarge": {
+        "ap-northeast-1": 1.2692,
+        "ap-northeast-2": 1.2692,
+        "ap-south-1": 1.197,
+        "ap-southeast-1": 1.2692,
+        "ap-southeast-2": 1.2692,
+        "eu-central-1": 1.2692,
+        "eu-west-1": 1.1628,
+        "us-east-1": 1.0526,
+        "us-east-2": 1.0526,
+        "us-west-2": 1.0526
+      },
+      "db.r6g.4xlarge": {
+        "ap-northeast-1": 2.5384,
+        "ap-northeast-2": 2.5384,
+        "ap-south-1": 2.394,
+        "ap-southeast-1": 2.5384,
+        "ap-southeast-2": 2.5384,
+        "eu-central-1": 2.5384,
+        "eu-west-1": 2.3256,
+        "us-east-1": 2.1052,
+        "us-east-2": 2.1052,
+        "us-west-2": 2.1052
+      },
+      "db.r6g.8xlarge": {
+        "ap-northeast-1": 5.0806,
+        "ap-northeast-2": 5.0806,
+        "ap-south-1": 4.79028,
+        "ap-southeast-1": 5.0806,
+        "ap-southeast-2": 5.0806,
+        "eu-central-1": 5.0806,
+        "eu-west-1": 4.64512,
+        "us-east-1": 4.20964,
+        "us-east-2": 4.20964,
+        "us-west-2": 4.20964
+      },
+      "db.r6g.large": {
+        "ap-northeast-1": 0.3173,
+        "ap-northeast-2": 0.3173,
+        "ap-south-1": 0.29925,
+        "ap-southeast-1": 0.3173,
+        "ap-southeast-2": 0.3173,
+        "eu-central-1": 0.3173,
+        "eu-west-1": 0.2907,
+        "us-east-1": 0.26315,
+        "us-east-2": 0.26315,
+        "us-west-2": 0.26315
+      },
+      "db.r6g.xlarge": {
+        "ap-northeast-1": 0.6346,
+        "ap-northeast-2": 0.6346,
+        "ap-south-1": 0.5985,
+        "ap-southeast-1": 0.6346,
+        "ap-southeast-2": 0.6346,
+        "eu-central-1": 0.6346,
+        "eu-west-1": 0.5814,
+        "us-east-1": 0.5263,
+        "us-east-2": 0.5263,
+        "us-west-2": 0.5263
+      },
+      "db.r6gd.12xlarge": {
+        "ap-northeast-1": 9.2905,
+        "ap-northeast-2": 9.2905,
+        "ap-south-1": 8.762,
+        "ap-southeast-1": 9.2905,
+        "ap-southeast-2": 9.2905,
+        "eu-central-1": 9.2905,
+        "eu-west-1": 8.5117,
+        "us-east-1": 7.705,
+        "us-east-2": 7.705,
+        "us-west-2": 7.705
+      },
+      "db.r6gd.16xlarge": {
+        "ap-northeast-1": 12.3967,
+        "ap-northeast-2": 12.3967,
+        "ap-south-1": 11.6883,
+        "ap-southeast-1": 12.3967,
+        "ap-southeast-2": 12.3967,
+        "eu-central-1": 12.3967,
+        "eu-west-1": 11.3341,
+        "us-east-1": 10.2715,
+        "us-east-2": 10.2715,
+        "us-west-2": 10.2715
+      },
+      "db.r6gd.2xlarge": {
+        "ap-northeast-1": 1.5484,
+        "ap-northeast-2": 1.5484,
+        "ap-south-1": 1.4603,
+        "ap-southeast-1": 1.5484,
+        "ap-southeast-2": 1.5484,
+        "eu-central-1": 1.5484,
+        "eu-west-1": 1.4186,
+        "us-east-1": 1.2842,
+        "us-east-2": 1.2842,
+        "us-west-2": 1.2842
+      },
+      "db.r6gd.4xlarge": {
+        "ap-northeast-1": 3.0968,
+        "ap-northeast-2": 3.0968,
+        "ap-south-1": 2.9207,
+        "ap-southeast-1": 3.0968,
+        "ap-southeast-2": 3.0968,
+        "eu-central-1": 3.0968,
+        "eu-west-1": 2.8372,
+        "us-east-1": 2.5683,
+        "us-east-2": 2.5683,
+        "us-west-2": 2.5683
+      },
+      "db.r6gd.8xlarge": {
+        "ap-northeast-1": 6.1983,
+        "ap-northeast-2": 6.1983,
+        "ap-south-1": 5.8441,
+        "ap-southeast-1": 6.1983,
+        "ap-southeast-2": 6.1983,
+        "eu-central-1": 6.1983,
+        "eu-west-1": 5.667,
+        "us-east-1": 5.1358,
+        "us-east-2": 5.1358,
+        "us-west-2": 5.1358
+      },
+      "db.r6gd.xlarge": {
+        "ap-northeast-1": 0.7742,
+        "ap-northeast-2": 0.7742,
+        "ap-south-1": 0.7302,
+        "ap-southeast-1": 0.7742,
+        "ap-southeast-2": 0.7742,
+        "eu-central-1": 0.7742,
+        "eu-west-1": 0.7093,
+        "us-east-1": 0.6421,
+        "us-east-2": 0.6421,
+        "us-west-2": 0.6421
+      },
+      "db.r8g.12xlarge": {
+        "ap-northeast-1": 7.9883448,
+        "ap-northeast-2": 7.9883448,
+        "ap-south-1": 7.533918,
+        "ap-southeast-1": 7.9883448,
+        "ap-southeast-2": 7.9883448,
+        "eu-central-1": 7.9883448,
+        "eu-west-1": 7.3186632,
+        "us-east-1": 6.6250644,
+        "us-east-2": 6.6250644,
+        "us-west-2": 6.6250644
+      },
+      "db.r8g.16xlarge": {
+        "ap-northeast-1": 10.6590988,
+        "ap-northeast-2": 10.6590988,
+        "ap-south-1": 10.05000744,
+        "ap-southeast-1": 10.6590988,
+        "ap-southeast-2": 10.6590988,
+        "eu-central-1": 10.6590988,
+        "eu-west-1": 9.74546176,
+        "us-east-1": 8.83182472,
+        "us-east-2": 8.83182472,
+        "us-west-2": 8.83182472
+      },
+      "db.r8g.24xlarge": {
+        "ap-northeast-1": 15.97669,
+        "ap-northeast-2": 15.97669,
+        "ap-south-1": 15.067836,
+        "ap-southeast-1": 15.97669,
+        "ap-southeast-2": 15.97669,
+        "eu-central-1": 15.97669,
+        "eu-west-1": 14.637326,
+        "us-east-1": 13.250129,
+        "us-east-2": 13.250129,
+        "us-west-2": 13.250129
+      },
+      "db.r8g.2xlarge": {
+        "ap-northeast-1": 1.3313908,
+        "ap-northeast-2": 1.3313908,
+        "ap-south-1": 1.255653,
+        "ap-southeast-1": 1.3313908,
+        "ap-southeast-2": 1.3313908,
+        "eu-central-1": 1.3313908,
+        "eu-west-1": 1.2197772,
+        "us-east-1": 1.1041774,
+        "us-east-2": 1.1041774,
+        "us-west-2": 1.1041774
+      },
+      "db.r8g.48xlarge": {
+        "ap-northeast-1": 31.953379,
+        "ap-northeast-2": 31.953379,
+        "ap-south-1": 30.135672,
+        "ap-southeast-1": 31.953379,
+        "ap-southeast-2": 31.953379,
+        "eu-central-1": 31.953379,
+        "eu-west-1": 29.274653,
+        "us-east-1": 26.500258,
+        "us-east-2": 26.500258,
+        "us-west-2": 26.500258
+      },
+      "db.r8g.4xlarge": {
+        "ap-northeast-1": 2.6627816,
+        "ap-northeast-2": 2.6627816,
+        "ap-south-1": 2.511306,
+        "ap-southeast-1": 2.6627816,
+        "ap-southeast-2": 2.6627816,
+        "eu-central-1": 2.6627816,
+        "eu-west-1": 2.4395544,
+        "us-east-1": 2.2083548,
+        "us-east-2": 2.2083548,
+        "us-west-2": 2.2083548
+      },
+      "db.r8g.8xlarge": {
+        "ap-northeast-1": 5.3295494,
+        "ap-northeast-2": 5.3295494,
+        "ap-south-1": 5.02500372,
+        "ap-southeast-1": 5.3295494,
+        "ap-southeast-2": 5.3295494,
+        "eu-central-1": 5.3295494,
+        "eu-west-1": 4.87273088,
+        "us-east-1": 4.41591236,
+        "us-east-2": 4.41591236,
+        "us-west-2": 4.41591236
+      },
+      "db.r8g.large": {
+        "ap-northeast-1": 0.3328477,
+        "ap-northeast-2": 0.3328477,
+        "ap-south-1": 0.31391325,
+        "ap-southeast-1": 0.3328477,
+        "ap-southeast-2": 0.3328477,
+        "eu-central-1": 0.3328477,
+        "eu-west-1": 0.3049443,
+        "us-east-1": 0.27604435,
+        "us-east-2": 0.27604435,
+        "us-west-2": 0.27604435
+      },
+      "db.r8g.xlarge": {
+        "ap-northeast-1": 0.6656954,
+        "ap-northeast-2": 0.6656954,
+        "ap-south-1": 0.6278265,
+        "ap-southeast-1": 0.6656954,
+        "ap-southeast-2": 0.6656954,
+        "eu-central-1": 0.6656954,
+        "eu-west-1": 0.6098886,
+        "us-east-1": 0.5520887,
+        "us-east-2": 0.5520887,
+        "us-west-2": 0.5520887
+      },
+      "db.t3.medium": {
+        "ap-northeast-1": 0.119,
+        "ap-northeast-2": 0.119,
+        "ap-south-1": 0.113,
+        "ap-southeast-1": 0.12,
+        "ap-southeast-2": 0.119,
+        "eu-central-1": 0.092,
+        "eu-west-1": 0.084,
+        "us-east-1": 0.078,
+        "us-east-2": 0.078,
+        "us-west-2": 0.078
+      },
+      "db.t4g.medium": {
+        "ap-northeast-1": 0.11543,
+        "ap-northeast-2": 0.11543,
+        "ap-south-1": 0.10961,
+        "ap-southeast-1": 0.1164,
+        "ap-southeast-2": 0.11543,
+        "eu-central-1": 0.08924,
+        "eu-west-1": 0.08148,
+        "us-east-1": 0.07566,
+        "us-east-2": 0.07566,
+        "us-west-2": 0.07566
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

@@ -1,0 +1,44 @@
+type: aws_rds_cluster_instance
+label: Aurora instance
+category: Database
+icon: aurora
+description: "Instance-hours of a provisioned Aurora instance, Aurora Standard or I/O-Optimized, surplus CPU credits, Database Insights and Extended Support per vCPU. Storage and I/O are billed on the aws_rds_cluster node, and so is a db.serverless instance's capacity (its ACU-hours). On-demand prices."
+kinds: [query]
+sla: aws.aurora
+attributes:
+  - { key: engine, label: Engine, type: string, optional: true, hint: "aurora-mysql or aurora-postgresql; unknown before apply when it names the cluster's engine, so write it here" }
+  - { key: instance_class, label: Instance class, type: string }
+  - { key: performance_insights_enabled, label: Performance Insights, type: boolean, default: false }
+  - { key: performance_insights_retention_period, label: Performance Insights retention, type: number, unit: days, default: 7, hint: "7 days are free; 31 × months, or 731" }
+assumptions:
+  - { key: ioOptimized, label: I/O-Optimized cluster, type: boolean, default: false, hint: "Set when the cluster's storage_type is aurora-iopt1: instance prices are higher and I/O is free" }
+  - { key: databaseInsightsAdvanced, label: Database Insights advanced, type: boolean, default: false, hint: "Set when the cluster's database_insights_mode is advanced; it bills every vCPU-hour" }
+  - { key: vcpus, label: vCPUs of the instance class, type: number, optional: true, hint: "Required for Database Insights, long Performance Insights retention and Extended Support, which bill per vCPU (db.r6g.large has 2)" }
+  - { key: cpuCreditVcpuHours, label: Surplus CPU credits, type: number, unit: vCPU-hours, default: 0, hint: "db.t3 and db.t4g run unlimited: vCPU-hours above the baseline that earned credits do not cover" }
+  - { key: extendedSupport, label: Extended Support, type: choice, options: [none, year1_2, year3], default: none, hint: "A major version past the end of standard support (Aurora MySQL 2, Aurora PostgreSQL 11 and 12) is billed per vCPU-hour" }
+let:
+  - eng: 'engine ?? ""'
+  - key: 'eng == "aurora-postgresql" ? "postgresql" : (eng in ["aurora", "aurora-mysql"] ? "mysql" : "")'
+  - storage: 'ioOptimized ? "iopt" : "standard"'
+  - serverless: 'instance_class == "db.serverless"'
+  - vcpu: vcpus ?? 0
+  - family: 'instance_class startsWith "db.t4g." ? "db.t4g" : "db.t3"'
+  - burstable: 'instance_class startsWith "db.t3." || instance_class startsWith "db.t4g."'
+  - advanced: '!serverless && databaseInsightsAdvanced'
+  - longRetention: '!serverless && !databaseInsightsAdvanced && performance_insights_enabled && performance_insights_retention_period > 7'
+  - retentionMonths: 'performance_insights_retention_period >= 731 ? 24 : ceil(performance_insights_retention_period / 31)'
+readings:
+  - fail: { when: engine == nil, message: "engine is unknown: write aurora-mysql or aurora-postgresql (a reference to the cluster's engine is only known after apply)" }
+  - fail: { when: 'key == ""', message: 'engine "{eng}" is not Aurora: use aurora-mysql or aurora-postgresql' }
+  - cost: { when: "!serverless", name: "Instance ({instance_class}, {ioOptimized ? \"I/O-Optimized\" : \"Standard\"})", quantity: 730, unit: instance-hour, price: "aws.aurora.{key}.{storage}.{instance_class}" }
+  - cost: { when: burstable && cpuCreditVcpuHours > 0, name: "CPU credits ({family})", quantity: cpuCreditVcpuHours, unit: vCPU-hour, price: "aws.aurora.cpu_credits.{key}.{family}" }
+  - fail: { when: '(advanced || longRetention || (!serverless && extendedSupport != "none")) && vcpus == nil', message: "vcpus is required: Database Insights, Performance Insights retention beyond 7 days and Extended Support bill per vCPU-hour", continue: true }
+  - cost: { when: advanced, name: Database Insights (advanced), quantity: vcpu * 730, unit: vCPU-hour, price: aws.rds.insights.advanced }
+  - cost: { when: longRetention, name: Performance Insights retention (first month), quantity: vcpu * 730, unit: vCPU-hour, price: aws.rds.insights.standard.first_month }
+  - cost: { when: longRetention && retentionMonths > 1, name: "Performance Insights retention ({retentionMonths - 1} more months)", quantity: vcpu * 730 * (retentionMonths - 1), unit: vCPU-hour, price: aws.rds.insights.standard.additional_month }
+  - cost: { when: '!serverless && extendedSupport != "none"', name: "Extended Support ({extendedSupport == \"year3\" ? \"year 3\" : \"years 1-2\"})", quantity: vcpu * 730, unit: vCPU-hour, price: "aws.rds.extended_support.{extendedSupport}" }
+terraform:
+  # An instance names its cluster; queries reach the cluster's endpoint.
+  passive: true
+iam:
+  query: ["rds-db:connect"]

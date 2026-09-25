@@ -57,17 +57,18 @@
   error: 'averageAcu 1 is below min_capacity 2
 
     ioPerQuery is required for standard storage'
-- name: not serverless v2 (us-east-1)
+- name: provisioned cluster, its instances billed on their own nodes (us-east-1)
   region: us-east-1
   assumptions:
-    averageAcu: 1
     storageGb: 10
+    ioPerQuery: 3
   demand:
     query:
       monthly: 2e+06
       peak: 40
-  error: 'only Aurora Serverless v2 is supported: serverlessv2_scaling_configuration
-    is missing'
+  costs:
+    Storage: 1
+    I/O: 1.2
 - name: standard storage (ap-northeast-1)
   region: ap-northeast-1
   attributes:
@@ -124,17 +125,18 @@
   error: 'averageAcu 1 is below min_capacity 2
 
     ioPerQuery is required for standard storage'
-- name: not serverless v2 (ap-northeast-1)
+- name: provisioned cluster, its instances billed on their own nodes (ap-northeast-1)
   region: ap-northeast-1
   assumptions:
-    averageAcu: 1
     storageGb: 10
+    ioPerQuery: 3
   demand:
     query:
       monthly: 2e+06
       peak: 40
-  error: 'only Aurora Serverless v2 is supported: serverlessv2_scaling_configuration
-    is missing'
+  costs:
+    Storage: 1.2
+    I/O: 1.44
 - name: standard storage with a managed master password (us-east-1)
   region: us-east-1
   attributes:

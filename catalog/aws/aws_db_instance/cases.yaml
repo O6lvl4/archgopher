@@ -1,0 +1,105 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Monthly USD per cost line, peak demand per limit. After an intended change:
+#   go test ./provider/aws -update
+- name: PostgreSQL Multi-AZ on gp3 above the baseline (ap-northeast-1)
+  region: ap-northeast-1
+  attributes: { engine: postgres, instance_class: db.m6g.large, multi_az: true, storage_type: gp3, allocated_storage: 500, iops: 15000, storage_throughput: 600 }
+  assumptions: { ioPerQuery: 2 }
+  demand: { query: { monthly: 1e+06, peak: 2000 } }
+  costs:
+    Instance (db.m6g.large, Multi-AZ): 321.93
+    Storage (gp3): 138
+    IOPS above 12000 (gp3): 144
+    Throughput above 500 MiBps (gp3): 19.2
+  limits:
+    Storage IOPS: 4000
+- name: PostgreSQL Multi-AZ on gp3 above the baseline (us-east-1)
+  region: us-east-1
+  attributes: { engine: postgres, instance_class: db.m6g.large, multi_az: true, storage_type: gp3, allocated_storage: 500, iops: 15000, storage_throughput: 600 }
+  assumptions: { ioPerQuery: 2 }
+  demand: { query: { monthly: 1e+06, peak: 2000 } }
+  costs:
+    Instance (db.m6g.large, Multi-AZ): 232.14
+    Storage (gp3): 115
+    IOPS above 12000 (gp3): 120
+    Throughput above 500 MiBps (gp3): 16
+  limits:
+    Storage IOPS: 4000
+- name: MySQL burstable with surplus credits, backups and a managed password (us-east-1)
+  region: us-east-1
+  attributes: { engine: mysql, instance_class: db.t4g.micro, allocated_storage: 20, manage_master_user_password: true }
+  assumptions: { ioPerQuery: 1, backupGb: 50, cpuCreditVcpuHours: 100 }
+  demand: { query: { monthly: 1e+06, peak: 50 } }
+  costs:
+    Instance (db.t4g.micro, Single-AZ): 11.68
+    Storage (gp2): 2.3
+    Backup storage: 4.75
+    CPU credits (db.t4g): 7.5
+    Master password secret: 0.4
+  limits:
+    Storage IOPS: 50
+- name: SQL Server Standard Multi-AZ on io1 (ap-northeast-1)
+  region: ap-northeast-1
+  attributes: { engine: sqlserver-se, license_model: license-included, instance_class: db.m5.xlarge, multi_az: true, storage_type: io1, allocated_storage: 200, iops: 3000 }
+  demand: { query: { monthly: 1e+06, peak: 100 } }
+  costs:
+    Instance (db.m5.xlarge, Multi-AZ): 2019.18
+    Storage (io1): 60
+    Provisioned IOPS (io1): 720
+- name: Oracle SE2 license included with three months of Performance Insights (us-east-1)
+  region: us-east-1
+  attributes: { engine: oracle-se2, instance_class: db.m5.large, allocated_storage: 100, performance_insights_enabled: true, performance_insights_retention_period: 93 }
+  assumptions: { vcpus: 2, insightsApiCalls: 2e+06 }
+  demand: { query: { monthly: 1e+06, peak: 100 } }
+  costs:
+    Instance (db.m5.large, Single-AZ): 319.74
+    Storage (gp2): 11.5
+    Performance Insights retention (first month): 2.99884
+    Performance Insights retention (2 more months): 0.25112
+    Database Insights API: 20
+- name: PostgreSQL on Extended Support year 3 with Database Insights advanced (ap-northeast-1)
+  region: ap-northeast-1
+  attributes: { engine: postgres, instance_class: db.m6g.large, storage_type: gp3, allocated_storage: 100, database_insights_mode: advanced }
+  assumptions: { vcpus: 2, extendedSupport: year3 }
+  demand: { query: { monthly: 1e+06, peak: 100 } }
+  costs:
+    Instance (db.m6g.large, Single-AZ): 161.33
+    Storage (gp3): 13.8
+    Database Insights (advanced): 18.25
+    Extended Support (year 3): 350.4
+- name: magnetic storage without ioPerQuery (us-east-1)
+  region: us-east-1
+  attributes: { engine: postgres, instance_class: db.t3.micro, storage_type: standard, allocated_storage: 50 }
+  demand: { query: { monthly: 1e+06, peak: 100 } }
+  costs:
+    Instance (db.t3.micro, Single-AZ): 13.14
+    Storage (standard): 5
+  error: ioPerQuery is required for magnetic storage
+- name: magnetic storage bills I/O (ap-northeast-1)
+  region: ap-northeast-1
+  attributes: { engine: postgres, instance_class: db.t3.micro, storage_type: standard, allocated_storage: 50 }
+  assumptions: { ioPerQuery: 3 }
+  demand: { query: { monthly: 1e+06, peak: 100 } }
+  costs:
+    Instance (db.t3.micro, Single-AZ): 20.44
+    Storage (standard): 6
+    I/O requests (magnetic): 0.36
+- name: Database Insights advanced without vcpus (us-east-1)
+  region: us-east-1
+  attributes: { engine: postgres, instance_class: db.t3.micro, allocated_storage: 20, database_insights_mode: advanced }
+  demand: { query: { monthly: 1e+06, peak: 100 } }
+  costs:
+    Instance (db.t3.micro, Single-AZ): 13.14
+    Storage (gp2): 2.3
+    Database Insights (advanced): 0
+  error: vcpus is required
+- name: an Aurora engine is a cluster instance (us-east-1)
+  region: us-east-1
+  attributes: { engine: aurora-mysql, instance_class: db.r6g.large, allocated_storage: 20 }
+  demand: { query: { monthly: 1e+06, peak: 100 } }
+  error: is not priced
+- name: a read replica without engine (ap-northeast-1)
+  region: ap-northeast-1
+  attributes: { instance_class: db.m6g.large }
+  demand: { query: { monthly: 1e+06, peak: 100 } }
+  error: engine is unknown

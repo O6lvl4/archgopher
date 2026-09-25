@@ -1,0 +1,21 @@
+type: aws_dms_replication_instance
+label: DMS replication instance
+category: Database
+icon: dms
+description: "Instance-hours, Single-AZ or Multi-AZ, and storage beyond what the instance includes (50 GB on T2 and T3, 100 GB on the others). Replication tasks run on it; nothing calls it. On-demand prices."
+kinds: [replicate]
+sla: aws.dms
+attributes:
+  - { key: replication_instance_class, label: Instance class, type: string }
+  - { key: multi_az, label: Multi-AZ, type: boolean, default: false }
+  - { key: allocated_storage, label: Allocated storage, type: number, unit: GB, default: 50 }
+let:
+  - dep: 'multi_az ? "multi_az" : "single_az"'
+  - family: 'split(replication_instance_class, ".")[1] ?? ""'
+  - included: 'family in ["t2", "t3"] ? 50 : 100'
+readings:
+  - cost: { name: "Instance ({replication_instance_class}, {multi_az ? \"Multi-AZ\" : \"Single-AZ\"})", quantity: 730, unit: instance-hour, price: "aws.dms.{dep}.{replication_instance_class}" }
+  - storage: { when: allocated_storage > included, name: "Storage above {included} GB", gb: allocated_storage - included, price: "aws.dms.storage.{dep}" }
+terraform:
+  # An instance names its subnet group and keys; tasks name it.
+  passive: true

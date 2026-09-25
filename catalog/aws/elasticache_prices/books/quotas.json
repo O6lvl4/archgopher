@@ -1,0 +1,293 @@
+{
+  "aws.elasticache.node_memory": {
+    "unit": "GiB",
+    "source": "https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/CacheNodes.SupportedTypes.html",
+    "note": "Memory of one node, from the memory attribute of the ElastiCache Price List; Redis OSS and Valkey reserve part of it (reserved-memory-percent, 25% by default)",
+    "rows": {
+      "cache.c7gn.12xlarge": {
+        "*": 78.56
+      },
+      "cache.c7gn.16xlarge": {
+        "*": 105.81
+      },
+      "cache.c7gn.2xlarge": {
+        "*": 12.94
+      },
+      "cache.c7gn.4xlarge": {
+        "*": 26.05
+      },
+      "cache.c7gn.8xlarge": {
+        "*": 52.26
+      },
+      "cache.c7gn.large": {
+        "*": 3.09
+      },
+      "cache.c7gn.xlarge": {
+        "*": 6.38
+      },
+      "cache.c8gn.12xlarge": {
+        "*": 92.99
+      },
+      "cache.c8gn.16xlarge": {
+        "*": 124.65
+      },
+      "cache.c8gn.2xlarge": {
+        "*": 14.18
+      },
+      "cache.c8gn.4xlarge": {
+        "*": 29.68
+      },
+      "cache.c8gn.8xlarge": {
+        "*": 61.33
+      },
+      "cache.c8gn.large": {
+        "*": 3.1
+      },
+      "cache.c8gn.xlarge": {
+        "*": 6.79
+      },
+      "cache.m4.10xlarge": {
+        "*": 154.64
+      },
+      "cache.m4.2xlarge": {
+        "*": 29.7
+      },
+      "cache.m4.4xlarge": {
+        "*": 60.78
+      },
+      "cache.m4.large": {
+        "*": 6.42
+      },
+      "cache.m4.xlarge": {
+        "*": 14.28
+      },
+      "cache.m5.12xlarge": {
+        "*": 157.12
+      },
+      "cache.m5.24xlarge": {
+        "*": 314.32
+      },
+      "cache.m5.2xlarge": {
+        "*": 26.04
+      },
+      "cache.m5.4xlarge": {
+        "*": 52.26
+      },
+      "cache.m5.large": {
+        "*": 6.38
+      },
+      "cache.m5.xlarge": {
+        "*": 12.93
+      },
+      "cache.m6g.12xlarge": {
+        "*": 157.12
+      },
+      "cache.m6g.16xlarge": {
+        "*": 209.55
+      },
+      "cache.m6g.2xlarge": {
+        "*": 26.04
+      },
+      "cache.m6g.4xlarge": {
+        "*": 52.26
+      },
+      "cache.m6g.8xlarge": {
+        "*": 103.68
+      },
+      "cache.m6g.large": {
+        "*": 6.38
+      },
+      "cache.m6g.xlarge": {
+        "*": 12.93
+      },
+      "cache.m7g.12xlarge": {
+        "*": 157.12
+      },
+      "cache.m7g.16xlarge": {
+        "*": 209.55
+      },
+      "cache.m7g.2xlarge": {
+        "*": 26.04
+      },
+      "cache.m7g.4xlarge": {
+        "*": 52.26
+      },
+      "cache.m7g.8xlarge": {
+        "*": 103.68
+      },
+      "cache.m7g.large": {
+        "*": 6.38
+      },
+      "cache.m7g.xlarge": {
+        "*": 12.93
+      },
+      "cache.m8g.12xlarge": {
+        "*": 187.96
+      },
+      "cache.m8g.16xlarge": {
+        "*": 251.27
+      },
+      "cache.m8g.2xlarge": {
+        "*": 29.68
+      },
+      "cache.m8g.4xlarge": {
+        "*": 61.33
+      },
+      "cache.m8g.8xlarge": {
+        "*": 124.65
+      },
+      "cache.m8g.large": {
+        "*": 6.79
+      },
+      "cache.m8g.xlarge": {
+        "*": 14.18
+      },
+      "cache.r4.16xlarge": {
+        "*": 407
+      },
+      "cache.r4.2xlarge": {
+        "*": 50.47
+      },
+      "cache.r4.4xlarge": {
+        "*": 101.38
+      },
+      "cache.r4.8xlarge": {
+        "*": 203.26
+      },
+      "cache.r4.large": {
+        "*": 12.3
+      },
+      "cache.r4.xlarge": {
+        "*": 25.05
+      },
+      "cache.r5.12xlarge": {
+        "*": 317.77
+      },
+      "cache.r5.24xlarge": {
+        "*": 635.61
+      },
+      "cache.r5.2xlarge": {
+        "*": 52.82
+      },
+      "cache.r5.4xlarge": {
+        "*": 105.81
+      },
+      "cache.r5.large": {
+        "*": 13.07
+      },
+      "cache.r5.xlarge": {
+        "*": 26.32
+      },
+      "cache.r6g.12xlarge": {
+        "*": 317.77
+      },
+      "cache.r6g.16xlarge": {
+        "*": 419.09
+      },
+      "cache.r6g.2xlarge": {
+        "*": 52.82
+      },
+      "cache.r6g.4xlarge": {
+        "*": 105.81
+      },
+      "cache.r6g.8xlarge": {
+        "*": 209.55
+      },
+      "cache.r6g.large": {
+        "*": 13.07
+      },
+      "cache.r6g.xlarge": {
+        "*": 26.32
+      },
+      "cache.r6gd.12xlarge": {
+        "*": 317.77
+      },
+      "cache.r6gd.16xlarge": {
+        "*": 419.09
+      },
+      "cache.r6gd.2xlarge": {
+        "*": 52.82
+      },
+      "cache.r6gd.4xlarge": {
+        "*": 105.81
+      },
+      "cache.r6gd.8xlarge": {
+        "*": 209.55
+      },
+      "cache.r6gd.xlarge": {
+        "*": 26.32
+      },
+      "cache.r7g.12xlarge": {
+        "*": 317.77
+      },
+      "cache.r7g.16xlarge": {
+        "*": 419.09
+      },
+      "cache.r7g.2xlarge": {
+        "*": 52.82
+      },
+      "cache.r7g.4xlarge": {
+        "*": 105.81
+      },
+      "cache.r7g.8xlarge": {
+        "*": 209.55
+      },
+      "cache.r7g.large": {
+        "*": 13.07
+      },
+      "cache.r7g.xlarge": {
+        "*": 26.32
+      },
+      "cache.r8g.12xlarge": {
+        "*": 377.9
+      },
+      "cache.r8g.16xlarge": {
+        "*": 504.52
+      },
+      "cache.r8g.2xlarge": {
+        "*": 61.33
+      },
+      "cache.r8g.4xlarge": {
+        "*": 124.65
+      },
+      "cache.r8g.8xlarge": {
+        "*": 251.27
+      },
+      "cache.r8g.large": {
+        "*": 14.18
+      },
+      "cache.r8g.xlarge": {
+        "*": 29.68
+      },
+      "cache.t2.medium": {
+        "*": 3.22
+      },
+      "cache.t2.micro": {
+        "*": 0.555
+      },
+      "cache.t2.small": {
+        "*": 1.55
+      },
+      "cache.t3.medium": {
+        "*": 3.09
+      },
+      "cache.t3.micro": {
+        "*": 0.5
+      },
+      "cache.t3.small": {
+        "*": 1.37
+      },
+      "cache.t4g.medium": {
+        "*": 3.09
+      },
+      "cache.t4g.micro": {
+        "*": 0.5
+      },
+      "cache.t4g.small": {
+        "*": 1.37
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "aws.dms": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/dms/sla/",
+    "note": "The DMS APIs in a region; no commitment is published for a replication instance itself",
+    "values": {
+      "*": {
+        "value": 0.999,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

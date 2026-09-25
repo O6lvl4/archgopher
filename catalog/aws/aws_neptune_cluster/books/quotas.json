@@ -1,0 +1,14 @@
+{
+  "aws.neptune.cluster_storage": {
+    "unit": "GiB",
+    "source": "https://docs.aws.amazon.com/neptune/latest/userguide/limits.html",
+    "note": "Maximum storage of one cluster (128 TiB)",
+    "values": {
+      "*": {
+        "value": 131072,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

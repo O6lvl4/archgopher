@@ -1,0 +1,14 @@
+{
+  "aws.redshift": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/redshift/sla/",
+    "note": "Single-AZ multi-node clusters; Multi-AZ clusters are 99.99%, single-node clusters 99.5%",
+    "values": {
+      "*": {
+        "value": 0.999,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

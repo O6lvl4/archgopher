@@ -1,0 +1,66 @@
+{
+  "aws.docdb.backup": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/documentdb/pricing/",
+    "note": "Backup storage beyond 100% of the cluster storage, and manual snapshots",
+    "sync": {
+      "filters": {
+        "productFamily": "Storage Snapshot",
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?BackupUsage"
+      },
+      "service": "AmazonDocDB"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.021,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.021,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.021,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.021,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

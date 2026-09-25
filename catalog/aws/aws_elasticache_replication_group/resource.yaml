@@ -1,0 +1,32 @@
+type: aws_elasticache_replication_group
+label: ElastiCache replication group
+category: Database
+icon: elasticache
+description: "Node-hours of every node (shards × (replicas + 1), or num_cache_clusters) by engine, and backup storage for retained snapshots. Auto scaling of shards and replicas is not modelled. Headroom is the data set against the memory of the shards. On-demand prices."
+kinds: [query]
+sla: aws.elasticache
+attributes:
+  - { key: engine, label: Engine, type: string, optional: true, hint: "redis (default) or valkey" }
+  - { key: node_type, label: Node type, type: string }
+  - { key: num_cache_clusters, label: Nodes (cluster mode disabled), type: number, optional: true, hint: "1 when neither this nor num_node_groups is set" }
+  - { key: num_node_groups, label: Shards, type: number, optional: true }
+  - { key: replicas_per_node_group, label: Replicas per shard, type: number, default: 0 }
+  - { key: snapshot_retention_limit, label: Snapshot retention, type: number, unit: days, default: 0 }
+assumptions:
+  - { key: snapshotGb, label: Snapshot size, type: number, unit: GB, default: 0, hint: "One daily snapshot of the whole group; every retained one after the first is billed" }
+  - { key: datasetGb, label: Data set, type: number, unit: GiB, optional: true, hint: "Compared with the memory of one node per shard" }
+let:
+  - eng: '(engine ?? "") == "valkey" ? "valkey" : "redis"'
+  - label: 'eng == "valkey" ? "Valkey" : "Redis OSS"'
+  - shards: num_node_groups ?? 1
+  - nodes: 'num_node_groups != nil ? num_node_groups * (replicas_per_node_group + 1) : (num_cache_clusters ?? 1)'
+readings:
+  - fail: { when: 'engine != nil && !((engine ?? "") in ["redis", "valkey"])', message: 'engine "{engine}" is not priced: a replication group runs redis or valkey' }
+  - cost: { name: "Nodes ({node_type}, {label})", quantity: nodes * 730, unit: node-hour, price: "aws.elasticache.{eng}.{node_type}" }
+  - storage: { when: snapshot_retention_limit > 1 && snapshotGb > 0, name: Backup storage, gb: snapshotGb * (snapshot_retention_limit - 1), price: "aws.elasticache.backup.{eng}" }
+  - rate: { when: datasetGb != nil, name: Memory, unit: GiB, peak: 'datasetGb ?? 0', quota: "aws.elasticache.node_memory.{node_type}", scale: shards }
+terraform:
+  # A group names its subnet group, parameters and keys; it calls nothing.
+  passive: true
+iam:
+  query: ["elasticache:Connect"]
