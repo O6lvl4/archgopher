@@ -1,0 +1,29 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: to an External VPN gateway, which reads the traffic (asia-northeast1)
+  region: asia-northeast1
+  demand:
+    traffic:
+      monthly: 1e+07
+      peak: 100
+- name: to an HA VPN gateway in the same region, 10 million requests of 4 KB (asia-northeast1)
+  region: asia-northeast1
+  assumptions:
+    peer: same-region
+    kbPerUnit: 4
+  demand:
+    traffic:
+      monthly: 1e+07
+      peak: 100
+  # 38.14697265625 GiB × $0.01 between zones
+  costs:
+    IPsec traffic sent: 0.3814697265625
+- name: to another region (us-east4)
+  region: us-east4
+  assumptions:
+    peer: other-region
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  error: inter-region rates, which are not priced yet

@@ -1,0 +1,87 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 10 VMs, 10 million requests of 4 KB (asia-northeast1)
+  region: asia-northeast1
+  assumptions:
+    vms: 10
+    kbPerUnit: 4
+  demand:
+    traffic:
+      monthly: 1e+07
+      peak: 100
+  # 10 × 730 h × $0.0014; 1 address × 730 h × $0.005; 38.14697265625 GiB × $0.045
+  costs:
+    Gateway uptime: 10.22
+    NAT IP addresses: 3.65
+    Data processed: 1.71661376953125
+- name: 40 VMs on two manual addresses, 200 GB of downloads (us-east4)
+  region: us-east4
+  attributes:
+    nat_ip_allocate_option: MANUAL_ONLY
+    nat_ips: [ip-a, ip-b]
+  assumptions:
+    vms: 40
+    gbPerMonth: 200
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # over 32 VMs: 730 h × $0.044; 2 × 730 h × $0.005; 200 GiB × $0.045; 40 VMs × 64 ports of 2 × 64,512
+  costs:
+    Gateway uptime: 32.12
+    NAT IP addresses: 7.3
+    Data processed: 9
+  limits:
+    Source ports: 2560
+- name: Private NAT, 200 GB (europe-west1)
+  region: europe-west1
+  attributes:
+    nat_type: PRIVATE
+  assumptions:
+    vms: 4
+    gbPerMonth: 200
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # 730 h × $0.045; 200 GiB × $0.045
+  costs:
+    Gateway uptime: 32.85
+    Data processed: 9
+- name: load passes through without a size (asia-northeast1)
+  region: asia-northeast1
+  assumptions:
+    vms: 1
+  demand:
+    traffic:
+      monthly: 1000
+      peak: 1
+  error: "load passes through this NAT gateway: set kbPerUnit, the data each unit carries"
+- name: AUTO_ONLY allocates addresses for 1,500 VMs (asia-northeast1)
+  region: asia-northeast1
+  assumptions:
+    vms: 1500
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # over 32 VMs: 730 h × $0.044; 1,500 × 64 ports = 96,000 of 64,512 per address = 2 addresses × 730 h × $0.005
+  costs:
+    Gateway uptime: 32.12
+    NAT IP addresses: 7.3
+    Data processed: 0
+- name: AUTO_ONLY with dynamic port allocation, 1,500 VMs fit one address (us-east4)
+  region: us-east4
+  attributes:
+    enable_dynamic_port_allocation: true
+  assumptions:
+    vms: 1500
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # 1,500 × 32 ports = 48,000 of 64,512: 1 address × 730 h × $0.005
+  costs:
+    Gateway uptime: 32.12
+    NAT IP addresses: 3.65
+    Data processed: 0

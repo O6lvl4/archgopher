@@ -1,0 +1,29 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: one tunnel (asia-northeast1)
+  region: asia-northeast1
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # 730 h × $0.075
+  costs:
+    Tunnel hours: 54.75
+- name: one tunnel (europe-west3)
+  region: europe-west3
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # 730 h × $0.06
+  costs:
+    Tunnel hours: 43.8
+- name: one tunnel (australia-southeast1)
+  region: australia-southeast1
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # 730 h × $0.068
+  costs:
+    Tunnel hours: 49.64

@@ -1,0 +1,20 @@
+type: google_service_networking_connection
+label: Private services access
+category: Network
+icon: private-connectivity
+description: "The peering to a Google-managed service network (Cloud SQL, Memorystore, Filestore private IPs). The connection is free; data sent over it is billed like traffic within one VPC network: free inside a zone, the between-zones price across zones. Place it on the path to the service: load that passes through carries kbPerUnit each and flows on. Traffic to a service in another region is billed at inter-region rates, which are not priced yet."
+kinds: [traffic]
+assumptions:
+  - { key: serviceRegion, label: Service region, type: choice, options: [same-region, other-region], default: same-region, hint: "Where the managed service sits compared with the callers" }
+  - { key: zones, label: Zones the callers spread over, type: number, hint: "With the service in one zone and callers spread evenly over n zones, (n - 1) / n of the traffic crosses zones" }
+  - { key: kbPerUnit, label: Data sent per unit, type: number, unit: KB, optional: true, hint: "Per request passing through, what your network sends to the service" }
+  - { key: gbPerMonth, label: Other data sent per month, type: number, unit: GB, default: 0, hint: "Traffic not drawn as load" }
+let:
+  - gb: 'gbPerMonth + total.monthly * (kbPerUnit != nil ? kbPerUnit : 0.0) / 1024 / 1024'
+readings:
+  - fail: { when: 'serviceRegion == "other-region"', message: "traffic to a managed service in another region is billed at inter-region rates, which are not priced yet" }
+  - fail: { when: 'total.monthly > 0 && kbPerUnit == nil', message: "load passes through this connection: set kbPerUnit, the data each unit sends" }
+  - cost: { name: Between zones, quantity: 'zones > 1 ? gb * (zones - 1) / zones : 0.0', unit: GB, price: gcp.network.inter_zone }
+terraform:
+  # Services name the network, not the connection; draw the traffic through it by hand.
+  passive: true

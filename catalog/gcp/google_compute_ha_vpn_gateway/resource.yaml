@@ -1,0 +1,21 @@
+type: google_compute_ha_vpn_gateway
+label: HA VPN gateway
+category: Network
+icon: cloud-vpn
+description: "The gateway itself is free; its tunnels bill by the hour. Reads the IPsec traffic it sends to another HA VPN gateway in the same region, at the between-zones price. Traffic to a device outside Google Cloud is read on that device's External VPN gateway: draw it on from here. Load that passes through carries kbPerUnit each and flows on. Data coming in is free."
+kinds: [traffic]
+sla: gcp.vpn.ha
+assumptions:
+  - { key: peer, label: Peer, type: choice, options: [external-gateway, same-region, other-region], default: external-gateway, hint: "external-gateway: a device outside Google Cloud, declared as an External VPN gateway; same-region or other-region: another HA VPN gateway" }
+  - { key: kbPerUnit, label: Data sent per unit, type: number, unit: KB, optional: true, hint: "Per request or message passing through, what Google Cloud sends to the other side" }
+  - { key: gbPerMonth, label: Other data sent per month, type: number, unit: GB, default: 0, hint: "Traffic not drawn as load" }
+let:
+  - toGcp: 'peer == "same-region"'
+readings:
+  - fail: { when: 'peer == "other-region"', message: "IPsec traffic to an HA VPN gateway in another region is billed at inter-region rates, which are not priced yet" }
+  - fail: { when: 'toGcp && total.monthly > 0 && kbPerUnit == nil', message: "load passes through this VPN gateway: set kbPerUnit, the data each unit sends" }
+  - cost: { when: toGcp, name: IPsec traffic sent, quantity: 'gbPerMonth + total.monthly * (kbPerUnit != nil ? kbPerUnit : 0.0) / 1024 / 1024', unit: GB, price: gcp.network.inter_zone }
+terraform:
+  # Tunnels and routers name the gateway; nothing calls it. Draw the traffic through it by hand.
+  mentioned: true
+  passive: true

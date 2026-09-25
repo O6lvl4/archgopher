@@ -1,0 +1,17 @@
+type: google_compute_region_target_https_proxy
+label: Regional target HTTPS proxy
+category: Network
+icon: cloud-load-balancing
+description: "The proxy of a regional Application Load Balancer. Reads the data the load balancer processes, requests and responses together: at the Application Load Balancer price for an external load balancer, at the internal one when it serves an INTERNAL_MANAGED forwarding rule (whose proxy instances that rule reads). The forwarding rule in front of it reads the rule hours; transfer out to the internet is charged on top and is not read here, nor are connections made with self-managed RSA-3072 or RSA-4096 certificates ($0.45 per million)."
+kinds: [request]
+assumptions:
+  - { key: loadBalancer, label: Load balancer, type: choice, options: [external, internal], default: external, hint: "internal when the forwarding rule in front of it is INTERNAL_MANAGED" }
+  - { key: kbPerUnit, label: Data per unit, type: number, unit: KB, optional: true, hint: "Per request, request and response together" }
+  - { key: gbPerMonth, label: Other data per month, type: number, unit: GB, default: 0, hint: "Traffic not drawn as load" }
+let:
+  - perUnit: 'kbPerUnit != nil ? kbPerUnit : 0.0'
+readings:
+  - fail: { when: 'total.monthly > 0 && kbPerUnit == nil', message: "load passes through this proxy: set kbPerUnit, the data each request carries" }
+  - cost: { name: Data processed, quantity: 'gbPerMonth + total.monthly * perUnit / 1024 / 1024', unit: GB, price: 'gcp.lb.{loadBalancer == "internal" ? "internal." : ""}data_processed' }
+terraform:
+  ignoreRefs: [url_map, ssl_certificates, certificate_manager_certificates, ssl_policy, server_tls_policy]

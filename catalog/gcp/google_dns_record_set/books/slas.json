@@ -1,0 +1,14 @@
+{
+  "gcp.dns": {
+    "unit": "fraction",
+    "source": "https://cloud.google.com/dns/sla",
+    "note": "Serving queries from at least one Google authoritative name server",
+    "values": {
+      "*": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

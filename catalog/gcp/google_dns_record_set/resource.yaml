@@ -1,0 +1,16 @@
+type: google_dns_record_set
+label: Cloud DNS record set
+category: Network
+icon: cloud-dns
+description: "Queries that reach Cloud DNS for this name, $0.40 per million, or $0.70 when a routing policy answers them. Resolvers cache answers for the TTL, so count lookups rather than the requests behind them. There is no free tier."
+kinds: [query]
+sla: gcp.dns
+attributes:
+  - { key: routing_policy, label: Routing policy, type: boolean, default: false, path: routing_policy, hint: "Weighted, geolocation or failover answers" }
+assumptions:
+  - { key: queriesPerMonth, label: Other queries per month, type: number, default: 0, hint: "Lookups not drawn as load" }
+readings:
+  - requests: { name: Queries, count: total.monthly + queriesPerMonth, price: 'gcp.dns.{routing_policy ? "routing_policy_queries" : "queries"}', unit: query }
+terraform:
+  # A record set names its zone and the addresses it answers with; it calls none of them.
+  passive: true

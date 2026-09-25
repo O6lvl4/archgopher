@@ -1,0 +1,47 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: callers in two zones, 10 million requests of 4 KB (asia-northeast1)
+  region: asia-northeast1
+  assumptions:
+    zones: 2
+    kbPerUnit: 4
+  demand:
+    traffic:
+      monthly: 1e+07
+      peak: 100
+  # half of 38.14697265625 GiB crosses zones at $0.01
+  costs:
+    Between zones: 0.19073486328125
+- name: callers in three zones, 300 GB (us-east5)
+  region: us-east5
+  assumptions:
+    zones: 3
+    gbPerMonth: 300
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # 2/3 of 300 GiB = 200 GiB × $0.01
+  costs:
+    Between zones: 2
+- name: callers in the service's zone (asia-northeast1)
+  region: asia-northeast1
+  assumptions:
+    zones: 1
+    gbPerMonth: 300
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  costs:
+    Between zones: 0
+- name: service in another region (asia-northeast1)
+  region: asia-northeast1
+  assumptions:
+    zones: 3
+    serviceRegion: other-region
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  error: traffic to a managed service in another region is billed at inter-region rates, which are not priced yet

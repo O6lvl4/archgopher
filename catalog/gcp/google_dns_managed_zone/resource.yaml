@@ -1,0 +1,12 @@
+type: google_dns_managed_zone
+label: Cloud DNS zone
+category: Network
+icon: cloud-dns
+description: "Each zone by the month, public, private and forwarding alike, priced by how many zones the billing account has: $0.20 each for the first 25, $0.10 up to 10,000, $0.03 after. Queries are read on the record sets."
+kinds: [query]
+assumptions:
+  - { key: otherZones, label: Other zones in the billing account, type: number, default: 0, hint: "Zones of every project on the billing account; this zone is priced as the next one" }
+readings:
+  - cost: { name: Managed zone, quantity: 1, unit: zone-month, price: 'gcp.dns.zone.{otherZones < 25 ? "first_25" : otherZones < 10000 ? "to_10000" : "over_10000"}' }
+terraform:
+  passive: true

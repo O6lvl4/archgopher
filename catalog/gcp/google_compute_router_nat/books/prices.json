@@ -1,0 +1,117 @@
+{
+  "gcp.nat.data_processed": {
+    "unit": "GB",
+    "source": "https://cloud.google.com/nat/pricing",
+    "note": "Public NAT: data processed by the gateway, inbound and outbound (per GiB). The same in every region. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "E505-1604-58F8",
+      "region": "global",
+      "filters": {
+        "description": "Networking Cloud NAT data processing"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.045,
+        "verified": false
+      }
+    }
+  },
+  "gcp.nat.gateway_hour_capped": {
+    "unit": "hour",
+    "source": "https://cloud.google.com/nat/pricing",
+    "note": "Public NAT gateway uptime serving more than 32 VM instances: the hourly charge stops growing here. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "E505-1604-58F8",
+      "region": "global",
+      "filters": {
+        "description": "Networking Cloud NAT gateway uptime"
+      },
+      "tier": "last"
+    },
+    "values": {
+      "*": {
+        "value": 0.044,
+        "verified": false
+      }
+    }
+  },
+  "gcp.nat.ip_hour": {
+    "unit": "IP-hour",
+    "source": "https://cloud.google.com/nat/pricing",
+    "note": "Each static or ephemeral external IP address a Public NAT gateway uses, an hour. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "E505-1604-58F8",
+      "region": "global",
+      "filters": {
+        "description": "Networking Cloud NAT IP usage"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.005,
+        "verified": false
+      }
+    }
+  },
+  "gcp.nat.private.data_processed": {
+    "unit": "GB",
+    "source": "https://cloud.google.com/nat/pricing",
+    "note": "Private NAT: data processed by the gateway, inbound and outbound (per GiB). From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "E505-1604-58F8",
+      "region": "global",
+      "filters": {
+        "description": "Networking Private NAT data processing"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.045,
+        "verified": false
+      }
+    }
+  },
+  "gcp.nat.private.gateway_hour": {
+    "unit": "hour",
+    "source": "https://cloud.google.com/nat/pricing",
+    "note": "Private NAT gateway uptime. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "E505-1604-58F8",
+      "region": "global",
+      "filters": {
+        "description": "Networking Private NAT gateway uptime"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.045,
+        "verified": false
+      }
+    }
+  },
+  "gcp.nat.vm_hour": {
+    "unit": "VM-hour",
+    "source": "https://cloud.google.com/nat/pricing",
+    "note": "Public NAT gateway uptime: this much an hour for each VM instance that gets a NAT assignment, up to 32. The same in every region. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "E505-1604-58F8",
+      "region": "global",
+      "filters": {
+        "description": "Networking Cloud NAT gateway uptime"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.0014,
+        "verified": false
+      }
+    }
+  }
+}

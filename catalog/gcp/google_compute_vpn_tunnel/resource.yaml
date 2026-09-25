@@ -1,0 +1,11 @@
+type: google_compute_vpn_tunnel
+label: VPN tunnel
+category: Network
+icon: cloud-vpn
+description: "Tunnel-hours at the price of the gateway's region, Classic or HA VPN alike. The data sent through it is read on the gateway: draw traffic through the VPN gateway, not the tunnel."
+kinds: [traffic]
+readings:
+  - cost: { name: Tunnel hours, quantity: 730, unit: hour, price: gcp.vpn.tunnel_hour }
+terraform:
+  # A tunnel names its gateways and router; it calls none of them.
+  passive: true

@@ -1,0 +1,22 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: one proxyless gRPC client (asia-northeast1)
+  region: asia-northeast1
+  demand:
+    request:
+      monthly: 1e+07
+      peak: 100
+  # 730 h × $0.0006945
+  costs:
+    Mesh clients: 0.506985
+- name: 20 client instances (europe-west1)
+  region: europe-west1
+  assumptions:
+    clients: 20
+  demand:
+    request:
+      monthly: 1e+07
+      peak: 100
+  # 20 × 730 h × $0.0006945
+  costs:
+    Mesh clients: 10.1397
