@@ -1,0 +1,175 @@
+{
+  "azure.aks.dns_zone": {
+    "unit": "zone-month",
+    "source": "https://azure.microsoft.com/pricing/details/dns/",
+    "note": "Public DNS zone, first 25 zones, Zone 1 price",
+    "sync": {
+      "filters": {
+        "meterName": "Public Zone",
+        "productName": "Azure DNS"
+      },
+      "region": "Zone 1",
+      "service": "Azure DNS",
+      "source": "azure"
+    },
+    "values": {
+      "*": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.aks.load_balancer.data_processed": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/load-balancer/",
+    "note": "Standard Load Balancer data processed, the same everywhere",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Data Processed",
+        "productName": "Load Balancer",
+        "skuName": "Standard"
+      },
+      "region": "Global",
+      "service": "Load Balancer",
+      "source": "azure"
+    },
+    "values": {
+      "*": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.aks.long_term_support": {
+    "unit": "cluster-hour",
+    "source": "https://azure.microsoft.com/pricing/details/kubernetes-service/",
+    "note": "Premium tier (long-term support, uptime SLA included), per cluster",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Long Term Support",
+        "productName": "Azure Kubernetes Service"
+      },
+      "service": "Azure Kubernetes Service",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.aks.uptime_sla": {
+    "unit": "cluster-hour",
+    "source": "https://azure.microsoft.com/pricing/details/kubernetes-service/",
+    "note": "Standard tier (uptime SLA), per cluster",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Uptime SLA",
+        "productName": "Azure Kubernetes Service"
+      },
+      "service": "Azure Kubernetes Service",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

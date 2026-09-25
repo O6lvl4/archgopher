@@ -1,0 +1,15 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: two Linux instances with a Standard SSD data disk each
+  region: japaneast
+  attributes: { sku_name: Standard_D2s_v5, sku_capacity: 2, os_disk_type: Standard_LRS, data_disk_type: StandardSSD_LRS, data_disk_size_gb: 128 }
+  costs:
+    Instance hours: 181.04
+    OS disks (S4 LRS): 3.072
+    Data disks (E10 LRS): 19.2
+- name: a Windows Server image
+  region: eastus
+  attributes: { sku_name: Standard_D2s_v5, sku_capacity: 1, image_offer: WindowsServer, os_disk_type: Premium_LRS }
+  costs:
+    Instance hours (Windows): 137.24
+    OS disks (P10 LRS): 19.71

@@ -1,0 +1,52 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 256 GiB Premium SSD at 800 IOPS
+  region: japaneast
+  attributes: { storage_account_type: Premium_LRS, disk_size_gb: 256 }
+  demand:
+    read: { monthly: 1000000, peak: 800 }
+  costs:
+    Disk (P15 LRS): 43.720714
+  limits:
+    IOPS: 800
+- name: Standard SSD ZRS bills operations
+  region: japaneast
+  attributes: { storage_account_type: StandardSSD_ZRS, disk_size_gb: 128 }
+  demand:
+    read: { monthly: 5000000, peak: 100 }
+    write: { monthly: 5000000, peak: 100 }
+  costs:
+    Disk (E10 ZRS): 14.4
+    Disk operations: 2
+  limits:
+    IOPS: 200
+- name: a P30 performance tier on a 128 GiB disk
+  region: japaneast
+  attributes: { storage_account_type: Premium_LRS, disk_size_gb: 128, tier: P30 }
+  costs:
+    Disk (P30 LRS): 155.44
+  limits:
+    IOPS: 0
+- name: Ultra Disk bills 200 GiB as 256 GiB
+  region: eastus
+  attributes: { storage_account_type: UltraSSD_LRS, disk_size_gb: 200, disk_iops_read_write: 5000, disk_mbps_read_write: 200 }
+  demand:
+    read: { monthly: 1000000, peak: 1000 }
+  costs:
+    Provisioned capacity: 30.64832
+    Provisioned IOPS: 248.2
+    Provisioned throughput: 69.934
+  limits:
+    IOPS: 1000
+- name: Premium SSD v2 above the included IOPS
+  region: eastus
+  attributes: { storage_account_type: PremiumV2_LRS, disk_size_gb: 512, disk_iops_read_write: 6000 }
+  costs:
+    Provisioned capacity: 41.1136
+    IOPS above 3000: 15.33
+  limits:
+    IOPS: 0
+- name: a copied disk without a size
+  region: japaneast
+  attributes: { storage_account_type: Premium_LRS }
+  error: "the disk's size is unknown"

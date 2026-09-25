@@ -1,0 +1,19 @@
+type: azurerm_image
+label: Managed image
+category: Storage
+icon: images
+description: "Data held by the image's OS and data disks, at the Standard HDD LRS snapshot price."
+kinds: [launch]
+attributes:
+  - { key: os_disk_size_gb, label: OS disk size, type: number, unit: GiB, optional: true, path: os_disk.size_gb }
+  - { key: data_disk_size_gb, label: Data disk size, type: number, unit: GiB, optional: true, path: data_disk.size_gb, hint: "The first data_disk block" }
+assumptions:
+  - { key: storedGb, label: Data held, type: number, unit: GB, optional: true, hint: "Used data of the disks captured; unset reads the disk sizes written" }
+let:
+  - gb: 'storedGb != nil ? storedGb : (os_disk_size_gb != nil ? os_disk_size_gb : 0.0) + (data_disk_size_gb != nil ? data_disk_size_gb : 0.0)'
+readings:
+  - fail: { when: gb <= 0, message: "the data held is unknown: set storedGb (the image captures a VM or disks whose size Terraform does not write here)" }
+  - storage: { name: Image storage, gb: gb, price: azure.disk.snapshot }
+terraform:
+  mentioned: true
+  passive: true

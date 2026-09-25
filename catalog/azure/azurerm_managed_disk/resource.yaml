@@ -1,0 +1,48 @@
+type: azurerm_managed_disk
+label: Managed disk
+category: Storage
+icon: disks
+description: "Standard HDD, Standard SSD and Premium SSD disks bill the smallest tier that holds their size (or the performance tier set), and Standard disks also bill operations; Ultra and Premium SSD v2 disks bill provisioned GiB, IOPS and MB/s. Headroom is peak I/O operations per second against the tier's or the provisioned IOPS. A VM that attaches the disk (azurerm_virtual_machine_data_disk_attachment) calls it."
+kinds: [read, write]
+attributes:
+  - { key: storage_account_type, label: Disk type, type: choice, options: [Standard_LRS, StandardSSD_LRS, StandardSSD_ZRS, Premium_LRS, Premium_ZRS, PremiumV2_LRS, UltraSSD_LRS] }
+  - { key: disk_size_gb, label: Size, type: number, unit: GiB, optional: true, hint: "Unset when the disk copies or imports another; set diskSizeGb then" }
+  - { key: tier, label: Performance tier, type: string, optional: true, hint: "A Premium SSD tier above the size's own (P30 on a 128 GiB disk) is billed at that tier" }
+  - { key: disk_iops_read_write, label: Provisioned IOPS, type: number, optional: true, hint: "Ultra and Premium SSD v2 only" }
+  - { key: disk_mbps_read_write, label: Provisioned throughput, type: number, unit: MB/s, optional: true, hint: "Ultra and Premium SSD v2 only" }
+assumptions:
+  - { key: diskSizeGb, label: Size when copied, type: number, unit: GiB, optional: true, hint: "The source disk's size, when disk_size_gb is not written" }
+  - { key: otherOpsPerMonth, label: Other operations per month, type: number, default: 0, hint: "I/O not drawn as load on the disk: the OS, logs, backups. Standard HDD and SSD bill every 10,000" }
+let:
+  - dtype: storage_account_type
+  - dsize: 'disk_size_gb != nil ? disk_size_gb : diskSizeGb != nil ? diskSizeGb : 0.0'
+  - dclass: 'dtype startsWith "StandardSSD" ? "E" : dtype startsWith "Standard_" ? "S" : dtype startsWith "PremiumV2" ? "v2" : dtype startsWith "Premium_" ? "P" : "ultra"'
+  - dred: 'dtype endsWith "ZRS" ? "zrs" : "lrs"'
+  - dnum: 'dsize <= 4 ? 1 : dsize <= 8 ? 2 : dsize <= 16 ? 3 : dsize <= 32 ? 4 : dsize <= 64 ? 6 : dsize <= 128 ? 10 : dsize <= 256 ? 15 : dsize <= 512 ? 20 : dsize <= 1024 ? 30 : dsize <= 2048 ? 40 : dsize <= 4096 ? 50 : dsize <= 8192 ? 60 : dsize <= 16384 ? 70 : 80'
+  - sizeTier: 'dclass + string(dclass == "S" ? max(dnum, 4) : dnum)'
+  - dtier: 'dclass == "P" && tier != nil ? tier : sizeTier'
+  - tiered: 'dclass in ["S", "E", "P"]'
+  - ops: total.monthly + otherOpsPerMonth
+  - ultraGb: 'dsize <= 4 ? 4 : dsize <= 8 ? 8 : dsize <= 16 ? 16 : dsize <= 32 ? 32 : dsize <= 64 ? 64 : dsize <= 128 ? 128 : dsize <= 256 ? 256 : dsize <= 512 ? 512 : min(ceilDiv(dsize, 1024) * 1024, 65536)'
+  - ultraIops: 'disk_iops_read_write != nil ? disk_iops_read_write : 2048.0'
+  - ultraMbps: 'disk_mbps_read_write != nil ? disk_mbps_read_write : 8.0'
+  - v2Iops: 'disk_iops_read_write != nil ? disk_iops_read_write : 3000.0'
+  - v2Mbps: 'disk_mbps_read_write != nil ? disk_mbps_read_write : 125.0'
+readings:
+  - fail: { when: dsize <= 0, message: "the disk's size is unknown: set disk_size_gb or diskSizeGb" }
+  - fail: { when: tiered && dsize > 32767, message: "{dsize} GiB is larger than the largest {dtype} tier (32,767 GiB)" }
+  - cost: { when: tiered, name: "Disk ({dtier} {upper(dred)})", quantity: 1, unit: disk-month, price: "azure.disk.{dred}.{dtier}" }
+  - cost: { when: 'dclass in ["S", "E"]', name: Disk operations, quantity: ops, unit: operation, price: '{dclass == "S" ? "azure.disk.operations.standard_hdd_" : "azure.disk.operations.standard_ssd_"}{dred}' }
+  - cost: { when: dclass == "ultra", name: Provisioned capacity, quantity: 730 * ultraGb, unit: GiB-hour, price: azure.disk.ultra.capacity }
+  - cost: { when: dclass == "ultra", name: Provisioned IOPS, quantity: 730 * ultraIops, unit: IOPS-hour, price: azure.disk.ultra.iops }
+  - cost: { when: dclass == "ultra", name: Provisioned throughput, quantity: 730 * ultraMbps, unit: MBps-hour, price: azure.disk.ultra.throughput }
+  - cost: { when: dclass == "v2", name: Provisioned capacity, quantity: 730 * dsize, unit: GiB-hour, price: azure.disk.premium_v2.capacity }
+  - cost: { when: dclass == "v2" && v2Iops > 3000, name: IOPS above 3000, quantity: 730 * (v2Iops - 3000), unit: IOPS-hour, price: azure.disk.premium_v2.iops }
+  - cost: { when: dclass == "v2" && v2Mbps > 125, name: Throughput above 125 MB/s, quantity: 730 * (v2Mbps - 125), unit: MBps-hour, price: azure.disk.premium_v2.throughput }
+  - limit: { when: tiered, name: IOPS, demand: total.peak, unit: IOPS, quota: "azure.disk.iops.{dtier}" }
+  - limit: { when: dclass == "ultra", name: IOPS, demand: total.peak, unit: IOPS, capacity: ultraIops }
+  - limit: { when: dclass == "v2", name: IOPS, demand: total.peak, unit: IOPS, capacity: v2Iops }
+terraform:
+  passive: true
+  links:
+    - { type: azurerm_virtual_machine_data_disk_attachment, from: virtual_machine_id, to: [managed_disk_id] }

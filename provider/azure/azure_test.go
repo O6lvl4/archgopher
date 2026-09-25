@@ -15,8 +15,19 @@ var update = flag.Bool("update", false, "rewrite the bundled books in canonical 
 // attrs and assume make each resource take its main code path.
 var (
 	attrs = map[string]map[string]any{
-		"azurerm_service_plan":         {"sku_name": "P1v3"},
-		"azurerm_cognitive_deployment": {"model_name": "gpt-4o"},
+		"azurerm_service_plan":                      {"sku_name": "P1v3"},
+		"azurerm_cognitive_deployment":              {"model_name": "gpt-4o"},
+		"azurerm_linux_virtual_machine":             {"size": "Standard_D2s_v5", "os_disk_type": "Premium_LRS"},
+		"azurerm_windows_virtual_machine":           {"size": "Standard_D2s_v5", "os_disk_type": "Premium_LRS"},
+		"azurerm_virtual_machine":                   {"vm_size": "Standard_D2s_v5", "os_disk_type": "Premium_LRS"},
+		"azurerm_linux_virtual_machine_scale_set":   {"sku": "Standard_D2s_v5", "instances": 2.0, "os_disk_type": "Premium_LRS"},
+		"azurerm_windows_virtual_machine_scale_set": {"sku": "Standard_D2s_v5", "instances": 2.0, "os_disk_type": "Premium_LRS"},
+		"azurerm_virtual_machine_scale_set":         {"sku_name": "Standard_D2s_v5", "sku_capacity": 2.0, "os_disk_type": "Premium_LRS"},
+		"azurerm_managed_disk":                      {"storage_account_type": "StandardSSD_LRS", "disk_size_gb": 128.0},
+		"azurerm_snapshot":                          {"disk_size_gb": 128.0},
+		"azurerm_image":                             {"os_disk_size_gb": 30.0},
+		"azurerm_kubernetes_cluster":                {"vm_size": "Standard_D2s_v5", "sku_tier": "Standard"},
+		"azurerm_kubernetes_cluster_node_pool":      {"vm_size": "Standard_D2s_v5"},
 	}
 	assume = map[string]map[string]any{
 		"azurerm_cosmosdb_account": {"provisionedRus": 400.0},

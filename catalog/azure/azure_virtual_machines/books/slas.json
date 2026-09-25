@@ -1,0 +1,24 @@
+{
+  "azure.vm": {
+    "unit": "fraction",
+    "source": "https://www.microsoft.com/licensing/docs/view/Service-Level-Agreements-SLA-for-Online-Services",
+    "note": "Single-instance VM with Premium SSD or Ultra Disk for every disk (Standard SSD 99.5%, Standard HDD 95%). From the consolidated SLA document, not machine-checked",
+    "values": {
+      "*": {
+        "value": 0.999,
+        "verified": false
+      }
+    }
+  },
+  "azure.vm.scale_set": {
+    "unit": "fraction",
+    "source": "https://www.microsoft.com/licensing/docs/view/Service-Level-Agreements-SLA-for-Online-Services",
+    "note": "Two or more instances in one scale set or availability set (99.99% across two or more availability zones). From the consolidated SLA document, not machine-checked",
+    "values": {
+      "*": {
+        "value": 0.9995,
+        "verified": false
+      }
+    }
+  }
+}

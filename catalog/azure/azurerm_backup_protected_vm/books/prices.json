@@ -1,0 +1,68 @@
+{
+  "azure.backup.vm.protected_instance": {
+    "unit": "instance-month",
+    "source": "https://azure.microsoft.com/pricing/details/backup/",
+    "note": "Azure VM protected instance, per 500 GB of protected data; up to 50 GB is billed as half an instance",
+    "sync": {
+      "filters": {
+        "meterName": "Azure VM Protected Instance",
+        "productName": "Backup",
+        "skuName": "Azure VM"
+      },
+      "service": "Backup",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

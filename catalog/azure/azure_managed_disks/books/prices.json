@@ -1,0 +1,1576 @@
+{
+  "azure.disk.lrs": {
+    "unit": "disk-month",
+    "source": "https://azure.microsoft.com/pricing/details/managed-disks/",
+    "note": "Standard HDD (S), Standard SSD (E) and Premium SSD (P) managed disks, LRS, by tier; a disk is billed at the smallest tier that holds its size",
+    "sync": {
+      "filters": {
+        "meterName": "{row} LRS Disks?",
+        "productName": "(Standard HDD|Standard SSD|Premium SSD) Managed Disks",
+        "skuName": "{row} LRS"
+      },
+      "service": "Storage",
+      "source": "azure"
+    },
+    "rows": {
+      "E1": {
+        "australiaeast": 0.408,
+        "centralindia": 0.33,
+        "eastus": 0.3,
+        "eastus2": 0.3,
+        "germanywestcentral": 0.3,
+        "japaneast": 0.3,
+        "koreacentral": 0.3,
+        "northeurope": 0.3,
+        "southeastasia": 0.3,
+        "westus2": 0.3
+      },
+      "E10": {
+        "australiaeast": 13.056,
+        "centralindia": 10.56,
+        "eastus": 9.6,
+        "eastus2": 9.6,
+        "germanywestcentral": 9.6,
+        "japaneast": 9.6,
+        "koreacentral": 9.6,
+        "northeurope": 9.6,
+        "southeastasia": 9.6,
+        "westus2": 9.6
+      },
+      "E15": {
+        "australiaeast": 26.112,
+        "centralindia": 21.12,
+        "eastus": 19.2,
+        "eastus2": 19.2,
+        "germanywestcentral": 19.2,
+        "japaneast": 19.2,
+        "koreacentral": 19.2,
+        "northeurope": 19.2,
+        "southeastasia": 19.2,
+        "westus2": 19.2
+      },
+      "E2": {
+        "australiaeast": 0.816,
+        "centralindia": 0.66,
+        "eastus": 0.6,
+        "eastus2": 0.6,
+        "germanywestcentral": 0.6,
+        "japaneast": 0.6,
+        "koreacentral": 0.6,
+        "northeurope": 0.6,
+        "southeastasia": 0.6,
+        "westus2": 0.6
+      },
+      "E20": {
+        "australiaeast": 52.224,
+        "centralindia": 42.24,
+        "eastus": 38.4,
+        "eastus2": 38.4,
+        "germanywestcentral": 38.4,
+        "japaneast": 38.4,
+        "koreacentral": 38.4,
+        "northeurope": 38.4,
+        "southeastasia": 38.4,
+        "westus2": 38.4
+      },
+      "E3": {
+        "australiaeast": 1.632,
+        "centralindia": 1.32,
+        "eastus": 1.2,
+        "eastus2": 1.2,
+        "germanywestcentral": 1.2,
+        "japaneast": 1.2,
+        "koreacentral": 1.2,
+        "northeurope": 1.2,
+        "southeastasia": 1.2,
+        "westus2": 1.2
+      },
+      "E30": {
+        "australiaeast": 104.448,
+        "centralindia": 84.48,
+        "eastus": 76.8,
+        "eastus2": 76.8,
+        "germanywestcentral": 76.8,
+        "japaneast": 76.8,
+        "koreacentral": 76.8,
+        "northeurope": 76.8,
+        "southeastasia": 76.8,
+        "westus2": 76.8
+      },
+      "E4": {
+        "australiaeast": 3.264,
+        "centralindia": 2.64,
+        "eastus": 2.4,
+        "eastus2": 2.4,
+        "germanywestcentral": 2.4,
+        "japaneast": 2.4,
+        "koreacentral": 2.4,
+        "northeurope": 2.4,
+        "southeastasia": 2.4,
+        "westus2": 2.4
+      },
+      "E40": {
+        "australiaeast": 208.896,
+        "centralindia": 168.96,
+        "eastus": 153.6,
+        "eastus2": 153.6,
+        "germanywestcentral": 153.6,
+        "japaneast": 153.6,
+        "koreacentral": 153.6,
+        "northeurope": 153.6,
+        "southeastasia": 153.6,
+        "westus2": 153.6
+      },
+      "E50": {
+        "australiaeast": 417.792,
+        "centralindia": 337.92,
+        "eastus": 307.2,
+        "eastus2": 307.2,
+        "germanywestcentral": 307.2,
+        "japaneast": 307.2,
+        "koreacentral": 307.2,
+        "northeurope": 307.2,
+        "southeastasia": 307.2,
+        "westus2": 307.2
+      },
+      "E6": {
+        "australiaeast": 6.528,
+        "centralindia": 5.28,
+        "eastus": 4.8,
+        "eastus2": 4.8,
+        "germanywestcentral": 4.8,
+        "japaneast": 4.8,
+        "koreacentral": 4.8,
+        "northeurope": 4.8,
+        "southeastasia": 4.8,
+        "westus2": 4.8
+      },
+      "E60": {
+        "australiaeast": 835.58,
+        "centralindia": 675.84,
+        "eastus": 614.4,
+        "eastus2": 614.4,
+        "germanywestcentral": 614.4,
+        "japaneast": 614.4,
+        "koreacentral": 614.4,
+        "northeurope": 614.4,
+        "southeastasia": 614.4,
+        "westus2": 614.4
+      },
+      "E70": {
+        "australiaeast": 1671.17,
+        "centralindia": 1351.68,
+        "eastus": 1228.8,
+        "eastus2": 1228.8,
+        "germanywestcentral": 1228.8,
+        "japaneast": 1228.8,
+        "koreacentral": 1228.8,
+        "northeurope": 1228.8,
+        "southeastasia": 1228.8,
+        "westus2": 1228.8
+      },
+      "E80": {
+        "australiaeast": 3342.34,
+        "centralindia": 2703.36,
+        "eastus": 2457.6,
+        "eastus2": 2457.6,
+        "germanywestcentral": 2457.6,
+        "japaneast": 2457.6,
+        "koreacentral": 2457.6,
+        "northeurope": 2457.6,
+        "southeastasia": 2457.6,
+        "westus2": 2457.6
+      },
+      "P1": {
+        "australiaeast": 0.87,
+        "centralindia": 0.84,
+        "eastus": 0.6,
+        "eastus2": 0.6,
+        "germanywestcentral": 0.78,
+        "japaneast": 0.87,
+        "koreacentral": 0.81,
+        "northeurope": 0.72,
+        "southeastasia": 0.78,
+        "westus2": 0.6
+      },
+      "P10": {
+        "australiaeast": 19.71,
+        "centralindia": 19.71,
+        "eastus": 19.71,
+        "eastus2": 17.92,
+        "germanywestcentral": 21.68,
+        "japaneast": 22.67,
+        "koreacentral": 19.71,
+        "northeurope": 19.71,
+        "southeastasia": 19.71,
+        "westus2": 17.92
+      },
+      "P15": {
+        "australiaeast": 38.012142,
+        "centralindia": 38.012142,
+        "eastus": 38.012142,
+        "eastus2": 34.56,
+        "germanywestcentral": 41.811,
+        "japaneast": 43.720714,
+        "koreacentral": 38.012142,
+        "northeurope": 38.012142,
+        "southeastasia": 38.012142,
+        "westus2": 34.56
+      },
+      "P2": {
+        "australiaeast": 1.74,
+        "centralindia": 1.68,
+        "eastus": 1.2,
+        "eastus2": 1.2,
+        "germanywestcentral": 1.56,
+        "japaneast": 1.74,
+        "koreacentral": 1.62,
+        "northeurope": 1.44,
+        "southeastasia": 1.56,
+        "westus2": 1.2
+      },
+      "P20": {
+        "australiaeast": 73.22,
+        "centralindia": 73.22,
+        "eastus": 73.22,
+        "eastus2": 66.56,
+        "germanywestcentral": 80.54,
+        "japaneast": 84.2,
+        "koreacentral": 73.22,
+        "northeurope": 73.22,
+        "southeastasia": 73.22,
+        "westus2": 66.56
+      },
+      "P3": {
+        "australiaeast": 3.48,
+        "centralindia": 3.36,
+        "eastus": 2.4,
+        "eastus2": 2.4,
+        "germanywestcentral": 3.12,
+        "japaneast": 3.48,
+        "koreacentral": 3.24,
+        "northeurope": 2.88,
+        "southeastasia": 3.12,
+        "westus2": 2.4
+      },
+      "P30": {
+        "australiaeast": 135.17,
+        "centralindia": 135.17,
+        "eastus": 135.17,
+        "eastus2": 122.88,
+        "germanywestcentral": 148.68,
+        "japaneast": 155.44,
+        "koreacentral": 135.17,
+        "northeurope": 135.17,
+        "southeastasia": 135.17,
+        "westus2": 122.88
+      },
+      "P4": {
+        "australiaeast": 5.2795,
+        "centralindia": 5.2795,
+        "eastus": 5.2795,
+        "eastus2": 4.8001,
+        "germanywestcentral": 5.807,
+        "japaneast": 6.0724,
+        "koreacentral": 5.2795,
+        "northeurope": 5.2795,
+        "southeastasia": 5.2795,
+        "westus2": 4.8001
+      },
+      "P40": {
+        "australiaeast": 259.0457,
+        "centralindia": 259.0457,
+        "eastus": 259.0457,
+        "eastus2": 235.52,
+        "germanywestcentral": 284.94,
+        "japaneast": 297.9486,
+        "koreacentral": 259.045714,
+        "northeurope": 259.0457,
+        "southeastasia": 259.0457,
+        "westus2": 235.52
+      },
+      "P50": {
+        "australiaeast": 495.5657,
+        "centralindia": 495.5657,
+        "eastus": 495.5657,
+        "eastus2": 450.56,
+        "germanywestcentral": 545.1,
+        "japaneast": 569.9886,
+        "koreacentral": 495.565714,
+        "northeurope": 495.5657,
+        "southeastasia": 495.5657,
+        "westus2": 450.56
+      },
+      "P6": {
+        "australiaeast": 10.207,
+        "centralindia": 10.207,
+        "eastus": 10.207,
+        "eastus2": 9.2801,
+        "germanywestcentral": 11.227,
+        "japaneast": 11.7399,
+        "koreacentral": 10.207,
+        "northeurope": 10.207,
+        "southeastasia": 10.207,
+        "westus2": 9.2801
+      },
+      "P60": {
+        "australiaeast": 946.08,
+        "centralindia": 946.08,
+        "eastus": 946.08,
+        "eastus2": 860.16,
+        "germanywestcentral": 1040.64,
+        "japaneast": 1088.16,
+        "koreacentral": 946.08,
+        "northeurope": 946.08,
+        "southeastasia": 946.08,
+        "westus2": 860.16
+      },
+      "P70": {
+        "australiaeast": 1802.06,
+        "centralindia": 1802.06,
+        "eastus": 1802.06,
+        "eastus2": 1638.4,
+        "germanywestcentral": 1982.17,
+        "japaneast": 2072.69,
+        "koreacentral": 1802.06,
+        "northeurope": 1802.06,
+        "southeastasia": 1802.06,
+        "westus2": 1638.4
+      },
+      "P80": {
+        "australiaeast": 3604.11,
+        "centralindia": 3604.11,
+        "eastus": 3604.11,
+        "eastus2": 3276.8,
+        "germanywestcentral": 3964.34,
+        "japaneast": 4145.37,
+        "koreacentral": 3604.11,
+        "northeurope": 3604.11,
+        "southeastasia": 3604.11,
+        "westus2": 3276.8
+      },
+      "S10": {
+        "australiaeast": 9.4208,
+        "centralindia": 6.4768,
+        "eastus": 5.888,
+        "eastus2": 5.888,
+        "germanywestcentral": 5.888,
+        "japaneast": 5.888,
+        "koreacentral": 5.888,
+        "northeurope": 5.888,
+        "southeastasia": 5.888,
+        "westus2": 5.888
+      },
+      "S15": {
+        "australiaeast": 18.1248,
+        "centralindia": 12.4608,
+        "eastus": 11.328,
+        "eastus2": 11.328,
+        "germanywestcentral": 11.328,
+        "japaneast": 11.328,
+        "koreacentral": 11.328,
+        "northeurope": 11.328,
+        "southeastasia": 11.328,
+        "westus2": 11.328
+      },
+      "S20": {
+        "australiaeast": 34.816,
+        "centralindia": 23.936,
+        "eastus": 21.76,
+        "eastus2": 21.76,
+        "germanywestcentral": 21.76,
+        "japaneast": 21.76,
+        "koreacentral": 21.76,
+        "northeurope": 21.76,
+        "southeastasia": 21.76,
+        "westus2": 21.76
+      },
+      "S30": {
+        "australiaeast": 65.536,
+        "centralindia": 45.056,
+        "eastus": 40.96,
+        "eastus2": 40.96,
+        "germanywestcentral": 40.96,
+        "japaneast": 40.96,
+        "koreacentral": 40.96,
+        "northeurope": 40.96,
+        "southeastasia": 40.96,
+        "westus2": 40.96
+      },
+      "S4": {
+        "australiaeast": 2.4576,
+        "centralindia": 1.6896,
+        "eastus": 1.536,
+        "eastus2": 1.536,
+        "germanywestcentral": 1.536,
+        "japaneast": 1.536,
+        "koreacentral": 1.536,
+        "northeurope": 1.536,
+        "southeastasia": 1.536,
+        "westus2": 1.536
+      },
+      "S40": {
+        "australiaeast": 131.072,
+        "centralindia": 90.112,
+        "eastus": 77.824,
+        "eastus2": 81.92,
+        "germanywestcentral": 81.92,
+        "japaneast": 81.92,
+        "koreacentral": 81.92,
+        "northeurope": 81.92,
+        "southeastasia": 81.92,
+        "westus2": 77.824
+      },
+      "S50": {
+        "australiaeast": 262.144,
+        "centralindia": 180.224,
+        "eastus": 143.36,
+        "eastus2": 163.84,
+        "germanywestcentral": 163.84,
+        "japaneast": 163.84,
+        "koreacentral": 163.84,
+        "northeurope": 163.84,
+        "southeastasia": 163.84,
+        "westus2": 143.36
+      },
+      "S6": {
+        "australiaeast": 4.8128,
+        "centralindia": 3.3088,
+        "eastus": 3.008,
+        "eastus2": 3.008,
+        "germanywestcentral": 3.008,
+        "japaneast": 3.008,
+        "koreacentral": 3.008,
+        "northeurope": 3.008,
+        "southeastasia": 3.008,
+        "westus2": 3.008
+      },
+      "S60": {
+        "australiaeast": 524.29,
+        "centralindia": 360.45,
+        "eastus": 262.14,
+        "eastus2": 327.68,
+        "germanywestcentral": 314.568,
+        "japaneast": 327.68,
+        "koreacentral": 327.68,
+        "northeurope": 327.68,
+        "southeastasia": 327.68,
+        "westus2": 262.14
+      },
+      "S70": {
+        "australiaeast": 1048.58,
+        "centralindia": 720.9,
+        "eastus": 491.52,
+        "eastus2": 655.36,
+        "germanywestcentral": 589.824,
+        "japaneast": 655.36,
+        "koreacentral": 655.36,
+        "northeurope": 655.36,
+        "southeastasia": 655.36,
+        "westus2": 491.52
+      },
+      "S80": {
+        "australiaeast": 2097.15,
+        "centralindia": 1441.79,
+        "eastus": 953.55,
+        "eastus2": 1310.72,
+        "germanywestcentral": 1144.26,
+        "japaneast": 1310.72,
+        "koreacentral": 1310.72,
+        "northeurope": 1310.72,
+        "southeastasia": 1310.72,
+        "westus2": 953.55
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.disk.operations.standard_hdd_lrs": {
+    "unit": "operation",
+    "per": 10000,
+    "source": "https://azure.microsoft.com/pricing/details/managed-disks/",
+    "note": "Standard HDD LRS disk operations; every tier's meter has this price",
+    "sync": {
+      "filters": {
+        "meterName": "S10 LRS Disk Operations",
+        "productName": "Standard HDD Managed Disks",
+        "skuName": "S10 LRS"
+      },
+      "listPer": 10000,
+      "service": "Storage",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.0005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.0005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.0005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.0005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.0005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.0005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.0005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.0005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.0005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.0005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.disk.operations.standard_ssd_lrs": {
+    "unit": "operation",
+    "per": 10000,
+    "source": "https://azure.microsoft.com/pricing/details/managed-disks/",
+    "note": "Standard SSD LRS disk operations; every tier's meter has this price",
+    "sync": {
+      "filters": {
+        "meterName": "E10 LRS Disk Operations",
+        "productName": "Standard SSD Managed Disks",
+        "skuName": "E10 LRS"
+      },
+      "listPer": 10000,
+      "service": "Storage",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.disk.operations.standard_ssd_zrs": {
+    "unit": "operation",
+    "per": 10000,
+    "source": "https://azure.microsoft.com/pricing/details/managed-disks/",
+    "note": "Standard SSD ZRS disk operations; every tier's meter has this price",
+    "sync": {
+      "filters": {
+        "meterName": "E10 ZRS Disk Operations",
+        "productName": "Standard SSD Managed Disks",
+        "skuName": "E10 ZRS"
+      },
+      "listPer": 10000,
+      "service": "Storage",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.disk.premium_v2.capacity": {
+    "unit": "GiB-hour",
+    "source": "https://azure.microsoft.com/pricing/details/managed-disks/",
+    "note": "Premium SSD v2 provisioned capacity, LRS",
+    "sync": {
+      "filters": {
+        "meterName": "Premium LRS Provisioned Capacity",
+        "productName": "Azure Premium SSD v2",
+        "skuName": "Premium LRS"
+      },
+      "service": "Storage",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.00011,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.000125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.00011,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.00011,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.00013,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.000132,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.000125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.00011,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.000132,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.00011,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.disk.premium_v2.iops": {
+    "unit": "IOPS-hour",
+    "source": "https://azure.microsoft.com/pricing/details/managed-disks/",
+    "note": "Premium SSD v2 IOPS above the 3,000 included",
+    "sync": {
+      "filters": {
+        "meterName": "Premium LRS Provisioned IOPS",
+        "productName": "Azure Premium SSD v2",
+        "skuName": "Premium LRS"
+      },
+      "service": "Storage",
+      "source": "azure",
+      "tier": "3000"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.000007,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.000008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.000007,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.000007,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.000008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.000008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.000008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.000007,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.000008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.000007,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.disk.premium_v2.throughput": {
+    "unit": "MBps-hour",
+    "source": "https://azure.microsoft.com/pricing/details/managed-disks/",
+    "note": "Premium SSD v2 throughput above the 125 MB/s included",
+    "sync": {
+      "filters": {
+        "meterName": "Premium LRS Provisioned Throughput \\(MBps\\)",
+        "productName": "Azure Premium SSD v2",
+        "skuName": "Premium LRS"
+      },
+      "service": "Storage",
+      "source": "azure",
+      "tier": "125"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.000055,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.000063,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.000055,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.000055,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.000065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.000066,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.000063,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.000055,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.000066,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.000055,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.disk.snapshot": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/managed-disks/",
+    "note": "Managed disk snapshots and images, stored on Standard HDD LRS, by used size",
+    "sync": {
+      "filters": {
+        "meterName": "LRS Snapshots",
+        "productName": "Standard HDD Managed Disks",
+        "skuName": "Snapshots LRS"
+      },
+      "service": "Storage",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.055,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.disk.ultra.capacity": {
+    "unit": "GiB-hour",
+    "source": "https://azure.microsoft.com/pricing/details/managed-disks/",
+    "note": "Ultra Disk provisioned capacity, LRS",
+    "sync": {
+      "filters": {
+        "meterName": "Ultra LRS Provisioned Capacity",
+        "productName": "Ultra Disks",
+        "skuName": "Ultra LRS"
+      },
+      "service": "Storage",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.000238,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.00023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.000164,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.000164,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.000213,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.000238,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.000221,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.000196,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.000213,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.000164,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.disk.ultra.iops": {
+    "unit": "IOPS-hour",
+    "source": "https://azure.microsoft.com/pricing/details/managed-disks/",
+    "note": "Ultra Disk provisioned IOPS",
+    "sync": {
+      "filters": {
+        "meterName": "Ultra LRS Provisioned IOPS",
+        "productName": "Ultra Disks",
+        "skuName": "Ultra LRS"
+      },
+      "service": "Storage",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.000099,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.000095,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.000068,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.000068,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.000088,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.000099,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.000092,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.000081,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.000088,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.000051,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.disk.ultra.throughput": {
+    "unit": "MBps-hour",
+    "source": "https://azure.microsoft.com/pricing/details/managed-disks/",
+    "note": "Ultra Disk provisioned throughput, per MB/s",
+    "sync": {
+      "filters": {
+        "meterName": "Ultra LRS Provisioned Throughput \\(MBps\\)",
+        "productName": "Ultra Disks",
+        "skuName": "Ultra LRS"
+      },
+      "service": "Storage",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.000529,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.000502,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.000479,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.000479,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.000572,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.000545,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.00049,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.000529,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.000529,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.00024,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.disk.ultra.vcpu_reservation": {
+    "unit": "vCPU-hour",
+    "source": "https://azure.microsoft.com/pricing/details/managed-disks/",
+    "note": "Reservation charged per VM vCPU while Ultra Disk compatibility is enabled and no Ultra Disk is attached",
+    "sync": {
+      "filters": {
+        "meterName": "Ultra LRS Reservation per vCPU Provisioned",
+        "productName": "Ultra Disks",
+        "skuName": "Ultra LRS"
+      },
+      "service": "Storage",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.0087,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.0084,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.0078,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.0087,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.0081,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.0072,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.0078,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.disk.zrs": {
+    "unit": "disk-month",
+    "source": "https://azure.microsoft.com/pricing/details/managed-disks/",
+    "note": "Standard SSD (E) and Premium SSD (P) managed disks, ZRS, by tier",
+    "sync": {
+      "filters": {
+        "meterName": "{row} ZRS Disks?",
+        "productName": "(Standard SSD|Premium SSD) Managed Disks",
+        "skuName": "{row} ZRS"
+      },
+      "service": "Storage",
+      "source": "azure"
+    },
+    "rows": {
+      "E1": {
+        "australiaeast": 0.612,
+        "centralindia": 0.495,
+        "eastus": 0.45,
+        "eastus2": 0.45,
+        "germanywestcentral": 0.45,
+        "japaneast": 0.45,
+        "koreacentral": 0.45,
+        "northeurope": 0.45,
+        "southeastasia": 0.45,
+        "westus2": 0.45
+      },
+      "E10": {
+        "australiaeast": 19.584,
+        "centralindia": 15.84,
+        "eastus": 14.4,
+        "eastus2": 14.4,
+        "germanywestcentral": 14.4,
+        "japaneast": 14.4,
+        "koreacentral": 14.4,
+        "northeurope": 14.4,
+        "southeastasia": 14.4,
+        "westus2": 14.4
+      },
+      "E15": {
+        "australiaeast": 39.168,
+        "centralindia": 31.68,
+        "eastus": 28.8,
+        "eastus2": 28.8,
+        "germanywestcentral": 28.8,
+        "japaneast": 28.8,
+        "koreacentral": 28.8,
+        "northeurope": 28.8,
+        "southeastasia": 28.8,
+        "westus2": 28.8
+      },
+      "E2": {
+        "australiaeast": 1.224,
+        "centralindia": 0.99,
+        "eastus": 0.9,
+        "eastus2": 0.9,
+        "germanywestcentral": 0.9,
+        "japaneast": 0.9,
+        "koreacentral": 0.9,
+        "northeurope": 0.9,
+        "southeastasia": 0.9,
+        "westus2": 0.9
+      },
+      "E20": {
+        "australiaeast": 78.336,
+        "centralindia": 63.36,
+        "eastus": 57.6,
+        "eastus2": 57.6,
+        "germanywestcentral": 57.6,
+        "japaneast": 57.6,
+        "koreacentral": 57.6,
+        "northeurope": 57.6,
+        "southeastasia": 57.6,
+        "westus2": 57.6
+      },
+      "E3": {
+        "australiaeast": 2.448,
+        "centralindia": 1.98,
+        "eastus": 1.8,
+        "eastus2": 1.8,
+        "germanywestcentral": 1.8,
+        "japaneast": 1.8,
+        "koreacentral": 1.8,
+        "northeurope": 1.8,
+        "southeastasia": 1.8,
+        "westus2": 1.8
+      },
+      "E30": {
+        "australiaeast": 156.672,
+        "centralindia": 126.72,
+        "eastus": 115.2,
+        "eastus2": 115.2,
+        "germanywestcentral": 115.2,
+        "japaneast": 115.2,
+        "koreacentral": 115.2,
+        "northeurope": 115.2,
+        "southeastasia": 115.2,
+        "westus2": 115.2
+      },
+      "E4": {
+        "australiaeast": 4.896,
+        "centralindia": 3.96,
+        "eastus": 3.6,
+        "eastus2": 3.6,
+        "germanywestcentral": 3.6,
+        "japaneast": 3.6,
+        "koreacentral": 3.6,
+        "northeurope": 3.6,
+        "southeastasia": 3.6,
+        "westus2": 3.6
+      },
+      "E40": {
+        "australiaeast": 313.344,
+        "centralindia": 253.44,
+        "eastus": 230.4,
+        "eastus2": 230.4,
+        "germanywestcentral": 230.4,
+        "japaneast": 230.4,
+        "koreacentral": 230.4,
+        "northeurope": 230.4,
+        "southeastasia": 230.4,
+        "westus2": 230.4
+      },
+      "E50": {
+        "australiaeast": 626.688,
+        "centralindia": 506.88,
+        "eastus": 460.8,
+        "eastus2": 460.8,
+        "germanywestcentral": 460.8,
+        "japaneast": 460.8,
+        "koreacentral": 460.8,
+        "northeurope": 460.8,
+        "southeastasia": 460.8,
+        "westus2": 460.8
+      },
+      "E6": {
+        "australiaeast": 9.792,
+        "centralindia": 7.92,
+        "eastus": 7.2,
+        "eastus2": 7.2,
+        "germanywestcentral": 7.2,
+        "japaneast": 7.2,
+        "koreacentral": 7.2,
+        "northeurope": 7.2,
+        "southeastasia": 7.2,
+        "westus2": 7.2
+      },
+      "E60": {
+        "australiaeast": 1253.37,
+        "centralindia": 1013.76,
+        "eastus": 921.6,
+        "eastus2": 921.6,
+        "germanywestcentral": 921.6,
+        "japaneast": 921.6,
+        "koreacentral": 921.6,
+        "northeurope": 921.6,
+        "southeastasia": 921.6,
+        "westus2": 921.6
+      },
+      "E70": {
+        "australiaeast": 2506.755,
+        "centralindia": 2027.52,
+        "eastus": 1843.2,
+        "eastus2": 1843.2,
+        "germanywestcentral": 1843.2,
+        "japaneast": 1843.2,
+        "koreacentral": 1843.2,
+        "northeurope": 1843.2,
+        "southeastasia": 1843.2,
+        "westus2": 1843.2
+      },
+      "E80": {
+        "australiaeast": 5013.51,
+        "centralindia": 4055.04,
+        "eastus": 3686.4,
+        "eastus2": 3686.4,
+        "germanywestcentral": 3686.4,
+        "japaneast": 3686.4,
+        "koreacentral": 3686.4,
+        "northeurope": 3686.4,
+        "southeastasia": 3686.4,
+        "westus2": 3686.4
+      },
+      "P1": {
+        "australiaeast": 1.305,
+        "centralindia": 1.26,
+        "eastus": 0.9,
+        "eastus2": 0.9,
+        "germanywestcentral": 1.17,
+        "japaneast": 1.305,
+        "koreacentral": 1.215,
+        "northeurope": 1.08,
+        "southeastasia": 1.17,
+        "westus2": 0.9
+      },
+      "P10": {
+        "australiaeast": 29.565,
+        "centralindia": 29.565,
+        "eastus": 29.565,
+        "eastus2": 26.88,
+        "germanywestcentral": 32.52,
+        "japaneast": 34.005,
+        "koreacentral": 29.565,
+        "northeurope": 29.565,
+        "southeastasia": 29.565,
+        "westus2": 26.88
+      },
+      "P15": {
+        "australiaeast": 57.018213,
+        "centralindia": 57.018213,
+        "eastus": 57.018,
+        "eastus2": 51.84,
+        "germanywestcentral": 62.7165,
+        "japaneast": 65.581071,
+        "koreacentral": 57.018213,
+        "northeurope": 57.019,
+        "southeastasia": 57.018213,
+        "westus2": 51.84
+      },
+      "P2": {
+        "australiaeast": 2.61,
+        "centralindia": 2.52,
+        "eastus": 1.8,
+        "eastus2": 1.8,
+        "germanywestcentral": 2.34,
+        "japaneast": 2.61,
+        "koreacentral": 2.43,
+        "northeurope": 2.16,
+        "southeastasia": 2.34,
+        "westus2": 1.8
+      },
+      "P20": {
+        "australiaeast": 109.83,
+        "centralindia": 109.83,
+        "eastus": 109.81,
+        "eastus2": 99.84,
+        "germanywestcentral": 120.81,
+        "japaneast": 126.3,
+        "koreacentral": 109.83,
+        "northeurope": 109.81,
+        "southeastasia": 109.83,
+        "westus2": 99.84
+      },
+      "P3": {
+        "australiaeast": 5.22,
+        "centralindia": 5.04,
+        "eastus": 3.6,
+        "eastus2": 3.6,
+        "germanywestcentral": 4.68,
+        "japaneast": 5.22,
+        "koreacentral": 4.86,
+        "northeurope": 4.32,
+        "southeastasia": 4.68,
+        "westus2": 3.6
+      },
+      "P30": {
+        "australiaeast": 202.755,
+        "centralindia": 202.755,
+        "eastus": 202.73,
+        "eastus2": 184.32,
+        "germanywestcentral": 223.02,
+        "japaneast": 233.16,
+        "koreacentral": 202.755,
+        "northeurope": 202.73,
+        "southeastasia": 202.755,
+        "westus2": 184.32
+      },
+      "P4": {
+        "australiaeast": 7.91925,
+        "centralindia": 7.91925,
+        "eastus": 7.919,
+        "eastus2": 7.2,
+        "germanywestcentral": 8.7105,
+        "japaneast": 9.1086,
+        "koreacentral": 7.91925,
+        "northeurope": 7.919,
+        "southeastasia": 7.91925,
+        "westus2": 7.2
+      },
+      "P40": {
+        "australiaeast": 388.56855,
+        "centralindia": 388.56855,
+        "eastus": 388.57,
+        "eastus2": 353.28,
+        "germanywestcentral": 427.41,
+        "japaneast": 446.9229,
+        "koreacentral": 388.568571,
+        "northeurope": 388.57,
+        "southeastasia": 388.56855,
+        "westus2": 353.28
+      },
+      "P50": {
+        "australiaeast": 743.34855,
+        "centralindia": 743.34855,
+        "eastus": 743.35,
+        "eastus2": 675.84,
+        "germanywestcentral": 817.65,
+        "japaneast": 854.9829,
+        "koreacentral": 743.348571,
+        "northeurope": 743.36,
+        "southeastasia": 743.34855,
+        "westus2": 675.84
+      },
+      "P6": {
+        "australiaeast": 15.3105,
+        "centralindia": 15.3105,
+        "eastus": 15.31,
+        "eastus2": 13.92,
+        "germanywestcentral": 16.8405,
+        "japaneast": 17.60985,
+        "koreacentral": 15.3105,
+        "northeurope": 15.311,
+        "southeastasia": 15.3105,
+        "westus2": 13.92
+      },
+      "P60": {
+        "australiaeast": 1419.12,
+        "centralindia": 1419.12,
+        "eastus": 1419.12,
+        "eastus2": 1290.24,
+        "germanywestcentral": 1560.93,
+        "japaneast": 1632.24,
+        "koreacentral": 1419.12,
+        "northeurope": 1419.13,
+        "southeastasia": 1419.12,
+        "westus2": 1290.24
+      },
+      "P70": {
+        "australiaeast": 2703.09,
+        "centralindia": 2703.09,
+        "eastus": 2703.09,
+        "eastus2": 2457.6,
+        "germanywestcentral": 2973.2,
+        "japaneast": 3109.035,
+        "koreacentral": 2703.09,
+        "northeurope": 2703.11,
+        "southeastasia": 2703.09,
+        "westus2": 2457.6
+      },
+      "P80": {
+        "australiaeast": 5406.165,
+        "centralindia": 5406.165,
+        "eastus": 5406.16,
+        "eastus2": 4915.2,
+        "germanywestcentral": 5946.41,
+        "japaneast": 6218.055,
+        "koreacentral": 5406.165,
+        "northeurope": 5406.23,
+        "southeastasia": 5406.165,
+        "westus2": 4915.2
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

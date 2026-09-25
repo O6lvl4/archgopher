@@ -1,0 +1,12 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: an image of a 30 GiB OS disk and a 100 GiB data disk
+  region: japaneast
+  attributes: { os_disk_size_gb: 30, data_disk_size_gb: 100 }
+  costs:
+    Image storage: 6.5
+- name: an image captured from a VM, 20 GB used
+  region: eastus
+  assumptions: { storedGb: 20 }
+  costs:
+    Image storage: 1

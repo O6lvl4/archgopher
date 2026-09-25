@@ -1,0 +1,14 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: D2s_v5 with the Windows license and a 127 GiB Premium SSD
+  region: japaneast
+  attributes: { size: Standard_D2s_v5, os_disk_type: Premium_LRS }
+  costs:
+    Instance hours: 157.68
+    OS disk (P10 LRS): 22.67
+- name: Azure Hybrid Benefit pays the base rate
+  region: eastus
+  attributes: { size: Standard_D2s_v5, os_disk_type: Standard_LRS, license_type: Windows_Server }
+  costs:
+    Instance hours (Hybrid Benefit): 70.08
+    OS disk (S10 LRS): 5.888

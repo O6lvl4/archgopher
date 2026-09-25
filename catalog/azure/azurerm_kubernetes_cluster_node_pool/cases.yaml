@@ -1,0 +1,14 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: two Windows D4s_v3 nodes on ephemeral disks
+  region: japaneast
+  attributes: { vm_size: Standard_D4s_v3, node_count: 2, os_type: Windows, os_disk_type: Ephemeral }
+  costs:
+    Node hours (Windows): 645.32
+- name: Linux E4s_v5 nodes averaging 3.5 with 64 GiB OS disks
+  region: eastus
+  attributes: { vm_size: Standard_E4s_v5, min_count: 3, os_disk_size_gb: 64 }
+  assumptions: { averageNodes: 3.5 }
+  costs:
+    Node hours: 643.86
+    OS disks (P6 LRS): 35.7245

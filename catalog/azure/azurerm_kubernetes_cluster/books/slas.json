@@ -1,0 +1,13 @@
+{
+  "azure.aks": {
+    "unit": "fraction",
+    "source": "https://www.microsoft.com/licensing/docs/view/Service-Level-Agreements-SLA-for-Online-Services",
+    "note": "Standard and Premium tiers: API server uptime without availability zones (99.95% with them); the Free tier has no financially backed SLA. From the consolidated SLA document, not machine-checked",
+    "values": {
+      "*": {
+        "value": 0.999,
+        "verified": false
+      }
+    }
+  }
+}

@@ -1,0 +1,266 @@
+{
+  "azure.backup.storage.grs": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/backup/",
+    "note": "Standard tier backup storage, GRS",
+    "sync": {
+      "filters": {
+        "meterName": "Standard GRS Data Stored",
+        "productName": "Backup",
+        "skuName": "Standard"
+      },
+      "service": "Backup",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.0493,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.0493,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.0448,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.0448,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.0448,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.0493,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.0448,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.0448,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.0448,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.backup.storage.lrs": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/backup/",
+    "note": "Standard tier backup storage, LRS",
+    "sync": {
+      "filters": {
+        "meterName": "Standard LRS Data Stored",
+        "productName": "Backup",
+        "skuName": "Standard"
+      },
+      "service": "Backup",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.0246,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.0246,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.0224,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.0224,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.0224,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.0246,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.0224,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.0224,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.0224,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.backup.storage.ragrs": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/backup/",
+    "note": "Standard tier backup storage, RA-GRS",
+    "sync": {
+      "filters": {
+        "meterName": "Standard RA-GRS Data Stored",
+        "productName": "Backup",
+        "skuName": "Standard"
+      },
+      "service": "Backup",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.0626,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.0626,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.0569,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.0569,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.0569,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.0569,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.0626,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.0569,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.0569,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.0569,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.backup.storage.zrs": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/backup/",
+    "note": "Standard tier backup storage, ZRS",
+    "sync": {
+      "filters": {
+        "meterName": "Standard ZRS Data Stored",
+        "productName": "Backup",
+        "skuName": "Standard"
+      },
+      "service": "Backup",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.0308,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.0308,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.0308,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

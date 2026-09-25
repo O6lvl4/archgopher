@@ -1,0 +1,37 @@
+type: azurerm_kubernetes_cluster
+label: AKS cluster
+category: Compute
+icon: kubernetes-services
+description: "The Standard tier's uptime SLA or the Premium tier's long-term support per cluster-hour (the Free tier's control plane is free), the default node pool's VM hours by size, each node's managed OS disk (Premium SSD when the size takes premium storage, else Standard HDD; ephemeral disks are free), data processed by the standard load balancer, and the DNS zone of the HTTP application routing add-on. Other node pools are azurerm_kubernetes_cluster_node_pool nodes."
+kinds: [request]
+sla: azure.aks
+attributes:
+  - { key: sku_tier, label: Tier, type: choice, options: [Free, Standard, Premium, Paid], default: Free }
+  - { key: vm_size, label: Node size, type: string, path: default_node_pool.vm_size, hint: "A VM size such as Standard_D2s_v5" }
+  - { key: node_count, label: Nodes, type: number, optional: true, path: default_node_pool.node_count }
+  - { key: min_count, label: Minimum nodes, type: number, optional: true, path: default_node_pool.min_count, hint: "With the autoscaler; read when node_count is unset or 1" }
+  - { key: os_disk_type, label: OS disk type, type: choice, options: [Managed, Ephemeral], default: Managed, path: default_node_pool.os_disk_type }
+  - { key: os_disk_size_gb, label: OS disk size, type: number, unit: GiB, optional: true, path: default_node_pool.os_disk_size_gb, hint: "Unset is 128 GiB" }
+  - { key: load_balancer_sku, label: Load balancer, type: choice, options: [standard, basic], default: standard, path: network_profile.load_balancer_sku }
+  - { key: http_application_routing_enabled, label: HTTP application routing, type: boolean, default: false }
+assumptions:
+  - { key: averageNodes, label: Average nodes, type: number, optional: true, hint: "Nodes running on average when the autoscaler adds some; unset reads node_count or min_count" }
+  - { key: monthlyHours, label: Hours running, type: number, unit: hours, default: 730, hint: "Hours a month each node runs" }
+  - { key: lbGbPerMonth, label: Load balancer data, type: number, unit: GB, default: 0, hint: "Data the cluster's standard load balancer processes a month, in and out" }
+let:
+  - terraformNodes: 'node_count != nil && !(node_count == 1 && min_count != nil) ? node_count : min_count != nil ? min_count : 1.0'
+  - n: 'averageNodes != nil ? averageNodes : terraformNodes'
+  - premiumStorage: 'vm_size matches "^[^_]+_(([DdGg][Ss]|[Mm])[^_]*|[^_]*[0-9]+[A-Za-z]*s[^_]*)(_.*)?$"'
+  - dclass: 'premiumStorage ? "P" : "S"'
+  - dsize: 'os_disk_size_gb != nil ? os_disk_size_gb : 128.0'
+  - dnum: 'dsize <= 4 ? 1 : dsize <= 8 ? 2 : dsize <= 16 ? 3 : dsize <= 32 ? 4 : dsize <= 64 ? 6 : dsize <= 128 ? 10 : dsize <= 256 ? 15 : dsize <= 512 ? 20 : dsize <= 1024 ? 30 : dsize <= 2048 ? 40 : dsize <= 4096 ? 50 : dsize <= 8192 ? 60 : dsize <= 16384 ? 70 : 80'
+  - dtier: 'dclass + string(dclass == "S" ? max(dnum, 4) : dnum)'
+readings:
+  - cost: { when: 'sku_tier in ["Standard", "Paid"]', name: Uptime SLA, quantity: 730, unit: cluster-hour, price: azure.aks.uptime_sla }
+  - cost: { when: sku_tier == "Premium", name: Long-term support, quantity: 730, unit: cluster-hour, price: azure.aks.long_term_support }
+  - cost: { name: Node hours, quantity: n * monthlyHours, unit: instance-hour, price: "azure.vm.linux.{vm_size}" }
+  - cost: { when: os_disk_type == "Managed", name: "OS disks ({dtier} LRS)", quantity: n, unit: disk-month, price: "azure.disk.lrs.{dtier}" }
+  - cost: { when: load_balancer_sku == "standard" && lbGbPerMonth > 0, name: Load balancer data processed, quantity: lbGbPerMonth, unit: GB, price: azure.aks.load_balancer.data_processed }
+  - cost: { when: http_application_routing_enabled, name: DNS zone, quantity: 1, unit: zone-month, price: azure.aks.dns_zone }
+terraform:
+  ignoreRefs: [default_node_pool, identity, kubelet_identity, network_profile, linux_profile, windows_profile, key_vault_secrets_provider, azure_active_directory_role_based_access_control, disk_encryption_set_id, private_dns_zone_id, api_server_access_profile, ingress_application_gateway, service_principal, key_management_service, web_app_routing, workload_autoscaler_profile]
