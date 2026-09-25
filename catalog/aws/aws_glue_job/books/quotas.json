@@ -1,0 +1,56 @@
+{
+  "aws.glue.ray_mdpus": {
+    "unit": "DPUs",
+    "source": "https://docs.aws.amazon.com/general/latest/gr/glue.html",
+    "note": "M-DPUs of Ray workers per account and region; not adjustable",
+    "values": {
+      "*": {
+        "value": 50,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.glue.task_dpus": {
+    "unit": "DPUs",
+    "source": "https://docs.aws.amazon.com/general/latest/gr/glue.html",
+    "note": "Per account and region, every job together",
+    "values": {
+      "*": {
+        "value": 500,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-1": {
+        "value": 1000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 1000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 1000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 1000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 1000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 1000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

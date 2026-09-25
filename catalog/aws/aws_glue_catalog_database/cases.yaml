@@ -1,0 +1,27 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: half a million objects (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    objects: 500000
+    tables: 1200
+  demand:
+    request:
+      monthly: 3000000
+      peak: 5
+  costs:
+    Stored objects: 5.0
+    Requests: 3.0
+  limits:
+    Tables: 1200
+- name: two million objects and ten million requests (us-east-1)
+  region: us-east-1
+  assumptions:
+    objects: 2000000
+  demand:
+    request:
+      monthly: 10000000
+      peak: 20
+  costs:
+    Stored objects: 20.0
+    Requests: 10.0

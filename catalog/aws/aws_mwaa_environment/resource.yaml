@@ -1,0 +1,38 @@
+type: aws_mwaa_environment
+label: MWAA environment
+category: Integration
+icon: mwaa
+description: "Environment-hours by class, with one worker, two schedulers and two web servers included (one of each on mw1.micro); workers above one, schedulers above two and web servers above two are billed by the hour, and so is metadata database storage. Headroom is the concurrent Airflow tasks against the maximum workers' task slots."
+kinds: [run]
+sla: aws.mwaa
+attributes:
+  - { key: environment_class, label: Environment class, type: string, default: mw1.small }
+  - { key: min_workers, label: Min workers, type: number, default: 1 }
+  - { key: max_workers, label: Max workers, type: number, default: 10 }
+  - { key: schedulers, label: Schedulers, type: number, default: 2 }
+  - { key: min_webservers, label: Min web servers, type: number, default: 2 }
+assumptions:
+  - { key: averageWorkers, label: Average workers, type: number, optional: true, hint: "Workers auto scale between min and max; unset reads min_workers"  }
+  - { key: averageWebservers, label: Average web servers, type: number, optional: true, hint: "Unset reads min_webservers"  }
+  - { key: databaseGb, label: Metadata database, type: number, unit: GB, default: 0 }
+  - { key: taskSeconds, label: Task run time, type: number, unit: s, optional: true, hint: "One Airflow task; with the load's peak it gives the tasks running at once"  }
+let:
+  - cls: lower(environment_class)
+  - size: 'cls == "mw1.micro" ? "Micro" : (cls == "mw1.small" ? "Small" : (cls == "mw1.medium" ? "Medium" : (cls == "mw1.large" ? "Large" : (cls == "mw1.xlarge" ? "XLarge" : (cls == "mw1.2xlarge" ? "2XLarge" : "")))))'
+  - micro: size == "Micro"
+  - slots: '{"Micro": 3, "Small": 5, "Medium": 10, "Large": 20, "XLarge": 40, "2XLarge": 80}[size] ?? 0'
+  - extraWorkers: max((averageWorkers ?? min_workers) - 1, 0)
+  - extraSchedulers: max(schedulers - 2, 0)
+  - extraWebservers: max((averageWebservers ?? min_webservers) - 2, 0)
+readings:
+  - fail: { when: size == "", message: 'environment class {environment_class} is not known'  }
+  - capacity: { name: 'Environment ({environment_class})', units: 1, unit: environment-hour, price: 'aws.mwaa.environment.{size}'  }
+  - capacity: { when: '!micro && extraWorkers > 0', name: Additional workers, units: extraWorkers, unit: worker-hour, price: 'aws.mwaa.worker.{size}'  }
+  - capacity: { when: '!micro && extraSchedulers > 0', name: Additional schedulers, units: extraSchedulers, unit: scheduler-hour, price: 'aws.mwaa.scheduler.{size}'  }
+  - capacity: { when: '!micro && extraWebservers > 0', name: Additional web servers, units: extraWebservers, unit: webserver-hour, price: 'aws.mwaa.webserver.{size}'  }
+  - storage: { when: databaseGb > 0, name: Metadata database, gb: databaseGb, price: aws.mwaa.database }
+  - limit: { when: taskSeconds != nil, name: Concurrent tasks, demand: 'total.peak * (taskSeconds ?? 0)', unit: tasks, capacity: '(micro ? 1 : max_workers) * slots'  }
+terraform:
+  ignoreRefs: [source_bucket_arn, logging_configuration, kms_key]
+iam:
+  run: ["airflow:InvokeRestApi", "airflow:CreateCliToken"]

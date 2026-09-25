@@ -1,0 +1,27 @@
+type: aws_mq_broker
+label: Amazon MQ broker
+category: Messaging
+icon: mq
+description: "Broker-hours by engine, deployment mode and instance type (an active/standby pair and a three-node RabbitMQ cluster are priced whole), and storage: EFS or EBS for ActiveMQ, EBS on every RabbitMQ node. Messages cost nothing more. The SLA holds for active/standby and clustered brokers only."
+kinds: [send]
+sla: aws.mq
+attributes:
+  - { key: engine_type, label: Engine, type: string, default: ActiveMQ, hint: "ActiveMQ or RabbitMQ"  }
+  - { key: host_instance_type, label: Instance type, type: string, default: mq.m5.large }
+  - { key: deployment_mode, label: Deployment mode, type: choice, options: [SINGLE_INSTANCE, ACTIVE_STANDBY_MULTI_AZ, CLUSTER_MULTI_AZ], default: SINGLE_INSTANCE }
+  - { key: storage_type, label: Storage type, type: string, optional: true, hint: "efs or ebs; unset is EFS for ActiveMQ and EBS for RabbitMQ"  }
+assumptions:
+  - { key: storageGb, label: Storage used, type: number, unit: GB, default: 0, hint: "Per broker, or per node of a RabbitMQ cluster"  }
+let:
+  - engine: lower(engine_type)
+  - rabbit: engine == "rabbitmq"
+  - multi: deployment_mode != "SINGLE_INSTANCE"
+  - mode: 'multi ? (rabbit ? "cluster" : "active_standby") : "single"'
+  - instance: trimPrefix(host_instance_type, "mq.")
+  - store: 'rabbit ? "rabbitmq.storage" : (lower(storage_type ?? "efs") == "ebs" ? "activemq.ebs_storage" : "activemq.efs_storage")'
+  - nodes: 'rabbit && multi ? 3 : 1'
+readings:
+  - capacity: { name: 'Broker ({engine_type}, {host_instance_type}, {mode})', units: 1, unit: broker-hour, price: 'aws.mq.{engine}.{mode}.{instance}'  }
+  - storage: { when: storageGb > 0, name: Storage, gb: storageGb * nodes, price: 'aws.mq.{store}'  }
+terraform:
+  ignoreRefs: [encryption_options, configuration, ldap_server_metadata, logs]

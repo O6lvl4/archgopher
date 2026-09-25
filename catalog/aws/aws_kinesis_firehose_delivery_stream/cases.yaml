@@ -1,0 +1,87 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Direct PUT to S3 with format conversion, 3 KB records in batches of 4 (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    format_conversion_block: true
+  assumptions:
+    recordKb: 3
+    recordsPerRequest: 4
+  demand:
+    put:
+      monthly: 209715200
+      peak: 200
+  costs:
+    Data ingested (first 500 TB): 36.0
+    Format conversion: 22.0
+  limits:
+    Direct PUT records: 200
+    Direct PUT requests: 50
+    Direct PUT throughput: 0.5859375
+- name: Kinesis Data Streams source into OpenSearch in a VPC over 3 AZs (us-east-1)
+  region: us-east-1
+  attributes:
+    kinesis_source: true
+    destination: opensearch
+    opensearch_vpc: true
+  assumptions:
+    vpcAzs: 3
+  demand:
+    put:
+      monthly: 1048576000
+      peak: 400
+  costs:
+    Data ingested (first 500 TB): 145.0
+    Data delivered into the VPC: 10.0
+    VPC delivery AZ hours: 21.9
+- name: Direct PUT across two volume tiers with dynamic partitioning (us-east-1)
+  region: us-east-1
+  attributes:
+    dynamic_partitioning: true
+  assumptions:
+    recordKb: 5
+    partitionObjects: 1000000
+    jqHours: 10
+  demand:
+    put:
+      monthly: 125829120000
+      peak: 1000
+  costs:
+    Data ingested (first 500 TB): 14848.0
+    Data ingested (next 1.5 PB): 2200.0
+    Dynamic partitioning: 12000.0
+    Dynamically partitioned objects: 5.0
+    JQ processing: 0.7
+  limits:
+    Direct PUT records: 1000
+    Direct PUT requests: 1000
+    Direct PUT throughput: 4.8828125
+- name: MSK source into Apache Iceberg tables (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    msk_source: true
+    destination: iceberg
+  assumptions:
+    recordKb: 2
+  demand:
+    put:
+      monthly: 524288000
+      peak: 100
+  costs:
+    Data ingested into Iceberg (first 250 TB): 56.0
+- name: VPC delivery without vpcAzs (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    elasticsearch_vpc: true
+  demand:
+    put:
+      monthly: 1048576
+      peak: 1
+  costs:
+    Data ingested (first 500 TB): 0.18
+    Data delivered into the VPC: 0.01
+  limits:
+    Direct PUT records: 1
+    Direct PUT requests: 1
+    Direct PUT throughput: 0.000976562
+  error: set vpcAzs

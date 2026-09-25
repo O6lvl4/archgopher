@@ -55,11 +55,17 @@ type Rules struct {
 }
 
 // Link connects the node(s) referenced by From to the node(s) referenced by To.
+// The path Self stands for the link resource itself when it is a node, so a
+// resource that sits between two others (a pipe) receives from its source and
+// calls its target.
 type Link struct {
 	Type string
 	From string
 	To   []string
 }
+
+// Self is the Link path that names the link resource itself.
+const Self = "self"
 
 // Hint is an edge an EdgeSource proposes. Kind "" means the target's default.
 type Hint struct {
@@ -307,9 +313,9 @@ func (b *builder) edges() []edgeKey {
 			if r.Type != l.Type {
 				continue
 			}
-			froms := b.targetsAt(r, l.From)
+			froms := b.linkEnds(r, l.From)
 			for _, p := range l.To {
-				for _, to := range b.targetsAt(r, p) {
+				for _, to := range b.linkEnds(r, p) {
 					for _, from := range froms {
 						add(from, to, "")
 					}
@@ -356,6 +362,18 @@ func (b *builder) targets(ref string) []string {
 		return b.targetsAt(r, path)
 	}
 	return nil
+}
+
+// linkEnds resolves one end of a link: the nodes a path references, or the
+// link resource itself for Self.
+func (b *builder) linkEnds(r *eval.Resource, path string) []string {
+	if path == Self {
+		if b.isNode(r.Address) {
+			return []string{r.Address}
+		}
+		return nil
+	}
+	return b.targetsAt(r, path)
 }
 
 func (b *builder) targetsAt(r *eval.Resource, path string) []string {

@@ -1,0 +1,735 @@
+{
+  "aws.mq.activemq.active_standby": {
+    "unit": "broker-hour",
+    "source": "https://aws.amazon.com/amazon-mq/pricing/",
+    "note": "Active/standby ActiveMQ pair, both instances; rows are the instance type without mq.",
+    "sync": {
+      "filters": {
+        "brokerEngine": "ActiveMQ",
+        "deploymentOption": "Multi-AZ",
+        "instanceType": "{row}",
+        "operation": "CreateBroker.*",
+        "productFamily": "Broker Instances"
+      },
+      "service": "AmazonMQ"
+    },
+    "rows": {
+      "m4.large": {
+        "ap-northeast-1": 0.78,
+        "ap-northeast-2": 0.74,
+        "ap-south-1": 0.63,
+        "ap-southeast-1": 0.76,
+        "ap-southeast-2": 0.76,
+        "eu-central-1": 0.71,
+        "eu-west-1": 0.66,
+        "us-east-1": 0.6,
+        "us-east-2": 0.6,
+        "us-west-2": 0.6
+      },
+      "m5.2xlarge": {
+        "ap-northeast-1": 2.976,
+        "ap-northeast-2": 2.832,
+        "ap-south-1": 2.424,
+        "ap-southeast-1": 2.88,
+        "ap-southeast-2": 2.88,
+        "eu-central-1": 2.76,
+        "eu-west-1": 2.568,
+        "us-east-1": 2.304,
+        "us-east-2": 2.304,
+        "us-west-2": 2.304
+      },
+      "m5.4xlarge": {
+        "ap-northeast-1": 5.952,
+        "ap-northeast-2": 5.664,
+        "ap-south-1": 4.848,
+        "ap-southeast-1": 5.76,
+        "ap-southeast-2": 5.76,
+        "eu-central-1": 5.52,
+        "eu-west-1": 5.136,
+        "us-east-1": 4.608,
+        "us-east-2": 4.608,
+        "us-west-2": 4.608
+      },
+      "m5.large": {
+        "ap-northeast-1": 0.744,
+        "ap-northeast-2": 0.708,
+        "ap-south-1": 0.606,
+        "ap-southeast-1": 0.72,
+        "ap-southeast-2": 0.72,
+        "eu-central-1": 0.69,
+        "eu-west-1": 0.642,
+        "us-east-1": 0.576,
+        "us-east-2": 0.576,
+        "us-west-2": 0.576
+      },
+      "m5.xlarge": {
+        "ap-northeast-1": 1.488,
+        "ap-northeast-2": 1.416,
+        "ap-south-1": 1.212,
+        "ap-southeast-1": 1.44,
+        "ap-southeast-2": 1.44,
+        "eu-central-1": 1.38,
+        "eu-west-1": 1.284,
+        "us-east-1": 1.152,
+        "us-east-2": 1.152,
+        "us-west-2": 1.152
+      },
+      "t2.micro": {
+        "ap-northeast-1": 0.078,
+        "ap-northeast-2": 0.074,
+        "ap-south-1": 0.063,
+        "ap-southeast-1": 0.076,
+        "ap-southeast-2": 0.076,
+        "eu-central-1": 0.071,
+        "eu-west-1": 0.066,
+        "us-east-1": 0.06,
+        "us-east-2": 0.06,
+        "us-west-2": 0.06
+      },
+      "t3.micro": {
+        "ap-northeast-1": 0.07072,
+        "ap-northeast-2": 0.0676,
+        "ap-south-1": 0.05824,
+        "ap-southeast-1": 0.06864,
+        "ap-southeast-2": 0.06864,
+        "eu-central-1": 0.0624,
+        "eu-west-1": 0.05928,
+        "us-east-1": 0.05408,
+        "us-east-2": 0.05408,
+        "us-west-2": 0.05408
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "aws.mq.activemq.ebs_storage": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/amazon-mq/pricing/",
+    "note": "ActiveMQ throughput-optimized storage (EBS)",
+    "sync": {
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?TimedStorage-EBS-ByteHrs"
+      },
+      "service": "AmazonMQ"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.114,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.114,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.119,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.mq.activemq.efs_storage": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/amazon-mq/pricing/",
+    "note": "ActiveMQ durability-optimized storage (EFS)",
+    "sync": {
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?TimedStorage-ByteHrs"
+      },
+      "service": "AmazonMQ"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.36,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.33,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.33,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.36,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.36,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.36,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.mq.activemq.single": {
+    "unit": "broker-hour",
+    "source": "https://aws.amazon.com/amazon-mq/pricing/",
+    "note": "Single-instance ActiveMQ broker; rows are the instance type without mq.",
+    "sync": {
+      "filters": {
+        "brokerEngine": "ActiveMQ",
+        "deploymentOption": "Single-AZ",
+        "instanceType": "{row}",
+        "operation": "CreateBroker.*",
+        "productFamily": "Broker Instances"
+      },
+      "service": "AmazonMQ"
+    },
+    "rows": {
+      "m4.large": {
+        "ap-northeast-1": 0.39,
+        "ap-northeast-2": 0.37,
+        "ap-south-1": 0.315,
+        "ap-southeast-1": 0.38,
+        "ap-southeast-2": 0.38,
+        "eu-central-1": 0.36,
+        "eu-west-1": 0.33,
+        "us-east-1": 0.3,
+        "us-east-2": 0.3,
+        "us-west-2": 0.3
+      },
+      "m5.2xlarge": {
+        "ap-northeast-1": 1.488,
+        "ap-northeast-2": 1.416,
+        "ap-south-1": 1.212,
+        "ap-southeast-1": 1.44,
+        "ap-southeast-2": 1.44,
+        "eu-central-1": 1.38,
+        "eu-west-1": 1.284,
+        "us-east-1": 1.152,
+        "us-east-2": 1.152,
+        "us-west-2": 1.152
+      },
+      "m5.4xlarge": {
+        "ap-northeast-1": 2.976,
+        "ap-northeast-2": 2.832,
+        "ap-south-1": 2.424,
+        "ap-southeast-1": 2.88,
+        "ap-southeast-2": 2.88,
+        "eu-central-1": 2.76,
+        "eu-west-1": 2.568,
+        "us-east-1": 2.304,
+        "us-east-2": 2.304,
+        "us-west-2": 2.304
+      },
+      "m5.large": {
+        "ap-northeast-1": 0.372,
+        "ap-northeast-2": 0.354,
+        "ap-south-1": 0.303,
+        "ap-southeast-1": 0.36,
+        "ap-southeast-2": 0.36,
+        "eu-central-1": 0.345,
+        "eu-west-1": 0.321,
+        "us-east-1": 0.288,
+        "us-east-2": 0.288,
+        "us-west-2": 0.288
+      },
+      "m5.xlarge": {
+        "ap-northeast-1": 0.744,
+        "ap-northeast-2": 0.708,
+        "ap-south-1": 0.606,
+        "ap-southeast-1": 0.72,
+        "ap-southeast-2": 0.72,
+        "eu-central-1": 0.69,
+        "eu-west-1": 0.642,
+        "us-east-1": 0.576,
+        "us-east-2": 0.576,
+        "us-west-2": 0.576
+      },
+      "t2.micro": {
+        "ap-northeast-1": 0.039,
+        "ap-northeast-2": 0.037,
+        "ap-south-1": 0.0315,
+        "ap-southeast-1": 0.038,
+        "ap-southeast-2": 0.038,
+        "eu-central-1": 0.036,
+        "eu-west-1": 0.033,
+        "us-east-1": 0.03,
+        "us-east-2": 0.03,
+        "us-west-2": 0.03
+      },
+      "t3.micro": {
+        "ap-northeast-1": 0.03536,
+        "ap-northeast-2": 0.0338,
+        "ap-south-1": 0.02912,
+        "ap-southeast-1": 0.03432,
+        "ap-southeast-2": 0.03432,
+        "eu-central-1": 0.0312,
+        "eu-west-1": 0.02964,
+        "us-east-1": 0.02704,
+        "us-east-2": 0.02704,
+        "us-west-2": 0.02704
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "aws.mq.rabbitmq.cluster": {
+    "unit": "broker-hour",
+    "source": "https://aws.amazon.com/amazon-mq/pricing/",
+    "note": "Three-node RabbitMQ cluster, all nodes; rows are the instance type without mq.",
+    "sync": {
+      "filters": {
+        "brokerEngine": "RabbitMQ",
+        "deploymentOption": "Multi-AZ",
+        "instanceType": "{row}",
+        "operation": "CreateBroker.*",
+        "productFamily": "Broker Instances"
+      },
+      "service": "AmazonMQ"
+    },
+    "rows": {
+      "m5.2xlarge": {
+        "ap-northeast-1": 4.464,
+        "ap-northeast-2": 4.248,
+        "ap-south-1": 3.636,
+        "ap-southeast-1": 4.32,
+        "ap-southeast-2": 4.32,
+        "eu-central-1": 4.14,
+        "eu-west-1": 3.852,
+        "us-east-1": 3.456,
+        "us-east-2": 3.456,
+        "us-west-2": 3.456
+      },
+      "m5.4xlarge": {
+        "ap-northeast-1": 8.928,
+        "ap-northeast-2": 8.496,
+        "ap-south-1": 7.272,
+        "ap-southeast-1": 8.64,
+        "ap-southeast-2": 8.64,
+        "eu-central-1": 8.28,
+        "eu-west-1": 7.704,
+        "us-east-1": 6.912,
+        "us-east-2": 6.912,
+        "us-west-2": 6.912
+      },
+      "m5.large": {
+        "ap-northeast-1": 1.116,
+        "ap-northeast-2": 1.062,
+        "ap-south-1": 0.909,
+        "ap-southeast-1": 1.08,
+        "ap-southeast-2": 1.08,
+        "eu-central-1": 1.035,
+        "eu-west-1": 0.963,
+        "us-east-1": 0.864,
+        "us-east-2": 0.864,
+        "us-west-2": 0.864
+      },
+      "m5.xlarge": {
+        "ap-northeast-1": 2.232,
+        "ap-northeast-2": 2.124,
+        "ap-south-1": 1.818,
+        "ap-southeast-1": 2.16,
+        "ap-southeast-2": 2.16,
+        "eu-central-1": 2.07,
+        "eu-west-1": 1.926,
+        "us-east-1": 1.728,
+        "us-east-2": 1.728,
+        "us-west-2": 1.728
+      },
+      "m7g.12xlarge": {
+        "ap-northeast-1": 25.4225,
+        "ap-northeast-2": 24.1924,
+        "ap-south-1": 14.067,
+        "ap-southeast-1": 24.6024,
+        "ap-southeast-2": 24.6024,
+        "eu-central-1": 23.5793,
+        "eu-west-1": 21.9371,
+        "us-east-1": 19.6819,
+        "us-east-2": 19.6819,
+        "us-west-2": 19.6819
+      },
+      "m7g.16xlarge": {
+        "ap-northeast-1": 33.8966,
+        "ap-northeast-2": 32.2565,
+        "ap-south-1": 18.7553,
+        "ap-southeast-1": 32.8032,
+        "ap-southeast-2": 32.8032,
+        "eu-central-1": 31.4394,
+        "eu-west-1": 29.2495,
+        "us-east-1": 26.2426,
+        "us-east-2": 26.2426,
+        "us-west-2": 26.2426
+      },
+      "m7g.2xlarge": {
+        "ap-northeast-1": 4.2371,
+        "ap-northeast-2": 4.0321,
+        "ap-south-1": 2.3447,
+        "ap-southeast-1": 4.1004,
+        "ap-southeast-2": 4.1004,
+        "eu-central-1": 3.9296,
+        "eu-west-1": 3.6562,
+        "us-east-1": 3.2803,
+        "us-east-2": 3.2803,
+        "us-west-2": 3.2803
+      },
+      "m7g.4xlarge": {
+        "ap-northeast-1": 8.4742,
+        "ap-northeast-2": 8.0641,
+        "ap-south-1": 4.6893,
+        "ap-southeast-1": 8.2008,
+        "ap-southeast-2": 8.2008,
+        "eu-central-1": 7.8601,
+        "eu-west-1": 7.3124,
+        "us-east-1": 6.5606,
+        "us-east-2": 6.5606,
+        "us-west-2": 6.5606
+      },
+      "m7g.8xlarge": {
+        "ap-northeast-1": 16.9483,
+        "ap-northeast-2": 16.1282,
+        "ap-south-1": 9.3777,
+        "ap-southeast-1": 16.4016,
+        "ap-southeast-2": 16.4016,
+        "eu-central-1": 15.7202,
+        "eu-west-1": 14.6248,
+        "us-east-1": 13.1213,
+        "us-east-2": 13.1213,
+        "us-west-2": 13.1213
+      },
+      "m7g.large": {
+        "ap-northeast-1": 1.0593,
+        "ap-northeast-2": 1.008,
+        "ap-south-1": 0.5859,
+        "ap-southeast-1": 1.0251,
+        "ap-southeast-2": 1.0251,
+        "eu-central-1": 0.9829,
+        "eu-west-1": 0.9146,
+        "us-east-1": 0.8201,
+        "us-east-2": 0.8201,
+        "us-west-2": 0.8201
+      },
+      "m7g.medium": {
+        "ap-northeast-1": 0.5296,
+        "ap-northeast-2": 0.5045,
+        "ap-south-1": 0.2935,
+        "ap-southeast-1": 0.5126,
+        "ap-southeast-2": 0.5126,
+        "eu-central-1": 0.4914,
+        "eu-west-1": 0.4573,
+        "us-east-1": 0.41,
+        "us-east-2": 0.41,
+        "us-west-2": 0.41
+      },
+      "m7g.xlarge": {
+        "ap-northeast-1": 2.1185,
+        "ap-northeast-2": 2.016,
+        "ap-south-1": 1.1718,
+        "ap-southeast-1": 2.0502,
+        "ap-southeast-2": 2.0502,
+        "eu-central-1": 1.9648,
+        "eu-west-1": 1.8281,
+        "us-east-1": 1.6402,
+        "us-east-2": 1.6402,
+        "us-west-2": 1.6402
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "aws.mq.rabbitmq.single": {
+    "unit": "broker-hour",
+    "source": "https://aws.amazon.com/amazon-mq/pricing/",
+    "note": "Single-instance RabbitMQ broker; rows are the instance type without mq.",
+    "sync": {
+      "filters": {
+        "brokerEngine": "RabbitMQ",
+        "deploymentOption": "Single-AZ",
+        "instanceType": "{row}",
+        "operation": "CreateBroker.*",
+        "productFamily": "Broker Instances"
+      },
+      "service": "AmazonMQ"
+    },
+    "rows": {
+      "m5.2xlarge": {
+        "ap-northeast-1": 1.488,
+        "ap-northeast-2": 1.416,
+        "ap-south-1": 1.212,
+        "ap-southeast-1": 1.44,
+        "ap-southeast-2": 1.44,
+        "eu-central-1": 1.38,
+        "eu-west-1": 1.284,
+        "us-east-1": 1.152,
+        "us-east-2": 1.152,
+        "us-west-2": 1.152
+      },
+      "m5.4xlarge": {
+        "ap-northeast-1": 2.976,
+        "ap-northeast-2": 2.832,
+        "ap-south-1": 2.424,
+        "ap-southeast-1": 2.88,
+        "ap-southeast-2": 2.88,
+        "eu-central-1": 2.76,
+        "eu-west-1": 2.568,
+        "us-east-1": 2.304,
+        "us-east-2": 2.304,
+        "us-west-2": 2.304
+      },
+      "m5.large": {
+        "ap-northeast-1": 0.372,
+        "ap-northeast-2": 0.354,
+        "ap-south-1": 0.303,
+        "ap-southeast-1": 0.36,
+        "ap-southeast-2": 0.36,
+        "eu-central-1": 0.345,
+        "eu-west-1": 0.321,
+        "us-east-1": 0.288,
+        "us-east-2": 0.288,
+        "us-west-2": 0.288
+      },
+      "m5.xlarge": {
+        "ap-northeast-1": 0.744,
+        "ap-northeast-2": 0.708,
+        "ap-south-1": 0.606,
+        "ap-southeast-1": 0.72,
+        "ap-southeast-2": 0.72,
+        "eu-central-1": 0.69,
+        "eu-west-1": 0.642,
+        "us-east-1": 0.576,
+        "us-east-2": 0.576,
+        "us-west-2": 0.576
+      },
+      "m7g.12xlarge": {
+        "ap-northeast-1": 8.4742,
+        "ap-northeast-2": 8.0641,
+        "ap-south-1": 4.689,
+        "ap-southeast-1": 8.2008,
+        "ap-southeast-2": 8.2008,
+        "eu-central-1": 7.8598,
+        "eu-west-1": 7.3124,
+        "us-east-1": 6.5606,
+        "us-east-2": 6.5606,
+        "us-west-2": 6.5606
+      },
+      "m7g.16xlarge": {
+        "ap-northeast-1": 11.2989,
+        "ap-northeast-2": 10.7522,
+        "ap-south-1": 6.2518,
+        "ap-southeast-1": 10.9344,
+        "ap-southeast-2": 10.9344,
+        "eu-central-1": 10.4798,
+        "eu-west-1": 9.7498,
+        "us-east-1": 8.7475,
+        "us-east-2": 8.7475,
+        "us-west-2": 8.7475
+      },
+      "m7g.2xlarge": {
+        "ap-northeast-1": 1.4124,
+        "ap-northeast-2": 1.344,
+        "ap-south-1": 0.7816,
+        "ap-southeast-1": 1.3668,
+        "ap-southeast-2": 1.3668,
+        "eu-central-1": 1.3099,
+        "eu-west-1": 1.2187,
+        "us-east-1": 1.0934,
+        "us-east-2": 1.0934,
+        "us-west-2": 1.0934
+      },
+      "m7g.4xlarge": {
+        "ap-northeast-1": 2.8247,
+        "ap-northeast-2": 2.688,
+        "ap-south-1": 1.5631,
+        "ap-southeast-1": 2.7336,
+        "ap-southeast-2": 2.7336,
+        "eu-central-1": 2.62,
+        "eu-west-1": 2.4375,
+        "us-east-1": 2.1869,
+        "us-east-2": 2.1869,
+        "us-west-2": 2.1869
+      },
+      "m7g.8xlarge": {
+        "ap-northeast-1": 5.6494,
+        "ap-northeast-2": 5.3761,
+        "ap-south-1": 3.1259,
+        "ap-southeast-1": 5.4672,
+        "ap-southeast-2": 5.4672,
+        "eu-central-1": 5.2401,
+        "eu-west-1": 4.8749,
+        "us-east-1": 4.3738,
+        "us-east-2": 4.3738,
+        "us-west-2": 4.3738
+      },
+      "m7g.large": {
+        "ap-northeast-1": 0.3531,
+        "ap-northeast-2": 0.336,
+        "ap-south-1": 0.1953,
+        "ap-southeast-1": 0.3417,
+        "ap-southeast-2": 0.3417,
+        "eu-central-1": 0.3276,
+        "eu-west-1": 0.3049,
+        "us-east-1": 0.2734,
+        "us-east-2": 0.2734,
+        "us-west-2": 0.2734
+      },
+      "m7g.medium": {
+        "ap-northeast-1": 0.1765,
+        "ap-northeast-2": 0.1682,
+        "ap-south-1": 0.0978,
+        "ap-southeast-1": 0.1709,
+        "ap-southeast-2": 0.1709,
+        "eu-central-1": 0.1638,
+        "eu-west-1": 0.1524,
+        "us-east-1": 0.1367,
+        "us-east-2": 0.1367,
+        "us-west-2": 0.1367
+      },
+      "m7g.xlarge": {
+        "ap-northeast-1": 0.7062,
+        "ap-northeast-2": 0.672,
+        "ap-south-1": 0.3906,
+        "ap-southeast-1": 0.6834,
+        "ap-southeast-2": 0.6834,
+        "eu-central-1": 0.6549,
+        "eu-west-1": 0.6094,
+        "us-east-1": 0.5467,
+        "us-east-2": 0.5467,
+        "us-west-2": 0.5467
+      },
+      "t3.micro": {
+        "ap-northeast-1": 0.03536,
+        "ap-northeast-2": 0.0338,
+        "ap-south-1": 0.02912,
+        "ap-southeast-1": 0.03432,
+        "ap-southeast-2": 0.03432,
+        "eu-central-1": 0.0312,
+        "eu-west-1": 0.02964,
+        "us-east-1": 0.02704,
+        "us-east-2": 0.02704,
+        "us-west-2": 0.02704
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "aws.mq.rabbitmq.storage": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/amazon-mq/pricing/",
+    "note": "Per node",
+    "sync": {
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?TimedStorage-RabbitMQ-ByteHrs"
+      },
+      "service": "AmazonMQ"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.114,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.114,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.119,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

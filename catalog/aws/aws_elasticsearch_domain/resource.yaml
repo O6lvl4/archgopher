@@ -1,0 +1,46 @@
+type: aws_elasticsearch_domain
+label: Elasticsearch domain
+category: Analytics
+icon: opensearch
+description: "Data node hours by instance type, EBS storage per node (gp2, gp3, io1 or magnetic) with gp3 IOPS and throughput above the included baseline and io1 IOPS, dedicated master nodes, UltraWarm nodes and managed storage for UltraWarm, cold and OR instances. Instance types named .elasticsearch are priced as their .search equivalents. Headroom is the data kept against the nodes' volumes."
+kinds: [request]
+sla: aws.opensearch
+attributes:
+  - { key: instance_type, label: Data node type, type: string, default: m4.large.elasticsearch, path: cluster_config.instance_type }
+  - { key: instance_count, label: Data nodes, type: number, default: 1, path: cluster_config.instance_count }
+  - { key: dedicated_master_enabled, label: Dedicated masters, type: boolean, default: false, path: cluster_config.dedicated_master_enabled }
+  - { key: dedicated_master_type, label: Master node type, type: string, optional: true, path: cluster_config.dedicated_master_type }
+  - { key: dedicated_master_count, label: Master nodes, type: number, default: 3, path: cluster_config.dedicated_master_count }
+  - { key: warm_enabled, label: UltraWarm, type: boolean, default: false, path: cluster_config.warm_enabled }
+  - { key: warm_type, label: UltraWarm node type, type: string, default: ultrawarm1.medium.search, path: cluster_config.warm_type }
+  - { key: warm_count, label: UltraWarm nodes, type: number, default: 0, path: cluster_config.warm_count }
+  - { key: ebs_enabled, label: EBS volumes, type: boolean, default: false, path: ebs_options.ebs_enabled }
+  - { key: volume_type, label: Volume type, type: string, default: gp2, path: ebs_options.volume_type, hint: "gp2, gp3, io1 or standard (magnetic)"  }
+  - { key: volume_size, label: Volume per node, type: number, unit: GiB, default: 10, path: ebs_options.volume_size }
+  - { key: iops, label: Volume IOPS, type: number, optional: true, path: ebs_options.iops }
+  - { key: throughput, label: Volume throughput, type: number, unit: MiB/s, optional: true, path: ebs_options.throughput }
+assumptions:
+  - { key: managedStorageGb, label: Managed storage, type: number, unit: GB, default: 0, hint: "Data on UltraWarm, cold storage or OR instances' managed storage"  }
+  - { key: storedGb, label: Data kept on the volumes, type: number, unit: GB, optional: true, hint: "Primary shards and replicas together"  }
+let:
+  - search: 'replace(instance_type, ".elasticsearch", ".search")'
+  - master: 'replace(dedicated_master_type ?? instance_type, ".elasticsearch", ".search")'
+  - warm: 'replace(warm_type, ".elasticsearch", ".search")'
+  - vt: lower(volume_type)
+  - store: 'vt == "standard" ? "magnetic" : (vt in ["gp2", "gp3", "io1"] ? vt : "")'
+  - freeThroughput: 'volume_size <= 170 ? 125 : min(1000, ceilDiv(volume_size, 3000) * 250)'
+readings:
+  - capacity: { name: 'Data nodes ({search})', units: instance_count, unit: instance-hour, price: 'aws.opensearch.instance.{search}'  }
+  - fail: { when: 'ebs_enabled && store == ""', message: 'volume_type {volume_type} is not priced: want gp2, gp3, io1 or standard'  }
+  - storage: { when: ebs_enabled, name: 'Storage ({vt})', gb: volume_size * instance_count, price: 'aws.opensearch.{store}'  }
+  - cost: { when: 'ebs_enabled && vt == "gp3" && (iops ?? 3000) > 3000', name: gp3 IOPS above 3000, quantity: '((iops ?? 3000) - 3000) * instance_count', unit: IOPS-month, price: aws.opensearch.gp3_iops }
+  - cost: { when: 'ebs_enabled && vt == "gp3" && (throughput ?? 0) > freeThroughput', name: gp3 throughput above the baseline, quantity: '((throughput ?? 0) - freeThroughput) * instance_count', unit: MiB/s-month, price: aws.opensearch.gp3_throughput }
+  - cost: { when: 'ebs_enabled && vt == "io1"', name: io1 IOPS, quantity: '(iops ?? 1000) * instance_count', unit: IOPS-month, price: aws.opensearch.io1_iops }
+  - capacity: { when: dedicated_master_enabled, name: 'Dedicated masters ({master})', units: dedicated_master_count, unit: instance-hour, price: 'aws.opensearch.instance.{master}'  }
+  - capacity: { when: warm_enabled && warm_count > 0, name: 'UltraWarm nodes ({warm})', units: warm_count, unit: instance-hour, price: 'aws.opensearch.instance.{warm}'  }
+  - storage: { when: managedStorageGb > 0, name: Managed storage, gb: managedStorageGb, price: aws.opensearch.managed_storage }
+  - limit: { when: ebs_enabled && storedGb != nil, name: Volume storage, demand: 'storedGb ?? 0', unit: GB, capacity: volume_size * instance_count }
+terraform:
+  ignoreRefs: [encryption_at_rest, log_publishing_options, cognito_options, advanced_security_options]
+iam:
+  request: ["es:ESHttpGet", "es:ESHttpHead", "es:ESHttpPost", "es:ESHttpPut", "es:ESHttpPatch", "es:ESHttpDelete"]

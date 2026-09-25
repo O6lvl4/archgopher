@@ -1,0 +1,67 @@
+{
+  "aws.pipes.requests": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/eventbridge/pricing/",
+    "note": "Events that pass the filter, each 64 KB chunk a request",
+    "sync": {
+      "filters": {
+        "operation": "PipeRequest",
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Request-64K-Chunks"
+      },
+      "service": "AWSEvents"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.46,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.42,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.46,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

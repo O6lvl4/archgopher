@@ -1,0 +1,22 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: half the events pass the filter (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    passShare: 0.5
+  demand:
+    event:
+      monthly: 10000000
+      peak: 50
+  costs:
+    Requests: 2.5
+- name: 100 KB events are two requests each (us-east-1)
+  region: us-east-1
+  assumptions:
+    eventKb: 100
+  demand:
+    event:
+      monthly: 1000000
+      peak: 5
+  costs:
+    Requests: 0.8

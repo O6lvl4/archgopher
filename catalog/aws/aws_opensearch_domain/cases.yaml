@@ -1,0 +1,61 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: three r6g.large on gp3 with provisioned IOPS and throughput and dedicated masters (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    instance_type: r6g.large.search
+    instance_count: 3
+    ebs_enabled: true
+    volume_type: gp3
+    volume_size: 200
+    iops: 4000
+    throughput: 300
+    dedicated_master_enabled: true
+    dedicated_master_type: m6g.large.search
+  assumptions:
+    storedGb: 400
+  demand:
+    request:
+      monthly: 10000000
+      peak: 100
+  costs:
+    Data nodes (r6g.large.search): 442.38
+    Storage (gp3): 87.84
+    gp3 IOPS above 3000: 28.8
+    gp3 throughput above the baseline: 11.52
+    Dedicated masters (m6g.large.search): 359.16
+  limits:
+    Volume storage: 400
+- name: two m5.large on gp2 with UltraWarm (us-east-1)
+  region: us-east-1
+  attributes:
+    instance_type: m5.large.search
+    instance_count: 2
+    ebs_enabled: true
+    volume_size: 100
+    warm_enabled: true
+    warm_count: 2
+  assumptions:
+    managedStorageGb: 1000
+  demand:
+    request:
+      monthly: 1000000
+      peak: 10
+  costs:
+    Data nodes (m5.large.search): 207.32
+    Storage (gp2): 27.0
+    UltraWarm nodes (ultrawarm1.medium.search): 347.48
+    Managed storage: 24.0
+- name: unpriced volume type (us-east-1)
+  region: us-east-1
+  attributes:
+    instance_type: t3.small.search
+    ebs_enabled: true
+    volume_type: st1
+  demand:
+    request:
+      monthly: 1000
+      peak: 1
+  costs:
+    Data nodes (t3.small.search): 26.28
+  error: volume_type st1 is not priced

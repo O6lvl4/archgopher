@@ -1,0 +1,83 @@
+{
+  "aws.firehose.direct_put.mib_per_second": {
+    "unit": "MiB/s",
+    "source": "https://docs.aws.amazon.com/firehose/latest/dev/limits.html",
+    "note": "Direct PUT, per Firehose stream; Firehose raises it when throttled and on request",
+    "values": {
+      "*": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.firehose.direct_put.records_per_second": {
+    "unit": "records/second",
+    "source": "https://docs.aws.amazon.com/firehose/latest/dev/limits.html",
+    "note": "Direct PUT, per Firehose stream; Firehose raises it when throttled and on request",
+    "values": {
+      "*": {
+        "value": 100000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 500000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 500000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 500000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.firehose.direct_put.requests_per_second": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/firehose/latest/dev/limits.html",
+    "note": "Direct PUT, per Firehose stream; Firehose raises it when throttled and on request",
+    "values": {
+      "*": {
+        "value": 1000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 2000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 2000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 2000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

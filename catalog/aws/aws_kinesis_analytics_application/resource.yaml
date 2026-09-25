@@ -1,0 +1,21 @@
+type: aws_kinesis_analytics_application
+label: Kinesis Data Analytics (SQL)
+category: Analytics
+icon: managed-flink
+description: "KPU-hours while the application runs. Kinesis Data Analytics for SQL applications reached end of life in January 2026; its price stays in the Price List and is read from there. An application Terraform does not start costs nothing."
+kinds: [process]
+attributes:
+  - { key: start_application, label: Started by Terraform, type: boolean, default: false }
+assumptions:
+  - { key: kpus, label: KPUs, type: number, default: 1, hint: "The service scales KPUs with the load; average over the month"  }
+  - { key: running, label: Running, type: boolean, optional: true, hint: "Set when the application is started outside Terraform"  }
+let:
+  - on: running ?? start_application
+readings:
+  - capacity: { when: on, name: Processing (SQL), units: kpus, unit: KPU-hour, price: aws.kinesisanalytics.sql.kpu_hour }
+terraform:
+  # The application reads its inputs: the stream feeds it. Outputs are what it calls.
+  links:
+    - { type: aws_kinesis_analytics_application, from: inputs.kinesis_stream.resource_arn, to: [self]  }
+    - { type: aws_kinesis_analytics_application, from: inputs.kinesis_firehose.resource_arn, to: [self]  }
+  ignoreRefs: [inputs, reference_data_sources, cloudwatch_logging_options]

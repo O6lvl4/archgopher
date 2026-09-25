@@ -1,0 +1,669 @@
+{
+  "aws.msk.broker": {
+    "unit": "broker-hour",
+    "source": "https://aws.amazon.com/msk/pricing/",
+    "note": "Standard (kafka.*) and Express (express.*) brokers",
+    "sync": {
+      "filters": {
+        "operation": "RunBroker",
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?(?i:{row})"
+      },
+      "service": "AmazonMSK"
+    },
+    "rows": {
+      "express.m7g.12xlarge": {
+        "ap-northeast-1": 12.648,
+        "ap-northeast-2": 12.0384,
+        "ap-south-1": 6.9984,
+        "ap-southeast-1": 12.24,
+        "ap-southeast-2": 12.24,
+        "eu-central-1": 11.736,
+        "eu-west-1": 10.92,
+        "us-east-1": 9.792,
+        "us-east-2": 9.792,
+        "us-west-2": 9.792
+      },
+      "express.m7g.16xlarge": {
+        "ap-northeast-1": 16.864,
+        "ap-northeast-2": 16.0512,
+        "ap-south-1": 9.3312,
+        "ap-southeast-1": 16.32,
+        "ap-southeast-2": 16.32,
+        "eu-central-1": 15.648,
+        "eu-west-1": 14.56,
+        "us-east-1": 13.056,
+        "us-east-2": 13.056,
+        "us-west-2": 13.056
+      },
+      "express.m7g.2xlarge": {
+        "ap-northeast-1": 2.108,
+        "ap-northeast-2": 2.0064,
+        "ap-south-1": 1.1664,
+        "ap-southeast-1": 2.04,
+        "ap-southeast-2": 2.04,
+        "eu-central-1": 1.956,
+        "eu-west-1": 1.82,
+        "us-east-1": 1.632,
+        "us-east-2": 1.632,
+        "us-west-2": 1.632
+      },
+      "express.m7g.4xlarge": {
+        "ap-northeast-1": 4.216,
+        "ap-northeast-2": 4.0128,
+        "ap-south-1": 2.3328,
+        "ap-southeast-1": 4.08,
+        "ap-southeast-2": 4.08,
+        "eu-central-1": 3.912,
+        "eu-west-1": 3.64,
+        "us-east-1": 3.264,
+        "us-east-2": 3.264,
+        "us-west-2": 3.264
+      },
+      "express.m7g.8xlarge": {
+        "ap-northeast-1": 8.432,
+        "ap-northeast-2": 8.0256,
+        "ap-south-1": 4.6656,
+        "ap-southeast-1": 8.16,
+        "ap-southeast-2": 8.16,
+        "eu-central-1": 7.824,
+        "eu-west-1": 7.28,
+        "us-east-1": 6.528,
+        "us-east-2": 6.528,
+        "us-west-2": 6.528
+      },
+      "express.m7g.large": {
+        "ap-northeast-1": 0.527,
+        "ap-northeast-2": 0.5016,
+        "ap-south-1": 0.2916,
+        "ap-southeast-1": 0.51,
+        "ap-southeast-2": 0.51,
+        "eu-central-1": 0.489,
+        "eu-west-1": 0.455,
+        "us-east-1": 0.408,
+        "us-east-2": 0.408,
+        "us-west-2": 0.408
+      },
+      "express.m7g.xlarge": {
+        "ap-northeast-1": 1.054,
+        "ap-northeast-2": 1.0032,
+        "ap-south-1": 0.5832,
+        "ap-southeast-1": 1.02,
+        "ap-southeast-2": 1.02,
+        "eu-central-1": 0.978,
+        "eu-west-1": 0.91,
+        "us-east-1": 0.816,
+        "us-east-2": 0.816,
+        "us-west-2": 0.816
+      },
+      "kafka.m5.12xlarge": {
+        "ap-northeast-1": 6.51,
+        "ap-northeast-2": 6.195,
+        "ap-south-1": 5.303,
+        "ap-southeast-1": 6.3,
+        "ap-southeast-2": 6.3,
+        "eu-central-1": 6.038,
+        "eu-west-1": 5.616,
+        "us-east-1": 5.04,
+        "us-east-2": 5.04,
+        "us-west-2": 5.04
+      },
+      "kafka.m5.16xlarge": {
+        "ap-northeast-1": 8.69,
+        "ap-northeast-2": 8.269,
+        "ap-south-1": 7.078,
+        "ap-southeast-1": 8.41,
+        "ap-southeast-2": 8.41,
+        "eu-central-1": 8.059,
+        "eu-west-1": 7.499,
+        "us-east-1": 6.73,
+        "us-east-2": 6.73,
+        "us-west-2": 6.73
+      },
+      "kafka.m5.24xlarge": {
+        "ap-northeast-1": 13.02,
+        "ap-northeast-2": 12.39,
+        "ap-south-1": 10.605,
+        "ap-southeast-1": 12.6,
+        "ap-southeast-2": 12.6,
+        "eu-central-1": 12.075,
+        "eu-west-1": 11.232,
+        "us-east-1": 10.08,
+        "us-east-2": 10.08,
+        "us-west-2": 10.08
+      },
+      "kafka.m5.2xlarge": {
+        "ap-northeast-1": 1.085,
+        "ap-northeast-2": 1.033,
+        "ap-south-1": 0.884,
+        "ap-southeast-1": 1.05,
+        "ap-southeast-2": 1.05,
+        "eu-central-1": 1.006,
+        "eu-west-1": 0.936,
+        "us-east-1": 0.84,
+        "us-east-2": 0.84,
+        "us-west-2": 0.84
+      },
+      "kafka.m5.4xlarge": {
+        "ap-northeast-1": 2.17,
+        "ap-northeast-2": 2.065,
+        "ap-south-1": 1.768,
+        "ap-southeast-1": 2.1,
+        "ap-southeast-2": 2.1,
+        "eu-central-1": 2.013,
+        "eu-west-1": 1.872,
+        "us-east-1": 1.68,
+        "us-east-2": 1.68,
+        "us-west-2": 1.68
+      },
+      "kafka.m5.8xlarge": {
+        "ap-northeast-1": 4.34,
+        "ap-northeast-2": 4.135,
+        "ap-south-1": 3.539,
+        "ap-southeast-1": 4.2,
+        "ap-southeast-2": 4.2,
+        "eu-central-1": 4.03,
+        "eu-west-1": 3.749,
+        "us-east-1": 3.36,
+        "us-east-2": 3.36,
+        "us-west-2": 3.36
+      },
+      "kafka.m5.large": {
+        "ap-northeast-1": 0.271,
+        "ap-northeast-2": 0.258,
+        "ap-south-1": 0.221,
+        "ap-southeast-1": 0.263,
+        "ap-southeast-2": 0.263,
+        "eu-central-1": 0.252,
+        "eu-west-1": 0.234,
+        "us-east-1": 0.21,
+        "us-east-2": 0.21,
+        "us-west-2": 0.21
+      },
+      "kafka.m5.xlarge": {
+        "ap-northeast-1": 0.543,
+        "ap-northeast-2": 0.516,
+        "ap-south-1": 0.442,
+        "ap-southeast-1": 0.525,
+        "ap-southeast-2": 0.525,
+        "eu-central-1": 0.503,
+        "eu-west-1": 0.468,
+        "us-east-1": 0.42,
+        "us-east-2": 0.42,
+        "us-west-2": 0.42
+      },
+      "kafka.m7g.12xlarge": {
+        "ap-northeast-1": 6.324,
+        "ap-northeast-2": 6.018,
+        "ap-south-1": 3.4993,
+        "ap-southeast-1": 6.12,
+        "ap-southeast-2": 6.12,
+        "eu-central-1": 5.8655,
+        "eu-west-1": 5.457,
+        "us-east-1": 4.896,
+        "us-east-2": 4.896,
+        "us-west-2": 4.896
+      },
+      "kafka.m7g.16xlarge": {
+        "ap-northeast-1": 8.432,
+        "ap-northeast-2": 8.024,
+        "ap-south-1": 4.6655,
+        "ap-southeast-1": 8.16,
+        "ap-southeast-2": 8.16,
+        "eu-central-1": 7.8208,
+        "eu-west-1": 7.276,
+        "us-east-1": 6.528,
+        "us-east-2": 6.528,
+        "us-west-2": 6.528
+      },
+      "kafka.m7g.2xlarge": {
+        "ap-northeast-1": 1.054,
+        "ap-northeast-2": 1.003,
+        "ap-south-1": 0.5833,
+        "ap-southeast-1": 1.02,
+        "ap-southeast-2": 1.02,
+        "eu-central-1": 0.9775,
+        "eu-west-1": 0.9095,
+        "us-east-1": 0.816,
+        "us-east-2": 0.816,
+        "us-west-2": 0.816
+      },
+      "kafka.m7g.4xlarge": {
+        "ap-northeast-1": 2.108,
+        "ap-northeast-2": 2.006,
+        "ap-south-1": 1.1665,
+        "ap-southeast-1": 2.04,
+        "ap-southeast-2": 2.04,
+        "eu-central-1": 1.9553,
+        "eu-west-1": 1.819,
+        "us-east-1": 1.632,
+        "us-east-2": 1.632,
+        "us-west-2": 1.632
+      },
+      "kafka.m7g.8xlarge": {
+        "ap-northeast-1": 4.216,
+        "ap-northeast-2": 4.012,
+        "ap-south-1": 2.3328,
+        "ap-southeast-1": 4.08,
+        "ap-southeast-2": 4.08,
+        "eu-central-1": 3.9105,
+        "eu-west-1": 3.638,
+        "us-east-1": 3.264,
+        "us-east-2": 3.264,
+        "us-west-2": 3.264
+      },
+      "kafka.m7g.large": {
+        "ap-northeast-1": 0.2635,
+        "ap-northeast-2": 0.2508,
+        "ap-south-1": 0.1458,
+        "ap-southeast-1": 0.255,
+        "ap-southeast-2": 0.255,
+        "eu-central-1": 0.2445,
+        "eu-west-1": 0.2275,
+        "us-east-1": 0.204,
+        "us-east-2": 0.204,
+        "us-west-2": 0.204
+      },
+      "kafka.m7g.xlarge": {
+        "ap-northeast-1": 0.527,
+        "ap-northeast-2": 0.5015,
+        "ap-south-1": 0.2915,
+        "ap-southeast-1": 0.51,
+        "ap-southeast-2": 0.51,
+        "eu-central-1": 0.4888,
+        "eu-west-1": 0.4548,
+        "us-east-1": 0.408,
+        "us-east-2": 0.408,
+        "us-west-2": 0.408
+      },
+      "kafka.t3.small": {
+        "ap-northeast-1": 0.0596,
+        "ap-northeast-2": 0.0569,
+        "ap-south-1": 0.0491,
+        "ap-southeast-1": 0.0578,
+        "ap-southeast-2": 0.0578,
+        "eu-central-1": 0.0526,
+        "eu-west-1": 0.0499,
+        "us-east-1": 0.0456,
+        "us-east-2": 0.0456,
+        "us-west-2": 0.0456
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "aws.msk.express.ingress": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/msk/pricing/",
+    "note": "Data written to Express brokers",
+    "sync": {
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Express.In-Bytes"
+      },
+      "service": "AmazonMSK"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0123,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0071,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.011,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.msk.express.storage": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/msk/pricing/",
+    "sync": {
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Express.Storage"
+      },
+      "service": "AmazonMSK"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.114,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.114,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.119,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.msk.provisioned_throughput": {
+    "unit": "MiB/s-month",
+    "source": "https://aws.amazon.com/msk/pricing/",
+    "note": "Provisioned storage throughput per broker",
+    "sync": {
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Kafka.Throughput"
+      },
+      "service": "AmazonMSK"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.096,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0912,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0912,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.096,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.096,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0952,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.088,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.08,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.08,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.08,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.msk.storage": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/msk/pricing/",
+    "note": "Standard brokers' EBS storage",
+    "sync": {
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Kafka.Storage.GP2"
+      },
+      "service": "AmazonMSK"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.114,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.114,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.119,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.msk.tiered_retrieval": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/msk/pricing/",
+    "sync": {
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Kafka.DataRetrieval.Tiered"
+      },
+      "service": "AmazonMSK"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0017,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0017,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0018,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.0018,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.0018,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0018,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.0015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.0015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.0015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.0015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.msk.tiered_storage": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/msk/pricing/",
+    "sync": {
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Kafka.Storage.Tiered"
+      },
+      "service": "AmazonMSK"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0652,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0652,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0652,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.0652,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.0652,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0639,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

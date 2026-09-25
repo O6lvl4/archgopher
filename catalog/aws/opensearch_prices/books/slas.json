@@ -1,0 +1,14 @@
+{
+  "aws.opensearch": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/opensearch-service/sla/",
+    "note": "Multi-AZ without Standby; Multi-AZ with Standby is 99.99%, a single AZ 99.5%",
+    "values": {
+      "*": {
+        "value": 0.999,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

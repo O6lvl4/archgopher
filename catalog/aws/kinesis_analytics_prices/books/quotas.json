@@ -1,0 +1,14 @@
+{
+  "aws.flink.kpus": {
+    "unit": "KPUs",
+    "source": "https://docs.aws.amazon.com/managed-flink/latest/java/limits.html",
+    "note": "Per application; adjustable",
+    "values": {
+      "*": {
+        "value": 64,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

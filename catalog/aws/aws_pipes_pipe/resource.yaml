@@ -1,0 +1,18 @@
+type: aws_pipes_pipe
+label: EventBridge Pipe
+category: Integration
+icon: eventbridge
+description: "Requests per million: each event that passes the filter, in 64 KB chunks. The pipe sits between its source and its target: the source's events reach it, and it calls the enrichment and the target."
+kinds: [event]
+sla: aws.eventbridge
+assumptions:
+  - { key: eventKb, label: Event size, type: number, unit: KB, default: 1, hint: "For events whose edges give no kb" }
+  - { key: passShare, label: Share passing the filter, type: number, default: 1, hint: "Events the filter drops are not billed" }
+readings:
+  - cost: { name: Requests, quantity: 'units(total, 64, eventKb) * passShare', unit: request, price: aws.pipes.requests }
+terraform:
+  # The pipe polls its source and calls its target: the source feeds the pipe.
+  passive: true
+  links:
+    - { type: aws_pipes_pipe, from: source, to: [self] }
+    - { type: aws_pipes_pipe, from: self, to: [enrichment, target, target_parameters.ecs_task_parameters.task_definition_arn] }

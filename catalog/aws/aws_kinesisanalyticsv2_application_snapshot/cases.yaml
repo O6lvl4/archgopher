@@ -1,0 +1,14 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 40 GB snapshot (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    snapshotGb: 40
+  costs:
+    Durable backup: 1.0
+- name: 100 GB snapshot (us-east-1)
+  region: us-east-1
+  assumptions:
+    snapshotGb: 100
+  costs:
+    Durable backup: 2.3

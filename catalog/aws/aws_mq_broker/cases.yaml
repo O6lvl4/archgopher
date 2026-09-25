@@ -1,0 +1,58 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: ActiveMQ active/standby on EFS (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    host_instance_type: mq.m5.large
+    deployment_mode: ACTIVE_STANDBY_MULTI_AZ
+  assumptions:
+    storageGb: 10
+  demand:
+    send:
+      monthly: 1000000
+      peak: 10
+  costs:
+    Broker (ActiveMQ, mq.m5.large, active_standby): 543.12
+    Storage: 3.6
+- name: RabbitMQ three-node cluster (us-east-1)
+  region: us-east-1
+  attributes:
+    engine_type: RabbitMQ
+    host_instance_type: mq.m5.large
+    deployment_mode: CLUSTER_MULTI_AZ
+  assumptions:
+    storageGb: 100
+  demand:
+    send:
+      monthly: 1000000
+      peak: 10
+  costs:
+    Broker (RabbitMQ, mq.m5.large, cluster): 630.72
+    Storage: 30.0
+- name: ActiveMQ single instance on EBS (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    host_instance_type: mq.t3.micro
+    storage_type: ebs
+  assumptions:
+    storageGb: 20
+  demand:
+    send:
+      monthly: 100000
+      peak: 1
+  costs:
+    Broker (ActiveMQ, mq.t3.micro, single): 25.8128
+    Storage: 2.4
+- name: ActiveMQ on EFS where the Price List has no EFS row (eu-west-1)
+  region: eu-west-1
+  attributes:
+    host_instance_type: mq.m5.large
+  assumptions:
+    storageGb: 5
+  demand:
+    send:
+      monthly: 100000
+      peak: 1
+  costs:
+    Broker (ActiveMQ, mq.m5.large, single): 234.33
+  error: not offered in eu-west-1

@@ -1,0 +1,86 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Glue 4.0 Spark, ten G.1X workers, 30-minute runs (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    glue_version: '4.0'
+    worker_type: G.1X
+    number_of_workers: 10
+  assumptions:
+    runMinutes: 30
+  demand:
+    run:
+      monthly: 60
+      peak: 0.0005
+  costs:
+    Job runs (10 DPU): 132.0
+  limits:
+    Concurrent runs: 0.9
+    Account DPUs: 9
+- name: Glue 6.0 Flex, five G.2X workers, runs under a minute (us-east-1)
+  region: us-east-1
+  attributes:
+    glue_version: '6.0'
+    execution_class: FLEX
+    worker_type: G.2X
+    number_of_workers: 5
+    max_concurrent_runs: 3
+  assumptions:
+    runMinutes: 0.5
+  demand:
+    run:
+      monthly: 1000
+      peak: 0.01
+  costs:
+    Job runs (10 DPU): 33.833333333
+  limits:
+    Concurrent runs: 0.3
+    Account DPUs: 3
+- name: Python shell at 0.0625 DPU (us-east-1)
+  region: us-east-1
+  attributes:
+    command_name: pythonshell
+    glue_version: '3.0'
+  assumptions:
+    runMinutes: 5
+  demand:
+    run:
+      monthly: 3000
+      peak: 0.001
+  costs:
+    Job runs (0.0625 DPU): 6.875
+  limits:
+    Concurrent runs: 0.3
+    Account DPUs: 0.01875
+- name: streaming on two G.025X workers (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    command_name: gluestreaming
+    glue_version: '4.0'
+    worker_type: G.025X
+    number_of_workers: 2
+  assumptions:
+    runMinutes: 1
+  demand:
+    run:
+      monthly: 0
+      peak: 0
+  costs:
+    Streaming job (0.5 DPU): 160.6
+  limits:
+    Account DPUs: 0.5
+- name: legacy Glue 1.0 job with the default 10 DPUs, 10-minute minimum (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    glue_version: '1.0'
+  assumptions:
+    runMinutes: 3
+  demand:
+    run:
+      monthly: 100
+      peak: 0.0001
+  costs:
+    Job runs (10 DPU): 73.333333333
+  limits:
+    Concurrent runs: 0.018
+    Account DPUs: 0.18

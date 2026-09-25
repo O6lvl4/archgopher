@@ -1,0 +1,40 @@
+type: aws_msk_cluster
+label: MSK (provisioned)
+category: Analytics
+icon: msk
+description: "Broker-hours by instance type. Standard brokers add EBS storage per broker, provisioned storage throughput and tiered storage with its reads; Express brokers add data written and storage used. Storage auto scaling is read at the configured size. Headroom is the data kept against the brokers' volumes."
+kinds: [produce]
+sla: aws.msk
+attributes:
+  - { key: number_of_broker_nodes, label: Brokers, type: number, default: 3 }
+  - { key: instance_type, label: Broker type, type: string, default: kafka.m5.large, path: broker_node_group_info.instance_type }
+  - { key: volume_size, label: Volume per broker, type: number, unit: GiB, optional: true, path: broker_node_group_info.storage_info.ebs_storage_info.volume_size, hint: "Unset reads 1,000 GiB, the MSK default" }
+  - { key: ebs_volume_size, label: Volume per broker (deprecated attribute), type: number, unit: GiB, optional: true, path: broker_node_group_info.ebs_volume_size }
+  - { key: throughput_enabled, label: Provisioned storage throughput, type: boolean, default: false, path: broker_node_group_info.storage_info.ebs_storage_info.provisioned_throughput.enabled }
+  - { key: volume_throughput, label: Storage throughput per broker, type: number, unit: MiB/s, optional: true, path: broker_node_group_info.storage_info.ebs_storage_info.provisioned_throughput.volume_throughput }
+  - { key: storage_mode, label: Storage mode, type: choice, options: [LOCAL, TIERED], default: LOCAL }
+assumptions:
+  - { key: messageKb, label: Message size, type: number, unit: KB, default: 1, hint: "For messages whose edges give no kb"  }
+  - { key: storedGb, label: Data kept, type: number, unit: GB, optional: true, hint: "All replicas together; Express storage bills it, standard brokers compare it with their volumes"  }
+  - { key: tieredGb, label: Tiered storage, type: number, unit: GB, default: 0 }
+  - { key: tieredReadGb, label: Tiered storage read, type: number, unit: GB, default: 0, hint: "Per month"  }
+let:
+  - type: lower(instance_type)
+  - express: type startsWith "express."
+  - brokers: number_of_broker_nodes
+  - volume: volume_size ?? (ebs_volume_size ?? 1000)
+  - gbIn: units(total, 1, messageKb) / 1048576
+readings:
+  - capacity: { name: 'Brokers ({type})', units: brokers, unit: broker-hour, price: 'aws.msk.broker.{type}'  }
+  - storage: { when: '!express', name: Broker storage, gb: volume * brokers, price: aws.msk.storage }
+  - cost: { when: '!express && throughput_enabled && volume_throughput != nil', name: Provisioned storage throughput, quantity: '(volume_throughput ?? 0) * brokers', unit: MiB/s-month, price: aws.msk.provisioned_throughput }
+  - storage: { when: '!express && storage_mode == "TIERED"', name: Tiered storage, gb: tieredGb, price: aws.msk.tiered_storage }
+  - cost: { when: '!express && tieredReadGb > 0', name: Tiered storage read, quantity: tieredReadGb, unit: GB, price: aws.msk.tiered_retrieval }
+  - cost: { when: express, name: Data written, quantity: gbIn, unit: GB, price: aws.msk.express.ingress }
+  - fail: { when: express && storedGb == nil, message: "Express brokers bill the data kept: set storedGb", continue: true }
+  - storage: { when: express && storedGb != nil, name: Express storage, gb: 'storedGb ?? 0', price: aws.msk.express.storage }
+  - limit: { when: '!express && storedGb != nil', name: Broker storage, demand: 'storedGb ?? 0', unit: GB, capacity: volume * brokers }
+terraform:
+  ignoreRefs: [encryption_info, logging_info, configuration_info, client_authentication]
+iam:
+  produce: ["kafka-cluster:WriteData"]

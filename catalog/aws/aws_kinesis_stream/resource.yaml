@@ -1,0 +1,47 @@
+type: aws_kinesis_stream
+label: Kinesis Data Streams
+category: Analytics
+icon: kinesis-data-streams
+description: "On-demand streams: stream-hours, data written (each record rounded up to 1 KB) and read, enhanced fan-out reads, and retention beyond 24 hours. Provisioned streams: shard-hours, PUT payload units (25 KB each), extended retention per shard-hour, long-term retention and its reads, enhanced fan-out consumer-shard-hours and reads. Headroom is the write rate against the shards, or the on-demand write ceiling. On-demand Advantage is not priced."
+kinds: [put]
+sla: aws.kinesis
+attributes:
+  - { key: stream_mode, label: Capacity mode, type: choice, options: [PROVISIONED, ON_DEMAND], default: PROVISIONED, path: stream_mode_details.stream_mode }
+  - { key: shard_count, label: Shards, type: number, optional: true, hint: "Provisioned streams only"  }
+  - { key: retention_period, label: Retention, type: number, unit: hours, default: 24, hint: "24 hours are included; up to 7 days is extended retention, beyond that long-term retention"  }
+assumptions:
+  - { key: recordKb, label: Record size, type: number, unit: KB, default: 1, hint: "For records whose edges give no kb"  }
+  - { key: consumers, label: Shared-throughput consumers, type: number, default: 1, hint: "Applications that read every record with GetRecords (Lambda event source mappings, KCL apps); on-demand streams bill each read"  }
+  - { key: efoConsumers, label: Enhanced fan-out consumers, type: number, default: 0, hint: "Registered consumers (aws_kinesis_stream_consumer) that read every record"  }
+  - { key: longTermReadGb, label: Long-term data read, type: number, unit: GB, default: 0, hint: "Data older than 7 days read back each month"  }
+let:
+  - onDemand: 'stream_mode == "ON_DEMAND"'
+  - kb: units(total, 1, recordKb)
+  - gb: kb / 1048576
+  - retention: max(retention_period, 24)
+  - extendedHours: min(retention, 168) - 24
+  - longTermHours: max(retention - 168, 0)
+  - shards: shard_count ?? 0
+  - peakMbps: peakUnits(total, 1, recordKb) / 1024
+readings:
+  - cost: { when: onDemand, name: Stream hours, quantity: 730, unit: stream-hour, price: aws.kinesis.ondemand.stream_hour }
+  - cost: { when: onDemand, name: Data written, quantity: gb, unit: GB, price: aws.kinesis.ondemand.ingest }
+  - cost: { when: onDemand && consumers > 0, name: Data read, quantity: gb * consumers, unit: GB, price: aws.kinesis.ondemand.retrieval }
+  - cost: { when: onDemand && efoConsumers > 0, name: Enhanced fan-out data read, quantity: gb * efoConsumers, unit: GB, price: aws.kinesis.ondemand.efo_retrieval }
+  - cost: { when: onDemand && extendedHours > 0, name: Extended retention (24 hours to 7 days), quantity: gb / 730 * extendedHours, unit: GB-month, price: aws.kinesis.ondemand.extended_retention }
+  - cost: { when: onDemand && longTermHours > 0, name: Long-term retention (over 7 days), quantity: gb / 730 * longTermHours, unit: GB-month, price: aws.kinesis.ondemand.long_term_retention }
+  - limit: { when: onDemand, name: Write throughput, demand: peakMbps, unit: MB/s, quota: aws.kinesis.ondemand.write_mbps }
+  - fail: { when: '!onDemand && shard_count == nil', message: "provisioned streams need shard_count"  }
+  - capacity: { when: '!onDemand', name: Shards, units: shards, unit: shard-hour, price: aws.kinesis.shard_hour }
+  - cost: { when: '!onDemand', name: PUT payload units, quantity: 'units(total, 25, recordKb)', unit: payload unit, price: aws.kinesis.put_payload_unit }
+  - capacity: { when: '!onDemand && extendedHours > 0', name: Extended retention (24 hours to 7 days), units: shards, unit: shard-hour, price: aws.kinesis.extended_shard_hour }
+  - cost: { when: '!onDemand && longTermHours > 0', name: Long-term retention (over 7 days), quantity: gb / 730 * longTermHours, unit: GB-month, price: aws.kinesis.long_term_retention }
+  - cost: { when: '!onDemand && longTermReadGb > 0', name: Long-term data read, quantity: longTermReadGb, unit: GB, price: aws.kinesis.long_term_retrieval }
+  - cost: { when: '!onDemand && efoConsumers > 0', name: Enhanced fan-out consumer-shard hours, quantity: efoConsumers * shards * 730, unit: consumer-shard-hour, price: aws.kinesis.efo_consumer_shard_hour }
+  - cost: { when: '!onDemand && efoConsumers > 0', name: Enhanced fan-out data read, quantity: gb * efoConsumers, unit: GB, price: aws.kinesis.efo_retrieval }
+  - rate: { when: '!onDemand', name: Write throughput, unit: MB/s, quota: aws.kinesis.shard.write_mbps, peak: peakMbps, scale: 'max(shards, 1)' }
+  - rate: { when: '!onDemand', name: Write records, unit: records/second, quota: aws.kinesis.shard.write_records, peak: total.peak, scale: 'max(shards, 1)' }
+terraform:
+  ignoreRefs: [kms_key_id]
+iam:
+  put: ["kinesis:PutRecord", "kinesis:PutRecords"]

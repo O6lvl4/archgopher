@@ -1,0 +1,14 @@
+{
+  "aws.glue.concurrent_crawlers": {
+    "unit": "crawlers",
+    "source": "https://docs.aws.amazon.com/general/latest/gr/glue.html",
+    "note": "Running at once, per account and region",
+    "values": {
+      "*": {
+        "value": 150,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

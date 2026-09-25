@@ -1,0 +1,20 @@
+type: aws_glue_crawler
+label: Glue crawler
+category: Analytics
+icon: glue
+description: "DPU-hours per crawler run, billed per second with a 10-minute minimum. A schedule in Terraform becomes the node's load. Headroom is the crawlers running at once in the account."
+kinds: [run]
+sla: aws.glue
+attributes:
+  - { key: schedule, label: Schedule, type: string, optional: true }
+assumptions:
+  - { key: runMinutes, label: Run time, type: number, unit: minutes, hint: "One crawl from start to end"  }
+  - { key: dpus, label: DPUs used, type: number, unit: DPU, hint: "Glue sizes the crawler itself; read DPU-hours over run time from the crawler's run history"  }
+readings:
+  - cost: { name: Crawler runs, quantity: 'total.monthly * dpus * max(runMinutes, 10) / 60', unit: DPU-hour, price: aws.glue.crawler }
+  - limit: { name: Crawlers running, demand: total.peak * runMinutes * 60, unit: crawlers, quota: aws.glue.concurrent_crawlers }
+terraform:
+  schedule: schedule
+  ignoreRefs: [security_configuration, lake_formation_configuration]
+iam:
+  run: ["glue:StartCrawler"]

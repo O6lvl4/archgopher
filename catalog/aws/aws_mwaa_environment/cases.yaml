@@ -1,0 +1,60 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: mw1.medium with extra workers and a third scheduler (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    environment_class: mw1.medium
+    schedulers: 3
+  assumptions:
+    averageWorkers: 3
+    databaseGb: 20
+    taskSeconds: 60
+  demand:
+    run:
+      monthly: 100000
+      peak: 2
+  costs:
+    Environment (mw1.medium): 540.2
+    Additional workers: 160.6
+    Additional schedulers: 80.3
+    Metadata database: 2.0
+  limits:
+    Concurrent tasks: 120
+- name: mw1.micro bills the environment only (us-east-1)
+  region: us-east-1
+  attributes:
+    environment_class: mw1.micro
+    schedulers: 1
+    min_webservers: 1
+  assumptions:
+    averageWorkers: 3
+    taskSeconds: 10
+  demand:
+    run:
+      monthly: 1000
+      peak: 0.1
+  costs:
+    Environment (mw1.micro): 211.7
+  limits:
+    Concurrent tasks: 1
+- name: mw1.large with four web servers (us-east-1)
+  region: us-east-1
+  attributes:
+    environment_class: mw1.large
+    min_webservers: 4
+  demand:
+    run:
+      monthly: 1000
+      peak: 0.1
+  costs:
+    Environment (mw1.large): 722.7
+    Additional web servers: 160.6
+- name: unknown class (us-east-1)
+  region: us-east-1
+  attributes:
+    environment_class: mw2.small
+  demand:
+    run:
+      monthly: 1
+      peak: 1
+  error: environment class mw2.small is not known
