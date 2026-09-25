@@ -10,6 +10,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"slices"
 	"sort"
 	"strconv"
 	"strings"
@@ -141,38 +142,50 @@ func (s *syncer) table(w io.Writer, id string, e *book.Entry) error {
 		keys = append(keys, k)
 	}
 	sort.Strings(keys)
-	resolved, changed := true, false
+	// Region by region, so each offer is read once for every row.
+	regionSet := map[string]bool{}
+	for _, row := range e.Rows {
+		for r := range row {
+			if s.regions == "" || strings.Contains(","+s.regions+",", ","+r+",") {
+				regionSet[r] = true
+			}
+		}
+	}
+	for _, r := range s.add {
+		regionSet[r] = true
+	}
+	regions := make([]string, 0, len(regionSet))
+	for r := range regionSet {
+		regions = append(regions, r)
+	}
+	sort.Strings(regions)
+	specs := map[string]priceSource{}
 	for _, key := range keys {
 		raw := strings.ReplaceAll(string(e.Sync), "{row}", jsonQuoteMeta(key))
 		spec, err := s.sources.of(json.RawMessage(raw))
 		if err != nil {
 			return fmt.Errorf("%s: sync: %w", id, err)
 		}
-		row := e.Rows[key]
-		regions := make([]string, 0, len(row)+len(s.add))
-		for r := range row {
-			if s.regions == "" || strings.Contains(","+s.regions+",", ","+r+",") {
-				regions = append(regions, r)
+		specs[key] = spec
+	}
+	resolved, changed := true, false
+	for _, region := range regions {
+		for _, key := range keys {
+			row := e.Rows[key]
+			old, had := row[region]
+			if !had && !slices.Contains(s.add, region) {
+				continue
 			}
-		}
-		for _, r := range s.add {
-			if _, has := row[r]; !has {
-				regions = append(regions, r)
-			}
-		}
-		sort.Strings(regions)
-		for _, region := range regions {
-			old := book.Value{Value: row[region], Verified: e.Verified}
 			entry := book.Entry{Unit: e.Unit, Per: e.Per, Values: map[string]book.Value{}}
-			if _, had := row[region]; had {
-				entry.Values[region] = old
+			if had {
+				entry.Values[region] = book.Value{Value: old, Verified: e.Verified}
 			}
-			v, ok := s.value(w, id+"."+key, region, entry, spec)
+			v, ok := s.value(w, id+"."+key, region, entry, specs[key])
 			if !ok {
 				resolved = false
 				continue
 			}
-			if (v.Value == nil) != (old.Value == nil) || (v.Value != nil && !close(*v.Value, *old.Value)) {
+			if (v.Value == nil) != (old == nil) || (v.Value != nil && !close(*v.Value, *old)) {
 				changed = true
 			}
 			row[region] = v.Value

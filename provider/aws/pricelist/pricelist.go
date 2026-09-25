@@ -14,6 +14,7 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -93,11 +94,19 @@ type Match struct {
 	USD       float64
 }
 
-// Client downloads and caches offer files.
+// Client downloads and caches offer files. It keeps the last offer it read
+// in memory: a price table resolves hundreds of rows against one offer, and
+// some offers (EC2) are hundreds of megabytes.
 type Client struct {
 	HTTP     *http.Client
 	CacheDir string
 	MaxAge   time.Duration
+
+	mu   sync.Mutex
+	last struct {
+		key   string
+		offer *Offer
+	}
 }
 
 // NewClient caches under the user cache directory for a day.
@@ -111,6 +120,22 @@ func NewClient() *Client {
 
 // Offer returns the offer file of a service in a region.
 func (c *Client) Offer(service, region string) (*Offer, error) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	key := service + "/" + region
+	if c.last.key == key {
+		return c.last.offer, nil
+	}
+	c.last.offer = nil // let the previous offer go before reading the next
+	o, err := c.read(service, region)
+	if err != nil {
+		return nil, err
+	}
+	c.last.key, c.last.offer = key, o
+	return o, nil
+}
+
+func (c *Client) read(service, region string) (*Offer, error) {
 	path := filepath.Join(c.CacheDir, service, region+".json")
 	if st, err := os.Stat(path); err != nil || time.Since(st.ModTime()) > c.MaxAge {
 		if err := c.download(service, region, path); err != nil {
@@ -145,11 +170,14 @@ func (c *Client) download(service, region, path string) error {
 	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
 		return err
 	}
-	tmp := path + ".tmp"
-	f, err := os.Create(tmp)
+	// A temporary file of its own, so processes downloading the same offer
+	// at once never write into one file.
+	f, err := os.CreateTemp(filepath.Dir(path), filepath.Base(path)+".*.tmp")
 	if err != nil {
 		return err
 	}
+	tmp := f.Name()
+	defer os.Remove(tmp)
 	if _, err := io.Copy(f, resp.Body); err != nil {
 		f.Close()
 		return err
