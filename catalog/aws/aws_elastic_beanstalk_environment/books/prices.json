@@ -1,0 +1,386 @@
+{
+  "aws.beanstalk.alb.hour": {
+    "unit": "hour",
+    "source": "https://aws.amazon.com/elasticloadbalancing/pricing/",
+    "note": "Application Load Balancer of the environment",
+    "sync": {
+      "service": "AWSELB",
+      "filters": {
+        "productFamily": "Load Balancer-Application",
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?LoadBalancerUsage"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0243,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0225,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0239,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.0252,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.0252,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.027,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.0252,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.0225,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.0225,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.0225,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.beanstalk.alb.lcu_hour": {
+    "unit": "LCU-hour",
+    "source": "https://aws.amazon.com/elasticloadbalancing/pricing/",
+    "note": "Application Load Balancer capacity units",
+    "sync": {
+      "service": "AWSELB",
+      "filters": {
+        "productFamily": "Load Balancer-Application",
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?LCUUsage"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.beanstalk.clb.data_processed": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/elasticloadbalancing/pricing/",
+    "note": "Data processed by the Classic Load Balancer",
+    "sync": {
+      "service": "AWSELB",
+      "filters": {
+        "productFamily": "Load Balancer",
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?DataProcessing-Bytes"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.beanstalk.clb.hour": {
+    "unit": "hour",
+    "source": "https://aws.amazon.com/elasticloadbalancing/pricing/",
+    "note": "Classic Load Balancer of the environment",
+    "sync": {
+      "service": "AWSELB",
+      "filters": {
+        "productFamily": "Load Balancer",
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?LoadBalancerUsage"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.027,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0266,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.beanstalk.nlb.hour": {
+    "unit": "hour",
+    "source": "https://aws.amazon.com/elasticloadbalancing/pricing/",
+    "note": "Network Load Balancer of the environment",
+    "sync": {
+      "service": "AWSELB",
+      "filters": {
+        "productFamily": "Load Balancer-Network",
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?LoadBalancerUsage"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0243,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0225,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0239,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.0252,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.0252,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.027,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.0252,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.0225,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.0225,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.0225,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.beanstalk.nlb.lcu_hour": {
+    "unit": "LCU-hour",
+    "source": "https://aws.amazon.com/elasticloadbalancing/pricing/",
+    "note": "Network Load Balancer capacity units",
+    "sync": {
+      "service": "AWSELB",
+      "filters": {
+        "productFamily": "Load Balancer-Network",
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?LCUUsage"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

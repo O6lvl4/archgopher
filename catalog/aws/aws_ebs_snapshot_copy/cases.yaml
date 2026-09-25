@@ -1,0 +1,56 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 200 GB read back block by block (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    storedGb: 200
+  demand:
+    read:
+      monthly: 1e+06
+      peak: 200
+    list:
+      monthly: 1000
+      peak: 1
+    write:
+      monthly: 0
+      peak: 0
+  # 200 GB x 0.05; 1,000 x 0.0007 per 1,000; 1,000,000 x 0.0036 per 1,000
+  costs:
+    Snapshot storage: 10
+    ListSnapshotBlocks and ListChangedBlocks: 0.0007
+    GetSnapshotBlock: 3.6
+    PutSnapshotBlock: 0
+  limits:
+    GetSnapshotBlock rate: 200
+    PutSnapshotBlock rate: 0
+    List API rate: 1
+- name: archived, with restores and fast snapshot restore in two zones (us-east-1)
+  region: us-east-1
+  attributes:
+    storage_tier: archive
+  assumptions:
+    storedGb: 1000
+    restoredGbPerMonth: 100
+    fastRestoreDsuHours: 1460
+  demand:
+    read:
+      monthly: 0
+      peak: 0
+    list:
+      monthly: 0
+      peak: 0
+    write:
+      monthly: 500000
+      peak: 50
+  # 1,000 GB x 0.0125; 100 GB x 0.03; 1,460 DSU-h x 0.75; 500,000 x 0.006 per 1,000
+  costs:
+    Archive storage: 12.5
+    Archive restores: 3
+    Fast snapshot restore: 1095
+    ListSnapshotBlocks and ListChangedBlocks: 0
+    GetSnapshotBlock: 0
+    PutSnapshotBlock: 3
+  limits:
+    GetSnapshotBlock rate: 0
+    PutSnapshotBlock rate: 50
+    List API rate: 0

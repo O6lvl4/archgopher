@@ -1,0 +1,31 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: an m5 host (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    instance_family: m5
+  demand:
+    host:
+      monthly: 0
+      peak: 0
+  # 730 h x 6.547
+  costs:
+    Dedicated Host (m5): 4779.31
+- name: a host for c5.large only (us-east-1)
+  region: us-east-1
+  attributes:
+    instance_type: c5.large
+  demand:
+    host:
+      monthly: 0
+      peak: 0
+  # 730 h x 3.366
+  costs:
+    Dedicated Host (c5): 2457.18
+- name: neither type nor family (us-east-1)
+  region: us-east-1
+  demand:
+    host:
+      monthly: 0
+      peak: 0
+  error: "set instance_type or instance_family"

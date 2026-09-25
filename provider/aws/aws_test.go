@@ -11,10 +11,17 @@ import (
 
 // attrs makes each scouter take its main code path.
 var attrs = map[string]map[string]any{
-	"aws_rds_cluster":         {"max_capacity": 16.0, "min_capacity": 0.5},
-	"aws_dynamodb_table":      {"billing_mode": "PAY_PER_REQUEST"},
-	"aws_sfn_state_machine":   {"type": "STANDARD"},
-	"aws_ecs_task_definition": {"cpu": 256.0, "memory": 512.0},
+	"aws_rds_cluster":           {"max_capacity": 16.0, "min_capacity": 0.5},
+	"aws_dynamodb_table":        {"billing_mode": "PAY_PER_REQUEST"},
+	"aws_sfn_state_machine":     {"type": "STANDARD"},
+	"aws_ecs_task_definition":   {"cpu": 256.0, "memory": 512.0},
+	"aws_instance":              {"instance_type": "m5.large"},
+	"aws_spot_instance_request": {"instance_type": "m5.large"},
+	"aws_autoscaling_group":     {"min_size": 1.0, "max_size": 4.0},
+	"aws_eks_node_group":        {"desired_size": 2.0, "max_size": 4.0},
+	"aws_ec2_host":              {"instance_family": "m5"},
+	"aws_lightsail_instance":    {"bundle_id": "small_3_0"},
+	"aws_ebs_volume":            {"size": 100.0},
 }
 
 var assume = map[string]map[string]any{
@@ -27,6 +34,11 @@ var assume = map[string]map[string]any{
 	"aws_vpc_endpoint":                       {"kbPerUnit": 4.0},
 	"aws_vpn_connection":                     {"kbPerUnit": 4.0},
 	"aws_nat_gateway":                        {"kbPerUnit": 4.0},
+	// Instance types that come from a launch template, and spot prices.
+	"aws_autoscaling_group":     {"instanceType": "m5.large"},
+	"aws_spot_instance_request": {"spotShare": 0.4},
+	// A classic load balancer bills the data it processes.
+	"aws_elastic_beanstalk_environment": {"kbPerRequest": 4.0},
 }
 
 // TestRegionalQuotas pins quotas that differ by region, read from each

@@ -1,0 +1,993 @@
+{
+  "aws.ebs.direct_api.get": {
+    "unit": "SnapshotAPIUnit",
+    "per": 1000,
+    "source": "https://aws.amazon.com/ebs/pricing/",
+    "note": "EBS direct APIs: GetSnapshotBlock, one unit per 512 KiB block",
+    "sync": {
+      "service": "AmazonEC2",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?EBS:directAPI\\.snapshot\\.Get"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0034,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0034,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.0036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.0036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.0033,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.003,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.003,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.003,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.ebs.direct_api.list": {
+    "unit": "request",
+    "per": 1000,
+    "source": "https://aws.amazon.com/ebs/pricing/",
+    "note": "EBS direct APIs: ListSnapshotBlocks and ListChangedBlocks",
+    "sync": {
+      "service": "AmazonEC2",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?EBS:directAPI\\.snapshot\\.List"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0007,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0007,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0007,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.0007,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.0007,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0007,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.0007,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.0006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.0006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.0006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.ebs.direct_api.put": {
+    "unit": "SnapshotAPIUnit",
+    "per": 1000,
+    "source": "https://aws.amazon.com/ebs/pricing/",
+    "note": "EBS direct APIs: PutSnapshotBlock, one unit per 512 KiB block",
+    "sync": {
+      "service": "AmazonEC2",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?EBS:directAPI\\.snapshot\\.Put"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.007,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.007,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.007,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.007,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.007,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.007,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.007,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.ebs.fast_snapshot_restore": {
+    "unit": "DSU-hour",
+    "source": "https://aws.amazon.com/ebs/pricing/",
+    "note": "Fast snapshot restore, per snapshot per Availability Zone it is enabled in",
+    "sync": {
+      "service": "AmazonEC2",
+      "filters": {
+        "productFamily": "Fast Snapshot Restore",
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?EBS:FastSnapshotRestore"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.9,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.855,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.855,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.9,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.9,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.893,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.825,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.ebs.gp3.iops": {
+    "unit": "IOPS-month",
+    "source": "https://aws.amazon.com/ebs/pricing/",
+    "note": "gp3 IOPS provisioned above the 3,000 included",
+    "sync": {
+      "service": "AmazonEC2",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?EBS:VolumeP-IOPS\\.gp3"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0057,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0057,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.006,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.0055,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.ebs.gp3.throughput": {
+    "unit": "MiBps-month",
+    "source": "https://aws.amazon.com/ebs/pricing/",
+    "note": "gp3 throughput provisioned above the 125 MiB/s included; the Price List prices it per GiBps-month",
+    "sync": {
+      "service": "AmazonEC2",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?EBS:VolumeP-Throughput\\.gp3"
+      },
+      "listPer": 1024
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.048,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0456,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0456,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.048,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.048,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0476,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.044,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.ebs.io1.iops": {
+    "unit": "IOPS-month",
+    "source": "https://aws.amazon.com/ebs/pricing/",
+    "note": "io1 provisioned IOPS",
+    "sync": {
+      "service": "AmazonEC2",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?EBS:VolumeP-IOPS\\.piops"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.074,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0666,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.068,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.072,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.072,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.078,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.072,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.ebs.io2.iops": {
+    "unit": "IOPS-month",
+    "source": "https://aws.amazon.com/ebs/pricing/",
+    "note": "io2 provisioned IOPS up to 32,000 per volume",
+    "sync": {
+      "service": "AmazonEC2",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?EBS:VolumeP-IOPS\\.io2"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.074,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0666,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.068,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.072,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.072,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.078,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.072,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.065,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.ebs.io2.iops_tier2": {
+    "unit": "IOPS-month",
+    "source": "https://aws.amazon.com/ebs/pricing/",
+    "note": "io2 provisioned IOPS from 32,001 to 64,000 per volume",
+    "sync": {
+      "service": "AmazonEC2",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?EBS:VolumeP-IOPS\\.io2\\.tier2"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0518,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.04662,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0476,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.0504,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.0504,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0546,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.0504,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.0455,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.0455,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.0455,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.ebs.io2.iops_tier3": {
+    "unit": "IOPS-month",
+    "source": "https://aws.amazon.com/ebs/pricing/",
+    "note": "io2 provisioned IOPS above 64,000 per volume",
+    "sync": {
+      "service": "AmazonEC2",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?EBS:VolumeP-IOPS\\.io2\\.tier3"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.03626,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.032634,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.03332,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.03528,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.03528,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.03822,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.03528,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.03185,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.03185,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.03185,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.ebs.snapshot.archive": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/ebs/pricing/",
+    "note": "Snapshot data stored in the archive tier (90-day minimum)",
+    "sync": {
+      "service": "AmazonEC2",
+      "filters": {
+        "productFamily": "Storage Snapshot",
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?EBS:SnapshotArchiveStorage"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.01375,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0135,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.ebs.snapshot.archive_retrieval": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/ebs/pricing/",
+    "note": "Snapshot data restored from the archive tier",
+    "sync": {
+      "service": "AmazonEC2",
+      "filters": {
+        "productFamily": "Storage Snapshot",
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?EBS:SnapshotArchiveRetrieval"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.033,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0324,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.ebs.snapshot.storage": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/ebs/pricing/",
+    "note": "Snapshot data stored, standard tier",
+    "sync": {
+      "service": "AmazonEC2",
+      "filters": {
+        "productFamily": "Storage Snapshot",
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?EBS:SnapshotUsage"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.055,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.054,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.ebs.standard.io": {
+    "unit": "I/O request",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/ebs/pricing/",
+    "note": "I/O requests of magnetic (standard) volumes",
+    "sync": {
+      "service": "AmazonEC2",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?EBS:VolumeIOUsage"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.08,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.08,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.08,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.08,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.08,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.059,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.055,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.ebs.storage": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/ebs/pricing/",
+    "note": "Provisioned volume storage, per volume type (volumeApiName)",
+    "sync": {
+      "service": "AmazonEC2",
+      "filters": {
+        "productFamily": "Storage",
+        "volumeApiName": "{row}"
+      }
+    },
+    "rows": {
+      "gp2": {
+        "ap-northeast-1": 0.12,
+        "ap-northeast-2": 0.114,
+        "ap-south-1": 0.114,
+        "ap-southeast-1": 0.12,
+        "ap-southeast-2": 0.12,
+        "eu-central-1": 0.119,
+        "eu-west-1": 0.11,
+        "us-east-1": 0.1,
+        "us-east-2": 0.1,
+        "us-west-2": 0.1
+      },
+      "gp3": {
+        "ap-northeast-1": 0.096,
+        "ap-northeast-2": 0.0912,
+        "ap-south-1": 0.0912,
+        "ap-southeast-1": 0.096,
+        "ap-southeast-2": 0.096,
+        "eu-central-1": 0.0952,
+        "eu-west-1": 0.088,
+        "us-east-1": 0.08,
+        "us-east-2": 0.08,
+        "us-west-2": 0.08
+      },
+      "io1": {
+        "ap-northeast-1": 0.142,
+        "ap-northeast-2": 0.1278,
+        "ap-south-1": 0.131,
+        "ap-southeast-1": 0.138,
+        "ap-southeast-2": 0.138,
+        "eu-central-1": 0.149,
+        "eu-west-1": 0.138,
+        "us-east-1": 0.125,
+        "us-east-2": 0.125,
+        "us-west-2": 0.125
+      },
+      "io2": {
+        "ap-northeast-1": 0.142,
+        "ap-northeast-2": 0.1278,
+        "ap-south-1": 0.131,
+        "ap-southeast-1": 0.138,
+        "ap-southeast-2": 0.138,
+        "eu-central-1": 0.149,
+        "eu-west-1": 0.138,
+        "us-east-1": 0.125,
+        "us-east-2": 0.125,
+        "us-west-2": 0.125
+      },
+      "sc1": {
+        "ap-northeast-1": 0.018,
+        "ap-northeast-2": 0.0174,
+        "ap-south-1": 0.0174,
+        "ap-southeast-1": 0.018,
+        "ap-southeast-2": 0.018,
+        "eu-central-1": 0.018,
+        "eu-west-1": 0.0168,
+        "us-east-1": 0.015,
+        "us-east-2": 0.015,
+        "us-west-2": 0.015
+      },
+      "st1": {
+        "ap-northeast-1": 0.054,
+        "ap-northeast-2": 0.051,
+        "ap-south-1": 0.051,
+        "ap-southeast-1": 0.054,
+        "ap-southeast-2": 0.054,
+        "eu-central-1": 0.054,
+        "eu-west-1": 0.05,
+        "us-east-1": 0.045,
+        "us-east-2": 0.045,
+        "us-west-2": 0.045
+      },
+      "standard": {
+        "ap-northeast-1": 0.08,
+        "ap-northeast-2": 0.08,
+        "ap-south-1": 0.08,
+        "ap-southeast-1": 0.08,
+        "ap-southeast-2": 0.08,
+        "eu-central-1": 0.059,
+        "eu-west-1": 0.055,
+        "us-east-1": 0.05,
+        "us-east-2": 0.05,
+        "us-west-2": 0.05
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

@@ -1,0 +1,124 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: m5.large with a tuned gp3 root and an io2 data volume (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    instance_type: m5.large
+    monitoring: true
+    associate_public_ip_address: true
+    root_volume_type: gp3
+    root_volume_size: 30
+    root_iops: 4000
+    root_throughput: 250
+    ebs_volume_type: io2
+    ebs_volume_size: 500
+    ebs_iops: 40000
+  assumptions:
+    requestsPerInstance: 200
+  demand:
+    request:
+      monthly: 1e+06
+      peak: 50
+  # 730 h x 0.124; 7 metrics x 0.30; 30 GB x 0.096; 1,000 IOPS x 0.006; 125 MiB/s x 0.048;
+  # 500 GB x 0.142; 32,000 IOPS x 0.074 + 8,000 x 0.0518; 730 h x 0.005
+  costs:
+    Instance (linux, m5.large): 90.52
+    Detailed monitoring: 2.1
+    Root volume (gp3): 2.88
+    Root volume IOPS (gp3, over 3,000): 6
+    Root volume throughput (gp3, over 125 MiB/s): 6
+    Data volume (io2): 71
+    Data volume IOPS (io2, up to 32,000): 2368
+    Data volume IOPS (io2, 32,001 to 64,000): 414.4
+    Public IPv4 address: 3.65
+  limits:
+    Requests per second: 50
+- name: Windows t3.micro bursting in unlimited mode (us-east-1)
+  region: us-east-1
+  attributes:
+    instance_type: t3.micro
+  assumptions:
+    operatingSystem: windows
+    surplusCreditVcpuHours: 20
+  demand:
+    request:
+      monthly: 100000
+      peak: 2
+  # 730 h x 0.0196; 20 vCPU-h x 0.096 (Windows credits); 8 GB of the AMI's gp2 x 0.10
+  costs:
+    Instance (windows, t3.micro): 14.308
+    CPU credits (t3): 1.92
+    Root volume (gp2): 0.8
+- name: spot m5.large at 35% of on-demand (us-east-1)
+  region: us-east-1
+  attributes:
+    instance_type: m5.large
+    market_type: spot
+  assumptions:
+    spotShare: 0.35
+  demand:
+    request:
+      monthly: 0
+      peak: 0
+  # 730 h x 0.35 x 0.096
+  costs:
+    Spot instance (linux, m5.large): 24.528
+    Root volume (gp2): 0.8
+- name: spot without a spot price share (us-east-1)
+  region: us-east-1
+  attributes:
+    instance_type: m5.large
+    market_type: spot
+  demand:
+    request:
+      monthly: 0
+      peak: 0
+  costs:
+    Root volume (gp2): 0.8
+  error: "spot instances run here: set spotShare"
+- name: dedicated tenancy (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    instance_type: m5.large
+    tenancy: dedicated
+  demand:
+    request:
+      monthly: 0
+      peak: 0
+  # 730 h x 0.132; 8 GB x 0.12
+  costs:
+    Instance (linux, m5.large): 96.36
+    Root volume (gp2): 0.96
+- name: on a Dedicated Host only the volume is billed here (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    instance_type: m5.large
+    tenancy: host
+    on_host: true
+  demand:
+    request:
+      monthly: 0
+      peak: 0
+  costs:
+    Root volume (gp2): 0.96
+- name: EBS-optimized previous-generation c3.xlarge (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    instance_type: c3.xlarge
+    ebs_optimized: true
+  demand:
+    request:
+      monthly: 0
+      peak: 0
+  # 730 h x 0.255; 730 h x 0.02
+  costs:
+    Instance (linux, c3.xlarge): 186.15
+    EBS-optimized surcharge: 14.6
+    Root volume (gp2): 0.96
+- name: instance type from a launch template, not given (us-east-1)
+  region: us-east-1
+  demand:
+    request:
+      monthly: 0
+      peak: 0
+  error: "instance_type is empty: set instanceType"

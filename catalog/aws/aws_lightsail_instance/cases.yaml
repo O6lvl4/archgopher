@@ -1,0 +1,37 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: medium Linux bundle (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    bundle_id: medium_3_0
+  demand:
+    request:
+      monthly: 0
+      peak: 0
+  # 730 h x 0.03225
+  costs:
+    Bundle (4GB): 23.5425
+- name: small Windows bundle without IPv4, with headroom (us-east-1)
+  region: us-east-1
+  attributes:
+    bundle_id: small_win_ipv6_3_0
+  assumptions:
+    requestsPerInstance: 20
+  demand:
+    request:
+      monthly: 100000
+      peak: 5
+  # 730 h x 0.02688
+  costs:
+    Bundle (2GB_win_IPv6): 19.6224
+  limits:
+    Requests per second: 5
+- name: not a general-purpose bundle (us-east-1)
+  region: us-east-1
+  attributes:
+    bundle_id: gpu_xl_1_0
+  demand:
+    request:
+      monthly: 0
+      peak: 0
+  error: "is not a general-purpose bundle"

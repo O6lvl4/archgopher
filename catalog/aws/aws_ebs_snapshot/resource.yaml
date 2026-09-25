@@ -1,0 +1,33 @@
+type: aws_ebs_snapshot
+label: EBS snapshot
+category: Storage
+icon: ebs
+description: "Snapshot storage in the standard or archive tier, restores from the archive, fast snapshot restore and the EBS direct APIs that read, write and list its blocks. Headroom is the direct API rates against their per-snapshot and per-account quotas."
+kinds: [read, write, list]
+attributes:
+  - { key: storage_tier, label: Storage tier, type: choice, options: [standard, archive], default: standard, hint: "archive is cheaper to keep, is billed for at least 90 days and charges per GB restored" }
+assumptions:
+  - { key: storedGb, label: Data stored, type: number, unit: GB, hint: "Blocks the snapshot holds that no earlier snapshot of the volume holds: the used blocks for the first, changed blocks after; archived snapshots hold every block" }
+  - { key: restoredGbPerMonth, label: Restored from the archive, type: number, unit: GB, default: 0 }
+  - { key: fastRestoreDsuHours, label: Fast snapshot restore, type: number, unit: DSU-hours, default: 0, hint: "One DSU-hour per Availability Zone per hour it is enabled (aws_ebs_fast_snapshot_restore): 730 per zone a month" }
+let:
+  - archived: 'storage_tier == "archive"'
+readings:
+  - storage: { when: '!archived', name: Snapshot storage, gb: storedGb, price: aws.ebs.snapshot.storage }
+  - storage: { when: archived, name: Archive storage, gb: storedGb, price: aws.ebs.snapshot.archive }
+  - cost: { when: 'archived && restoredGbPerMonth > 0', name: Archive restores, quantity: restoredGbPerMonth, unit: GB, price: aws.ebs.snapshot.archive_retrieval }
+  - cost: { when: 'fastRestoreDsuHours > 0', name: Fast snapshot restore, quantity: fastRestoreDsuHours, unit: DSU-hour, price: aws.ebs.fast_snapshot_restore }
+  - cost: { name: ListSnapshotBlocks and ListChangedBlocks, quantity: demand.list.monthly, unit: request, price: aws.ebs.direct_api.list }
+  - cost: { name: GetSnapshotBlock, quantity: demand.read.monthly, unit: SnapshotAPIUnit, price: aws.ebs.direct_api.get }
+  - cost: { name: PutSnapshotBlock, quantity: demand.write.monthly, unit: SnapshotAPIUnit, price: aws.ebs.direct_api.put }
+  - rate: { name: GetSnapshotBlock rate, unit: requests/second, quota: aws.ebs.direct_api.get_rps, peak: demand.read.peak }
+  - rate: { name: PutSnapshotBlock rate, unit: requests/second, quota: aws.ebs.direct_api.put_rps, peak: demand.write.peak }
+  - rate: { name: List API rate, unit: requests/second, quota: aws.ebs.direct_api.list_rps, peak: demand.list.peak }
+terraform:
+  # The snapshot is taken from the volume; it calls nothing.
+  passive: true
+  ignoreRefs: [volume_id, outpost_arn]
+iam:
+  read: ["ebs:GetSnapshotBlock"]
+  write: ["ebs:PutSnapshotBlock"]
+  list: ["ebs:ListSnapshotBlocks", "ebs:ListChangedBlocks"]

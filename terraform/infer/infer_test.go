@@ -254,3 +254,24 @@ func TestMergeFollowsTerraformSchedules(t *testing.T) {
 		}
 	}
 }
+
+func TestAttributesReadFromReferencesAndSettings(t *testing.T) {
+	spec, _ := build(t, "testdata/settings", eval.Options{})
+	attrs := map[string]map[string]any{}
+	for _, n := range spec.Nodes {
+		attrs[n.ID] = n.Attributes
+	}
+	if got := attrs["on_host"]["on_host"]; got != true {
+		t.Errorf("host_id references a host: on_host = %v, want true", got)
+	}
+	if got := attrs["literal"]["on_host"]; got != true {
+		t.Errorf("host_id is a literal id: on_host = %v, want true", got)
+	}
+	env := attrs["env"]
+	if env["instance_type"] != "t3.small" || env["min_size"] != "2" || env["stream_logs"] != "true" {
+		t.Errorf("settings are read by name: %v", env)
+	}
+	if got := strings.Join(edges(spec), " "); got != "users>env:-" {
+		t.Errorf("an instance on a host does not call it: %s", got)
+	}
+}

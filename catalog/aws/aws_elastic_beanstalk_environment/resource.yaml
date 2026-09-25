@@ -1,0 +1,89 @@
+type: aws_elastic_beanstalk_environment
+label: Elastic Beanstalk environment
+category: Compute
+icon: elastic-beanstalk
+description: 'What the environment runs: instance-hours (on-demand and spot), root volumes, detailed monitoring and CPU credits, its load balancer (Application, Network or Classic) and streamed logs, read from the environment''s settings. Beanstalk itself costs nothing. An RDS instance in the environment is not read. Headroom is the peak against MaxSize instances.'
+kinds: [request]
+sla: aws.ec2.region
+attributes:
+  - { key: tier, label: Tier, type: choice, options: [WebServer, Worker], default: WebServer, hint: "Worker environments have no load balancer" }
+  - { key: solution_stack_name, label: Solution stack, type: string, optional: true, hint: "A Windows stack runs Windows" }
+  - { key: platform_arn, label: Platform ARN, type: string, optional: true }
+  - { key: instance_types, label: Instance types, type: string, optional: true, path: 'setting[name=InstanceTypes].value', hint: "Comma-separated; the first is read" }
+  - { key: instance_type, label: Instance type, type: string, optional: true, path: 'setting[name=InstanceType].value' }
+  - { key: environment_type, label: Environment type, type: choice, options: [LoadBalanced, SingleInstance], default: LoadBalanced, path: 'setting[name=EnvironmentType].value' }
+  - { key: min_size, label: Min instances, type: number, default: 1, path: 'setting[name=MinSize].value' }
+  - { key: max_size, label: Max instances, type: number, default: 4, path: 'setting[name=MaxSize].value' }
+  - { key: enable_spot, label: Spot instances, type: boolean, default: false, path: 'setting[name=EnableSpot].value' }
+  - { key: spot_on_demand_base, label: On-demand base, type: number, default: 0, path: 'setting[name=SpotFleetOnDemandBase].value' }
+  - { key: spot_on_demand_percentage, label: On-demand above base, type: number, unit: "%", default: 70, path: 'setting[name=SpotFleetOnDemandAboveBasePercentage].value' }
+  - { key: load_balancer_type, label: Load balancer, type: choice, options: [classic, application, network], default: classic, path: 'setting[name=LoadBalancerType].value' }
+  - { key: root_volume_type, label: Root volume type, type: choice, options: [standard, gp2, gp3, io1, io2, sc1, st1], optional: true, path: 'setting[name=RootVolumeType].value' }
+  - { key: root_volume_size, label: Root volume size, type: number, unit: GiB, default: 8, path: 'setting[name=RootVolumeSize].value' }
+  - { key: root_iops, label: Root volume IOPS, type: number, optional: true, path: 'setting[name=RootVolumeIOPS].value' }
+  - { key: root_throughput, label: Root volume throughput, type: number, unit: MiB/s, optional: true, path: 'setting[name=RootVolumeThroughput].value' }
+  - { key: monitoring_interval, label: Monitoring interval, type: string, optional: true, path: 'setting[name=MonitoringInterval].value', hint: "1 minute turns on detailed monitoring" }
+  - { key: stream_logs, label: Stream logs to CloudWatch, type: boolean, default: false, path: 'setting[name=StreamLogs].value' }
+  - { key: db_instance_class, label: DB instance class, type: string, optional: true, path: 'setting[name=DBInstanceClass].value' }
+assumptions:
+  - { key: averageInstances, label: Average instances, type: number, optional: true, hint: "Instances running on average over the month when scaling moves the count; empty uses the desired count" }
+  - { key: monthlyHours, label: Hours running a month, type: number, unit: hours, default: 730 }
+  - { key: spotShare, label: Spot price share, type: number, unit: fraction, optional: true, hint: "Spot price as a share of on-demand, from the Spot price history of the type (often 0.3 to 0.7). The Price List has no spot prices" }
+  - { key: amiVolumeType, label: AMI root volume type, type: choice, options: [standard, gp2, gp3, io1, io2, sc1, st1], default: gp2, hint: "The root volume type when RootVolumeType is not set" }
+  - { key: surplusCreditVcpuHours, label: Surplus CPU credits per instance, type: number, unit: vCPU-hours, default: 0, hint: "Unlimited burstable instances only: vCPU-hours a month above the baseline that the earned credits do not cover" }
+  - { key: averageLcu, label: Load balancer capacity units, type: number, unit: LCU, optional: true, hint: "Application or Network Load Balancer: the capacity units used on average each hour, from its ConsumedLCUs metric" }
+  - { key: kbPerRequest, label: Data per request, type: number, unit: KB, optional: true, hint: "Classic Load Balancer: request and response together, for the data it processes" }
+  - { key: magneticIoPerMonth, label: Magnetic volume I/O per instance, type: number, unit: I/O requests, default: 0, hint: "Only for standard (magnetic) volumes, which bill each I/O request" }
+  - { key: requestsPerInstance, label: Capacity per instance, type: number, unit: requests/second, optional: true, hint: "What one instance serves at the peak, from a load test; compared with the peak load" }
+includes: [logs]
+let:
+  - firstType: 'instance_types != nil ? trim(split(instance_types, ",")[0]) : ""'
+  - itype: 'firstType != "" ? firstType : string(instance_type ?? "t3.micro")'
+  - os: '((solution_stack_name ?? "") + (platform_arn ?? "")) contains "Windows" ? "windows" : "linux"'
+  - tenancyPrefix: '""'
+  - single: 'environment_type == "SingleInstance"'
+  - running: 'single ? 1.0 : (averageInstances ?? max(min_size, 1.0))'
+  - base: 'enable_spot ? min(spot_on_demand_base, running) : running'
+  - od: 'enable_spot ? base + (running - base) * spot_on_demand_percentage / 100 : running'
+  - sp: 'running - od'
+  - ebsOptimized: 'false'
+  - detailedMonitoring: '(monitoring_interval ?? "") == "1 minute"'
+  - creditMode: '""'
+  - missingType: '"no instance type"'
+  - family: 'itype == "" ? "" : split(itype, ".")[0]'
+  - unlimited: 'family in ["t2", "t3", "t3a", "t4g", "t8i"] && (creditMode != "" ? creditMode : family == "t2" ? "standard" : "unlimited") == "unlimited"'
+  - rootType: 'root_volume_type ?? amiVolumeType'
+  - rootGb: root_volume_size
+  - rootIops: 'root_iops ?? 0.0'
+  - rootThr: 'root_throughput ?? 0.0'
+  - lb: 'tier == "WebServer" && !single'
+  - lbKind: 'load_balancer_type == "application" ? "alb" : load_balancer_type == "network" ? "nlb" : "clb"'
+readings:
+  - fail: { when: 'itype == ""', message: "{missingType}" }
+  - cost: { when: 'od > 0', name: "Instance ({os}, {itype})", quantity: 'od * monthlyHours', unit: instance-hour, price: "aws.ec2.{tenancyPrefix}{os}.{itype}" }
+  - fail: { when: 'sp > 0 && spotShare == nil', message: "spot instances run here: set spotShare, the share of the on-demand price the spot price comes to", continue: true }
+  - cost: { when: 'sp > 0 && spotShare != nil', name: "Spot instance ({os}, {itype})", quantity: 'sp * monthlyHours * (spotShare ?? 0)', unit: instance-hour, price: "aws.ec2.{tenancyPrefix}{os}.{itype}" }
+  - cost: { when: 'ebsOptimized && itype in ["c1.xlarge", "c3.2xlarge", "c3.4xlarge", "c3.xlarge", "g2.2xlarge", "i2.2xlarge", "i2.4xlarge", "i2.xlarge", "m1.large", "m1.xlarge", "m2.2xlarge", "m2.4xlarge", "m3.2xlarge", "m3.xlarge", "r3.2xlarge", "r3.4xlarge", "r3.xlarge"]', name: EBS-optimized surcharge, quantity: '(od + sp) * monthlyHours', unit: instance-hour, price: "aws.ec2.ebs_optimized.{itype}" }
+  - cost: { when: detailedMonitoring, name: Detailed monitoring, quantity: '(od + sp) * 7', unit: metric-month, price: aws.ec2.monitoring.metric }
+  - cost: { when: 'unlimited && surplusCreditVcpuHours > 0', name: "CPU credits ({family})", quantity: '(od + sp) * surplusCreditVcpuHours', unit: vCPU-hour, price: 'aws.ec2.cpu_credits.{os == "windows" ? "windows" : "linux"}.{family}' }
+  - storage: { name: "Root volumes ({rootType})", gb: 'running * rootGb', price: "aws.ebs.storage.{rootType}" }
+  - fail: { when: 'rootType in ["io1", "io2"] && rootIops <= 0', message: "Root volumes: {rootType} needs provisioned iops", continue: true }
+  - cost: { when: 'rootType == "io1"', name: "Root volumes IOPS (io1)", quantity: 'running * rootIops', unit: IOPS-month, price: aws.ebs.io1.iops }
+  - cost: { when: 'rootType == "io2"', name: "Root volumes IOPS (io2, up to 32,000)", quantity: 'running * min(rootIops, 32000)', unit: IOPS-month, price: aws.ebs.io2.iops }
+  - cost: { when: 'rootType == "io2" && rootIops > 32000', name: "Root volumes IOPS (io2, 32,001 to 64,000)", quantity: 'running * (min(rootIops, 64000) - 32000)', unit: IOPS-month, price: aws.ebs.io2.iops_tier2 }
+  - cost: { when: 'rootType == "io2" && rootIops > 64000', name: "Root volumes IOPS (io2, over 64,000)", quantity: 'running * (rootIops - 64000)', unit: IOPS-month, price: aws.ebs.io2.iops_tier3 }
+  - cost: { when: 'rootType == "gp3" && rootIops > 3000', name: "Root volumes IOPS (gp3, over 3,000)", quantity: 'running * (rootIops - 3000)', unit: IOPS-month, price: aws.ebs.gp3.iops }
+  - cost: { when: 'rootType == "gp3" && rootThr > 125', name: "Root volumes throughput (gp3, over 125 MiB/s)", quantity: 'running * (rootThr - 125)', unit: MiBps-month, price: aws.ebs.gp3.throughput }
+  - cost: { when: 'rootType == "standard" && magneticIoPerMonth > 0', name: Magnetic volume I/O, quantity: 'running * magneticIoPerMonth', unit: I/O request, price: aws.ebs.standard.io }
+  - cost: { when: lb, name: "Load balancer ({load_balancer_type})", quantity: 730, unit: hour, price: "aws.beanstalk.{lbKind}.hour" }
+  - fail: { when: 'lb && lbKind != "clb" && averageLcu == nil', message: "the {load_balancer_type} load balancer bills capacity units: set averageLcu", continue: true }
+  - cost: { when: 'lb && lbKind != "clb" && averageLcu != nil', name: Load balancer capacity units, quantity: '730 * (averageLcu ?? 0)', unit: LCU-hour, price: "aws.beanstalk.{lbKind}.lcu_hour" }
+  - fail: { when: 'lb && lbKind == "clb" && total.monthly > 0 && kbPerRequest == nil', message: "the classic load balancer bills the data it processes: set kbPerRequest", continue: true }
+  - cost: { when: 'lb && lbKind == "clb" && kbPerRequest != nil', name: Load balancer data processed, quantity: 'total.monthly * (kbPerRequest ?? 0) / 1024 / 1024', unit: GB, price: aws.beanstalk.clb.data_processed }
+  - logs: { when: stream_logs, count: total.monthly, kb: logKbPerCall, retentionDays: logRetentionDays, ingest: aws.logs.ingest, storage: aws.logs.storage }
+  - fail: { when: db_instance_class != nil, message: "the environment runs an RDS DB instance ({db_instance_class}); it is not read here: declare it as an aws_db_instance", continue: true }
+  - limit: { when: requestsPerInstance != nil, name: Requests per second, demand: total.peak, unit: requests/second, capacity: '(single ? 1.0 : max_size) * (requestsPerInstance ?? 0)' }
+terraform:
+  frontDoor: true
+  # The application, version and template are configuration; settings may name what the application calls.
+  ignoreRefs: [application, version_label, template_name]

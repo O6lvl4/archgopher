@@ -9,6 +9,7 @@ import (
 	"github.com/O6lvl4/archgopher/field"
 	"path/filepath"
 	"sort"
+	"strconv"
 	"strings"
 
 	"github.com/O6lvl4/archgopher/model"
@@ -201,9 +202,11 @@ func (b *builder) node(r *eval.Resource) model.Node {
 	if s, ok := b.rules.Scouters[r.Type]; ok {
 		for _, f := range s.Attributes() {
 			if v := lookupPath(r.Attrs, f.TerraformPath()); v != nil {
-				n.Attributes[f.Key] = v
-			} else if f.Type == field.Flag && hasBlock(r.Attrs, f.TerraformPath()) {
-				// A boolean that points at a block reads whether the block is written.
+				n.Attributes[f.Key] = flagOf(f, v)
+			} else if f.Type == field.Flag && (hasBlock(r.Attrs, f.TerraformPath()) || len(r.Refs[f.TerraformPath()]) > 0) {
+				// A boolean that points at a block reads whether the block is
+				// written; one that points at a reference, whether it is set
+				// (an id known only after apply).
 				n.Attributes[f.Key] = true
 			}
 		}
@@ -465,7 +468,10 @@ func oneEdgePerPair(edges []model.Edge) []model.Edge {
 	return out
 }
 
-// lookupPath reads "a.b" from nested maps, taking the first element of block lists.
+// lookupPath reads "a.b" from nested maps, taking the first element of block
+// lists. A part written "block[key=value]" takes the first block whose key is
+// value instead: "setting[name=InstanceType].value" reads one option out of
+// a list of name/value blocks.
 func lookupPath(m map[string]any, path string) any {
 	var cur any = m
 	for _, part := range strings.Split(path, ".") {
@@ -479,7 +485,11 @@ func lookupPath(m map[string]any, path string) any {
 		if !ok {
 			return nil
 		}
-		cur = obj[part]
+		name, key, want, selects := selector(part)
+		cur = obj[name]
+		if selects {
+			cur = pick(cur, key, want)
+		}
 	}
 	if list, ok := cur.([]any); ok && len(list) > 0 {
 		if _, isBlock := list[0].(map[string]any); isBlock {
@@ -487,6 +497,40 @@ func lookupPath(m map[string]any, path string) any {
 		}
 	}
 	return cur
+}
+
+// flagOf reads a boolean that points at a value that is not one (an id
+// written as a literal) as whether the value is written.
+func flagOf(f field.Field, v any) any {
+	s, ok := v.(string)
+	if f.Type != field.Flag || !ok {
+		return v
+	}
+	if _, err := strconv.ParseBool(s); err == nil {
+		return v
+	}
+	return s != ""
+}
+
+// selector splits "block[key=value]" into its parts.
+func selector(part string) (name, key, value string, ok bool) {
+	open := strings.IndexByte(part, '[')
+	if open < 0 || !strings.HasSuffix(part, "]") {
+		return part, "", "", false
+	}
+	key, value, ok = strings.Cut(part[open+1:len(part)-1], "=")
+	return part[:open], key, value, ok
+}
+
+// pick returns the first block of a list whose key holds value, or nil.
+func pick(v any, key, value string) any {
+	list, _ := v.([]any)
+	for _, el := range list {
+		if b, ok := el.(map[string]any); ok && fmt.Sprint(b[key]) == value {
+			return b
+		}
+	}
+	return nil
 }
 
 // hasBlock reports whether "a.b" names a block that is written, even empty.

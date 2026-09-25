@@ -1,0 +1,51 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: three Graviton nodes (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    instance_types: [m6g.large]
+    desired_size: 3
+    max_size: 5
+  demand:
+    request:
+      monthly: 0
+      peak: 0
+  # 3 x 730 h x 0.099; 3 x 20 GB x 0.12
+  costs:
+    Instance (linux, m6g.large): 216.81
+    Node disks (gp2): 7.2
+- name: spot nodes of the default t3.medium (us-east-1)
+  region: us-east-1
+  attributes:
+    capacity_type: SPOT
+    ami_type: AL2023_x86_64_STANDARD
+    desired_size: 2
+    max_size: 4
+  assumptions:
+    spotShare: 0.3
+    requestsPerInstance: 50
+  demand:
+    request:
+      monthly: 1e+06
+      peak: 120
+  # 2 x 730 h x 0.3 x 0.0416; 2 x 20 GB x 0.10
+  costs:
+    Spot instance (linux, t3.medium): 18.2208
+    Node disks (gp2): 4
+  limits:
+    Requests per second: 120
+- name: one Windows node (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    instance_types: [m5.large]
+    ami_type: WINDOWS_CORE_2022_x86_64
+    desired_size: 1
+    max_size: 1
+  demand:
+    request:
+      monthly: 0
+      peak: 0
+  # 730 h x 0.216; 20 GB x 0.12
+  costs:
+    Instance (windows, m5.large): 157.68
+    Node disks (gp2): 2.4
