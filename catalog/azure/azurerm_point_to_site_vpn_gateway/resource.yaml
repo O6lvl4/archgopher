@@ -2,21 +2,25 @@ type: azurerm_point_to_site_vpn_gateway
 label: Point-to-site VPN (Virtual WAN)
 category: Network
 icon: virtual-wan
-description: "A user VPN gateway in a Virtual WAN hub: scale unit-hours, and connection unit-hours for each user connected. Place it on the path from users: headroom is 500 Mbps per scale unit."
+description: "A user VPN gateway in a Virtual WAN hub: scale unit-hours, and connection unit-hours for each user connected. Place it on the path from users: headroom is 500 Mbps and 500 connected users per scale unit."
 kinds: [traffic]
 sla: azure.virtualwan
 attributes:
   - { key: scale_unit, label: Scale units, type: number, default: 1 }
 assumptions:
   - { key: connectedUsers, label: Users connected, type: number, default: 0, hint: "Users connected at the same time, on average over the month: 100 users 8 hours on 22 working days is 100 × 176 / 730 ≈ 24" }
+  - { key: peakUsers, label: Users connected at the peak, type: number, optional: true, hint: "Most users connected at once, for the headroom; unset uses the average above" }
   - { key: kbPerUnit, label: Data per unit, type: number, unit: KB, optional: true, hint: "Per request passing through, for the throughput headroom" }
 let:
   - perUnit: 'kbPerUnit != nil ? kbPerUnit : 0.0'
+  - usersAtPeak: 'peakUsers != nil ? peakUsers : connectedUsers'
 readings:
   - fail: { when: 'total.monthly > 0 && kbPerUnit == nil', message: "load passes through this gateway: set kbPerUnit, the data each unit carries" }
   - cost: { name: Scale unit hours, quantity: 730 * scale_unit, unit: scale unit-hour, price: azure.virtualwan.vpn_p2s.scale_unit }
   - cost: { name: Connection unit hours, quantity: 730 * connectedUsers, unit: connection-hour, price: azure.virtualwan.vpn_p2s.connection_unit }
   - rate: { name: Throughput, unit: Gbps, quota: azure.virtualwan.vpn.scale_unit_gbps, peak: 'total.peak * perUnit * 8 / 1024 / 1024', scale: scale_unit }
+  # 500 concurrent clients per scale unit (learn.microsoft.com/azure/virtual-wan/about-client-address-pools).
+  - limit: { name: Connected users, demand: usersAtPeak, unit: users, capacity: '500 * scale_unit' }
 terraform:
   # It names its hub and server configuration; nothing calls it.
   mentioned: true
