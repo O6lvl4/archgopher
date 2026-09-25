@@ -431,36 +431,11 @@ not zero.
 | `azurerm_cdn_frontdoor_profile` | Base fee, requests and transfer out by the viewers' zone | - |
 | `azurerm_servicebus_namespace` | Operations (Basic, Standard with its base fee), or Premium messaging units | Operations per second |
 | `azurerm_eventgrid_topic` | Operations | Events per second |
-<<<<<<< HEAD
 | `azurerm_key_vault` | Secret operations | Requests per vault |
 | `azurerm_key_vault_key` | Operations (RSA 2048 or advanced), HSM key-months per version, automatic rotations | Vault rate for the key type and protection |
 | `azurerm_key_vault_certificate` | Renewals read from the policy, operations | Requests per vault |
 | `azurerm_key_vault_managed_hardware_security_module` | HSM pool hours (keys and operations included) | RSA 2048 unwrap throughput |
-||||||| 8a08f5b
-| `azurerm_key_vault` | Operations | Requests per vault |
-<<<<<<< HEAD
-=======
-| `azurerm_eventgrid_system_topic` | Operations, as a custom topic | - |
-| `azurerm_eventhub_namespace` | Throughput-unit hours, ingress events and Capture (Basic, Standard), processing-unit hours (Premium), capacity-unit hours (Dedicated), retention beyond the included | Ingress per throughput unit, up to the auto-inflate ceiling |
-| `azurerm_iothub` | Units by tier (F1 is free) | Daily messages and device-to-cloud sends per unit |
-| `azurerm_iothub_dps` | Operations | Registrations per minute per unit |
-| `azurerm_notification_hub_namespace` | Base fee and pushes beyond the included 10 million, by tier | Active devices, the free tier's pushes |
-| `azurerm_signalr_service` | Unit-days and messages beyond those included, per 2 KB | Concurrent connections per unit |
-| `azurerm_app_configuration` | Store- and replica-days, requests beyond the daily allowance | Requests per hour or day by tier, read rate |
-| `azurerm_storage_queue` | Data stored, Class 1 and 2 operations by redundancy, geo-replication transfer | Messages per second per queue |
-| `azurerm_storage_table` | Data stored, write, batch, read, scan, delete and list operations by redundancy and encryption | Entities per second per partition |
-| `azurerm_storage_share` | Data, snapshots and metadata stored, operations and cool retrieval by tier and redundancy; premium provisioned size | IOPS per share |
-| `azurerm_storage_management_policy` | Tier changes billed as the destination tier's writes | - |
-| `azurerm_key_vault` | Operations | Requests per vault |
->>>>>>> cov/azure-messaging-storage
-| `azurerm_log_analytics_workspace` | Ingestion (Application Insights folds in) and retention beyond 31 days | - |
-||||||| 8a08f5b
-| `azurerm_log_analytics_workspace` | Ingestion (Application Insights folds in) and retention beyond 31 days | - |
-=======
-| `azurerm_log_analytics_workspace` | Ingestion and retention beyond 31 days | - |
->>>>>>> cov/azure-monitor
 | `azurerm_cognitive_deployment` | Azure OpenAI input, cached and output tokens by model and deployment type | Tokens and requests per minute from capacity or quota |
-<<<<<<< HEAD
 | `azurerm_linux_virtual_machine` / `azurerm_windows_virtual_machine` / `azurerm_virtual_machine` | Instance hours by size (Linux, Windows, or the base rate with Hybrid Benefit), OS disk tier and operations, inline data disks (legacy), Ultra Disk reservation | - |
 | `azurerm_linux_virtual_machine_scale_set` / `azurerm_windows_virtual_machine_scale_set` / `azurerm_virtual_machine_scale_set` | Instance hours by size times instances, their OS and data disks | - |
 | `azurerm_managed_disk` | Standard HDD, Standard SSD and Premium SSD by tier with operations; Ultra and Premium SSD v2 capacity, IOPS and throughput | IOPS against the tier or the provisioned IOPS |
@@ -480,8 +455,6 @@ not zero.
 | `azurerm_sentinel_data_connector_*` (8 connectors) | Sentinel pay-as-you-go ingestion per GB, including the Log Analytics charge; free data sources (alerts, most Office 365 audit logs) read nothing | - |
 | `azurerm_security_center_subscription_pricing` | The Defender for Cloud plan's unit: servers, instances, accounts (with transaction overage and malware scanning), vaults, subscriptions, vCores, images, RU/s, queries or tokens | - |
 | `azurerm_active_directory_domain_service` / `_replica_set` | Hours by SKU, per replica set | Recommended authentications per hour |
-||||||| 8a08f5b
-=======
 | `azurerm_application_insights` | Telemetry after sampling and the daily cap, and retention beyond 90 days, at the workspace's prices when workspace-based or classic prices | Events per second |
 | `azurerm_monitor_action_group` | Emails, push, ITSM events, webhooks (plain and secure), SMS and voice calls by country code, per time fired | Emails, SMS and calls per address or number |
 | `azurerm_monitor_metric_alert` | Time series monitored (resources in scope times criteria or dimension values), dynamic thresholds | - |
@@ -492,7 +465,6 @@ not zero.
 | `azurerm_automation_account` | Job minutes and non-Azure configuration nodes | Job submissions and concurrent jobs |
 | `azurerm_automation_job_schedule` / `azurerm_automation_watcher` | Job minutes per run / watcher hours | - |
 | `azurerm_automation_dsc_configuration` / `azurerm_automation_dsc_nodeconfiguration` | Non-Azure configuration nodes | - |
->>>>>>> cov/azure-monitor
 
 Role assignments become edges: an `azurerm_role_assignment` connects the
 resource whose managed identity holds the role (system- or user-assigned) to
