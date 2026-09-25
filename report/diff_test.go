@@ -18,7 +18,9 @@ func node(id string, usd float64, headroom *float64, lines ...meter.Cost) engine
 	return n
 }
 
-func line(name string, usd float64) meter.Cost { return meter.Cost{Name: name, Unit: "u", MonthlyUSD: f(usd)} }
+func line(name string, usd float64) meter.Cost {
+	return meter.Cost{Name: name, Unit: "u", MonthlyUSD: f(usd)}
+}
 
 // A diff lists nodes added, removed and read differently, biggest change
 // first, leaves unchanged nodes out, and calls out a node that crosses into
