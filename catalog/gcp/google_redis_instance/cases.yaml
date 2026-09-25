@@ -27,6 +27,20 @@
     Capacity (Standard M4): 2080.5
   limits:
     Network throughput: 4
+- name: Tokyo, Standard Tier 5 GiB (M2) with read replicas and the provider's default of two
+  region: asia-northeast1
+  attributes:
+    tier: STANDARD_HA
+    memory_size_gb: 5
+    read_replicas_mode: READ_REPLICAS_ENABLED
+  demand:
+    command:
+      monthly: 1.0e+07
+      peak: 100
+  costs:
+    Capacity (Standard M2): 438
+  limits:
+    Network throughput: 0.0008
 - name: Belgium, Standard Tier 8 GiB (M2)
   region: europe-west1
   attributes:

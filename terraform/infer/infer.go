@@ -480,9 +480,13 @@ func oneEdgePerPair(edges []model.Edge) []model.Edge {
 }
 
 // lookupPath reads "a.b" from nested maps, taking the first element of block lists.
+// A map key may itself hold dots (annotations such as
+// "autoscaling.knative.dev/minScale"): when a part is not a key, the shortest
+// run of the following parts that is one is taken.
 func lookupPath(m map[string]any, path string) any {
 	var cur any = m
-	for _, part := range strings.Split(path, ".") {
+	parts := strings.Split(path, ".")
+	for i := 0; i < len(parts); {
 		if list, ok := cur.([]any); ok {
 			if len(list) == 0 {
 				return nil
@@ -493,7 +497,18 @@ func lookupPath(m map[string]any, path string) any {
 		if !ok {
 			return nil
 		}
-		cur = obj[part]
+		var next any
+		found := false
+		for j := i + 1; j <= len(parts); j++ {
+			if v, ok := obj[strings.Join(parts[i:j], ".")]; ok {
+				next, found, i = v, true, j
+				break
+			}
+		}
+		if !found {
+			return nil
+		}
+		cur = next
 	}
 	if list, ok := cur.([]any); ok && len(list) > 0 {
 		if _, isBlock := list[0].(map[string]any); isBlock {

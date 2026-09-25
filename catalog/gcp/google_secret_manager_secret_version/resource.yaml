@@ -17,6 +17,7 @@ terraform:
   # secret, which carries it; the version is where it bills its storage.
   ignoreRefs:
     - template.containers.env.value_source.secret_key_ref.version
+    - template.template.containers.env.value_source.secret_key_ref.version
     - template.spec.containers.env.value_from.secret_key_ref.key
     - service_config.secret_environment_variables.version
     - secret_environment_variables.version

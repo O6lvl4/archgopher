@@ -21,15 +21,7 @@
   "gcp.artifactregistry.transfer": {
     "unit": "GB",
     "source": "https://cloud.google.com/artifact-registry/pricing",
-    "note": "Data transfer from a repository to Google Cloud in another location: within North America, Europe or Asia, between continents (excluding Oceania), or to or from Oceania. Within one location it is free. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
-    "sync": {
-      "source": "gcp",
-      "service": "149C-F9EC-3994",
-      "filters": {
-        "description": "Artifact Registry Network Inter Region Egress .*"
-      },
-      "region": "global"
-    },
+    "note": "Data transfer from a repository to Google Cloud in another location: within North America, Europe or Asia, between continents (excluding Oceania), or to or from Oceania. Within one location it is free. From the pricing page. No sync spec: one SKU filter cannot tell the routes apart, so a table sync would write one price into every row.",
     "rows": {
       "asia": {
         "*": 0.05

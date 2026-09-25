@@ -41,3 +41,20 @@ func TestLinkThatIsANodeSitsOnThePath(t *testing.T) {
 		}
 	}
 }
+
+// A map key with dots in it (an annotation) is read whole.
+func TestLookupPathReadsKeysWithDots(t *testing.T) {
+	attrs := map[string]any{"template": []any{map[string]any{"metadata": []any{map[string]any{
+		"annotations": map[string]any{"autoscaling.knative.dev/minScale": "2", "run.googleapis.com/cpu-throttling": "false"},
+	}}}}}
+	for path, want := range map[string]any{
+		"template.metadata.annotations.autoscaling.knative.dev/minScale":  "2",
+		"template.metadata.annotations.run.googleapis.com/cpu-throttling": "false",
+		"template.metadata.annotations.autoscaling.knative.dev/maxScale":  nil,
+		"template.metadata.name": nil,
+	} {
+		if got := lookupPath(attrs, path); got != want {
+			t.Errorf("%s: got %v, want %v", path, got, want)
+		}
+	}
+}

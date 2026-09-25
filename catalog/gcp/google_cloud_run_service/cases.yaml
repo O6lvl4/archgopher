@@ -16,9 +16,10 @@
     Instances: 1
 - name: Tokyo (Tier 1), request-based with one idle minimum instance
   region: asia-northeast1
+  attributes:
+    min_scale: 1
   assumptions:
     durationMs: 200
-    minInstances: 1
   demand:
     request:
       monthly: 1000000.0
@@ -36,11 +37,11 @@
   attributes:
     cpu: '2'
     memory: 1Gi
+    cpu_throttling: false
+    min_scale: 1
+    max_scale: 5
   assumptions:
     durationMs: 200
-    cpuAlwaysAllocated: true
-    minInstances: 1
-    maxInstances: 5
   demand:
     request:
       monthly: 1000000.0

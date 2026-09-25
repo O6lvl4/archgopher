@@ -9,7 +9,7 @@ attributes:
   - { key: tier, label: Service tier, type: choice, options: [BASIC, STANDARD_HA], default: BASIC, path: tier }
   - { key: memory_size_gb, label: Capacity, type: number, unit: GiB, default: 1, path: memory_size_gb }
   - { key: read_replicas_mode, label: Read replicas, type: choice, options: [READ_REPLICAS_DISABLED, READ_REPLICAS_ENABLED], default: READ_REPLICAS_DISABLED, path: read_replicas_mode }
-  - { key: replica_count, label: Replicas, type: number, default: 1, path: replica_count, hint: "Read replicas besides the primary, 1 to 5" }
+  - { key: replica_count, label: Replicas, type: number, optional: true, path: replica_count, hint: "Read replicas besides the primary, 1 to 5; unset is 2 with read replicas enabled" }
 assumptions:
   - { key: valueKb, label: Data per command, type: number, unit: KB, default: 1, hint: "Request and reply bytes per command" }
 let:
@@ -17,7 +17,7 @@ let:
   - replicas: 'tier == "STANDARD_HA" && read_replicas_mode == "READ_REPLICAS_ENABLED"'
 readings:
   - fail: { when: 'replicas && cap == "m1"', message: "read replicas need a capacity of 5 GiB or more" }
-  - capacity: { name: 'Capacity ({tier == "BASIC" ? "Basic" : "Standard"} {upper(cap)})', units: 'memory_size_gb * (replicas ? 1 + replica_count : 1)', unit: GiB-hour, price: 'gcp.redis.{replicas ? "replica_node" : tier == "BASIC" ? "basic" : "standard"}.{cap}' }
+  - capacity: { name: 'Capacity ({tier == "BASIC" ? "Basic" : "Standard"} {upper(cap)})', units: 'memory_size_gb * (replicas ? 1 + (replica_count ?? 2.0) : 1)', unit: GiB-hour, price: 'gcp.redis.{replicas ? "replica_node" : tier == "BASIC" ? "basic" : "standard"}.{cap}' }
   - limit: { name: Network throughput, demand: 'total.peak * valueKb * 8 / 1e6', unit: Gbps, quota: 'gcp.redis.bandwidth.{cap}' }
 terraform:
   passive: true
