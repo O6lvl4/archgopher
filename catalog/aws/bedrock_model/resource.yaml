@@ -8,7 +8,7 @@ sla: aws.bedrock
 # A model is not a Terraform resource: place it by hand and connect its callers to it.
 external: true
 assumptions:
-  - { key: model, label: Model, type: choice, options: [claude-sonnet-4-5, claude-haiku-4-5, claude-opus-4-5] }
+  - { key: model, label: Model, type: choice, options: [claude-sonnet-4-6, claude-sonnet-4-5, claude-haiku-4-5, claude-opus-4-5] }
   - { key: inference, label: Inference profile, type: choice, options: [global, regional], default: global, hint: "global routes to any commercial Region; regional stays in a geography (us., eu., jp., apac.) or the Region, at 10% more" }
 includes: [tokens]
 readings:

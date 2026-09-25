@@ -106,5 +106,39 @@
         "checkedAt": "2026-09-24"
       }
     }
+  },
+  "aws.bedrock.claude-sonnet-4-6.output_burndown": {
+    "unit": "multiplier",
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/quotas-token-burndown.html",
+    "note": "Output tokens count 5 times against tokens per minute for Anthropic models up to 4.7; cache reads do not count",
+    "values": {
+      "*": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-24"
+      }
+    }
+  },
+  "aws.bedrock.claude-sonnet-4-6.rpm": {
+    "unit": "requests/minute",
+    "source": "https://docs.aws.amazon.com/general/latest/gr/bedrock.html",
+    "note": "Not in the published default quotas this catalog was read from; the applied value is account-specific, so check Service Quotas",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": false
+      }
+    }
+  },
+  "aws.bedrock.claude-sonnet-4-6.tpm": {
+    "unit": "tokens/minute",
+    "source": "https://docs.aws.amazon.com/general/latest/gr/bedrock.html",
+    "note": "Not in the published default quotas this catalog was read from; the applied value is account-specific, so check Service Quotas",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": false
+      }
+    }
   }
 }

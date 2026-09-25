@@ -1582,5 +1582,533 @@
         "checkedAt": "2026-09-24"
       }
     }
+  },
+  "aws.bedrock.claude-sonnet-4-6.global.cache_read": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "Global cross-Region inference (global.). No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Sonnet 4\\.6 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_CacheReadInputTokenCount_Global-Units"
+      },
+      "listPer": 1000000.0
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.bedrock.claude-sonnet-4-6.global.cache_write": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "Global cross-Region inference (global.). 5-minute cache. No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Sonnet 4\\.6 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_CacheWriteInputTokenCount_Global-Units"
+      },
+      "listPer": 1000000.0
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 3.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 3.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 3.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 3.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 3.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 3.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 3.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 3.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 3.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 3.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.bedrock.claude-sonnet-4-6.global.input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "Global cross-Region inference (global.). No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Sonnet 4\\.6 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_InputTokenCount_Global-Units"
+      },
+      "listPer": 1000000.0
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.bedrock.claude-sonnet-4-6.global.output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "Global cross-Region inference (global.). No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Sonnet 4\\.6 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_OutputTokenCount_Global-Units"
+      },
+      "listPer": 1000000.0
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.bedrock.claude-sonnet-4-6.regional.cache_read": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "Geographic cross-Region or in-Region inference (us., eu., jp., apac.), 10% above global. No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Sonnet 4\\.6 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_CacheReadInputTokenCount-Units"
+      },
+      "listPer": 1000000.0
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.33,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-26"
+      },
+      "ap-south-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-26"
+      },
+      "ap-southeast-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-26"
+      },
+      "ap-southeast-2": {
+        "value": 0.33,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.33,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.33,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.33,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.33,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.33,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.bedrock.claude-sonnet-4-6.regional.cache_write": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "Geographic cross-Region or in-Region inference (us., eu., jp., apac.), 10% above global. 5-minute cache. No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Sonnet 4\\.6 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_CacheWriteInputTokenCount-Units"
+      },
+      "listPer": 1000000.0
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 4.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-26"
+      },
+      "ap-south-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-26"
+      },
+      "ap-southeast-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-26"
+      },
+      "ap-southeast-2": {
+        "value": 4.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 4.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 4.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 4.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 4.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 4.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.bedrock.claude-sonnet-4-6.regional.input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "Geographic cross-Region or in-Region inference (us., eu., jp., apac.), 10% above global. No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Sonnet 4\\.6 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_InputTokenCount-Units"
+      },
+      "listPer": 1000000.0
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 3.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-26"
+      },
+      "ap-south-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-26"
+      },
+      "ap-southeast-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-26"
+      },
+      "ap-southeast-2": {
+        "value": 3.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 3.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 3.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 3.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 3.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 3.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.bedrock.claude-sonnet-4-6.regional.output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "note": "Geographic cross-Region or in-Region inference (us., eu., jp., apac.), 10% above global. No value where the Price List does not offer the model from that Region.",
+    "sync": {
+      "service": "AmazonBedrockFoundationModels",
+      "filters": {
+        "servicename": "Claude Sonnet 4\\.6 \\(Amazon Bedrock Edition\\)",
+        "usagetype": "[A-Z0-9]+-MP:[A-Z0-9]+_OutputTokenCount-Units"
+      },
+      "listPer": 1000000.0
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 16.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-26"
+      },
+      "ap-south-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-26"
+      },
+      "ap-southeast-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-26"
+      },
+      "ap-southeast-2": {
+        "value": 16.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 16.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 16.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 16.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 16.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 16.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
   }
 }
