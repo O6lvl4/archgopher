@@ -1,0 +1,31 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: auto-renewed yearly certificate in Japan East
+  region: japaneast
+  attributes:
+    action_type: AutoRenew
+    validity_in_months: 12
+    lifetime_percentage: 80
+  demand:
+    read:
+      monthly: 100000.0
+      peak: 1
+  costs:
+    Certificate renewals: 0.3125
+    Certificate operations: 0.3
+  limits:
+    Transactions: 1
+- name: imported certificate is renewed elsewhere (East US)
+  region: eastus
+  attributes:
+    imported: true
+    action_type: AutoRenew
+    validity_in_months: 12
+  demand:
+    read:
+      monthly: 20000.0
+      peak: 0.1
+  costs:
+    Certificate operations: 0.06
+  limits:
+    Transactions: 0.1

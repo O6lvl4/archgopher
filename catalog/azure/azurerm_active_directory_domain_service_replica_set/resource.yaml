@@ -1,0 +1,14 @@
+type: azurerm_active_directory_domain_service_replica_set
+label: Entra Domain Services replica set
+category: Security
+icon: entra-domain-services
+description: "An additional replica set of a managed domain, billed per hour at the domain's SKU. Terraform names the domain but not its SKU on the replica set, so the SKU is an assumption. Authentication headroom is read on the domain."
+kinds: [authenticate]
+sla: azure.entrads
+assumptions:
+  - { key: sku, label: Domain SKU, type: choice, options: [Standard, Enterprise, Premium], default: Standard, hint: "The sku of the domain service it belongs to" }
+readings:
+  - cost: { name: Replica set hours, quantity: 730, unit: hour, price: "azure.entrads.{sku}" }
+terraform:
+  # It names its domain and sits in a subnet; it calls nothing.
+  passive: true

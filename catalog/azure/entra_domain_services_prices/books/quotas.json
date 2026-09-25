@@ -1,0 +1,20 @@
+{
+  "azure.entrads.auth_per_hour": {
+    "unit": "authentications/hour",
+    "source": "https://learn.microsoft.com/en-us/entra/identity/domain-services/administration-concepts",
+    "note": "Recommended peak authentication volume by SKU; guidance, not an enforced limit",
+    "rows": {
+      "Enterprise": {
+        "*": 10000
+      },
+      "Premium": {
+        "*": 70000
+      },
+      "Standard": {
+        "*": 3000
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

@@ -431,7 +431,10 @@ not zero.
 | `azurerm_cdn_frontdoor_profile` | Base fee, requests and transfer out by the viewers' zone | - |
 | `azurerm_servicebus_namespace` | Operations (Basic, Standard with its base fee), or Premium messaging units | Operations per second |
 | `azurerm_eventgrid_topic` | Operations | Events per second |
-| `azurerm_key_vault` | Operations | Requests per vault |
+| `azurerm_key_vault` | Secret operations | Requests per vault |
+| `azurerm_key_vault_key` | Operations (RSA 2048 or advanced), HSM key-months per version, automatic rotations | Vault rate for the key type and protection |
+| `azurerm_key_vault_certificate` | Renewals read from the policy, operations | Requests per vault |
+| `azurerm_key_vault_managed_hardware_security_module` | HSM pool hours (keys and operations included) | RSA 2048 unwrap throughput |
 | `azurerm_log_analytics_workspace` | Ingestion (Application Insights folds in) and retention beyond 31 days | - |
 | `azurerm_cognitive_deployment` | Azure OpenAI input, cached and output tokens by model and deployment type | Tokens and requests per minute from capacity or quota |
 | `azurerm_linux_virtual_machine` / `azurerm_windows_virtual_machine` / `azurerm_virtual_machine` | Instance hours by size (Linux, Windows, or the base rate with Hybrid Benefit), OS disk tier and operations, inline data disks (legacy), Ultra Disk reservation | - |
@@ -450,6 +453,9 @@ not zero.
 | `azurerm_firewall_policy` | The fee per region once two or more firewalls use it, policy analytics; rule collection groups fold in | - |
 | `azurerm_private_endpoint` | Endpoint-hours and data processed | - |
 | `azurerm_virtual_network_peering` | Data sent and received, within a region or global | - |
+| `azurerm_sentinel_data_connector_*` (8 connectors) | Sentinel pay-as-you-go ingestion per GB, including the Log Analytics charge; free data sources (alerts, most Office 365 audit logs) read nothing | - |
+| `azurerm_security_center_subscription_pricing` | The Defender for Cloud plan's unit: servers, instances, accounts (with transaction overage and malware scanning), vaults, subscriptions, vCores, images, RU/s, queries or tokens | - |
+| `azurerm_active_directory_domain_service` / `_replica_set` | Hours by SKU, per replica set | Recommended authentications per hour |
 
 Role assignments become edges: an `azurerm_role_assignment` connects the
 resource whose managed identity holds the role (system- or user-assigned) to

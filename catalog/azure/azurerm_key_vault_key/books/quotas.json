@@ -1,0 +1,35 @@
+{
+  "azure.keyvault.key_rps": {
+    "unit": "requests/second",
+    "source": "https://learn.microsoft.com/en-us/azure/key-vault/general/service-limits",
+    "note": "Key transactions other than create and release, per vault per region: the published limit per 10 seconds divided by 10. The vault enforces the weighted sum of all key types; the subscription-wide limit is five times the vault limit",
+    "rows": {
+      "hsm_ec": {
+        "*": 200
+      },
+      "hsm_rsa2048": {
+        "*": 200
+      },
+      "hsm_rsa3072": {
+        "*": 50
+      },
+      "hsm_rsa4096": {
+        "*": 25
+      },
+      "software_ec": {
+        "*": 400
+      },
+      "software_rsa2048": {
+        "*": 400
+      },
+      "software_rsa3072": {
+        "*": 100
+      },
+      "software_rsa4096": {
+        "*": 50
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

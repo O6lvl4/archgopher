@@ -1,0 +1,68 @@
+{
+  "azure.keyvault.managed_hsm.standard_b1": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/key-vault/",
+    "note": "Managed HSM pool, Standard B1: three HSM partitions; keys and operations are included",
+    "sync": {
+      "filters": {
+        "meterName": "Standard B1 Instance",
+        "productName": "Key Vault HSM Pool",
+        "skuName": "Standard B1"
+      },
+      "service": "Key Vault",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 3.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 3.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 3.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 3.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 3.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 3.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 3.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 3.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 3.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 3.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

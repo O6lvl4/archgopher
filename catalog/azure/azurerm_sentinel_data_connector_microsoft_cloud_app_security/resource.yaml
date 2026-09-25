@@ -1,0 +1,18 @@
+type: azurerm_sentinel_data_connector_microsoft_cloud_app_security
+label: "Sentinel: Defender for Cloud Apps"
+category: Security
+icon: sentinel
+description: "Microsoft Defender for Cloud Apps alerts (SecurityAlert, a Microsoft Sentinel free data source) and Cloud Discovery logs (McasShadowItReporting), billed at the pay-as-you-go analytics ingestion price, which includes the Log Analytics charge."
+kinds: [ingest]
+sla: azure.sentinel
+attributes:
+  - { key: alerts_enabled, label: Alerts, type: boolean, default: true }
+  - { key: discovery_logs_enabled, label: Cloud Discovery logs, type: boolean, default: true }
+assumptions:
+  - { key: discoveryGb, label: Cloud Discovery logs ingested, type: number, unit: GB, hint: "Per month; alerts are free and not counted. Unused when Cloud Discovery logs are off" }
+readings:
+  - cost: { name: Sentinel data ingestion, quantity: 'discovery_logs_enabled ? discoveryGb : 0.0', unit: GB, price: azure.sentinel.analysis }
+terraform:
+  # The connector names the workspace it fills; its ingestion is priced here, at
+  # the Sentinel price that already includes the workspace's Log Analytics charge.
+  passive: true

@@ -1,0 +1,30 @@
+type: azurerm_key_vault_certificate
+label: Key Vault certificate
+category: Security
+icon: key-vault
+description: "Renewal requests, read from the certificate policy when Key Vault renews it automatically (validity times the lifetime trigger), and other certificate operations per 10,000. Imported certificates are renewed outside Key Vault. References to a certificate are mentions, not load: App Service and Application Gateway fetch it a few times a day."
+kinds: [read]
+sla: azure.keyvault
+attributes:
+  - { key: imported, label: Imported, type: boolean, default: false, path: certificate, hint: "Written when the certificate block imports a PFX or PEM" }
+  - { key: action_type, label: Lifetime action, type: string, optional: true, path: certificate_policy.lifetime_action.action.action_type, hint: "AutoRenew or EmailContacts" }
+  - { key: validity_in_months, label: Validity, type: number, unit: months, optional: true, path: certificate_policy.x509_certificate_properties.validity_in_months }
+  - { key: lifetime_percentage, label: Renew at lifetime, type: number, unit: "%", optional: true, path: certificate_policy.lifetime_action.trigger.lifetime_percentage }
+  - { key: days_before_expiry, label: Renew days before expiry, type: number, unit: days, optional: true, path: certificate_policy.lifetime_action.trigger.days_before_expiry }
+assumptions:
+  - { key: renewalsPerMonth, label: Renewals per month, type: number, optional: true, hint: "Read from the policy when Key Vault renews automatically" }
+let:
+  - autoRenew: '!imported && action_type == "AutoRenew" && validity_in_months != nil'
+  - validity: 'validity_in_months ?? 12.0'
+  - cycle: 'lifetime_percentage != nil ? validity * lifetime_percentage / 100 : days_before_expiry != nil ? validity - days_before_expiry / 30.4 : validity * 0.8'
+  - renewals: 'renewalsPerMonth ?? (autoRenew && cycle > 0 ? 1 / cycle : 0.0)'
+readings:
+  - cost: { when: renewals > 0, name: Certificate renewals, quantity: renewals, unit: renewal, price: azure.keyvault.certificate_renewal }
+  - requests: { name: Certificate operations, price: azure.keyvault.standard.operations, count: total.monthly }
+  - rate: { name: Transactions, unit: requests/second, quota: azure.keyvault.vault_rps, peak: total.peak }
+terraform:
+  # A certificate names its vault; its operations are billed here.
+  passive: true
+  mentioned: true
+iam:
+  read: ["Key Vault Certificate User", "Key Vault Secrets User"]

@@ -1,0 +1,68 @@
+{
+  "azure.keyvault.certificate_renewal": {
+    "unit": "renewal",
+    "source": "https://azure.microsoft.com/pricing/details/key-vault/",
+    "note": "Certificate renewal request",
+    "sync": {
+      "filters": {
+        "meterName": "Certificate Renewal Request",
+        "productName": "Key Vault",
+        "skuName": "Standard"
+      },
+      "service": "Key Vault",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

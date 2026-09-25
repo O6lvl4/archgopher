@@ -1,0 +1,19 @@
+type: azurerm_key_vault_managed_hardware_security_module
+label: Key Vault Managed HSM
+category: Security
+icon: key-vault
+description: "HSM pool hours: a single-tenant pool of three HSM partitions whose price covers its keys and operations. Headroom is RSA 2048-bit unwrap throughput with one partition available, the planning figure Microsoft gives; Managed HSM does not throttle below its hardware. References to it are mentions: services that encrypt with a customer-managed key cache it."
+kinds: [crypt]
+sla: azure.keyvault
+attributes:
+  - { key: sku_name, label: SKU, type: choice, options: [Standard_B1, Custom_B32, Custom_B6], default: Standard_B1 }
+readings:
+  - fail: { when: 'sku_name != "Standard_B1"', message: "only Standard_B1 pools are in the price list, not {sku_name}" }
+  - cost: { name: HSM pool hours, quantity: 730, unit: hour, price: azure.keyvault.managed_hsm.standard_b1 }
+  - rate: { name: Unwrap and decrypt (RSA 2048), unit: requests/second, quota: azure.keyvault.managed_hsm.unwrap_rps, peak: total.peak }
+terraform:
+  # It names its administrators and the certificates that protect its security domain; it calls nothing.
+  passive: true
+  mentioned: true
+iam:
+  crypt: ["Managed HSM Crypto User", "Managed HSM Crypto Service Encryption User"]

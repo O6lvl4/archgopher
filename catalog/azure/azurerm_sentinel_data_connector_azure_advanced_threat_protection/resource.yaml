@@ -1,0 +1,15 @@
+type: azurerm_sentinel_data_connector_azure_advanced_threat_protection
+label: "Sentinel: Defender for Identity"
+category: Security
+icon: sentinel
+description: "Microsoft Defender for Identity alerts (SecurityAlert table). Security alerts are a Microsoft Sentinel free data source, so the connector's own data costs nothing; the line prices any billable data you count against it at the pay-as-you-go analytics ingestion price, which includes the Log Analytics charge."
+kinds: [ingest]
+sla: azure.sentinel
+assumptions:
+  - { key: billableGb, label: Billable data ingested, type: number, unit: GB, default: 0, hint: "Per month. SecurityAlert is free: count only other tables this connector's product fills, such as raw Defender XDR events streamed alongside" }
+readings:
+  - cost: { name: Sentinel data ingestion, quantity: billableGb, unit: GB, price: azure.sentinel.analysis }
+terraform:
+  # The connector names the workspace it fills; its ingestion is priced here, at
+  # the Sentinel price that already includes the workspace's Log Analytics charge.
+  passive: true

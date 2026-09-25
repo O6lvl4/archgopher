@@ -1,0 +1,14 @@
+{
+  "azure.keyvault.managed_hsm.unwrap_rps": {
+    "unit": "requests/second",
+    "source": "https://learn.microsoft.com/en-us/azure/key-vault/managed-hsm/scaling-guidance",
+    "note": "RSA 2048-bit unwrap and decrypt, the slowest common operation, with one of the three partitions available as the guidance advises for guaranteed throughput; wrap 2,200/s, sign 900/s. Managed HSM does not throttle: this is the hardware limit",
+    "values": {
+      "*": {
+        "value": 1100,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

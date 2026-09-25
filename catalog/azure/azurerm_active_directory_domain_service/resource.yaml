@@ -1,0 +1,15 @@
+type: azurerm_active_directory_domain_service
+label: Entra Domain Services
+category: Security
+icon: entra-domain-services
+description: "A managed domain's hours by SKU, for the initial replica set (two domain controllers); further replica sets are their own nodes. Headroom is Microsoft's recommended peak authentications per hour for the SKU, which is guidance rather than an enforced limit."
+kinds: [authenticate]
+sla: azure.entrads
+attributes:
+  - { key: sku, label: SKU, type: choice, options: [Standard, Enterprise, Premium], default: Standard }
+readings:
+  - cost: { name: Domain hours, quantity: 730, unit: hour, price: "azure.entrads.{sku}" }
+  - limit: { name: Authentications, demand: total.peak * 3600, unit: authentications/hour, quota: "azure.entrads.auth_per_hour.{sku}" }
+terraform:
+  # It sits in a subnet and serves domain-joined machines; it calls nothing.
+  passive: true

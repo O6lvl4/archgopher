@@ -1,0 +1,24 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: mailbox audit in Japan East
+  region: japaneast
+  assumptions:
+    mailboxGb: 8
+  demand:
+    ingest:
+      monthly: 0
+      peak: 0
+  costs:
+    Sentinel data ingestion: 49.92
+- name: Exchange off, everything it brings is free
+  region: eastus
+  attributes:
+    exchange_enabled: false
+  assumptions:
+    mailboxGb: 8
+  demand:
+    ingest:
+      monthly: 0
+      peak: 0
+  costs:
+    Sentinel data ingestion: 0

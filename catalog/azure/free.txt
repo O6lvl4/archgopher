@@ -148,6 +148,8 @@ azurerm_eventhub_consumer_group
 azurerm_eventhub_namespace_authorization_rule
 azurerm_eventhub_namespace_customer_managed_key
 azurerm_eventhub_namespace_disaster_recovery_config
+# Not in Infracost's list: workload identity federation is free. Infracost prices it at the Entra External ID monthly-active-user meter, which bills External ID tenant users this resource does not create.
+azurerm_federated_identity_credential
 azurerm_firewall_application_rule_collection
 azurerm_firewall_nat_rule_collection
 azurerm_firewall_network_rule_collection
@@ -336,6 +338,8 @@ azurerm_sql_firewall_rule
 azurerm_sql_server
 azurerm_sql_virtual_network_rule
 azurerm_ssh_public_key
+# Not in Infracost's list, but Infracost gives it no cost lines either: the key it names bills its own operations.
+azurerm_storage_account_customer_managed_key
 azurerm_storage_account_local_user
 azurerm_storage_account_network_rules
 azurerm_storage_blob

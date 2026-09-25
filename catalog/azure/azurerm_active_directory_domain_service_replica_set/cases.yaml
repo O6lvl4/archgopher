@@ -1,0 +1,20 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Enterprise replica set in Japan East
+  region: japaneast
+  assumptions:
+    sku: Enterprise
+  demand:
+    authenticate:
+      monthly: 0
+      peak: 0
+  costs:
+    Replica set hours: 292.0
+- name: Standard replica set in North Europe
+  region: northeurope
+  demand:
+    authenticate:
+      monthly: 0
+      peak: 0
+  costs:
+    Replica set hours: 109.5

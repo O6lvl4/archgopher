@@ -1,0 +1,101 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Defender for Servers Plan 2 on ten servers in Japan East
+  region: japaneast
+  attributes:
+    tier: Standard
+    resource_type: VirtualMachines
+  assumptions:
+    resources: 10
+  demand:
+    scan:
+      monthly: 0
+      peak: 0
+  costs:
+    Servers (Plan 2): 146.0
+- name: Defender for Servers Plan 1 in Japan East
+  region: japaneast
+  attributes:
+    tier: Standard
+    subplan: P1
+  assumptions:
+    resources: 4
+  demand:
+    scan:
+      monthly: 0
+      peak: 0
+  costs:
+    Servers (Plan 1): 19.6224
+- name: Defender for Storage with overage and malware scanning (East US)
+  region: eastus
+  attributes:
+    tier: Standard
+    resource_type: StorageAccounts
+    subplan: DefenderForStorageV2
+  assumptions:
+    resources: 2
+    monthlyUsage: 200
+    malwareScanGb: 100
+  demand:
+    scan:
+      monthly: 0
+      peak: 0
+  costs:
+    Storage accounts: 19.564
+    Storage transactions beyond included: 8.0568
+    Malware scanning: 15.0
+- name: Resource Manager on the subscription (East US 2)
+  region: eastus2
+  attributes:
+    tier: Standard
+    resource_type: Arm
+  demand:
+    scan:
+      monthly: 0
+      peak: 0
+  costs:
+    Subscription (Resource Manager): 5.037
+- name: Defender for APIs P2 (global price)
+  region: japaneast
+  attributes:
+    tier: Standard
+    resource_type: Api
+    subplan: P2
+  demand:
+    scan:
+      monthly: 0
+      peak: 0
+  costs:
+    APIs (P2): 699.997
+- name: AI tokens (West US 2)
+  region: westus2
+  attributes:
+    tier: Standard
+    resource_type: AI
+  assumptions:
+    monthlyUsage: 50000
+  demand:
+    scan:
+      monthly: 0
+      peak: 0
+  costs:
+    AI tokens scanned: 40.0
+- name: Free tier costs nothing
+  region: eastus
+  attributes:
+    tier: Free
+    resource_type: VirtualMachines
+  demand:
+    scan:
+      monthly: 0
+      peak: 0
+- name: retired Kubernetes plan
+  region: eastus
+  attributes:
+    tier: Standard
+    resource_type: KubernetesService
+  demand:
+    scan:
+      monthly: 0
+      peak: 0
+  error: KubernetesService is a retired plan
