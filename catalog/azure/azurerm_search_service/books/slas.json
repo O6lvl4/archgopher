@@ -1,0 +1,13 @@
+{
+  "azure.search": {
+    "unit": "fraction",
+    "source": "https://learn.microsoft.com/en-us/azure/search/search-limits-quotas-capacity",
+    "note": "Queries on a billable service with two or more replicas (three or more for queries and indexing); one replica has no SLA. Not machine-checked",
+    "values": {
+      "*": {
+        "value": 0.999,
+        "verified": false
+      }
+    }
+  }
+}

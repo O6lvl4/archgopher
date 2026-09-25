@@ -33,10 +33,39 @@
     Storage: 2.5
   limits:
     Request units per second: 200
-- name: provisioned without throughput
-  region: eastus
+- name: 1,000 RU/s with multi-region writes in two regions of Japan East
+  region: japaneast
+  attributes:
+    multiple_write_locations_enabled: true
   assumptions:
-    storageGb: 1
+    provisionedRus: 1000
+    regions: 2
+  demand:
+    read:
+      monthly: 1000000.0
+      peak: 100
+    write:
+      monthly: 200000.0
+      peak: 20
+  costs:
+    Provisioned throughput: 262.8
+  limits:
+    Request units per second: 200
+- name: provisioned, with throughput and storage on its containers
+  region: eastus
+  demand:
+    read:
+      monthly: 1000000.0
+      peak: 100
+    write:
+      monthly: 200000.0
+      peak: 20
+- name: serverless with provisioned throughput
+  region: eastus
+  attributes:
+    capability: EnableServerless
+  assumptions:
+    provisionedRus: 400
   demand:
     read:
       monthly: 1
@@ -44,5 +73,4 @@
     write:
       monthly: 1
       peak: 1
-  error: 'set provisionedRus: the account is provisioned and its throughput lives
-    on databases or containers'
+  error: 'a serverless account has no provisioned throughput'

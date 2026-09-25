@@ -3,6 +3,8 @@ package azure
 import (
 	"flag"
 	"path/filepath"
+	"sort"
+	"strings"
 	"testing"
 
 	"github.com/O6lvl4/archgopher/internal/catalogtest"
@@ -17,9 +19,15 @@ var (
 	attrs = map[string]map[string]any{
 		"azurerm_service_plan":         {"sku_name": "P1v3"},
 		"azurerm_cognitive_deployment": {"model_name": "gpt-4o"},
+		"azurerm_redis_cache":          {"sku_name": "Premium", "family": "P", "capacity": 1.0, "shard_count": 2.0},
+		"azurerm_managed_redis":        {"sku_name": "Balanced_B5"},
+		"azurerm_search_service":       {"sku": "standard", "semantic_search_sku": "standard"},
 	}
 	assume = map[string]map[string]any{
 		"azurerm_cosmosdb_account": {"provisionedRus": 400.0},
+		"azurerm_redis_cache":      {"datasetGb": 4.0, "peakConnections": 500.0},
+		"azurerm_managed_redis":    {"datasetGb": 4.0, "peakConnections": 500.0},
+		"azurerm_search_service":   {"imagesMonthly": 6e6, "indexGb": 10.0},
 	}
 )
 
@@ -84,5 +92,25 @@ func TestRoleAssignmentsBecomeEdges(t *testing.T) {
 		if !got[want] {
 			t.Errorf("want edge %s, got %v", want, spec.Edges)
 		}
+	}
+}
+
+func TestCallsToCosmosDBContainersReachTheAccount(t *testing.T) {
+	ev, err := eval.Evaluate(filepath.Join("testdata", "cosmos"), eval.Options{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	spec, _ := infer.Build(ev, TerraformRules(), "cosmos")
+	var got []string
+	for _, e := range spec.Edges {
+		got = append(got, e.From+">"+e.To)
+	}
+	sort.Strings(got)
+	// The API names a container and a Cassandra table: each is a node with its
+	// own throughput, and the calls also reach the account (through the
+	// keyspace for the table). Containers and keyspaces call nothing themselves.
+	want := "api>events api>log api>orders api>plan api>shop api>store users>api"
+	if strings.Join(got, " ") != want {
+		t.Errorf("edges: want %s, got %s", want, strings.Join(got, " "))
 	}
 }

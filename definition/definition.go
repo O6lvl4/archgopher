@@ -47,9 +47,12 @@ type Terraform struct {
 	FrontDoor bool `yaml:"frontDoor"`
 	Mentioned bool `yaml:"mentioned"`
 	// Passive: references from this resource are never calls (an alarm names what it watches).
-	Passive          bool              `yaml:"passive"`
-	Links            []Link            `yaml:"links"`
-	Aliases          map[string]string `yaml:"aliases"`
+	Passive bool              `yaml:"passive"`
+	Links   []Link            `yaml:"links"`
+	Aliases map[string]string `yaml:"aliases"`
+	// Forward names the attribute pointing at a node that every call to this
+	// one also reaches (a Cosmos DB container is called through its account).
+	Forward          string            `yaml:"forward"`
 	FrontDoorAliases map[string]string `yaml:"frontDoorAliases"`
 	// Schedule names the attribute holding a schedule expression.
 	Schedule   string   `yaml:"schedule"`

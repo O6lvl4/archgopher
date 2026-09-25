@@ -1,0 +1,13 @@
+{
+  "azure.redis": {
+    "unit": "fraction",
+    "source": "https://www.microsoft.com/licensing/docs/view/Service-Level-Agreements-SLA-for-Online-Services",
+    "note": "Standard and Premium caches (and Azure Managed Redis with high availability); Basic has no SLA. From the consolidated SLA document, not machine-checked",
+    "values": {
+      "*": {
+        "value": 0.999,
+        "verified": false
+      }
+    }
+  }
+}

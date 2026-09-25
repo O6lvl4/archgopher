@@ -1,0 +1,54 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: shared autoscale throughput on the keyspace in Japan East
+  region: japaneast
+  attributes:
+    max_throughput: 1000
+  demand:
+    read:
+      monthly: 1000000.0
+      peak: 100
+    write:
+      monthly: 200000.0
+      peak: 20
+  costs:
+    Autoscale throughput: 98.55
+  limits:
+    Request units per second: 200
+- name: 400 RU/s on the keyspace with undeclared containers and four periodic backup copies
+  region: eastus
+  attributes:
+    throughput: 400
+  assumptions:
+    storageGb: 5
+    backupCopies: 4
+  demand:
+    read:
+      monthly: 1000000.0
+      peak: 100
+    write:
+      monthly: 200000.0
+      peak: 20
+  costs:
+    Provisioned throughput: 23.36
+    Storage: 1.25
+    Periodic backup: 2.0
+  limits:
+    Request units per second: 200
+- name: autoscale below 10% bills 10%
+  region: eastus
+  attributes:
+    max_throughput: 10000
+  assumptions:
+    autoscaleUtilization: 5
+  demand:
+    read:
+      monthly: 1000000.0
+      peak: 100
+    write:
+      monthly: 200000.0
+      peak: 20
+  costs:
+    Autoscale throughput: 87.6
+  limits:
+    Request units per second: 200

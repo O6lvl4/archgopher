@@ -1,0 +1,31 @@
+type: azurerm_redis_cache
+label: Azure Cache for Redis
+category: Database
+icon: redis-cache
+description: "Node-hours by tier and size: Basic runs one node, Standard a primary and a replica, Premium a primary and its replicas in every shard. Headroom is the data set against the cache size and client connections against the size's limit, both per shard in Premium. On-demand prices."
+kinds: [query]
+sla: azure.redis
+attributes:
+  - { key: sku_name, label: Tier, type: choice, options: [Basic, Standard, Premium] }
+  - { key: family, label: Family, type: choice, options: [C, P], hint: "C for Basic and Standard, P for Premium" }
+  - { key: capacity, label: Size, type: number, hint: "0 to 6 in family C (C0 is 250 MB), 1 to 5 in family P" }
+  - { key: shard_count, label: Shards, type: number, optional: true, hint: "Premium clustering; unset or 0 is one shard" }
+  - { key: replicas_per_primary, label: Replicas per primary, type: number, optional: true, hint: "Premium only; one unless set" }
+  - { key: replicas_per_master, label: Replicas per master, type: number, optional: true, hint: "The older name of replicas_per_primary" }
+assumptions:
+  - { key: datasetGb, label: Data set, type: number, unit: GB, optional: true, hint: "Compared with the cache size of every shard together" }
+  - { key: peakConnections, label: Peak client connections, type: number, optional: true, hint: "Open connections at the busiest moment, across every client instance" }
+let:
+  - tier: lower(sku_name)
+  - premium: tier == "premium"
+  - size: 'upper(family) + string(capacity)'
+  - shards: 'premium ? max(shard_count ?? 0, 1) : 1'
+  - replicas: 'premium ? (replicas_per_primary ?? replicas_per_master ?? 1) : (tier == "standard" ? 1 : 0)'
+readings:
+  - fail: { when: 'premium != (upper(family) == "P")', message: "family {family} does not go with the {sku_name} tier: Premium uses P, Basic and Standard use C" }
+  - cost: { name: "Nodes ({sku_name} {size})", quantity: 'shards * (1 + replicas) * 730', unit: node-hour, price: "azure.redis.{tier}.{size}" }
+  - rate: { when: datasetGb != nil, name: Memory, unit: GB, peak: 'datasetGb ?? 0', quota: "azure.redis.memory.{size}", scale: shards }
+  - rate: { when: peakConnections != nil, name: Client connections, unit: connections, peak: 'peakConnections ?? 0', quota: "azure.redis.connections.{size}", scale: shards }
+terraform:
+  # A cache names its subnet, identity and persistence storage; it calls nothing.
+  passive: true

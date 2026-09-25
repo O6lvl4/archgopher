@@ -1,0 +1,284 @@
+{
+  "azure.redis.basic": {
+    "unit": "node-hour",
+    "source": "https://azure.microsoft.com/pricing/details/cache/",
+    "note": "Basic tier: one node, per hour",
+    "sync": {
+      "source": "azure",
+      "service": "Redis Cache",
+      "filters": {
+        "productName": "Azure Redis Cache Basic",
+        "skuName": "{row}",
+        "meterName": "{row} Cache"
+      }
+    },
+    "rows": {
+      "C0": {
+        "australiaeast": 0.022,
+        "centralindia": 0.022,
+        "eastus": 0.022,
+        "eastus2": 0.022,
+        "germanywestcentral": 0.022,
+        "japaneast": 0.022,
+        "koreacentral": 0.028,
+        "northeurope": 0.022,
+        "southeastasia": 0.022,
+        "westus2": 0.022
+      },
+      "C1": {
+        "australiaeast": 0.055,
+        "centralindia": 0.055,
+        "eastus": 0.055,
+        "eastus2": 0.055,
+        "germanywestcentral": 0.055,
+        "japaneast": 0.055,
+        "koreacentral": 0.071,
+        "northeurope": 0.055,
+        "southeastasia": 0.055,
+        "westus2": 0.055
+      },
+      "C2": {
+        "australiaeast": 0.09,
+        "centralindia": 0.09,
+        "eastus": 0.09,
+        "eastus2": 0.09,
+        "germanywestcentral": 0.09,
+        "japaneast": 0.09,
+        "koreacentral": 0.142,
+        "northeurope": 0.09,
+        "southeastasia": 0.09,
+        "westus2": 0.09
+      },
+      "C3": {
+        "australiaeast": 0.18,
+        "centralindia": 0.18,
+        "eastus": 0.18,
+        "eastus2": 0.18,
+        "germanywestcentral": 0.18,
+        "japaneast": 0.18,
+        "koreacentral": 0.285,
+        "northeurope": 0.18,
+        "southeastasia": 0.18,
+        "westus2": 0.18
+      },
+      "C4": {
+        "australiaeast": 0.21,
+        "centralindia": 0.21,
+        "eastus": 0.21,
+        "eastus2": 0.21,
+        "germanywestcentral": 0.21,
+        "japaneast": 0.21,
+        "koreacentral": 0.329,
+        "northeurope": 0.21,
+        "southeastasia": 0.21,
+        "westus2": 0.21
+      },
+      "C5": {
+        "australiaeast": 0.42,
+        "centralindia": 0.42,
+        "eastus": 0.42,
+        "eastus2": 0.42,
+        "germanywestcentral": 0.42,
+        "japaneast": 0.42,
+        "koreacentral": 0.66,
+        "northeurope": 0.42,
+        "southeastasia": 0.42,
+        "westus2": 0.42
+      },
+      "C6": {
+        "australiaeast": 0.84,
+        "centralindia": 0.84,
+        "eastus": 0.84,
+        "eastus2": 0.84,
+        "germanywestcentral": 0.84,
+        "japaneast": 0.84,
+        "koreacentral": 1.32,
+        "northeurope": 0.84,
+        "southeastasia": 0.84,
+        "westus2": 0.84
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.redis.premium": {
+    "unit": "node-hour",
+    "source": "https://azure.microsoft.com/pricing/details/cache/",
+    "note": "Premium tier, per node: each shard runs a primary and its replicas",
+    "sync": {
+      "source": "azure",
+      "service": "Redis Cache",
+      "filters": {
+        "productName": "Azure Redis Cache Premium",
+        "skuName": "{row}",
+        "meterName": "{row} Cache Instance"
+      }
+    },
+    "rows": {
+      "P1": {
+        "australiaeast": 0.277,
+        "centralindia": 0.361,
+        "eastus": 0.277,
+        "eastus2": 0.277,
+        "germanywestcentral": 0.277,
+        "japaneast": 0.277,
+        "koreacentral": 0.355,
+        "northeurope": 0.277,
+        "southeastasia": 0.277,
+        "westus2": 0.277
+      },
+      "P2": {
+        "australiaeast": 0.555,
+        "centralindia": 0.721,
+        "eastus": 0.555,
+        "eastus2": 0.555,
+        "germanywestcentral": 0.555,
+        "japaneast": 0.555,
+        "koreacentral": 0.711,
+        "northeurope": 0.555,
+        "southeastasia": 0.555,
+        "westus2": 0.555
+      },
+      "P3": {
+        "australiaeast": 1.109,
+        "centralindia": 1.442,
+        "eastus": 1.109,
+        "eastus2": 1.109,
+        "germanywestcentral": 1.109,
+        "japaneast": 1.109,
+        "koreacentral": 1.421,
+        "northeurope": 1.109,
+        "southeastasia": 1.109,
+        "westus2": 1.109
+      },
+      "P4": {
+        "australiaeast": 2.22,
+        "centralindia": 2.886,
+        "eastus": 2.22,
+        "eastus2": 2.22,
+        "germanywestcentral": 2.22,
+        "japaneast": 2.22,
+        "koreacentral": 2.844,
+        "northeurope": 2.22,
+        "southeastasia": 2.22,
+        "westus2": 2.22
+      },
+      "P5": {
+        "australiaeast": 5.02,
+        "centralindia": 6.53,
+        "eastus": 5.025,
+        "eastus2": 5.02,
+        "germanywestcentral": 5.02,
+        "japaneast": 5.02,
+        "koreacentral": 6.44,
+        "northeurope": 5.02,
+        "southeastasia": 5.02,
+        "westus2": 5.02
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.redis.standard": {
+    "unit": "node-hour",
+    "source": "https://azure.microsoft.com/pricing/details/cache/",
+    "note": "Standard tier, per node (a cache runs a primary and a replica)",
+    "sync": {
+      "source": "azure",
+      "service": "Redis Cache",
+      "filters": {
+        "productName": "Azure Redis Cache Standard",
+        "skuName": "{row}",
+        "meterName": "{row} Cache Instance"
+      }
+    },
+    "rows": {
+      "C0": {
+        "australiaeast": 0.0275,
+        "centralindia": 0.0275,
+        "eastus": 0.0275,
+        "eastus2": 0.0275,
+        "germanywestcentral": 0.0275,
+        "japaneast": 0.0275,
+        "koreacentral": 0.035,
+        "northeurope": 0.0275,
+        "southeastasia": 0.0275,
+        "westus2": 0.0275
+      },
+      "C1": {
+        "australiaeast": 0.069,
+        "centralindia": 0.069,
+        "eastus": 0.069,
+        "eastus2": 0.069,
+        "germanywestcentral": 0.069,
+        "japaneast": 0.069,
+        "koreacentral": 0.089,
+        "northeurope": 0.069,
+        "southeastasia": 0.069,
+        "westus2": 0.069
+      },
+      "C2": {
+        "australiaeast": 0.112,
+        "centralindia": 0.112,
+        "eastus": 0.112,
+        "eastus2": 0.112,
+        "germanywestcentral": 0.112,
+        "japaneast": 0.112,
+        "koreacentral": 0.177,
+        "northeurope": 0.112,
+        "southeastasia": 0.112,
+        "westus2": 0.112
+      },
+      "C3": {
+        "australiaeast": 0.225,
+        "centralindia": 0.225,
+        "eastus": 0.225,
+        "eastus2": 0.225,
+        "germanywestcentral": 0.225,
+        "japaneast": 0.225,
+        "koreacentral": 0.356,
+        "northeurope": 0.225,
+        "southeastasia": 0.225,
+        "westus2": 0.225
+      },
+      "C4": {
+        "australiaeast": 0.262,
+        "centralindia": 0.262,
+        "eastus": 0.262,
+        "eastus2": 0.262,
+        "germanywestcentral": 0.262,
+        "japaneast": 0.262,
+        "koreacentral": 0.411,
+        "northeurope": 0.262,
+        "southeastasia": 0.262,
+        "westus2": 0.262
+      },
+      "C5": {
+        "australiaeast": 0.525,
+        "centralindia": 0.525,
+        "eastus": 0.525,
+        "eastus2": 0.525,
+        "germanywestcentral": 0.525,
+        "japaneast": 0.525,
+        "koreacentral": 0.825,
+        "northeurope": 0.525,
+        "southeastasia": 0.525,
+        "westus2": 0.525
+      },
+      "C6": {
+        "australiaeast": 1.05,
+        "centralindia": 1.05,
+        "eastus": 1.05,
+        "eastus2": 1.05,
+        "germanywestcentral": 1.05,
+        "japaneast": 1.05,
+        "koreacentral": 1.65,
+        "northeurope": 1.05,
+        "southeastasia": 1.05,
+        "westus2": 1.05
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

@@ -1,0 +1,365 @@
+{
+  "azure.search.image_extraction.first": {
+    "unit": "image",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/search/",
+    "note": "Image extraction during document cracking, per 1,000, first 1M images a month",
+    "sync": {
+      "filters": {
+        "meterName": "Document Cracking Image Extraction",
+        "productName": "Azure AI Search",
+        "skuName": "Document Cracking"
+      },
+      "listPer": 1000,
+      "service": "Azure Cognitive Search",
+      "source": "azure",
+      "tier": "0"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.search.image_extraction.next": {
+    "unit": "image",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/search/",
+    "note": "Image extraction during document cracking, per 1,000, next 4M images a month",
+    "sync": {
+      "filters": {
+        "meterName": "Document Cracking Image Extraction",
+        "productName": "Azure AI Search",
+        "skuName": "Document Cracking"
+      },
+      "listPer": 1000,
+      "service": "Azure Cognitive Search",
+      "source": "azure",
+      "tier": "1000"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.search.image_extraction.over": {
+    "unit": "image",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/search/",
+    "note": "Image extraction during document cracking, per 1,000, images beyond 5M a month",
+    "sync": {
+      "filters": {
+        "meterName": "Document Cracking Image Extraction",
+        "productName": "Azure AI Search",
+        "skuName": "Document Cracking"
+      },
+      "listPer": 1000,
+      "service": "Azure Cognitive Search",
+      "source": "azure",
+      "tier": "5000"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.65,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.65,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.65,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.65,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.65,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.65,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.65,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.65,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.65,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.65,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.search.semantic_ranker": {
+    "unit": "query",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/search/",
+    "note": "Semantic ranker queries on the Standard plan, per 1,000; the free monthly allowance is ignored",
+    "sync": {
+      "filters": {
+        "meterName": "Semantic Ranker queries",
+        "productName": "Azure AI Search"
+      },
+      "listPer": 1000,
+      "service": "Azure Cognitive Search",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.search.unit": {
+    "unit": "search unit-hour",
+    "source": "https://azure.microsoft.com/pricing/details/search/",
+    "note": "Dedicated tiers, per search unit (replica × partition) per hour",
+    "sync": {
+      "filters": {
+        "meterName": "(Standard |Storage Optimized )?{row} Unit",
+        "productName": "Azure AI Search"
+      },
+      "service": "Azure Cognitive Search",
+      "source": "azure"
+    },
+    "rows": {
+      "Basic": {
+        "australiaeast": 0.133,
+        "centralindia": 0.133,
+        "eastus": 0.101,
+        "eastus2": 0.101,
+        "germanywestcentral": 0.101,
+        "japaneast": 0.133,
+        "koreacentral": 0.101,
+        "northeurope": 0.101,
+        "southeastasia": 0.101,
+        "westus2": 0.101
+      },
+      "L1": {
+        "australiaeast": 3.839,
+        "centralindia": 3.839,
+        "eastus": 3.839,
+        "eastus2": 3.839,
+        "germanywestcentral": 3.839,
+        "japaneast": 3.839,
+        "koreacentral": 3.839,
+        "northeurope": 3.839,
+        "southeastasia": 3.839,
+        "westus2": 3.839
+      },
+      "L2": {
+        "australiaeast": 7.677,
+        "centralindia": 7.677,
+        "eastus": 7.677,
+        "eastus2": 7.677,
+        "germanywestcentral": 7.677,
+        "japaneast": 7.677,
+        "koreacentral": 7.677,
+        "northeurope": 7.677,
+        "southeastasia": 7.677,
+        "westus2": 7.677
+      },
+      "S1": {
+        "australiaeast": 0.444,
+        "centralindia": 0.444,
+        "eastus": 0.336,
+        "eastus2": 0.336,
+        "germanywestcentral": 0.336,
+        "japaneast": 0.444,
+        "koreacentral": 0.336,
+        "northeurope": 0.336,
+        "southeastasia": 0.336,
+        "westus2": 0.336
+      },
+      "S2": {
+        "australiaeast": 1.774,
+        "centralindia": 1.774,
+        "eastus": 1.344,
+        "eastus2": 1.344,
+        "germanywestcentral": 1.344,
+        "japaneast": 1.774,
+        "koreacentral": 1.344,
+        "northeurope": 1.344,
+        "southeastasia": 1.344,
+        "westus2": 1.344
+      },
+      "S3": {
+        "australiaeast": 3.552,
+        "centralindia": 3.552,
+        "eastus": 2.688,
+        "eastus2": 2.688,
+        "germanywestcentral": 2.688,
+        "japaneast": 3.552,
+        "koreacentral": 2.688,
+        "northeurope": 2.688,
+        "southeastasia": 2.688,
+        "westus2": 2.688
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

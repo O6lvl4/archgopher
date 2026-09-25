@@ -1,0 +1,42 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+# Premium P1 in two shards, a primary and a replica each: 4 x 730 x 0.277
+- name: Premium P1 in two shards in Japan East
+  region: japaneast
+  attributes: { sku_name: Premium, family: P, capacity: 1, shard_count: 2 }
+  assumptions: { datasetGb: 10, peakConnections: 9000 }
+  demand: { query: { monthly: 1e+08, peak: 5000 } }
+  costs:
+    Nodes (Premium P1): 808.84
+  limits:
+    Memory: 10
+    Client connections: 9000
+# Premium P2 with three replicas and no clustering: 4 x 730 x 0.555
+- name: Premium P2 with three replicas
+  region: japaneast
+  attributes: { sku_name: Premium, family: P, capacity: 2, replicas_per_primary: 3 }
+  demand: { query: { monthly: 1e+08, peak: 5000 } }
+  costs:
+    Nodes (Premium P2): 1620.6
+# Standard runs a primary and a replica: 2 x 730 x 0.069
+- name: Standard C1 in East US
+  region: eastus
+  attributes: { sku_name: Standard, family: C, capacity: 1 }
+  assumptions: { datasetGb: 0.5 }
+  demand: { query: { monthly: 1e+07, peak: 200 } }
+  costs:
+    Nodes (Standard C1): 100.74
+  limits:
+    Memory: 0.5
+# Basic is one node: 730 x 0.022
+- name: Basic C0 in Japan East
+  region: japaneast
+  attributes: { sku_name: Basic, family: C, capacity: 0 }
+  demand: { query: { monthly: 1e+06, peak: 10 } }
+  costs:
+    Nodes (Basic C0): 16.06
+- name: Premium with a C family
+  region: japaneast
+  attributes: { sku_name: Premium, family: C, capacity: 1 }
+  demand: { query: { monthly: 1, peak: 1 } }
+  error: does not go with the Premium tier
