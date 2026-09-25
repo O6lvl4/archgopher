@@ -1,0 +1,46 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo stateful instance of an e2-medium group
+  # One more instance: 0.04298286 x 730 and a 10 GiB pd-standard boot disk at 0.052
+  region: asia-northeast1
+  attributes:
+    machine_type: e2-medium
+  demand:
+    request:
+      monthly: 1000
+      peak: 1
+  costs:
+    Instance (e2-medium): 31.3774878
+    Boot disk (pd-standard): 0.52
+- name: Oregon n1-standard-1 under a committed use discount (no sustained use discount), 30 GiB SSD boot disk
+  # 0.04749975 x 730 at the list price; 30 GiB x 0.17
+  region: us-west1
+  attributes:
+    machine_type: n1-standard-1
+    disk_type: pd-ssd
+    disk_size_gb: 30
+  assumptions:
+    sustainedUse: false
+  demand:
+    request:
+      monthly: 1000
+      peak: 1
+  costs:
+    Instance (n1-standard-1): 34.6748175
+    Boot disk (pd-ssd): 5.1
+- name: Oregon stateful e2-standard-2 whose template adds a 100 GiB data disk with no type
+  # 0.06701142 x 730; boot 10 GiB pd-standard at 0.04; the data disk takes pd-standard: 100 x 0.04
+  region: us-west1
+  attributes:
+    machine_type: e2-standard-2
+    disk_kinds: ["", ""]
+    disk_types: ["", ""]
+    disk_sizes: ["", "100"]
+  demand:
+    request:
+      monthly: 1000
+      peak: 1
+  costs:
+    Instance (e2-standard-2): 48.9183366
+    Boot disk (pd-standard): 0.4
+    Data disk (pd-standard): 4.0

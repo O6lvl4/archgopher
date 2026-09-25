@@ -1,0 +1,26 @@
+{
+  "gcp.compute.instance": {
+    "unit": "fraction",
+    "source": "https://cloud.google.com/compute/sla",
+    "note": "A single instance of a general-purpose, compute-optimized or other non-memory-optimized family, Premium Tier (memory-optimized single instances: 99.95%)",
+    "values": {
+      "*": {
+        "value": 0.999,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "gcp.compute.multi_zone": {
+    "unit": "fraction",
+    "source": "https://cloud.google.com/compute/sla",
+    "note": "Instances in multiple zones of a region, Premium Tier (Mexico and Stockholm: 99.95%)",
+    "values": {
+      "*": {
+        "value": 0.9999,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

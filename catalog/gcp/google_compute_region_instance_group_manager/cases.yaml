@@ -1,0 +1,32 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo regional group of four n2d-standard-4 all month
+  # N2D earns the 20% discount: 730 h bill as 182.5 x (1 + 0.8678 + 0.733 + 0.6) = 584.146 h
+  # 4 x 584.146 x 0.216792; 4 x 10 GiB pd-standard boot disks at 0.052
+  region: asia-northeast1
+  attributes:
+    target_size: 4
+    machine_type: n2d-standard-4
+  demand:
+    request:
+      monthly: 10000000
+      peak: 300
+  costs:
+    Instances (n2d-standard-4): 506.552718528
+    Boot disks (pd-standard): 2.08
+- name: Belgium regional group of two c4-standard-4 with 50 GiB Hyperdisk Balanced boot disks
+  # Default IOPS 6 x 50 + 3,000 = 3,300: 300 bill per disk; throughput 1.5 x 50 + 140 = 215 MiB/s: 75 bill per disk
+  region: europe-west1
+  attributes:
+    target_size: 2
+    machine_type: c4-standard-4
+    disk_size_gb: 50
+  demand:
+    request:
+      monthly: 1000000
+      peak: 50
+  costs:
+    Instances (c4-standard-4): 317.7755116
+    Boot disks (hyperdisk-balanced): 8.8
+    Boot disks IOPS (hyperdisk-balanced): 3.6
+    Boot disks throughput (hyperdisk-balanced): 6.6

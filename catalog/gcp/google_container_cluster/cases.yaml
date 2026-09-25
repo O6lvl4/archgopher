@@ -1,0 +1,66 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo zonal Standard cluster with the default pool of three e2-medium
+  # Management fee 0.10 x 730; one zone x 3 nodes: 3 x 730 x 0.04298286; 3 x 100 GiB pd-balanced at 0.13; three public nodes: 3 x 730 x 0.005
+  region: asia-northeast1
+  attributes:
+    location: asia-northeast1-a
+    initial_node_count: 3
+  demand:
+    request:
+      monthly: 1000000
+      peak: 50
+  costs:
+    Cluster management fee: 73.0
+    Nodes (e2-medium): 94.1324634
+    Boot disks (pd-balanced): 39.0
+    External IP address: 10.95
+- name: Northern Virginia Autopilot cluster whose Pods request 4 vCPUs, 16 GiB and 10 GiB of ephemeral storage
+  # Fee 0.10 x 730; 4 x 730 x 0.0501; 16 x 730 x 0.0055442; 10 x 730 x 0.0001564
+  region: us-east4
+  attributes:
+    enable_autopilot: true
+    location: us-east4
+  assumptions:
+    autopilotVcpu: 4
+    autopilotMemoryGb: 16
+    autopilotEphemeralGb: 10
+  demand:
+    request:
+      monthly: 1000000
+      peak: 50
+  costs:
+    Autopilot cluster management fee: 73.0
+    Autopilot Pod vCPU: 146.292
+    Autopilot Pod memory: 64.756256
+    Autopilot Pod ephemeral storage: 1.14172
+- name: Tokyo regional cluster with one inline private node pool of n2-standard-4, one node per zone
+  # Three zones x 1 node; N2 earns the 20% discount (584.146 h): 3 x 584.146 x 0.249176; 3 x 100 GiB pd-balanced; private nodes have no external IP
+  region: asia-northeast1
+  attributes:
+    location: asia-northeast1
+    node_pool: true
+    pool_machine_type: n2-standard-4
+    pool_node_count: 1
+    private_nodes: true
+  demand:
+    request:
+      monthly: 1000000
+      peak: 50
+  costs:
+    Cluster management fee: 73
+    Nodes (n2-standard-4): 436.665491088
+    Boot disks (pd-balanced): 39.0
+- name: Oregon regional cluster whose nodes are google_container_node_pool nodes
+  # Only the management fee: 0.10 x 730
+  region: us-west1
+  attributes:
+    location: us-west1
+    remove_default_node_pool: true
+    initial_node_count: 1
+  demand:
+    request:
+      monthly: 1000000
+      peak: 50
+  costs:
+    Cluster management fee: 73

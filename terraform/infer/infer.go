@@ -211,7 +211,7 @@ func (b *builder) node(r *eval.Resource) model.Node {
 	n := model.Node{ID: b.id(r), Type: r.Type, Address: r.Address, Attributes: map[string]any{}}
 	if s, ok := b.rules.Scouters[r.Type]; ok {
 		for _, f := range s.Attributes() {
-			if v := readAttribute(r, f); v != nil {
+			if v := b.readAttribute(r, f); v != nil {
 				n.Attributes[f.Key] = v
 			}
 		}
@@ -499,8 +499,32 @@ func oneEdgePerPair(edges []model.Edge) []model.Edge {
 //     elements are known only after apply counts the resources it references.
 //   - A boolean that points at a block or at a non-boolean value reads whether
 //     it is written, even when the value (an id) is known only after apply.
-func readAttribute(r *eval.Resource, f field.Field) any {
-	path := f.TerraformPath()
+//   - "ref->rest" reads rest on the resource that the attribute ref
+//     references, so an instance group reads the machine type of its
+//     instance template and a node pool the location of its cluster. The
+//     first referenced resource that has the value wins.
+func (b *builder) readAttribute(r *eval.Resource, f field.Field) any {
+	return b.readPath(r, f, f.TerraformPath(), 0)
+}
+
+// maxReferenceHops bounds a path through references (a per-instance config
+// reads its group's template: two hops).
+const maxReferenceHops = 4
+
+func (b *builder) readPath(r *eval.Resource, f field.Field, path string, depth int) any {
+	if ref, rest, through := strings.Cut(path, "->"); through {
+		if depth >= maxReferenceHops {
+			return nil
+		}
+		for _, addr := range r.Refs[ref] {
+			if target, ok := b.byAddr[addr]; ok {
+				if v := b.readPath(target, f, rest, depth+1); v != nil {
+					return v
+				}
+			}
+		}
+		return nil
+	}
 	if base, ok := strings.CutSuffix(path, ".#"); ok {
 		if n := max(countPath(r.Attrs, base), len(r.Refs[base])); n > 0 {
 			return float64(n)
@@ -574,11 +598,23 @@ func countPath(m map[string]any, path string) int {
 // lookupPath reads "a.b" from nested maps, taking the first element of block lists.
 // A map key may itself hold dots (annotations such as
 // "autoscaling.knative.dev/minScale"): when a part is not a key, the shortest
-// run of the following parts that is one is taken.
+// run of the following parts that is one is taken. A last step "#" counts
+// the blocks or list elements written ("scratch_disk.#"), and a step "*" reads
+// the rest of the path in every block, one text per block in order and ""
+// where a block leaves it unset ("disk.*.disk_size_gb").
 func lookupPath(m map[string]any, path string) any {
 	var cur any = m
 	parts := strings.Split(path, ".")
 	for i := 0; i < len(parts); {
+		switch parts[i] {
+		case "#":
+			if list, ok := cur.([]any); ok {
+				return float64(len(list))
+			}
+			return nil
+		case "*":
+			return eachBlock(cur, strings.Join(parts[i+1:], "."))
+		}
 		if list, ok := cur.([]any); ok {
 			if len(list) == 0 {
 				return nil
@@ -608,6 +644,32 @@ func lookupPath(m map[string]any, path string) any {
 		}
 	}
 	return cur
+}
+
+// eachBlock reads rest in every block of list, as text so the values of
+// several paths line up block by block.
+func eachBlock(list any, rest string) any {
+	blocks, ok := list.([]any)
+	if !ok {
+		return nil
+	}
+	out := make([]any, 0, len(blocks))
+	for _, blk := range blocks {
+		var v any
+		if obj, ok := blk.(map[string]any); ok {
+			v = obj
+			if rest != "" {
+				v = lookupPath(obj, rest)
+			}
+		}
+		switch v.(type) {
+		case string, bool, int, int64, float64:
+			out = append(out, fmt.Sprint(v))
+		default:
+			out = append(out, "")
+		}
+	}
+	return out
 }
 
 // blocks counts the blocks written at "a.b", empty ones included; the parent

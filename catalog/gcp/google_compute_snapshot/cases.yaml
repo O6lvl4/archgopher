@@ -1,0 +1,28 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo snapshot of a 100 GiB disk in the default (asia) multi-region
+  # 100 x 0.083
+  region: asia-northeast1
+  attributes:
+    source_disk_size: 100
+  demand:
+    read:
+      monthly: 10
+      peak: 1
+  costs:
+    Snapshot storage (standard, multi-regional): 8.3
+- name: Northern Virginia archive snapshot of 40 GiB kept in us-east4
+  # Regional archive storage: 40 x 0.019
+  region: us-east4
+  attributes:
+    snapshot_type: ARCHIVE
+    storage_locations:
+    - us-east4
+  assumptions:
+    storedGb: 40
+  demand:
+    read:
+      monthly: 10
+      peak: 1
+  costs:
+    Snapshot storage (archive, regional): 0.76

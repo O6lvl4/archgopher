@@ -1,0 +1,82 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo 200 GiB SSD persistent disk at 1,000 IOPS
+  # 200 x 0.221; the IOPS limit is 6,000 + 30 x 200 = 12,000
+  region: asia-northeast1
+  attributes:
+    type: pd-ssd
+    size: 200
+  demand:
+    io:
+      monthly: 1000000
+      peak: 1000
+  costs:
+    Disk (pd-ssd): 44.2
+  limits:
+    IOPS: 1000
+- name: Northern Virginia 1 TiB Hyperdisk Extreme with 20,000 provisioned IOPS
+  # 1000 x 0.125; every provisioned IOPS bills: 20,000 x 0.032
+  region: us-east4
+  attributes:
+    type: hyperdisk-extreme
+    size: 1000
+    provisioned_iops: 20000
+  demand:
+    io:
+      monthly: 1000000
+      peak: 5000
+  costs:
+    Disk (hyperdisk-extreme): 125.0
+    Disk IOPS (hyperdisk-extreme): 640.0
+  limits:
+    IOPS: 5000
+- name: Tokyo 500 GiB Hyperdisk Balanced at its default performance
+  # IOPS 6 x 500 + 3,000 = 6,000: 3,000 above the included 3,000 bill; throughput 1.5 x 500 + 140 = 890 MiB/s: 750 bill
+  region: asia-northeast1
+  attributes:
+    type: hyperdisk-balanced
+    size: 500
+  demand:
+    io:
+      monthly: 1000000
+      peak: 2000
+  costs:
+    Disk (hyperdisk-balanced): 51.0
+    Disk IOPS (hyperdisk-balanced): 18.0
+    Disk throughput (hyperdisk-balanced): 38.25
+  limits:
+    IOPS: 2000
+- name: Tokyo standard disk created from a public image takes the image size
+  # 10 GiB (sourceSizeGb) x 0.052; the IOPS limit is 0.75 x 10
+  region: asia-northeast1
+  attributes:
+    image: debian-cloud/debian-12
+  demand:
+    io:
+      monthly: 1000
+      peak: 5
+  costs:
+    Disk (pd-standard): 0.52
+  limits:
+    IOPS: 5
+- name: Oregon blank standard disk takes the 500 GiB default size
+  # 500 x 0.04; the IOPS limit is 0.75 x 500 = 375
+  region: us-west1
+  demand:
+    io:
+      monthly: 100000
+      peak: 100
+  costs:
+    Disk (pd-standard): 20.0
+  limits:
+    IOPS: 100
+- name: Regional disk types are google_compute_region_disk
+  region: asia-northeast1
+  attributes:
+    type: regional-pd-ssd
+    size: 100
+  demand:
+    io:
+      monthly: 1
+      peak: 1
+  error: disk type regional-pd-ssd is not read

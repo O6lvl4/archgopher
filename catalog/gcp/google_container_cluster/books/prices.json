@@ -1,0 +1,184 @@
+{
+  "gcp.gke.autopilot.ephemeral": {
+    "unit": "GB-hour",
+    "source": "https://cloud.google.com/kubernetes-engine/pricing",
+    "note": "Autopilot Pod ephemeral requests on the default container-optimized compute platform. Read from the pricing page's regional tables; sync verifies rows with a single Billing Catalog SKU once credentials are set.",
+    "sync": {
+      "filters": {
+        "description": "^Autopilot Pod Ephemeral Storage Requests"
+      },
+      "service": "CCD8-9BF1-090E",
+      "source": "gcp"
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.0001784,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.0001784,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.0001668,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.0001713,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.0001972,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.0001529,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.0001789,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.0001564,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.0001389,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.0001389,
+        "verified": false
+      }
+    }
+  },
+  "gcp.gke.autopilot.memory": {
+    "unit": "GB-hour",
+    "source": "https://cloud.google.com/kubernetes-engine/pricing",
+    "note": "Autopilot Pod memory requests on the default container-optimized compute platform. Read from the pricing page's regional tables; sync verifies rows with a single Billing Catalog SKU once credentials are set.",
+    "sync": {
+      "filters": {
+        "description": "^Autopilot Pod Memory Requests"
+      },
+      "service": "CCD8-9BF1-090E",
+      "source": "gcp"
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.0063215,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.0063215,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.0059124,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.0060729,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.0069875,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.0054202,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.0063421,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.0055442,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.0049225,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.0049225,
+        "verified": false
+      }
+    }
+  },
+  "gcp.gke.autopilot.vcpu": {
+    "unit": "vCPU-hour",
+    "source": "https://cloud.google.com/kubernetes-engine/pricing",
+    "note": "Autopilot Pod vcpu requests on the default container-optimized compute platform. Read from the pricing page's regional tables; sync verifies rows with a single Billing Catalog SKU once credentials are set.",
+    "sync": {
+      "filters": {
+        "description": "^Autopilot Pod mCPU Requests"
+      },
+      "listPer": 0.001,
+      "service": "CCD8-9BF1-090E",
+      "source": "gcp"
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.0571,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.0571,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.0534,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.0549,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.0632,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.049,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.0573,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.0501,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.0445,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.0445,
+        "verified": false
+      }
+    }
+  },
+  "gcp.gke.cluster": {
+    "unit": "cluster-hour",
+    "source": "https://cloud.google.com/kubernetes-engine/pricing",
+    "note": "Cluster management fee, the same for zonal, regional and Autopilot clusters. The free tier credit ($74.40 a month per billing account) is ignored, as every free tier. Read from the pricing page's regional tables; sync verifies rows with a single Billing Catalog SKU once credentials are set.",
+    "sync": {
+      "filters": {
+        "description": "^Regional Kubernetes Clusters$"
+      },
+      "region": "global",
+      "service": "CCD8-9BF1-090E",
+      "source": "gcp"
+    },
+    "values": {
+      "*": {
+        "value": 0.1,
+        "verified": false
+      }
+    }
+  }
+}

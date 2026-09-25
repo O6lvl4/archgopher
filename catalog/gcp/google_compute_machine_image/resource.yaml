@@ -1,0 +1,18 @@
+type: google_compute_machine_image
+label: Machine image
+category: Storage
+icon: compute-engine
+description: "Machine image storage, GiB-months. The source instance's boot disk size stands in for the stored size (the image holds every disk, compressed and deduplicated) unless storedGb says it."
+kinds: [read]
+attributes:
+  - { key: source_boot_disk_size, label: Source boot disk size, type: number, unit: GiB, optional: true, path: source_instance->boot_disk.initialize_params.size, hint: "The boot disk of the google_compute_instance it is taken from" }
+assumptions:
+  - { key: storedGb, label: Stored size, type: number, unit: GiB, optional: true, hint: "The machine image's storage size; overrides the source instance's disk size" }
+let:
+  - gb: 'storedGb ?? source_boot_disk_size ?? -1.0'
+readings:
+  - fail: { when: 'gb < 0', message: "the machine image's size is unknown: set storedGb" }
+  - storage: { name: Machine image storage, gb: gb, price: gcp.compute.machine_image_storage }
+terraform:
+  # A machine image names its source instance; it calls nothing.
+  passive: true

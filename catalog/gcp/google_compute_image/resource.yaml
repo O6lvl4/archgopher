@@ -1,0 +1,21 @@
+type: google_compute_image
+label: Custom image
+category: Storage
+icon: compute-engine
+description: "Image storage, GiB-months of the image's archive. Without disk_size_gb the size of the disk, image or snapshot it is made from stands in, larger than the compressed archive."
+kinds: [read]
+attributes:
+  - { key: disk_size_gb, label: Size, type: number, unit: GiB, optional: true }
+  - { key: source_disk_size, label: Source disk size, type: number, unit: GiB, optional: true, path: source_disk->size, hint: "The google_compute_disk it is made from" }
+  - { key: source_image_size, label: Source image size, type: number, unit: GiB, optional: true, path: source_image->disk_size_gb, hint: "The google_compute_image it is copied from" }
+  - { key: source_snapshot_size, label: Source snapshot's disk size, type: number, unit: GiB, optional: true, path: source_snapshot->source_disk->size }
+assumptions:
+  - { key: storedGb, label: Stored size, type: number, unit: GiB, optional: true, hint: "The archive size the image console shows; overrides the sizes read from Terraform" }
+let:
+  - gb: 'storedGb ?? disk_size_gb ?? source_disk_size ?? source_image_size ?? source_snapshot_size ?? -1.0'
+readings:
+  - fail: { when: 'gb < 0', message: "the image's size is unknown: set storedGb" }
+  - storage: { name: Image storage, gb: gb, price: gcp.compute.image_storage }
+terraform:
+  # An image names what it is made from; it calls nothing.
+  passive: true

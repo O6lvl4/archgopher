@@ -539,6 +539,14 @@ the resource it is scoped to, with the kinds the role grants. Each resource's
 | `google_logging_{project,folder,organization,billing_account}_sink` | Logging storage for a log bucket written out as its destination; routing elsewhere is free and billed by the destination | Log write rate per project and region |
 | `google_logging_{project,folder,organization,billing_account}_bucket_config` | Logging storage of what sinks route in, retention beyond 30 days | - |
 | `google_monitoring_metric_descriptor` | Metric volume in bytes ingested by tier, read API time series | One point every 5 seconds per time series, active time series |
+| `google_compute_instance` | Machine type hours (predefined, or custom vCPUs, memory and extended memory), on demand or Spot, with sustained use discounts; boot disk capacity, IOPS and throughput; local SSDs; GPUs on N1; an ephemeral external IP | Requests against what the VM serves |
+| `google_compute_instance_group_manager`, `google_compute_region_instance_group_manager` | The same per instance, read from the instance template (its first disk as the boot disk, the other disks as data disks, SCRATCH disks as local SSDs), times the target size | Requests against the instances |
+| `google_compute_per_instance_config`, `google_compute_region_per_instance_config` | One more instance of the group, read through the group from its template | - |
+| `google_compute_disk` | Persistent Disk and Hyperdisk capacity, provisioned IOPS and throughput (type defaults for the size) | IOPS against the disk's limit |
+| `google_compute_image`, `google_compute_machine_image`, `google_compute_snapshot` | Image, machine image and standard or archive snapshot storage (regional or multi-regional) | - |
+| `google_compute_address`, `google_compute_global_address` | External IPv4 hours by what uses the address (VM, Spot VM, unused); internal and forwarding-rule addresses are free | - |
+| `google_container_cluster` | Management fee, Autopilot Pod vCPU, memory and ephemeral storage, the default or first inline node pool's nodes | - |
+| `google_container_node_pool` | Nodes per zone times zones (its own, else the cluster's): instance hours, boot disks, local SSDs, GPUs, public nodes' IPs | Requests against the nodes |
 
 Google Cloud prices are read from the pricing pages until a credentialed
 `sync` checks them against the Billing Catalog; they are marked unverified
@@ -628,10 +636,16 @@ facet's own assumption fields. A directory without `resource.yaml` holds rows
 several resources share, such as log prices.
 
 An attribute's `path` says where it sits in the resource block (`sku.name`
-reads the first `sku` block). A path ending in `.#` counts what it names across
-every block, such as `criteria.dimension.values.#` for every value of every
-dimension of every criterion. A boolean read from a block or an id reads
-whether it is written, even when the id is known only after apply.
+reads the first `sku` block, `boot_disk.initialize_params.size` a nested one).
+`ref->path` reads `path` on the resource that attribute `ref` references, so an
+instance group reads `version.instance_template->machine_type` and a node pool
+`cluster->location`. A path ending in `.#` counts what it names across every
+block, such as `criteria.dimension.values.#` for every value of every dimension
+of every criterion, and a step `*` reads the rest of the path in every block as
+a `list` attribute, `""` where a block leaves it unset, so several lists line
+up block by block (`version.instance_template->disk.*.disk_size_gb`). A
+boolean read from a block or an id reads whether it is written, even when the
+id is known only after apply.
 
 Prices that differ by one attribute only (an instance type, a database
 class) are a table: one entry with `rows` instead of `values`, one number per

@@ -1,0 +1,59 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo pool of two n2-standard-4 per zone in a regional cluster
+  # The cluster is regional: 3 zones x 2 = 6 nodes; 20% discount (584.146 h): 6 x 584.146 x 0.249176
+  # 6 x 100 GiB pd-balanced at 0.13; public nodes: 6 x 730 x 0.005
+  region: asia-northeast1
+  attributes:
+    machine_type: n2-standard-4
+    node_count: 2
+    cluster_location: asia-northeast1
+  assumptions:
+    requestsPerNode: 100
+  demand:
+    request:
+      monthly: 10000000
+      peak: 400
+  costs:
+    Nodes (n2-standard-4): 873.330982176
+    Boot disks (pd-balanced): 78.0
+    External IP address: 21.9
+  limits:
+    Requests per second: 400
+- name: Northern Virginia zonal Spot pool at its autoscaling minimum of one, private, with a local SSD
+  # Zone us-east4-b: 1 node; Spot 0.18112 x 730; 50 GiB pd-ssd at 0.187; local SSD 375 x 0.0528
+  region: us-east4
+  attributes:
+    machine_type: e2-standard-8
+    spot: true
+    min_node_count: 1
+    location: us-east4-b
+    disk_type: pd-ssd
+    disk_size_gb: 50
+    local_ssd_count: 1
+    private_nodes: true
+  demand:
+    request:
+      monthly: 1000000
+      peak: 20
+  costs:
+    Nodes (e2-standard-8, spot): 132.2176
+    Boot disks (pd-ssd): 9.35
+    Local SSD (spot): 19.8
+- name: Tokyo zonal pool of one c3-standard-8 whose ephemeral storage is on two local SSDs
+  # Zone asia-northeast1-a, 1 node: 0.51781 x 730 (no sustained use discount on C3); 100 GiB pd-balanced at 0.13; 2 x 375 GiB local SSD at 0.104; public node IP 730 x 0.005
+  region: asia-northeast1
+  attributes:
+    machine_type: c3-standard-8
+    node_count: 1
+    location: asia-northeast1-a
+    ephemeral_local_ssd_count: 2
+  demand:
+    request:
+      monthly: 1000
+      peak: 1
+  costs:
+    Nodes (c3-standard-8): 378.0013
+    Boot disks (pd-balanced): 13.0
+    Local SSD: 78.0
+    External IP address: 3.65

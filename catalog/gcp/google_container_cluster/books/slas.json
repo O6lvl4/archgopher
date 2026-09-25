@@ -1,0 +1,14 @@
+{
+  "gcp.gke.regional": {
+    "unit": "fraction",
+    "source": "https://cloud.google.com/kubernetes-engine/sla",
+    "note": "Control plane of a regional or Autopilot cluster; a zonal cluster's control plane has 99.5%, and Autopilot Pods in multiple zones 99.9%",
+    "values": {
+      "*": {
+        "value": 0.9995,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

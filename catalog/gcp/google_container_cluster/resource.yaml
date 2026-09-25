@@ -1,0 +1,105 @@
+type: google_container_cluster
+label: GKE cluster
+category: Containers
+icon: kubernetes-engine
+description: "The cluster management fee (the free tier credit is ignored), Autopilot Pod vCPU, memory and ephemeral storage requests on the default container-optimized platform, and on Standard the nodes of the default node pool or of the first node_pool block: Compute Engine instance-hours by machine type with the sustained use discount where the family earns it, boot disks, local SSDs, GPUs on N1 and public nodes' external IP addresses, per zone times the zones. Node pools written as google_container_node_pool are read there."
+kinds: [request]
+sla: gcp.gke.regional
+attributes:
+  - { key: enable_autopilot, label: Autopilot, type: boolean, default: false }
+  - { key: location, label: Location, type: string, optional: true, hint: "A zone makes a zonal cluster, a region a regional one" }
+  - { key: node_locations, label: Node zones, type: number, default: 0, path: node_locations.#, hint: "How many zones node_locations lists; 0 takes the location's: one for a zone, three for a region" }
+  - { key: remove_default_node_pool, label: Remove the default node pool, type: boolean, default: false }
+  - { key: initial_node_count, label: Default pool nodes per zone, type: number, optional: true }
+  - { key: node_pool, label: Inline node pool, type: boolean, default: false, path: node_pool, hint: "A node_pool block replaces the default pool; only the first is read" }
+  - { key: machine_type, label: Default pool machine type, type: string, optional: true, path: node_config.machine_type }
+  - { key: spot, label: Default pool Spot, type: boolean, default: false, path: node_config.spot }
+  - { key: preemptible, label: Default pool preemptible, type: boolean, default: false, path: node_config.preemptible }
+  - { key: disk_type, label: Default pool disk type, type: string, optional: true, path: node_config.disk_type }
+  - { key: disk_size_gb, label: Default pool disk size, type: number, unit: GiB, optional: true, path: node_config.disk_size_gb }
+  - { key: local_ssd_count, label: Default pool local SSDs, type: number, optional: true, path: node_config.local_ssd_count }
+  - { key: ephemeral_local_ssd_count, label: Default pool ephemeral storage local SSDs, type: number, optional: true, path: node_config.ephemeral_storage_local_ssd_config.local_ssd_count }
+  - { key: gpu_type, label: Default pool GPU type, type: string, optional: true, path: node_config.guest_accelerator.type }
+  - { key: gpu_count, label: Default pool GPUs per node, type: number, optional: true, path: node_config.guest_accelerator.count }
+  - { key: pool_machine_type, label: Node pool machine type, type: string, optional: true, path: node_pool.node_config.machine_type }
+  - { key: pool_spot, label: Node pool Spot, type: boolean, default: false, path: node_pool.node_config.spot }
+  - { key: pool_preemptible, label: Node pool preemptible, type: boolean, default: false, path: node_pool.node_config.preemptible }
+  - { key: pool_disk_type, label: Node pool disk type, type: string, optional: true, path: node_pool.node_config.disk_type }
+  - { key: pool_disk_size_gb, label: Node pool disk size, type: number, unit: GiB, optional: true, path: node_pool.node_config.disk_size_gb }
+  - { key: pool_local_ssd_count, label: Node pool local SSDs, type: number, optional: true, path: node_pool.node_config.local_ssd_count }
+  - { key: pool_ephemeral_local_ssd_count, label: Node pool ephemeral storage local SSDs, type: number, optional: true, path: node_pool.node_config.ephemeral_storage_local_ssd_config.local_ssd_count }
+  - { key: pool_gpu_type, label: Node pool GPU type, type: string, optional: true, path: node_pool.node_config.guest_accelerator.type }
+  - { key: pool_gpu_count, label: Node pool GPUs per node, type: number, optional: true, path: node_pool.node_config.guest_accelerator.count }
+  - { key: pool_node_count, label: Node pool nodes per zone, type: number, optional: true, path: node_pool.node_count }
+  - { key: pool_initial_node_count, label: Node pool initial nodes per zone, type: number, optional: true, path: node_pool.initial_node_count }
+  - { key: pool_min_node_count, label: Node pool autoscaling minimum per zone, type: number, optional: true, path: node_pool.autoscaling.min_node_count }
+  - { key: pool_node_locations, label: Node pool zones, type: number, default: 0, path: node_pool.node_locations.# }
+  - { key: private_nodes, label: Private nodes, type: boolean, default: false, path: private_cluster_config.enable_private_nodes, hint: "Nodes without external IP addresses; public nodes each bill an in-use external IPv4 address" }
+assumptions:
+  - { key: autopilotVcpu, label: Autopilot vCPU requests, type: number, unit: vCPU, optional: true, hint: "Average vCPUs the Pods request over the month (Autopilot only)" }
+  - { key: autopilotMemoryGb, label: Autopilot memory requests, type: number, unit: GiB, optional: true, hint: "Average memory the Pods request (Autopilot only)" }
+  - { key: autopilotEphemeralGb, label: Autopilot ephemeral storage requests, type: number, unit: GiB, default: 0, hint: "Average ephemeral storage the Pods request (Autopilot only)" }
+  - { key: nodesPerZone, label: Nodes per zone, type: number, optional: true, hint: "Average nodes per zone of the default or first pool when the autoscaler runs more than its minimum" }
+  - { key: monthlyHours, label: Hours running a month, type: number, unit: hours, default: 730 }
+  - { key: sustainedUse, label: Sustained use discount, type: boolean, default: true, hint: "N1, N2, N2D, C2, M1 and M2 nodes on demand (and GPUs on N1) earn up to 20 or 30% for running most of the month; off when committed use discounts cover the usage" }
+let:
+  - autopilot: enable_autopilot
+  - inline: 'node_pool && !autopilot'
+  - defaultPool: '!autopilot && !node_pool && !remove_default_node_pool'
+  - zoneCount: 'node_locations > 0 ? node_locations : (location ?? "") matches "^[a-z]+-[a-z]+[0-9]+-[a-z]$" ? 1.0 : 3.0'
+  - poolZones: 'inline && pool_node_locations > 0 ? pool_node_locations : zoneCount'
+  - perZone: 'nodesPerZone ?? (inline ? (pool_min_node_count ?? pool_node_count ?? pool_initial_node_count ?? 3.0) : (initial_node_count ?? 3.0))'
+  - nodes: 'inline || defaultPool ? perZone * poolZones : 0.0'
+  - mt: 'last(split(inline ? (pool_machine_type ?? "e2-medium") : (machine_type ?? "e2-medium"), "/"))'
+  - onSpot: 'inline ? (pool_spot || pool_preemptible) : (spot || preemptible)'
+  - count: 'nodes'
+  - hours: 'monthlyHours'
+  - mparts: 'split(mt, "-")'
+  - family: 'mparts[0] == "custom" ? "n1" : mparts[0]'
+  - custom: 'mt contains "custom"'
+  - cidx: 'mparts[0] == "custom" ? 1 : 2'
+  - shaped: 'custom && len(mparts) > cidx + 1'
+  - csize: 'shaped ? mparts[cidx] : "0"'
+  - cvcpu: 'csize == "micro" ? 0.25 : csize == "small" ? 0.5 : csize == "medium" ? 1.0 : float(csize)'
+  - cmemGb: 'shaped ? float(mparts[cidx + 1]) / 1024 : 0.0'
+  - cbaseGb: 'last(mparts) == "ext" ? min(cmemGb, cvcpu * (family == "n1" ? 6.5 : 8.0)) : cmemGb'
+  - cextGb: 'cmemGb - cbaseGb'
+  - market: 'onSpot ? "_spot" : ""'
+  - sudMax: 'onSpot || !sustainedUse ? 0.0 : family in ["n2", "n2d", "c2"] ? 0.2 : family in ["n1", "m1", "m2", "f1", "g1"] ? 0.3 : 0.0'
+  - sud20: 'min(hours, 182.5) + 0.8678 * max(min(hours - 182.5, 182.5), 0.0) + 0.733 * max(min(hours - 365, 182.5), 0.0) + 0.6 * max(min(hours - 547.5, 182.5), 0.0)'
+  - sud30: 'min(hours, 182.5) + 0.8 * max(min(hours - 182.5, 182.5), 0.0) + 0.6 * max(min(hours - 365, 182.5), 0.0) + 0.4 * max(min(hours - 547.5, 182.5), 0.0)'
+  - billedHours: 'sudMax == 0.2 ? sud20 : sudMax == 0.3 ? sud30 : hours'
+  - gpuHours: 'onSpot || !sustainedUse ? hours : sud30'
+  - bootType: '(inline ? pool_disk_type : disk_type) ?? "pd-balanced"'
+  - bootGb: '(inline ? pool_disk_size_gb : disk_size_gb) ?? 100.0'
+  - bootBalanced: 'bootType in ["hyperdisk-balanced", "hyperdisk-balanced-high-availability"]'
+  - bootIops: '(bootType == "pd-extreme" ? 100000.0 : bootType == "hyperdisk-extreme" ? min(350000.0, 100 * bootGb) : bootBalanced ? (bootGb <= 6 ? 500 * bootGb : min(6 * bootGb + 3000, bootType == "hyperdisk-balanced" ? 160000.0 : 100000.0)) : 0.0)'
+  - bootThr: '(bootBalanced ? (bootGb <= 6 ? 140.0 : min(2400.0, 1.5 * bootGb + 140)) : bootType == "hyperdisk-throughput" ? min(90 * bootGb / 1024, 2400.0) : bootType == "hyperdisk-ml" ? max(24 * bootGb, 400.0) : 0.0)'
+  - bootIopsBilled: 'bootType in ["pd-extreme", "hyperdisk-extreme"] ? bootIops : bootBalanced ? max(bootIops - 3000, 0.0) : 0.0'
+  - bootThrBilled: 'bootType in ["hyperdisk-throughput", "hyperdisk-ml"] ? bootThr : bootBalanced ? max(bootThr - 140, 0.0) : 0.0'
+  - localSsds: '(inline ? (pool_local_ssd_count ?? 0.0) + (pool_ephemeral_local_ssd_count ?? 0.0) : (local_ssd_count ?? 0.0) + (ephemeral_local_ssd_count ?? 0.0))'
+  - gpuType: '(inline ? pool_gpu_type : gpu_type) ?? ""'
+  - gpuCount: '(inline ? pool_gpu_count : gpu_count) ?? 0.0'
+  - gpuOn: 'gpuType != "" && gpuCount > 0 && family == "n1"'
+  - ephemeralIp: '!private_nodes'
+readings:
+  - capacity: { name: '{autopilot ? "Autopilot cluster" : "Cluster"} management fee', units: 1, unit: cluster-hour, price: gcp.gke.cluster }
+  - fail: { when: 'autopilot && (autopilotVcpu == nil || autopilotMemoryGb == nil)', message: "Autopilot bills the Pods' requests: set autopilotVcpu and autopilotMemoryGb", continue: true }
+  - capacity: { when: 'autopilot && autopilotVcpu != nil', name: Autopilot Pod vCPU, units: 'autopilotVcpu ?? 0', unit: vCPU-hour, price: gcp.gke.autopilot.vcpu }
+  - capacity: { when: 'autopilot && autopilotMemoryGb != nil', name: Autopilot Pod memory, units: 'autopilotMemoryGb ?? 0', unit: GB-hour, price: gcp.gke.autopilot.memory }
+  - capacity: { when: 'autopilot && autopilotEphemeralGb > 0', name: Autopilot Pod ephemeral storage, units: autopilotEphemeralGb, unit: GB-hour, price: gcp.gke.autopilot.ephemeral }
+  - fail: { when: 'nodes > 0 && (mt == "")', message: "the machine type is unknown" }
+  - fail: { when: 'nodes > 0 && (custom && !shaped)', message: "custom machine type {mt} is not read: write it as custom-<vCPUs>-<MiB>, <family>-custom-<vCPUs>-<MiB> or e2-custom-(micro|small|medium)-<MiB>" }
+  - cost: { when: 'nodes > 0 && (!custom)', name: "Nodes ({mt}{onSpot ? \", spot\" : \"\"})", quantity: 'count * billedHours', unit: instance-hour, price: 'gcp.compute.machine{market}.{mt}' }
+  - cost: { when: 'nodes > 0 && custom', name: "Custom vCPUs ({family}{onSpot ? \", spot\" : \"\"})", quantity: 'count * billedHours * cvcpu', unit: vCPU-hour, price: 'gcp.compute.custom{market}.vcpu.{family}' }
+  - cost: { when: 'nodes > 0 && custom', name: "Custom memory ({family}{onSpot ? \", spot\" : \"\"})", quantity: 'count * billedHours * cbaseGb', unit: GB-hour, price: 'gcp.compute.custom{market}.memory.{family}' }
+  - cost: { when: 'nodes > 0 && (custom && cextGb > 0)', name: "Extended memory ({family}{onSpot ? \", spot\" : \"\"})", quantity: 'count * billedHours * cextGb', unit: GB-hour, price: 'gcp.compute.custom{market}.extended_memory.{family}' }
+  - storage: { when: 'nodes > 0', name: "Boot disks ({bootType})", gb: 'count * bootGb', price: 'gcp.compute.disk.{bootType}' }
+  - cost: { when: 'nodes > 0 && bootIopsBilled > 0', name: "Boot disks IOPS ({bootType})", quantity: 'count * bootIopsBilled', unit: IOPS-month, price: 'gcp.compute.disk_iops.{bootType}' }
+  - cost: { when: 'nodes > 0 && bootThrBilled > 0', name: "Boot disks throughput ({bootType})", quantity: 'count * bootThrBilled', unit: MiBps-month, price: 'gcp.compute.disk_throughput.{bootType}' }
+  - cost: { when: 'nodes > 0 && (localSsds > 0)', name: "Local SSD{onSpot ? \" (spot)\" : \"\"}", quantity: 'count * localSsds * 375 * hours / 730', unit: GB-month, price: 'gcp.compute.local_ssd{market}' }
+  - cost: { when: 'nodes > 0 && (gpuOn)', name: "GPU ({gpuType}{onSpot ? \", spot\" : \"\"})", quantity: 'count * gpuCount * gpuHours', unit: GPU-hour, price: 'gcp.compute.gpu{market}.{gpuType}' }
+  - cost: { when: 'nodes > 0 && (ephemeralIp)', name: "External IP address{onSpot ? \" (spot)\" : \"\"}", quantity: 'count * hours', unit: address-hour, price: 'gcp.compute.ip.{onSpot ? "spot_vm" : "standard_vm"}' }
+terraform:
+  # Workloads on the cluster make the calls, which Terraform does not show; the network is placement.
+  ignoreRefs: [network, subnetwork, node_config, node_pool, ip_allocation_policy, private_cluster_config, master_authorized_networks_config, database_encryption]

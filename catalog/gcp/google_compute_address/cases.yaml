@@ -1,0 +1,30 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo address on a standard VM
+  # 0.005 x 730
+  region: asia-northeast1
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  costs:
+    External IP address (standard VM): 3.65
+- name: Northern Virginia address reserved and not assigned
+  # 0.011 x 730
+  region: us-east4
+  assumptions:
+    use: unused
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  costs:
+    External IP address (unused): 8.03
+- name: Tokyo internal address is free
+  region: asia-northeast1
+  attributes:
+    address_type: INTERNAL
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0

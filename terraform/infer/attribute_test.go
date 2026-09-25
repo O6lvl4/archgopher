@@ -30,7 +30,7 @@ func TestReadAttributeCountsAcrossBlocks(t *testing.T) {
 		// Ids known only after apply are counted by what the list references.
 		"scopes.#": 2.0,
 	} {
-		got := readAttribute(r, field.Field{Key: "k", Type: field.Number, Path: path})
+		got := (&builder{}).readAttribute(r, field.Field{Key: "k", Type: field.Number, Path: path})
 		if got != want {
 			t.Errorf("%s = %v, want %v", path, got, want)
 		}
@@ -57,7 +57,7 @@ func TestReadAttributeFlagReadsWhetherWritten(t *testing.T) {
 		"log_analytics_workspace_id":     true,
 		"eventhub_authorization_rule_id": nil,
 	} {
-		if got := readAttribute(r, field.Field{Key: "k", Type: field.Flag, Path: path}); got != want {
+		if got := (&builder{}).readAttribute(r, field.Field{Key: "k", Type: field.Flag, Path: path}); got != want {
 			t.Errorf("%s = %v, want %v", path, got, want)
 		}
 	}
