@@ -3,129 +3,43 @@
     "unit": "request",
     "per": 1000000,
     "source": "https://aws.amazon.com/api-gateway/pricing/",
-    "note": "First tier (up to 300 million per month)",
-    "sync": {
-      "service": "AmazonApiGateway",
-      "filters": {
-        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?ApiGatewayHttpRequest"
-      }
-    },
-    "values": {
-      "ap-northeast-1": {
-        "value": 1.29,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-northeast-2": {
-        "value": 1.23,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-south-1": {
-        "value": 1.05,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-southeast-1": {
-        "value": 1.25,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-southeast-2": {
-        "value": 1.29,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eu-central-1": {
-        "value": 1.2,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eu-west-1": {
-        "value": 1.11,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-1": {
-        "value": 1,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-2": {
-        "value": 1,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-west-2": {
-        "value": 1,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      }
-    }
-  },
-  "aws.apigateway.http.requests_tier2": {
-    "unit": "request",
-    "per": 1000000,
-    "source": "https://aws.amazon.com/api-gateway/pricing/",
-    "note": "Second volume tier: over 300 million a month, per account and region",
+    "note": "HTTP API requests, in 512 KB steps. Volume tiers count every HTTP API of the account in the region in a month: from 300 million",
     "sync": {
       "service": "AmazonApiGateway",
       "filters": {
         "usagetype": "((?:[A-Z]+[0-9]|EU)-)?ApiGatewayHttpRequest"
       },
-      "tier": "300000000"
+      "tier": "{row}"
     },
-    "values": {
-      "ap-northeast-1": {
-        "value": 1.18,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "ap-northeast-1": 1.29,
+        "ap-northeast-2": 1.23,
+        "ap-south-1": 1.05,
+        "ap-southeast-1": 1.25,
+        "ap-southeast-2": 1.29,
+        "eu-central-1": 1.2,
+        "eu-west-1": 1.11,
+        "us-east-1": 1,
+        "us-east-2": 1,
+        "us-west-2": 1
       },
-      "ap-northeast-2": {
-        "value": 1.11,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-south-1": {
-        "value": 0.95,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-1": {
-        "value": 1.13,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-2": {
-        "value": 1.18,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-central-1": {
-        "value": 1.08,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-west-1": {
-        "value": 1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-1": {
-        "value": 0.9,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-2": {
-        "value": 0.9,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-west-2": {
-        "value": 0.9,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "300000000": {
+        "ap-northeast-1": 1.18,
+        "ap-northeast-2": 1.11,
+        "ap-south-1": 0.95,
+        "ap-southeast-1": 1.13,
+        "ap-southeast-2": 1.18,
+        "eu-central-1": 1.08,
+        "eu-west-1": 1,
+        "us-east-1": 0.9,
+        "us-east-2": 0.9,
+        "us-west-2": 0.9
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   }
 }

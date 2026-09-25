@@ -22,8 +22,8 @@
     Extended support (Kubernetes 1.31): 365
     Provisioned control plane (XL): 1204.5
     Auto Mode management (m5.large): 25.2288
-    Log ingestion: 5
-    Log storage: 0.296052632
+    Log ingestion: 2.5  # (10 GB − 5 always free) × 0.50
+    Log storage: 0.146052632  # (9.868421053 − 5 always free) GB-months × 0.03
 - name: an old version under the STANDARD policy is upgraded, not charged for extended support
   region: ap-northeast-1
   attributes:

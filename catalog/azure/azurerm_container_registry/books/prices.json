@@ -1,44 +1,32 @@
 {
-  "azure.containerregistry.build": {
+  "azure.containerregistry.build.Basic": {
     "unit": "vCPU-second",
     "source": "https://azure.microsoft.com/pricing/details/container-registry/",
-    "note": "ACR Tasks build vCPU time, by SKU; the free first 6,000 seconds a month are ignored",
+    "note": "ACR Tasks build vCPU time on a Basic registry. The first 6,000 seconds a month are free: the price list gives them as the zero-priced first tier of the Basic meter (the pricing page does not mention them). It does not say over what they are counted, so they are counted per region here, over every Basic registry of the account",
     "sync": {
       "filters": {
         "meterName": "Task vCPU Duration",
         "productName": "Container Registry",
-        "skuName": "{row}"
+        "skuName": "Basic"
       },
       "service": "Container Registry",
       "source": "azure",
-      "tier": "6000"
+      "tier": "{row}"
     },
     "rows": {
-      "Basic": {
-        "australiaeast": 0.0001,
-        "centralindia": 0.0001,
-        "eastus": 0.0001,
-        "eastus2": 0.0001,
-        "germanywestcentral": 0.0001,
-        "japaneast": 0.0001,
-        "koreacentral": 0.0001,
-        "northeurope": 0.0001,
-        "southeastasia": 0.0001,
-        "westus2": 0.0001
+      "0": {
+        "australiaeast": 0,
+        "centralindia": 0,
+        "eastus": 0,
+        "eastus2": 0,
+        "germanywestcentral": 0,
+        "japaneast": 0,
+        "koreacentral": 0,
+        "northeurope": 0,
+        "southeastasia": 0,
+        "westus2": 0
       },
-      "Premium": {
-        "australiaeast": 0.0001,
-        "centralindia": 0.0001,
-        "eastus": 0.0001,
-        "eastus2": 0.0001,
-        "germanywestcentral": 0.0001,
-        "japaneast": 0.0001,
-        "koreacentral": 0.0001,
-        "northeurope": 0.0001,
-        "southeastasia": 0.0001,
-        "westus2": 0.0001
-      },
-      "Standard": {
+      "6000": {
         "australiaeast": 0.0001,
         "centralindia": 0.0001,
         "eastus": 0.0001,
@@ -52,7 +40,99 @@
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-25"
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
+  },
+  "azure.containerregistry.build.Premium": {
+    "unit": "vCPU-second",
+    "source": "https://azure.microsoft.com/pricing/details/container-registry/",
+    "note": "ACR Tasks build vCPU time on a Premium registry. The first 6,000 seconds a month are free: the price list gives them as the zero-priced first tier of the Premium meter (the pricing page does not mention them). It does not say over what they are counted, so they are counted per region here, over every Premium registry of the account",
+    "sync": {
+      "filters": {
+        "meterName": "Task vCPU Duration",
+        "productName": "Container Registry",
+        "skuName": "Premium"
+      },
+      "service": "Container Registry",
+      "source": "azure",
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "australiaeast": 0,
+        "centralindia": 0,
+        "eastus": 0,
+        "eastus2": 0,
+        "germanywestcentral": 0,
+        "japaneast": 0,
+        "koreacentral": 0,
+        "northeurope": 0,
+        "southeastasia": 0,
+        "westus2": 0
+      },
+      "6000": {
+        "australiaeast": 0.0001,
+        "centralindia": 0.0001,
+        "eastus": 0.0001,
+        "eastus2": 0.0001,
+        "germanywestcentral": 0.0001,
+        "japaneast": 0.0001,
+        "koreacentral": 0.0001,
+        "northeurope": 0.0001,
+        "southeastasia": 0.0001,
+        "westus2": 0.0001
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
+  },
+  "azure.containerregistry.build.Standard": {
+    "unit": "vCPU-second",
+    "source": "https://azure.microsoft.com/pricing/details/container-registry/",
+    "note": "ACR Tasks build vCPU time on a Standard registry. The first 6,000 seconds a month are free: the price list gives them as the zero-priced first tier of the Standard meter (the pricing page does not mention them). It does not say over what they are counted, so they are counted per region here, over every Standard registry of the account",
+    "sync": {
+      "filters": {
+        "meterName": "Task vCPU Duration",
+        "productName": "Container Registry",
+        "skuName": "Standard"
+      },
+      "service": "Container Registry",
+      "source": "azure",
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "australiaeast": 0,
+        "centralindia": 0,
+        "eastus": 0,
+        "eastus2": 0,
+        "germanywestcentral": 0,
+        "japaneast": 0,
+        "koreacentral": 0,
+        "northeurope": 0,
+        "southeastasia": 0,
+        "westus2": 0
+      },
+      "6000": {
+        "australiaeast": 0.0001,
+        "centralindia": 0.0001,
+        "eastus": 0.0001,
+        "eastus2": 0.0001,
+        "germanywestcentral": 0.0001,
+        "japaneast": 0.0001,
+        "koreacentral": 0.0001,
+        "northeurope": 0.0001,
+        "southeastasia": 0.0001,
+        "westus2": 0.0001
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   },
   "azure.containerregistry.premium.replication": {
     "unit": "day",

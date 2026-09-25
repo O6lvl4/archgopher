@@ -2,7 +2,7 @@ type: azurerm_cognitive_account
 label: Cognitive Services account
 category: AI
 icon: cognitive-services
-description: "Pay-as-you-go usage of Speech (SpeechServices), Language (TextAnalytics) and LUIS accounts on a paid SKU: audio hours, characters, text records and transactions per meter, or a commitment tier's monthly fee plus its overage when you pick one (Azure or connected container). The F0 tier is free. OpenAI and AIServices accounts bill through their azurerm_cognitive_deployment nodes. Headroom is real-time speech to text concurrency and text to speech transactions per second (Speech), requests per minute (Language) and transactions per second (LUIS) against the default quotas of the account's tier (F0 or paid). LUIS was retired on 31 March 2026."
+description: "Pay-as-you-go usage of Speech (SpeechServices), Language (TextAnalytics) and LUIS accounts on a paid SKU: audio hours, characters, text records and transactions per meter, or a commitment tier's monthly fee plus its overage when you pick one (Azure or connected container).. Language text analytics, text analytics for health and custom question answering are in volume tiers counted over every Language resource of the region, and the 5,000 free health records a month are given once. The F0 tier is free. OpenAI and AIServices accounts bill through their azurerm_cognitive_deployment nodes. Headroom is real-time speech to text concurrency and text to speech transactions per second (Speech), requests per minute (Language) and transactions per second (LUIS) against the default quotas of the account's tier (F0 or paid). LUIS was retired on 31 March 2026."
 kinds: [call]
 sla: azure.cognitiveservices
 attributes:
@@ -106,10 +106,7 @@ readings:
   - concurrency: { when: speech && audioSecondsPerCall > 0, name: Concurrent real-time transcriptions, peak: total.peak, seconds: audioSecondsPerCall, unit: requests, quota: "azure.speech.stt.concurrent.{tier}" }
   - rate: { when: speech && charactersPerCall > 0, name: Text to speech transactions, peak: total.peak, unit: transactions/second, quota: "azure.speech.tts.tps.{tier}" }
   # Language
-  - cost: { when: l && taAmt == 0, name: Text analytics (first 500K records), quantity: 'min(textRecords, 500000)', unit: record, price: azure.language.text_analytics.0 }
-  - cost: { when: l && taAmt == 0 && textRecords > 500000, name: Text analytics (next 2M records), quantity: 'min(textRecords, 2500000) - 500000', unit: record, price: azure.language.text_analytics.500 }
-  - cost: { when: l && taAmt == 0 && textRecords > 2500000, name: Text analytics (next 7.5M records), quantity: 'min(textRecords, 10000000) - 2500000', unit: record, price: azure.language.text_analytics.2500 }
-  - cost: { when: l && taAmt == 0 && textRecords > 10000000, name: Text analytics (over 10M records), quantity: textRecords - 10000000, unit: record, price: azure.language.text_analytics.10000 }
+  - cost: { when: l && taAmt == 0, name: Text analytics, quantity: textRecords, unit: record, price: azure.language.text_analytics }
   - cost: { when: l && taAmt > 0, name: "Text analytics commitment ({textAnalyticsCommitment})", quantity: 1, unit: month, price: "azure.language.commit.text_analytics.{dep}.unit.{textAnalyticsCommitment}" }
   - cost: { when: l && taAmt > 0, name: Text analytics overage, quantity: "max(textRecords - taAmt, 0)", unit: record, price: "azure.language.commit.text_analytics.{dep}.overage.{textAnalyticsCommitment}" }
   - cost: { when: l && sumAmt == 0 && summarizationRecords > 0, name: Summarization, quantity: summarizationRecords, unit: record, price: azure.language.summarization }
@@ -119,13 +116,9 @@ readings:
   - cost: { when: l && cluAdvancedTrainingHours > 0, name: CLU advanced training, quantity: cluAdvancedTrainingHours, unit: training hour, price: azure.language.clu_advanced_training }
   - cost: { when: l && customClassificationRecords > 0, name: Custom classification and NER, quantity: customClassificationRecords, unit: record, price: azure.language.custom_classification }
   - cost: { when: l && customSummarizationRecords > 0, name: Custom summarization, quantity: customSummarizationRecords, unit: record, price: azure.language.custom_summarization }
-  - cost: { when: l && customQaRecords > 0, name: Custom question answering (first 2.5M records), quantity: 'min(customQaRecords, 2500000)', unit: record, price: azure.language.custom_qa.0 }
-  - cost: { when: l && customQaRecords > 2500000, name: Custom question answering (over 2.5M records), quantity: customQaRecords - 2500000, unit: record, price: azure.language.custom_qa.2500 }
+  - cost: { when: l && customQaRecords > 0, name: Custom question answering, quantity: customQaRecords, unit: record, price: azure.language.custom_qa }
   - cost: { when: l && customTrainingHours > 0, name: Custom training, quantity: customTrainingHours, unit: training hour, price: azure.language.custom_training }
-  - cost: { when: l && healthRecords > 0, name: Text analytics for health (first 500K records), quantity: 'min(healthRecords, 500000)', unit: record, price: azure.language.health.5 }
-  - cost: { when: l && healthRecords > 500000, name: Text analytics for health (next 2M records), quantity: 'min(healthRecords, 2500000) - 500000', unit: record, price: azure.language.health.500 }
-  - cost: { when: l && healthRecords > 2500000, name: Text analytics for health (next 7.5M records), quantity: 'min(healthRecords, 10000000) - 2500000', unit: record, price: azure.language.health.2500 }
-  - cost: { when: l && healthRecords > 10000000, name: Text analytics for health (over 10M records), quantity: healthRecords - 10000000, unit: record, price: azure.language.health.10000 }
+  - cost: { when: l && healthRecords > 0, name: Text analytics for health, quantity: healthRecords, unit: record, price: azure.language.health }
   - limit: { when: lang, name: Language requests per minute, demand: total.peak * 60, unit: requests/minute, quota: "azure.language.rpm.{langTier}" }
   # LUIS
   - cost: { when: u && luisAmt == 0, name: LUIS text requests, quantity: luisText, unit: transaction, price: azure.luis.text }

@@ -9,7 +9,7 @@
       monthly: 10000000.0
       peak: 50
   costs:
-    Transfer to clients (first 10 TB): 123.0239868164
+    Transfer to clients: 123.0239868164
   limits:
     Requests: 50
     Bandwidth to clients: 0.04096
@@ -25,11 +25,11 @@
     request:
       monthly: 204800000.0
       peak: 2000
+  # 204,800,000 × 1024 KB = 200,000 GB, past three transfer tiers.
   costs:
-    Transfer to clients (first 10 TB): 810
-    Transfer to clients (next 40 TB): 3000
-    Transfer to clients (next 100 TB): 5600
-    Transfer to clients (next 350 TB): 1850
+    # Tier by tier: 10,000 × $0.081 = 810; 40,000 × $0.075 = 3000;
+    # 100,000 × $0.056 = 5600; 50,000 × $0.037 = 1850; together 11,260.
+    Transfer to clients: 11260
     Rules beyond 5: 2
     Rules engine requests: 122.88
   limits:

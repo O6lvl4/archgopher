@@ -2,66 +2,45 @@
   "azure.networkwatcher.diagnostic_check": {
     "unit": "check",
     "source": "https://azure.microsoft.com/pricing/details/network-watcher/",
-    "note": "Network diagnostic tool calls (IP flow verify, next hop, VPN troubleshoot, packet capture...); the first 1,000 a month are free (ignored, as every free tier)",
+    "note": "Network diagnostic tool calls (IP flow verify, next hop, VPN troubleshoot, packet capture...). The first 1,000 a month are free (https://azure.microsoft.com/pricing/details/network-watcher/: 1,000 checks per month), given in the price list as the zero-priced first tier. The page does not say over what they are counted; Network Watcher is regional, so they are counted per region here",
     "sync": {
       "filters": {
         "meterName": "Standard Diagnostic Tool API",
         "productName": "Network Watcher"
       },
       "service": "Network Watcher",
-      "source": "azure"
+      "source": "azure",
+      "tier": "{row}"
     },
-    "values": {
-      "australiaeast": {
-        "value": 0.001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "australiaeast": 0,
+        "centralindia": 0,
+        "eastus": 0,
+        "eastus2": 0,
+        "germanywestcentral": 0,
+        "japaneast": 0,
+        "koreacentral": 0,
+        "northeurope": 0,
+        "southeastasia": 0,
+        "westus2": 0
       },
-      "centralindia": {
-        "value": 0.001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eastus": {
-        "value": 0.001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eastus2": {
-        "value": 0.001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "germanywestcentral": {
-        "value": 0.001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "japaneast": {
-        "value": 0.001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "koreacentral": {
-        "value": 0.001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "northeurope": {
-        "value": 0.001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "southeastasia": {
-        "value": 0.001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "westus2": {
-        "value": 0.001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "1000": {
+        "australiaeast": 0.001,
+        "centralindia": 0.001,
+        "eastus": 0.001,
+        "eastus2": 0.001,
+        "germanywestcentral": 0.001,
+        "japaneast": 0.001,
+        "koreacentral": 0.001,
+        "northeurope": 0.001,
+        "southeastasia": 0.001,
+        "westus2": 0.001
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   }
 }

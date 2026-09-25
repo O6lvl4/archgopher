@@ -79,7 +79,7 @@
   region: ap-northeast-1
   assumptions:
     storageGb: 5
-    internetGbPerMonth: 17.62
+    internetGbPerMonth: 117.62
   demand:
     read:
       monthly: 10000
@@ -90,8 +90,29 @@
   costs:
     GET requests: 0.0037
     Storage: 0.125
+    # The always-free 100 GB out to the internet first: (117.62 - 100) x 0.114 = 2.00868
     Transfer out to the internet: 2.00868
     PUT requests: 0
   limits:
     GET rate: 1
+    PUT rate: 0
+# Storage past two volume tiers: 51,200 × 0.023 = 1177.6; (512,000 − 51,200) = 460,800 × 0.022 = 10137.6;
+# (600,000 − 512,000) = 88,000 × 0.021 = 1848; together 13163.2.
+- name: storage past two volume tiers (us-east-1)
+  region: us-east-1
+  assumptions:
+    storageGb: 600000
+  demand:
+    read:
+      monthly: 0
+      peak: 0
+    write:
+      monthly: 0
+      peak: 0
+  costs:
+    GET requests: 0
+    PUT requests: 0
+    Storage: 13163.2
+  limits:
+    GET rate: 0
     PUT rate: 0

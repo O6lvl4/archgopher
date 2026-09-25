@@ -16,13 +16,13 @@ attributes:
 assumptions:
   - { key: instanceType, label: Instance type, type: string, optional: true, hint: "From the launch template or launch configuration, when no override names one" }
   - { key: operatingSystem, label: Operating system, type: choice, options: [linux, windows, rhel, suse], default: linux, hint: "From the AMI. windows includes the Windows license; rhel and suse include theirs" }
-  - { key: dedicatedTenancy, label: Dedicated tenancy, type: boolean, default: false, hint: "The launch template's placement tenancy is dedicated" }
+  - { key: dedicatedTenancy, label: Dedicated tenancy, type: boolean, default: false, hint: "The launch template's placement tenancy is dedicated: the dedicated price table, and the region's Dedicated per region fee, paid once for every dedicated instance of the region" }
   - { key: launchTemplateSpot, label: Spot from the launch template, type: boolean, default: false, hint: "instance_market_options.market_type is spot, or the launch configuration sets spot_price" }
   - { key: averageInstances, label: Average instances, type: number, optional: true, hint: "Instances running on average over the month when scaling moves the count; empty uses the desired count" }
   - { key: monthlyHours, label: Hours running a month, type: number, unit: hours, default: 730 }
   - { key: spotShare, label: Spot price share, type: number, unit: fraction, optional: true, hint: "Spot price as a share of on-demand, from the Spot price history of the type (often 0.3 to 0.7). The Price List has no spot prices" }
   - { key: ebsOptimizedSet, label: EBS-optimized, type: boolean, default: false, hint: "Only previous-generation types charge for it" }
-  - { key: detailedMonitoring, label: Detailed monitoring, type: boolean, default: false, hint: "Launch configurations enable it by default, launch templates do not" }
+  - { key: detailedMonitoring, label: Detailed monitoring, type: boolean, default: false, hint: "Launch configurations enable it by default, launch templates do not. About 7 CloudWatch metrics per instance; CloudWatch bills them in volume tiers from 10,000 metrics, and the first 10 are always free, both counted over the account" }
   - { key: cpuCredits, label: CPU credits, type: choice, options: [standard, unlimited], optional: true, hint: "Burstable types; t2 defaults to standard, the others to unlimited" }
   - { key: surplusCreditVcpuHours, label: Surplus CPU credits per instance, type: number, unit: vCPU-hours, default: 0, hint: "Unlimited burstable instances only: vCPU-hours a month above the baseline that the earned credits do not cover" }
   - { key: rootVolumeType, label: Root volume type, type: choice, options: [standard, gp2, gp3, io1, io2, sc1, st1], default: gp2, hint: "From the launch template's block device mapping or the AMI" }
@@ -55,6 +55,7 @@ readings:
   - cost: { when: 'od > 0', name: "Instance ({os}, {itype})", quantity: 'od * monthlyHours', unit: instance-hour, price: "aws.ec2.{tenancyPrefix}{os}.{itype}" }
   - fail: { when: 'sp > 0 && spotShare == nil', message: "spot instances run here: set spotShare, the share of the on-demand price the spot price comes to", continue: true }
   - cost: { when: 'sp > 0 && spotShare != nil', name: "Spot instance ({os}, {itype})", quantity: 'sp * monthlyHours * (spotShare ?? 0)', unit: instance-hour, price: "aws.ec2.{tenancyPrefix}{os}.{itype}" }
+  - cost: { when: 'tenancyPrefix != "" && od + sp > 0', name: Dedicated per region fee, quantity: monthlyHours, unit: hour, price: aws.ec2.dedicated.regional_fee }
   - cost: { when: 'ebsOptimized && itype in ["c1.xlarge", "c3.2xlarge", "c3.4xlarge", "c3.xlarge", "g2.2xlarge", "i2.2xlarge", "i2.4xlarge", "i2.xlarge", "m1.large", "m1.xlarge", "m2.2xlarge", "m2.4xlarge", "m3.2xlarge", "m3.xlarge", "r3.2xlarge", "r3.4xlarge", "r3.xlarge"]', name: EBS-optimized surcharge, quantity: '(od + sp) * monthlyHours', unit: instance-hour, price: "aws.ec2.ebs_optimized.{itype}" }
   - cost: { when: detailedMonitoring, name: Detailed monitoring, quantity: '(od + sp) * 7', unit: metric-month, price: aws.ec2.monitoring.metric }
   - cost: { when: 'unlimited && surplusCreditVcpuHours > 0', name: "CPU credits ({family})", quantity: '(od + sp) * surplusCreditVcpuHours', unit: vCPU-hour, price: 'aws.ec2.cpu_credits.{os == "windows" ? "windows" : "linux"}.{family}' }

@@ -8,7 +8,8 @@
       peak: 50
   costs:
     Key versions: 1
-    Requests: 6.0
+    # (2e6 − 20,000 always free) / 10,000 × 0.03 = 5.94
+    Requests: 5.94
   limits:
     Symmetric request rate: 50
 - name: 'rotated three times: two billed versions on top'
@@ -23,7 +24,8 @@
       peak: 5
   costs:
     Key versions: 3
-    Requests: 0.3
+    # (100,000 − 20,000 always free) / 10,000 × 0.03 = 0.24
+    Requests: 0.24
   limits:
     Symmetric request rate: 5
 - name: asymmetric keys are not priced

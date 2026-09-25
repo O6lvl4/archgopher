@@ -2,65 +2,68 @@
   "aws.transfer.internet_out": {
     "unit": "GB",
     "source": "https://aws.amazon.com/ec2/pricing/on-demand/#Data_Transfer",
-    "note": "Data transfer out to the internet, first 10 TB a month tier. The 100 GB a month free across the account is ignored, as every free tier. Transfer to CloudFront and within the region is free",
+    "note": "Data transfer out to the internet. The first 100 GB a month are free, always, aggregated over every service and region of the account (the price list's Global-DataTransfer-Out-Bytes row: \"$0 for 100GB of data transfer out to the internet, aggregated globally, each month\"; the EC2 pricing page lists them as \"Up to 100 GB / Month $0.00\" inside the first 10 TB). Volume tiers from 10 TB, 50 TB and 150 TB a month, counted over the account with the free units: the price list lists the tiers in each region's offer, and the pricing page does not say whether they are counted per region. Transfer to CloudFront and within the region is free",
     "sync": {
       "service": "AWSDataTransfer",
       "filters": {
         "usagetype": "((?:[A-Z]+[0-9]|EU)-)?DataTransfer-Out-Bytes"
       },
-      "tier": "0"
+      "tier": "{row}"
     },
-    "values": {
-      "ap-northeast-1": {
-        "value": 0.114,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+    "rows": {
+      "0": {
+        "ap-northeast-1": 0.114,
+        "ap-northeast-2": 0.126,
+        "ap-south-1": 0.1093,
+        "ap-southeast-1": 0.12,
+        "ap-southeast-2": 0.114,
+        "eu-central-1": 0.09,
+        "eu-west-1": 0.09,
+        "us-east-1": 0.09,
+        "us-east-2": 0.09,
+        "us-west-2": 0.09
       },
-      "ap-northeast-2": {
-        "value": 0.126,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+      "10240": {
+        "ap-northeast-1": 0.089,
+        "ap-northeast-2": 0.122,
+        "ap-south-1": 0.085,
+        "ap-southeast-1": 0.085,
+        "ap-southeast-2": 0.098,
+        "eu-central-1": 0.085,
+        "eu-west-1": 0.085,
+        "us-east-1": 0.085,
+        "us-east-2": 0.085,
+        "us-west-2": 0.085
       },
-      "ap-south-1": {
-        "value": 0.1093,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+      "153600": {
+        "ap-northeast-1": 0.084,
+        "ap-northeast-2": 0.108,
+        "ap-south-1": 0.08,
+        "ap-southeast-1": 0.08,
+        "ap-southeast-2": 0.092,
+        "eu-central-1": 0.05,
+        "eu-west-1": 0.05,
+        "us-east-1": 0.05,
+        "us-east-2": 0.05,
+        "us-west-2": 0.05
       },
-      "ap-southeast-1": {
-        "value": 0.12,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-southeast-2": {
-        "value": 0.114,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eu-central-1": {
-        "value": 0.09,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eu-west-1": {
-        "value": 0.09,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-1": {
-        "value": 0.09,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-2": {
-        "value": 0.09,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-west-2": {
-        "value": 0.09,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+      "51200": {
+        "ap-northeast-1": 0.086,
+        "ap-northeast-2": 0.117,
+        "ap-south-1": 0.082,
+        "ap-southeast-1": 0.082,
+        "ap-southeast-2": 0.094,
+        "eu-central-1": 0.07,
+        "eu-west-1": 0.07,
+        "us-east-1": 0.07,
+        "us-east-2": 0.07,
+        "us-west-2": 0.07
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "free": 100,
+    "tiered": true
   }
 }

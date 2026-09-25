@@ -2,7 +2,7 @@ type: azurerm_container_registry
 label: Container Registry
 category: Compute
 icon: container-registry
-description: "The registry unit per day of its SKU, a Premium replica unit per georeplications block, storage above what the SKU includes (10, 100 or 500 GB) and ACR Tasks build time. Storage held in replicas and data transfer out of the region are not read. Headroom is the per-registry data-plane read and write request rates (best-effort, not backed by the SLA) and the storage limit."
+description: "The registry unit per day of its SKU, a Premium replica unit per georeplications block, storage above what the SKU includes (10, 100 or 500 GB) and ACR Tasks build time, the first 6,000 seconds a month free, counted over every registry of the same SKU in the region. Storage held in replicas and data transfer out of the region are not read. Headroom is the per-registry data-plane read and write request rates (best-effort, not backed by the SLA) and the storage limit."
 kinds: [pull, push]
 sla: azure.containerregistry
 attributes:

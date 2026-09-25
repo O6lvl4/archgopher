@@ -8,8 +8,9 @@
     alarm:
       monthly: 0
       peak: 0
+  # Within the account's 10 always-free standard alarm metrics.
   costs:
-    Alarm metrics (standard resolution): 0.1
+    Alarm metrics (standard resolution): 0
 - name: high resolution
   region: ap-northeast-1
   attributes:
@@ -29,8 +30,9 @@
     alarm:
       monthly: 0
       peak: 0
+  # 3 metrics, within the account's 10 always-free standard alarm metrics.
   costs:
-    Alarm metrics (standard resolution): 0.3
+    Alarm metrics (standard resolution): 0
 - name: metric math over three metrics
   region: eu-west-1
   assumptions:
@@ -39,5 +41,20 @@
     alarm:
       monthly: 0
       peak: 0
+  # 3 metrics, within the account's 10 always-free standard alarm metrics.
   costs:
-    Alarm metrics (standard resolution): 0.3
+    Alarm metrics (standard resolution): 0
+- name: anomaly detection over four metrics passes the free ten
+  region: us-east-1
+  attributes:
+    period: 60
+    threshold_metric_id: ad1
+  assumptions:
+    metrics: 4
+  demand:
+    alarm:
+      monthly: 0
+      peak: 0
+  # 4 × 3 = 12 metrics, 10 always free: 2 × 0.1 = 0.2.
+  costs:
+    Alarm metrics (standard resolution): 0.2

@@ -645,7 +645,7 @@
     "unit": "record",
     "per": 1000,
     "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-service/",
-    "note": "Custom question answering, per 1,000 text records; rows are the first unit (1,000 records) of each volume tier: 0, 2.5 million records",
+    "note": "Custom question answering, per 1,000 text records. Volume tiers count the text records of every Language resource in a month: lower from 2.5M; the pricing page does not say whether the tiers count per resource or per subscription, so they are pooled per region",
     "sync": {
       "filters": {
         "meterName": "Standard QA Text Records",
@@ -670,7 +670,7 @@
         "southeastasia": 1.5,
         "westus2": 1.5
       },
-      "2500": {
+      "2500000": {
         "australiaeast": 1.00005,
         "centralindia": 1.00005,
         "eastus": 1.00005,
@@ -684,7 +684,9 @@
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-26"
+    "checkedAt": "2026-09-26",
+    "pool": "region",
+    "tiered": true
   },
   "azure.language.custom_summarization": {
     "unit": "record",
@@ -824,7 +826,7 @@
     "unit": "record",
     "per": 1000,
     "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-service/",
-    "note": "Text analytics for health, per 1,000 text records; rows are the first unit (1,000 records) of each paid volume tier: 5,000 (after the free 5,000, which are ignored as every free tier), 500,000, 2.5 million, 10 million records",
+    "note": "Text analytics for health, per 1,000 text records. Row 0 is the free grant the price list shows as a zero-priced first tier: 5,000 text records free per month (https://azure.microsoft.com/pricing/details/cognitive-services/language-service/). Volume tiers count the text records of every Language resource in a month: from 5K, 500K, 2.5M and 10M; the pricing page does not say whether the tiers count per resource or per subscription, so they are pooled per region",
     "sync": {
       "filters": {
         "meterName": "Standard Health Text Records",
@@ -837,7 +839,19 @@
       "tier": "{row}"
     },
     "rows": {
-      "10000": {
+      "0": {
+        "australiaeast": 0,
+        "centralindia": 0,
+        "eastus": 0,
+        "eastus2": 0,
+        "germanywestcentral": null,
+        "japaneast": 0,
+        "koreacentral": 0,
+        "northeurope": 0,
+        "southeastasia": 0,
+        "westus2": 0
+      },
+      "10000000": {
         "australiaeast": 5,
         "centralindia": 5,
         "eastus": 5,
@@ -849,7 +863,7 @@
         "southeastasia": 5,
         "westus2": 5
       },
-      "2500": {
+      "2500000": {
         "australiaeast": 6,
         "centralindia": 6,
         "eastus": 6,
@@ -861,7 +875,7 @@
         "southeastasia": 6,
         "westus2": 6
       },
-      "5": {
+      "5000": {
         "australiaeast": 20,
         "centralindia": 20,
         "eastus": 20,
@@ -873,7 +887,7 @@
         "southeastasia": 20,
         "westus2": 20
       },
-      "500": {
+      "500000": {
         "australiaeast": 15,
         "centralindia": 15,
         "eastus": 15,
@@ -887,7 +901,9 @@
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-26"
+    "checkedAt": "2026-09-26",
+    "pool": "region",
+    "tiered": true
   },
   "azure.language.summarization": {
     "unit": "record",
@@ -961,7 +977,7 @@
     "unit": "record",
     "per": 1000,
     "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-service/",
-    "note": "Text analytics (sentiment, key phrases, entities, PII, language detection), per 1,000 text records; rows are the first unit (1,000 records) of each volume tier: 0, 500,000, 2.5 million, 10 million records",
+    "note": "Text analytics (sentiment, key phrases, entities, PII, language detection), per 1,000 text records. Volume tiers count the text records of every Language resource in a month: from 500K, 2.5M and 10M; the pricing page does not say whether the tiers count per resource or per subscription, so they are pooled per region",
     "sync": {
       "filters": {
         "meterName": "Standard Text Records",
@@ -986,7 +1002,7 @@
         "southeastasia": 1,
         "westus2": 1
       },
-      "10000": {
+      "10000000": {
         "australiaeast": 0.25,
         "centralindia": 0.25,
         "eastus": 0.25,
@@ -998,7 +1014,7 @@
         "southeastasia": 0.25,
         "westus2": 0.25
       },
-      "2500": {
+      "2500000": {
         "australiaeast": 0.3,
         "centralindia": 0.3,
         "eastus": 0.3,
@@ -1010,7 +1026,7 @@
         "southeastasia": 0.3,
         "westus2": 0.3
       },
-      "500": {
+      "500000": {
         "australiaeast": 0.75,
         "centralindia": 0.75,
         "eastus": 0.75,
@@ -1024,7 +1040,9 @@
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-26"
+    "checkedAt": "2026-09-26",
+    "pool": "region",
+    "tiered": true
   },
   "azure.luis.commit.azure.overage": {
     "unit": "transaction",

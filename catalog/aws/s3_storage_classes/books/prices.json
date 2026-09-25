@@ -380,65 +380,56 @@
   "aws.s3.intelligent_tiering.frequent": {
     "unit": "GB-month",
     "source": "https://aws.amazon.com/s3/pricing/",
-    "note": "S3 Intelligent-Tiering Frequent Access tier, first 50 TB",
+    "note": "S3 Intelligent-Tiering Frequent Access tier. Volume tiers from 50 TB and 500 TB a month, counted over the account's storage of the class in the region: the pricing page does not say the scope, and the price list lists the tiers in each region's offer",
     "sync": {
       "service": "AmazonS3",
       "filters": {
         "usagetype": "((?:[A-Z]+[0-9]|EU)-)?TimedStorage-INT-FA-ByteHrs"
+      },
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "ap-northeast-1": 0.025,
+        "ap-northeast-2": 0.025,
+        "ap-south-1": 0.025,
+        "ap-southeast-1": 0.025,
+        "ap-southeast-2": 0.025,
+        "eu-central-1": 0.0245,
+        "eu-west-1": 0.023,
+        "us-east-1": 0.023,
+        "us-east-2": 0.023,
+        "us-west-2": 0.023
+      },
+      "51200": {
+        "ap-northeast-1": 0.024,
+        "ap-northeast-2": 0.024,
+        "ap-south-1": 0.024,
+        "ap-southeast-1": 0.024,
+        "ap-southeast-2": 0.024,
+        "eu-central-1": 0.0235,
+        "eu-west-1": 0.022,
+        "us-east-1": 0.022,
+        "us-east-2": 0.022,
+        "us-west-2": 0.022
+      },
+      "512000": {
+        "ap-northeast-1": 0.023,
+        "ap-northeast-2": 0.023,
+        "ap-south-1": 0.023,
+        "ap-southeast-1": 0.023,
+        "ap-southeast-2": 0.023,
+        "eu-central-1": 0.0225,
+        "eu-west-1": 0.021,
+        "us-east-1": 0.021,
+        "us-east-2": 0.021,
+        "us-west-2": 0.021
       }
     },
-    "values": {
-      "ap-northeast-1": {
-        "value": 0.025,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-northeast-2": {
-        "value": 0.025,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-south-1": {
-        "value": 0.025,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-1": {
-        "value": 0.025,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-2": {
-        "value": 0.025,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-central-1": {
-        "value": 0.0245,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-west-1": {
-        "value": 0.023,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-1": {
-        "value": 0.023,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-2": {
-        "value": 0.023,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-west-2": {
-        "value": 0.023,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      }
-    }
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   },
   "aws.s3.intelligent_tiering.infrequent": {
     "unit": "GB-month",

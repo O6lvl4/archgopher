@@ -2,7 +2,7 @@ type: google_monitoring_metric_descriptor
 label: Monitoring metric (user-defined)
 category: Monitoring
 icon: cloud-monitoring
-description: "A user-defined metric billed by bytes ingested: 8 bytes a point for scalar values, 80 for distributions, in volume tiers per MiB whose bounds are applied to this metric alone. Points come from time series written on a period and from load drawn to it, one point per unit. Read API calls outside the console bill per time series returned. Managed Service for Prometheus metrics bill per sample and are not read. Headroom is the one point every 5 seconds a time series accepts and the active time series per monitored resource (the metric's time series spread over its monitored resources). Free allotments are ignored."
+description: "A user-defined metric billed by bytes ingested: 8 bytes a point for scalar values, 80 for distributions, in volume tiers per MiB (from 150, 100,000 and 250,000 MiB) counted over every metric of the billing account, whose first 150 MiB are free. Points come from time series written on a period and from load drawn to it, one point per unit. Read API calls outside the console bill per time series returned, the first million a billing account free. Managed Service for Prometheus metrics bill per sample and are not read. Headroom is the one point every 5 seconds a time series accepts and the active time series per monitored resource (the metric's time series spread over its monitored resources)."
 kinds: [write]
 sla: gcp.observability
 attributes:
@@ -20,9 +20,7 @@ let:
   - perSeriesPeak: 'total.peak / max(timeSeries, 1) + (periodSeconds != nil && periodSeconds > 0 ? 1 / periodSeconds : 0.0)'
 readings:
   - fail: { when: 'metric_type != nil && metric_type startsWith "prometheus.googleapis.com/"', message: "Managed Service for Prometheus metrics bill per sample ingested, which is not read" }
-  - cost: { when: mib > 0, name: "Metric volume (first 100,000 MiB)", quantity: 'min(mib, 100000)', unit: MiB, price: gcp.monitoring.volume_tier1 }
-  - cost: { when: mib > 100000, name: "Metric volume (next 150,000 MiB)", quantity: 'min(mib - 100000, 150000)', unit: MiB, price: gcp.monitoring.volume_tier2 }
-  - cost: { when: mib > 250000, name: "Metric volume (over 250,000 MiB)", quantity: mib - 250000, unit: MiB, price: gcp.monitoring.volume_tier3 }
+  - cost: { when: mib > 0, name: Metric volume, quantity: mib, unit: MiB, price: gcp.monitoring.volume }
   - cost: { when: timeSeriesReadPerMonth > 0, name: Read API time series, quantity: timeSeriesReadPerMonth, unit: time series, price: gcp.monitoring.read_time_series }
   - limit: { name: Write rate per time series, demand: perSeriesPeak, unit: points/second, quota: gcp.monitoring.points_per_series_per_second }
   - limit: { name: Active time series, demand: 'timeSeries / max(monitoredResources, 1)', unit: time series, quota: gcp.monitoring.active_time_series }

@@ -25,7 +25,7 @@
     "unit": "request",
     "per": 10000,
     "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
-    "note": "Premium requests served from edges in billing Zone 1 (North America, Europe, Middle East and Africa; the zone-to-geography mapping is not on the billing page and not machine-checked); rows are the first unit (10,000 requests) of each volume tier: 0, 250 million, 1 billion, 5 billion requests",
+    "note": "Premium requests served from edges in billing Zone 1 (North America, Europe, Middle East and Africa; the zone-to-geography mapping is not on the billing page and not machine-checked). Volume tiers count the requests of every profile to the zone in a month: from 250 million, 1 billion and 5 billion; the pricing page does not say whether the tiers count per profile, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Azure Front Door Service",
@@ -42,23 +42,25 @@
       "0": {
         "*": 0.015
       },
-      "100000": {
+      "1000000000": {
         "*": 0.01329
       },
-      "25000": {
+      "250000000": {
         "*": 0.0141
       },
-      "500000": {
+      "5000000000": {
         "*": 0.012561
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-26"
+    "checkedAt": "2026-09-26",
+    "pool": "region",
+    "tiered": true
   },
   "azure.frontdoor.premium.zone1.transfer_out": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
-    "note": "Premium data transfer to clients served from edges in billing Zone 1 (North America, Europe, Middle East and Africa; the zone-to-geography mapping is not on the billing page and not machine-checked), by the first GB of each volume tier: 0, 10 TB, 50 TB, 150 TB, 500 TB, 1 PB, 5 PB",
+    "note": "Premium data transfer to clients served from edges in billing Zone 1 (North America, Europe, Middle East and Africa; the zone-to-geography mapping is not on the billing page and not machine-checked). Volume tiers count the transfer of every profile to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB; the pricing page does not say whether the tiers count per profile, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Azure Front Door Service",
@@ -94,13 +96,15 @@
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-26"
+    "checkedAt": "2026-09-26",
+    "pool": "region",
+    "tiered": true
   },
   "azure.frontdoor.premium.zone2.requests": {
     "unit": "request",
     "per": 10000,
     "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
-    "note": "Premium requests served from edges in billing Zone 2 (Asia Pacific including Japan; the zone-to-geography mapping is not on the billing page and not machine-checked); rows are the first unit (10,000 requests) of each volume tier: 0, 250 million, 1 billion, 5 billion requests",
+    "note": "Premium requests served from edges in billing Zone 2 (Asia Pacific including Japan; the zone-to-geography mapping is not on the billing page and not machine-checked). Volume tiers count the requests of every profile to the zone in a month: from 250 million, 1 billion and 5 billion; the pricing page does not say whether the tiers count per profile, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Azure Front Door Service",
@@ -117,23 +121,25 @@
       "0": {
         "*": 0.0168
       },
-      "100000": {
+      "1000000000": {
         "*": 0.014748
       },
-      "25000": {
+      "250000000": {
         "*": 0.01572
       },
-      "500000": {
+      "5000000000": {
         "*": 0.013873
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-26"
+    "checkedAt": "2026-09-26",
+    "pool": "region",
+    "tiered": true
   },
   "azure.frontdoor.premium.zone2.transfer_out": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
-    "note": "Premium data transfer to clients served from edges in billing Zone 2 (Asia Pacific including Japan; the zone-to-geography mapping is not on the billing page and not machine-checked), by the first GB of each volume tier: 0, 10 TB, 50 TB, 150 TB, 500 TB, 1 PB, 5 PB",
+    "note": "Premium data transfer to clients served from edges in billing Zone 2 (Asia Pacific including Japan; the zone-to-geography mapping is not on the billing page and not machine-checked). Volume tiers count the transfer of every profile to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB; the pricing page does not say whether the tiers count per profile, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Azure Front Door Service",
@@ -169,13 +175,15 @@
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-26"
+    "checkedAt": "2026-09-26",
+    "pool": "region",
+    "tiered": true
   },
   "azure.frontdoor.premium.zone3.requests": {
     "unit": "request",
     "per": 10000,
     "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
-    "note": "Premium requests served from edges in billing Zone 3 (South America; the zone-to-geography mapping is not on the billing page and not machine-checked); rows are the first unit (10,000 requests) of each volume tier: 0, 250 million, 1 billion, 5 billion requests",
+    "note": "Premium requests served from edges in billing Zone 3 (South America; the zone-to-geography mapping is not on the billing page and not machine-checked). Volume tiers count the requests of every profile to the zone in a month: from 250 million, 1 billion and 5 billion; the pricing page does not say whether the tiers count per profile, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Azure Front Door Service",
@@ -192,23 +200,25 @@
       "0": {
         "*": 0.0259
       },
-      "100000": {
+      "1000000000": {
         "*": 0.022119
       },
-      "25000": {
+      "250000000": {
         "*": 0.02391
       },
-      "500000": {
+      "5000000000": {
         "*": 0.020507
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-26"
+    "checkedAt": "2026-09-26",
+    "pool": "region",
+    "tiered": true
   },
   "azure.frontdoor.premium.zone3.transfer_out": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
-    "note": "Premium data transfer to clients served from edges in billing Zone 3 (South America; the zone-to-geography mapping is not on the billing page and not machine-checked), by the first GB of each volume tier: 0, 10 TB, 50 TB, 150 TB, 500 TB, 1 PB, 5 PB",
+    "note": "Premium data transfer to clients served from edges in billing Zone 3 (South America; the zone-to-geography mapping is not on the billing page and not machine-checked). Volume tiers count the transfer of every profile to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB; the pricing page does not say whether the tiers count per profile, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Azure Front Door Service",
@@ -244,13 +254,15 @@
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-26"
+    "checkedAt": "2026-09-26",
+    "pool": "region",
+    "tiered": true
   },
   "azure.frontdoor.premium.zone4.requests": {
     "unit": "request",
     "per": 10000,
     "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
-    "note": "Premium requests served from edges in billing Zone 4 (Australia; the zone-to-geography mapping is not on the billing page and not machine-checked); rows are the first unit (10,000 requests) of each volume tier: 0, 250 million, 1 billion, 5 billion requests",
+    "note": "Premium requests served from edges in billing Zone 4 (Australia; the zone-to-geography mapping is not on the billing page and not machine-checked). Volume tiers count the requests of every profile to the zone in a month: from 250 million, 1 billion and 5 billion; the pricing page does not say whether the tiers count per profile, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Azure Front Door Service",
@@ -267,23 +279,25 @@
       "0": {
         "*": 0.0173
       },
-      "100000": {
+      "1000000000": {
         "*": 0.015153
       },
-      "25000": {
+      "250000000": {
         "*": 0.01617
       },
-      "500000": {
+      "5000000000": {
         "*": 0.014238
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-26"
+    "checkedAt": "2026-09-26",
+    "pool": "region",
+    "tiered": true
   },
   "azure.frontdoor.premium.zone4.transfer_out": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
-    "note": "Premium data transfer to clients served from edges in billing Zone 4 (Australia; the zone-to-geography mapping is not on the billing page and not machine-checked), by the first GB of each volume tier: 0, 10 TB, 50 TB, 150 TB, 500 TB, 1 PB, 5 PB",
+    "note": "Premium data transfer to clients served from edges in billing Zone 4 (Australia; the zone-to-geography mapping is not on the billing page and not machine-checked). Volume tiers count the transfer of every profile to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB; the pricing page does not say whether the tiers count per profile, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Azure Front Door Service",
@@ -319,13 +333,15 @@
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-26"
+    "checkedAt": "2026-09-26",
+    "pool": "region",
+    "tiered": true
   },
   "azure.frontdoor.premium.zone5.requests": {
     "unit": "request",
     "per": 10000,
     "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
-    "note": "Premium requests served from edges in billing Zone 5 (India; the zone-to-geography mapping is not on the billing page and not machine-checked); rows are the first unit (10,000 requests) of each volume tier: 0, 250 million, 1 billion, 5 billion requests",
+    "note": "Premium requests served from edges in billing Zone 5 (India; the zone-to-geography mapping is not on the billing page and not machine-checked). Volume tiers count the requests of every profile to the zone in a month: from 250 million, 1 billion and 5 billion; the pricing page does not say whether the tiers count per profile, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Azure Front Door Service",
@@ -342,23 +358,25 @@
       "0": {
         "*": 0.0168
       },
-      "100000": {
+      "1000000000": {
         "*": 0.014748
       },
-      "25000": {
+      "250000000": {
         "*": 0.01572
       },
-      "500000": {
+      "5000000000": {
         "*": 0.013873
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-26"
+    "checkedAt": "2026-09-26",
+    "pool": "region",
+    "tiered": true
   },
   "azure.frontdoor.premium.zone5.transfer_out": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
-    "note": "Premium data transfer to clients served from edges in billing Zone 5 (India; the zone-to-geography mapping is not on the billing page and not machine-checked), by the first GB of each volume tier: 0, 10 TB, 50 TB, 150 TB, 500 TB, 1 PB, 5 PB",
+    "note": "Premium data transfer to clients served from edges in billing Zone 5 (India; the zone-to-geography mapping is not on the billing page and not machine-checked). Volume tiers count the transfer of every profile to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB; the pricing page does not say whether the tiers count per profile, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Azure Front Door Service",
@@ -394,7 +412,9 @@
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-26"
+    "checkedAt": "2026-09-26",
+    "pool": "region",
+    "tiered": true
   },
   "azure.frontdoor.standard.base": {
     "unit": "month",
@@ -422,7 +442,7 @@
     "unit": "request",
     "per": 10000,
     "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
-    "note": "Standard requests served from edges in billing Zone 1 (North America, Europe, Middle East and Africa; the zone-to-geography mapping is not on the billing page and not machine-checked); rows are the first unit (10,000 requests) of each volume tier: 0, 250 million, 1 billion, 5 billion requests",
+    "note": "Standard requests served from edges in billing Zone 1 (North America, Europe, Middle East and Africa; the zone-to-geography mapping is not on the billing page and not machine-checked). Volume tiers count the requests of every profile to the zone in a month: from 250 million, 1 billion and 5 billion; the pricing page does not say whether the tiers count per profile, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Azure Front Door Service",
@@ -439,23 +459,25 @@
       "0": {
         "*": 0.009
       },
-      "100000": {
+      "1000000000": {
         "*": 0.00729
       },
-      "25000": {
+      "250000000": {
         "*": 0.0081
       },
-      "500000": {
+      "5000000000": {
         "*": 0.006561
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-26"
+    "checkedAt": "2026-09-26",
+    "pool": "region",
+    "tiered": true
   },
   "azure.frontdoor.standard.zone1.transfer_out": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
-    "note": "Standard data transfer to clients served from edges in billing Zone 1 (North America, Europe, Middle East and Africa; the zone-to-geography mapping is not on the billing page and not machine-checked), by the first GB of each volume tier: 0, 10 TB, 50 TB, 150 TB, 500 TB, 1 PB, 5 PB",
+    "note": "Standard data transfer to clients served from edges in billing Zone 1 (North America, Europe, Middle East and Africa; the zone-to-geography mapping is not on the billing page and not machine-checked). Volume tiers count the transfer of every profile to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB; the pricing page does not say whether the tiers count per profile, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Azure Front Door Service",
@@ -491,13 +513,15 @@
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-26"
+    "checkedAt": "2026-09-26",
+    "pool": "region",
+    "tiered": true
   },
   "azure.frontdoor.standard.zone2.requests": {
     "unit": "request",
     "per": 10000,
     "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
-    "note": "Standard requests served from edges in billing Zone 2 (Asia Pacific including Japan; the zone-to-geography mapping is not on the billing page and not machine-checked); rows are the first unit (10,000 requests) of each volume tier: 0, 250 million, 1 billion, 5 billion requests",
+    "note": "Standard requests served from edges in billing Zone 2 (Asia Pacific including Japan; the zone-to-geography mapping is not on the billing page and not machine-checked). Volume tiers count the requests of every profile to the zone in a month: from 250 million, 1 billion and 5 billion; the pricing page does not say whether the tiers count per profile, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Azure Front Door Service",
@@ -514,23 +538,25 @@
       "0": {
         "*": 0.0108
       },
-      "100000": {
+      "1000000000": {
         "*": 0.008748
       },
-      "25000": {
+      "250000000": {
         "*": 0.0097
       },
-      "500000": {
+      "5000000000": {
         "*": 0.007873
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-26"
+    "checkedAt": "2026-09-26",
+    "pool": "region",
+    "tiered": true
   },
   "azure.frontdoor.standard.zone2.transfer_out": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
-    "note": "Standard data transfer to clients served from edges in billing Zone 2 (Asia Pacific including Japan; the zone-to-geography mapping is not on the billing page and not machine-checked), by the first GB of each volume tier: 0, 10 TB, 50 TB, 150 TB, 500 TB, 1 PB, 5 PB",
+    "note": "Standard data transfer to clients served from edges in billing Zone 2 (Asia Pacific including Japan; the zone-to-geography mapping is not on the billing page and not machine-checked). Volume tiers count the transfer of every profile to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB; the pricing page does not say whether the tiers count per profile, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Azure Front Door Service",
@@ -566,13 +592,15 @@
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-26"
+    "checkedAt": "2026-09-26",
+    "pool": "region",
+    "tiered": true
   },
   "azure.frontdoor.standard.zone3.requests": {
     "unit": "request",
     "per": 10000,
     "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
-    "note": "Standard requests served from edges in billing Zone 3 (South America; the zone-to-geography mapping is not on the billing page and not machine-checked); rows are the first unit (10,000 requests) of each volume tier: 0, 250 million, 1 billion, 5 billion requests",
+    "note": "Standard requests served from edges in billing Zone 3 (South America; the zone-to-geography mapping is not on the billing page and not machine-checked). Volume tiers count the requests of every profile to the zone in a month: from 250 million, 1 billion and 5 billion; the pricing page does not say whether the tiers count per profile, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Azure Front Door Service",
@@ -589,23 +617,25 @@
       "0": {
         "*": 0.0199
       },
-      "100000": {
+      "1000000000": {
         "*": 0.016119
       },
-      "25000": {
+      "250000000": {
         "*": 0.0179
       },
-      "500000": {
+      "5000000000": {
         "*": 0.014507
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-26"
+    "checkedAt": "2026-09-26",
+    "pool": "region",
+    "tiered": true
   },
   "azure.frontdoor.standard.zone3.transfer_out": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
-    "note": "Standard data transfer to clients served from edges in billing Zone 3 (South America; the zone-to-geography mapping is not on the billing page and not machine-checked), by the first GB of each volume tier: 0, 10 TB, 50 TB, 150 TB, 500 TB, 1 PB, 5 PB",
+    "note": "Standard data transfer to clients served from edges in billing Zone 3 (South America; the zone-to-geography mapping is not on the billing page and not machine-checked). Volume tiers count the transfer of every profile to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB; the pricing page does not say whether the tiers count per profile, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Azure Front Door Service",
@@ -641,13 +671,15 @@
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-26"
+    "checkedAt": "2026-09-26",
+    "pool": "region",
+    "tiered": true
   },
   "azure.frontdoor.standard.zone4.requests": {
     "unit": "request",
     "per": 10000,
     "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
-    "note": "Standard requests served from edges in billing Zone 4 (Australia; the zone-to-geography mapping is not on the billing page and not machine-checked); rows are the first unit (10,000 requests) of each volume tier: 0, 250 million, 1 billion, 5 billion requests",
+    "note": "Standard requests served from edges in billing Zone 4 (Australia; the zone-to-geography mapping is not on the billing page and not machine-checked). Volume tiers count the requests of every profile to the zone in a month: from 250 million, 1 billion and 5 billion; the pricing page does not say whether the tiers count per profile, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Azure Front Door Service",
@@ -664,23 +696,25 @@
       "0": {
         "*": 0.0113
       },
-      "100000": {
+      "1000000000": {
         "*": 0.009153
       },
-      "25000": {
+      "250000000": {
         "*": 0.0102
       },
-      "500000": {
+      "5000000000": {
         "*": 0.008238
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-26"
+    "checkedAt": "2026-09-26",
+    "pool": "region",
+    "tiered": true
   },
   "azure.frontdoor.standard.zone4.transfer_out": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
-    "note": "Standard data transfer to clients served from edges in billing Zone 4 (Australia; the zone-to-geography mapping is not on the billing page and not machine-checked), by the first GB of each volume tier: 0, 10 TB, 50 TB, 150 TB, 500 TB, 1 PB, 5 PB",
+    "note": "Standard data transfer to clients served from edges in billing Zone 4 (Australia; the zone-to-geography mapping is not on the billing page and not machine-checked). Volume tiers count the transfer of every profile to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB; the pricing page does not say whether the tiers count per profile, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Azure Front Door Service",
@@ -716,13 +750,15 @@
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-26"
+    "checkedAt": "2026-09-26",
+    "pool": "region",
+    "tiered": true
   },
   "azure.frontdoor.standard.zone5.requests": {
     "unit": "request",
     "per": 10000,
     "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
-    "note": "Standard requests served from edges in billing Zone 5 (India; the zone-to-geography mapping is not on the billing page and not machine-checked); rows are the first unit (10,000 requests) of each volume tier: 0, 250 million, 1 billion, 5 billion requests",
+    "note": "Standard requests served from edges in billing Zone 5 (India; the zone-to-geography mapping is not on the billing page and not machine-checked). Volume tiers count the requests of every profile to the zone in a month: from 250 million, 1 billion and 5 billion; the pricing page does not say whether the tiers count per profile, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Azure Front Door Service",
@@ -739,23 +775,25 @@
       "0": {
         "*": 0.0108
       },
-      "100000": {
+      "1000000000": {
         "*": 0.008748
       },
-      "25000": {
+      "250000000": {
         "*": 0.0097
       },
-      "500000": {
+      "5000000000": {
         "*": 0.007873
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-26"
+    "checkedAt": "2026-09-26",
+    "pool": "region",
+    "tiered": true
   },
   "azure.frontdoor.standard.zone5.transfer_out": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
-    "note": "Standard data transfer to clients served from edges in billing Zone 5 (India; the zone-to-geography mapping is not on the billing page and not machine-checked), by the first GB of each volume tier: 0, 10 TB, 50 TB, 150 TB, 500 TB, 1 PB, 5 PB",
+    "note": "Standard data transfer to clients served from edges in billing Zone 5 (India; the zone-to-geography mapping is not on the billing page and not machine-checked). Volume tiers count the transfer of every profile to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB; the pricing page does not say whether the tiers count per profile, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Azure Front Door Service",
@@ -791,6 +829,8 @@
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-26"
+    "checkedAt": "2026-09-26",
+    "pool": "region",
+    "tiered": true
   }
 }

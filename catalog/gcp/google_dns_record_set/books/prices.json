@@ -3,7 +3,7 @@
     "unit": "query",
     "per": 1000000,
     "source": "https://cloud.google.com/dns/pricing",
-    "note": "Regular queries, the first billion of the billing account a month (then $0.20 per million). No free tier. Synced from the Billing Catalog.",
+    "note": "Regular queries, $0.40 per million to a billion a month and $0.20 above, counted over the billing account (\"All queries are aggregated as well, regardless of zone type\", priced \"per 1 month / account\", https://cloud.google.com/dns/pricing). No free tier. Synced from the Billing Catalog.",
     "sync": {
       "filters": {
         "description": "DNS Query \\(port 53\\)",
@@ -12,15 +12,20 @@
       "region": "global",
       "service": "FA26-5236-B8B5",
       "source": "gcp",
-      "tier": "first"
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0.4
+      },
+      "1000000000": {
+        "*": 0.2
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "gcp.dns.routing_policy_queries": {
     "unit": "query",

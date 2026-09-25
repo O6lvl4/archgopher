@@ -2,7 +2,7 @@ type: aws_data_transfer
 label: Data transfer
 category: Network
 icon: vpc
-description: "Data transfer written by hand for a region, as Terraform has no such resource: within the region (charged out of one zone and into the other), out to the internet in volume tiers (first 10 TB, next 40 TB, next 100 TB, over 150 TB), to the other US East region, and to other regions. Free tiers are ignored. Transfer that a node reads itself (S3 downloads, a VPC's zones) should not be written here again."
+description: "Data transfer written by hand for a region, as Terraform has no such resource: within the region (charged out of one zone and into the other), out to the internet in volume tiers from 10 TB, 50 TB and 150 TB a month, counted over the account, to the other US East region, and to other regions. The always-free 100 GB a month out to the internet is given once over the account, shared with every other line that sends to the internet. Transfer that a node reads itself (S3 downloads, a VPC's zones) should not be written here again."
 kinds: [transfer]
 assumptions:
   - { key: intraRegionGb, label: Within the region, type: number, unit: GB, default: 0, hint: "Between Availability Zones or over public or Elastic IP addresses" }
@@ -13,10 +13,7 @@ let:
   - usEast: 'region in ["us-east-1", "us-east-2"]'
 readings:
   - cost: { when: intraRegionGb > 0, name: Within the region, quantity: intraRegionGb * 2, unit: GB, price: aws.transfer.inter_az }
-  - cost: { when: internetGb > 0, name: "Out to the internet (first 10 TB)", quantity: 'min(internetGb, 10240)', unit: GB, price: aws.transfer.internet_out }
-  - cost: { when: internetGb > 10240, name: "Out to the internet (next 40 TB)", quantity: 'min(internetGb - 10240, 40960)', unit: GB, price: aws.transfer.internet_out_next_40tb }
-  - cost: { when: internetGb > 51200, name: "Out to the internet (next 100 TB)", quantity: 'min(internetGb - 51200, 102400)', unit: GB, price: aws.transfer.internet_out_next_100tb }
-  - cost: { when: internetGb > 153600, name: "Out to the internet (over 150 TB)", quantity: internetGb - 153600, unit: GB, price: aws.transfer.internet_out_over_150tb }
+  - cost: { when: internetGb > 0, name: Out to the internet, quantity: internetGb, unit: GB, price: aws.transfer.internet_out }
   - fail: { when: usEastGb > 0 && !usEast, message: "usEastGb is for transfer between us-east-1 and us-east-2; from {region}, write it as otherRegionsGb", continue: true }
   - cost: { when: usEastGb > 0 && usEast, name: To the other US East region, quantity: usEastGb, unit: GB, price: 'aws.transfer.us_east_peer_out.{region}' }
   - cost: { when: otherRegionsGb > 0, name: To other regions, quantity: otherRegionsGb, unit: GB, price: aws.transfer.inter_region_out }

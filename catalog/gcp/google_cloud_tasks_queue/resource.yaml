@@ -2,7 +2,7 @@ type: google_cloud_tasks_queue
 label: Cloud Tasks queue
 category: Messaging
 icon: cloud-tasks
-description: "Billable operations: API calls and push delivery attempts, in 32 KB chunks. Free operations are ignored, as every free tier. Headroom is the dispatch rate against the queue's max dispatches per second."
+description: "Billable operations: API calls and push delivery attempts, in 32 KB chunks. The first million operations a month are free, counted over the billing account. Headroom is the dispatch rate against the queue's max dispatches per second."
 kinds: [enqueue]
 sla: gcp.tasks
 attributes:

@@ -46,6 +46,23 @@
     Key operations: 0.03
   limits:
     Key transactions: 1
+# 2,000 HSM-protected EC key versions, tier by tier: 250 × 5 = 1250; 1250 × 2.5 = 3125;
+# 500 × 0.9 = 450; together 4825. Operations 10,000 × 0.15 / 10,000 = 0.15.
+- name: 2,000 HSM EC key versions past two volume tiers (East US)
+  region: eastus
+  attributes:
+    key_type: EC-HSM
+  assumptions:
+    keyVersions: 2000
+  demand:
+    crypt:
+      monthly: 10000.0
+      peak: 1
+  costs:
+    HSM-protected key versions: 4825
+    Key operations: 0.15
+  limits:
+    Key transactions: 1
 - name: oct-HSM keys belong to a Managed HSM
   region: eastus
   attributes:

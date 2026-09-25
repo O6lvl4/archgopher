@@ -1,198 +1,58 @@
 {
-  "aws.redshift.backup.first_50tb": {
+  "aws.redshift.backup": {
     "unit": "GB-month",
     "source": "https://aws.amazon.com/redshift/pricing/",
-    "note": "Backup storage beyond the free allowance (the provisioned storage of the cluster)",
+    "note": "Backup storage beyond the free allowance (the provisioned storage of the cluster). Volume tiers from 50 TB and 500 TB a month, counted over the account's paid snapshot storage in the region: the pricing page does not say the scope, and the price list lists the tiers in each region's offer",
     "sync": {
       "filters": {
         "productFamily": "Storage Snapshot",
         "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Redshift:PaidSnapshots"
       },
       "service": "AmazonRedshift",
-      "tier": "0"
+      "tier": "{row}"
     },
-    "values": {
-      "ap-northeast-1": {
-        "value": 0.025,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "ap-northeast-1": 0.025,
+        "ap-northeast-2": 0.025,
+        "ap-south-1": 0.025,
+        "ap-southeast-1": 0.025,
+        "ap-southeast-2": 0.025,
+        "eu-central-1": 0.0245,
+        "eu-west-1": 0.023,
+        "us-east-1": 0.023,
+        "us-east-2": 0.023,
+        "us-west-2": 0.023
       },
-      "ap-northeast-2": {
-        "value": 0.025,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "51200": {
+        "ap-northeast-1": 0.024,
+        "ap-northeast-2": 0.024,
+        "ap-south-1": 0.024,
+        "ap-southeast-1": 0.024,
+        "ap-southeast-2": 0.024,
+        "eu-central-1": 0.0235,
+        "eu-west-1": 0.022,
+        "us-east-1": 0.022,
+        "us-east-2": 0.022,
+        "us-west-2": 0.022
       },
-      "ap-south-1": {
-        "value": 0.025,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-1": {
-        "value": 0.025,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-2": {
-        "value": 0.025,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-central-1": {
-        "value": 0.0245,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-west-1": {
-        "value": 0.023,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-1": {
-        "value": 0.023,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-2": {
-        "value": 0.023,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-west-2": {
-        "value": 0.023,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "512000": {
+        "ap-northeast-1": 0.023,
+        "ap-northeast-2": 0.023,
+        "ap-south-1": 0.023,
+        "ap-southeast-1": 0.023,
+        "ap-southeast-2": 0.023,
+        "eu-central-1": 0.0225,
+        "eu-west-1": 0.021,
+        "us-east-1": 0.021,
+        "us-east-2": 0.021,
+        "us-west-2": 0.021
       }
-    }
-  },
-  "aws.redshift.backup.next_450tb": {
-    "unit": "GB-month",
-    "source": "https://aws.amazon.com/redshift/pricing/",
-    "note": "Backup storage beyond the free allowance (the provisioned storage of the cluster)",
-    "sync": {
-      "filters": {
-        "productFamily": "Storage Snapshot",
-        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Redshift:PaidSnapshots"
-      },
-      "service": "AmazonRedshift",
-      "tier": "51200"
     },
-    "values": {
-      "ap-northeast-1": {
-        "value": 0.024,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-northeast-2": {
-        "value": 0.024,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-south-1": {
-        "value": 0.024,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-1": {
-        "value": 0.024,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-2": {
-        "value": 0.024,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-central-1": {
-        "value": 0.0235,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-west-1": {
-        "value": 0.022,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-1": {
-        "value": 0.022,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-2": {
-        "value": 0.022,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-west-2": {
-        "value": 0.022,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      }
-    }
-  },
-  "aws.redshift.backup.over_500tb": {
-    "unit": "GB-month",
-    "source": "https://aws.amazon.com/redshift/pricing/",
-    "note": "Backup storage beyond the free allowance (the provisioned storage of the cluster)",
-    "sync": {
-      "filters": {
-        "productFamily": "Storage Snapshot",
-        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Redshift:PaidSnapshots"
-      },
-      "service": "AmazonRedshift",
-      "tier": "512000"
-    },
-    "values": {
-      "ap-northeast-1": {
-        "value": 0.023,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-northeast-2": {
-        "value": 0.023,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-south-1": {
-        "value": 0.023,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-1": {
-        "value": 0.023,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-2": {
-        "value": 0.023,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-central-1": {
-        "value": 0.0225,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-west-1": {
-        "value": 0.021,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-1": {
-        "value": 0.021,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-2": {
-        "value": 0.021,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-west-2": {
-        "value": 0.021,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      }
-    }
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   },
   "aws.redshift.backup.rg": {
     "unit": "GB-month",

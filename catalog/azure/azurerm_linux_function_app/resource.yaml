@@ -2,7 +2,7 @@ type: azurerm_linux_function_app
 label: Function app (Linux)
 category: Compute
 icon: function-apps
-description: "On the Consumption plan: executions and GB-seconds (memory rounded up to 128 MB, at least 100 ms). On a Premium or App Service plan the app costs nothing itself: the azurerm_service_plan node carries the cost. Headroom is scale-out instances and the 10-minute timeout."
+description: "On the Consumption plan: executions and GB-seconds (memory rounded up to 128 MB, at least 100 ms), less the monthly free grant of a million executions and 400,000 GB-seconds, counted over every Consumption function app of the account. On a Premium or App Service plan the app costs nothing itself: the azurerm_service_plan node carries the cost. Headroom is scale-out instances and the 10-minute timeout."
 kinds: [invoke]
 sla: azure.functions
 assumptions:

@@ -34,7 +34,7 @@
   "gcp.logging.storage": {
     "unit": "GiB",
     "source": "https://cloud.google.com/stackdriver/pricing",
-    "note": "Logging storage: a one-time charge for each GiB streamed into a log bucket, which includes 30 days of storage; vended network logs are $0.25 and the _Required bucket is free. The first 50 GiB a project a month are free and ignored. One SKU lists every log bucket location at one price, so it is read in us-central1 for all. Synced from the Billing Catalog.",
+    "note": "Logging storage: a one-time charge for each GiB streamed into a log bucket, which includes 30 days of storage; vended network logs are $0.25 and the _Required bucket is free. The first 50 GiB a project a month are free (\"First 50 GiB/project/month\", https://cloud.google.com/stackdriver/pricing). The allowance is per project, not per billing account, so the price is not pooled: each line that reads it (a log bucket, or a sink writing to a bucket outside the graph) is given the 50 GiB as its project's. One SKU lists every log bucket location at one price, with the free 50 GiB as a $0 first tier, so it is read in us-central1 for all. Synced from the Billing Catalog.",
     "sync": {
       "filters": {
         "description": "Log Storage cost",
@@ -43,14 +43,18 @@
       "region": "us-central1",
       "service": "5490-F7B7-8DF6",
       "source": "gcp",
-      "tier": "50"
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 0.5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0
+      },
+      "50": {
+        "*": 0.5
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "tiered": true
   }
 }

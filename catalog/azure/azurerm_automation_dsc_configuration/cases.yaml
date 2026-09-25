@@ -9,6 +9,18 @@
       monthly: 0
       peak: 0
   costs:
+    # 3 nodes, within the 5 free
+    Non-Azure configuration nodes: 0
+- name: eight on-premises servers (Japan East)
+  region: japaneast
+  assumptions:
+    nonAzureNodes: 8
+  demand:
+    configure:
+      monthly: 0
+      peak: 0
+  costs:
+    # 8 nodes, the first 5 free: 3 at 6 = 18
     Non-Azure configuration nodes: 18
 - name: Azure machines only (East US)
   region: eastus

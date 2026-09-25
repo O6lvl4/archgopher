@@ -7,7 +7,7 @@
       monthly: 0
       peak: 0
 - name: Oregon global address reserved and not assigned
-  # 0.01 x 730
+  # 0.01 x (730 − 1): the billing account's first hour is free
   region: us-west1
   assumptions:
     use: unused
@@ -16,7 +16,7 @@
       monthly: 0
       peak: 0
   costs:
-    External IP address (unused): 7.3
+    External IP address (unused): 7.29
 - name: Tokyo range for private services access is free
   region: asia-northeast1
   attributes:

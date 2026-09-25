@@ -40,5 +40,17 @@
         monthly: 50
         peak: 0.001
   costs:
-    Handler operations: 0.18  # 50 × 4 × 0.0009
+    Handler operations: 0  # 50 × 4 = 200, within the account's always-free 1,000
     Handler time beyond 30 s: 0.24  # 200 × 15 s × 0.00008
+- name: registry operations past the always-free thousand
+  region: ap-northeast-1
+  assumptions:
+    handlerSeconds: 45
+    thirdPartyResources: 4
+  demand:
+    deploy:
+        monthly: 500
+        peak: 0.001
+  costs:
+    Handler operations: 0.9  # (500 × 4 − 1,000 always free) × 0.0009
+    Handler time beyond 30 s: 2.4  # 2,000 × 15 s × 0.00008

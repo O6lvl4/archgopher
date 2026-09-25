@@ -22,10 +22,10 @@
       }
     }
   },
-  "azure.dns.zone.first_25": {
+  "azure.dns.zone": {
     "unit": "zone-month",
     "source": "https://azure.microsoft.com/pricing/details/dns/",
-    "note": "Public zone, each of the first 25 in the subscription",
+    "note": "Public zone per month. Volume tiers count the public zones of the subscription: the first 25 at the list price, every zone from the 26th lower (\"First 25 hosted DNS zones\"; zones and queries are aggregated within an Azure subscription for billing, https://azure.microsoft.com/pricing/details/dns/)",
     "sync": {
       "source": "azure",
       "service": "Azure DNS",
@@ -35,37 +35,19 @@
         "skuName": "Public",
         "meterName": "Public Zone"
       },
-      "tier": "0"
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 0.5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      }
-    }
-  },
-  "azure.dns.zone.over_25": {
-    "unit": "zone-month",
-    "source": "https://azure.microsoft.com/pricing/details/dns/",
-    "note": "Public zone beyond the first 25 in the subscription",
-    "sync": {
-      "source": "azure",
-      "service": "Azure DNS",
-      "region": "Zone 1",
-      "filters": {
-        "productName": "Azure DNS",
-        "skuName": "Public",
-        "meterName": "Public Zone"
+    "rows": {
+      "0": {
+        "*": 0.5
       },
-      "tier": "25"
-    },
-    "values": {
-      "*": {
-        "value": 0.1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "25": {
+        "*": 0.1
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   }
 }

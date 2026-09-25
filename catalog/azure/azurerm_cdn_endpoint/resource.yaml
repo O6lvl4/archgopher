@@ -2,7 +2,7 @@ type: azurerm_cdn_endpoint
 label: CDN endpoint (classic)
 category: Edge
 icon: cdn
-description: "Azure CDN Standard from Microsoft (classic): transfer to clients in volume tiers, priced by the billing zone of the edge that serves the viewers (by default the zone of the region), and, when the endpoint has rules, the rules beyond the 5 included and the requests the rules engine processes. The tier is the profile's; Akamai and Verizon are retired and read as an error. Headroom is the requests and bandwidth a profile takes before Azure Support must raise them, and the rules an endpoint may hold."
+description: "Azure CDN Standard from Microsoft (classic): transfer to clients in volume tiers from 10 TB, 50 TB, 150 TB, 500 TB and 1 PB a month, counted over every endpoint of the region that serves the same zone and priced by the billing zone of the edge that serves the viewers (by default the zone of the region), and, when the endpoint has rules, the rules beyond the 5 included and the requests the rules engine processes. The tier is the profile's; Akamai and Verizon are retired and read as an error. Headroom is the requests and bandwidth a profile takes before Azure Support must raise them, and the rules an endpoint may hold."
 kinds: [request]
 sla: azure.cdn
 attributes:
@@ -25,15 +25,10 @@ let:
       region in ["centralindia", "southindia", "westindia", "jioindiawest", "jioindiacentral"] ? "zone5" : "zone1"
   - rules: 'delivery_rules + (global_delivery_rule ? 1 : 0)'
   - gb: total.monthly * responseKb / 1024 / 1024
-  - t: '"azure.cdn.microsoft." + zone + ".transfer."'
+  - t: '"azure.cdn.microsoft." + zone + ".transfer"'
 readings:
   - fail: { when: 'sku != "Standard_Microsoft"', message: "Azure CDN {sku} is retired; only Standard_Microsoft profiles still serve" }
-  - cost: { name: Transfer to clients (first 10 TB), quantity: 'min(gb, 10000)', unit: GB, price: "{t}0" }
-  - cost: { when: gb > 10000, name: Transfer to clients (next 40 TB), quantity: 'min(gb, 50000) - 10000', unit: GB, price: "{t}10000" }
-  - cost: { when: gb > 50000, name: Transfer to clients (next 100 TB), quantity: 'min(gb, 150000) - 50000', unit: GB, price: "{t}50000" }
-  - cost: { when: gb > 150000, name: Transfer to clients (next 350 TB), quantity: 'min(gb, 500000) - 150000', unit: GB, price: "{t}150000" }
-  - cost: { when: gb > 500000, name: Transfer to clients (next 500 TB), quantity: 'min(gb, 1000000) - 500000', unit: GB, price: "{t}500000" }
-  - cost: { when: gb > 1000000, name: Transfer to clients (over 1 PB), quantity: gb - 1000000, unit: GB, price: "{t}1000000" }
+  - cost: { name: Transfer to clients, quantity: gb, unit: GB, price: "{t}" }
   - cost: { when: rules > 5, name: Rules beyond 5, quantity: rules - 5, unit: rule-month, price: azure.cdn.microsoft.rule }
   - requests: { when: rules > 0, name: Rules engine requests, count: total.monthly, price: azure.cdn.microsoft.rules_requests }
   - rate: { name: Requests, unit: requests/second, quota: azure.cdn.profile_rps, peak: total.peak }

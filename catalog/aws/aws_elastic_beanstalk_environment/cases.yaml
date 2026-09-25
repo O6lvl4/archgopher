@@ -24,8 +24,8 @@
     Root volumes (gp2): 1.92
     Load balancer (application): 17.739
     Load balancer capacity units: 11.68
-    Log ingestion: 0.72479248046875
-    Log storage: 0.03105715701
+    Log ingestion: 0  # 0.95 GB, within the account's always-free 5 GB
+    Log storage: 0  # within the account's always-free 5 GB-months
   limits:
     Requests per second: 30
 - name: a single Windows instance with an RDS instance in the environment (us-east-1)

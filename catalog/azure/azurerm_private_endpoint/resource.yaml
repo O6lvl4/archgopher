@@ -2,7 +2,7 @@ type: azurerm_private_endpoint
 label: Private endpoint
 category: Network
 icon: private-endpoint
-description: "Endpoint-hours and data processed in both directions, at the same rate each way (the first 1 PB a month; lower tiers beyond are not read). Place it on the path: load that passes through carries kbPerUnit each and flows on to the resource it connects to, which Terraform links. Clients name the resource, not the endpoint, so draw their traffic through it by hand."
+description: "Endpoint-hours and data processed in both directions, at the same rate each way, in volume tiers from 1 PB and 5 PB a month counted over every private endpoint of the account (both directions together). Place it on the path: load that passes through carries kbPerUnit each and flows on to the resource it connects to, which Terraform links. Clients name the resource, not the endpoint, so draw their traffic through it by hand."
 kinds: [request]
 sla: azure.privatelink
 assumptions:

@@ -3,7 +3,7 @@
     "unit": "query",
     "per": 1000000,
     "source": "https://azure.microsoft.com/pricing/details/traffic-manager/",
-    "note": "DNS queries to profiles, first billion a month; the same for every endpoint kind",
+    "note": "DNS queries to profiles, the same for every endpoint kind. Volume tiers count the queries of every profile in a month: lower from 1 billion; the pricing page does not say whether they count per profile or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Traffic Manager",
@@ -13,41 +13,21 @@
         "skuName": "Azure Endpoint",
         "meterName": "DNS Queries"
       },
-      "tier": "0",
+      "tier": "{row}",
       "listPer": 1000000
     },
-    "values": {
-      "*": {
-        "value": 0.54,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      }
-    }
-  },
-  "azure.trafficmanager.queries_over_1b": {
-    "unit": "query",
-    "per": 1000000,
-    "source": "https://azure.microsoft.com/pricing/details/traffic-manager/",
-    "note": "DNS queries to profiles beyond the first billion a month",
-    "sync": {
-      "source": "azure",
-      "service": "Traffic Manager",
-      "region": "Global",
-      "filters": {
-        "productName": "Traffic Manager",
-        "skuName": "Azure Endpoint",
-        "meterName": "DNS Queries"
+    "rows": {
+      "0": {
+        "*": 0.54
       },
-      "tier": "1000",
-      "listPer": 1000000
-    },
-    "values": {
-      "*": {
-        "value": 0.375,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "1000000000": {
+        "*": 0.375
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   },
   "azure.trafficmanager.traffic_view": {
     "unit": "data point",

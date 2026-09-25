@@ -2,7 +2,7 @@ type: aws_sns_topic_subscription
 label: SNS subscription
 category: Messaging
 icon: sns
-description: "Deliveries by protocol: HTTP/S in 64 KB chunks, email, mobile push and Firehose per notification; SQS and Lambda are free, except SQS behind a FIFO topic. Payload-based filtering (filter_policy_scope MessageBody) bills every GB it scans. SMS is priced by destination country and not read. It sits between its topic and its endpoint: what the topic publishes reaches it, and what passes the filter goes on."
+description: "Deliveries by protocol: HTTP/S in 64 KB chunks, email, mobile push and Firehose per notification, with the first 100,000 HTTP/S and 1,000 email deliveries a month free for the account; SQS and Lambda are free, except SQS behind a FIFO topic. Payload-based filtering (filter_policy_scope MessageBody) bills every GB it scans. SMS is priced by destination country and not read. It sits between its topic and its endpoint: what the topic publishes reaches it, and what passes the filter goes on."
 kinds: [deliver]
 sla: aws.sns
 attributes:

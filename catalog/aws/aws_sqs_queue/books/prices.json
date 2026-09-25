@@ -3,126 +3,114 @@
     "unit": "request",
     "per": 1000000,
     "source": "https://aws.amazon.com/sqs/pricing/",
+    "note": "FIFO queue requests. Volume tiers from 100 billion and 200 billion requests a month. Always free: 1,000,000 requests a month over standard and FIFO queues together (https://aws.amazon.com/free/, Always free: Amazon SQS; https://aws.amazon.com/sqs/pricing/: \"All customers can make 1 million Amazon SQS requests for free each month\"), counted over every region of the account (https://aws.amazon.com/free/free-tier-faqs/). The pricing page does not say whether the tiers count per region or over the account; the pool follows the free requests and counts both over the account",
     "sync": {
       "service": "AWSQueueService",
       "filters": {
         "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Requests-FIFO(-RBP|-Tier1)"
+      },
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "ap-northeast-1": 0.5,
+        "ap-northeast-2": 0.5,
+        "ap-south-1": 0.5,
+        "ap-southeast-1": 0.5,
+        "ap-southeast-2": 0.5,
+        "eu-central-1": 0.5,
+        "eu-west-1": 0.5,
+        "us-east-1": 0.5,
+        "us-east-2": 0.5,
+        "us-west-2": 0.5
+      },
+      "100000000000": {
+        "ap-northeast-1": 0.46,
+        "ap-northeast-2": 0.47,
+        "ap-south-1": 0.46,
+        "ap-southeast-1": 0.46,
+        "ap-southeast-2": 0.46,
+        "eu-central-1": 0.48,
+        "eu-west-1": 0.4,
+        "us-east-1": 0.4,
+        "us-east-2": 0.4,
+        "us-west-2": 0.4
+      },
+      "200000000000": {
+        "ap-northeast-1": 0.42,
+        "ap-northeast-2": 0.43,
+        "ap-south-1": 0.42,
+        "ap-southeast-1": 0.42,
+        "ap-southeast-2": 0.42,
+        "eu-central-1": 0.44,
+        "eu-west-1": 0.35,
+        "us-east-1": 0.35,
+        "us-east-2": 0.35,
+        "us-west-2": 0.35
       }
     },
-    "values": {
-      "ap-northeast-1": {
-        "value": 0.5,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-northeast-2": {
-        "value": 0.5,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-south-1": {
-        "value": 0.5,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-southeast-1": {
-        "value": 0.5,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-southeast-2": {
-        "value": 0.5,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eu-central-1": {
-        "value": 0.5,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eu-west-1": {
-        "value": 0.5,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-1": {
-        "value": 0.5,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-2": {
-        "value": 0.5,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-west-2": {
-        "value": 0.5,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      }
-    }
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "free": 1000000,
+    "freeGroup": "aws.sqs.free_requests",
+    "tiered": true
   },
   "aws.sqs.standard.requests": {
     "unit": "request",
     "per": 1000000,
     "source": "https://aws.amazon.com/sqs/pricing/",
+    "note": "Standard queue requests. Volume tiers from 100 billion and 200 billion requests a month. Always free: 1,000,000 requests a month over standard and FIFO queues together (https://aws.amazon.com/free/, Always free: Amazon SQS; https://aws.amazon.com/sqs/pricing/: \"All customers can make 1 million Amazon SQS requests for free each month\"), counted over every region of the account (https://aws.amazon.com/free/free-tier-faqs/). The pricing page does not say whether the tiers count per region or over the account; the pool follows the free requests and counts both over the account",
     "sync": {
       "service": "AWSQueueService",
       "filters": {
         "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Requests(-RBP|-Tier1)"
+      },
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "ap-northeast-1": 0.4,
+        "ap-northeast-2": 0.4,
+        "ap-south-1": 0.4,
+        "ap-southeast-1": 0.4,
+        "ap-southeast-2": 0.4,
+        "eu-central-1": 0.4,
+        "eu-west-1": 0.4,
+        "us-east-1": 0.4,
+        "us-east-2": 0.4,
+        "us-west-2": 0.4
+      },
+      "100000000000": {
+        "ap-northeast-1": 0.35,
+        "ap-northeast-2": 0.35,
+        "ap-south-1": 0.35,
+        "ap-southeast-1": 0.35,
+        "ap-southeast-2": 0.35,
+        "eu-central-1": 0.36,
+        "eu-west-1": 0.3,
+        "us-east-1": 0.3,
+        "us-east-2": 0.3,
+        "us-west-2": 0.3
+      },
+      "200000000000": {
+        "ap-northeast-1": 0.32,
+        "ap-northeast-2": 0.32,
+        "ap-south-1": 0.32,
+        "ap-southeast-1": 0.32,
+        "ap-southeast-2": 0.32,
+        "eu-central-1": 0.32,
+        "eu-west-1": 0.24,
+        "us-east-1": 0.24,
+        "us-east-2": 0.24,
+        "us-west-2": 0.24
       }
     },
-    "values": {
-      "ap-northeast-1": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-northeast-2": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-south-1": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-southeast-1": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-southeast-2": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eu-central-1": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eu-west-1": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-1": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-2": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-west-2": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      }
-    }
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "free": 1000000,
+    "freeGroup": "aws.sqs.free_requests",
+    "tiered": true
   }
 }

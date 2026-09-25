@@ -39,3 +39,41 @@
   # 10 GB × $0.38
   costs:
     Logs delivered (kinesis-data-firehose): 3.8
+- name: 60 TB to CloudWatch Logs, past every tier (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    gbPerMonth: 60000
+  demand:
+    record:
+      monthly: 0
+      peak: 0
+  # 10,240 × $0.76 = 7782.4; 20,480 × $0.38 = 7782.4; 20,480 × $0.152 = 3112.96;
+  # (60,000 − 51,200) × $0.076 = 668.8; together 19346.56
+  costs:
+    Logs delivered (cloud-watch-logs): 19346.56
+- name: 20 TB to S3, past the first tier (us-east-1)
+  region: us-east-1
+  attributes:
+    log_destination_type: s3
+  assumptions:
+    gbPerMonth: 20000
+  demand:
+    record:
+      monthly: 0
+      peak: 0
+  # 10,240 × $0.25 = 2560; (20,000 − 10,240) × $0.15 = 1464; together 4024
+  costs:
+    Logs delivered (s3): 4024
+- name: 40 TB to Firehose, past two tiers (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    log_destination_type: kinesis-data-firehose
+  assumptions:
+    gbPerMonth: 40000
+  demand:
+    record:
+      monthly: 0
+      peak: 0
+  # 10,240 × $0.38 = 3891.2; 20,480 × $0.228 = 4669.44; (40,000 − 30,720) × $0.114 = 1057.92; together 9618.56
+  costs:
+    Logs delivered (kinesis-data-firehose): 9618.56

@@ -18,7 +18,7 @@ assumptions:
   - { key: monthlyHours, label: Hours running a month, type: number, unit: hours, default: 730 }
   - { key: spotShare, label: Spot price share, type: number, unit: fraction, optional: true, hint: "Spot price as a share of on-demand, from the Spot price history of the type (often 0.3 to 0.7). The Price List has no spot prices" }
   - { key: diskVolumeType, label: Disk volume type, type: choice, options: [gp2, gp3], default: gp2, hint: "The node disk EKS creates; a launch template can choose gp3" }
-  - { key: detailedMonitoring, label: Detailed monitoring, type: boolean, default: false, hint: "Set by a launch template" }
+  - { key: detailedMonitoring, label: Detailed monitoring, type: boolean, default: false, hint: "Set by a launch template. About 7 CloudWatch metrics per node; CloudWatch bills them in volume tiers from 10,000 metrics, and the first 10 are always free, both counted over the account" }
   - { key: surplusCreditVcpuHours, label: Surplus CPU credits per instance, type: number, unit: vCPU-hours, default: 0, hint: "Unlimited burstable instances only: vCPU-hours a month above the baseline that the earned credits do not cover" }
   - { key: requestsPerInstance, label: Capacity per instance, type: number, unit: requests/second, optional: true, hint: "What one instance serves at the peak, from a load test; compared with the peak load" }
 let:

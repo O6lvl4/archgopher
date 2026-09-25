@@ -10,7 +10,7 @@
   costs:
     External IP address (standard VM): 3.65
 - name: Northern Virginia address reserved and not assigned
-  # 0.011 x 730
+  # 0.011 x (730 − 1): the billing account's first hour is free
   region: us-east4
   assumptions:
     use: unused
@@ -19,7 +19,7 @@
       monthly: 0
       peak: 0
   costs:
-    External IP address (unused): 8.03
+    External IP address (unused): 8.019
 - name: Tokyo internal address is free
   region: asia-northeast1
   attributes:

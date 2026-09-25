@@ -46,3 +46,17 @@
   demand: *id001
   error: 'GatewayLoadBalancer endpoints are not priced yet: only Gateway and Interface
     endpoints are'
+- name: Interface past the first processing tier (us-east-1)
+  region: us-east-1
+  attributes:
+    vpc_endpoint_type: Interface
+  assumptions:
+    gbPerMonth: 2000000
+  demand:
+    request:
+      monthly: 0
+      peak: 0
+  # 1,048,576 GB × $0.01 = 10485.76; (2,000,000 − 1,048,576) GB × $0.006 = 5708.544; together 16194.304
+  costs:
+    Endpoint hours: 14.6
+    Data processed: 16194.304

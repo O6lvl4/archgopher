@@ -1512,66 +1512,45 @@
   "gcp.compute.ip.unused": {
     "unit": "address-hour",
     "source": "https://cloud.google.com/vpc/network-pricing",
-    "note": "Static external IPv4 address reserved but not assigned to a resource. Read from the pricing page's regional tables; sync verifies rows with a single Billing Catalog SKU once credentials are set.",
+    "note": "Static external IPv4 address reserved but not assigned to a resource. The first hour a month is free, counted over the billing account across regions (\"Free Tier: For 0 hour to 1 hour, per 1 month per account ... Usage calculations are combined across those regions\", https://cloud.google.com/vpc/network-pricing). Synced from the Billing Catalog, which lists the free hour as a $0 first tier on each region's SKU.",
     "sync": {
       "filters": {
         "description": "Static Ip Charge( in .+)?"
       },
       "service": "6F81-5844-456A",
-      "source": "gcp"
+      "source": "gcp",
+      "tier": "{row}"
     },
-    "values": {
-      "asia-northeast1": {
-        "value": 0.015,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "asia-northeast1": 0,
+        "asia-northeast3": 0,
+        "asia-south1": 0,
+        "asia-southeast1": 0,
+        "australia-southeast1": 0,
+        "europe-west1": 0,
+        "europe-west3": 0,
+        "us-east4": 0,
+        "us-east5": 0,
+        "us-west1": 0
       },
-      "asia-northeast3": {
-        "value": 0.015,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "asia-south1": {
-        "value": 0.012,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "asia-southeast1": {
-        "value": 0.011,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "australia-southeast1": {
-        "value": 0.014,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "europe-west1": {
-        "value": 0.01,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "europe-west3": {
-        "value": 0.012,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east4": {
-        "value": 0.011,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east5": {
-        "value": 0.01,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-west1": {
-        "value": 0.01,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "1": {
+        "asia-northeast1": 0.015,
+        "asia-northeast3": 0.015,
+        "asia-south1": 0.012,
+        "asia-southeast1": 0.011,
+        "australia-southeast1": 0.014,
+        "europe-west1": 0.01,
+        "europe-west3": 0.012,
+        "us-east4": 0.011,
+        "us-east5": 0.01,
+        "us-west1": 0.01
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "gcp.compute.local_ssd": {
     "unit": "GB-month",

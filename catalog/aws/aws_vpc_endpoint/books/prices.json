@@ -2,66 +2,56 @@
   "aws.vpce.data_processed": {
     "unit": "GB",
     "source": "https://aws.amazon.com/privatelink/pricing/",
-    "note": "Interface endpoint data processed, first 1 PB a month tier",
+    "note": "Interface endpoint data processed. Volume tiers from 1 PB and 5 PB a month, on the total data processed by all interface endpoints in the region (https://aws.amazon.com/privatelink/pricing/)",
     "sync": {
       "service": "AmazonVPC",
       "filters": {
         "usagetype": "(?:[A-Z]+[0-9]|EU)-VpcEndpoint-Bytes"
       },
-      "tier": "first"
+      "tier": "{row}"
     },
-    "values": {
-      "ap-northeast-1": {
-        "value": 0.01,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+    "rows": {
+      "0": {
+        "ap-northeast-1": 0.01,
+        "ap-northeast-2": 0.01,
+        "ap-south-1": 0.01,
+        "ap-southeast-1": 0.01,
+        "ap-southeast-2": 0.01,
+        "eu-central-1": 0.01,
+        "eu-west-1": 0.01,
+        "us-east-1": 0.01,
+        "us-east-2": 0.01,
+        "us-west-2": 0.01
       },
-      "ap-northeast-2": {
-        "value": 0.01,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+      "1048576": {
+        "ap-northeast-1": 0.006,
+        "ap-northeast-2": 0.006,
+        "ap-south-1": 0.006,
+        "ap-southeast-1": 0.006,
+        "ap-southeast-2": 0.006,
+        "eu-central-1": 0.006,
+        "eu-west-1": 0.006,
+        "us-east-1": 0.006,
+        "us-east-2": 0.006,
+        "us-west-2": 0.006
       },
-      "ap-south-1": {
-        "value": 0.01,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-southeast-1": {
-        "value": 0.01,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-southeast-2": {
-        "value": 0.01,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eu-central-1": {
-        "value": 0.01,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eu-west-1": {
-        "value": 0.01,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-1": {
-        "value": 0.01,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-2": {
-        "value": 0.01,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-west-2": {
-        "value": 0.01,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+      "5242880": {
+        "ap-northeast-1": 0.004,
+        "ap-northeast-2": 0.004,
+        "ap-south-1": 0.004,
+        "ap-southeast-1": 0.004,
+        "ap-southeast-2": 0.004,
+        "eu-central-1": 0.004,
+        "eu-west-1": 0.004,
+        "us-east-1": 0.004,
+        "us-east-2": 0.004,
+        "us-west-2": 0.004
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   },
   "aws.vpce.interface_hour": {
     "unit": "hour",

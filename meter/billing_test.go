@@ -26,7 +26,7 @@ func tiered(t *testing.T) book.Book {
 func near(a, b float64) bool { return math.Abs(a-b) < 1e-9 }
 
 func TestBillCountsTiersOverTheWholeQuantity(t *testing.T) {
-	b, err := Bill(tiered(t), "x.requests", "r1", 600e6, 1e6)
+	b, err := Bill(tiered(t), "x.requests", "r1", 600e6, 1e6, true)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -40,7 +40,7 @@ func TestBillCountsTiersOverTheWholeQuantity(t *testing.T) {
 }
 
 func TestBillWithoutFreeUnits(t *testing.T) {
-	b, err := Bill(tiered(t), "x.requests", "r1", 2e6, 0)
+	b, err := Bill(tiered(t), "x.requests", "r1", 2e6, 0, false)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -50,7 +50,7 @@ func TestBillWithoutFreeUnits(t *testing.T) {
 }
 
 func TestBillInsideTheFreeUnits(t *testing.T) {
-	b, err := Bill(tiered(t), "x.requests", "r1", 5e5, 1e6)
+	b, err := Bill(tiered(t), "x.requests", "r1", 5e5, 1e6, true)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -66,11 +66,11 @@ func TestBillATierNotOfferedOnlyWhenReached(t *testing.T) {
 		e.Values["r2"] = book.Value{Value: f(1), Verified: true}
 		prices[row] = e
 	}
-	if _, err := Bill(prices, "x.requests", "r2", 1e6, 1e6); err != nil {
+	if _, err := Bill(prices, "x.requests", "r2", 1e6, 1e6, true); err != nil {
 		t.Fatalf("below the missing tier: %v", err)
 	}
 	var no *NotOfferedError
-	if _, err := Bill(prices, "x.requests", "r2", 600e6, 1e6); !errors.As(err, &no) {
+	if _, err := Bill(prices, "x.requests", "r2", 600e6, 1e6, true); !errors.As(err, &no) {
 		t.Fatalf("err = %v, want not offered", err)
 	}
 }
@@ -129,5 +129,19 @@ func TestNoFreeBillsEveryUnit(t *testing.T) {
 	r.Cost("Requests", 1e6, "request", "x.requests")
 	if got := *r.Costs()[0].MonthlyUSD; !near(got, 10) {
 		t.Fatalf("got %v, want 10", got)
+	}
+}
+
+func TestNoFreeBillsAFreeGrantTier(t *testing.T) {
+	prices, err := book.Book{"x.ops": {Unit: "op", Source: "test", Pool: book.PoolAccount, Tiered: true, Verified: true, Rows: map[string]map[string]*float64{
+		"0": {"r1": f(0)}, "100": {"r1": f(2)}, "1000": {"r1": f(1)},
+	}}}.Flatten()
+	if err != nil {
+		t.Fatal(err)
+	}
+	with, _ := Bill(prices, "x.ops", "r1", 200, 0, true)
+	without, _ := Bill(prices, "x.ops", "r1", 200, 0, false)
+	if *with.USD != 200 || *without.USD != 400 {
+		t.Fatalf("with the grant %v, without %v; want 200 and 400", *with.USD, *without.USD)
 	}
 }

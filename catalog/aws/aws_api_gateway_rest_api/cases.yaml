@@ -21,8 +21,8 @@
     Requests: 8.5
   limits:
     Account throttle: 40
-# Over the first tier: 333M × 3.5/1e6 = 1165.5; (1e9 − 333M) = 667M × 2.8/1e6 = 1867.6;
-# (1.5e9 − 1e9) = 500M × 2.38/1e6 = 1190.
+# Over the first tier, tier by tier: 333M × 3.5/1e6 = 1165.5; (1e9 − 333M) = 667M × 2.8/1e6 = 1867.6;
+# (1.5e9 − 1e9) = 500M × 2.38/1e6 = 1190; together 4223.1.
 - name: requests past two volume tiers (us-east-1)
   region: us-east-1
   demand:
@@ -30,12 +30,11 @@
         monthly: 1.5e+09
         peak: 40
   costs:
-    Requests: 1165.5
-    Requests (next 667 million): 1867.6
-    Requests (next 19 billion): 1190
+    Requests: 4223.1
   limits:
     Account throttle: 40
-# ap-southeast-2 has no 333M break: its 333M–1B band is still 3.5/1e6. 333M × 3.5/1e6 = 1165.5; 267M × 3.5/1e6 = 934.5.
+# ap-southeast-2 has no 333M break: its 333M–1B band is still 3.5/1e6. 333M × 3.5/1e6 = 1165.5; 267M × 3.5/1e6 = 934.5;
+# together 2100.
 - name: requests in the second band (ap-southeast-2)
   region: ap-southeast-2
   demand:
@@ -43,7 +42,6 @@
         monthly: 6e+08
         peak: 40
   costs:
-    Requests: 1165.5
-    Requests (next 667 million): 934.5
+    Requests: 2100
   limits:
     Account throttle: 40

@@ -2,7 +2,7 @@ type: google_pubsub_topic
 label: Pub/Sub topic
 category: Messaging
 icon: pubsub
-description: "Throughput per TiB: each message is billed once published, at 1,000 bytes minimum, and once more for every subscription not declared as a node. A google_pubsub_subscription is its own node that bills its deliveries and storage. Topic message retention is not counted. Headroom is the region's publish throughput."
+description: "Throughput per TiB: each message is billed once published, at 1,000 bytes minimum, and once more for every subscription not declared as a node. A google_pubsub_subscription is its own node that bills its deliveries and storage. The first 10 GiB of throughput a month are free, counted over the billing account. Topic message retention is not counted. Headroom is the region's publish throughput."
 kinds: [publish]
 sla: gcp.pubsub
 assumptions:

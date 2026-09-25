@@ -2,7 +2,7 @@ type: cloudflare_workers_kv_namespace
 label: Workers KV
 category: Database
 icon: key-round
-description: "Keys read, keys written and stored data, beyond what the Workers Paid plan includes account-wide (10 million reads and 1 million writes, deletes and lists each a month, 1 GB stored), which is not subtracted here. Count deletes and list requests as writes: they cost the same. Egress is free."
+description: "Keys read, keys written and stored data. The Workers Paid plan's 10 million reads, 1 million writes and 1 GB a month are free units counted over every namespace of the account. Count deletes and list requests as writes: they cost the same, though their own 1 million a month each is not given. Egress is free."
 kinds: [read, write]
 sla: cloudflare.kv
 assumptions:

@@ -2,7 +2,7 @@ type: aws_scheduler_schedule
 label: EventBridge Scheduler
 category: Scheduling
 icon: eventbridge
-description: Invocations. Its schedule expression becomes the node's load on Terraform import. Free tier is ignored.
+description: Invocations, the first 14 million a month always free for the account. Its schedule expression becomes the node's load on Terraform import.
 kinds: [fire]
 sla: aws.scheduler
 readings:

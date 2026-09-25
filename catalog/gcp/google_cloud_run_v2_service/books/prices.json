@@ -131,7 +131,7 @@
     "unit": "request",
     "per": 1000000,
     "source": "https://cloud.google.com/run/pricing",
-    "note": "Requests beyond the free 2 million a month (the SKU's first tier), the same in every region. Cloud Run functions (2nd gen) invocations have the same price (SKU \"Cloud Run Functions Invocations\").",
+    "note": "Requests, the same in every region; Cloud Run functions (2nd gen) invocations have the same price (SKU \"Cloud Run Functions Invocations\") and the same free tier. The first 2 million a month are free, counted over the billing account (\"Requests - 2 million requests free per month\"; \"The free tier usage is aggregated across projects by billing account\", https://cloud.google.com/run/pricing). Synced from the Billing Catalog, which lists them as a $0 first tier.",
     "sync": {
       "source": "gcp",
       "service": "152E-C115-5142",
@@ -139,14 +139,19 @@
         "description": "Requests"
       },
       "region": "global",
-      "tier": "2000000"
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0
+      },
+      "2000000": {
+        "*": 0.4
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   }
 }

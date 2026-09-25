@@ -3,7 +3,7 @@
     "unit": "operation",
     "per": 1000000,
     "source": "https://cloud.google.com/tasks/pricing",
-    "note": "Billable operations in 32 KB chunks beyond the free first million a month (the SKU's first tier).",
+    "note": "Billable operations in 32 KB chunks. The first million a month are free, counted over the billing account (\"0 count to 1,000,000 count $0.00 (Free) ... per 1 month / account\", https://cloud.google.com/tasks/pricing). Synced from the Billing Catalog, which lists them as a $0 first tier.",
     "sync": {
       "source": "gcp",
       "service": "F3A6-D7B7-9BDA",
@@ -11,14 +11,19 @@
         "description": "Operations"
       },
       "region": "global",
-      "tier": "1000000"
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0
+      },
+      "1000000": {
+        "*": 0.4
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   }
 }

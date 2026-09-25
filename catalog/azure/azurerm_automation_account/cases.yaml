@@ -9,8 +9,8 @@
       monthly: 10000
       peak: 2
   costs:
-    # 30,000 minutes at 0.002
-    Job run time: 60
+    # 30,000 minutes, the first 500 free: 29,500 at 0.002 = 59
+    Job run time: 59
   limits:
     Job submissions: 2
     # 2 jobs a second running 180 seconds each
@@ -25,8 +25,10 @@
       monthly: 0
       peak: 0
   costs:
-    Job run time: 2
-    Non-Azure configuration nodes: 60
+    # 1,000 minutes, the first 500 free: 500 at 0.002 = 1
+    Job run time: 1
+    # 10 nodes, the first 5 free: 5 at 6 = 30
+    Non-Azure configuration nodes: 30
   limits:
     Job submissions: 0
     Concurrent jobs: 0

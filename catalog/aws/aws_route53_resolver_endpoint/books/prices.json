@@ -129,130 +129,43 @@
     "unit": "query",
     "per": 1000000,
     "source": "https://aws.amazon.com/route53/pricing/",
-    "note": "Queries through Resolver endpoints, first 1 billion a month",
+    "note": "Queries through Resolver endpoints. Volume tiers from 1 billion queries a month, counted over every endpoint of the account in the region: the pricing page does not say the scope, and the price list lists the tiers in each region's offer",
     "sync": {
       "service": "AmazonRoute53",
       "filters": {
         "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?DNS-Queries"
       },
-      "tier": "first"
+      "tier": "{row}"
     },
-    "values": {
-      "ap-northeast-1": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "ap-northeast-1": 0.4,
+        "ap-northeast-2": 0.4,
+        "ap-south-1": 0.4,
+        "ap-southeast-1": 0.4,
+        "ap-southeast-2": 0.4,
+        "eu-central-1": 0.4,
+        "eu-west-1": 0.4,
+        "us-east-1": 0.4,
+        "us-east-2": 0.4,
+        "us-west-2": 0.4
       },
-      "ap-northeast-2": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-south-1": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-1": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-2": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-central-1": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-west-1": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-1": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-2": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-west-2": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "1000000000": {
+        "ap-northeast-1": 0.2,
+        "ap-northeast-2": 0.2,
+        "ap-south-1": 0.2,
+        "ap-southeast-1": 0.2,
+        "ap-southeast-2": 0.2,
+        "eu-central-1": 0.2,
+        "eu-west-1": 0.2,
+        "us-east-1": 0.2,
+        "us-east-2": 0.2,
+        "us-west-2": 0.2
       }
-    }
-  },
-  "aws.route53resolver.queries_over_1b": {
-    "unit": "query",
-    "per": 1000000,
-    "source": "https://aws.amazon.com/route53/pricing/",
-    "note": "Queries through Resolver endpoints beyond 1 billion a month",
-    "sync": {
-      "service": "AmazonRoute53",
-      "filters": {
-        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?DNS-Queries"
-      },
-      "tier": "1000000000"
     },
-    "values": {
-      "ap-northeast-1": {
-        "value": 0.2,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-northeast-2": {
-        "value": 0.2,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-south-1": {
-        "value": 0.2,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-1": {
-        "value": 0.2,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-2": {
-        "value": 0.2,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-central-1": {
-        "value": 0.2,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-west-1": {
-        "value": 0.2,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-1": {
-        "value": 0.2,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-2": {
-        "value": 0.2,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-west-2": {
-        "value": 0.2,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      }
-    }
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   }
 }

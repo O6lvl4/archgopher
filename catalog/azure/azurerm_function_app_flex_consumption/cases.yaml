@@ -1,5 +1,8 @@
 # Worked examples: given these values and this load, the resource reads this.
 # Expected values are computed by hand from the unit prices, not taken from the engine.
+# Free grant per subscription: 250,000 executions and 100,000 GB-seconds.
+# Executions (1e6 − 250000) × 0.4 / 1e6 = 0.3; GB-seconds 1e6 × 0.5 s × 2 GB = 1e6,
+# (1e6 − 100000) × 0.000026 = 23.4.
 - name: one always-ready instance at 2,048 MB
   region: japaneast
   attributes:
@@ -11,11 +14,13 @@
       monthly: 1000000.0
       peak: 20
   costs:
-    Executions: 0.4
-    Execution time: 26.0
+    Executions: 0.3
+    Execution time: 23.4
     Always-ready baseline: 21.024
   limits:
     Instances: 0.625
+# Executions (2e6 − 250000) × 0.4 / 1e6 = 0.7; GB-seconds 2e6 × 0.1 s × 0.5 GB = 100000,
+# exactly the free grant = 0.
 - name: on demand only at 512 MB (eastus)
   region: eastus
   attributes:
@@ -28,7 +33,7 @@
       monthly: 2000000.0
       peak: 40
   costs:
-    Executions: 0.8
-    Execution time: 2.6
+    Executions: 0.7
+    Execution time: 0
   limits:
     Instances: 1.0

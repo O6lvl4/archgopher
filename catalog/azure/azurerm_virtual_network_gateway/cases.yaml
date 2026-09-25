@@ -10,10 +10,10 @@
     traffic:
       monthly: 1e+07
       peak: 100
-  # 730 h × $0.19; 1e7 × 4 KB = 38.14697265625 GB × $0.12 internet out; 100/s × 4 KB × 8 bit
+  # 730 h × $0.19; 1e7 × 4 KB = 38.14697265625 GB internet out, within the 100 GB a month free; 100/s × 4 KB × 8 bit
   costs:
     Gateway hours (VpnGw1): 138.7
-    Data sent out: 4.57763671875
+    Data sent out: 0
   limits:
     Throughput: 0.0030517578125
     Point-to-site connections: 0

@@ -2,258 +2,68 @@
   "aws.logs.delivery": {
     "unit": "GB",
     "source": "https://aws.amazon.com/cloudwatch/pricing/",
-    "note": "Delivery log class: vended log delivery to S3 or Firehose, first 10 TB tier",
+    "note": "Delivery log class: vended log delivery to S3 or Firehose. Volume tiers from 10 TB, 30 TB and 50 TB a month, counted over the account's delivery in the region: the pricing page does not say the scope (only that \"volume tiers reset at the start of every month\"), and the price list lists the tiers in each region's offer",
     "sync": {
       "service": "AmazonCloudWatch",
       "filters": {
         "usagetype": "(?:[A-Z]+[0-9]|EU)-S3-Egress-Bytes"
       },
-      "tier": "first"
+      "tier": "{row}"
     },
-    "values": {
-      "ap-northeast-1": {
-        "value": 0.38,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "ap-northeast-1": 0.38,
+        "ap-northeast-2": 0.38,
+        "ap-south-1": 0.335,
+        "ap-southeast-1": 0.35,
+        "ap-southeast-2": 0.335,
+        "eu-central-1": 0.285,
+        "eu-west-1": 0.285,
+        "us-east-1": 0.25,
+        "us-east-2": 0.25,
+        "us-west-2": 0.25
       },
-      "ap-northeast-2": {
-        "value": 0.38,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "10240": {
+        "ap-northeast-1": 0.228,
+        "ap-northeast-2": 0.228,
+        "ap-south-1": 0.201,
+        "ap-southeast-1": 0.21,
+        "ap-southeast-2": 0.201,
+        "eu-central-1": 0.171,
+        "eu-west-1": 0.171,
+        "us-east-1": 0.15,
+        "us-east-2": 0.15,
+        "us-west-2": 0.15
       },
-      "ap-south-1": {
-        "value": 0.335,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "30720": {
+        "ap-northeast-1": 0.114,
+        "ap-northeast-2": 0.114,
+        "ap-south-1": 0.101,
+        "ap-southeast-1": 0.105,
+        "ap-southeast-2": 0.101,
+        "eu-central-1": 0.086,
+        "eu-west-1": 0.086,
+        "us-east-1": 0.075,
+        "us-east-2": 0.075,
+        "us-west-2": 0.075
       },
-      "ap-southeast-1": {
-        "value": 0.35,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-2": {
-        "value": 0.335,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-central-1": {
-        "value": 0.285,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-west-1": {
-        "value": 0.285,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-1": {
-        "value": 0.25,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-2": {
-        "value": 0.25,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-west-2": {
-        "value": 0.25,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "51200": {
+        "ap-northeast-1": 0.076,
+        "ap-northeast-2": 0.076,
+        "ap-south-1": 0.067,
+        "ap-southeast-1": 0.07,
+        "ap-southeast-2": 0.067,
+        "eu-central-1": 0.057,
+        "eu-west-1": 0.057,
+        "us-east-1": 0.05,
+        "us-east-2": 0.05,
+        "us-west-2": 0.05
       }
-    }
-  },
-  "aws.logs.delivery_tier2": {
-    "unit": "GB",
-    "source": "https://aws.amazon.com/cloudwatch/pricing/",
-    "note": "Delivery log class: vended log delivery to S3 or Firehose, next 20 TB a month, per account and region",
-    "sync": {
-      "service": "AmazonCloudWatch",
-      "filters": {
-        "usagetype": "(?:[A-Z]+[0-9]|EU)-S3-Egress-Bytes"
-      },
-      "tier": "10240"
     },
-    "values": {
-      "ap-northeast-1": {
-        "value": 0.228,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-northeast-2": {
-        "value": 0.228,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-south-1": {
-        "value": 0.201,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-1": {
-        "value": 0.21,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-2": {
-        "value": 0.201,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-central-1": {
-        "value": 0.171,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-west-1": {
-        "value": 0.171,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-1": {
-        "value": 0.15,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-2": {
-        "value": 0.15,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-west-2": {
-        "value": 0.15,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      }
-    }
-  },
-  "aws.logs.delivery_tier3": {
-    "unit": "GB",
-    "source": "https://aws.amazon.com/cloudwatch/pricing/",
-    "note": "Delivery log class: vended log delivery to S3 or Firehose, next 20 TB after 30 TB a month, per account and region",
-    "sync": {
-      "service": "AmazonCloudWatch",
-      "filters": {
-        "usagetype": "(?:[A-Z]+[0-9]|EU)-S3-Egress-Bytes"
-      },
-      "tier": "30720"
-    },
-    "values": {
-      "ap-northeast-1": {
-        "value": 0.114,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-northeast-2": {
-        "value": 0.114,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-south-1": {
-        "value": 0.101,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-1": {
-        "value": 0.105,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-2": {
-        "value": 0.101,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-central-1": {
-        "value": 0.086,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-west-1": {
-        "value": 0.086,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-1": {
-        "value": 0.075,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-2": {
-        "value": 0.075,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-west-2": {
-        "value": 0.075,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      }
-    }
-  },
-  "aws.logs.delivery_tier4": {
-    "unit": "GB",
-    "source": "https://aws.amazon.com/cloudwatch/pricing/",
-    "note": "Delivery log class: vended log delivery to S3 or Firehose, over 50 TB a month, per account and region",
-    "sync": {
-      "service": "AmazonCloudWatch",
-      "filters": {
-        "usagetype": "(?:[A-Z]+[0-9]|EU)-S3-Egress-Bytes"
-      },
-      "tier": "51200"
-    },
-    "values": {
-      "ap-northeast-1": {
-        "value": 0.076,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-northeast-2": {
-        "value": 0.076,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-south-1": {
-        "value": 0.067,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-1": {
-        "value": 0.07,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-2": {
-        "value": 0.067,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-central-1": {
-        "value": 0.057,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-west-1": {
-        "value": 0.057,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-1": {
-        "value": 0.05,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-2": {
-        "value": 0.05,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-west-2": {
-        "value": 0.05,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      }
-    }
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   },
   "aws.logs.infrequent_access.ingest": {
     "unit": "GB",
@@ -322,7 +132,7 @@
   "aws.logs.insights.scanned": {
     "unit": "GB",
     "source": "https://aws.amazon.com/cloudwatch/pricing/",
-    "note": "Logs Insights queries, per GB scanned",
+    "note": "Logs Insights queries, per GB scanned. The first 5 GB scanned each month are free over the account, always (the price list's Global-DataScanned-Bytes grant, \"Monthly free usage of data scanned by CloudWatch Logs Insights queries\", 0 to 5 GB at $0; the CloudWatch pricing page's free tier: \"5 GB Data (ingestion, archive storage, and data scanned by Logs Insights queries)\")",
     "sync": {
       "service": "AmazonCloudWatch",
       "filters": {
@@ -381,6 +191,8 @@
         "verified": true,
         "checkedAt": "2026-09-25"
       }
-    }
+    },
+    "pool": "account",
+    "free": 5
   }
 }

@@ -2,65 +2,56 @@
   "aws.sfn.express.gb_second": {
     "unit": "GB-second",
     "source": "https://aws.amazon.com/step-functions/pricing/",
-    "note": "First tier",
+    "note": "Express workflow duration. Volume tiers from 1,000 and 5,000 GB-hours (3.6 million and 18 million GB-seconds) a month; the pricing page does not say whether they count per region or over the account, so they are counted over every express workflow in the region",
     "sync": {
       "service": "AmazonStates",
       "filters": {
         "usagetype": "(?:[A-Z]+[0-9]|EU)-StepFunctions-GB-Second"
+      },
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "ap-northeast-1": 0.00001667,
+        "ap-northeast-2": 0.00001667,
+        "ap-south-1": 0.00001667,
+        "ap-southeast-1": 0.00001667,
+        "ap-southeast-2": 0.00001667,
+        "eu-central-1": 0.00001667,
+        "eu-west-1": 0.00001667,
+        "us-east-1": 0.00001667,
+        "us-east-2": 0.00001667,
+        "us-west-2": 0.00001667
+      },
+      "18000000": {
+        "ap-northeast-1": 0.00000456,
+        "ap-northeast-2": 0.00000456,
+        "ap-south-1": 0.00000456,
+        "ap-southeast-1": 0.00000456,
+        "ap-southeast-2": 0.00000456,
+        "eu-central-1": 0.00000456,
+        "eu-west-1": 0.00000456,
+        "us-east-1": 0.00000456,
+        "us-east-2": 0.00000456,
+        "us-west-2": 0.00000456
+      },
+      "3600000": {
+        "ap-northeast-1": 0.00000833,
+        "ap-northeast-2": 0.00000833,
+        "ap-south-1": 0.00000833,
+        "ap-southeast-1": 0.00000833,
+        "ap-southeast-2": 0.00000833,
+        "eu-central-1": 0.00000833,
+        "eu-west-1": 0.00000833,
+        "us-east-1": 0.00000833,
+        "us-east-2": 0.00000833,
+        "us-west-2": 0.00000833
       }
     },
-    "values": {
-      "ap-northeast-1": {
-        "value": 0.00001667,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-northeast-2": {
-        "value": 0.00001667,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-south-1": {
-        "value": 0.00001667,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-southeast-1": {
-        "value": 0.00001667,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-southeast-2": {
-        "value": 0.00001667,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eu-central-1": {
-        "value": 0.00001667,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eu-west-1": {
-        "value": 0.00001667,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-1": {
-        "value": 0.00001667,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-2": {
-        "value": 0.00001667,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-west-2": {
-        "value": 0.00001667,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      }
-    }
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   },
   "aws.sfn.express.requests": {
     "unit": "request",
@@ -129,6 +120,7 @@
     "unit": "state transition",
     "per": 1000,
     "source": "https://aws.amazon.com/step-functions/pricing/",
+    "note": "Standard workflow state transitions. Always free: 4,000 a month, which does not expire (https://aws.amazon.com/step-functions/pricing/; https://aws.amazon.com/free/, Always free: AWS Step Functions), counted over every region of the account (https://aws.amazon.com/free/free-tier-faqs/)",
     "sync": {
       "service": "AmazonStates",
       "filters": {
@@ -186,6 +178,8 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       }
-    }
+    },
+    "pool": "account",
+    "free": 4000
   }
 }

@@ -1,5 +1,7 @@
 # Worked examples: given these values and this load, the resource reads this.
 # Expected values are computed by hand from the unit prices, not taken from the engine.
+# Storage: the first 10 GiB free on each, (100 − 10) × 0.023 = 2.07 and (500 − 10) × 0.016 = 7.84.
+# Queries: 100 × 10 / 1024 = 0.9765625 TiB, within the free TiB.
 - name: Tokyo, streaming inserts of 1 KB rows, some long-term storage
   region: asia-northeast1
   assumptions:
@@ -17,12 +19,15 @@
       monthly: 0
       peak: 0
   costs:
-    Active storage: 2.3
-    Long-term storage: 8
+    Active storage: 2.07
+    Long-term storage: 7.84
     Streaming inserts: 0.5859375
-    Queries: 7.32421875
+    Queries: 0
   limits:
     Streaming throughput: 0.1
+# Storage: (1000 − 10) × 0.02 = 19.8. Write API: 5e7 × 2 / 1048576 = 95.367 GiB, within the free 2 TiB.
+# Queries: 10000 / 1024 = 9.765625 TiB, (9.765625 − 1) × 6.25 = 54.78515625.
+# Read API: 1000 / 1024 = 0.9765625 TiB, within the free 300 TiB.
 - name: US multi-region, Storage Write API with 2 KB rows and Storage Read API readers
   region: us-east4
   assumptions:
@@ -41,9 +46,35 @@
       monthly: 1000
       peak: 1
   costs:
-    Active storage: 20
-    Storage Write API: 2.384185791015625
-    Queries: 61.03515625
-    Storage Read API: 1.07421875
+    Active storage: 19.8
+    Storage Write API: 0
+    Queries: 54.78515625
+    Storage Read API: 0
+  limits:
+    Streaming throughput: 2
+# Past the free tiers. Storage: 5 GiB, within the free 10 GiB.
+# Write API: 3e9 × 1 / 1048576 = 2861.02294921875 GiB, (2861.02294921875 − 2048) × 0.03 = 24.3906884765625.
+# Read API: 400 × 1024 / 1024 = 400 TiB, (400 − 300) × 1.32 = 132.
+- name: Tokyo, a busy Storage Write API table read by Spark through the Storage Read API
+  region: asia-northeast1
+  assumptions:
+    activeGb: 5
+    writeApi: Storage Write API
+    readGb: 1024
+  demand:
+    write:
+      monthly: 3.0e+09
+      peak: 2000
+    query:
+      monthly: 0
+      peak: 0
+    read:
+      monthly: 400
+      peak: 1
+  costs:
+    Active storage: 0
+    Storage Write API: 24.3906884765625
+    Queries: 0
+    Storage Read API: 132
   limits:
     Streaming throughput: 2

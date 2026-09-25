@@ -71,3 +71,14 @@ func TestFlattenRefusesBadRules(t *testing.T) {
 		}
 	}
 }
+
+func TestFlattenGivesEveryRowOfAPlainTableItsRules(t *testing.T) {
+	one := 1.0
+	b, err := Book{"x": {Unit: "SMS", Pool: PoolAccount, Free: 100, Rows: map[string]map[string]*float64{"1": {"*": &one}, "44": {"*": &one}}}}.Flatten()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if e := b["x.44"]; e.Pool != PoolAccount || e.Free != 100 {
+		t.Fatalf("x.44 = %+v", e)
+	}
+}

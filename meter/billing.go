@@ -15,7 +15,8 @@ type Band struct {
 	Quantity float64 `json:"quantity"`
 	// UnitPrice is per single unit; nil when the tier's price is not known.
 	UnitPrice *float64 `json:"unitPrice"`
-	Free      bool     `json:"free,omitempty"`
+	// Free marks units that cost nothing: free units, or a zero-priced tier.
+	Free bool `json:"free,omitempty"`
 }
 
 // Billing is a quantity priced by an entry's rules.
@@ -30,7 +31,9 @@ type Billing struct {
 // Bill prices quantity by the rules of the price id in region: allowance
 // units free first, then each tier on the part of the quantity that falls in
 // it. Tiers count from zero over the whole quantity, free units included.
-func Bill(prices book.Book, id, region string, quantity, allowance float64) (Billing, error) {
+// With free false, zero-priced tiers at the start (a free grant the provider
+// lists as a tier) are billed at the first paid tier's price.
+func Bill(prices book.Book, id, region string, quantity, allowance float64, free bool) (Billing, error) {
 	e, ok := prices[id]
 	if !ok {
 		return Billing{}, fmt.Errorf("no reference entry %q", id)
@@ -45,6 +48,16 @@ func Bill(prices book.Book, id, region string, quantity, allowance float64) (Bil
 	}
 	total := 0.0
 	known := true
+	var paid *float64 // the first paid tier's value, for free grants billed
+	if !free {
+		for _, t := range tiers {
+			if _, v, err := prices.Lookup(t.ID, region); err == nil && v.Value != nil && *v.Value > 0 {
+				paid = v.Value
+				break
+			}
+		}
+	}
+	granting := true // still in the zero-priced tiers at the start
 	for i, t := range tiers {
 		to := math.Inf(1)
 		if i+1 < len(tiers) {
@@ -56,6 +69,11 @@ func Bill(prices book.Book, id, region string, quantity, allowance float64) (Bil
 		if err != nil {
 			return Billing{}, err
 		}
+		if granting && v.Value != nil && *v.Value == 0 && paid != nil {
+			v.Value = paid
+		} else {
+			granting = false
+		}
 		out.Verified = out.Verified && v.Verified
 		if v.Value == nil && v.Verified && q > 0 {
 			return Billing{}, &NotOfferedError{Region: region, PriceID: t.ID}
@@ -66,7 +84,7 @@ func Bill(prices book.Book, id, region string, quantity, allowance float64) (Bil
 		}
 		if v.Value != nil {
 			p := te.PerUnit(*v.Value)
-			b.UnitPrice = &p
+			b.UnitPrice, b.Free = &p, p == 0
 			total += q * p
 		} else if q > 0 {
 			known = false

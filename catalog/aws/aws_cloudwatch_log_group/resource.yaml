@@ -2,7 +2,7 @@ type: aws_cloudwatch_log_group
 label: CloudWatch log group
 category: Monitoring
 icon: cloudwatch
-description: "Ingestion by log class, storage for the retention period, and Logs Insights queries by GB scanned. The Delivery class bills vended delivery to S3 or Firehose in volume tiers (first 10 TB, next 20 TB, next 20 TB, then the rest per month; applied per log group here, per account and region by AWS) and keeps nothing. Writers reach it through IAM (logs:PutLogEvents) or references; a Lambda function that counts its own logs should not also send them here. Headroom is the account's PutLogEvents rate."
+description: "Ingestion by log class, storage for the retention period, and Logs Insights queries by GB scanned. The always-free 5 GB a month of Standard ingestion, of storage and of data scanned are each given once over the account. The Delivery class bills vended delivery to S3 or Firehose in volume tiers from 10 TB, 30 TB and 50 TB a month, counted over the account in the region, and keeps nothing. Writers reach it through IAM (logs:PutLogEvents) or references; a Lambda function that counts its own logs should not also send them here. Headroom is the account's PutLogEvents rate."
 kinds: [ingest, query]
 sla: aws.cloudwatch
 attributes:
@@ -22,10 +22,7 @@ let:
 readings:
   - cost: { when: 'log_group_class == "STANDARD"', name: Log ingestion (Standard), quantity: gb, unit: GB, price: aws.logs.ingest }
   - cost: { when: 'log_group_class == "INFREQUENT_ACCESS"', name: Log ingestion (Infrequent Access), quantity: gb, unit: GB, price: aws.logs.infrequent_access.ingest }
-  - cost: { when: delivery, name: Log delivery to S3 or Firehose, quantity: 'min(gb, 10240)', unit: GB, price: aws.logs.delivery }
-  - cost: { when: delivery && gb > 10240, name: Log delivery (next 20 TB), quantity: 'min(gb - 10240, 20480)', unit: GB, price: aws.logs.delivery_tier2 }
-  - cost: { when: delivery && gb > 30720, name: Log delivery (next 20 TB after 30 TB), quantity: 'min(gb - 30720, 20480)', unit: GB, price: aws.logs.delivery_tier3 }
-  - cost: { when: delivery && gb > 51200, name: Log delivery (over 50 TB), quantity: gb - 51200, unit: GB, price: aws.logs.delivery_tier4 }
+  - cost: { when: delivery, name: Log delivery to S3 or Firehose, quantity: gb, unit: GB, price: aws.logs.delivery }
   - cost: { when: '!delivery', name: 'Log storage{retention_in_days > 0 ? "" : " (after 12 months, never expires)"}', quantity: gb * months, unit: GB-month, price: aws.logs.storage }
   - cost: { when: '!delivery && scanned > 0', name: Logs Insights data scanned, quantity: scanned, unit: GB, price: aws.logs.insights.scanned }
   - rate: { name: PutLogEvents rate, unit: requests/second, quota: aws.logs.put_log_events_tps, peak: demand.ingest.peak / eventsPerCall }

@@ -10,8 +10,8 @@
       monthly: 3000000
       peak: 5
   costs:
-    Stored objects: 5.0
-    Requests: 3.0
+    Stored objects: 0  # 500,000, within the account's always-free million
+    Requests: 2.0  # (3e6 − 1e6 always free) / 1e6 × 1
   limits:
     Tables: 1200
 - name: two million objects and ten million requests (us-east-1)
@@ -23,5 +23,5 @@
       monthly: 10000000
       peak: 20
   costs:
-    Stored objects: 20.0
-    Requests: 10.0
+    Stored objects: 10.0  # (2e6 − 1e6 always free) / 100,000 × 1
+    Requests: 9.0  # (1e7 − 1e6 always free) / 1e6 × 1

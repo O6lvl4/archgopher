@@ -1,8 +1,8 @@
 {
-  "azure.networkwatcher.connection_monitor.tier1": {
+  "azure.networkwatcher.connection_monitor": {
     "unit": "test-month",
     "source": "https://azure.microsoft.com/pricing/details/network-watcher/",
-    "note": "Connection monitor tests, up to 240,010 a month; the first 10 are free (ignored, as every free tier)",
+    "note": "Connection monitor tests a month. The first 10 are free, then volume tiers from 10, 240,010, 750,010 and 1,000,010 tests (https://azure.microsoft.com/pricing/details/network-watcher/: 0-10 tests included), given in the price list as the zero-priced first tier and the tiers after it. The page does not say over what the free tests and tiers are counted; Network Watcher is regional, so they are counted per region here, over every connection monitor of the account",
     "sync": {
       "filters": {
         "meterName": "Standard Connection Monitor Test",
@@ -10,257 +10,73 @@
       },
       "service": "Network Watcher",
       "source": "azure",
-      "tier": "10"
+      "tier": "{row}"
     },
-    "values": {
-      "australiaeast": {
-        "value": 0.3,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "australiaeast": 0,
+        "centralindia": 0,
+        "eastus": 0,
+        "eastus2": 0,
+        "germanywestcentral": 0,
+        "japaneast": 0,
+        "koreacentral": 0,
+        "northeurope": 0,
+        "southeastasia": 0,
+        "westus2": 0
       },
-      "centralindia": {
-        "value": 0.3,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "10": {
+        "australiaeast": 0.3,
+        "centralindia": 0.3,
+        "eastus": 0.3,
+        "eastus2": 0.3,
+        "germanywestcentral": 0.3,
+        "japaneast": 0.3,
+        "koreacentral": 0.3,
+        "northeurope": 0.3,
+        "southeastasia": 0.3,
+        "westus2": 0.3
       },
-      "eastus": {
-        "value": 0.3,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "1000010": {
+        "australiaeast": 0.02001,
+        "centralindia": 0.02001,
+        "eastus": 0.02001,
+        "eastus2": 0.02001,
+        "germanywestcentral": 0.02001,
+        "japaneast": 0.02001,
+        "koreacentral": 0.02001,
+        "northeurope": 0.02001,
+        "southeastasia": 0.02001,
+        "westus2": 0.02001
       },
-      "eastus2": {
-        "value": 0.3,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "240010": {
+        "australiaeast": 0.09999,
+        "centralindia": 0.09999,
+        "eastus": 0.09999,
+        "eastus2": 0.09999,
+        "germanywestcentral": 0.09999,
+        "japaneast": 0.09999,
+        "koreacentral": 0.09999,
+        "northeurope": 0.09999,
+        "southeastasia": 0.09999,
+        "westus2": 0.09999
       },
-      "germanywestcentral": {
-        "value": 0.3,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "japaneast": {
-        "value": 0.3,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "koreacentral": {
-        "value": 0.3,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "northeurope": {
-        "value": 0.3,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "southeastasia": {
-        "value": 0.3,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "westus2": {
-        "value": 0.3,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "750010": {
+        "australiaeast": 0.05001,
+        "centralindia": 0.05001,
+        "eastus": 0.05001,
+        "eastus2": 0.05001,
+        "germanywestcentral": 0.05001,
+        "japaneast": 0.05001,
+        "koreacentral": 0.05001,
+        "northeurope": 0.05001,
+        "southeastasia": 0.05001,
+        "westus2": 0.05001
       }
-    }
-  },
-  "azure.networkwatcher.connection_monitor.tier2": {
-    "unit": "test-month",
-    "source": "https://azure.microsoft.com/pricing/details/network-watcher/",
-    "note": "Connection monitor tests from 240,010 to 750,010 a month",
-    "sync": {
-      "filters": {
-        "meterName": "Standard Connection Monitor Test",
-        "productName": "Network Watcher"
-      },
-      "service": "Network Watcher",
-      "source": "azure",
-      "tier": "240010"
     },
-    "values": {
-      "australiaeast": {
-        "value": 0.09999,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "centralindia": {
-        "value": 0.09999,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eastus": {
-        "value": 0.09999,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eastus2": {
-        "value": 0.09999,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "germanywestcentral": {
-        "value": 0.09999,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "japaneast": {
-        "value": 0.09999,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "koreacentral": {
-        "value": 0.09999,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "northeurope": {
-        "value": 0.09999,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "southeastasia": {
-        "value": 0.09999,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "westus2": {
-        "value": 0.09999,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      }
-    }
-  },
-  "azure.networkwatcher.connection_monitor.tier3": {
-    "unit": "test-month",
-    "source": "https://azure.microsoft.com/pricing/details/network-watcher/",
-    "note": "Connection monitor tests from 750,010 to 1,000,010 a month",
-    "sync": {
-      "filters": {
-        "meterName": "Standard Connection Monitor Test",
-        "productName": "Network Watcher"
-      },
-      "service": "Network Watcher",
-      "source": "azure",
-      "tier": "750010"
-    },
-    "values": {
-      "australiaeast": {
-        "value": 0.05001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "centralindia": {
-        "value": 0.05001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eastus": {
-        "value": 0.05001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eastus2": {
-        "value": 0.05001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "germanywestcentral": {
-        "value": 0.05001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "japaneast": {
-        "value": 0.05001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "koreacentral": {
-        "value": 0.05001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "northeurope": {
-        "value": 0.05001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "southeastasia": {
-        "value": 0.05001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "westus2": {
-        "value": 0.05001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      }
-    }
-  },
-  "azure.networkwatcher.connection_monitor.tier4": {
-    "unit": "test-month",
-    "source": "https://azure.microsoft.com/pricing/details/network-watcher/",
-    "note": "Connection monitor tests beyond 1,000,010 a month",
-    "sync": {
-      "filters": {
-        "meterName": "Standard Connection Monitor Test",
-        "productName": "Network Watcher"
-      },
-      "service": "Network Watcher",
-      "source": "azure",
-      "tier": "1000010"
-    },
-    "values": {
-      "australiaeast": {
-        "value": 0.02001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "centralindia": {
-        "value": 0.02001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eastus": {
-        "value": 0.02001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eastus2": {
-        "value": 0.02001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "germanywestcentral": {
-        "value": 0.02001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "japaneast": {
-        "value": 0.02001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "koreacentral": {
-        "value": 0.02001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "northeurope": {
-        "value": 0.02001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "southeastasia": {
-        "value": 0.02001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "westus2": {
-        "value": 0.02001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      }
-    }
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   }
 }

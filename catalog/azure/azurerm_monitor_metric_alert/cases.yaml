@@ -12,8 +12,8 @@
       monthly: 0
       peak: 0
   costs:
-    # 3 resources x 2 time series at 0.10
-    Time series monitored: 0.6
+    # 3 resources x 2 time series = 6, within the 10 free
+    Time series monitored: 0
 - name: dynamic threshold on the subscription (East US)
   region: eastus
   attributes:
@@ -23,7 +23,8 @@
       monthly: 0
       peak: 0
   costs:
-    Time series monitored: 0.1
+    # 1 time series, within the 10 free; dynamic thresholds have no free grant
+    Time series monitored: 0
     Dynamic thresholds: 0.1
 - name: time series given by hand for a wildcard dimension
   region: eastus
@@ -39,7 +40,8 @@
       monthly: 0
       peak: 0
   costs:
-    Time series monitored: 5
+    # 2 resources x 25 = 50 time series, the first 10 free: 40 at 0.10 = 4
+    Time series monitored: 4
 - name: a disabled alert costs nothing
   region: eastus
   attributes:
@@ -61,5 +63,5 @@
       monthly: 0
       peak: 0
   costs:
-    # 2 time series for the split criterion and 1 for the other, at 0.10
-    Time series monitored: 0.3
+    # 2 time series for the split criterion and 1 for the other, within the 10 free
+    Time series monitored: 0

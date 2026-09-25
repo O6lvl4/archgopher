@@ -2,7 +2,7 @@ type: azurerm_eventgrid_system_topic
 label: Event Grid system topic
 category: Messaging
 icon: eventgrid-system-topic
-description: "Events an Azure service emits (Blob Storage, Resource Manager, ...), priced as Event Grid Basic operations: each 64 KB of an event counted once when published and once per delivery to a subscription. The monthly free operations are not read. The source service is not an edge in Terraform: draw it by hand."
+description: "Events an Azure service emits (Blob Storage, Resource Manager, ...), priced as Event Grid Basic operations: each 64 KB of an event counted once when published and once per delivery to a subscription. The first 100,000 operations a month are free, counted over every topic of the account in the region. The source service is not an edge in Terraform: draw it by hand."
 kinds: [publish]
 sla: azure.eventgrid
 assumptions:

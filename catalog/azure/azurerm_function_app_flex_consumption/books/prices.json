@@ -69,7 +69,7 @@
     "unit": "request",
     "per": 1000000,
     "source": "https://azure.microsoft.com/pricing/details/functions/",
-    "note": "Flex Consumption on-demand executions; the monthly free grant is ignored",
+    "note": "Flex Consumption on-demand executions. The first 250,000 a month are free per subscription, counted over every Flex Consumption app (https://azure.microsoft.com/pricing/details/functions/: a monthly free grant of 250,000 executions and 100,000 GB-s per month per subscription, on the on-demand meters). The price list gives them as the zero-priced first tier",
     "sync": {
       "source": "azure",
       "service": "Functions",
@@ -78,65 +78,44 @@
         "skuName": "On Demand",
         "meterName": "On Demand Total Executions"
       },
-      "listPer": 10
+      "listPer": 10,
+      "tier": "{row}"
     },
-    "values": {
-      "australiaeast": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+    "rows": {
+      "0": {
+        "australiaeast": 0,
+        "centralindia": 0,
+        "eastus": 0,
+        "eastus2": 0,
+        "germanywestcentral": 0,
+        "japaneast": 0,
+        "koreacentral": 0,
+        "northeurope": 0,
+        "southeastasia": 0,
+        "westus2": 0
       },
-      "centralindia": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eastus": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eastus2": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "germanywestcentral": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "japaneast": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "koreacentral": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "northeurope": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "southeastasia": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "westus2": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+      "250000": {
+        "australiaeast": 0.4,
+        "centralindia": 0.4,
+        "eastus": 0.4,
+        "eastus2": 0.4,
+        "germanywestcentral": 0.4,
+        "japaneast": 0.4,
+        "koreacentral": 0.4,
+        "northeurope": 0.4,
+        "southeastasia": 0.4,
+        "westus2": 0.4
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "azure.functions.flex.gb_second": {
     "unit": "GB-second",
     "source": "https://azure.microsoft.com/pricing/details/functions/",
-    "note": "Flex Consumption on-demand execution time at the instance memory size; the monthly free grant is ignored",
+    "note": "Flex Consumption on-demand execution time at the instance memory size. The first 100,000 GB-seconds a month are free per subscription, counted over every Flex Consumption app (https://azure.microsoft.com/pricing/details/functions/: a monthly free grant of 250,000 executions and 100,000 GB-s per month per subscription, on the on-demand meters). The price list gives them as the zero-priced first tier",
     "sync": {
       "source": "azure",
       "service": "Functions",
@@ -144,59 +123,38 @@
         "productName": "Flex Consumption",
         "skuName": "On Demand",
         "meterName": "On Demand Execution Time"
+      },
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "australiaeast": 0,
+        "centralindia": 0,
+        "eastus": 0,
+        "eastus2": 0,
+        "germanywestcentral": 0,
+        "japaneast": 0,
+        "koreacentral": 0,
+        "northeurope": 0,
+        "southeastasia": 0,
+        "westus2": 0
+      },
+      "100000": {
+        "australiaeast": 0.000037,
+        "centralindia": 0.000037,
+        "eastus": 0.000026,
+        "eastus2": 0.000026,
+        "germanywestcentral": 0.000037,
+        "japaneast": 0.000026,
+        "koreacentral": 0.000037,
+        "northeurope": 0.000026,
+        "southeastasia": 0.000037,
+        "westus2": 0.000026
       }
     },
-    "values": {
-      "australiaeast": {
-        "value": 0.000037,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "centralindia": {
-        "value": 0.000037,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eastus": {
-        "value": 0.000026,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eastus2": {
-        "value": 0.000026,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "germanywestcentral": {
-        "value": 0.000037,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "japaneast": {
-        "value": 0.000026,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "koreacentral": {
-        "value": 0.000037,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "northeurope": {
-        "value": 0.000026,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "southeastasia": {
-        "value": 0.000037,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "westus2": {
-        "value": 0.000026,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      }
-    }
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   }
 }

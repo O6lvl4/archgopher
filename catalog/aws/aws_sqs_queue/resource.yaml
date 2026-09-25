@@ -2,7 +2,7 @@ type: aws_sqs_queue
 label: SQS
 category: Messaging
 icon: sqs
-description: "API requests in 64 KB chunks (send, receive, delete). FIFO queues have a per-API rate limit, higher and set by region in high throughput mode."
+description: "API requests in 64 KB chunks (send, receive, delete), in volume tiers from 100 billion and 200 billion a month counted over every queue of the type in the account; the always-free million a month is given once over standard and FIFO queues. FIFO queues have a per-API rate limit, higher and set by region in high throughput mode."
 kinds: [send]
 sla: aws.sqs
 attributes:

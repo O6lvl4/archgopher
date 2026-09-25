@@ -11,8 +11,7 @@
     Managed storage: 267.264
     Concurrency scaling: 2.52
     Spectrum: 10
-    Backup storage (first 50 TB): 1280
-    Backup storage (next 450 TB): 211.2
+    Backup storage: 1491.2              # 51,200 GB x $0.025 = 1280; 8,800 GB x $0.024 = 211.2; together 1491.2
   limits:
     Storage: 10
 - name: single DC2 node (us-east-1)

@@ -136,7 +136,7 @@
   "azure.servicebus.standard.base": {
     "unit": "hour",
     "source": "https://azure.microsoft.com/pricing/details/service-bus/",
-    "note": "Standard base fee, which includes 13 million operations a month",
+    "note": "Standard base fee, which includes 13 million operations a month. It is charged once per subscription that has a Standard namespace, however many it has (https://learn.microsoft.com/azure/service-bus-messaging/service-bus-faq: these charges represent the base charge per Azure subscription that has provisioned a Service Bus Standard namespace), so the account pays it once",
     "sync": {
       "source": "azure",
       "service": "Service Bus",
@@ -198,13 +198,15 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       }
-    }
+    },
+    "pool": "account",
+    "combine": "max"
   },
   "azure.servicebus.standard.operations": {
     "unit": "operation",
     "per": 1000000,
     "source": "https://azure.microsoft.com/pricing/details/service-bus/",
-    "note": "Standard operations from 13 to 100 million a month; later tiers are cheaper and not read",
+    "note": "Standard operations, per 64 KB. The first 13 million a month come with the base fee, then volume tiers from 100 million and 2.5 billion (https://azure.microsoft.com/pricing/details/service-bus/: first 13M ops/month included), given in the price list as the zero-priced first tier and the tiers after it. The base fee and what it includes belong to the subscription, not to a namespace (https://learn.microsoft.com/azure/service-bus-messaging/service-bus-faq), so the operations are counted over every Standard namespace of the account",
     "sync": {
       "source": "azure",
       "service": "Service Bus",
@@ -213,59 +215,62 @@
         "skuName": "Standard",
         "meterName": "Standard Messaging Operations"
       },
-      "listPer": 1000000
+      "listPer": 1000000,
+      "tier": "{row}"
     },
-    "values": {
-      "australiaeast": {
-        "value": 0.8,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+    "rows": {
+      "0": {
+        "australiaeast": 0,
+        "centralindia": 0,
+        "eastus": 0,
+        "eastus2": 0,
+        "germanywestcentral": 0,
+        "japaneast": 0,
+        "koreacentral": 0,
+        "northeurope": 0,
+        "southeastasia": 0,
+        "westus2": 0
       },
-      "centralindia": {
-        "value": 0.8,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+      "100000000": {
+        "australiaeast": 0.5,
+        "centralindia": 0.5,
+        "eastus": 0.5,
+        "eastus2": 0.5,
+        "germanywestcentral": 0.5,
+        "japaneast": 0.5,
+        "koreacentral": 0.5,
+        "northeurope": 0.5,
+        "southeastasia": 0.5,
+        "westus2": 0.5
       },
-      "eastus": {
-        "value": 0.8,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+      "13000000": {
+        "australiaeast": 0.8,
+        "centralindia": 0.8,
+        "eastus": 0.8,
+        "eastus2": 0.8,
+        "germanywestcentral": 0.8,
+        "japaneast": 0.8,
+        "koreacentral": 0.8,
+        "northeurope": 0.8,
+        "southeastasia": 0.8,
+        "westus2": 0.8
       },
-      "eastus2": {
-        "value": 0.8,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "germanywestcentral": {
-        "value": 0.8,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "japaneast": {
-        "value": 0.8,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "koreacentral": {
-        "value": 0.8,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "northeurope": {
-        "value": 0.8,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "southeastasia": {
-        "value": 0.8,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "westus2": {
-        "value": 0.8,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+      "2500000000": {
+        "australiaeast": 0.2,
+        "centralindia": 0.2,
+        "eastus": 0.2,
+        "eastus2": 0.2,
+        "germanywestcentral": 0.2,
+        "japaneast": 0.2,
+        "koreacentral": 0.2,
+        "northeurope": 0.2,
+        "southeastasia": 0.2,
+        "westus2": 0.2
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   }
 }

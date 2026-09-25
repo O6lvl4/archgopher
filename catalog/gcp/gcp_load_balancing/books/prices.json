@@ -438,7 +438,7 @@
   "gcp.psc.data_processed": {
     "unit": "GB",
     "source": "https://cloud.google.com/vpc/pricing",
-    "note": "Private Service Connect consumer data processing to a published service, inbound and outbound (per GiB), the first PiB of the billing account a month (then $0.006, from 5 PiB $0.004). Synced from the Billing Catalog.",
+    "note": "Private Service Connect consumer data processing to a published service, inbound and outbound (per GiB). Volume tiers count the billing account's consumer data processing in a month (priced \"per 1 month / account\", https://cloud.google.com/vpc/network-pricing): $0.01 to 1 PiB (1,048,576 GiB), $0.006 to 5 PiB, $0.004 above. Synced from the Billing Catalog.",
     "sync": {
       "filters": {
         "description": "Networking Private Service Connect Consumer Data Processing",
@@ -447,15 +447,23 @@
       "region": "global",
       "service": "E505-1604-58F8",
       "source": "gcp",
-      "tier": "first"
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 0.01,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0.01
+      },
+      "1048576": {
+        "*": 0.006
+      },
+      "5242880": {
+        "*": 0.004
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "gcp.psc.endpoint_hour": {
     "unit": "hour",
@@ -481,22 +489,30 @@
   "gcp.psc.regional_api.data_processed": {
     "unit": "GB",
     "source": "https://cloud.google.com/vpc/pricing",
-    "note": "Private Service Connect endpoints to regional Google APIs: data processed, inbound and outbound (per GiB), the first PiB of the billing account; later tiers are cheaper and not read. Synced from the Billing Catalog.",
+    "note": "Private Service Connect endpoints to regional Google APIs: data processed, inbound and outbound (per GiB). Volume tiers count the billing account's usage in a month (priced \"per 1 month / account\", https://cloud.google.com/vpc/network-pricing): $0.01 to 1 PiB (1,048,576 GiB), $0.006 to 5 PiB, $0.004 above. Synced from the Billing Catalog.",
     "sync": {
       "source": "gcp",
       "service": "E505-1604-58F8",
       "region": "global",
-      "tier": "first",
+      "tier": "{row}",
       "filters": {
         "description": "Networking Private Service Connect Regional Based API Endpoints Data Processing"
       }
     },
-    "values": {
-      "*": {
-        "value": 0.01,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0.01
+      },
+      "1048576": {
+        "*": 0.006
+      },
+      "5242880": {
+        "*": 0.004
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   }
 }

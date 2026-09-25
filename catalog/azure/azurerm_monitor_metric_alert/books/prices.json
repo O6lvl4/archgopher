@@ -24,7 +24,7 @@
   "azure.monitor.alerts.metric_series": {
     "unit": "time-series-month",
     "source": "https://azure.microsoft.com/pricing/details/monitor/",
-    "note": "Metric alert, per time series monitored; the first 10 a month are free (ignored, as every free tier). Global meter",
+    "note": "Metric alert, per time series monitored. The first 10 a month are free (https://azure.microsoft.com/pricing/details/monitor/), given in the price list as the zero-priced first tier. Global meter: the free time series are counted over every metric alert of the account (the page does not say more)",
     "sync": {
       "source": "azure",
       "service": "Azure Monitor",
@@ -33,14 +33,20 @@
         "skuName": "Alerts",
         "meterName": "Alerts Metric Monitored"
       },
-      "region": "Global"
+      "region": "Global",
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 0.1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0
+      },
+      "10": {
+        "*": 0.1
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   }
 }

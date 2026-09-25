@@ -2,7 +2,7 @@ type: aws_s3_bucket
 label: S3
 category: Storage
 icon: s3
-description: S3 Standard GET, PUT, storage and direct transfer out to the internet. Headroom is the per-prefix request rate times the prefixes in use.
+description: "S3 Standard GET, PUT, storage and direct transfer out to the internet. Storage is in volume tiers from 50 TB and 500 TB a month, counted over every bucket of the account in the region; transfer out shares the internet tiers and the always-free 100 GB with the rest of the account. Headroom is the per-prefix request rate times the prefixes in use."
 kinds: [read, write]
 sla: aws.s3
 assumptions:

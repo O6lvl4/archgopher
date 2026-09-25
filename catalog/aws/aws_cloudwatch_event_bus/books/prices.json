@@ -259,7 +259,7 @@
     "unit": "event",
     "per": 1000000,
     "source": "https://aws.amazon.com/eventbridge/pricing/",
-    "note": "Events ingested for schema discovery, per 8 KB chunk; the first 5 million per month are free",
+    "note": "Events ingested for schema discovery, per 8 KB chunk. Always free: 5 million ingested events a month (https://aws.amazon.com/free/, Always free: Amazon EventBridge; https://aws.amazon.com/eventbridge/pricing/), counted over every region of the account (https://aws.amazon.com/free/free-tier-faqs/)",
     "sync": {
       "service": "AWSEvents",
       "filters": {
@@ -318,6 +318,8 @@
         "verified": true,
         "checkedAt": "2026-09-25"
       }
-    }
+    },
+    "pool": "account",
+    "free": 5000000
   }
 }

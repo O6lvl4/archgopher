@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"testing"
 	"time"
@@ -116,5 +117,13 @@ func TestCompositeRegionalPart(t *testing.T) {
 	}
 	if q, _ := c.quote("r2"); q.usdPerUnit != 6 {
 		t.Errorf("r2: %v", q.usdPerUnit)
+	}
+}
+
+func TestTierRowIsANumberNotAPattern(t *testing.T) {
+	raw := `{"filters": {"sku": "{row}"}, "tier": "{row}"}`
+	got := tierRow.ReplaceAllLiteralString(raw, `"tier": `+strconv.Quote("0.5"))
+	if want := `{"filters": {"sku": "{row}"}, "tier": "0.5"}`; got != want {
+		t.Fatalf("got %s", got)
 	}
 }

@@ -2,7 +2,7 @@ type: aws_kinesis_firehose_delivery_stream
 label: Data Firehose
 category: Analytics
 icon: data-firehose
-description: "Data ingested in volume tiers, priced by source: Direct PUT and Kinesis Data Streams round each record up to 5 KB, MSK and CloudWatch vended logs bill bytes; Apache Iceberg destinations have their own tiers. Format conversion, dynamic partitioning (GB, objects, JQ hours) and delivery into a VPC (GB and AZ-hours) are added when configured. Headroom is the Direct PUT record, request and byte rates of the stream."
+description: "Data ingested in volume tiers from 500 TB and 2 PB a month (250 TB and 1 PB into Apache Iceberg), counted over every stream of the account in the region with the same source and priced by source: Direct PUT and Kinesis Data Streams round each record up to 5 KB, MSK and CloudWatch vended logs bill bytes; Apache Iceberg destinations have their own prices. Format conversion, dynamic partitioning (GB, objects, JQ hours) and delivery into a VPC (GB and AZ-hours) are added when configured. Headroom is the Direct PUT record, request and byte rates of the stream."
 kinds: [put]
 sla: aws.firehose
 attributes:
@@ -33,12 +33,8 @@ let:
   - conversion: 'format_conversion_block && (format_conversion_enabled ?? true)'
   - vpc: elasticsearch_vpc || opensearch_vpc || opensearchserverless_vpc
 readings:
-  - cost: { when: '!iceberg', name: "Data ingested (first 500 TB)", quantity: 'min(gb, 512000)', unit: GB, price: "aws.firehose.{source}.tier1"  }
-  - cost: { when: '!iceberg && gb > 512000', name: "Data ingested (next 1.5 PB)", quantity: 'min(gb - 512000, 1536000)', unit: GB, price: "aws.firehose.{source}.tier2"  }
-  - cost: { when: '!iceberg && gb > 2048000', name: "Data ingested (over 2 PB)", quantity: gb - 2048000, unit: GB, price: "aws.firehose.{source}.tier3"  }
-  - cost: { when: iceberg, name: "Data ingested into Iceberg (first 250 TB)", quantity: 'min(gb, 256000)', unit: GB, price: "aws.firehose.{ice}.tier1"  }
-  - cost: { when: iceberg && gb > 256000, name: "Data ingested into Iceberg (next 750 TB)", quantity: 'min(gb - 256000, 768000)', unit: GB, price: "aws.firehose.{ice}.tier2"  }
-  - cost: { when: iceberg && gb > 1024000, name: "Data ingested into Iceberg (over 1 PB)", quantity: gb - 1024000, unit: GB, price: "aws.firehose.{ice}.tier3"  }
+  - cost: { when: '!iceberg', name: Data ingested, quantity: gb, unit: GB, price: "aws.firehose.{source}.ingest" }
+  - cost: { when: iceberg, name: Data ingested into Iceberg, quantity: gb, unit: GB, price: "aws.firehose.{ice}.ingest" }
   - cost: { when: conversion, name: Format conversion, quantity: gb, unit: GB, price: aws.firehose.format_conversion }
   - cost: { when: dynamic_partitioning, name: Dynamic partitioning, quantity: bytesGb, unit: GB, price: aws.firehose.dynamic_partitioning }
   - fail: { when: dynamic_partitioning && partitionObjects == nil, message: "dynamic partitioning bills each S3 object: set partitionObjects", continue: true }

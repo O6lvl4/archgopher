@@ -2,7 +2,7 @@ type: aws_flow_log
 label: VPC flow log
 category: Monitoring
 icon: vpc
-description: "Flow log records are vended logs: each GB is billed on delivery to CloudWatch Logs, S3 or Amazon Data Firehose, and on conversion to Parquet. Storage is billed where the records land (the log group or the bucket) and is not read here. Load does not flow through a flow log."
+description: "Flow log records are vended logs: each GB is billed on delivery to CloudWatch Logs, S3 or Amazon Data Firehose, in volume tiers from 10 TB, 30 TB and 50 TB a month counted over every flow log to the same destination in the region, and on conversion to Parquet. Storage is billed where the records land (the log group or the bucket) and is not read here. Load does not flow through a flow log."
 kinds: [record]
 attributes:
   - { key: log_destination_type, label: Destination, type: choice, options: [cloud-watch-logs, s3, kinesis-data-firehose], default: cloud-watch-logs }

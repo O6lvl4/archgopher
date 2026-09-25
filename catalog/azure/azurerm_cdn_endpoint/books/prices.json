@@ -49,7 +49,7 @@
   "azure.cdn.microsoft.zone1.transfer": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/cdn/",
-    "note": "Azure CDN Standard from Microsoft (classic): data transfer to clients in billing Zone 1 (North America, Europe, Middle East and Africa), by the first GB of each volume tier: 0, 10 TB, 50 TB, 150 TB, 500 TB, 1 PB",
+    "note": "Azure CDN Standard from Microsoft (classic): data transfer to clients in billing Zone 1 (North America, Europe, Middle East and Africa). Volume tiers count the transfer of every endpoint to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB and 1 PB; the pricing page does not say whether the tiers count per profile, per endpoint, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Content Delivery Network",
@@ -82,12 +82,14 @@
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-25"
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   },
   "azure.cdn.microsoft.zone2.transfer": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/cdn/",
-    "note": "Azure CDN Standard from Microsoft (classic): data transfer to clients in billing Zone 2 (Asia Pacific including Japan), by the first GB of each volume tier: 0, 10 TB, 50 TB, 150 TB, 500 TB, 1 PB",
+    "note": "Azure CDN Standard from Microsoft (classic): data transfer to clients in billing Zone 2 (Asia Pacific including Japan). Volume tiers count the transfer of every endpoint to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB and 1 PB; the pricing page does not say whether the tiers count per profile, per endpoint, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Content Delivery Network",
@@ -120,12 +122,14 @@
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-25"
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   },
   "azure.cdn.microsoft.zone3.transfer": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/cdn/",
-    "note": "Azure CDN Standard from Microsoft (classic): data transfer to clients in billing Zone 3 (South America), by the first GB of each volume tier: 0, 10 TB, 50 TB, 150 TB, 500 TB, 1 PB",
+    "note": "Azure CDN Standard from Microsoft (classic): data transfer to clients in billing Zone 3 (South America). Volume tiers count the transfer of every endpoint to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB and 1 PB; the pricing page does not say whether the tiers count per profile, per endpoint, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Content Delivery Network",
@@ -158,12 +162,14 @@
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-25"
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   },
   "azure.cdn.microsoft.zone4.transfer": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/cdn/",
-    "note": "Azure CDN Standard from Microsoft (classic): data transfer to clients in billing Zone 4 (Australia), by the first GB of each volume tier: 0, 10 TB, 50 TB, 150 TB, 500 TB, 1 PB",
+    "note": "Azure CDN Standard from Microsoft (classic): data transfer to clients in billing Zone 4 (Australia). Volume tiers count the transfer of every endpoint to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB and 1 PB; the pricing page does not say whether the tiers count per profile, per endpoint, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Content Delivery Network",
@@ -196,12 +202,14 @@
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-25"
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   },
   "azure.cdn.microsoft.zone5.transfer": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/cdn/",
-    "note": "Azure CDN Standard from Microsoft (classic): data transfer to clients in billing Zone 5 (India), by the first GB of each volume tier: 0, 10 TB, 50 TB, 150 TB, 500 TB, 1 PB",
+    "note": "Azure CDN Standard from Microsoft (classic): data transfer to clients in billing Zone 5 (India). Volume tiers count the transfer of every endpoint to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB and 1 PB; the pricing page does not say whether the tiers count per profile, per endpoint, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Content Delivery Network",
@@ -234,6 +242,8 @@
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-25"
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   }
 }

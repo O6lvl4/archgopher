@@ -2,29 +2,7 @@
   "azure.dns.private.zone": {
     "unit": "month",
     "source": "https://azure.microsoft.com/pricing/details/dns/",
-    "note": "Private DNS zone for the first 25 zones in a subscription, the same in every public region (billing Zone 1); zones are billed pro rata by the hour",
-    "sync": {
-      "source": "azure",
-      "service": "Azure DNS",
-      "region": "Zone 1",
-      "filters": {
-        "productName": "Azure DNS",
-        "skuName": "Private",
-        "meterName": "Private Zone"
-      }
-    },
-    "values": {
-      "*": {
-        "value": 0.5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      }
-    }
-  },
-  "azure.dns.private.zone_beyond_25": {
-    "unit": "month",
-    "source": "https://azure.microsoft.com/pricing/details/dns/",
-    "note": "Private DNS zone beyond the first 25 zones in a subscription, the same in every public region (billing Zone 1)",
+    "note": "Private DNS zone per month, the same in every public region (billing Zone 1); zones are billed pro rata by the hour. Volume tiers count the private zones of the subscription: the first 25 at the list price, every zone from the 26th lower (\"First 25 hosted DNS zones\"; zones and queries are aggregated within an Azure subscription for billing, https://azure.microsoft.com/pricing/details/dns/)",
     "sync": {
       "source": "azure",
       "service": "Azure DNS",
@@ -34,14 +12,19 @@
         "skuName": "Private",
         "meterName": "Private Zone"
       },
-      "tier": "25"
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 0.1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0.5
+      },
+      "25": {
+        "*": 0.1
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-26",
+    "pool": "account",
+    "tiered": true
   }
 }

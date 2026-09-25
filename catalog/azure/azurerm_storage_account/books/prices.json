@@ -70,7 +70,7 @@
   "azure.storage.hot.grs.stored": {
     "unit": "GB-month",
     "source": "https://azure.microsoft.com/pricing/details/storage/blobs/",
-    "note": "Hot tier, GRS, first 50 TB",
+    "note": "Hot tier, GRS, in volume tiers from 50 TB and 500 TB a month (First 50 terabyte (TB)/month, Next 450 TB/month, Over 500 TB/month, https://azure.microsoft.com/pricing/details/storage/blobs/). The page does not say over what the tiers are counted, so they are counted per region here, over every storage account of the account with this redundancy",
     "sync": {
       "source": "azure",
       "service": "Storage",
@@ -78,60 +78,51 @@
         "productName": "General Block Blob v2",
         "skuName": "Hot GRS",
         "meterName": "Hot GRS Data Stored"
+      },
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "australiaeast": 0.04,
+        "centralindia": 0.04,
+        "eastus": 0.0458,
+        "eastus2": 0.0368,
+        "germanywestcentral": 0.0392,
+        "japaneast": 0.04,
+        "koreacentral": 0.04,
+        "northeurope": 0.0368,
+        "southeastasia": 0.04,
+        "westus2": 0.0368
+      },
+      "51200": {
+        "australiaeast": 0.0384,
+        "centralindia": 0.0384,
+        "eastus": 0.043968,
+        "eastus2": 0.035328,
+        "germanywestcentral": 0.0376,
+        "japaneast": 0.0384,
+        "koreacentral": 0.0384,
+        "northeurope": 0.035328,
+        "southeastasia": 0.0384,
+        "westus2": 0.035328
+      },
+      "512000": {
+        "australiaeast": 0.0368,
+        "centralindia": 0.0368,
+        "eastus": 0.042136,
+        "eastus2": 0.033856,
+        "germanywestcentral": 0.0361,
+        "japaneast": 0.0368,
+        "koreacentral": 0.0368,
+        "northeurope": 0.033856,
+        "southeastasia": 0.0368,
+        "westus2": 0.033856
       }
     },
-    "values": {
-      "australiaeast": {
-        "value": 0.04,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "centralindia": {
-        "value": 0.04,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eastus": {
-        "value": 0.0458,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eastus2": {
-        "value": 0.0368,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "germanywestcentral": {
-        "value": 0.0392,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "japaneast": {
-        "value": 0.04,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "koreacentral": {
-        "value": 0.04,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "northeurope": {
-        "value": 0.0368,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "southeastasia": {
-        "value": 0.04,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "westus2": {
-        "value": 0.0368,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      }
-    }
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   },
   "azure.storage.hot.grs.write": {
     "unit": "request",
@@ -272,7 +263,7 @@
   "azure.storage.hot.lrs.stored": {
     "unit": "GB-month",
     "source": "https://azure.microsoft.com/pricing/details/storage/blobs/",
-    "note": "Hot tier, LRS, first 50 TB",
+    "note": "Hot tier, LRS, in volume tiers from 50 TB and 500 TB a month (First 50 terabyte (TB)/month, Next 450 TB/month, Over 500 TB/month, https://azure.microsoft.com/pricing/details/storage/blobs/). The page does not say over what the tiers are counted, so they are counted per region here, over every storage account of the account with this redundancy",
     "sync": {
       "source": "azure",
       "service": "Storage",
@@ -280,60 +271,51 @@
         "productName": "General Block Blob v2",
         "skuName": "Hot LRS",
         "meterName": "Hot LRS Data Stored"
+      },
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "australiaeast": 0.02,
+        "centralindia": 0.02,
+        "eastus": 0.0208,
+        "eastus2": 0.0184,
+        "germanywestcentral": 0.0196,
+        "japaneast": 0.02,
+        "koreacentral": 0.02,
+        "northeurope": 0.022,
+        "southeastasia": 0.02,
+        "westus2": 0.0184
+      },
+      "51200": {
+        "australiaeast": 0.0192,
+        "centralindia": 0.0192,
+        "eastus": 0.019968,
+        "eastus2": 0.017664,
+        "germanywestcentral": 0.0188,
+        "japaneast": 0.0192,
+        "koreacentral": 0.0192,
+        "northeurope": 0.02112,
+        "southeastasia": 0.0192,
+        "westus2": 0.017664
+      },
+      "512000": {
+        "australiaeast": 0.0184,
+        "centralindia": 0.0184,
+        "eastus": 0.019136,
+        "eastus2": 0.016928,
+        "germanywestcentral": 0.018,
+        "japaneast": 0.0184,
+        "koreacentral": 0.0184,
+        "northeurope": 0.02024,
+        "southeastasia": 0.0184,
+        "westus2": 0.016928
       }
     },
-    "values": {
-      "australiaeast": {
-        "value": 0.02,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "centralindia": {
-        "value": 0.02,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eastus": {
-        "value": 0.0208,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eastus2": {
-        "value": 0.0184,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "germanywestcentral": {
-        "value": 0.0196,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "japaneast": {
-        "value": 0.02,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "koreacentral": {
-        "value": 0.02,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "northeurope": {
-        "value": 0.022,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "southeastasia": {
-        "value": 0.02,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "westus2": {
-        "value": 0.0184,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      }
-    }
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   },
   "azure.storage.hot.lrs.write": {
     "unit": "request",
@@ -474,7 +456,7 @@
   "azure.storage.hot.ragrs.stored": {
     "unit": "GB-month",
     "source": "https://azure.microsoft.com/pricing/details/storage/blobs/",
-    "note": "Hot tier, RA-GRS, first 50 TB",
+    "note": "Hot tier, RA-GRS, in volume tiers from 50 TB and 500 TB a month (First 50 terabyte (TB)/month, Next 450 TB/month, Over 500 TB/month, https://azure.microsoft.com/pricing/details/storage/blobs/). The page does not say over what the tiers are counted, so they are counted per region here, over every storage account of the account with this redundancy",
     "sync": {
       "source": "azure",
       "service": "Storage",
@@ -482,60 +464,51 @@
         "productName": "General Block Blob v2",
         "skuName": "Hot RA-GRS",
         "meterName": "Hot RA-GRS Data Stored"
+      },
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "australiaeast": 0.05,
+        "centralindia": 0.05,
+        "eastus": 0.0589,
+        "eastus2": 0.046,
+        "germanywestcentral": 0.049,
+        "japaneast": 0.05,
+        "koreacentral": 0.05,
+        "northeurope": 0.046,
+        "southeastasia": 0.05,
+        "westus2": 0.046
+      },
+      "51200": {
+        "australiaeast": 0.048,
+        "centralindia": 0.048,
+        "eastus": 0.056544,
+        "eastus2": 0.04416,
+        "germanywestcentral": 0.047,
+        "japaneast": 0.048,
+        "koreacentral": 0.048,
+        "northeurope": 0.04416,
+        "southeastasia": 0.048,
+        "westus2": 0.04416
+      },
+      "512000": {
+        "australiaeast": 0.046,
+        "centralindia": 0.046,
+        "eastus": 0.054188,
+        "eastus2": 0.04232,
+        "germanywestcentral": 0.0451,
+        "japaneast": 0.046,
+        "koreacentral": 0.046,
+        "northeurope": 0.04232,
+        "southeastasia": 0.046,
+        "westus2": 0.04232
       }
     },
-    "values": {
-      "australiaeast": {
-        "value": 0.05,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "centralindia": {
-        "value": 0.05,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eastus": {
-        "value": 0.0589,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eastus2": {
-        "value": 0.046,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "germanywestcentral": {
-        "value": 0.049,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "japaneast": {
-        "value": 0.05,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "koreacentral": {
-        "value": 0.05,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "northeurope": {
-        "value": 0.046,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "southeastasia": {
-        "value": 0.05,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "westus2": {
-        "value": 0.046,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      }
-    }
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   },
   "azure.storage.hot.ragrs.write": {
     "unit": "request",
@@ -676,7 +649,7 @@
   "azure.storage.hot.zrs.stored": {
     "unit": "GB-month",
     "source": "https://azure.microsoft.com/pricing/details/storage/blobs/",
-    "note": "Hot tier, ZRS, first 50 TB",
+    "note": "Hot tier, ZRS, in volume tiers from 50 TB and 500 TB a month (First 50 terabyte (TB)/month, Next 450 TB/month, Over 500 TB/month, https://azure.microsoft.com/pricing/details/storage/blobs/). The page does not say over what the tiers are counted, so they are counted per region here, over every storage account of the account with this redundancy",
     "sync": {
       "source": "azure",
       "service": "Storage",
@@ -684,60 +657,51 @@
         "productName": "General Block Blob v2",
         "skuName": "Hot ZRS",
         "meterName": "Hot ZRS Data Stored"
+      },
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "australiaeast": 0.025,
+        "centralindia": 0.025,
+        "eastus": 0.026,
+        "eastus2": 0.023,
+        "germanywestcentral": 0.0225,
+        "japaneast": 0.025,
+        "koreacentral": 0.025,
+        "northeurope": 0.023,
+        "southeastasia": 0.025,
+        "westus2": 0.023
+      },
+      "51200": {
+        "australiaeast": 0.024,
+        "centralindia": 0.024,
+        "eastus": 0.02496,
+        "eastus2": 0.02208,
+        "germanywestcentral": 0.0216,
+        "japaneast": 0.024,
+        "koreacentral": 0.024,
+        "northeurope": 0.02208,
+        "southeastasia": 0.024,
+        "westus2": 0.02208
+      },
+      "512000": {
+        "australiaeast": 0.023,
+        "centralindia": 0.023,
+        "eastus": 0.02392,
+        "eastus2": 0.02116,
+        "germanywestcentral": 0.0207,
+        "japaneast": 0.023,
+        "koreacentral": 0.023,
+        "northeurope": 0.02116,
+        "southeastasia": 0.023,
+        "westus2": 0.02116
       }
     },
-    "values": {
-      "australiaeast": {
-        "value": 0.025,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "centralindia": {
-        "value": 0.025,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eastus": {
-        "value": 0.026,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eastus2": {
-        "value": 0.023,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "germanywestcentral": {
-        "value": 0.0225,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "japaneast": {
-        "value": 0.025,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "koreacentral": {
-        "value": 0.025,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "northeurope": {
-        "value": 0.023,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "southeastasia": {
-        "value": 0.025,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "westus2": {
-        "value": 0.023,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      }
-    }
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   },
   "azure.storage.hot.zrs.write": {
     "unit": "request",

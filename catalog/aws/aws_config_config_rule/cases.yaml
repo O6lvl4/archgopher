@@ -6,26 +6,26 @@
     resources: 200
     changesPerResource: 3
   costs:
-    Rule evaluations (first 100K): 0.6
+    Rule evaluations: 0.6
 - name: hourly periodic rule over 500 resources
   region: ap-northeast-1
   attributes:
     maximum_execution_frequency: One_Hour
   assumptions:
     resources: 500
+  # 500 × 730 = 365,000 evaluations: 100,000 × $0.001 = 100; 265,000 × $0.0008 = 212; together 312
   costs:
-    Rule evaluations (first 100K): 100
-    Rule evaluations (next 400K): 212
+    Rule evaluations: 312
 - name: all three tiers
   region: us-east-1
   attributes:
     maximum_execution_frequency: One_Hour
   assumptions:
     resources: 3000
+  # 3,000 × 730 = 2,190,000 evaluations: 100,000 × $0.001 = 100; 400,000 × $0.0008 = 320;
+  # 1,690,000 × $0.0005 = 845; together 1265
   costs:
-    Rule evaluations (first 100K): 100
-    Rule evaluations (next 400K): 320
-    Rule evaluations (over 500K): 845
+    Rule evaluations: 1265
 - name: custom lambda rule scheduled in source_detail
   region: ap-northeast-1
   attributes:
@@ -35,7 +35,7 @@
   assumptions:
     resources: 1000
   costs:
-    Rule evaluations (first 100K): 60.833333333
+    Rule evaluations: 60.833333333
 - name: resources unknown
   region: us-east-1
   error: missing assumption "resources"

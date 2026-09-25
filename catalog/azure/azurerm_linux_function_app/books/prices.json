@@ -3,7 +3,7 @@
     "unit": "request",
     "per": 1000000,
     "source": "https://azure.microsoft.com/pricing/details/functions/",
-    "note": "Consumption plan executions; the monthly free grant is ignored",
+    "note": "Consumption plan executions. The first million a month are free per subscription, counted over every function app on the Consumption plan (https://azure.microsoft.com/pricing/details/functions/: a monthly free grant of 1 million requests and 400,000 GB-s per month per subscription). The price list gives them as the zero-priced first tier",
     "sync": {
       "source": "azure",
       "service": "Functions",
@@ -12,65 +12,44 @@
         "skuName": "Standard",
         "meterName": "Standard Total Executions"
       },
-      "listPer": 10
+      "listPer": 10,
+      "tier": "{row}"
     },
-    "values": {
-      "australiaeast": {
-        "value": 0.2,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+    "rows": {
+      "0": {
+        "australiaeast": 0,
+        "centralindia": 0,
+        "eastus": 0,
+        "eastus2": 0,
+        "germanywestcentral": 0,
+        "japaneast": 0,
+        "koreacentral": 0,
+        "northeurope": 0,
+        "southeastasia": 0,
+        "westus2": 0
       },
-      "centralindia": {
-        "value": 0.2,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eastus": {
-        "value": 0.2,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eastus2": {
-        "value": 0.2,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "germanywestcentral": {
-        "value": 0.2,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "japaneast": {
-        "value": 0.2,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "koreacentral": {
-        "value": 0.2,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "northeurope": {
-        "value": 0.2,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "southeastasia": {
-        "value": 0.2,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "westus2": {
-        "value": 0.2,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+      "1000000": {
+        "australiaeast": 0.2,
+        "centralindia": 0.2,
+        "eastus": 0.2,
+        "eastus2": 0.2,
+        "germanywestcentral": 0.2,
+        "japaneast": 0.2,
+        "koreacentral": 0.2,
+        "northeurope": 0.2,
+        "southeastasia": 0.2,
+        "westus2": 0.2
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "azure.functions.consumption.gb_second": {
     "unit": "GB-second",
     "source": "https://azure.microsoft.com/pricing/details/functions/",
-    "note": "Consumption plan execution time; the monthly free grant is ignored",
+    "note": "Consumption plan execution time. The first 400,000 GB-seconds a month are free per subscription, counted over every function app on the Consumption plan (https://azure.microsoft.com/pricing/details/functions/: a monthly free grant of 1 million requests and 400,000 GB-s per month per subscription; free grants apply to paid subscriptions only). The price list gives them as the zero-priced first tier",
     "sync": {
       "source": "azure",
       "service": "Functions",
@@ -78,59 +57,38 @@
         "productName": "Functions",
         "skuName": "Standard",
         "meterName": "Standard Execution Time"
+      },
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "australiaeast": 0,
+        "centralindia": 0,
+        "eastus": 0,
+        "eastus2": 0,
+        "germanywestcentral": 0,
+        "japaneast": 0,
+        "koreacentral": 0,
+        "northeurope": 0,
+        "southeastasia": 0,
+        "westus2": 0
+      },
+      "400000": {
+        "australiaeast": 0.000016,
+        "centralindia": 0.000016,
+        "eastus": 0.000016,
+        "eastus2": 0.000016,
+        "germanywestcentral": 0.000016,
+        "japaneast": 0.000016,
+        "koreacentral": 0.000016,
+        "northeurope": 0.000016,
+        "southeastasia": 0.000016,
+        "westus2": 0.000016
       }
     },
-    "values": {
-      "australiaeast": {
-        "value": 0.000016,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "centralindia": {
-        "value": 0.000016,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eastus": {
-        "value": 0.000016,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eastus2": {
-        "value": 0.000016,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "germanywestcentral": {
-        "value": 0.000016,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "japaneast": {
-        "value": 0.000016,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "koreacentral": {
-        "value": 0.000016,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "northeurope": {
-        "value": 0.000016,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "southeastasia": {
-        "value": 0.000016,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "westus2": {
-        "value": 0.000016,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      }
-    }
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   }
 }

@@ -2,7 +2,7 @@ type: google_bigquery_table
 label: BigQuery table
 category: Analytics
 icon: bigquery
-description: "Active and long-term logical storage, writes as streaming inserts (at least 1 KB a row) or through the Storage Write API (batch loads are free), on-demand queries per TiB scanned and Storage Read API reads per TiB. Headroom is the project's streaming throughput in the location."
+description: "Active and long-term logical storage, writes as streaming inserts (at least 1 KB a row) or through the Storage Write API (batch loads are free), on-demand queries per TiB scanned and Storage Read API reads per TiB. Free tiers are counted over the billing account: 10 GiB of active and of long-term storage, 2 TiB through the Storage Write API, 1 TiB of queries and 300 TiB of Storage Read API reads a month. Headroom is the project's streaming throughput in the location."
 kinds: [write, query, read]
 sla: gcp.bigquery
 assumptions:

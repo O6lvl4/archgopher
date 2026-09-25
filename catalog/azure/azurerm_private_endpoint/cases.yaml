@@ -14,6 +14,13 @@
   costs:
     Endpoint hours: 7.3
     Data processed: 5
+# Past the first tier: 1,000,000 GB × $0.01 = 10000; 200,000 GB × $0.006 = 1200; together 11200.
+- name: 1.2 PB of other traffic (eastus)
+  region: eastus
+  assumptions: { gbPerMonth: 1200000 }
+  costs:
+    Endpoint hours: 7.3
+    Data processed: 11200
 - name: load passes through without a size (eastus)
   region: eastus
   demand: { request: { monthly: 1000, peak: 1 } }

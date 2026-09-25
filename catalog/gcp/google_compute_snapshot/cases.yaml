@@ -40,3 +40,17 @@
       peak: 1
   costs:
     Snapshot storage (archive, multi-regional): 2.8
+- name: Columbus snapshot of 40 GiB kept in us-east5, whose price list gives the first 5 GiB free
+  # Regional standard storage: (40 - 5) x 0.026 = 0.91
+  region: us-east5
+  attributes:
+    storage_locations:
+    - us-east5
+  assumptions:
+    storedGb: 40
+  demand:
+    read:
+      monthly: 10
+      peak: 1
+  costs:
+    Snapshot storage (standard, regional): 0.91

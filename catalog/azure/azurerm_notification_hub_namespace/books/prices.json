@@ -79,7 +79,7 @@
       "listPer": 1000000,
       "service": "Notification Hubs",
       "source": "azure",
-      "tier": "10"
+      "tier": "10000000"
     },
     "values": {
       "australiaeast": {
@@ -214,7 +214,7 @@
       "listPer": 1000000,
       "service": "Notification Hubs",
       "source": "azure",
-      "tier": "100"
+      "tier": "100000000"
     },
     "values": {
       "australiaeast": {
@@ -283,7 +283,7 @@
       "listPer": 1000000,
       "service": "Notification Hubs",
       "source": "azure",
-      "tier": "10"
+      "tier": "10000000"
     },
     "values": {
       "australiaeast": {

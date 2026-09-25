@@ -141,6 +141,73 @@
     "verified": true,
     "checkedAt": "2026-09-25"
   },
+  "aws.ec2.dedicated.regional_fee": {
+    "unit": "hour",
+    "source": "https://aws.amazon.com/ec2/pricing/dedicated-instances/",
+    "note": "Dedicated Per Region Fee: charged once an hour for the region while at least one Dedicated Instance (on-demand, spot or reserved) of the account runs there, however many run. Dedicated Hosts do not pay it. The pool is the region and the fee is billed once for the longest-running reader",
+    "sync": {
+      "service": "AmazonEC2",
+      "filters": {
+        "productFamily": "Fee",
+        "group": "EC2-Dedicated Usage",
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?DedicatedUsage"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    },
+    "pool": "region",
+    "combine": "max"
+  },
   "aws.ec2.ebs_optimized": {
     "unit": "instance-hour",
     "source": "https://aws.amazon.com/ec2/previous-generation/",
@@ -363,66 +430,70 @@
   "aws.ec2.monitoring.metric": {
     "unit": "metric-month",
     "source": "https://aws.amazon.com/cloudwatch/pricing/",
-    "note": "CloudWatch metric, first tier (10,000 metrics); EC2 detailed monitoring sends about 7 per instance",
+    "note": "CloudWatch metric (custom or detailed monitoring); EC2 detailed monitoring sends about 7 per instance. Volume tiers from 10,000, 250,000 and 1 million metrics a month. Always free: 10 metrics a month (https://aws.amazon.com/cloudwatch/pricing/, Free tier; https://aws.amazon.com/free/, Always free: Amazon CloudWatch; the price list's Global-CW:MetricMonitorUsage grant, 0 to 10 at $0), counted over the account. The pricing page does not say whether the tiers count per region; the pool follows the free metrics and counts both over the account",
     "sync": {
       "service": "AmazonCloudWatch",
       "filters": {
         "productFamily": "Metric",
         "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?CW:MetricMonitorUsage"
+      },
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "ap-northeast-1": 0.3,
+        "ap-northeast-2": 0.3,
+        "ap-south-1": 0.3,
+        "ap-southeast-1": 0.3,
+        "ap-southeast-2": 0.3,
+        "eu-central-1": 0.3,
+        "eu-west-1": 0.3,
+        "us-east-1": 0.3,
+        "us-east-2": 0.3,
+        "us-west-2": 0.3
+      },
+      "10000": {
+        "ap-northeast-1": 0.1,
+        "ap-northeast-2": 0.1,
+        "ap-south-1": 0.1,
+        "ap-southeast-1": 0.1,
+        "ap-southeast-2": 0.1,
+        "eu-central-1": 0.1,
+        "eu-west-1": 0.1,
+        "us-east-1": 0.1,
+        "us-east-2": 0.1,
+        "us-west-2": 0.1
+      },
+      "1000000": {
+        "ap-northeast-1": 0.02,
+        "ap-northeast-2": 0.02,
+        "ap-south-1": 0.02,
+        "ap-southeast-1": 0.02,
+        "ap-southeast-2": 0.02,
+        "eu-central-1": 0.02,
+        "eu-west-1": 0.02,
+        "us-east-1": 0.02,
+        "us-east-2": 0.02,
+        "us-west-2": 0.02
+      },
+      "250000": {
+        "ap-northeast-1": 0.05,
+        "ap-northeast-2": 0.05,
+        "ap-south-1": 0.05,
+        "ap-southeast-1": 0.05,
+        "ap-southeast-2": 0.05,
+        "eu-central-1": 0.05,
+        "eu-west-1": 0.05,
+        "us-east-1": 0.05,
+        "us-east-2": 0.05,
+        "us-west-2": 0.05
       }
     },
-    "values": {
-      "ap-northeast-1": {
-        "value": 0.3,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-northeast-2": {
-        "value": 0.3,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-south-1": {
-        "value": 0.3,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-1": {
-        "value": 0.3,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-2": {
-        "value": 0.3,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-central-1": {
-        "value": 0.3,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-west-1": {
-        "value": 0.3,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-1": {
-        "value": 0.3,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-2": {
-        "value": 0.3,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-west-2": {
-        "value": 0.3,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      }
-    }
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "free": 10,
+    "tiered": true
   },
   "aws.ec2.public_ipv4": {
     "unit": "address-hour",

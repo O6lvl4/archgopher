@@ -2,7 +2,7 @@ type: aws_cognito_user_pool
 label: Cognito user pool
 category: Security
 icon: cognito
-description: "Monthly active users priced by feature plan: Lite in volume tiers, Essentials and Plus flat. Headroom is the sign-in and sign-up request rates, shared by every user pool in the account and region. Free tier is ignored."
+description: "Monthly active users priced by feature plan: Lite in volume tiers from 100,000, 1 million and 10 million MAU, Essentials and Plus flat. The always-free 10,000 MAU a month of Lite and Essentials is given once over every user pool of the account on either plan, and the Lite tiers are counted over the account too. Headroom is the sign-in and sign-up request rates, shared by every user pool in the account and region."
 kinds: [sign_in]
 sla: aws.cognito
 attributes:
@@ -16,10 +16,7 @@ let:
 readings:
   - cost: { when: 'user_pool_tier == "ESSENTIALS"', name: Monthly active users, quantity: monthlyActiveUsers, unit: MAU, price: aws.cognito.essentials.mau }
   - cost: { when: 'user_pool_tier == "PLUS"', name: Monthly active users, quantity: monthlyActiveUsers, unit: MAU, price: aws.cognito.plus.mau }
-  - cost: { when: lite, name: "Monthly active users (first 90,000)", quantity: "min(monthlyActiveUsers, 90000)", unit: MAU, price: aws.cognito.lite.mau_tier1 }
-  - cost: { when: lite && monthlyActiveUsers > 90000, name: "Monthly active users (next 900,000)", quantity: "min(monthlyActiveUsers - 90000, 900000)", unit: MAU, price: aws.cognito.lite.mau_tier2 }
-  - cost: { when: lite && monthlyActiveUsers > 990000, name: "Monthly active users (next 9,000,000)", quantity: "min(monthlyActiveUsers - 990000, 9000000)", unit: MAU, price: aws.cognito.lite.mau_tier3 }
-  - cost: { when: lite && monthlyActiveUsers > 9990000, name: "Monthly active users (over 9,990,000)", quantity: monthlyActiveUsers - 9990000, unit: MAU, price: aws.cognito.lite.mau_tier4 }
+  - cost: { when: lite, name: Monthly active users, quantity: monthlyActiveUsers, unit: MAU, price: aws.cognito.lite.mau }
   - rate: { name: Sign-in requests, unit: requests/second, quota: aws.cognito.user_authentication_rps, peak: total.peak * authRequestsPerSignIn }
   - rate: { when: signUpShare > 0, name: Sign-up requests, unit: requests/second, quota: aws.cognito.user_creation_rps, peak: total.peak * signUpShare * 2 }
 terraform:

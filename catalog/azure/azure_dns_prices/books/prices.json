@@ -3,7 +3,7 @@
     "unit": "query",
     "per": 1000000,
     "source": "https://azure.microsoft.com/pricing/details/dns/",
-    "note": "Public zone queries, first billion a month in the subscription",
+    "note": "Public zone queries. Volume tiers count every public zone query of the subscription in a month: lower from 1 billion (\"Queries are aggregated within an Azure subscription for billing purposes\", https://azure.microsoft.com/pricing/details/dns/)",
     "sync": {
       "source": "azure",
       "service": "Azure DNS",
@@ -13,40 +13,20 @@
         "skuName": "Public",
         "meterName": "Public Queries"
       },
-      "tier": "0",
+      "tier": "{row}",
       "listPer": 1000000
     },
-    "values": {
-      "*": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      }
-    }
-  },
-  "azure.dns.queries_over_1b": {
-    "unit": "query",
-    "per": 1000000,
-    "source": "https://azure.microsoft.com/pricing/details/dns/",
-    "note": "Public zone queries beyond the first billion a month",
-    "sync": {
-      "source": "azure",
-      "service": "Azure DNS",
-      "region": "Zone 1",
-      "filters": {
-        "productName": "Azure DNS",
-        "skuName": "Public",
-        "meterName": "Public Queries"
+    "rows": {
+      "0": {
+        "*": 0.4
       },
-      "tier": "1000",
-      "listPer": 1000000
-    },
-    "values": {
-      "*": {
-        "value": 0.2,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "1000000000": {
+        "*": 0.2
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   }
 }

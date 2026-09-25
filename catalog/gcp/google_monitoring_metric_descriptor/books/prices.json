@@ -3,7 +3,7 @@
     "unit": "time series",
     "per": 1000000,
     "source": "https://cloud.google.com/stackdriver/pricing",
-    "note": "Monitoring read API calls: per time series returned, at least one per call; calls from the console (not Cloud Shell) and write calls are free. The first million a billing account a month are free and ignored. Synced from the Billing Catalog.",
+    "note": "Monitoring read API calls: per time series returned, at least one per call; calls from the console (not Cloud Shell) and write calls are free. The first million time series a billing account a month are free (\"First 1 million time series returned per billing account\", https://cloud.google.com/stackdriver/pricing), counted over the account. Synced from the Billing Catalog, which lists them as a $0 first tier.",
     "sync": {
       "filters": {
         "description": "Time series billed count",
@@ -12,20 +12,25 @@
       "region": "global",
       "service": "58CD-E7C3-72CA",
       "source": "gcp",
-      "tier": "1000000"
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 0.5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0
+      },
+      "1000000": {
+        "*": 0.5
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
-  "gcp.monitoring.volume_tier1": {
+  "gcp.monitoring.volume": {
     "unit": "MiB",
     "source": "https://cloud.google.com/stackdriver/pricing",
-    "note": "Metric volume charged by bytes ingested, 150 to 100,000 MiB a billing account; the first 150 MiB are free and ignored, and the tier bounds are applied to one metric. Synced from the Billing Catalog.",
+    "note": "Metric volume charged by bytes ingested. Tiers count the billing account's chargeable metric volume in a month: the first 150 MiB are free, then from 150, 100,000 and 250,000 MiB (\"First 150 MiB per billing account for metrics charged by bytes ingested\", https://cloud.google.com/stackdriver/pricing). Synced from the Billing Catalog, whose Metric Volume SKU lists the free 150 MiB as a $0 first tier.",
     "sync": {
       "filters": {
         "description": "Metric Volume",
@@ -34,58 +39,25 @@
       "region": "global",
       "service": "58CD-E7C3-72CA",
       "source": "gcp",
-      "tier": "150"
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 0.258,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      }
-    }
-  },
-  "gcp.monitoring.volume_tier2": {
-    "unit": "MiB",
-    "source": "https://cloud.google.com/stackdriver/pricing",
-    "note": "Metric volume charged by bytes ingested, 100,000 to 250,000 MiB a billing account. Synced from the Billing Catalog.",
-    "sync": {
-      "filters": {
-        "description": "Metric Volume",
-        "usageUnit": "MiBy"
+    "rows": {
+      "0": {
+        "*": 0
       },
-      "region": "global",
-      "service": "58CD-E7C3-72CA",
-      "source": "gcp",
-      "tier": "100000"
-    },
-    "values": {
-      "*": {
-        "value": 0.151,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      }
-    }
-  },
-  "gcp.monitoring.volume_tier3": {
-    "unit": "MiB",
-    "source": "https://cloud.google.com/stackdriver/pricing",
-    "note": "Metric volume charged by bytes ingested, over 250,000 MiB a billing account. Synced from the Billing Catalog.",
-    "sync": {
-      "filters": {
-        "description": "Metric Volume",
-        "usageUnit": "MiBy"
+      "100000": {
+        "*": 0.151
       },
-      "region": "global",
-      "service": "58CD-E7C3-72CA",
-      "source": "gcp",
-      "tier": "250000"
-    },
-    "values": {
-      "*": {
-        "value": 0.061,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "150": {
+        "*": 0.258
+      },
+      "250000": {
+        "*": 0.061
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   }
 }

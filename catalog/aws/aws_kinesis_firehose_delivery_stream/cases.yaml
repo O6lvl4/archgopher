@@ -12,7 +12,7 @@
       monthly: 209715200
       peak: 200
   costs:
-    Data ingested (first 500 TB): 36.0
+    Data ingested: 36.0
     Format conversion: 22.0
   limits:
     Direct PUT records: 200
@@ -31,7 +31,7 @@
       monthly: 1048576000
       peak: 400
   costs:
-    Data ingested (first 500 TB): 145.0
+    Data ingested: 145.0
     Data delivered into the VPC: 10.0
     VPC delivery AZ hours: 21.9
 - name: Direct PUT across two volume tiers with dynamic partitioning (us-east-1)
@@ -46,9 +46,9 @@
     put:
       monthly: 125829120000
       peak: 1000
+  # 125829120000 records x 5 KB = 600,000 GB: 512,000 x 0.029 = 14848; 88,000 x 0.025 = 2200; together 17048
   costs:
-    Data ingested (first 500 TB): 14848.0
-    Data ingested (next 1.5 PB): 2200.0
+    Data ingested: 17048.0
     Dynamic partitioning: 12000.0
     Dynamically partitioned objects: 5.0
     JQ processing: 0.7
@@ -68,7 +68,7 @@
       monthly: 524288000
       peak: 100
   costs:
-    Data ingested into Iceberg (first 250 TB): 56.0
+    Data ingested into Iceberg: 56.0
 - name: VPC delivery without vpcAzs (ap-northeast-1)
   region: ap-northeast-1
   attributes:
@@ -78,7 +78,7 @@
       monthly: 1048576
       peak: 1
   costs:
-    Data ingested (first 500 TB): 0.18
+    Data ingested: 0.18
     Data delivered into the VPC: 0.01
   limits:
     Direct PUT records: 1
@@ -96,8 +96,74 @@
       peak: 10
   # 104857600 records x 1 KB = 100 GB, not rounded up to 5 KB; x 0.16
   costs:
-    Data ingested (first 500 TB): 16.0
+    Data ingested: 16.0
   limits:
     Direct PUT records: 10
     Direct PUT requests: 10
     Direct PUT throughput: 0.009765625
+- name: Kinesis Data Streams source past two volume tiers (us-east-1)
+  region: us-east-1
+  attributes:
+    kinesis_source: true
+  demand:
+    put:
+      monthly: 629145600000
+      peak: 0
+  # 629145600000 records x 5 KB = 3,000,000 GB: 512,000 x 0.029 = 14848; 1,536,000 x 0.025 = 38400;
+  # 952,000 x 0.02 = 19040; together 72288
+  costs:
+    Data ingested: 72288.0
+- name: MSK source past the first volume tier (us-east-1)
+  region: us-east-1
+  attributes:
+    msk_source: true
+  demand:
+    put:
+      monthly: 629145600000
+      peak: 0
+  # 629145600000 records x 1 KB = 600,000 GB: 512,000 x 0.055 = 28160; 88,000 x 0.047 = 4136; together 32296
+  costs:
+    Data ingested: 32296.0
+- name: CloudWatch vended logs past the first volume tier (us-east-1)
+  region: us-east-1
+  assumptions:
+    vendedLogs: true
+  demand:
+    put:
+      monthly: 629145600000
+      peak: 0
+  # 600,000 GB: 512,000 x 0.13 = 66560; 88,000 x 0.11 = 9680; together 76240
+  costs:
+    Data ingested: 76240.0
+  limits:
+    Direct PUT records: 0
+    Direct PUT requests: 0
+    Direct PUT throughput: 0
+- name: Direct PUT into Apache Iceberg past the first volume tier (us-east-1)
+  region: us-east-1
+  attributes:
+    destination: iceberg
+  demand:
+    put:
+      monthly: 314572800000
+      peak: 0
+  # 314572800000 records x 1 KB = 300,000 GB: 256,000 x 0.075 = 19200; 44,000 x 0.064 = 2816; together 22016
+  costs:
+    Data ingested into Iceberg: 22016.0
+  limits:
+    Direct PUT records: 0
+    Direct PUT requests: 0
+    Direct PUT throughput: 0
+- name: MSK source into Apache Iceberg past two volume tiers (us-east-1)
+  region: us-east-1
+  attributes:
+    msk_source: true
+    destination: iceberg
+  demand:
+    put:
+      monthly: 1258291200000
+      peak: 0
+  # 1258291200000 records x 1 KB = 1,200,000 GB: 256,000 x 0.045 = 11520; 768,000 x 0.038 = 29184;
+  # 176,000 x 0.032 = 5632; together 46336
+  costs:
+    Data ingested into Iceberg: 46336.0

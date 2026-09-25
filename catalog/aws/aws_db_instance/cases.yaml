@@ -56,7 +56,8 @@
     Storage (gp2): 11.5
     Performance Insights retention (first month): 2.99884
     Performance Insights retention (2 more months): 0.25112
-    Database Insights API: 20
+    # 2e6 calls, the free 1 million first: 1e6 × $0.01 / 1000 = 10
+    Database Insights API: 10
 - name: PostgreSQL on Extended Support year 3 with Database Insights advanced (ap-northeast-1)
   region: ap-northeast-1
   attributes: { engine: postgres, instance_class: db.m6g.large, storage_type: gp3, allocated_storage: 100, database_insights_mode: advanced }

@@ -29,6 +29,24 @@
     Cryptographic operations: 3
   limits:
     Cryptographic requests: 300
+# 3000 versions × 730 version-hours; the account's first 2000 version-months at $2.50, 2000 × 2.5 = 5000,
+# the rest at $1, 1000 × 1 = 1000; together 6000.
+- name: Tokyo, 3,000 active HSM P-384 versions past the account's first 2,000
+  region: asia-northeast1
+  attributes:
+    protection_level: HSM
+    algorithm: EC_SIGN_P384_SHA384
+  assumptions:
+    versions: 3000
+  demand:
+    sign:
+      monthly: 0
+      peak: 0
+  costs:
+    Key versions: 6000
+    Cryptographic operations: 0
+  limits:
+    Cryptographic requests: 0
 - name: Single-tenant HSM is not priced per version
   region: asia-northeast1
   attributes:

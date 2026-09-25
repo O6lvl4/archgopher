@@ -11,7 +11,8 @@
       monthly: 0
       peak: 0
   costs:
-    Data ingested: 33.4
+    # 10 GB, the first 5 free: 5 × 3.34 = 16.7
+    Data ingested: 16.7
     Retention beyond 31 days: 2.911184211
 - name: telemetry from connected apps (East US)
   region: eastus
@@ -22,7 +23,8 @@
       monthly: 1000000.0
       peak: 10
   costs:
-    Data ingested: 4.386901855
+    # 1e6 × 2 KB = 1.9073 GB, within the 5 GB free
+    Data ingested: 0
 - name: only pay-as-you-go is read
   region: eastus
   attributes:

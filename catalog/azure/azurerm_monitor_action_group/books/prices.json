@@ -3,7 +3,7 @@
     "unit": "email",
     "per": 100000,
     "source": "https://azure.microsoft.com/pricing/details/monitor/",
-    "note": "Email to an email receiver; the first 1,000 a month are free (ignored, as every free tier). Global meter: action groups are global",
+    "note": "Email to an email receiver. The first 1,000 a month are free (https://azure.microsoft.com/pricing/details/monitor/), given in the price list as the zero-priced first tier. Global meter: action groups are global, so the free units are counted over every action group of the account (the page does not say more)",
     "sync": {
       "source": "azure",
       "service": "Azure Monitor",
@@ -12,21 +12,27 @@
         "skuName": "Emails",
         "meterName": "Emails"
       },
-      "region": "Global"
+      "region": "Global",
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 2,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0
+      },
+      "1000": {
+        "*": 2
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "azure.monitor.notifications.itsm": {
     "unit": "event",
     "per": 1000,
     "source": "https://azure.microsoft.com/pricing/details/monitor/",
-    "note": "ITSM connector create or update event; the first 1,000 a month are free (ignored). Global meter: action groups are global",
+    "note": "ITSM connector create or update event. The first 1,000 a month are free (https://azure.microsoft.com/pricing/details/monitor/), given in the price list as the zero-priced first tier. Global meter: action groups are global, so the free units are counted over every action group of the account (the page does not say more)",
     "sync": {
       "source": "azure",
       "service": "Azure Monitor",
@@ -35,21 +41,27 @@
         "skuName": "Notifications",
         "meterName": "Notifications ITSM Connector Create/Update Event"
       },
-      "region": "Global"
+      "region": "Global",
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0
+      },
+      "1000": {
+        "*": 5
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "azure.monitor.notifications.push": {
     "unit": "notification",
     "per": 100000,
     "source": "https://azure.microsoft.com/pricing/details/monitor/",
-    "note": "Azure app push notification; the first 1,000 a month are free (ignored). Global meter: action groups are global",
+    "note": "Azure app push notification. The first 1,000 a month are free (https://azure.microsoft.com/pricing/details/monitor/), given in the price list as the zero-priced first tier. Global meter: action groups are global, so the free units are counted over every action group of the account (the page does not say more)",
     "sync": {
       "source": "azure",
       "service": "Azure Monitor",
@@ -58,21 +70,27 @@
         "skuName": "Notifications",
         "meterName": "Notifications Push Notification"
       },
-      "region": "Global"
+      "region": "Global",
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 2,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0
+      },
+      "1000": {
+        "*": 2
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "azure.monitor.notifications.secure_webhook": {
     "unit": "notification",
     "per": 1000000,
     "source": "https://azure.microsoft.com/pricing/details/monitor/",
-    "note": "Secure webhook call (Microsoft Entra authentication); the first 1,000 a month are free (ignored). The Retail Prices API lists it per 10. Global meter: action groups are global",
+    "note": "Secure webhook call (Microsoft Entra authentication). The first 1,000 a month are free (https://azure.microsoft.com/pricing/details/monitor/). The price list gives them as the zero-priced first tier. Global meter: action groups are global, so the free units are counted over every action group of the account (the page does not say more)",
     "sync": {
       "source": "azure",
       "service": "Azure Monitor",
@@ -82,15 +100,21 @@
         "meterName": "Notifications Secure web hook"
       },
       "region": "Global",
-      "listPer": 10
+      "listPer": 10,
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 6,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0
+      },
+      "1000": {
+        "*": 6
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "azure.monitor.notifications.sms": {
     "unit": "message",
@@ -423,7 +447,7 @@
   "azure.monitor.notifications.voice.1": {
     "unit": "call",
     "source": "https://azure.microsoft.com/pricing/details/monitor/",
-    "note": "Voice call to country code 1, a meter of its own beside the voice table; the first 10 a month are free (ignored). Global meter: action groups are global",
+    "note": "Voice call to country code 1, a meter of its own beside the voice table. The first 10 a month are free (https://azure.microsoft.com/pricing/details/monitor/), given in the price list as the zero-priced first tier. Global meter: action groups are global, so the free units are counted over every action group of the account (the page does not say more)",
     "sync": {
       "source": "azure",
       "service": "Azure Monitor",
@@ -432,21 +456,27 @@
         "skuName": "Voice Calls",
         "meterName": "Voice Calls"
       },
-      "region": "Global"
+      "region": "Global",
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 0.013,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0
+      },
+      "10": {
+        "*": 0.013
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "azure.monitor.notifications.webhook": {
     "unit": "notification",
     "per": 1000000,
     "source": "https://azure.microsoft.com/pricing/details/monitor/",
-    "note": "Webhook call; the first 100,000 a month are free (ignored). The Retail Prices API lists it per 10. Global meter: action groups are global",
+    "note": "Webhook call. The first 100,000 a month are free (https://azure.microsoft.com/pricing/details/monitor/). The price list gives them as the zero-priced first tier. Global meter: action groups are global, so the free units are counted over every action group of the account (the page does not say more)",
     "sync": {
       "source": "azure",
       "service": "Azure Monitor",
@@ -456,14 +486,20 @@
         "meterName": "Notifications Web hook"
       },
       "region": "Global",
-      "listPer": 10
+      "listPer": 10,
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 0.6,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0
+      },
+      "100000": {
+        "*": 0.6
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   }
 }

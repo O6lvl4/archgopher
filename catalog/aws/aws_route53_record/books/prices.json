@@ -31,70 +31,134 @@
     "verified": true,
     "checkedAt": "2026-09-25"
   },
-  "aws.route53.queries": {
+  "aws.route53.queries.Cidr": {
     "unit": "query",
     "per": 1000000,
     "source": "https://aws.amazon.com/route53/pricing/",
-    "note": "Queries by routing policy (DNS standard, LBR latency, Geo, Geo-Proximity, Cidr IP-based), first 1 billion a month",
+    "note": "Queries to IP-based (CIDR) records (Cidr-Queries). Volume tiers from 1 billion queries a month, counted over the account's queries of this routing policy: Route 53 is global, and the price list lists one global offer",
     "sync": {
       "service": "AmazonRoute53",
       "filters": {
-        "usagetype": "{row}-Queries"
+        "usagetype": "Cidr-Queries"
       },
-      "tier": "first",
-      "offerRegion": "aws-other"
+      "offerRegion": "aws-other",
+      "tier": "{row}"
     },
     "rows": {
-      "Cidr": {
+      "0": {
         "*": 0.8
       },
-      "DNS": {
+      "1000000000": {
         "*": 0.4
-      },
-      "Geo": {
-        "*": 0.7
-      },
-      "Geo-Proximity": {
-        "*": 0.7
-      },
-      "LBR": {
-        "*": 0.6
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-25"
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
-  "aws.route53.queries_over_1b": {
+  "aws.route53.queries.DNS": {
     "unit": "query",
     "per": 1000000,
     "source": "https://aws.amazon.com/route53/pricing/",
-    "note": "Queries by routing policy beyond 1 billion a month",
+    "note": "Queries to standard records (DNS-Queries). Volume tiers from 1 billion queries a month, counted over the account's queries of this routing policy: Route 53 is global, and the price list lists one global offer",
     "sync": {
       "service": "AmazonRoute53",
       "filters": {
-        "usagetype": "{row}-Queries"
+        "usagetype": "DNS-Queries"
       },
-      "tier": "1000000000",
-      "offerRegion": "aws-other"
+      "offerRegion": "aws-other",
+      "tier": "{row}"
     },
     "rows": {
-      "Cidr": {
+      "0": {
         "*": 0.4
       },
-      "DNS": {
+      "1000000000": {
         "*": 0.2
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
+  },
+  "aws.route53.queries.Geo": {
+    "unit": "query",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/route53/pricing/",
+    "note": "Queries to geolocation records (Geo-Queries). Volume tiers from 1 billion queries a month, counted over the account's queries of this routing policy: Route 53 is global, and the price list lists one global offer",
+    "sync": {
+      "service": "AmazonRoute53",
+      "filters": {
+        "usagetype": "Geo-Queries"
       },
-      "Geo": {
+      "offerRegion": "aws-other",
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "*": 0.7
+      },
+      "1000000000": {
         "*": 0.35
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
+  },
+  "aws.route53.queries.Geo-Proximity": {
+    "unit": "query",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/route53/pricing/",
+    "note": "Queries to geoproximity records (Geo-Proximity-Queries). Volume tiers from 1 billion queries a month, counted over the account's queries of this routing policy: Route 53 is global, and the price list lists one global offer",
+    "sync": {
+      "service": "AmazonRoute53",
+      "filters": {
+        "usagetype": "Geo-Proximity-Queries"
       },
-      "Geo-Proximity": {
+      "offerRegion": "aws-other",
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "*": 0.7
+      },
+      "1000000000": {
         "*": 0.35
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
+  },
+  "aws.route53.queries.LBR": {
+    "unit": "query",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/route53/pricing/",
+    "note": "Queries to latency records (LBR-Queries). Volume tiers from 1 billion queries a month, counted over the account's queries of this routing policy: Route 53 is global, and the price list lists one global offer",
+    "sync": {
+      "service": "AmazonRoute53",
+      "filters": {
+        "usagetype": "LBR-Queries"
       },
-      "LBR": {
+      "offerRegion": "aws-other",
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "*": 0.6
+      },
+      "1000000000": {
         "*": 0.3
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-25"
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   }
 }

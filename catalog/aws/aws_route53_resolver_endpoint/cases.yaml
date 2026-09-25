@@ -11,7 +11,7 @@
   # 2 × 730 h × $0.125; 100 million × $0.40 per million; peak 500/s against 2 × 10,000
   costs:
     Network interfaces: 182.5
-    Queries (first 1 billion): 40
+    Queries: 40
   limits:
     Queries per IP address: 500
 - name: DNS over HTTPS inbound endpoint, three addresses, 1.5 billion queries (us-east-1)
@@ -25,10 +25,9 @@
     query:
       monthly: 0
       peak: 0
-  # 3 × 730 h × $0.125; 1,000 million × $0.40 + 500 million × $0.20
+  # 3 × 730 h × $0.125; 1,000 million × $0.40 = 400; 500 million × $0.20 = 100; together 500
   costs:
     Network interfaces: 273.75
-    Queries (first 1 billion): 400
-    Queries (over 1 billion): 100
+    Queries: 500
   limits:
     Queries per IP address: 0

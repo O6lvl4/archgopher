@@ -2,7 +2,7 @@
   "aws.cognito.essentials.mau": {
     "unit": "MAU",
     "source": "https://aws.amazon.com/cognito/pricing/",
-    "note": "Essentials feature plan, per monthly active user",
+    "note": "Essentials feature plan, per monthly active user. The Lite and Essentials free tier, 10,000 MAU a month per account that does not expire (the pricing page: \"10,000 monthly active user (MAU) per month per account or per AWS organization\", \"available to both existing and new AWS customers indefinitely\"), is given once over both plans",
     "sync": {
       "service": "AmazonCognito",
       "filters": {
@@ -60,263 +60,113 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       }
-    }
+    },
+    "pool": "account",
+    "free": 10000,
+    "freeGroup": "aws.cognito.mau"
   },
-  "aws.cognito.lite.mau_tier1": {
+  "aws.cognito.lite.mau": {
     "unit": "MAU",
     "source": "https://aws.amazon.com/cognito/pricing/",
-    "note": "Lite feature plan, first 90,000 billed MAU; tier bounds count billed MAU after the free tier, applied here to all MAU",
+    "note": "Lite feature plan, per monthly active user. The Lite and Essentials free tier, 10,000 MAU a month per account that does not expire (the pricing page: \"10,000 monthly active user (MAU) per month per account or per AWS organization\", \"available to both existing and new AWS customers indefinitely\"), is given once over both plans. Volume tiers count the account's MAU from 100,000, 1 million and 10 million. The price list counts its tiers on billed MAU, after the free 10,000 (they begin at 90,000, 990,000 and 9,990,000), so each row reads the price-list tier 10,000 below its key",
     "sync": {
       "service": "AmazonCognito",
       "filters": {
         "usagetype": "(?:[A-Z]+[0-9]|EU)-CognitoLiteMAU"
       },
-      "tier": "first"
+      "tier": "{row}"
     },
-    "values": {
-      "ap-northeast-1": {
-        "value": 0.0055,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+    "rows": {
+      "0": {
+        "ap-northeast-1": 0.0055,
+        "ap-northeast-2": 0.0055,
+        "ap-south-1": 0.0055,
+        "ap-southeast-1": 0.0055,
+        "ap-southeast-2": 0.0055,
+        "eu-central-1": 0.0055,
+        "eu-west-1": 0.0055,
+        "us-east-1": 0.0055,
+        "us-east-2": 0.0055,
+        "us-west-2": 0.0055
       },
-      "ap-northeast-2": {
-        "value": 0.0055,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+      "100000": {
+        "ap-northeast-1": 0.0046,
+        "ap-northeast-2": 0.0046,
+        "ap-south-1": 0.0046,
+        "ap-southeast-1": 0.0046,
+        "ap-southeast-2": 0.0046,
+        "eu-central-1": 0.0046,
+        "eu-west-1": 0.0046,
+        "us-east-1": 0.0046,
+        "us-east-2": 0.0046,
+        "us-west-2": 0.0046
       },
-      "ap-south-1": {
-        "value": 0.0055,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+      "1000000": {
+        "ap-northeast-1": 0.00325,
+        "ap-northeast-2": 0.00325,
+        "ap-south-1": 0.00325,
+        "ap-southeast-1": 0.00325,
+        "ap-southeast-2": 0.00325,
+        "eu-central-1": 0.00325,
+        "eu-west-1": 0.00325,
+        "us-east-1": 0.00325,
+        "us-east-2": 0.00325,
+        "us-west-2": 0.00325
       },
-      "ap-southeast-1": {
-        "value": 0.0055,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-southeast-2": {
-        "value": 0.0055,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eu-central-1": {
-        "value": 0.0055,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eu-west-1": {
-        "value": 0.0055,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-1": {
-        "value": 0.0055,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-2": {
-        "value": 0.0055,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-west-2": {
-        "value": 0.0055,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+      "10000000": {
+        "ap-northeast-1": 0.0025,
+        "ap-northeast-2": 0.0025,
+        "ap-south-1": 0.0025,
+        "ap-southeast-1": 0.0025,
+        "ap-southeast-2": 0.0025,
+        "eu-central-1": 0.0025,
+        "eu-west-1": 0.0025,
+        "us-east-1": 0.0025,
+        "us-east-2": 0.0025,
+        "us-west-2": 0.0025
       }
-    }
-  },
-  "aws.cognito.lite.mau_tier2": {
-    "unit": "MAU",
-    "source": "https://aws.amazon.com/cognito/pricing/",
-    "note": "Lite feature plan, next 900,000; tier bounds count billed MAU after the free tier, applied here to all MAU",
-    "sync": {
-      "service": "AmazonCognito",
-      "filters": {
-        "usagetype": "(?:[A-Z]+[0-9]|EU)-CognitoLiteMAU"
-      },
-      "tier": "90000"
     },
-    "values": {
-      "ap-northeast-1": {
-        "value": 0.0046,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "compose": {
+      "100000": {
+        "parts": [
+          {
+            "part": "CognitoLiteMAU",
+            "times": 1,
+            "with": {
+              "tier": "90000"
+            }
+          }
+        ]
       },
-      "ap-northeast-2": {
-        "value": 0.0046,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+      "1000000": {
+        "parts": [
+          {
+            "part": "CognitoLiteMAU",
+            "times": 1,
+            "with": {
+              "tier": "990000"
+            }
+          }
+        ]
       },
-      "ap-south-1": {
-        "value": 0.0046,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-southeast-1": {
-        "value": 0.0046,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-southeast-2": {
-        "value": 0.0046,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eu-central-1": {
-        "value": 0.0046,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eu-west-1": {
-        "value": 0.0046,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-1": {
-        "value": 0.0046,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-2": {
-        "value": 0.0046,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-west-2": {
-        "value": 0.0046,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+      "10000000": {
+        "parts": [
+          {
+            "part": "CognitoLiteMAU",
+            "times": 1,
+            "with": {
+              "tier": "9990000"
+            }
+          }
+        ]
       }
-    }
-  },
-  "aws.cognito.lite.mau_tier3": {
-    "unit": "MAU",
-    "source": "https://aws.amazon.com/cognito/pricing/",
-    "note": "Lite feature plan, next 9,000,000; tier bounds count billed MAU after the free tier, applied here to all MAU",
-    "sync": {
-      "service": "AmazonCognito",
-      "filters": {
-        "usagetype": "(?:[A-Z]+[0-9]|EU)-CognitoLiteMAU"
-      },
-      "tier": "990000"
     },
-    "values": {
-      "ap-northeast-1": {
-        "value": 0.00325,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-northeast-2": {
-        "value": 0.00325,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-south-1": {
-        "value": 0.00325,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-southeast-1": {
-        "value": 0.00325,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-southeast-2": {
-        "value": 0.00325,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eu-central-1": {
-        "value": 0.00325,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eu-west-1": {
-        "value": 0.00325,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-1": {
-        "value": 0.00325,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-2": {
-        "value": 0.00325,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-west-2": {
-        "value": 0.00325,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      }
-    }
-  },
-  "aws.cognito.lite.mau_tier4": {
-    "unit": "MAU",
-    "source": "https://aws.amazon.com/cognito/pricing/",
-    "note": "Lite feature plan, over 9,990,000; tier bounds count billed MAU after the free tier, applied here to all MAU",
-    "sync": {
-      "service": "AmazonCognito",
-      "filters": {
-        "usagetype": "(?:[A-Z]+[0-9]|EU)-CognitoLiteMAU"
-      },
-      "tier": "9990000"
-    },
-    "values": {
-      "ap-northeast-1": {
-        "value": 0.0025,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-northeast-2": {
-        "value": 0.0025,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-south-1": {
-        "value": 0.0025,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-southeast-1": {
-        "value": 0.0025,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-southeast-2": {
-        "value": 0.0025,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eu-central-1": {
-        "value": 0.0025,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eu-west-1": {
-        "value": 0.0025,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-1": {
-        "value": 0.0025,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-2": {
-        "value": 0.0025,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-west-2": {
-        "value": 0.0025,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      }
-    }
+    "pool": "account",
+    "free": 10000,
+    "freeGroup": "aws.cognito.mau",
+    "tiered": true
   },
   "aws.cognito.plus.mau": {
     "unit": "MAU",

@@ -3,8 +3,8 @@
 - name: one dashboard (us-east-1)
   region: us-east-1
   costs:
-    Dashboard: 3
+    Dashboard: 0  # one of the account's three always-free dashboards
 - name: one dashboard (ap-northeast-1)
   region: ap-northeast-1
   costs:
-    Dashboard: 3
+    Dashboard: 0  # one of the account's three always-free dashboards

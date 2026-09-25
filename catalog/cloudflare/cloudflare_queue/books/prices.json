@@ -3,13 +3,15 @@
     "unit": "operation",
     "per": 1000000,
     "source": "https://developers.cloudflare.com/queues/platform/pricing/",
-    "note": "Standard operations, one per 64 KB written, read or deleted, beyond the 1 million a month the plan includes. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "note": "Standard operations, one per 64 KB written, read or deleted. The first 1 million a month are free units, included in Workers Paid for the whole account (\"1,000,000 operations/month included\", https://developers.cloudflare.com/queues/platform/pricing/). Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
     "values": {
       "*": {
         "value": 0.4,
         "verified": true,
-        "checkedAt": "2026-09-24"
+        "checkedAt": "2026-09-26"
       }
-    }
+    },
+    "pool": "account",
+    "free": 1000000
   }
 }

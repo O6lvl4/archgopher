@@ -1,5 +1,6 @@
 # Worked examples: given these values and this load, the resource reads this.
 # Expected values are computed by hand from the unit prices, not taken from the engine.
+# 50 × 2628000 / 60 × 8 / 1048576 = 16.708 MiB, within the billing account's free 150 MiB.
 - name: Tokyo, 50 time series written every minute
   region: asia-northeast1
   attributes:
@@ -13,10 +14,14 @@
         monthly: 0
         peak: 0
   costs:
-    Metric volume (first 100,000 MiB): 4.310760498
+    Metric volume: 0
   limits:
     Active time series: 50
     Write rate per time series: 0.016666667
+# 200000 × 2628000 / 10 × 80 / 1048576 = 4010009.765625 MiB over the account's tiers:
+# 150 free; (100000 − 150) × 0.258 = 25761.3; 150000 × 0.151 = 22650;
+# (4010009.765625 − 250000) × 0.061 = 229360.595703125; together 277771.895703125.
+# Read API: the first million time series free, (5e6 − 1e6) / 1e6 × 0.5 = 2.
 - name: Iowa, 200,000 distribution series from 1,000 pods every 10 seconds, read by a dashboard outside the console
   region: us-central1
   attributes:
@@ -32,13 +37,12 @@
         monthly: 0
         peak: 0
   costs:
-    Metric volume (first 100,000 MiB): 25800
-    Metric volume (next 150,000 MiB): 22650
-    Metric volume (over 250,000 MiB): 229360.595703125
-    Read API time series: 2.5
+    Metric volume: 277771.895703125
+    Read API time series: 2
   limits:
     Active time series: 200
     Write rate per time series: 0.1
+# 5e7 × 8 / 1048576 = 381.4697265625 MiB; (381.4697265625 − 150) × 0.258 = 59.719189453.
 - name: Tokyo, one point per order drawn as load across 10 series
   region: asia-northeast1
   attributes:
@@ -50,7 +54,7 @@
         monthly: 5e+07
         peak: 30
   costs:
-    Metric volume (first 100,000 MiB): 98.419189453
+    Metric volume: 59.719189453
   limits:
     Active time series: 10
     Write rate per time series: 3

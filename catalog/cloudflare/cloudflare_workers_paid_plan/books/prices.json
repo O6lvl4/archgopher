@@ -2,13 +2,15 @@
   "cloudflare.workers.paid_plan": {
     "unit": "account-month",
     "source": "https://developers.cloudflare.com/workers/platform/pricing/",
-    "note": "Minimum charge per account; covers Workers, Pages Functions, Workers KV, Hyperdrive and Durable Objects up to the included usage. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "note": "Minimum charge of $5 a month per account (https://developers.cloudflare.com/workers/platform/pricing/); covers Workers, Pages Functions, Workers KV, Hyperdrive and Durable Objects up to the included usage, which the other nodes' prices give as free units. Paid once per account however many plan nodes are placed. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
     "values": {
       "*": {
         "value": 5,
         "verified": true,
-        "checkedAt": "2026-09-24"
+        "checkedAt": "2026-09-26"
       }
-    }
+    },
+    "pool": "account",
+    "combine": "max"
   }
 }

@@ -31,7 +31,7 @@
   # 730 h x 0.4 x 0.125; 7 x 0.30; 8 GB x 0.10
   costs:
     Spot instance (rhel, m5.large): 36.5
-    Detailed monitoring: 2.1
+    Detailed monitoring: 0  # 7 metrics, within the account's 10 always-free metrics
     Root volume (gp2): 0.8
 - name: no spot price share (us-east-1)
   region: us-east-1
@@ -44,3 +44,21 @@
   costs:
     Root volume (gp2): 0.8
   error: "spot instances run here: set spotShare"
+- name: dedicated spot m5.large pays the regional fee (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    instance_type: m5.large
+    tenancy: dedicated
+    root_volume_type: gp3
+    root_volume_size: 20
+  assumptions:
+    spotShare: 0.3
+  demand:
+    request:
+      monthly: 0
+      peak: 0
+  # 730 h x 0.3 x 0.132 (dedicated); 20 GB x 0.096; the region's Dedicated per region fee, 730 h x 2
+  costs:
+    Spot instance (linux, m5.large): 28.908
+    Root volume (gp3): 1.92
+    Dedicated per region fee: 1460

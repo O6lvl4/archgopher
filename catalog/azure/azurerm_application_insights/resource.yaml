@@ -2,7 +2,7 @@ type: azurerm_application_insights
 label: Application Insights
 category: Monitoring
 icon: application-insights
-description: "Telemetry ingested after sampling and the daily cap, and retained beyond the 90 days included. A workspace-based component is billed at its Log Analytics workspace's prices: its telemetry is read here, not again on the workspace. A classic component (no workspace) is billed at Application Insights prices. Headroom is the event rate per component."
+description: "Telemetry ingested after sampling and the daily cap, and retained beyond the 90 days included. A workspace-based component is billed at its Log Analytics workspace's prices, sharing the account's free 5 GB a month: its telemetry is read here, not again on the workspace. A classic component (no workspace) is billed at Application Insights prices. Headroom is the event rate per component."
 kinds: [ingest]
 sla: azure.appinsights
 attributes:

@@ -250,7 +250,12 @@ func (b Book) Flatten() (Book, error) {
 			for region, v := range row {
 				values[region] = Value{Value: v, Verified: e.Verified, CheckedAt: e.CheckedAt}
 			}
-			out[full] = Entry{Unit: e.Unit, Per: e.Per, Source: e.Source, Note: e.Note, Values: values}
+			row := Entry{Unit: e.Unit, Per: e.Per, Source: e.Source, Note: e.Note, Values: values}
+			if !e.Tiered {
+				// The rules hold for each row on its own: one pool per row.
+				row.Pool, row.Free, row.FreeGroup, row.Combine = e.Pool, e.Free, e.FreeGroup, e.Combine
+			}
+			out[full] = row
 		}
 	}
 	return out, nil

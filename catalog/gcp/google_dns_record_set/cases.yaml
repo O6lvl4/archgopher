@@ -22,3 +22,12 @@
   # 6 × $0.70 per million
   costs:
     Queries: 4.2
+- name: two billion lookups (us-central1)
+  region: us-central1
+  demand:
+    query:
+      monthly: 2e+09
+      peak: 800
+  # 1000 × $0.40 per million for the account's first billion, 1000 × $0.20 past it
+  costs:
+    Queries: 600

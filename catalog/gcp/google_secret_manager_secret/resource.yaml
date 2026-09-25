@@ -2,7 +2,7 @@ type: google_secret_manager_secret
 label: Secret Manager secret
 category: Security
 icon: secret-manager
-description: "Active versions per location that are not declared as google_secret_manager_secret_version nodes, billed by the hour, and access operations per 10,000. Free versions and operations are ignored, as every free tier. Headroom is the project's access requests per minute."
+description: "Active versions per location that are not declared as google_secret_manager_secret_version nodes, billed by the hour, and access operations per 10,000. Six active versions and 10,000 access operations a month are free, counted over the billing account. Headroom is the project's access requests per minute."
 kinds: [read]
 sla: gcp.secretmanager
 assumptions:

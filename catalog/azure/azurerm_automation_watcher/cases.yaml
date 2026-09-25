@@ -7,7 +7,8 @@
       monthly: 0
       peak: 0
   costs:
-    Watcher hours: 1.46
+    # 730 hours, within the 744 free
+    Watcher hours: 0
 - name: one watcher all month (West US 2)
   region: westus2
   demand:
@@ -15,4 +16,5 @@
       monthly: 0
       peak: 0
   costs:
-    Watcher hours: 1.46
+    # 730 hours, within the 744 free
+    Watcher hours: 0

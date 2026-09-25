@@ -2,7 +2,7 @@ type: aws_vpc_endpoint
 label: VPC endpoint
 category: Network
 icon: privatelink
-description: "Gateway endpoints (S3, DynamoDB) cost nothing. Interface endpoints cost an endpoint-hour in each Availability Zone plus each GB processed, in both directions. Place it on the path: load that passes through carries kbPerUnit each and flows on to the service behind it. Terraform references to it are mentions, so draw the traffic through it by hand."
+description: "Gateway endpoints (S3, DynamoDB) cost nothing. Interface endpoints cost an endpoint-hour in each Availability Zone plus each GB processed, in both directions, in volume tiers from 1 PB and 5 PB a month counted over every interface endpoint in the region. Place it on the path: load that passes through carries kbPerUnit each and flows on to the service behind it. Terraform references to it are mentions, so draw the traffic through it by hand."
 kinds: [request]
 sla: aws.privatelink
 attributes:

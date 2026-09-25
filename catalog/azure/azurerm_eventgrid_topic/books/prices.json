@@ -3,7 +3,7 @@
     "unit": "operation",
     "per": 1000000,
     "source": "https://azure.microsoft.com/pricing/details/event-grid/",
-    "note": "Operations on custom, system and partner topics and domains (Basic tier). The API meter is named Standard Operations, priced per 100,000; the Event Grid namespace meters (Standard Event Operations, throughput units) are the Standard tier and not read here",
+    "note": "Operations on custom, system and partner topics and domains (Basic tier). The API meter is named Standard Operations, priced per 100,000; the Event Grid namespace meters (Standard Event Operations, throughput units) are the Standard tier and not read here. The first 100,000 operations a month are free (https://azure.microsoft.com/pricing/details/event-grid/: free usage per month 100,000 operations); the page does not say over what they are counted, so they are counted per region here, over every topic of the account. The price list gives them as the zero-priced first tier",
     "sync": {
       "source": "azure",
       "service": "Event Grid",
@@ -12,59 +12,38 @@
         "skuName": "Standard",
         "meterName": "Standard Operations"
       },
-      "listPer": 100000
+      "listPer": 100000,
+      "tier": "{row}"
     },
-    "values": {
-      "australiaeast": {
-        "value": 0.6,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+    "rows": {
+      "0": {
+        "australiaeast": 0,
+        "centralindia": 0,
+        "eastus": 0,
+        "eastus2": 0,
+        "germanywestcentral": 0,
+        "japaneast": 0,
+        "koreacentral": 0,
+        "northeurope": 0,
+        "southeastasia": 0,
+        "westus2": 0
       },
-      "centralindia": {
-        "value": 0.6,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eastus": {
-        "value": 0.6,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eastus2": {
-        "value": 0.6,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "germanywestcentral": {
-        "value": 0.6,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "japaneast": {
-        "value": 0.6,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "koreacentral": {
-        "value": 0.6,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "northeurope": {
-        "value": 0.6,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "southeastasia": {
-        "value": 0.6,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "westus2": {
-        "value": 0.6,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+      "100000": {
+        "australiaeast": 0.6,
+        "centralindia": 0.6,
+        "eastus": 0.6,
+        "eastus2": 0.6,
+        "germanywestcentral": 0.6,
+        "japaneast": 0.6,
+        "koreacentral": 0.6,
+        "northeurope": 0.6,
+        "southeastasia": 0.6,
+        "westus2": 0.6
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   }
 }

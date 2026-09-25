@@ -1,9 +1,9 @@
 {
-  "azure.search.image_extraction.first": {
+  "azure.search.image_extraction": {
     "unit": "image",
     "per": 1000,
     "source": "https://azure.microsoft.com/pricing/details/search/",
-    "note": "Image extraction during document cracking, per 1,000, first 1M images a month",
+    "note": "Image extraction during document cracking, per 1,000. Volume tiers count the images of every search service in a month: from 1M and 5M; the pricing page does not say whether they count per service or per subscription, so they are pooled per region",
     "sync": {
       "filters": {
         "meterName": "Document Cracking Image Extraction",
@@ -13,204 +13,56 @@
       "listPer": 1000,
       "service": "Azure Cognitive Search",
       "source": "azure",
-      "tier": "0"
+      "tier": "{row}"
     },
-    "values": {
-      "australiaeast": {
-        "value": 1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "australiaeast": 1,
+        "centralindia": 1,
+        "eastus": 1,
+        "eastus2": 1,
+        "germanywestcentral": 1,
+        "japaneast": 1,
+        "koreacentral": 1,
+        "northeurope": 1,
+        "southeastasia": 1,
+        "westus2": 1
       },
-      "centralindia": {
-        "value": 1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "1000000": {
+        "australiaeast": 0.8,
+        "centralindia": 0.8,
+        "eastus": 0.8,
+        "eastus2": 0.8,
+        "germanywestcentral": 0.8,
+        "japaneast": 0.8,
+        "koreacentral": 0.8,
+        "northeurope": 0.8,
+        "southeastasia": 0.8,
+        "westus2": 0.8
       },
-      "eastus": {
-        "value": 1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eastus2": {
-        "value": 1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "germanywestcentral": {
-        "value": 1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "japaneast": {
-        "value": 1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "koreacentral": {
-        "value": 1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "northeurope": {
-        "value": 1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "southeastasia": {
-        "value": 1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "westus2": {
-        "value": 1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "5000000": {
+        "australiaeast": 0.65,
+        "centralindia": 0.65,
+        "eastus": 0.65,
+        "eastus2": 0.65,
+        "germanywestcentral": 0.65,
+        "japaneast": 0.65,
+        "koreacentral": 0.65,
+        "northeurope": 0.65,
+        "southeastasia": 0.65,
+        "westus2": 0.65
       }
-    }
-  },
-  "azure.search.image_extraction.next": {
-    "unit": "image",
-    "per": 1000,
-    "source": "https://azure.microsoft.com/pricing/details/search/",
-    "note": "Image extraction during document cracking, per 1,000, next 4M images a month",
-    "sync": {
-      "filters": {
-        "meterName": "Document Cracking Image Extraction",
-        "productName": "Azure AI Search",
-        "skuName": "Document Cracking"
-      },
-      "listPer": 1000,
-      "service": "Azure Cognitive Search",
-      "source": "azure",
-      "tier": "1000"
     },
-    "values": {
-      "australiaeast": {
-        "value": 0.8,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "centralindia": {
-        "value": 0.8,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eastus": {
-        "value": 0.8,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eastus2": {
-        "value": 0.8,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "germanywestcentral": {
-        "value": 0.8,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "japaneast": {
-        "value": 0.8,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "koreacentral": {
-        "value": 0.8,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "northeurope": {
-        "value": 0.8,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "southeastasia": {
-        "value": 0.8,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "westus2": {
-        "value": 0.8,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      }
-    }
-  },
-  "azure.search.image_extraction.over": {
-    "unit": "image",
-    "per": 1000,
-    "source": "https://azure.microsoft.com/pricing/details/search/",
-    "note": "Image extraction during document cracking, per 1,000, images beyond 5M a month",
-    "sync": {
-      "filters": {
-        "meterName": "Document Cracking Image Extraction",
-        "productName": "Azure AI Search",
-        "skuName": "Document Cracking"
-      },
-      "listPer": 1000,
-      "service": "Azure Cognitive Search",
-      "source": "azure",
-      "tier": "5000"
-    },
-    "values": {
-      "australiaeast": {
-        "value": 0.65,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "centralindia": {
-        "value": 0.65,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eastus": {
-        "value": 0.65,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eastus2": {
-        "value": 0.65,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "germanywestcentral": {
-        "value": 0.65,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "japaneast": {
-        "value": 0.65,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "koreacentral": {
-        "value": 0.65,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "northeurope": {
-        "value": 0.65,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "southeastasia": {
-        "value": 0.65,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "westus2": {
-        "value": 0.65,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      }
-    }
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   },
   "azure.search.semantic_ranker": {
     "unit": "query",
     "per": 1000,
     "source": "https://azure.microsoft.com/pricing/details/search/",
-    "note": "Semantic ranker queries on the Standard plan, per 1,000; the free monthly allowance is ignored",
+    "note": "Semantic ranker queries on the Standard plan, per 1,000. The first 1,000 requests a month are free (\"First 1k requests free per month\", https://azure.microsoft.com/pricing/details/search/); the price list does not show them and the page does not say whether they are given per service or per subscription, so they are given once per region",
     "sync": {
       "filters": {
         "meterName": "Semantic Ranker queries",
@@ -271,7 +123,9 @@
         "verified": true,
         "checkedAt": "2026-09-25"
       }
-    }
+    },
+    "pool": "region",
+    "free": 1000
   },
   "azure.search.unit": {
     "unit": "search unit-hour",

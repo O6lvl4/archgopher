@@ -1,26 +1,47 @@
 {
-  "aws.route53.health_check": {
+  "aws.route53.health_check.AWS": {
     "unit": "check-month",
     "source": "https://aws.amazon.com/route53/pricing/",
-    "note": "Health check of an AWS or a non-AWS endpoint; the first 50 of AWS endpoints in an account are free",
+    "note": "Health check of an AWS endpoint (and calculated, CloudWatch metric and recovery control checks). Always free: the first 50 a month (https://aws.amazon.com/free/, Always free: Amazon Route 53, \"Up to 50 AWS endpoints for health checks\"), given by the Price List as a $0 first tier and counted over the account",
     "sync": {
       "service": "AmazonRoute53",
+      "offerRegion": "aws-other",
       "filters": {
-        "usagetype": "Health-Check-{row}"
+        "usagetype": "Health-Check-AWS"
       },
-      "tier": "last",
-      "offerRegion": "aws-other"
+      "tier": "{row}"
     },
     "rows": {
-      "AWS": {
-        "*": 0.5
+      "0": {
+        "*": 0
       },
-      "Non-AWS": {
-        "*": 0.75
+      "50": {
+        "*": 0.5
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-25"
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
+  },
+  "aws.route53.health_check.Non-AWS": {
+    "unit": "check-month",
+    "source": "https://aws.amazon.com/route53/pricing/",
+    "note": "Health check of an endpoint outside AWS; no free checks",
+    "sync": {
+      "service": "AmazonRoute53",
+      "offerRegion": "aws-other",
+      "filters": {
+        "usagetype": "Health-Check-Non-AWS"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
   },
   "aws.route53.health_check_option": {
     "unit": "feature-month",

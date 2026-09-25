@@ -2,7 +2,7 @@ type: azurerm_key_vault_key
 label: Key Vault key
 category: Security
 icon: keys
-description: "Key operations, per 10,000: RSA 2048-bit keys at the base price, RSA 3072/4096-bit and elliptic-curve keys at the advanced price. HSM-protected keys (Premium vaults) add a key-month per version, and scheduled automatic rotations are billed each. Headroom is the vault's rate for this key type. References to a key are mentions, not load: services that encrypt with a customer-managed key cache it, so add an edge with a per-unit rate when you know how often a caller reaches the key."
+description: "Key operations, per 10,000: RSA 2048-bit keys at the base price, RSA 3072/4096-bit and elliptic-curve keys at the advanced price. HSM-protected keys (Premium vaults) add a key-month per version (RSA 3072/4096 and EC keys in volume tiers from 250, 1,500 and 4,000 keys, counted over every such key of the account in the region), and scheduled automatic rotations are billed each. Headroom is the vault's rate for this key type. References to a key are mentions, not load: services that encrypt with a customer-managed key cache it, so add an edge with a per-unit rate when you know how often a caller reaches the key."
 kinds: [crypt]
 sla: azure.keyvault
 attributes:

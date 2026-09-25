@@ -2,7 +2,7 @@ type: aws_apigatewayv2_api
 label: API Gateway (HTTP)
 category: Edge
 icon: api-gateway
-description: "Requests in 512 KB steps, in two volume tiers (first 300 million, then the rest per month). Tiers are applied per API here; AWS applies them to all HTTP APIs in the account and region. Headroom is the account throttle. WebSocket APIs are not read yet."
+description: "Requests in 512 KB steps, in volume tiers from 300 million a month, counted over every HTTP API of the account in the region. The 12-month free tier is not given. Headroom is the account throttle. WebSocket APIs are not read yet."
 kinds: [request]
 sla: aws.apigateway
 attributes:
@@ -13,8 +13,7 @@ let:
   - billed: 'units(total, 512, payloadKb)'
 readings:
   - fail: { when: 'protocol_type != "HTTP"', message: "{protocol_type} APIs are not supported yet" }
-  - requests: { name: Requests, price: aws.apigateway.http.requests, count: 'min(billed, 300000000)' }
-  - cost: { when: billed > 300000000, name: "Requests (over 300 million)", quantity: billed - 300000000, unit: request, price: aws.apigateway.http.requests_tier2 }
+  - requests: { name: Requests, price: aws.apigateway.http.requests, count: billed }
   - rate: { name: Account throttle, unit: requests/second, quota: aws.apigateway.account_rps, peak: total.peak }
 terraform:
   frontDoor: true

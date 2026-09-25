@@ -2,7 +2,7 @@ type: google_compute_address
 label: Static IP address
 category: Network
 icon: external-ip
-description: "A reserved regional external IPv4 address, billed per hour by what uses it: a standard VM or Cloud NAT, a Spot VM, or nothing (the higher unused rate). Addresses on forwarding rules and VPN gateways, internal addresses and every purpose but GCE_ENDPOINT are free."
+description: "A reserved regional external IPv4 address, billed per hour by what uses it: a standard VM or Cloud NAT, a Spot VM, or nothing (the higher unused rate, the first hour a month free, counted over the billing account). Addresses on forwarding rules and VPN gateways, internal addresses and every purpose but GCE_ENDPOINT are free."
 kinds: [traffic]
 attributes:
   - { key: address_type, label: Address type, type: choice, options: [EXTERNAL, INTERNAL], default: EXTERNAL, hint: "Internal addresses are free" }

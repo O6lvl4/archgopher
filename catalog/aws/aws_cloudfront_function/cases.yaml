@@ -7,4 +7,12 @@
       monthly: 30000000.0
       peak: 50
   costs:
-    Invocations: 3.0
+    Invocations: 2.8  # (30e6 − 2e6 always free) / 1e6 × 0.10
+- name: within the always-free invocations
+  region: us-east-1
+  demand:
+    request:
+      monthly: 1500000
+      peak: 5
+  costs:
+    Invocations: 0  # 1.5e6 of the account's 2e6 always-free invocations

@@ -2,7 +2,7 @@ type: azurerm_servicebus_namespace
 label: Service Bus
 category: Messaging
 icon: service-bus
-description: "Basic: operations. Standard: the base fee and operations beyond the 13 million it includes (volume discounts above 100 million are not read). Premium: messaging-unit hours. Operations are counted per 64 KB. Headroom is operations per second on Basic and Standard; Premium has no fixed limit."
+description: "Basic: operations. Standard: the base fee, paid once by the account however many Standard namespaces it has, and operations beyond the 13 million it includes, in volume tiers from 100 million and 2.5 billion, counted over every Standard namespace of the account. Premium: messaging-unit hours. Operations are counted per 64 KB. Headroom is operations per second on Basic and Standard; Premium has no fixed limit."
 kinds: [send]
 sla: azure.servicebus
 attributes:
@@ -16,7 +16,7 @@ let:
 readings:
   - requests: { when: 'sku == "Basic"', name: Operations, unit: operation, price: azure.servicebus.basic.operations, count: ops }
   - cost: { when: 'sku == "Standard"', name: Base fee, quantity: 730, unit: hour, price: azure.servicebus.standard.base }
-  - requests: { when: 'sku == "Standard"', name: Operations beyond the included 13 million, unit: operation, price: azure.servicebus.standard.operations, count: 'max(ops - 13000000, 0.0)' }
+  - requests: { when: 'sku == "Standard"', name: Operations, unit: operation, price: azure.servicebus.standard.operations, count: ops }
   - cost: { when: 'sku == "Premium"', name: Messaging units, quantity: 'max(capacity, 1.0) * 730', unit: hour, price: azure.servicebus.premium.messaging_unit }
   - rate: { when: 'sku != "Premium"', name: Operations per second, unit: operations/second, quota: azure.servicebus.operations_per_second, peak: 'peakUnits(total, 64, messageKb) * operationsPerMessage' }
 terraform:

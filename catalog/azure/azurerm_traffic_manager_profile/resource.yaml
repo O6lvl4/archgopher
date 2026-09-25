@@ -2,7 +2,7 @@ type: azurerm_traffic_manager_profile
 label: Traffic Manager profile
 category: Edge
 icon: traffic-manager
-description: "DNS queries answered by the profile, with the lower price beyond 1 billion a month, and Traffic View data points when Traffic View is on. A disabled profile answers nothing and costs nothing. Health checks are read on the endpoints. Resolvers cache answers for the profile's TTL, so queries are far fewer than requests: give them as queriesPerMonth or draw load to the profile. The profile answers where to connect and passes no load on."
+description: "DNS queries answered by the profile, with the lower price beyond 1 billion a month counted over every profile of the region, and Traffic View data points when Traffic View is on. A disabled profile answers nothing and costs nothing. Health checks are read on the endpoints. Resolvers cache answers for the profile's TTL, so queries are far fewer than requests: give them as queriesPerMonth or draw load to the profile. The profile answers where to connect and passes no load on."
 kinds: [query]
 sla: azure.trafficmanager
 attributes:
@@ -15,8 +15,7 @@ let:
   - on: 'profile_status == "Enabled"'
   - queries: total.monthly + queriesPerMonth
 readings:
-  - requests: { when: on, name: Queries (first 1 billion), count: 'min(queries, 1e9)', unit: query, price: azure.trafficmanager.queries }
-  - requests: { when: on && queries > 1e9, name: Queries (over 1 billion), count: queries - 1e9, unit: query, price: azure.trafficmanager.queries_over_1b }
+  - requests: { when: on, name: Queries, count: queries, unit: query, price: azure.trafficmanager.queries }
   - cost: { when: on && traffic_view_enabled, name: Traffic View, quantity: trafficViewDataPoints, unit: data point, price: azure.trafficmanager.traffic_view }
 terraform:
   # Endpoints name the profile; none of them calls it.

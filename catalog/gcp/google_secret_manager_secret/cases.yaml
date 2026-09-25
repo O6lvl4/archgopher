@@ -1,5 +1,7 @@
 # Worked examples: given these values and this load, the resource reads this.
 # Expected values are computed by hand from the unit prices, not taken from the engine.
+# Within the billing account's six free versions; access past the free 10,000,
+# (1e6 − 1e4) / 1e4 × 0.03 = 2.97.
 - name: Tokyo, one version with automatic replication
   region: asia-northeast1
   assumptions:
@@ -9,10 +11,11 @@
       monthly: 1.0e+06
       peak: 10
   costs:
-    Versions: 0.06
-    Access operations: 3
+    Versions: 0
+    Access operations: 2.97
   limits:
     Access requests: 600
+# 3 × 2 × 730 = 4380 version-hours, exactly the six free versions; access (5e6 − 1e4) / 1e4 × 0.03 = 14.97.
 - name: Northern Virginia, three versions in two replica locations
   region: us-east4
   assumptions:
@@ -23,7 +26,22 @@
       monthly: 5.0e+06
       peak: 2000
   costs:
-    Versions: 0.36
-    Access operations: 15
+    Versions: 0
+    Access operations: 14.97
   limits:
     Access requests: 120000
+# 10 × 730 = 7300 version-hours; the first 4380 (six versions) free, (7300 − 4380) × 0.06 / 730 = 0.24.
+# Access within the free 10,000.
+- name: Tokyo, ten versions read rarely
+  region: asia-northeast1
+  assumptions:
+    versions: 10
+  demand:
+    read:
+      monthly: 5000
+      peak: 1
+  costs:
+    Versions: 0.24
+    Access operations: 0
+  limits:
+    Access requests: 60

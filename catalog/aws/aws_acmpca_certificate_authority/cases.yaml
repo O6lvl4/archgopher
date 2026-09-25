@@ -6,12 +6,11 @@
     issue:
       monthly: 15000
       peak: 2
-  # $400 + 1,000 × $0.75 + 9,000 × $0.35 + 5,000 × $0.001
+  # $400; certificates tier by tier: 1,000 × $0.75 = 750; 9,000 × $0.35 = 3150; 5,000 × $0.001 = 5;
+  # together 3905
   costs:
     Private CA (general-purpose): 400
-    Certificates (first 1000): 750
-    Certificates (next 9000): 3150
-    Certificates (over 10000): 5
+    Certificates: 3905
   limits:
     IssueCertificate rate: 2
 - name: short-lived CA with OCSP (us-east-1)

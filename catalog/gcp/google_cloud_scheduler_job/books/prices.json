@@ -2,7 +2,7 @@
   "gcp.scheduler.job": {
     "unit": "job-day",
     "source": "https://cloud.google.com/scheduler/pricing",
-    "note": "$0.10 per job per 31 days, billed per job-day, paused jobs included. The SKU counts job-days; its first 93 (three free jobs for 31 days) are free and ignored, as every free tier.",
+    "note": "$0.10 per job per 31 days, billed per job-day, paused jobs included. Three jobs a month are free, counted over the billing account (\"Each Google billing account gets 3 jobs per month free ... the free tier is measured at the account level not the project level\", https://cloud.google.com/scheduler/pricing): the SKU counts job-days and lists the first 93 (three jobs for 31 days) as a $0 first tier.",
     "sync": {
       "source": "gcp",
       "service": "1F14-4801-0E16",
@@ -10,14 +10,19 @@
         "description": "Jobs"
       },
       "region": "global",
-      "tier": "93"
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 0.003225806,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0
+      },
+      "93": {
+        "*": 0.003225806
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   }
 }

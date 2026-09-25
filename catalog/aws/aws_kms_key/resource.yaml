@@ -2,7 +2,7 @@ type: aws_kms_key
 label: KMS key
 category: Security
 icon: kms
-description: "Key-months, including rotated key versions, and requests per 10,000. Headroom is the account's shared symmetric request rate, which differs by region. References to a key are mentions, not load: services cache data keys (S3 bucket keys, DynamoDB), so add an edge with a per-unit rate when you know how often a caller reaches KMS."
+description: "Key-months, including rotated key versions, and requests per 10,000, the first 20,000 a month free for the account. Headroom is the account's shared symmetric request rate, which differs by region. References to a key are mentions, not load: services cache data keys (S3 bucket keys, DynamoDB), so add an edge with a per-unit rate when you know how often a caller reaches KMS."
 kinds: [crypt]
 sla: aws.kms
 attributes:

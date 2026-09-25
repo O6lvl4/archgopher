@@ -3,66 +3,44 @@
     "unit": "notification",
     "per": 100000,
     "source": "https://aws.amazon.com/sns/pricing/",
-    "note": "Email and Email-JSON deliveries after the first 1,000 per month",
+    "note": "Email and Email-JSON deliveries. The first 1,000 a month are free. The Price List gives the always-free part as a $0 first tier (https://aws.amazon.com/free/, Always free: Amazon SNS); SNS counts free usage each month across all regions (https://aws.amazon.com/sns/pricing/), so the pool is the account",
     "sync": {
       "service": "AmazonSNS",
       "filters": {
         "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?DeliveryAttempts-SMTP"
       },
-      "tier": "last"
+      "tier": "{row}"
     },
-    "values": {
-      "ap-northeast-1": {
-        "value": 2,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "ap-northeast-1": 0,
+        "ap-northeast-2": 0,
+        "ap-south-1": 0,
+        "ap-southeast-1": 0,
+        "ap-southeast-2": 0,
+        "eu-central-1": 0,
+        "eu-west-1": 0,
+        "us-east-1": 0,
+        "us-east-2": 0,
+        "us-west-2": 0
       },
-      "ap-northeast-2": {
-        "value": 2,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-south-1": {
-        "value": 2,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-1": {
-        "value": 2,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-2": {
-        "value": 2,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-central-1": {
-        "value": 2,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-west-1": {
-        "value": 2,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-1": {
-        "value": 2,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-2": {
-        "value": 2,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-west-2": {
-        "value": 2,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "1000": {
+        "ap-northeast-1": 2,
+        "ap-northeast-2": 2,
+        "ap-south-1": 2,
+        "ap-southeast-1": 2,
+        "ap-southeast-2": 2,
+        "eu-central-1": 2,
+        "eu-west-1": 2,
+        "us-east-1": 2,
+        "us-east-2": 2,
+        "us-west-2": 2
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "aws.sns.delivery.firehose": {
     "unit": "notification",
@@ -132,66 +110,44 @@
     "unit": "notification",
     "per": 1000000,
     "source": "https://aws.amazon.com/sns/pricing/",
-    "note": "HTTP/HTTPS deliveries after the first 100,000 per month",
+    "note": "HTTP/HTTPS deliveries. The first 100,000 a month are free. The Price List gives the always-free part as a $0 first tier (https://aws.amazon.com/free/, Always free: Amazon SNS); SNS counts free usage each month across all regions (https://aws.amazon.com/sns/pricing/), so the pool is the account",
     "sync": {
       "service": "AmazonSNS",
       "filters": {
         "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?DeliveryAttempts-HTTP"
       },
-      "tier": "last"
+      "tier": "{row}"
     },
-    "values": {
-      "ap-northeast-1": {
-        "value": 0.6,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "ap-northeast-1": 0,
+        "ap-northeast-2": 0,
+        "ap-south-1": 0,
+        "ap-southeast-1": 0,
+        "ap-southeast-2": 0,
+        "eu-central-1": 0,
+        "eu-west-1": 0,
+        "us-east-1": 0,
+        "us-east-2": 0,
+        "us-west-2": 0
       },
-      "ap-northeast-2": {
-        "value": 0.6,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-south-1": {
-        "value": 0.6,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-1": {
-        "value": 0.6,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-2": {
-        "value": 0.6,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-central-1": {
-        "value": 0.6,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-west-1": {
-        "value": 0.6,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-1": {
-        "value": 0.6,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-2": {
-        "value": 0.6,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-west-2": {
-        "value": 0.6,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "100000": {
+        "ap-northeast-1": 0.6,
+        "ap-northeast-2": 0.6,
+        "ap-south-1": 0.6,
+        "ap-southeast-1": 0.6,
+        "ap-southeast-2": 0.6,
+        "eu-central-1": 0.6,
+        "eu-west-1": 0.6,
+        "us-east-1": 0.6,
+        "us-east-2": 0.6,
+        "us-west-2": 0.6
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "aws.sns.delivery.mobile_push": {
     "unit": "notification",

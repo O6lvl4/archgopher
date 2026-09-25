@@ -3,64 +3,74 @@
     "unit": "GB-second",
     "per": 1000000,
     "source": "https://developers.cloudflare.com/durable-objects/platform/pricing/",
-    "note": "Beyond the 400,000 GB-s a month the plan includes; billable usage is rounded up to the next million GB-s, which is not modelled. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "note": "The first 400,000 GB-s a month are free units, included in Workers Paid for the whole account (\"400,000 GB-s / month\", https://developers.cloudflare.com/durable-objects/platform/pricing/). Billable usage is rounded up to the next million GB-s, which is not modelled. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
     "values": {
       "*": {
         "value": 12.5,
         "verified": true,
-        "checkedAt": "2026-09-24"
+        "checkedAt": "2026-09-26"
       }
-    }
+    },
+    "pool": "account",
+    "free": 400000
   },
   "cloudflare.durable_objects.requests": {
     "unit": "request",
     "per": 1000000,
     "source": "https://developers.cloudflare.com/durable-objects/platform/pricing/",
-    "note": "Beyond the 1 million a month the plan includes. HTTP requests, RPC sessions and alarm invocations each count one; incoming WebSocket messages count one per 20. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "note": "HTTP requests, RPC sessions and alarm invocations each count one; incoming WebSocket messages count one per 20. The first 1 million a month are free units, included in Workers Paid for the whole account (\"1 million / month, + $0.15/million\", https://developers.cloudflare.com/durable-objects/platform/pricing/). Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
     "values": {
       "*": {
         "value": 0.15,
         "verified": true,
-        "checkedAt": "2026-09-24"
+        "checkedAt": "2026-09-26"
       }
-    }
+    },
+    "pool": "account",
+    "free": 1000000
   },
   "cloudflare.durable_objects.rows_read": {
     "unit": "row",
     "per": 1000000,
     "source": "https://developers.cloudflare.com/durable-objects/platform/pricing/",
-    "note": "SQLite backend, beyond the 25 billion a month the plan includes; the same rate as D1. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "note": "SQLite backend; the same rate as D1 but its own allowance. The first 25 billion a month are free units for the whole account (\"First 25 billion / month included\", https://developers.cloudflare.com/durable-objects/platform/pricing/). Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
     "values": {
       "*": {
         "value": 0.001,
         "verified": true,
-        "checkedAt": "2026-09-24"
+        "checkedAt": "2026-09-26"
       }
-    }
+    },
+    "pool": "account",
+    "free": 25000000000
   },
   "cloudflare.durable_objects.rows_written": {
     "unit": "row",
     "per": 1000000,
     "source": "https://developers.cloudflare.com/durable-objects/platform/pricing/",
-    "note": "SQLite backend, beyond the 50 million a month the plan includes; deletes and setAlarm count as rows written. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "note": "SQLite backend; deletes and setAlarm count as rows written. The first 50 million a month are free units for the whole account (\"First 50 million / month included\", https://developers.cloudflare.com/durable-objects/platform/pricing/). Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
     "values": {
       "*": {
         "value": 1,
         "verified": true,
-        "checkedAt": "2026-09-24"
+        "checkedAt": "2026-09-26"
       }
-    }
+    },
+    "pool": "account",
+    "free": 50000000
   },
   "cloudflare.durable_objects.storage": {
     "unit": "GB-month",
     "source": "https://developers.cloudflare.com/durable-objects/platform/pricing/",
-    "note": "SQLite backend, beyond the 5 GB-month the plan includes. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "note": "SQLite backend. The first 5 GB-month are free units for the whole account (\"5 GB-month, + $0.20/ GB-month\", https://developers.cloudflare.com/durable-objects/platform/pricing/). Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
     "values": {
       "*": {
         "value": 0.2,
         "verified": true,
-        "checkedAt": "2026-09-24"
+        "checkedAt": "2026-09-26"
       }
-    }
+    },
+    "pool": "account",
+    "free": 5
   }
 }

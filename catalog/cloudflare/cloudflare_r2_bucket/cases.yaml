@@ -12,9 +12,12 @@
       monthly: 2000000.0
       peak: 30
   costs:
-    Class B operations: 7.2
-    Class A operations: 9
-    Storage: 7.5
+    # Class B: (20M - 10M free) x $0.36/M = 3.6
+    Class B operations: 3.6
+    # Class A: (2M - 1M free) x $4.50/M = 4.5
+    Class A operations: 4.5
+    # Storage: (500 - 10 GB-month free) x $0.015 = 7.35
+    Storage: 7.35
   limits:
     Writes to one key: 0
 - name: Infrequent Access, 500 KB objects, in Tokyo

@@ -2,252 +2,244 @@
   "gcp.bigquery.active_storage": {
     "unit": "GB-month",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "Active logical storage per GiB-month in a region; the free 10 GiB (the SKU's first tier) is ignored.",
+    "note": "Active logical storage per GiB-month in a region. The first 10 GiB a month are free (\"The first 10 GiB is free each month\", https://cloud.google.com/bigquery/pricing), counted over the billing account. The page gives one storage free tier; the catalog lists 10 GiB on the active and on the long-term SKU of each location, and the table follows the catalog. The Billing Catalog lists the free tier as a $0 first tier on each location's SKU; the page gives it once per billing account, so a declaration that reads two locations is given it twice.",
     "sync": {
       "filters": {
         "description": "Active Logical Storage \\(.+\\)"
       },
       "service": "24E6-581D-38E5",
       "source": "gcp",
-      "tier": "last"
+      "tier": "{row}"
     },
-    "values": {
-      "asia-northeast1": {
-        "value": 0.023,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "asia-northeast1": 0,
+        "asia-northeast3": 0,
+        "asia-south1": 0,
+        "asia-southeast1": 0,
+        "australia-southeast1": 0,
+        "europe-west1": 0,
+        "europe-west3": 0,
+        "us-east4": 0,
+        "us-east5": 0,
+        "us-west1": 0
       },
-      "asia-northeast3": {
-        "value": 0.023,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "asia-south1": {
-        "value": 0.023,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "asia-southeast1": {
-        "value": 0.02,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "australia-southeast1": {
-        "value": 0.023,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "europe-west1": {
-        "value": 0.02,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "europe-west3": {
-        "value": 0.023,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east4": {
-        "value": 0.023,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east5": {
-        "value": 0.023,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-west1": {
-        "value": 0.023,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "10": {
+        "asia-northeast1": 0.023,
+        "asia-northeast3": 0.023,
+        "asia-south1": 0.023,
+        "asia-southeast1": 0.02,
+        "australia-southeast1": 0.023,
+        "europe-west1": 0.02,
+        "europe-west3": 0.023,
+        "us-east4": 0.023,
+        "us-east5": 0.023,
+        "us-west1": 0.023
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "gcp.bigquery.long_term_storage": {
     "unit": "GB-month",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "Long-term logical storage (tables or partitions unmodified for 90 days) per GiB-month in a region; the free 10 GiB (the SKU's first tier) is ignored.",
+    "note": "Long-term logical storage (tables or partitions unmodified for 90 days) per GiB-month in a region. The first 10 GiB a month are free (\"The first 10 GiB is free each month\", https://cloud.google.com/bigquery/pricing), counted over the billing account. The page gives one storage free tier; the catalog lists 10 GiB on the active and on the long-term SKU of each location, and the table follows the catalog. The Billing Catalog lists the free tier as a $0 first tier on each location's SKU; the page gives it once per billing account, so a declaration that reads two locations is given it twice.",
     "sync": {
       "filters": {
         "description": "Long Term Logical Storage \\(.+\\)"
       },
       "service": "24E6-581D-38E5",
       "source": "gcp",
-      "tier": "last"
+      "tier": "{row}"
     },
-    "values": {
-      "asia-northeast1": {
-        "value": 0.016,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "asia-northeast1": 0,
+        "asia-northeast3": 0,
+        "asia-south1": 0,
+        "asia-southeast1": 0,
+        "australia-southeast1": 0,
+        "europe-west1": 0,
+        "europe-west3": 0,
+        "us-east4": 0,
+        "us-east5": 0,
+        "us-west1": 0
       },
-      "asia-northeast3": {
-        "value": 0.016,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "asia-south1": {
-        "value": 0.016,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "asia-southeast1": {
-        "value": 0.01,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "australia-southeast1": {
-        "value": 0.016,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "europe-west1": {
-        "value": 0.01,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "europe-west3": {
-        "value": 0.016,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east4": {
-        "value": 0.016,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east5": {
-        "value": 0.016,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-west1": {
-        "value": 0.016,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "10": {
+        "asia-northeast1": 0.016,
+        "asia-northeast3": 0.016,
+        "asia-south1": 0.016,
+        "asia-southeast1": 0.01,
+        "australia-southeast1": 0.016,
+        "europe-west1": 0.01,
+        "europe-west3": 0.016,
+        "us-east4": 0.016,
+        "us-east5": 0.016,
+        "us-west1": 0.016
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "gcp.bigquery.multi.active_storage.eu": {
     "unit": "GB-month",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "Active logical storage per GiB-month in the EU multi-region; the free 10 GiB (the SKU's first tier) is ignored.",
+    "note": "Active logical storage per GiB-month in the EU multi-region. The first 10 GiB a month are free (\"The first 10 GiB is free each month\", https://cloud.google.com/bigquery/pricing), counted over the billing account. The page gives one storage free tier; the catalog lists 10 GiB on the active and on the long-term SKU of each location, and the table follows the catalog. The Billing Catalog lists the free tier as a $0 first tier on each location's SKU; the page gives it once per billing account, so a declaration that reads two locations is given it twice.",
     "sync": {
       "filters": {
         "description": "Active Logical Storage"
       },
       "region": "europe",
       "service": "24E6-581D-38E5",
-      "source": "gcp"
+      "source": "gcp",
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 0.02,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0
+      },
+      "10": {
+        "*": 0.02
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "gcp.bigquery.multi.active_storage.us": {
     "unit": "GB-month",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "Active logical storage per GiB-month in the US multi-region; the free 10 GiB (the SKU's first tier) is ignored.",
+    "note": "Active logical storage per GiB-month in the US multi-region. The first 10 GiB a month are free (\"The first 10 GiB is free each month\", https://cloud.google.com/bigquery/pricing), counted over the billing account. The page gives one storage free tier; the catalog lists 10 GiB on the active and on the long-term SKU of each location, and the table follows the catalog. The Billing Catalog lists the free tier as a $0 first tier on each location's SKU; the page gives it once per billing account, so a declaration that reads two locations is given it twice.",
     "sync": {
       "filters": {
         "description": "Active Logical Storage"
       },
       "region": "us",
       "service": "24E6-581D-38E5",
-      "source": "gcp"
+      "source": "gcp",
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 0.02,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0
+      },
+      "10": {
+        "*": 0.02
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "gcp.bigquery.multi.long_term_storage.eu": {
     "unit": "GB-month",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "Long-term logical storage per GiB-month in the EU multi-region; the free 10 GiB (the SKU's first tier) is ignored.",
+    "note": "Long-term logical storage per GiB-month in the EU multi-region. The first 10 GiB a month are free (\"The first 10 GiB is free each month\", https://cloud.google.com/bigquery/pricing), counted over the billing account. The page gives one storage free tier; the catalog lists 10 GiB on the active and on the long-term SKU of each location, and the table follows the catalog. The Billing Catalog lists the free tier as a $0 first tier on each location's SKU; the page gives it once per billing account, so a declaration that reads two locations is given it twice.",
     "sync": {
       "filters": {
         "description": "Long Term Logical Storage"
       },
       "region": "europe",
       "service": "24E6-581D-38E5",
-      "source": "gcp"
+      "source": "gcp",
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 0.01,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0
+      },
+      "10": {
+        "*": 0.01
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "gcp.bigquery.multi.long_term_storage.us": {
     "unit": "GB-month",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "Long-term logical storage per GiB-month in the US multi-region; the free 10 GiB (the SKU's first tier) is ignored.",
+    "note": "Long-term logical storage per GiB-month in the US multi-region. The first 10 GiB a month are free (\"The first 10 GiB is free each month\", https://cloud.google.com/bigquery/pricing), counted over the billing account. The page gives one storage free tier; the catalog lists 10 GiB on the active and on the long-term SKU of each location, and the table follows the catalog. The Billing Catalog lists the free tier as a $0 first tier on each location's SKU; the page gives it once per billing account, so a declaration that reads two locations is given it twice.",
     "sync": {
       "filters": {
         "description": "Long Term Logical Storage"
       },
       "region": "us",
       "service": "24E6-581D-38E5",
-      "source": "gcp"
+      "source": "gcp",
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 0.01,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0
+      },
+      "10": {
+        "*": 0.01
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "gcp.bigquery.multi.read_api.eu": {
     "unit": "TiB",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "BigQuery Storage Read API per TiB read in the EU multi-region; the free 300 TiB a month (the SKU's first tier) is ignored.",
+    "note": "BigQuery Storage Read API per TiB read in the EU multi-region. The first 300 TiB a month are free (\"a bytes read free tier of 300 TiB per month for each billing account\", https://cloud.google.com/bigquery/pricing). The Billing Catalog lists the free tier as a $0 first tier on each location's SKU; the page gives it once per billing account, so a declaration that reads two locations is given it twice.",
     "sync": {
       "filters": {
         "description": "BigQuery Storage API - Read Bytes Scanned \\(.+\\)"
       },
       "region": "europe",
       "service": "DCC9-8DB9-673F",
-      "source": "gcp"
+      "source": "gcp",
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 1.1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0
+      },
+      "300": {
+        "*": 1.1
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "gcp.bigquery.multi.read_api.us": {
     "unit": "TiB",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "BigQuery Storage Read API per TiB read in the US multi-region; the free 300 TiB a month (the SKU's first tier) is ignored.",
+    "note": "BigQuery Storage Read API per TiB read in the US multi-region. The first 300 TiB a month are free (\"a bytes read free tier of 300 TiB per month for each billing account\", https://cloud.google.com/bigquery/pricing). The Billing Catalog lists the free tier as a $0 first tier on each location's SKU; the page gives it once per billing account, so a declaration that reads two locations is given it twice.",
     "sync": {
       "filters": {
         "description": "BigQuery Storage API - Read Bytes Scanned \\(.+\\)"
       },
       "region": "us",
       "service": "DCC9-8DB9-673F",
-      "source": "gcp"
+      "source": "gcp",
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 1.1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0
+      },
+      "300": {
+        "*": 1.1
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "gcp.bigquery.multi.streaming.eu": {
     "unit": "MiB",
@@ -294,106 +286,97 @@
   "gcp.bigquery.multi.write_api.eu": {
     "unit": "GiB",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "BigQuery Storage Write API (gRPC) per GiB in the EU multi-region; the free 2 TiB a month (the SKU's first tier) is ignored.",
+    "note": "BigQuery Storage Write API (gRPC) per GiB in the EU multi-region. The first 2 TiB (2048 GiB) a month are free (\"The first 2 TiB per month are free\", priced \"per 1 month / account\", https://cloud.google.com/bigquery/pricing), counted over the billing account. The Billing Catalog lists the free tier as a $0 first tier on each location's SKU; the page gives it once per billing account, so a declaration that reads two locations is given it twice.",
     "sync": {
       "filters": {
         "description": "BigQuery Storage API - Write \\(.+\\)"
       },
       "region": "europe",
       "service": "DCC9-8DB9-673F",
-      "source": "gcp"
+      "source": "gcp",
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 0.025,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0
+      },
+      "2048": {
+        "*": 0.025
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "gcp.bigquery.multi.write_api.us": {
     "unit": "GiB",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "BigQuery Storage Write API (gRPC) per GiB in the US multi-region; the free 2 TiB a month (the SKU's first tier) is ignored.",
+    "note": "BigQuery Storage Write API (gRPC) per GiB in the US multi-region. The first 2 TiB (2048 GiB) a month are free (\"The first 2 TiB per month are free\", priced \"per 1 month / account\", https://cloud.google.com/bigquery/pricing), counted over the billing account. The Billing Catalog lists the free tier as a $0 first tier on each location's SKU; the page gives it once per billing account, so a declaration that reads two locations is given it twice.",
     "sync": {
       "filters": {
         "description": "BigQuery Storage API - Write \\(.+\\)"
       },
       "region": "us",
       "service": "DCC9-8DB9-673F",
-      "source": "gcp"
+      "source": "gcp",
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 0.025,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0
+      },
+      "2048": {
+        "*": 0.025
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "gcp.bigquery.read_api": {
     "unit": "TiB",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "BigQuery Storage Read API per TiB read in a region; the free 300 TiB a month (the SKU's first tier) is ignored.",
+    "note": "BigQuery Storage Read API per TiB read in a region. The first 300 TiB a month are free (\"a bytes read free tier of 300 TiB per month for each billing account\", https://cloud.google.com/bigquery/pricing). The Billing Catalog lists the free tier as a $0 first tier on each location's SKU; the page gives it once per billing account, so a declaration that reads two locations is given it twice.",
     "sync": {
       "filters": {
         "description": "BigQuery Storage API - Read Bytes Scanned \\(.+\\)"
       },
       "service": "DCC9-8DB9-673F",
-      "source": "gcp"
+      "source": "gcp",
+      "tier": "{row}"
     },
-    "values": {
-      "asia-northeast1": {
-        "value": 1.32,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "asia-northeast1": 0,
+        "asia-northeast3": 0,
+        "asia-south1": 0,
+        "asia-southeast1": 0,
+        "australia-southeast1": 0,
+        "europe-west1": 0,
+        "europe-west3": 0,
+        "us-east4": 0,
+        "us-east5": 0,
+        "us-west1": 0
       },
-      "asia-northeast3": {
-        "value": 1.32,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "asia-south1": {
-        "value": 1.32,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "asia-southeast1": {
-        "value": 1.485,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "australia-southeast1": {
-        "value": 1.43,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "europe-west1": {
-        "value": 1.32,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "europe-west3": {
-        "value": 1.43,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east4": {
-        "value": 1.1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east5": {
-        "value": 1.1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-west1": {
-        "value": 1.1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "300": {
+        "asia-northeast1": 1.32,
+        "asia-northeast3": 1.32,
+        "asia-south1": 1.32,
+        "asia-southeast1": 1.485,
+        "australia-southeast1": 1.43,
+        "europe-west1": 1.32,
+        "europe-west3": 1.43,
+        "us-east4": 1.1,
+        "us-east5": 1.1,
+        "us-west1": 1.1
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "gcp.bigquery.streaming": {
     "unit": "MiB",
@@ -463,65 +446,44 @@
   "gcp.bigquery.write_api": {
     "unit": "GiB",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "BigQuery Storage Write API (gRPC) ingestion per GiB in a region; the free 2 TiB a month (the SKU's first tier) is ignored.",
+    "note": "BigQuery Storage Write API (gRPC) ingestion per GiB in a region. The first 2 TiB (2048 GiB) a month are free (\"The first 2 TiB per month are free\", priced \"per 1 month / account\", https://cloud.google.com/bigquery/pricing), counted over the billing account. The Billing Catalog lists the free tier as a $0 first tier on each location's SKU; the page gives it once per billing account, so a declaration that reads two locations is given it twice.",
     "sync": {
       "filters": {
         "description": "BigQuery Storage API - Write \\(.+\\)"
       },
       "service": "DCC9-8DB9-673F",
-      "source": "gcp"
+      "source": "gcp",
+      "tier": "{row}"
     },
-    "values": {
-      "asia-northeast1": {
-        "value": 0.03,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "asia-northeast1": 0,
+        "asia-northeast3": 0,
+        "asia-south1": 0,
+        "asia-southeast1": 0,
+        "australia-southeast1": 0,
+        "europe-west1": 0,
+        "europe-west3": 0,
+        "us-east4": 0,
+        "us-east5": 0,
+        "us-west1": 0
       },
-      "asia-northeast3": {
-        "value": 0.03,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "asia-south1": {
-        "value": 0.03,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "asia-southeast1": {
-        "value": 0.03375,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "australia-southeast1": {
-        "value": 0.033,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "europe-west1": {
-        "value": 0.03,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "europe-west3": {
-        "value": 0.0325,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east4": {
-        "value": 0.025,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east5": {
-        "value": 0.025,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-west1": {
-        "value": 0.025,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "2048": {
+        "asia-northeast1": 0.03,
+        "asia-northeast3": 0.03,
+        "asia-south1": 0.03,
+        "asia-southeast1": 0.03375,
+        "australia-southeast1": 0.033,
+        "europe-west1": 0.03,
+        "europe-west3": 0.0325,
+        "us-east4": 0.025,
+        "us-east5": 0.025,
+        "us-west1": 0.025
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   }
 }

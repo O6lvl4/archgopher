@@ -2,22 +2,28 @@
   "gcp.artifactregistry.storage": {
     "unit": "GB-month",
     "source": "https://cloud.google.com/artifact-registry/pricing",
-    "note": "Storage, the same for regional and multi-regional repositories (one global SKU); the free 0.5 GB is ignored.",
+    "note": "Storage, the same for regional and multi-regional repositories (one global SKU). The first 0.5 GB-month is free, counted over the billing account (\"Pricing applies to billing accounts, not individual Google Cloud projects ... the limit for the storage free tier is for total usage across all the attached projects\", https://cloud.google.com/artifact-registry/pricing). Synced from the Billing Catalog, which lists it as a $0 first tier.",
     "sync": {
       "filters": {
         "description": "Artifact Registry Storage"
       },
       "region": "global",
       "service": "149C-F9EC-3994",
-      "source": "gcp"
+      "source": "gcp",
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 0.1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0
+      },
+      "0.5": {
+        "*": 0.1
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "gcp.artifactregistry.transfer.asia": {
     "unit": "GB",

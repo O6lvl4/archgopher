@@ -2,7 +2,7 @@ type: azurerm_automation_dsc_nodeconfiguration
 label: Automation DSC node configuration
 category: Compute
 icon: automation-accounts
-description: "State Configuration (DSC) nodes outside Azure that apply this node configuration, per node-month; Azure nodes and the first five are free (the free ones are not read). Count each node once: on its node configuration or on the Automation account."
+description: "State Configuration (DSC) nodes outside Azure that apply this node configuration, per node-month; Azure nodes are free, and the first five a month are free, counted over every node of the account in the region. Count each node once: on its node configuration or on the Automation account."
 kinds: [configure]
 sla: azure.automation
 assumptions:

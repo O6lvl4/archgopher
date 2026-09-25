@@ -2,7 +2,7 @@ type: google_pubsub_subscription
 label: Pub/Sub subscription
 category: Messaging
 icon: pubsub
-description: "Delivery throughput per TiB at 1,000 bytes a message at least, or the export price for BigQuery and Cloud Storage subscriptions, and message storage for retained acknowledged messages, snapshots and backlog older than a day. The topic calls it; a push subscription calls its endpoint. BigQuery and Cloud Storage writes are in the export price, so the table and bucket are not called. Headroom is the region's pull, push or export throughput."
+description: "Delivery throughput per TiB at 1,000 bytes a message at least, the first 10 GiB a month free, counted over the billing account with topics, or the export price for BigQuery and Cloud Storage subscriptions (no free tier), and message storage for retained acknowledged messages, snapshots and backlog older than a day. The topic calls it; a push subscription calls its endpoint. BigQuery and Cloud Storage writes are in the export price, so the table and bucket are not called. Headroom is the region's pull, push or export throughput."
 kinds: [deliver]
 sla: gcp.pubsub
 attributes:

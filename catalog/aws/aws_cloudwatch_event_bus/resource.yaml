@@ -2,7 +2,7 @@ type: aws_cloudwatch_event_bus
 label: EventBridge event bus
 category: Messaging
 icon: eventbridge
-description: "Custom events published, or partner events received on a partner bus, in 64 KB chunks; archive processing and storage when the bus is archived; schema discovery in 8 KB chunks when a discoverer watches it. Delivery to targets is free. Headroom is the regional PutEvents rate. Targets that name the bus in event_bus_name receive what it carries."
+description: "Custom events published, or partner events received on a partner bus, in 64 KB chunks; archive processing and storage when the bus is archived; schema discovery in 8 KB chunks when a discoverer watches it, the first 5 million a month always free for the account. Delivery to targets is free. Headroom is the regional PutEvents rate. Targets that name the bus in event_bus_name receive what it carries."
 kinds: [put]
 sla: aws.eventbridge
 attributes:

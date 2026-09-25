@@ -30,3 +30,13 @@
     Monitoring and automation: 1
     Infrequent Access: 10
   error: Disabled
+- name: Frequent Access past both volume tiers (us-east-1)
+  region: us-east-1
+  assumptions:
+    monitoredObjects: 1000000
+    frequentGb: 600000
+  costs:
+    # 1,000,000 / 1,000 x 0.0025
+    Monitoring and automation: 2.5
+    # 51,200 x 0.023 = 1177.6; (512,000 - 51,200) x 0.022 = 10137.6; (600,000 - 512,000) x 0.021 = 1848
+    Frequent Access: 13163.2

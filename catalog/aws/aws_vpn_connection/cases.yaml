@@ -1,33 +1,34 @@
 # Worked examples: given these values and this load, the resource reads this.
 # Expected values are computed by hand from the unit prices, not taken from the engine.
-- name: standard tunnels, 10 million requests of 4 KB (us-east-1)
+- name: standard tunnels, 100 million requests of 4 KB (us-east-1)
   region: us-east-1
   assumptions:
     kbPerUnit: 4
   demand:
     traffic:
-      monthly: 1e+07
+      monthly: 1e+08
       peak: 100
-  # 730 h × $0.05; 1e7 × 4 KB = 38.14697265625 GB × $0.09; 100/s × 4 KB × 8 bit
+  # 730 h × $0.05; 1e8 × 4 KB = 381.4697265625 GB, the first 100 GB always free for the account:
+  # (381.4697265625 − 100) × $0.09 = 25.332275390625; 100/s × 4 KB × 8 bit
   costs:
     Connection hours (standard): 36.5
-    Data sent out: 3.4332275390625
+    Data sent out: 25.332275390625
   limits:
     Bandwidth per tunnel: 0.0030517578125
-- name: large tunnels, 50 GB outside the drawn load (ap-northeast-1)
+- name: large tunnels, 500 GB outside the drawn load (ap-northeast-1)
   region: ap-northeast-1
   attributes:
     tunnel_bandwidth: large
   assumptions:
-    gbPerMonth: 50
+    gbPerMonth: 500
   demand:
     traffic:
       monthly: 0
       peak: 0
-  # 730 h × $0.60; 50 GB × $0.114
+  # 730 h × $0.60; (500 GB − 100 always free) × $0.114
   costs:
     Connection hours (large): 438
-    Data sent out: 5.7
+    Data sent out: 45.6
   limits:
     Bandwidth per tunnel: 0
 - name: load passes through without a size (us-east-1)

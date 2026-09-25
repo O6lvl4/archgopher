@@ -91,7 +91,7 @@
   "azure.frontdoor_classic.zone1.transfer_out": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
-    "note": "Classic: data transfer from the edge to clients in billing Zone 1 (North America, Europe, Middle East and Africa), by the first GB of each volume tier: 0, 10 TB, 50 TB",
+    "note": "Classic: data transfer from the edge to clients in billing Zone 1 (North America, Europe, Middle East and Africa). Volume tiers count the transfer of every classic Front Door to the zone in a month: from 10 TB and 50 TB; the pricing page does not say whether the tiers count per Front Door, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Azure Front Door Service",
@@ -115,12 +115,14 @@
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-25"
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   },
   "azure.frontdoor_classic.zone2.transfer_out": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
-    "note": "Classic: data transfer from the edge to clients in billing Zone 2 (Asia Pacific including Japan), by the first GB of each volume tier: 0, 10 TB, 50 TB",
+    "note": "Classic: data transfer from the edge to clients in billing Zone 2 (Asia Pacific including Japan). Volume tiers count the transfer of every classic Front Door to the zone in a month: from 10 TB and 50 TB; the pricing page does not say whether the tiers count per Front Door, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Azure Front Door Service",
@@ -144,12 +146,14 @@
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-25"
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   },
   "azure.frontdoor_classic.zone3.transfer_out": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
-    "note": "Classic: data transfer from the edge to clients in billing Zone 3 (South America), by the first GB of each volume tier: 0, 10 TB, 50 TB",
+    "note": "Classic: data transfer from the edge to clients in billing Zone 3 (South America). Volume tiers count the transfer of every classic Front Door to the zone in a month: from 10 TB and 50 TB; the pricing page does not say whether the tiers count per Front Door, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Azure Front Door Service",
@@ -173,12 +177,14 @@
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-25"
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   },
   "azure.frontdoor_classic.zone4.transfer_out": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
-    "note": "Classic: data transfer from the edge to clients in billing Zone 4 (Australia), by the first GB of each volume tier: 0, 10 TB, 50 TB",
+    "note": "Classic: data transfer from the edge to clients in billing Zone 4 (Australia). Volume tiers count the transfer of every classic Front Door to the zone in a month: from 10 TB and 50 TB; the pricing page does not say whether the tiers count per Front Door, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Azure Front Door Service",
@@ -202,12 +208,14 @@
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-25"
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   },
   "azure.frontdoor_classic.zone5.transfer_out": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
-    "note": "Classic: data transfer from the edge to clients in billing Zone 5 (India), by the first GB of each volume tier: 0, 10 TB, 50 TB",
+    "note": "Classic: data transfer from the edge to clients in billing Zone 5 (India). Volume tiers count the transfer of every classic Front Door to the zone in a month: from 10 TB and 50 TB; the pricing page does not say whether the tiers count per Front Door, per region or per subscription, so they are pooled per region",
     "sync": {
       "source": "azure",
       "service": "Azure Front Door Service",
@@ -231,6 +239,8 @@
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-25"
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   }
 }

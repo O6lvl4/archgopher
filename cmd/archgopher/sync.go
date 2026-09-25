@@ -203,11 +203,15 @@ func (s *syncer) table(w io.Writer, id string, e *book.Entry, all book.Book) err
 	return nil
 }
 
+var tierRow = regexp.MustCompile(`"tier"\s*:\s*"\{row\}"`)
+
 // rowSource is the price source of one table row: the sync spec with {row}
 // filled in, or, for a composed row, the sum of its parts, each resolved with
 // {part} filled in.
 func (s *syncer) rowSource(sync json.RawMessage, key string, compose map[string]book.Composition) (priceSource, error) {
-	raw := strings.ReplaceAll(string(sync), "{row}", jsonQuoteMeta(key))
+	// In "tier" the row key is a number where the tier starts, not a pattern.
+	raw := tierRow.ReplaceAllLiteralString(string(sync), `"tier": `+strconv.Quote(key))
+	raw = strings.ReplaceAll(raw, "{row}", jsonQuoteMeta(key))
 	c, composed := compose[key]
 	if !composed {
 		return s.sources.of(json.RawMessage(raw))

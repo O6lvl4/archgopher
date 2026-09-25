@@ -8,10 +8,12 @@
     request:
       monthly: 1000000.0
       peak: 5
+  # 1e6 requests, within the 2 million free; 1e6 × 0.2 s / 10 = 20000 active seconds:
+  # 10000 vCPU-seconds and 20000 GiB-seconds, within the 180000 and 360000 free.
   costs:
-    Requests: 0.4
-    Active vCPU: 0.24
-    Active memory: 0.06
+    Requests: 0
+    Active vCPU: 0
+    Active memory: 0
   limits:
     Replicas: 0.1
 - name: one warm replica of 1 vCPU
@@ -25,11 +27,34 @@
     request:
       monthly: 1000000.0
       peak: 5
+  # Requests within the 2 million free. 20000 active seconds; idle 730 × 3600 − 20000 = 2608000.
+  # vCPU-seconds: 20000 active, 2608000 idle, 2628000 together; the 180000 free are shared by
+  # quantity: active (20000 − 180000 × 20000 / 2628000) × 0.000024 = 0.447123287671;
+  # idle (2608000 − 180000 × 2608000 / 2628000) × 0.000003 = 7.288109589041.
+  # GiB-seconds: 40000 active, 5216000 idle, 5256000 together, 360000 free:
+  # active (40000 − 360000 × 40000 / 5256000) × 0.000003 = 0.111780821918;
+  # idle (5216000 − 360000 × 5216000 / 5256000) × 0.000003 = 14.576219178082.
   costs:
-    Requests: 0.4
-    Active vCPU: 0.48
-    Active memory: 0.12
-    Idle vCPU: 7.824
-    Idle memory: 15.648
+    Requests: 0
+    Active vCPU: 0.4471232876712329
+    Active memory: 0.11178082191780822
+    Idle vCPU: 7.288109589041096
+    Idle memory: 14.576219178082193
+  limits:
+    Replicas: 0.1
+# Past the free requests: (5e6 − 2e6) × 0.4 / 1e6 = 1.2. 5e6 × 0.2 s / 10 = 100000 active
+# seconds: 50000 vCPU-seconds and 100000 GiB-seconds, within the free grant.
+- name: scale to zero past the free requests
+  region: japaneast
+  assumptions:
+    requestMs: 200
+  demand:
+    request:
+      monthly: 5000000.0
+      peak: 5
+  costs:
+    Requests: 1.2
+    Active vCPU: 0
+    Active memory: 0
   limits:
     Replicas: 0.1

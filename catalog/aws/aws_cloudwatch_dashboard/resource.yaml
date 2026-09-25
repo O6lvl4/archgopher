@@ -2,7 +2,7 @@ type: aws_cloudwatch_dashboard
 label: CloudWatch dashboard
 category: Monitoring
 icon: cloudwatch
-description: "A fixed monthly price per custom dashboard, the same in every region. The three free dashboards per account are ignored, as is every free tier. Load does not flow through a dashboard."
+description: "A fixed monthly price per custom dashboard, the same in every region; the first three dashboards of the account are always free. Load does not flow through a dashboard."
 kinds: [view]
 sla: aws.cloudwatch
 readings:

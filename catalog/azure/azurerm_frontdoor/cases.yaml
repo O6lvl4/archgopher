@@ -14,7 +14,7 @@
   costs:
     Routing rules (first 5): 21.9
     Transfer from clients: 0.095367431640625
-    Transfer to clients (first 10 TB): 119.20928955078125
+    Transfer to clients: 119.20928955078125
   limits:
     Requests: 100
     Bandwidth to clients: 0.04096
@@ -37,9 +37,9 @@
     Routing rules beyond 5: 26.28
     Frontend hosts beyond 100: 100
     Transfer from clients: 0
-    Transfer to clients (first 10 TB): 1700
-    Transfer to clients (next 40 TB): 6000
-    Transfer to clients (over 50 TB): 1300
+    # 61,440,000 × 1024 KB = 60,000 GB, past both transfer tiers, tier by tier:
+    # 10,000 × $0.17 = 1700; 40,000 × $0.15 = 6000; 10,000 × $0.13 = 1300; together 9000.
+    Transfer to clients: 9000
   limits:
     Requests: 1000
     Bandwidth to clients: 8.388608

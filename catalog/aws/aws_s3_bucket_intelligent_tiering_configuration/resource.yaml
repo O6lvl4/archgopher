@@ -2,7 +2,7 @@ type: aws_s3_bucket_intelligent_tiering_configuration
 label: S3 Intelligent-Tiering
 category: Storage
 icon: s3
-description: "The Intelligent-Tiering objects this configuration's filter covers: the monitoring and automation fee per object of 128 KB or more, and storage in each access tier. The configuration opts those objects into the Archive Access and Deep Archive Access tiers; while it is Disabled they stay in the other tiers."
+description: "The Intelligent-Tiering objects this configuration's filter covers: the monitoring and automation fee per object of 128 KB or more, and storage in each access tier, the Frequent Access tier in volume tiers from 50 TB and 500 TB a month counted over every bucket in the region. The configuration opts those objects into the Archive Access and Deep Archive Access tiers; while it is Disabled they stay in the other tiers."
 kinds: [tier]
 attributes:
   - { key: status, label: Status, type: choice, options: [Enabled, Disabled], default: Enabled }

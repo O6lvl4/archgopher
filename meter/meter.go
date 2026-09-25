@@ -136,7 +136,7 @@ func (r *Recorder) billed(name string, quantity float64, unit, priceID string, e
 	if !r.NoFree && e.Pool == "" {
 		allowance = e.Free
 	}
-	bill, err := Bill(r.books.Prices, priceID, r.Region, quantity, allowance)
+	bill, err := Bill(r.books.Prices, priceID, r.Region, quantity, allowance, !r.NoFree)
 	if err != nil {
 		var no *NotOfferedError
 		if errors.As(err, &no) {

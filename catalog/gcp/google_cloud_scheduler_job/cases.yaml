@@ -6,6 +6,6 @@
     fire:
       monthly: 730
       peak: 0.0003
-  # 730 / 24 job-days × $0.0032258065 ($0.10 / 31 days)
+  # 730 / 24 = 30.4 job-days, within the billing account's free 93 (three jobs for 31 days).
   costs:
-    Jobs: 0.098118266
+    Jobs: 0

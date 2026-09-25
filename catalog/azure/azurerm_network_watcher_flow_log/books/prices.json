@@ -2,67 +2,46 @@
   "azure.networkwatcher.logs_collected": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/network-watcher/",
-    "note": "Flow logs collected (NSG flow logs; VNet flow logs have the same price); the first 5 GB a month are free (ignored, as every free tier). Storage for the logs is billed on the storage account",
+    "note": "Flow logs collected (NSG flow logs; VNet flow logs have the same price). The first 5 GB a month are free (https://azure.microsoft.com/pricing/details/network-watcher/: 5 GB per month), given in the price list as the zero-priced first tier. The page does not say over what they are counted; Network Watcher is regional, so they are counted per region here, over every flow log of the account. Storage for the logs is billed on the storage account",
     "sync": {
       "filters": {
         "meterName": "Standard Network Logs Collected",
         "productName": "Network Watcher"
       },
       "service": "Network Watcher",
-      "source": "azure"
+      "source": "azure",
+      "tier": "{row}"
     },
-    "values": {
-      "australiaeast": {
-        "value": 0.5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "australiaeast": 0,
+        "centralindia": 0,
+        "eastus": 0,
+        "eastus2": 0,
+        "germanywestcentral": 0,
+        "japaneast": 0,
+        "koreacentral": 0,
+        "northeurope": 0,
+        "southeastasia": 0,
+        "westus2": 0
       },
-      "centralindia": {
-        "value": 0.5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eastus": {
-        "value": 0.5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eastus2": {
-        "value": 0.5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "germanywestcentral": {
-        "value": 0.5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "japaneast": {
-        "value": 0.5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "koreacentral": {
-        "value": 0.5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "northeurope": {
-        "value": 0.5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "southeastasia": {
-        "value": 0.5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "westus2": {
-        "value": 0.5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "5": {
+        "australiaeast": 0.5,
+        "centralindia": 0.5,
+        "eastus": 0.5,
+        "eastus2": 0.5,
+        "germanywestcentral": 0.5,
+        "japaneast": 0.5,
+        "koreacentral": 0.5,
+        "northeurope": 0.5,
+        "southeastasia": 0.5,
+        "westus2": 0.5
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   },
   "azure.networkwatcher.traffic_analytics.10min": {
     "unit": "GB",

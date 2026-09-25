@@ -2,7 +2,7 @@ type: azurerm_dns_ns_record
 label: DNS NS record
 category: Edge
 icon: dns-zones
-description: "Queries answered for the NS record set in a public Azure DNS zone, with the lower price beyond 1 billion a month (the tier counts every public zone query in the subscription). Resolvers cache answers for the TTL, so queries are far fewer than requests: give them as queriesPerMonth or draw load to the record. A record answers where to connect and passes no load on."
+description: "Queries answered for the NS record set in a public Azure DNS zone, with the lower price beyond 1 billion a month, counted over every public zone query of the subscription. Resolvers cache answers for the TTL, so queries are far fewer than requests: give them as queriesPerMonth or draw load to the record. A record answers where to connect and passes no load on."
 kinds: [query]
 sla: azure.dns
 attributes:
@@ -12,8 +12,7 @@ assumptions:
 let:
   - queries: total.monthly + queriesPerMonth
 readings:
-  - requests: { name: Queries (first 1 billion), count: 'min(queries, 1e9)', unit: query, price: azure.dns.queries }
-  - requests: { when: queries > 1e9, name: Queries (over 1 billion), count: queries - 1e9, unit: query, price: azure.dns.queries_over_1b }
+  - requests: { name: Queries, count: queries, unit: query, price: azure.dns.queries }
   - limit: { name: Records in the set, demand: 'float(len(records))', unit: records, quota: azure.dns.records_per_set }
 terraform:
   # A record names its zone and the resource it points at; neither is a call.

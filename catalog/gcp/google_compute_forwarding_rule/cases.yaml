@@ -73,6 +73,21 @@
   costs:
     Endpoint hours: 7.3
     Endpoint data processed: 0.3814697265625
+- name: Private Service Connect endpoint to a published service past two volume tiers (asia-northeast1)
+  region: asia-northeast1
+  attributes:
+    load_balancing_scheme: ""
+  assumptions:
+    gbPerMonth: 6e+06
+  demand:
+    request:
+      monthly: 0
+      peak: 0
+  # 730 h × $0.01. Data: 1048576 × 0.01 = 10485.76; (5242880 − 1048576) × 0.006 = 25165.824;
+  # (6000000 − 5242880) × 0.004 = 3028.48; together 38680.064.
+  costs:
+    Endpoint hours: 7.3
+    Endpoint data processed: 38680.064
 - name: Private Service Connect endpoint to regional Google APIs, 10 million requests of 4 KB (us-east4)
   region: us-east4
   attributes:

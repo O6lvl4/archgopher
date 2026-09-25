@@ -21,21 +21,26 @@
   "aws.route53.hosted_zone": {
     "unit": "zone-month",
     "source": "https://aws.amazon.com/route53/pricing/",
-    "note": "Hosted zone, first 25 in the account",
+    "note": "Hosted zone per month, public or private. Volume tiers from 25 zones, counted over every hosted zone of the account: Route 53 is global, and the pricing page prices \"the first 25 hosted zones\" and \"additional hosted zones\" of the account",
     "sync": {
       "service": "AmazonRoute53",
       "filters": {
         "usagetype": "HostedZone"
       },
-      "tier": "first",
-      "offerRegion": "aws-other"
+      "offerRegion": "aws-other",
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 0.5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0.5
+      },
+      "25": {
+        "*": 0.1
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   }
 }

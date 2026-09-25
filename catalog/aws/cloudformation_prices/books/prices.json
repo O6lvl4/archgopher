@@ -2,7 +2,7 @@
   "aws.cloudformation.handler_operation": {
     "unit": "operation",
     "source": "https://aws.amazon.com/cloudformation/pricing/",
-    "note": "Handler operations on third-party and private registry resource types (not AWS::, Alexa:: or Custom::); the first 1,000 a month per account are free (ignored)",
+    "note": "Handler operations on third-party and private registry resource types (not AWS::, Alexa:: or Custom::). Always free: 1,000 a month per account (https://aws.amazon.com/free/, Always free: AWS CloudFormation; https://aws.amazon.com/cloudformation/pricing/)",
     "sync": {
       "filters": {
         "usagetype": "(?:[A-Z]+[0-9]|EU)-Resource-Invocation-Count"
@@ -60,7 +60,9 @@
         "verified": true,
         "checkedAt": "2026-09-25"
       }
-    }
+    },
+    "pool": "account",
+    "free": 1000
   },
   "aws.cloudformation.handler_second": {
     "unit": "second",

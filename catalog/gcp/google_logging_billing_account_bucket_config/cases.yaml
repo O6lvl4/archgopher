@@ -1,5 +1,6 @@
 # Worked examples: given these values and this load, the resource reads this.
 # Expected values are computed by hand from the unit prices, not taken from the engine.
+# Storage: the first 50 GiB of the project free, (100 − 50) × 0.5 = 25.
 - name: Tokyo, the _Default bucket fed by the built-in sink, kept 90 days
   region: asia-northeast1
   attributes:
@@ -12,8 +13,9 @@
         monthly: 0
         peak: 0
   costs:
-    Log storage: 50
+    Log storage: 25
     Retention beyond 30 days: 1.973684211
+# Storage: 2e7 × 2 / 1024 / 1024 = 38.147 GiB, within the project's free 50 GiB.
 - name: Iowa, a user-defined bucket fed by a sink in the graph, kept a year
   region: us-central1
   attributes:
@@ -26,7 +28,7 @@
         monthly: 2e+07
         peak: 50
   costs:
-    Log storage: 19.073486328
+    Log storage: 0
     Retention beyond 30 days: 4.203696
 - name: the _Required bucket is free
   region: asia-northeast1

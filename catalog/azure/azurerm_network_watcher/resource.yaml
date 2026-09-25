@@ -2,7 +2,7 @@ type: azurerm_network_watcher
 label: Network Watcher
 category: Monitoring
 icon: network-watcher
-description: "Network diagnostic tool checks (IP flow verify, next hop, VPN troubleshoot, packet capture and the like). Flow logs and connection monitors are read on their own nodes. Load does not flow through it."
+description: "Network diagnostic tool checks (IP flow verify, next hop, VPN troubleshoot, packet capture and the like), the first 1,000 a month free, counted over the account's checks in the region. Flow logs and connection monitors are read on their own nodes. Load does not flow through it."
 kinds: [diagnose]
 sla: azure.networkwatcher
 assumptions:

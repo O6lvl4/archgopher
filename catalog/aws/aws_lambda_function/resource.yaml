@@ -2,7 +2,7 @@ type: aws_lambda_function
 label: Lambda
 category: Compute
 icon: lambda
-description: Requests and GB-seconds; headroom is concurrency (peak rate × duration). Logs are counted when set.
+description: "Requests and GB-seconds; headroom is concurrency (peak rate × duration). GB-seconds are in volume tiers counted over every function of the same architecture in the region, and the always-free 1 million requests and 400,000 GB-seconds (shared by x86 and Arm) are given once for the account. Logs are counted when set."
 kinds: [invoke]
 sla: aws.lambda
 attributes:

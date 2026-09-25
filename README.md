@@ -638,9 +638,11 @@ Cloudflare publishes no price API, so `sync` cannot check these prices. They
 are read from the pricing pages by hand and marked verified with the date they
 were read. Each price is the same everywhere (`*`), so a Cloudflare node prices
 in the region of any declaration, and a declaration of Cloudflare alone needs
-no region. The allowances included in the Workers Paid plan are shared across
-the account and are not subtracted, so small workloads read higher than the
-bill.
+no region. The amounts the Workers Paid plan includes (Workers requests and
+CPU time, Workers KV, Durable Objects, D1, Queues) and R2's free tier are free
+units counted over the whole account: every node of a declaration shares
+them, and the plan's $5 fee is paid once. The Workers AI neurons (10,000 a
+day) are not subtracted.
 
 `archgopher catalog` prints every scouter with its fields as JSON.
 
@@ -750,15 +752,16 @@ shares the cost out by quantity. The declaration is one account.
 | Field | Means |
 | --- | --- |
 | `pool` | `account` (the whole declaration) or `region` (each region of it): the lines that read the price share its tiers and free units |
-| `tiered` | The table's rows are volume tiers: a row key is where the tier starts, in the entry's unit, counted over the pool's whole usage, and `"tier": "{row}"` in the sync spec verifies each one |
+| `tiered` | The table's rows are volume tiers: a row key is where the tier starts, in the entry's unit, counted over the pool's whole usage, and `"tier": "{row}"` in the sync spec verifies each one (a provider that counts in larger units, `listPer`, has its starts converted) |
 | `free` | Units that cost nothing each month, given once per pool (a plan's included amount, an always-free allowance) |
 | `freeGroup` | Free units several prices share (the Lambda free GB-seconds cover both architectures, the CloudFront free terabyte every price zone): each pool of the group gets a share by its quantity |
 | `combine: max` | A fee the pool pays once however many lines need it: billed for the largest quantity, not the sum (a regional fee while any dedicated instance runs) |
 
 A pooled line pays the pool's average price, and the result lists each pool
 with its bands and the lines that share it. `billing: {free: false}` in the
-declaration bills free units like any other, for an account whose
-organization uses them up elsewhere. A node read alone (its cases, `gaps`)
+declaration bills free units like any other, and a free grant the provider
+lists as a zero-priced first tier at the first paid tier's price, for an
+account whose organization uses them up elsewhere. A node read alone (its cases, `gaps`)
 is billed as the only user of its pools.
 
 ```json

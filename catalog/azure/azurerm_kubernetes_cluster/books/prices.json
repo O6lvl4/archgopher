@@ -1,25 +1,4 @@
 {
-  "azure.aks.dns_zone": {
-    "unit": "zone-month",
-    "source": "https://azure.microsoft.com/pricing/details/dns/",
-    "note": "Public DNS zone, first 25 zones, Zone 1 price",
-    "sync": {
-      "filters": {
-        "meterName": "Public Zone",
-        "productName": "Azure DNS"
-      },
-      "region": "Zone 1",
-      "service": "Azure DNS",
-      "source": "azure"
-    },
-    "values": {
-      "*": {
-        "value": 0.5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      }
-    }
-  },
   "azure.aks.load_balancer.data_processed": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/load-balancer/",

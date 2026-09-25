@@ -3,7 +3,7 @@
     "unit": "call",
     "per": 1000000,
     "source": "https://cloud.google.com/api-gateway/pricing",
-    "note": "2M to 1B calls a month; the first 2M are free and calls above 1B cost $1.50 per million, both ignored. The API Gateway catalog service (36A9-155B-23F0) lists only network SKUs; calls bill as Google Service Control \"Operations\", whose tiers (free to 2M, $3 to 1B, $1.50 above) are the pricing page's.",
+    "note": "API calls a month, counted per billing account: the first 2M are free, then $3 per million to 1B and $1.50 above (\"API calls per month per billing account\", https://cloud.google.com/api-gateway/pricing). The API Gateway catalog service (36A9-155B-23F0) lists only network SKUs; calls bill as Google Service Control \"Operations\", whose tiers are the pricing page's.",
     "sync": {
       "source": "gcp",
       "service": "C7DA-6CFA-DF6E",
@@ -11,14 +11,22 @@
         "description": "Operations"
       },
       "region": "global",
-      "tier": "2000000"
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 3,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0
+      },
+      "1000000000": {
+        "*": 1.5
+      },
+      "2000000": {
+        "*": 3
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   }
 }

@@ -27,7 +27,7 @@
   assumptions: { recordsPerCall: 2 }
   demand: { call: { monthly: 100000, peak: 3 } }
   costs:
-    Text analytics (first 500K records): 200
+    Text analytics: 200
   limits:
     Language requests per minute: 180
 - name: Language volume tiers in Japan East
@@ -36,20 +36,15 @@
   assumptions: { recordsPerCall: 1, healthRecords: 600000, customQaRecords: 3000000 }
   demand: { call: { monthly: 3000000, peak: 10 } }
   costs:
-    # 500,000 / 1,000 × $1
-    Text analytics (first 500K records): 500
-    # 2,000,000 / 1,000 × $0.75
-    Text analytics (next 2M records): 1500
-    # 500,000 / 1,000 × $0.30
-    Text analytics (next 7.5M records): 150
-    # 500,000 / 1,000 × $20
-    Text analytics for health (first 500K records): 10000
-    # 100,000 / 1,000 × $15
-    Text analytics for health (next 2M records): 1500
-    # 2,500,000 / 1,000 × $1.50
-    Custom question answering (first 2.5M records): 3750
-    # 500,000 / 1,000 × $1.00005
-    Custom question answering (over 2.5M records): 500.025
+    # Tier by tier: 500,000 / 1,000 × $1 = 500; 2,000,000 / 1,000 × $0.75 = 1500;
+    # 500,000 / 1,000 × $0.30 = 150; together 2150
+    Text analytics: 2150
+    # The first 5,000 records are free; then 495,000 / 1,000 × $20 = 9900;
+    # 100,000 / 1,000 × $15 = 1500; together 11,400
+    Text analytics for health: 11400
+    # Tier by tier: 2,500,000 / 1,000 × $1.50 = 3750; 500,000 / 1,000 × $1.00005 = 500.025;
+    # together 4250.025
+    Custom question answering: 4250.025
   limits:
     Language requests per minute: 600
 - name: Language on a connected container commitment in East US

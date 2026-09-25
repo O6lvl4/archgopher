@@ -2,7 +2,7 @@ type: aws_redshift_cluster
 label: Redshift cluster
 category: Database
 icon: redshift
-description: "Node-hours (twice the nodes on a Multi-AZ cluster), managed storage (RA3 and RG), concurrency scaling beyond the free credits, Spectrum scans and backup storage beyond the free allowance, in three tiers (one price on RG). Headroom is stored data against the storage of the nodes. On-demand prices."
+description: "Node-hours (twice the nodes on a Multi-AZ cluster), managed storage (RA3 and RG), concurrency scaling beyond the free credits, Spectrum scans and backup storage beyond the free allowance, in volume tiers from 50 TB and 500 TB a month counted over the account in the region (one price on RG). Headroom is stored data against the storage of the nodes. On-demand prices."
 kinds: [query]
 sla: aws.redshift
 attributes:
@@ -20,9 +20,6 @@ let:
   - single: number_of_nodes == 1
   - azs: 'multi_az ? 2 : 1'
   - singleOk: 'node_type in ["dc2.large", "ra3.large", "ra3.xlplus", "rg.large"]'
-  - tier1: min(backupGb, 51200)
-  - tier2: min(max(backupGb - 51200, 0), 460800)
-  - tier3: max(backupGb - 512000, 0)
 readings:
   - fail: { when: single && !singleOk, message: "{node_type} needs at least two nodes" }
   - fail: { when: multi_az && !managed, message: "Multi-AZ needs an RA3 or RG node type" }
@@ -30,9 +27,7 @@ readings:
   - storage: { when: managed, name: Managed storage, gb: storageGb, price: "aws.redshift.managed_storage.{node_type}" }
   - cost: { when: concurrencyScalingSeconds > 0, name: Concurrency scaling, quantity: concurrencyScalingSeconds * number_of_nodes, unit: node-second, price: "aws.redshift.concurrency_scaling.{node_type}" }
   - cost: { when: spectrumTb > 0, name: Spectrum, quantity: spectrumTb, unit: TB, price: aws.redshift.spectrum }
-  - storage: { when: '!rg && tier1 > 0', name: Backup storage (first 50 TB), gb: tier1, price: aws.redshift.backup.first_50tb }
-  - storage: { when: '!rg && tier2 > 0', name: Backup storage (next 450 TB), gb: tier2, price: aws.redshift.backup.next_450tb }
-  - storage: { when: '!rg && tier3 > 0', name: Backup storage (over 500 TB), gb: tier3, price: aws.redshift.backup.over_500tb }
+  - storage: { when: '!rg && backupGb > 0', name: Backup storage, gb: backupGb, price: aws.redshift.backup }
   - storage: { when: rg && backupGb > 0, name: Backup storage, gb: backupGb, price: aws.redshift.backup.rg }
   - rate: { name: Storage, unit: TB, peak: storageGb / 1024, quota: 'aws.redshift.node_storage.{node_type}{single ? ".single" : ""}', scale: number_of_nodes }
 terraform:

@@ -67,67 +67,82 @@
   "azure.bastion.data_out": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/azure-bastion/",
-    "note": "Outbound data transfer through the host, first paid tier (Basic, Standard and Premium list the same price; the Standard meter is read); the first 5 GB a month are free (ignored, as every free tier)",
+    "note": "Outbound data transfer through the host (Basic, Standard and Premium list the same prices; the Standard meter is read). The first 5 GB a month are free, then volume tiers from 10 TB, 50 TB and 150 TB (https://azure.microsoft.com/pricing/details/azure-bastion/), given in the price list as the zero-priced first tier and the tiers after it. The page does not say over what they are counted, so they are counted per region here, over every host of the account",
     "sync": {
       "source": "azure",
       "service": "Azure Bastion",
       "filters": {
         "skuName": "Standard",
         "meterName": "Standard Data Transfer Out"
+      },
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "australiaeast": 0,
+        "centralindia": 0,
+        "eastus": 0,
+        "eastus2": 0,
+        "germanywestcentral": 0,
+        "japaneast": 0,
+        "koreacentral": 0,
+        "northeurope": 0,
+        "southeastasia": 0,
+        "westus2": 0
+      },
+      "10240": {
+        "australiaeast": 0.084996,
+        "centralindia": 0.084996,
+        "eastus": 0.082998,
+        "eastus2": 0.082998,
+        "germanywestcentral": 0.082998,
+        "japaneast": 0.084996,
+        "koreacentral": 0.084996,
+        "northeurope": 0.082998,
+        "southeastasia": 0.084996,
+        "westus2": 0.082998
+      },
+      "153600": {
+        "australiaeast": 0.080004,
+        "centralindia": 0.080004,
+        "eastus": 0.049999,
+        "eastus2": 0.049999,
+        "germanywestcentral": 0.049999,
+        "japaneast": 0.080004,
+        "koreacentral": 0.080004,
+        "northeurope": 0.049999,
+        "southeastasia": 0.080004,
+        "westus2": 0.049999
+      },
+      "5": {
+        "australiaeast": 0.12,
+        "centralindia": 0.12,
+        "eastus": 0.087,
+        "eastus2": 0.087,
+        "germanywestcentral": 0.087,
+        "japaneast": 0.12,
+        "koreacentral": 0.12,
+        "northeurope": 0.087,
+        "southeastasia": 0.12,
+        "westus2": 0.087
+      },
+      "51200": {
+        "australiaeast": 0.081996,
+        "centralindia": 0.081996,
+        "eastus": 0.07,
+        "eastus2": 0.07,
+        "germanywestcentral": 0.07,
+        "japaneast": 0.081996,
+        "koreacentral": 0.081996,
+        "northeurope": 0.07,
+        "southeastasia": 0.081996,
+        "westus2": 0.07
       }
     },
-    "values": {
-      "australiaeast": {
-        "value": 0.12,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "centralindia": {
-        "value": 0.12,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eastus": {
-        "value": 0.087,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eastus2": {
-        "value": 0.087,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "germanywestcentral": {
-        "value": 0.087,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "japaneast": {
-        "value": 0.12,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "koreacentral": {
-        "value": 0.12,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "northeurope": {
-        "value": 0.087,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "southeastasia": {
-        "value": 0.12,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "westus2": {
-        "value": 0.087,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      }
-    }
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   },
   "azure.bastion.premium.hour": {
     "unit": "hour",

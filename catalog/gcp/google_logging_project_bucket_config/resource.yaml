@@ -2,7 +2,7 @@ type: google_logging_project_bucket_config
 label: Log bucket (project)
 category: Monitoring
 icon: cloud-logging
-description: "A log bucket of a project. Storage is charged once per GiB streamed in and includes 30 days; retention beyond that is charged per GiB-month. Logs a sink in the graph routes here arrive as load, one log entry per unit; logs routed by sinks outside it (the built-in _Default sink) are set as a volume. The _Required bucket is free. Free allotments are ignored."
+description: "A log bucket of a project. Storage is charged once per GiB streamed in and includes 30 days; retention beyond that is charged per GiB-month. Logs a sink in the graph routes here arrive as load, one log entry per unit; logs routed by sinks outside it (the built-in _Default sink) are set as a volume. The _Required bucket is free. The first 50 GiB streamed in a month are free: the allowance is per project, so each bucket is given it as its project's."
 kinds: [ingest]
 sla: gcp.observability
 attributes:

@@ -1,194 +1,56 @@
 {
-  "aws.config.evaluations_tier1": {
+  "aws.config.evaluations": {
     "unit": "evaluation",
     "source": "https://aws.amazon.com/config/pricing/",
-    "note": "Config rule evaluations, first 100,000 per month in the account and region",
+    "note": "Config rule evaluations. Volume tiers from 100,000 and 500,000 evaluations a month, counted over every rule of the account in the region: the pricing page does not say the scope, and the price list lists the tiers in each region's offer. An organization rule is billed in each member account on that account's tiers, so it reads the rows (.0, .100000, .500000) itself",
     "sync": {
       "service": "AWSConfig",
       "filters": {
         "usagetype": "(?:[A-Z]+[0-9]|EU)-ConfigRuleEvaluations"
       },
-      "tier": "0"
+      "tier": "{row}"
     },
-    "values": {
-      "ap-northeast-1": {
-        "value": 0.001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "ap-northeast-1": 0.001,
+        "ap-northeast-2": 0.001,
+        "ap-south-1": 0.001,
+        "ap-southeast-1": 0.001,
+        "ap-southeast-2": 0.001,
+        "eu-central-1": 0.001,
+        "eu-west-1": 0.001,
+        "us-east-1": 0.001,
+        "us-east-2": 0.001,
+        "us-west-2": 0.001
       },
-      "ap-northeast-2": {
-        "value": 0.001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "100000": {
+        "ap-northeast-1": 0.0008,
+        "ap-northeast-2": 0.0008,
+        "ap-south-1": 0.0008,
+        "ap-southeast-1": 0.0008,
+        "ap-southeast-2": 0.0008,
+        "eu-central-1": 0.0008,
+        "eu-west-1": 0.0008,
+        "us-east-1": 0.0008,
+        "us-east-2": 0.0008,
+        "us-west-2": 0.0008
       },
-      "ap-south-1": {
-        "value": 0.001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-1": {
-        "value": 0.001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-2": {
-        "value": 0.001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-central-1": {
-        "value": 0.001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-west-1": {
-        "value": 0.001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-1": {
-        "value": 0.001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-2": {
-        "value": 0.001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-west-2": {
-        "value": 0.001,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "500000": {
+        "ap-northeast-1": 0.0005,
+        "ap-northeast-2": 0.0005,
+        "ap-south-1": 0.0005,
+        "ap-southeast-1": 0.0005,
+        "ap-southeast-2": 0.0005,
+        "eu-central-1": 0.0005,
+        "eu-west-1": 0.0005,
+        "us-east-1": 0.0005,
+        "us-east-2": 0.0005,
+        "us-west-2": 0.0005
       }
-    }
-  },
-  "aws.config.evaluations_tier2": {
-    "unit": "evaluation",
-    "source": "https://aws.amazon.com/config/pricing/",
-    "note": "Config rule evaluations, next 400,000",
-    "sync": {
-      "service": "AWSConfig",
-      "filters": {
-        "usagetype": "(?:[A-Z]+[0-9]|EU)-ConfigRuleEvaluations"
-      },
-      "tier": "100000"
     },
-    "values": {
-      "ap-northeast-1": {
-        "value": 0.0008,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-northeast-2": {
-        "value": 0.0008,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-south-1": {
-        "value": 0.0008,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-1": {
-        "value": 0.0008,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-2": {
-        "value": 0.0008,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-central-1": {
-        "value": 0.0008,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-west-1": {
-        "value": 0.0008,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-1": {
-        "value": 0.0008,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-2": {
-        "value": 0.0008,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-west-2": {
-        "value": 0.0008,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      }
-    }
-  },
-  "aws.config.evaluations_tier3": {
-    "unit": "evaluation",
-    "source": "https://aws.amazon.com/config/pricing/",
-    "note": "Config rule evaluations over 500,000",
-    "sync": {
-      "service": "AWSConfig",
-      "filters": {
-        "usagetype": "(?:[A-Z]+[0-9]|EU)-ConfigRuleEvaluations"
-      },
-      "tier": "500000"
-    },
-    "values": {
-      "ap-northeast-1": {
-        "value": 0.0005,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-northeast-2": {
-        "value": 0.0005,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-south-1": {
-        "value": 0.0005,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-1": {
-        "value": 0.0005,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "ap-southeast-2": {
-        "value": 0.0005,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-central-1": {
-        "value": 0.0005,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eu-west-1": {
-        "value": 0.0005,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-1": {
-        "value": 0.0005,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east-2": {
-        "value": 0.0005,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-west-2": {
-        "value": 0.0005,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      }
-    }
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   }
 }

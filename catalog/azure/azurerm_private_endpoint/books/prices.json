@@ -2,7 +2,7 @@
   "azure.privatelink.data_processed": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/private-link/",
-    "note": "Data processed through a private endpoint, first 1 PB a month; inbound and outbound are billed at the same rate, so this ingress meter prices both",
+    "note": "Data processed through private endpoints, in volume tiers from 1 PB and 5 PB a month (https://azure.microsoft.com/pricing/details/private-link/). Inbound and outbound are billed at the same prices, so this ingress meter prices both and both directions count toward one set of tiers here, while Azure counts each direction's meter on its own: past 1 PB a month this reads somewhat low. Global meter: the tiers are counted over every private endpoint of the account",
     "sync": {
       "source": "azure",
       "service": "Virtual Network",
@@ -10,15 +10,24 @@
       "filters": {
         "productName": "Virtual Network Private Link",
         "meterName": "Standard Data Processed - Ingress"
+      },
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "*": 0.01
+      },
+      "1000000": {
+        "*": 0.006
+      },
+      "5000000": {
+        "*": 0.004
       }
     },
-    "values": {
-      "*": {
-        "value": 0.01,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      }
-    }
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "azure.privatelink.endpoint_hour": {
     "unit": "hour",

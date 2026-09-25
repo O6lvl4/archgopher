@@ -1,7 +1,8 @@
 # Worked examples: given these values and this load, the resource reads this.
 # Expected values are computed by hand from the unit prices, not taken from the engine.
 # Windows Consumption in Japan East, 2M executions of 300 ms at 512 MB:
-#   executions 2 x 0.2 = 0.4; GB-seconds 2e6 x 0.3 x 0.5 = 300000 x 0.000016 = 4.8
+#   executions (2e6 - 1e6 free) x 0.2 / 1e6 = 0.2;
+#   GB-seconds 2e6 x 0.3 x 0.5 = 300000, under the 400000 free = 0
 #   instances 20/s x 0.3 s / 100 = 0.06; timeout 0.3 s
 - name: Windows Consumption app
   region: japaneast
@@ -13,13 +14,13 @@
       monthly: 2000000
       peak: 20
   costs:
-    Executions: 0.4
-    Execution time: 4.8
+    Executions: 0.2
+    Execution time: 0
   limits:
     Instances: 0.06
     Execution time limit: 0.3
 # Linux Consumption in East US, 1M executions of 80 ms at 150 MB (billed 100 ms, 256 MB):
-#   executions 0.2; GB-seconds 1e6 x 0.1 x 0.25 = 25000 x 0.000016 = 0.4
+#   executions: the first million are free = 0; GB-seconds 1e6 x 0.1 x 0.25 = 25000, free = 0
 - name: Linux Consumption app with short executions
   region: eastus
   attributes:
@@ -32,8 +33,8 @@
       monthly: 1000000
       peak: 5
   costs:
-    Executions: 0.2
-    Execution time: 0.4
+    Executions: 0
+    Execution time: 0
   limits:
     Instances: 0.005
     Execution time limit: 0.08

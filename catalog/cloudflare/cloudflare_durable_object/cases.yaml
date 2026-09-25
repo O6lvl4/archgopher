@@ -14,11 +14,14 @@
       monthly: 5000000.0
       peak: 50
   costs:
-    Requests: 0.75
-    Duration: 42.048
-    Rows read: 0.02
-    Rows written: 5
-    SQL storage: 0.4
+    # Requests: (5M - 1M free) x $0.15/M = 0.6
+    Requests: 0.6
+    # Duration: (3,363,840 - 400,000 free) x $12.50/M = 37.048
+    Duration: 37.048
+    # Rows within the free units: 20M of 25B read, 5M of 50M written; storage 2 of 5 GB-month
+    Rows read: 0
+    Rows written: 0
+    SQL storage: 0
   limits:
     Requests per second per object: 5
 - name: one chat room held open all month, in Japan East
@@ -30,8 +33,10 @@
       monthly: 2000000.0
       peak: 1200
   costs:
-    Requests: 0.3
-    Duration: 4.2048
+    # Requests: (2M - 1M free) x $0.15/M = 0.15
+    Requests: 0.15
+    # Duration: 336,384 GB-s, within the 400,000 free
+    Duration: 0
     SQL storage: 0
   limits:
     Requests per second per object: 1200

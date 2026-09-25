@@ -2,7 +2,7 @@
   "aws.cloudwatch.dashboard": {
     "unit": "dashboard-month",
     "source": "https://aws.amazon.com/cloudwatch/pricing/",
-    "note": "Custom dashboard, prorated by the hour",
+    "note": "Custom dashboard, prorated by the hour. Always free: 3 custom dashboards of up to 50 metrics each a month (https://aws.amazon.com/cloudwatch/pricing/, Free tier; https://aws.amazon.com/free/, Always free: Amazon CloudWatch; the price list's Global-DashboardsUsageHour-Basic grant, 0 to 3 at $0), counted over the account",
     "sync": {
       "service": "AmazonCloudWatch",
       "offerRegion": "aws-other",
@@ -16,6 +16,8 @@
         "verified": true,
         "checkedAt": "2026-09-25"
       }
-    }
+    },
+    "pool": "account",
+    "free": 3
   }
 }

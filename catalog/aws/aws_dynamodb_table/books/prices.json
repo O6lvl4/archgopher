@@ -451,193 +451,129 @@
   "aws.dynamodb.provisioned.rcu": {
     "unit": "RCU-hour",
     "source": "https://aws.amazon.com/dynamodb/pricing/",
+    "note": "Standard table class, provisioned read capacity. Always free: 25 RCU, 18,600 RCU-hours a month (https://aws.amazon.com/free/, Always free: Amazon DynamoDB), given by the Price List as a $0 first tier and counted over every region of the account (https://aws.amazon.com/free/free-tier-faqs/)",
     "sync": {
       "service": "AmazonDynamoDB",
       "filters": {
         "group": "DDB-ReadUnits",
         "usagetype": "((?:[A-Z]+[0-9]|EU)-)?ReadCapacityUnit-Hrs"
       },
-      "tier": "last"
+      "tier": "{row}"
     },
-    "values": {
-      "ap-northeast-1": {
-        "value": 0.0001484,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+    "rows": {
+      "0": {
+        "ap-northeast-1": 0,
+        "ap-northeast-2": 0,
+        "ap-south-1": 0,
+        "ap-southeast-1": 0,
+        "ap-southeast-2": 0,
+        "eu-central-1": 0,
+        "eu-west-1": 0,
+        "us-east-1": 0,
+        "us-east-2": 0,
+        "us-west-2": 0
       },
-      "ap-northeast-2": {
-        "value": 0.00014098,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-south-1": {
-        "value": 0.000148,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-southeast-1": {
-        "value": 0.000148,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-southeast-2": {
-        "value": 0.000148,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eu-central-1": {
-        "value": 0.0001586,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eu-west-1": {
-        "value": 0.000147,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-1": {
-        "value": 0.00013,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-2": {
-        "value": 0.00013,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-west-2": {
-        "value": 0.00013,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+      "18600": {
+        "ap-northeast-1": 0.0001484,
+        "ap-northeast-2": 0.00014098,
+        "ap-south-1": 0.000148,
+        "ap-southeast-1": 0.000148,
+        "ap-southeast-2": 0.000148,
+        "eu-central-1": 0.0001586,
+        "eu-west-1": 0.000147,
+        "us-east-1": 0.00013,
+        "us-east-2": 0.00013,
+        "us-west-2": 0.00013
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "aws.dynamodb.provisioned.wcu": {
     "unit": "WCU-hour",
     "source": "https://aws.amazon.com/dynamodb/pricing/",
+    "note": "Standard table class, provisioned write capacity. Always free: 25 WCU, 18,600 WCU-hours a month (https://aws.amazon.com/free/, Always free: Amazon DynamoDB), given by the Price List as a $0 first tier and counted over every region of the account (https://aws.amazon.com/free/free-tier-faqs/)",
     "sync": {
       "service": "AmazonDynamoDB",
       "filters": {
         "group": "DDB-WriteUnits",
         "usagetype": "((?:[A-Z]+[0-9]|EU)-)?WriteCapacityUnit-Hrs"
       },
-      "tier": "last"
+      "tier": "{row}"
     },
-    "values": {
-      "ap-northeast-1": {
-        "value": 0.000742,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+    "rows": {
+      "0": {
+        "ap-northeast-1": 0,
+        "ap-northeast-2": 0,
+        "ap-south-1": 0,
+        "ap-southeast-1": 0,
+        "ap-southeast-2": 0,
+        "eu-central-1": 0,
+        "eu-west-1": 0,
+        "us-east-1": 0,
+        "us-east-2": 0,
+        "us-west-2": 0
       },
-      "ap-northeast-2": {
-        "value": 0.0007049,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-south-1": {
-        "value": 0.00074,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-southeast-1": {
-        "value": 0.00074,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-southeast-2": {
-        "value": 0.00074,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eu-central-1": {
-        "value": 0.000793,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eu-west-1": {
-        "value": 0.000735,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-1": {
-        "value": 0.00065,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-2": {
-        "value": 0.00065,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-west-2": {
-        "value": 0.00065,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+      "18600": {
+        "ap-northeast-1": 0.000742,
+        "ap-northeast-2": 0.0007049,
+        "ap-south-1": 0.00074,
+        "ap-southeast-1": 0.00074,
+        "ap-southeast-2": 0.00074,
+        "eu-central-1": 0.000793,
+        "eu-west-1": 0.000735,
+        "us-east-1": 0.00065,
+        "us-east-2": 0.00065,
+        "us-west-2": 0.00065
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "aws.dynamodb.storage": {
     "unit": "GB-month",
     "source": "https://aws.amazon.com/dynamodb/pricing/",
-    "note": "Standard table class, after the free 25 GB",
+    "note": "Standard table class storage. Always free: 25 GB a month (https://aws.amazon.com/free/, Always free: Amazon DynamoDB), given by the Price List as a $0 first tier and counted over every region of the account (https://aws.amazon.com/free/free-tier-faqs/)",
     "sync": {
       "service": "AmazonDynamoDB",
       "filters": {
         "usagetype": "((?:[A-Z]+[0-9]|EU)-)?TimedStorage-ByteHrs"
       },
-      "tier": "last"
+      "tier": "{row}"
     },
-    "values": {
-      "ap-northeast-1": {
-        "value": 0.285,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+    "rows": {
+      "0": {
+        "ap-northeast-1": 0,
+        "ap-northeast-2": 0,
+        "ap-south-1": 0,
+        "ap-southeast-1": 0,
+        "ap-southeast-2": 0,
+        "eu-central-1": 0,
+        "eu-west-1": 0,
+        "us-east-1": 0,
+        "us-east-2": 0,
+        "us-west-2": 0
       },
-      "ap-northeast-2": {
-        "value": 0.27075,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-south-1": {
-        "value": 0.285,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-southeast-1": {
-        "value": 0.285,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-southeast-2": {
-        "value": 0.285,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eu-central-1": {
-        "value": 0.306,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eu-west-1": {
-        "value": 0.283,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-1": {
-        "value": 0.25,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-2": {
-        "value": 0.25,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-west-2": {
-        "value": 0.25,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+      "25": {
+        "ap-northeast-1": 0.285,
+        "ap-northeast-2": 0.27075,
+        "ap-south-1": 0.285,
+        "ap-southeast-1": 0.285,
+        "ap-southeast-2": 0.285,
+        "eu-central-1": 0.306,
+        "eu-west-1": 0.283,
+        "us-east-1": 0.25,
+        "us-east-2": 0.25,
+        "us-west-2": 0.25
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   }
 }

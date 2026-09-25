@@ -2,7 +2,7 @@ type: aws_config_organization_custom_rule
 label: Config organization custom rule
 category: Management
 icon: config
-description: "Rule evaluations in volume tiers (first 100,000, next 400,000, then the rest per month). An evaluation is one resource checked once: on each configuration change for change-triggered rules, on each run for periodic ones, and on each on-demand start. The rule is deployed to every member account, each billed on its own tiers. Its Lambda function is invoked once per evaluation: give the function that load by hand."
+description: "Rule evaluations in volume tiers (first 100,000, next 400,000, then the rest per month). An evaluation is one resource checked once: on each configuration change for change-triggered rules, on each run for periodic ones, and on each on-demand start. The rule is deployed to every member account, each billed on its own tiers, so its evaluations are tiered per account here and do not share the tiers of the declaration's other rules. Its Lambda function is invoked once per evaluation: give the function that load by hand."
 kinds: [evaluate]
 sla: aws.config
 attributes:
@@ -19,9 +19,9 @@ let:
   - runs: 'periodic ? 730 / hours : 0'
   - perAccount: 'resources * ((changeTriggered ? changesPerResource : 0) + runs) + demand.evaluate.monthly * resources'
 readings:
-  - cost: { name: "Rule evaluations (first 100K)", quantity: "min(perAccount, 100000) * accounts", unit: evaluation, price: aws.config.evaluations_tier1 }
-  - cost: { when: perAccount > 100000, name: "Rule evaluations (next 400K)", quantity: "min(perAccount - 100000, 400000) * accounts", unit: evaluation, price: aws.config.evaluations_tier2 }
-  - cost: { when: perAccount > 500000, name: "Rule evaluations (over 500K)", quantity: "(perAccount - 500000) * accounts", unit: evaluation, price: aws.config.evaluations_tier3 }
+  - cost: { name: "Rule evaluations (first 100K)", quantity: "min(perAccount, 100000) * accounts", unit: evaluation, price: aws.config.evaluations.0 }
+  - cost: { when: perAccount > 100000, name: "Rule evaluations (next 400K)", quantity: "min(perAccount - 100000, 400000) * accounts", unit: evaluation, price: aws.config.evaluations.100000 }
+  - cost: { when: perAccount > 500000, name: "Rule evaluations (over 500K)", quantity: "(perAccount - 500000) * accounts", unit: evaluation, price: aws.config.evaluations.500000 }
 terraform:
   # Config invokes the rule's function on AWS's side; the reference is not a call from the rule.
   passive: true

@@ -2,7 +2,7 @@ type: cloudflare_durable_object
 label: Durable Object
 category: Compute
 icon: box
-description: "One Durable Object class on Workers Paid with the SQLite storage backend: requests, duration and SQL storage beyond what the plan includes (place the Workers Paid plan node once). Duration is wall-clock time while an object is active and cannot hibernate, billed at 128 MB per object whatever it uses. Headroom is requests per second on the busiest object."
+description: "One Durable Object class on Workers Paid with the SQLite storage backend: requests, duration and SQL storage. The plan's 1 million requests, 400,000 GB-s, 25 billion rows read, 50 million rows written and 5 GB-month are free units counted over every class of the account (place the Workers Paid plan node once for its $5 base). Duration is wall-clock time while an object is active and cannot hibernate, billed at 128 MB per object whatever it uses. Headroom is requests per second on the busiest object."
 kinds: [request]
 sla: cloudflare.durable_objects
 # A class is declared in a Worker's migrations, not as a Terraform resource: place it by hand and connect its callers to it.

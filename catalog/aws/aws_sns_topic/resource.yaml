@@ -2,7 +2,7 @@ type: aws_sns_topic
 label: SNS
 category: Messaging
 icon: sns
-description: "Publishes in 64 KB chunks; a FIFO topic bills its own publish price plus each GB published. Deliveries are read on each subscription. Headroom is the regional publish rate of standard topics."
+description: "Publishes in 64 KB chunks, the first million a month free for the account; a FIFO topic bills its own publish price plus each GB published. Deliveries are read on each subscription. Headroom is the regional publish rate of standard topics."
 kinds: [publish]
 sla: aws.sns
 attributes:

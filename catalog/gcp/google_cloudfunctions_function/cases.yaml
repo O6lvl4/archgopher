@@ -1,5 +1,6 @@
 # Worked examples: given these values and this load, the resource reads this.
 # Expected values are computed by hand from the unit prices, not taken from the engine.
+# Invocations within the billing account's free 2 million.
 - name: Tokyo (Tier 1), 256 MB with 400 MHz, 200 ms
   region: asia-northeast1
   assumptions:
@@ -11,9 +12,10 @@
   costs:
     Memory: 0.125
     CPU: 0.8
-    Invocations: 0.4
+    Invocations: 0
   limits:
     Instances: 2
+# Invocations within the billing account's free 2 million.
 - name: Tokyo (Tier 1), one warm minimum instance
   region: asia-northeast1
   attributes:
@@ -27,11 +29,12 @@
   costs:
     Memory: 0.125
     CPU: 0.8
-    Invocations: 0.4
+    Invocations: 0
     Idle minimum instances memory: 1.5175
     Idle minimum instances CPU: 1.0119904
   limits:
     Instances: 2
+# Invocations: exactly the free 2 million. Outbound data: the first 5 GiB free, (10 − 5) × 0.12 = 0.6.
 - name: Frankfurt (Tier 2), 1 GB with 1.4 GHz, 250 ms billed as 300 ms, capped at 10 instances
   region: europe-west3
   attributes:
@@ -47,7 +50,23 @@
   costs:
     Memory: 2.1
     CPU: 11.76
-    Invocations: 0.8
-    Outbound data: 1.2
+    Invocations: 0
+    Outbound data: 0.6
   limits:
     Instances: 5
+# Ten times the first case: memory 1.25, CPU 8; invocations past the free 2 million,
+# (1e7 − 2e6) / 1e6 × 0.4 = 3.2.
+- name: Tokyo (Tier 1), 256 MB with 400 MHz, ten million invocations
+  region: asia-northeast1
+  assumptions:
+    durationMs: 200
+  demand:
+    invoke:
+      monthly: 1.0e+07
+      peak: 10
+  costs:
+    Memory: 1.25
+    CPU: 8
+    Invocations: 3.2
+  limits:
+    Instances: 2

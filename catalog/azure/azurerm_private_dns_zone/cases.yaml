@@ -4,14 +4,14 @@
   region: japaneast
   costs:
     Hosted zone: 0.5
-- name: zone beyond the first 25 in West US 2 with queries drawn to the zone
+# A zone read alone is the subscription's only private zone, so it is one of the first 25:
+# the lower price from the 26th zone needs other zones in the same declaration.
+- name: zone in West US 2 with queries drawn to the zone
   region: westus2
-  assumptions:
-    beyondFirst25: true
   demand:
     query:
       monthly: 10000000.0
       peak: 5
   costs:
     DNS queries: 4
-    Hosted zone: 0.1
+    Hosted zone: 0.5

@@ -3,65 +3,43 @@
     "unit": "invocation",
     "per": 1000000,
     "source": "https://aws.amazon.com/eventbridge/pricing/",
-    "note": "After the free 14 million per month",
+    "note": "Scheduled invocations. Always free: 14,000,000 a month (https://aws.amazon.com/free/, Always free: Amazon EventBridge; https://aws.amazon.com/eventbridge/pricing/), given by the Price List as a $0 first tier and counted each month across all regions, so the pool is the account",
     "sync": {
       "service": "AWSEvents",
       "filters": {
         "usagetype": "((?:[A-Z]+[0-9]|EU)-)?ScheduledInvocation"
       },
-      "tier": "last"
+      "tier": "{row}"
     },
-    "values": {
-      "ap-northeast-1": {
-        "value": 1.25,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+    "rows": {
+      "0": {
+        "ap-northeast-1": 0,
+        "ap-northeast-2": 0,
+        "ap-south-1": 0,
+        "ap-southeast-1": 0,
+        "ap-southeast-2": 0,
+        "eu-central-1": 0,
+        "eu-west-1": 0,
+        "us-east-1": 0,
+        "us-east-2": 0,
+        "us-west-2": 0
       },
-      "ap-northeast-2": {
-        "value": 1.15,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-south-1": {
-        "value": 1.05,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-southeast-1": {
-        "value": 1.25,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "ap-southeast-2": {
-        "value": 1.2,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eu-central-1": {
-        "value": 1.15,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eu-west-1": {
-        "value": 1,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-1": {
-        "value": 1,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-east-2": {
-        "value": 1,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "us-west-2": {
-        "value": 1,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+      "14000000": {
+        "ap-northeast-1": 1.25,
+        "ap-northeast-2": 1.15,
+        "ap-south-1": 1.05,
+        "ap-southeast-1": 1.25,
+        "ap-southeast-2": 1.2,
+        "eu-central-1": 1.15,
+        "eu-west-1": 1,
+        "us-east-1": 1,
+        "us-east-2": 1,
+        "us-west-2": 1
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   }
 }

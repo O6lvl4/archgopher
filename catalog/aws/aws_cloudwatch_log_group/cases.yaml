@@ -13,10 +13,13 @@
     query:
       monthly: 1000
       peak: 1
+  # 1e7 × 1 KB / 1048576 = 9.5367431640625 GB, the always-free 5 GB first: 4.5367431640625 × 0.76 = 3.4479248046875.
+  # Storage 9.5367431640625 × 14 / 30.4 = 4.39 GB-months, within the free 5.
+  # Scanned 1000 × 2 = 2000 GB, less the free 5: 1995 × 0.0076 = 15.162.
   costs:
-    Log ingestion (Standard): 7.247924805
-    Log storage: 0.144933399
-    Logs Insights data scanned: 15.2
+    Log ingestion (Standard): 3.4479248046875
+    Log storage: 0
+    Logs Insights data scanned: 15.162
   limits:
     PutLogEvents rate: 200
 - name: infrequent access, never expires, fed outside the graph
@@ -25,9 +28,11 @@
     log_group_class: INFREQUENT_ACCESS
   assumptions:
     ingestGb: 100
+  # Infrequent Access ingestion has no free allowance: 100 × 0.25 = 25.
+  # Storage 100 × 12 = 1200 GB-months, less the free 5: 1195 × 0.03 = 35.85.
   costs:
     Log ingestion (Infrequent Access): 25
-    Log storage (after 12 months, never expires): 36
+    Log storage (after 12 months, never expires): 35.85
   limits:
     PutLogEvents rate: 0
 - name: delivery class
@@ -45,7 +50,8 @@
     Log delivery to S3 or Firehose: 4.768371582
   limits:
     PutLogEvents rate: 20
-# Delivery past two tiers: 40000 GB. 10240 × 0.25 = 2560; 20480 × 0.15 = 3072; (40000 − 30720) × 0.075 = 696.
+# Delivery past two tiers: 40000 GB. 10240 × 0.25 = 2560; 20480 × 0.15 = 3072; (40000 − 30720) × 0.075 = 696;
+# together 6328.
 - name: delivery class past two volume tiers (us-east-1)
   region: us-east-1
   attributes:
@@ -57,8 +63,6 @@
       monthly: 0
       peak: 0
   costs:
-    Log delivery to S3 or Firehose: 2560
-    Log delivery (next 20 TB): 3072
-    Log delivery (next 20 TB after 30 TB): 696
+    Log delivery to S3 or Firehose: 6328
   limits:
     PutLogEvents rate: 0

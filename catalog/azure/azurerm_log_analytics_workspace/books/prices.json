@@ -2,7 +2,7 @@
   "azure.loganalytics.ingestion": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/monitor/",
-    "note": "Analytics logs, pay-as-you-go; the first 5 GB a month per billing account are free (ignored, as every free tier)",
+    "note": "Analytics logs, pay-as-you-go. The first 5 GB a month per billing account are free (https://azure.microsoft.com/pricing/details/monitor/: the first 5 GB/month per billing account in this tier are free), given in the price list as the zero-priced first tier and counted over every workspace and workspace-based Application Insights component of the account",
     "sync": {
       "source": "azure",
       "service": "Log Analytics",
@@ -10,60 +10,39 @@
         "productName": "Log Analytics",
         "skuName": "Analytics Logs",
         "meterName": "Analytics Logs Data Ingestion"
+      },
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "australiaeast": 0,
+        "centralindia": 0,
+        "eastus": 0,
+        "eastus2": 0,
+        "germanywestcentral": 0,
+        "japaneast": 0,
+        "koreacentral": 0,
+        "northeurope": 0,
+        "southeastasia": 0,
+        "westus2": 0
+      },
+      "5": {
+        "australiaeast": 3.34,
+        "centralindia": 3.22,
+        "eastus": 2.3,
+        "eastus2": 2.76,
+        "germanywestcentral": 2.99,
+        "japaneast": 3.34,
+        "koreacentral": 3.11,
+        "northeurope": 2.76,
+        "southeastasia": 2.99,
+        "westus2": 2.3
       }
     },
-    "values": {
-      "australiaeast": {
-        "value": 3.34,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "centralindia": {
-        "value": 3.22,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eastus": {
-        "value": 2.3,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eastus2": {
-        "value": 2.76,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "germanywestcentral": {
-        "value": 2.99,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "japaneast": {
-        "value": 3.34,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "koreacentral": {
-        "value": 3.11,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "northeurope": {
-        "value": 2.76,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "southeastasia": {
-        "value": 2.99,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "westus2": {
-        "value": 2.3,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      }
-    }
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "azure.loganalytics.retention": {
     "unit": "GB-month",

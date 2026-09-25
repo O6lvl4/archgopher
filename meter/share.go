@@ -91,7 +91,7 @@ func Share(lines []Owned, prices book.Book, region string, free bool) []Pool {
 				p.Free = e.Free * p.Quantity / g
 			}
 		}
-		bill, err := Bill(prices, p.PriceID, region, p.Quantity, p.Free)
+		bill, err := Bill(prices, p.PriceID, region, p.Quantity, p.Free, free)
 		if err != nil {
 			p.Error = err.Error()
 		}

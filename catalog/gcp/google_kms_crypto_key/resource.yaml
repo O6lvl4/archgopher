@@ -2,7 +2,7 @@ type: google_kms_crypto_key
 label: Cloud KMS key
 category: Security
 icon: kms
-description: "Active key versions by protection level and algorithm (every rotation adds one that bills until destroyed) and cryptographic operations per 10,000. Headroom is the calling project's cryptographic requests per minute."
+description: "Active key versions by protection level and algorithm (every rotation adds one that bills until destroyed) and cryptographic operations per 10,000. HSM RSA 3072/4096 and elliptic curve versions are in volume tiers counted over the billing account: $2.50 a version-month for the first 2,000, $1 after. Headroom is the calling project's cryptographic requests per minute."
 kinds: [encrypt, decrypt, sign]
 sla: gcp.kms
 attributes:

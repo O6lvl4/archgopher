@@ -70,7 +70,7 @@
   "azure.keyvault.hsm_advanced_key": {
     "unit": "key-month",
     "source": "https://azure.microsoft.com/pricing/details/key-vault/",
-    "note": "Premium vault: HSM-protected RSA 3072/4096-bit or elliptic-curve key, first 250 keys a month; later keys are cheaper",
+    "note": "Premium vault: HSM-protected RSA 3072/4096-bit or elliptic-curve key version, in volume tiers from 250, 1,500 and 4,000 keys a month. The page does not say over what the keys are counted, so the tiers are counted per region here, over every such key of the account",
     "sync": {
       "filters": {
         "meterName": "Premium HSM-protected Advanced Key",
@@ -79,60 +79,62 @@
       },
       "service": "Key Vault",
       "source": "azure",
-      "tier": "0"
+      "tier": "{row}"
     },
-    "values": {
-      "australiaeast": {
-        "value": 5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "australiaeast": 5,
+        "centralindia": 5,
+        "eastus": 5,
+        "eastus2": 5,
+        "germanywestcentral": 5,
+        "japaneast": 5,
+        "koreacentral": 5,
+        "northeurope": 5,
+        "southeastasia": 5,
+        "westus2": 5
       },
-      "centralindia": {
-        "value": 5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "1500": {
+        "australiaeast": 0.9,
+        "centralindia": 0.9,
+        "eastus": 0.9,
+        "eastus2": 0.9,
+        "germanywestcentral": 0.9,
+        "japaneast": 0.9,
+        "koreacentral": 0.9,
+        "northeurope": 0.9,
+        "southeastasia": 0.9,
+        "westus2": 0.9
       },
-      "eastus": {
-        "value": 5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "250": {
+        "australiaeast": 2.5,
+        "centralindia": 2.5,
+        "eastus": 2.5,
+        "eastus2": 2.5,
+        "germanywestcentral": 2.5,
+        "japaneast": 2.5,
+        "koreacentral": 2.5,
+        "northeurope": 2.5,
+        "southeastasia": 2.5,
+        "westus2": 2.5
       },
-      "eastus2": {
-        "value": 5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "germanywestcentral": {
-        "value": 5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "japaneast": {
-        "value": 5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "koreacentral": {
-        "value": 5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "northeurope": {
-        "value": 5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "southeastasia": {
-        "value": 5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "westus2": {
-        "value": 5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "4000": {
+        "australiaeast": 0.4,
+        "centralindia": 0.4,
+        "eastus": 0.4,
+        "eastus2": 0.4,
+        "germanywestcentral": 0.4,
+        "japaneast": 0.4,
+        "koreacentral": 0.4,
+        "northeurope": 0.4,
+        "southeastasia": 0.4,
+        "westus2": 0.4
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   },
   "azure.keyvault.hsm_rsa2048_key": {
     "unit": "key-month",

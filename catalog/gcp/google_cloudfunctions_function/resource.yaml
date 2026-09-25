@@ -2,7 +2,7 @@ type: google_cloudfunctions_function
 label: Cloud Run function (1st gen)
 category: Compute
 icon: cloud-functions
-description: "Compute time in 100 ms increments: GiB-seconds of memory and GHz-seconds of the CPU that comes with the memory size, invocations, idle minimum instances and outbound data. One invocation per instance. Headroom is instances needed against max instances. An event trigger's topic or bucket calls the function."
+description: "Compute time in 100 ms increments: GiB-seconds of memory and GHz-seconds of the CPU that comes with the memory size, invocations (the first 2 million a month free), idle minimum instances and outbound data (the first 5 GiB a month free), both counted over the billing account. The compute free tier, a dollar equivalent at Tier 1 prices, is not given. One invocation per instance. Headroom is instances needed against max instances. An event trigger's topic or bucket calls the function."
 kinds: [invoke]
 sla: gcp.functions
 attributes:

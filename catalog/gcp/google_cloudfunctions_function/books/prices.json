@@ -66,67 +66,45 @@
   "gcp.functions.v1.egress": {
     "unit": "GiB",
     "source": "https://cloud.google.com/functions/pricing-1stgen",
-    "note": "Outbound data from a 1st gen function, one SKU per region at the same price; the free 5 GiB a month (the SKU's first tier) is ignored. us-east5 does not run 1st gen functions.",
+    "note": "Outbound data from a 1st gen function, one SKU per region at the same price. The first 5 GiB a month are free (\"5GB of Internet data transfer out per month\", https://cloud.google.com/functions/pricing-1stgen), part of the billing account's free tier, so counted over the account. Synced from the Billing Catalog, which lists them as a $0 first tier on each region's SKU. us-east5 does not run 1st gen functions.",
     "sync": {
       "source": "gcp",
       "service": "29E7-DA93-CA13",
       "filters": {
         "description": "Cloud Run Functions \\(1st Gen\\) Network Data Transfer Out from [a-z0-9-]+"
       },
-      "tier": "5"
+      "tier": "{row}"
     },
-    "values": {
-      "asia-northeast1": {
-        "value": 0.12,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "asia-northeast1": 0,
+        "asia-northeast3": 0,
+        "asia-south1": 0,
+        "asia-southeast1": 0,
+        "australia-southeast1": 0,
+        "europe-west1": 0,
+        "europe-west3": 0,
+        "us-east4": 0,
+        "us-east5": null,
+        "us-west1": 0
       },
-      "asia-northeast3": {
-        "value": 0.12,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "asia-south1": {
-        "value": 0.12,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "asia-southeast1": {
-        "value": 0.12,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "australia-southeast1": {
-        "value": 0.12,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "europe-west1": {
-        "value": 0.12,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "europe-west3": {
-        "value": 0.12,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east4": {
-        "value": 0.12,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east5": {
-        "value": null,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-west1": {
-        "value": 0.12,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "5": {
+        "asia-northeast1": 0.12,
+        "asia-northeast3": 0.12,
+        "asia-south1": 0.12,
+        "asia-southeast1": 0.12,
+        "australia-southeast1": 0.12,
+        "europe-west1": 0.12,
+        "europe-west3": 0.12,
+        "us-east4": 0.12,
+        "us-east5": null,
+        "us-west1": 0.12
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "gcp.functions.v1.idle_cpu": {
     "unit": "GHz-second",
@@ -196,7 +174,7 @@
     "unit": "invocation",
     "per": 1000000,
     "source": "https://cloud.google.com/functions/pricing-1stgen",
-    "note": "Invocations beyond the free 2 million a month (the SKU's first tier), the same in every region.",
+    "note": "Invocations, the same in every region. The first 2 million a month are free, counted over the billing account (\"based on the total number of function invocations across all functions associated with a particular Google Cloud Platform billing account\", https://cloud.google.com/functions/pricing-1stgen). Synced from the Billing Catalog, which lists them as a $0 first tier.",
     "sync": {
       "source": "gcp",
       "service": "29E7-DA93-CA13",
@@ -204,15 +182,20 @@
         "description": "Cloud Run Functions \\(1st Gen\\) Invocations"
       },
       "region": "global",
-      "tier": "2000000"
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 0.4,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0
+      },
+      "2000000": {
+        "*": 0.4
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "gcp.functions.v1.memory": {
     "unit": "GiB-second",

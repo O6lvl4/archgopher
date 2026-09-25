@@ -1,5 +1,6 @@
 # Worked examples: given these values and this load, the resource reads this.
 # Expected values are computed by hand from the unit prices, not taken from the engine.
+# The first million calls a month are free per subscription: 1e6 calls cost nothing.
 - name: Consumption in Japan East
   region: japaneast
   demand:
@@ -7,7 +8,18 @@
       monthly: 1000000.0
       peak: 10
   costs:
-    Calls: 4.25
+    Calls: 0
+  limits:
+    Throughput: 10
+# Past the free million: (5e6 − 1e6) × 0.0425 / 10000 = 17.
+- name: Consumption past the free calls (japaneast)
+  region: japaneast
+  demand:
+    request:
+      monthly: 5000000.0
+      peak: 10
+  costs:
+    Calls: 17.0
   limits:
     Throughput: 10
 - name: Standard, two units, in East US

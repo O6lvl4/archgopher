@@ -9,7 +9,7 @@
       monthly: 2000000.0
       peak: 1
   costs:
-    Queries (first 1 billion): 0.8
+    Queries: 0.8
   limits:
     Records in the set: 2
 - name: one and a half billion queries given as an assumption in East US
@@ -20,8 +20,8 @@
     query:
       monthly: 0
       peak: 0
+  # Past the 1 billion tier: 1,000 × $0.40 = 400; 500 × $0.20 = 100; together 500.
   costs:
-    Queries (first 1 billion): 400
-    Queries (over 1 billion): 100
+    Queries: 500
   limits:
     Records in the set: 0

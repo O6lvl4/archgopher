@@ -195,7 +195,7 @@
     "unit": "API call",
     "per": 1000,
     "source": "https://aws.amazon.com/cloudwatch/pricing/",
-    "note": "Calls beyond the free 1 million a month per account",
+    "note": "Database Insights (Performance Insights) API calls. The first 1 million calls each month are free over the account, always (the price list's Global-CW:DatabaseInsights-API row, 0 to 1,000,000 at $0; the CloudWatch pricing page: \"All API calls up to 1 million calls per month are included without any charges\")",
     "sync": {
       "filters": {
         "usagetype": "((?:[A-Z]+[0-9]|EU)-)?CW:DatabaseInsights-API"
@@ -253,7 +253,9 @@
         "verified": true,
         "checkedAt": "2026-09-25"
       }
-    }
+    },
+    "pool": "account",
+    "free": 1000000
   },
   "aws.rds.insights.standard.additional_month": {
     "unit": "vCPU-hour",

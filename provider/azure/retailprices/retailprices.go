@@ -71,7 +71,9 @@ type Spec struct {
 	// Tier picks among the tiers of one meter. The default is the first tier
 	// with a price: a free grant comes first as a zero-priced tier (ignored,
 	// as every free tier), and volume discounts come after the list price.
-	// "first", "last" or a tierMinimumUnits pick explicitly.
+	// "first", "last" or where the tier starts pick explicitly. The start is
+	// counted in the book's units: tierMinimumUnits × listPer, so a tier of
+	// 1,000 "1M" units starts at 1000000000.
 	Tier string `json:"tier,omitempty"`
 	// Region reads a fixed region's list whatever the book region (Global
 	// meters); its row is "*".
@@ -253,12 +255,15 @@ func (c *Client) Resolve(spec Spec, region string) (Item, error) {
 		return Item{}, fmt.Errorf("%d meters match %v: %s", len(meters), spec.Filters, strings.Join(names, "; "))
 	}
 	for _, list := range meters {
-		return pickTier(list, spec.Tier)
+		return pickTier(list, spec.Tier, spec.ListPer)
 	}
 	panic("unreachable")
 }
 
-func pickTier(list []Item, tier string) (Item, error) {
+func pickTier(list []Item, tier string, listPer float64) (Item, error) {
+	if listPer == 0 {
+		listPer = 1
+	}
 	switch tier {
 	case "":
 		for _, it := range list {
@@ -274,10 +279,10 @@ func pickTier(list []Item, tier string) (Item, error) {
 	}
 	want, err := strconv.ParseFloat(tier, 64)
 	if err != nil {
-		return Item{}, fmt.Errorf("tier %q: want first, last or a tierMinimumUnits", tier)
+		return Item{}, fmt.Errorf("tier %q: want first, last or where the tier starts", tier)
 	}
 	for _, it := range list {
-		if it.TierMinimum == want {
+		if it.TierMinimum*listPer == want {
 			return it, nil
 		}
 	}

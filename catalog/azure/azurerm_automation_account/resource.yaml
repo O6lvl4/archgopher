@@ -2,7 +2,7 @@ type: azurerm_automation_account
 label: Automation account
 category: Compute
 icon: automation-accounts
-description: "Runbook job minutes for jobs started by load (webhooks, action groups) and other jobs, and State Configuration (DSC) nodes outside Azure. Free monthly minutes and nodes are not read; jobs of a job schedule are read on the schedule. Headroom is job submissions every 30 seconds and jobs running at once."
+description: "Runbook job minutes for jobs started by load (webhooks, action groups) and other jobs, and State Configuration (DSC) nodes outside Azure. The free 500 minutes and 5 nodes a month are counted over every Automation account of the account in the region; jobs of a job schedule are read on the schedule. Headroom is job submissions every 30 seconds and jobs running at once."
 kinds: [run]
 sla: azure.automation
 assumptions:

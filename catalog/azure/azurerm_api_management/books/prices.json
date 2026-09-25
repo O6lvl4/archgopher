@@ -269,7 +269,7 @@
     "unit": "request",
     "per": 10000,
     "source": "https://azure.microsoft.com/pricing/details/api-management/",
-    "note": "Consumption tier calls; the first million a month per subscription is free, and ignored as every free tier",
+    "note": "Consumption tier calls. The first million a month are free per subscription, counted over every Consumption instance (https://azure.microsoft.com/pricing/details/api-management/: 0-1 million API operations per subscription included). The price list gives them as the zero-priced first tier",
     "sync": {
       "source": "azure",
       "service": "API Management",
@@ -278,60 +278,39 @@
         "skuName": "Consumption",
         "meterName": "Consumption Calls"
       },
-      "listPer": 10000
+      "listPer": 10000,
+      "tier": "{row}"
     },
-    "values": {
-      "australiaeast": {
-        "value": 0.035,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+    "rows": {
+      "0": {
+        "australiaeast": 0,
+        "centralindia": 0,
+        "eastus": 0,
+        "eastus2": 0,
+        "germanywestcentral": 0,
+        "japaneast": 0,
+        "koreacentral": 0,
+        "northeurope": 0,
+        "southeastasia": 0,
+        "westus2": 0
       },
-      "centralindia": {
-        "value": 0.035,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eastus": {
-        "value": 0.035,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "eastus2": {
-        "value": 0.035,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "germanywestcentral": {
-        "value": 0.035,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "japaneast": {
-        "value": 0.0425,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "koreacentral": {
-        "value": 0.035,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "northeurope": {
-        "value": 0.035,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "southeastasia": {
-        "value": 0.0425,
-        "verified": true,
-        "checkedAt": "2026-09-24"
-      },
-      "westus2": {
-        "value": 0.035,
-        "verified": true,
-        "checkedAt": "2026-09-24"
+      "1000000": {
+        "australiaeast": 0.035,
+        "centralindia": 0.035,
+        "eastus": 0.035,
+        "eastus2": 0.035,
+        "germanywestcentral": 0.035,
+        "japaneast": 0.0425,
+        "koreacentral": 0.035,
+        "northeurope": 0.035,
+        "southeastasia": 0.0425,
+        "westus2": 0.035
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "azure.apim.developer.unit": {
     "unit": "hour",

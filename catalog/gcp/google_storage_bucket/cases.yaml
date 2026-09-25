@@ -42,6 +42,30 @@
   limits:
     Read rate: 100
     Write rate: 20
+# Storage: the free 5 GiB of the US regions, (1000 − 5) × 0.02 = 19.9.
+# Transfer out from us-west1: the first GiB free, 1023 × 0.12 = 122.76, (2000 − 1024) × 0.11 = 107.36; together 230.12.
+- name: Oregon bucket past the free storage and the first transfer tier
+  region: us-west1
+  attributes:
+    location: US-WEST1
+  assumptions:
+    storageGb: 1000
+    internetGbPerMonth: 2000
+  demand:
+    read:
+      monthly: 1000000
+      peak: 50
+    write:
+      monthly: 200000
+      peak: 10
+  costs:
+    Class B operations: 0.4
+    Class A operations: 1
+    Storage: 19.9
+    Transfer out to the internet: 230.12
+  limits:
+    Read rate: 50
+    Write rate: 10
 - name: Multi-region bucket is not read
   region: us-east4
   attributes:

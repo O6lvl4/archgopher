@@ -2,7 +2,7 @@ type: azurerm_log_analytics_workspace
 label: Log Analytics workspace
 category: Monitoring
 icon: log-analytics
-description: "Analytics logs on the pay-as-you-go tier: data ingested per GB, and interactive retention beyond the 31 days included. Workspace-based Application Insights telemetry is read on the Application Insights node, at this workspace's prices. Ingestion rate limits are not read."
+description: "Analytics logs on the pay-as-you-go tier: data ingested per GB, the first 5 GB a month free, counted over every workspace of the account, and interactive retention beyond the 31 days included. Workspace-based Application Insights telemetry is read on the Application Insights node, at this workspace's prices. Ingestion rate limits are not read."
 kinds: [ingest]
 sla: azure.loganalytics
 attributes:

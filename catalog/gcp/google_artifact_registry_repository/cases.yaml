@@ -1,5 +1,6 @@
 # Worked examples: given these values and this load, the resource reads this.
 # Expected values are computed by hand from the unit prices, not taken from the engine.
+# Storage: the billing account's first 0.5 GB free, (20 − 0.5) × 0.1 = 1.95.
 - name: Tokyo, pulls in the same region are free
   region: asia-northeast1
   assumptions:
@@ -12,10 +13,11 @@
       monthly: 30
       peak: 0.01
   costs:
-    Storage: 2
+    Storage: 1.95
   limits:
     Requests: 606
     Write requests: 6
+# Storage: the billing account's first 0.5 GB free, (100 − 0.5) × 0.1 = 9.95.
 - name: Sydney, half of 200 MB pulls go to other regions at the Oceania price
   region: australia-southeast1
   assumptions:
@@ -30,7 +32,7 @@
       monthly: 0
       peak: 0
   costs:
-    Storage: 10
+    Storage: 9.95
     Transfer to other locations: 150
   limits:
     Requests: 0

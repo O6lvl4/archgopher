@@ -2,7 +2,7 @@
   "azure.automation.job_runtime": {
     "unit": "minute",
     "source": "https://azure.microsoft.com/pricing/details/automation/",
-    "note": "Process automation job run time; the first 500 minutes a month are free (ignored, as every free tier)",
+    "note": "Process automation job run time. The first 500 minutes a month are free (https://azure.microsoft.com/pricing/details/automation/: 500 minutes free; not for rate plans with a flat discount or a fixed monthly credit), given in the price list as the zero-priced first tier. The page does not say whether the free units are counted per region; billing aggregates usage over every Automation account of the subscription and the meter is regional, so they are counted per region here",
     "sync": {
       "source": "azure",
       "service": "Automation",
@@ -10,65 +10,44 @@
         "productName": "Process Automation",
         "skuName": "Basic",
         "meterName": "Basic Runtime"
+      },
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "australiaeast": 0,
+        "centralindia": 0,
+        "eastus": 0,
+        "eastus2": 0,
+        "germanywestcentral": 0,
+        "japaneast": 0,
+        "koreacentral": 0,
+        "northeurope": 0,
+        "southeastasia": 0,
+        "westus2": 0
+      },
+      "500": {
+        "australiaeast": 0.002,
+        "centralindia": 0.002,
+        "eastus": 0.002,
+        "eastus2": 0.002,
+        "germanywestcentral": 0.002,
+        "japaneast": 0.002,
+        "koreacentral": 0.002,
+        "northeurope": 0.002,
+        "southeastasia": 0.002,
+        "westus2": 0.002
       }
     },
-    "values": {
-      "australiaeast": {
-        "value": 0.002,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "centralindia": {
-        "value": 0.002,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eastus": {
-        "value": 0.002,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eastus2": {
-        "value": 0.002,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "germanywestcentral": {
-        "value": 0.002,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "japaneast": {
-        "value": 0.002,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "koreacentral": {
-        "value": 0.002,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "northeurope": {
-        "value": 0.002,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "southeastasia": {
-        "value": 0.002,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "westus2": {
-        "value": 0.002,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      }
-    }
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   },
   "azure.automation.nonazure_node": {
     "unit": "node-month",
     "source": "https://azure.microsoft.com/pricing/details/automation/",
-    "note": "State configuration (DSC) node outside Azure; the first 5 are free (ignored) and Azure nodes are free",
+    "note": "State configuration (DSC) node outside Azure; Azure nodes are free. The first 5 nodes a month are free (https://azure.microsoft.com/pricing/details/automation/: 5 nodes free), given in the price list as the zero-priced first tier. The page does not say whether the free units are counted per region; billing aggregates usage over every Automation account of the subscription and the meter is regional, so they are counted per region here",
     "sync": {
       "source": "azure",
       "service": "Automation",
@@ -76,59 +55,38 @@
         "productName": "Configuration Management",
         "skuName": "Non-Azure",
         "meterName": "Non-Azure Node"
+      },
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "australiaeast": 0,
+        "centralindia": 0,
+        "eastus": 0,
+        "eastus2": 0,
+        "germanywestcentral": 0,
+        "japaneast": 0,
+        "koreacentral": 0,
+        "northeurope": 0,
+        "southeastasia": 0,
+        "westus2": 0
+      },
+      "5": {
+        "australiaeast": 6,
+        "centralindia": 6,
+        "eastus": 6,
+        "eastus2": 6,
+        "germanywestcentral": 6,
+        "japaneast": 6,
+        "koreacentral": 6,
+        "northeurope": 6,
+        "southeastasia": 6,
+        "westus2": 6
       }
     },
-    "values": {
-      "australiaeast": {
-        "value": 6,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "centralindia": {
-        "value": 6,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eastus": {
-        "value": 6,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eastus2": {
-        "value": 6,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "germanywestcentral": {
-        "value": 6,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "japaneast": {
-        "value": 6,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "koreacentral": {
-        "value": 6,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "northeurope": {
-        "value": 6,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "southeastasia": {
-        "value": 6,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "westus2": {
-        "value": 6,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      }
-    }
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   }
 }

@@ -9,7 +9,20 @@
       monthly: 2000000.0
       peak: 5
   costs:
-    Records stored: 8.0
-    Search API: 40.0
+    Records stored: 6.0  # (20,000 − 5,000 free) / 1,000 × 0.40
+    Search API: 20.0  # (2e6 − 1e6 free) / 1,000 × 0.020
   limits:
     Search rate: 5
+- name: within the free records and searches
+  region: us-east-1
+  assumptions:
+    records: 3000
+  demand:
+    search:
+      monthly: 500000.0
+      peak: 1
+  costs:
+    Records stored: 0  # 3,000 of the account's 5,000 free records
+    Search API: 0  # 500,000 of the account's 1,000,000 free searches
+  limits:
+    Search rate: 1

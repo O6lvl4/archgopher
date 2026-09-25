@@ -86,7 +86,7 @@
   "gcp.kms.version.hsm_large": {
     "unit": "version-hour",
     "source": "https://cloud.google.com/kms/pricing",
-    "note": "HSM RSA 3072/4096 or elliptic curve key version, at the first-2,000-a-month price (the SKU's first tier; $1 above). Active means enabled, disabled or scheduled for destruction. The catalog prices a version-month, 730 version-hours; one SKU for every location, read in us-central1.",
+    "note": "HSM RSA 3072/4096 or elliptic curve key version. Active means enabled, disabled or scheduled for destruction. Volume tiers count the billing account's active versions in a month (\"0 month to 2,000 month ... per 1 month / account\", https://cloud.google.com/kms/pricing): $2.50 a version-month for the first 2,000, then $1. The catalog prices a version-month, 730 version-hours, so the tier from 2,000 version-months is row 1460000 (2,000 × 730 version-hours). One SKU for every location, read in us-central1.",
     "sync": {
       "source": "gcp",
       "service": "EE2F-D110-890C",
@@ -95,15 +95,20 @@
       },
       "region": "us-central1",
       "listPer": 730,
-      "tier": "0"
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 0.00342465753425,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0.00342465753425
+      },
+      "1460000": {
+        "*": 0.0013698630137
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   },
   "gcp.kms.version.software": {
     "unit": "version-hour",

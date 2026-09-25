@@ -2,7 +2,7 @@
   "gcp.pubsub.throughput": {
     "unit": "TiB",
     "source": "https://cloud.google.com/pubsub/pricing",
-    "note": "Message Delivery Basic per TiB, the same in every region; the first 10 GiB a month (the SKU's first tier) are free and ignored.",
+    "note": "Message Delivery Basic per TiB, the same in every region. The first 10 GiB (0.009765625 TiB) a month are free, counted over the billing account (\"Every calendar month, the first 10 GiB of throughput identified as the Message Delivery Basic SKU for a billing account is free\", https://cloud.google.com/pubsub/pricing). Synced from the Billing Catalog, which lists them as a $0 first tier.",
     "sync": {
       "source": "gcp",
       "service": "A1E8-BE35-7EBC",
@@ -10,14 +10,19 @@
         "description": "Message Delivery Basic"
       },
       "region": "global",
-      "tier": "0.009765625"
+      "tier": "{row}"
     },
-    "values": {
-      "*": {
-        "value": 40,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "*": 0
+      },
+      "0.009765625": {
+        "*": 40
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "account",
+    "tiered": true
   }
 }

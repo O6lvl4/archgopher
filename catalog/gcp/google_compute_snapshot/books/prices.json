@@ -126,66 +126,45 @@
   "gcp.compute.snapshot.standard": {
     "unit": "GB-month",
     "source": "https://cloud.google.com/compute/disks-image-pricing",
-    "note": "Regional standard snapshot storage (storage_locations names the region), GiB-month. us-east5's SKU gives the first 5 GiB free and then 0.026; the paid tier is used.",
+    "note": "Regional standard snapshot storage (storage_locations names the region), GiB-month. us-east5's SKU lists the first 5 GiB a month as a $0 first tier; the other regions' SKUs have no free tier, so both rows carry their one rate. https://cloud.google.com/compute/disks-image-pricing does not say how the free 5 GiB are counted, so they are counted per region. Synced from the Billing Catalog.",
     "sync": {
       "filters": {
         "description": "Storage PD Snapshot( in .+)?"
       },
       "service": "6F81-5844-456A",
-      "source": "gcp"
+      "source": "gcp",
+      "tier": "{row}"
     },
-    "values": {
-      "asia-northeast1": {
-        "value": 0.064,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "asia-northeast1": 0.064,
+        "asia-northeast3": 0.064,
+        "asia-south1": 0.052,
+        "asia-southeast1": 0.061,
+        "australia-southeast1": 0.062,
+        "europe-west1": 0.05,
+        "europe-west3": 0.059,
+        "us-east4": 0.05,
+        "us-east5": 0,
+        "us-west1": 0.05
       },
-      "asia-northeast3": {
-        "value": 0.064,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "asia-south1": {
-        "value": 0.052,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "asia-southeast1": {
-        "value": 0.061,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "australia-southeast1": {
-        "value": 0.062,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "europe-west1": {
-        "value": 0.05,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "europe-west3": {
-        "value": 0.059,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east4": {
-        "value": 0.05,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-east5": {
-        "value": 0.026,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "us-west1": {
-        "value": 0.05,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "5": {
+        "asia-northeast1": 0.064,
+        "asia-northeast3": 0.064,
+        "asia-south1": 0.052,
+        "asia-southeast1": 0.061,
+        "australia-southeast1": 0.062,
+        "europe-west1": 0.05,
+        "europe-west3": 0.059,
+        "us-east4": 0.05,
+        "us-east5": 0.026,
+        "us-west1": 0.05
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "pool": "region",
+    "tiered": true
   },
   "gcp.compute.snapshot.standard_multi_regional.asia": {
     "unit": "GB-month",

@@ -2,7 +2,7 @@ type: aws_glue_catalog_database
 label: Glue Data Catalog database
 category: Analytics
 icon: glue
-description: "Objects stored (tables, partitions, table versions, indexes) per 100,000 a month and requests per million. The free tier, a million of each a month per account, is ignored. Headroom is the tables in the database."
+description: "Objects stored (tables, partitions, table versions, indexes) per 100,000 a month and requests per million. The always-free million of each a month is given once for the account. Headroom is the tables in the database."
 kinds: [request]
 sla: aws.glue
 assumptions:

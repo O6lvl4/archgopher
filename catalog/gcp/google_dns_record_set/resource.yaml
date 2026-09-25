@@ -2,7 +2,7 @@ type: google_dns_record_set
 label: Cloud DNS record set
 category: Network
 icon: cloud-dns
-description: "Queries that reach Cloud DNS for this name, $0.40 per million, or $0.70 when a routing policy answers them. Resolvers cache answers for the TTL, so count lookups rather than the requests behind them. There is no free tier."
+description: "Queries that reach Cloud DNS for this name, $0.40 per million (then $0.20 past a billion a month, counted over the billing account), or $0.70 when a routing policy answers them. Resolvers cache answers for the TTL, so count lookups rather than the requests behind them. There is no free tier."
 kinds: [query]
 sla: gcp.dns
 attributes:

@@ -8,9 +8,9 @@
     diagnose:
       monthly: 0
       peak: 0
-  # 5000 × $0.001
+  # (5000 − 1000 free) × $0.001
   costs:
-    Diagnostic checks: 5
+    Diagnostic checks: 4
 - name: no checks (eastus)
   region: eastus
   demand:

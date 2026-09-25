@@ -383,14 +383,14 @@ func (c *Client) Resolve(spec Spec, region string) (Price, error) {
 		}
 		return Price{}, fmt.Errorf("%d skus match %v: %s", len(ms), spec.Filters, strings.Join(names, "; "))
 	}
-	rate, err := pickTier(ms[0].Rates(), spec.Tier)
+	rate, err := pickTier(ms[0].Rates(), spec.Tier, spec.ListPer)
 	if err != nil {
 		return Price{}, err
 	}
 	return Price{Sku: ms[0], Rate: rate}, nil
 }
 
-func pickTier(rates []Rate, tier string) (Rate, error) {
+func pickTier(rates []Rate, tier string, listPer float64) (Rate, error) {
 	if len(rates) == 0 {
 		return Rate{}, fmt.Errorf("the sku has no price")
 	}
@@ -409,14 +409,25 @@ func pickTier(rates []Rate, tier string) (Rate, error) {
 	}
 	want, err := strconv.ParseFloat(tier, 64)
 	if err != nil {
-		return Rate{}, fmt.Errorf("tier %q: want first, last or a startUsageAmount", tier)
+		return Rate{}, fmt.Errorf("tier %q: want first, last or where the tier starts", tier)
 	}
-	for _, r := range rates {
-		if r.Start == want {
-			return r, nil
+	if listPer == 0 {
+		listPer = 1
+	}
+	// The start is in the book's units: startUsageAmount × listPer. A region
+	// whose SKU does not break there bills the rate in effect at that point.
+	var in *Rate
+	for i, r := range rates {
+		if start := r.Start * listPer; start <= want*(1+1e-12) {
+			if in == nil || r.Start >= in.Start {
+				in = &rates[i]
+			}
 		}
 	}
-	return Rate{}, fmt.Errorf("no tier starts at %s", tier)
+	if in == nil {
+		return Rate{}, fmt.Errorf("no tier is in effect at %s", tier)
+	}
+	return *in, nil
 }
 
 func readCache(path string) ([]Sku, error) {

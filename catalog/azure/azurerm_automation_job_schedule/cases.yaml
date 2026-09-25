@@ -7,8 +7,8 @@
       monthly: 0
       peak: 0
   costs:
-    # 30 runs x 1 minute at 0.002
-    Job run time: 0.06
+    # 30 runs x 1 minute = 30 minutes, within the 500 free
+    Job run time: 0
 - name: an hourly five-minute job (East US)
   region: eastus
   assumptions:
@@ -19,4 +19,5 @@
       monthly: 0
       peak: 0
   costs:
-    Job run time: 7.3
+    # 730 runs x 5 minutes = 3,650 minutes, the first 500 free: 3,150 at 0.002 = 6.3
+    Job run time: 6.3

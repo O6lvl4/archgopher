@@ -16,7 +16,8 @@
     Data stored: 2.0
     Write operations: 5.0
     Read operations: 0.8
-    Transfer out to the internet: 2.4
+    # 20 GB, within the 100 GB a month free
+    Transfer out to the internet: 0
   limits:
     Request rate: 30
 - name: RA-GRS in East US
@@ -38,6 +39,28 @@
     Read operations: 0
   limits:
     Request rate: 10
+# Past volume tiers in Japan East. Stored, tier by tier: 51200 × 0.02 = 1024;
+# (60000 − 51200) × 0.0192 = 168.96; together 1192.96. Transfer out: the first 100 GB free;
+# (10335 − 100) × 0.12 = 1228.2; (20000 − 10335) × 0.085 = 821.525; together 2049.725.
+- name: LRS past the first storage and transfer tiers (japaneast)
+  region: japaneast
+  assumptions:
+    storageGb: 60000
+    internetGbPerMonth: 20000
+  demand:
+    read:
+      monthly: 0
+      peak: 0
+    write:
+      monthly: 0
+      peak: 0
+  costs:
+    Data stored: 1192.96
+    Write operations: 0
+    Read operations: 0
+    Transfer out to the internet: 2049.725
+  limits:
+    Request rate: 0
 - name: GZRS is not read yet
   region: japaneast
   attributes:

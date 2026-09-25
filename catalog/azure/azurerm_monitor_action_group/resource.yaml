@@ -2,7 +2,7 @@ type: azurerm_monitor_action_group
 label: Action group
 category: Monitoring
 icon: monitor
-description: "Every receiver is notified each time the group fires: emails, app push notifications, ITSM events, webhooks (secure with Microsoft Entra authentication) and SMS and voice calls priced by the first such receiver's country code. Monthly free grants are not read. Functions, logic apps, runbooks and event hubs it calls are free here and drawn as edges. Headroom is the rate limit per email address and phone number."
+description: "Every receiver is notified each time the group fires: emails, app push notifications, ITSM events, webhooks (secure with Microsoft Entra authentication) and SMS and voice calls priced by the first such receiver's country code. The monthly free emails, push notifications, ITSM events, webhooks and US voice calls are counted over every action group of the account; the free SMS to the US and voice calls to other countries are not read. Functions, logic apps, runbooks and event hubs it calls are free here and drawn as edges. Headroom is the rate limit per email address and phone number."
 kinds: [notify]
 sla: azure.monitor
 attributes:
