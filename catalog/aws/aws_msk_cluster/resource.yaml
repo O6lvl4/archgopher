@@ -2,7 +2,7 @@ type: aws_msk_cluster
 label: MSK (provisioned)
 category: Analytics
 icon: msk
-description: "Broker-hours by instance type. Standard brokers add EBS storage per broker, provisioned storage throughput and tiered storage with its reads; Express brokers add data written and storage used. Storage auto scaling is read at the configured size. Headroom is the data kept against the brokers' volumes."
+description: "Broker-hours by instance type. Standard brokers add EBS storage per broker, provisioned storage throughput and tiered storage with its reads; Express brokers add data written and storage used. Storage auto scaling is read at the configured size. Headroom is the data kept, times the replication factor, against the brokers' volumes."
 kinds: [produce]
 sla: aws.msk
 attributes:
@@ -15,7 +15,8 @@ attributes:
   - { key: storage_mode, label: Storage mode, type: choice, options: [LOCAL, TIERED], default: LOCAL }
 assumptions:
   - { key: messageKb, label: Message size, type: number, unit: KB, default: 1, hint: "For messages whose edges give no kb"  }
-  - { key: storedGb, label: Data kept, type: number, unit: GB, optional: true, hint: "All replicas together; Express storage bills it, standard brokers compare it with their volumes"  }
+  - { key: storedGb, label: Data kept, type: number, unit: GB, optional: true, hint: "One copy of the retained data, before replication; Express storage bills it, standard brokers hold it times the replication factor on their volumes"  }
+  - { key: replicationFactor, label: Replication factor, type: number, default: 3, hint: "Copies of each partition on standard brokers' volumes" }
   - { key: tieredGb, label: Tiered storage, type: number, unit: GB, default: 0 }
   - { key: tieredReadGb, label: Tiered storage read, type: number, unit: GB, default: 0, hint: "Per month"  }
 let:
@@ -33,7 +34,7 @@ readings:
   - cost: { when: express, name: Data written, quantity: gbIn, unit: GB, price: aws.msk.express.ingress }
   - fail: { when: express && storedGb == nil, message: "Express brokers bill the data kept: set storedGb", continue: true }
   - storage: { when: express && storedGb != nil, name: Express storage, gb: 'storedGb ?? 0', price: aws.msk.express.storage }
-  - limit: { when: '!express && storedGb != nil', name: Broker storage, demand: 'storedGb ?? 0', unit: GB, capacity: volume * brokers }
+  - limit: { when: '!express && storedGb != nil', name: Broker storage, demand: '(storedGb ?? 0) * replicationFactor', unit: GB, capacity: volume * brokers }
 terraform:
   ignoreRefs: [encryption_info, logging_info, configuration_info, client_authentication]
 iam:

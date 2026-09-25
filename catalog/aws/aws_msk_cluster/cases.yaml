@@ -9,7 +9,7 @@
     throughput_enabled: true
     volume_throughput: 250
   assumptions:
-    storedGb: 150
+    storedGb: 50
   demand:
     produce:
       monthly: 1000000
