@@ -2,7 +2,7 @@ type: azurerm_static_web_app
 label: Static Web App
 category: Edge
 icon: static-apps
-description: "Standard plan: the monthly fee per app and bandwidth above the 100 GB a month each app includes. The Free plan costs nothing and stops at 100 GB a month per subscription. Standard is billed from a few regions only (of the catalog's, East US 2, Japan East and West US 2). The Azure Front Door add-on is not read."
+description: "Standard plan: the monthly fee per app and bandwidth above the 100 GB a month included. Azure counts the included 100 GB per subscription; it is read here per app, as Infracost does, so several Standard apps in one subscription read too little bandwidth. The Free plan costs nothing and stops at 100 GB a month per subscription. Standard is billed from a few regions only (of the catalog's, East US 2, Japan East and West US 2). The Azure Front Door add-on is not read."
 kinds: [request]
 sla: azure.staticwebapps
 attributes:

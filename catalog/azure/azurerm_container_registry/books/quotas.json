@@ -14,10 +14,10 @@
   "azure.containerregistry.basic.storage_gb": {
     "unit": "GB",
     "source": "https://learn.microsoft.com/azure/container-registry/container-registry-skus",
-    "note": "Storage limit of one registry (Basic), in GiB",
+    "note": "Storage limit of one registry (Basic): 40 TiB, written here in GB (40 x 1024^4 bytes)",
     "values": {
       "*": {
-        "value": 40960,
+        "value": 43980.465111,
         "verified": true,
         "checkedAt": "2026-09-25"
       }
@@ -50,10 +50,10 @@
   "azure.containerregistry.premium.storage_gb": {
     "unit": "GB",
     "source": "https://learn.microsoft.com/azure/container-registry/container-registry-skus",
-    "note": "Storage limit of one registry (Premium), in GiB",
+    "note": "Storage limit of one registry (Premium): 100 TiB, written here in GB (100 x 1024^4 bytes)",
     "values": {
       "*": {
-        "value": 102400,
+        "value": 109951.162778,
         "verified": true,
         "checkedAt": "2026-09-25"
       }
@@ -86,10 +86,10 @@
   "azure.containerregistry.standard.storage_gb": {
     "unit": "GB",
     "source": "https://learn.microsoft.com/azure/container-registry/container-registry-skus",
-    "note": "Storage limit of one registry (Standard), in GiB",
+    "note": "Storage limit of one registry (Standard): 40 TiB, written here in GB (40 x 1024^4 bytes)",
     "values": {
       "*": {
-        "value": 40960,
+        "value": 43980.465111,
         "verified": true,
         "checkedAt": "2026-09-25"
       }

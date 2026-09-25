@@ -39,3 +39,10 @@
   attributes:
     size: WS1
   costs: {}
+- name: Premium v1 is refused on Linux
+  region: japaneast
+  attributes:
+    size: P2
+    kind: Linux
+    reserved: true
+  error: P2 plans run on Windows only

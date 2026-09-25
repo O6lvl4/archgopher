@@ -17,6 +17,7 @@ let:
   - billed: '!elastic && !(size in ["F1", "Y1", "WS1", "WS2", "WS3"])'
   - vcpu: 'size == "EP1" ? 1.0 : size == "EP2" ? 2.0 : 4.0'
 readings:
+  - fail: { when: 'os == "linux" && size in ["D1", "P1", "P2", "P3", "P4", "PC2", "PC3", "PC4"]', message: "{size} plans run on Windows only" }
   - cost: { when: billed, name: Instance hours, quantity: 730 * capacity, unit: hour, price: "azure.appservice.plan.{os}.{key}" }
   - cost: { when: elastic, name: vCPU hours, quantity: 730 * capacity * vcpu, unit: vCPU-hour, price: azure.functions.premium.vcpu_hour }
   - cost: { when: elastic, name: Memory hours, quantity: 730 * capacity * vcpu * 3.5, unit: GiB-hour, price: azure.functions.premium.gib_hour }
