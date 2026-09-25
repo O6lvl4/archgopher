@@ -15,6 +15,7 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -96,11 +97,19 @@ func (s Spec) For(region string) string {
 }
 
 // Client downloads and caches the price lists of one service in one region.
+// It keeps the last list it read in memory, since a price table resolves
+// hundreds of rows against one list.
 type Client struct {
 	HTTP     *http.Client
 	CacheDir string
 	MaxAge   time.Duration
 	BaseURL  string
+
+	mu   sync.Mutex
+	last struct {
+		key   string
+		items []Item
+	}
 }
 
 // NewClient caches under the user cache directory for a day.
@@ -114,6 +123,21 @@ func NewClient() *Client {
 
 // Items returns every retail price of a service in a region.
 func (c *Client) Items(service, region string) ([]Item, error) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	key := service + "/" + region
+	if c.last.key == key {
+		return c.last.items, nil
+	}
+	items, err := c.items(service, region)
+	if err != nil {
+		return nil, err
+	}
+	c.last.key, c.last.items = key, items
+	return items, nil
+}
+
+func (c *Client) items(service, region string) ([]Item, error) {
 	path := filepath.Join(c.CacheDir, safe(service), safe(region)+".json")
 	if st, err := os.Stat(path); err == nil && time.Since(st.ModTime()) <= c.MaxAge {
 		if items, err := readCache(path); err == nil {
@@ -286,8 +310,17 @@ func writeCache(path string, items []Item) error {
 	if err != nil {
 		return err
 	}
-	tmp := path + ".tmp"
-	if err := os.WriteFile(tmp, data, 0o644); err != nil {
+	f, err := os.CreateTemp(filepath.Dir(path), filepath.Base(path)+".*.tmp")
+	if err != nil {
+		return err
+	}
+	tmp := f.Name()
+	defer os.Remove(tmp)
+	if _, err := f.Write(data); err != nil {
+		f.Close()
+		return err
+	}
+	if err := f.Close(); err != nil {
 		return err
 	}
 	return os.Rename(tmp, path)
