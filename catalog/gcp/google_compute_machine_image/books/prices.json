@@ -1,0 +1,56 @@
+{
+  "gcp.compute.machine_image_storage": {
+    "unit": "GB-month",
+    "source": "https://cloud.google.com/compute/disks-image-pricing",
+    "note": "Machine image storage (GiB-month). Read from the pricing page's regional tables; sync verifies rows with a single Billing Catalog SKU once credentials are set.",
+    "sync": {
+      "filters": {
+        "description": "^Storage Machine Image"
+      },
+      "service": "6F81-5844-456A",
+      "source": "gcp"
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.05,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.065,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.06,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.06,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.0675,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.05,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.06,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.055,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.05,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.05,
+        "verified": false
+      }
+    }
+  }
+}

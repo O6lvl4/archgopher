@@ -1,0 +1,40 @@
+type: google_compute_disk
+label: Persistent disk
+category: Storage
+icon: persistent-disk
+description: "Provisioned capacity of a zonal Persistent Disk or Hyperdisk by type, plus provisioned IOPS on Extreme PD and Hyperdisk Extreme and IOPS and throughput above the included 3,000 IOPS and 140 MiB/s on Hyperdisk Balanced, and throughput on Hyperdisk Throughput and ML. Unset performance takes each type's default for the size. Headroom is the peak I/O against the disk's IOPS limit for its type and size."
+kinds: [io]
+attributes:
+  - { key: type, label: Disk type, type: string, default: pd-standard, hint: "pd-standard, pd-balanced, pd-ssd, pd-extreme, hyperdisk-balanced, hyperdisk-balanced-high-availability, hyperdisk-extreme, hyperdisk-throughput or hyperdisk-ml" }
+  - { key: size, label: Size, type: number, unit: GiB, optional: true, hint: "Unset takes the image's or snapshot's size, else the type's default size" }
+  - { key: provisioned_iops, label: Provisioned IOPS, type: number, optional: true }
+  - { key: provisioned_throughput, label: Provisioned throughput, type: number, unit: MiB/s, optional: true }
+  - { key: image, label: Image, type: string, optional: true, hint: "A public or custom image the disk is created from" }
+  - { key: image_resource, label: Image resource, type: string, optional: true, path: image->name, hint: "The google_compute_image it is created from" }
+  - { key: image_size, label: Image resource size, type: number, unit: GiB, optional: true, path: image->disk_size_gb }
+  - { key: snapshot, label: Snapshot, type: string, optional: true, hint: "A snapshot the disk is restored from" }
+  - { key: snapshot_resource, label: Snapshot resource, type: string, optional: true, path: snapshot->name, hint: "The google_compute_snapshot it is restored from" }
+  - { key: snapshot_size, label: Snapshot source size, type: number, unit: GiB, optional: true, path: snapshot->source_disk->size, hint: "Size of the disk the snapshot was taken of" }
+assumptions:
+  - { key: sourceSizeGb, label: Image or snapshot size, type: number, unit: GiB, default: 10, hint: "The size when the disk is created from an image or snapshot whose size Terraform does not show: 10 GiB for most public Linux images" }
+let:
+  - fromSource: 'image != nil || image_resource != nil || snapshot != nil || snapshot_resource != nil'
+  - dType: 'type'
+  - dGb: 'size ?? image_size ?? snapshot_size ?? (fromSource ? sourceSizeGb : type in ["pd-standard"] ? 500.0 : type in ["pd-extreme", "hyperdisk-extreme"] ? 1000.0 : type == "hyperdisk-throughput" ? 2048.0 : 100.0)'
+  - dBalanced: 'dType in ["hyperdisk-balanced", "hyperdisk-balanced-high-availability"]'
+  - dIops: 'provisioned_iops ?? (dType == "pd-extreme" ? 100000.0 : dType == "hyperdisk-extreme" ? min(350000.0, 100 * dGb) : dBalanced ? (dGb <= 6 ? 500 * dGb : min(6 * dGb + 3000, dType == "hyperdisk-balanced" ? 160000.0 : 100000.0)) : 0.0)'
+  - dThr: 'provisioned_throughput ?? (dBalanced ? (dGb <= 6 ? 140.0 : min(2400.0, 1.5 * dGb + 140)) : dType == "hyperdisk-throughput" ? min(90 * dGb / 1024, 2400.0) : dType == "hyperdisk-ml" ? max(24 * dGb, 400.0) : 0.0)'
+  - dIopsBilled: 'dType in ["pd-extreme", "hyperdisk-extreme"] ? dIops : dBalanced ? max(dIops - 3000, 0.0) : 0.0'
+  - dThrBilled: 'dType in ["hyperdisk-throughput", "hyperdisk-ml"] ? dThr : dBalanced ? max(dThr - 140, 0.0) : 0.0'
+  - iopsLimit: 'dType == "pd-standard" ? min(0.75 * dGb, 7500.0) : dType == "pd-balanced" ? min(3000 + 6 * dGb, 80000.0) : dType == "pd-ssd" ? min(6000 + 30 * dGb, 100000.0) : dType in ["pd-extreme", "hyperdisk-extreme"] || dBalanced ? dIops : dType == "hyperdisk-throughput" ? 4 * dThr : dType == "hyperdisk-ml" ? 16 * dThr : 0.0'
+readings:
+  - fail: { when: 'type startsWith "regional-" || !(type in ["pd-standard", "pd-balanced", "pd-ssd", "pd-extreme", "hyperdisk-balanced", "hyperdisk-balanced-high-availability", "hyperdisk-extreme", "hyperdisk-throughput", "hyperdisk-ml"])', message: "disk type {type} is not read" }
+  - storage: { name: "Disk ({dType})", gb: 'dGb', price: 'gcp.compute.disk.{dType}' }
+  - cost: { when: 'dIopsBilled > 0', name: "Disk IOPS ({dType})", quantity: 'dIopsBilled', unit: IOPS-month, price: 'gcp.compute.disk_iops.{dType}' }
+  - cost: { when: 'dThrBilled > 0', name: "Disk throughput ({dType})", quantity: 'dThrBilled', unit: MiBps-month, price: 'gcp.compute.disk_throughput.{dType}' }
+  - limit: { when: 'iopsLimit > 0', name: IOPS, demand: total.peak, unit: IOPS, capacity: iopsLimit }
+terraform:
+  # A disk calls nothing; the instance that attaches it does I/O on it.
+  passive: true
+  links:
+    - { type: google_compute_attached_disk, from: instance, to: [disk] }

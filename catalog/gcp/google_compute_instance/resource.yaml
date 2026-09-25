@@ -1,0 +1,79 @@
+type: google_compute_instance
+label: Compute Engine VM
+category: Compute
+icon: compute-engine
+description: "Instance-hours of a predefined machine type, or custom vCPUs and memory (with extended memory), on demand or Spot, with the sustained use discount where the family earns it; the boot disk it creates (capacity, and provisioned IOPS and throughput on Hyperdisk and Extreme PD), local SSDs, GPUs on N1 and an ephemeral external IP address. Premium OS licenses, sole tenancy and committed use discounts are not read. Headroom is the peak against what the VM serves."
+kinds: [request]
+sla: gcp.compute.instance
+attributes:
+  - { key: machine_type, label: Machine type, type: string, hint: "A predefined type (e2-standard-2, n2-highmem-8) or a custom one (custom-4-16384, n2-custom-4-32768-ext)" }
+  - { key: preemptible, label: Preemptible, type: boolean, default: false, path: scheduling.preemptible }
+  - { key: provisioning_model, label: Provisioning model, type: string, optional: true, path: scheduling.provisioning_model, hint: "SPOT runs the VM at Spot prices" }
+  - { key: boot_disk_type, label: Boot disk type, type: string, optional: true, path: boot_disk.initialize_params.type, hint: "Unset takes the API default: pd-standard, pd-balanced on C3, hyperdisk-balanced on Hyperdisk-only families (N4, C4, ...)" }
+  - { key: boot_disk_size, label: Boot disk size, type: number, unit: GiB, optional: true, path: boot_disk.initialize_params.size, hint: "Unset takes the image's size (imageSizeGb)" }
+  - { key: boot_disk_iops, label: Boot disk provisioned IOPS, type: number, optional: true, path: boot_disk.initialize_params.provisioned_iops, hint: "Hyperdisk and Extreme PD; unset takes the type's default for the size" }
+  - { key: boot_disk_throughput, label: Boot disk provisioned throughput, type: number, unit: MiB/s, optional: true, path: boot_disk.initialize_params.provisioned_throughput }
+  - { key: boot_disk_source, label: Existing boot disk, type: string, optional: true, path: boot_disk.source, hint: "A disk attached as the boot disk is billed where it is managed, not here" }
+  - { key: boot_disk_source_disk, label: Boot disk resource, type: string, optional: true, path: boot_disk.source->name, hint: "The google_compute_disk attached as the boot disk; that node carries its cost" }
+  - { key: scratch_disks, label: Local SSDs, type: number, default: 0, path: scratch_disk.#, hint: "scratch_disk blocks, 375 GiB each" }
+  - { key: gpu_type, label: GPU type, type: string, optional: true, path: guest_accelerator.type, hint: "nvidia-tesla-t4, nvidia-tesla-v100 and so on; billed on N1 only, the other GPU families include theirs in the machine price" }
+  - { key: gpu_count, label: GPUs, type: number, default: 0, path: guest_accelerator.count }
+  - { key: external_ip, label: External IP address, type: boolean, default: false, path: network_interface.access_config, hint: "An access_config block gives the VM an external IPv4 address" }
+  - { key: nat_ip, label: Reserved address, type: string, optional: true, path: network_interface.access_config.nat_ip, hint: "A reserved address is billed where it is managed" }
+  - { key: nat_ip_address, label: Reserved address resource, type: string, optional: true, path: network_interface.access_config.nat_ip->name, hint: "The google_compute_address it uses; that node carries its cost" }
+assumptions:
+  - { key: monthlyHours, label: Hours running a month, type: number, unit: hours, default: 730, hint: "A stopped VM bills only its persistent disks and reserved addresses" }
+  - { key: sustainedUse, label: Sustained use discount, type: boolean, default: true, hint: "N1, N2, N2D, C2, M1, M2, f1-micro and g1-small on demand (and GPUs on N1) earn up to 20 or 30% for running most of the month; off when committed use discounts cover the usage" }
+  - { key: imageSizeGb, label: Image size, type: number, unit: GiB, default: 10, hint: "The boot disk size when initialize_params sets none: 10 GiB for most public Linux images" }
+  - { key: requestsPerInstance, label: Capacity per VM, type: number, unit: requests/second, optional: true, hint: "What the VM serves at the peak, from a load test; compared with the peak load" }
+let:
+  - mt: 'last(split(machine_type, "/"))'
+  - onSpot: 'preemptible || (provisioning_model ?? "") == "SPOT"'
+  - count: '1.0'
+  - hours: 'monthlyHours'
+  - mparts: 'split(mt, "-")'
+  - family: 'mparts[0] == "custom" ? "n1" : mparts[0]'
+  - custom: 'mt contains "custom"'
+  - cidx: 'mparts[0] == "custom" ? 1 : 2'
+  - shaped: 'custom && len(mparts) > cidx + 1'
+  - csize: 'shaped ? mparts[cidx] : "0"'
+  - cvcpu: 'csize == "micro" ? 0.25 : csize == "small" ? 0.5 : csize == "medium" ? 1.0 : float(csize)'
+  - cmemGb: 'shaped ? float(mparts[cidx + 1]) / 1024 : 0.0'
+  - cbaseGb: 'last(mparts) == "ext" ? min(cmemGb, cvcpu * (family == "n1" ? 6.5 : 8.0)) : cmemGb'
+  - cextGb: 'cmemGb - cbaseGb'
+  - market: 'onSpot ? "_spot" : ""'
+  - sudMax: 'onSpot || !sustainedUse ? 0.0 : family in ["n2", "n2d", "c2"] ? 0.2 : family in ["n1", "m1", "m2", "f1", "g1"] ? 0.3 : 0.0'
+  - sud20: 'min(hours, 182.5) + 0.8678 * max(min(hours - 182.5, 182.5), 0.0) + 0.733 * max(min(hours - 365, 182.5), 0.0) + 0.6 * max(min(hours - 547.5, 182.5), 0.0)'
+  - sud30: 'min(hours, 182.5) + 0.8 * max(min(hours - 182.5, 182.5), 0.0) + 0.6 * max(min(hours - 365, 182.5), 0.0) + 0.4 * max(min(hours - 547.5, 182.5), 0.0)'
+  - billedHours: 'sudMax == 0.2 ? sud20 : sudMax == 0.3 ? sud30 : hours'
+  - gpuHours: 'onSpot || !sustainedUse ? hours : sud30'
+  - bootType: 'boot_disk_type ?? (family in ["c4", "c4a", "c4d", "n4", "n4a", "n4d", "h4d", "m4", "z4d", "g4", "a4", "c3", "c3d", "x4"] ? (family in ["c3", "c3d"] ? "pd-balanced" : "hyperdisk-balanced") : "pd-standard")'
+  - bootGb: 'boot_disk_size ?? imageSizeGb'
+  - bootBalanced: 'bootType in ["hyperdisk-balanced", "hyperdisk-balanced-high-availability"]'
+  - bootIops: 'boot_disk_iops ?? (bootType == "pd-extreme" ? 100000.0 : bootType == "hyperdisk-extreme" ? min(350000.0, 100 * bootGb) : bootBalanced ? (bootGb <= 6 ? 500 * bootGb : min(6 * bootGb + 3000, bootType == "hyperdisk-balanced" ? 160000.0 : 100000.0)) : 0.0)'
+  - bootThr: 'boot_disk_throughput ?? (bootBalanced ? (bootGb <= 6 ? 140.0 : min(2400.0, 1.5 * bootGb + 140)) : bootType == "hyperdisk-throughput" ? min(90 * bootGb / 1024, 2400.0) : bootType == "hyperdisk-ml" ? max(24 * bootGb, 400.0) : 0.0)'
+  - bootIopsBilled: 'bootType in ["pd-extreme", "hyperdisk-extreme"] ? bootIops : bootBalanced ? max(bootIops - 3000, 0.0) : 0.0'
+  - bootThrBilled: 'bootType in ["hyperdisk-throughput", "hyperdisk-ml"] ? bootThr : bootBalanced ? max(bootThr - 140, 0.0) : 0.0'
+  - bootCreated: 'boot_disk_source == nil && boot_disk_source_disk == nil'
+  - localSsds: scratch_disks
+  - gpuType: 'gpu_type ?? ""'
+  - gpuCount: 'gpu_count'
+  - gpuOn: 'gpuType != "" && gpuCount > 0 && family == "n1"'
+  - ephemeralIp: 'external_ip && nat_ip == nil && nat_ip_address == nil'
+readings:
+  - fail: { when: 'mt == ""', message: "the machine type is unknown" }
+  - fail: { when: 'custom && !shaped', message: "custom machine type {mt} is not read: write it as custom-<vCPUs>-<MiB>, <family>-custom-<vCPUs>-<MiB> or e2-custom-(micro|small|medium)-<MiB>" }
+  - cost: { when: '!custom', name: "Instance ({mt}{onSpot ? \", spot\" : \"\"})", quantity: 'count * billedHours', unit: instance-hour, price: 'gcp.compute.machine{market}.{mt}' }
+  - cost: { when: custom, name: "Custom vCPUs ({family}{onSpot ? \", spot\" : \"\"})", quantity: 'count * billedHours * cvcpu', unit: vCPU-hour, price: 'gcp.compute.custom{market}.vcpu.{family}' }
+  - cost: { when: custom, name: "Custom memory ({family}{onSpot ? \", spot\" : \"\"})", quantity: 'count * billedHours * cbaseGb', unit: GB-hour, price: 'gcp.compute.custom{market}.memory.{family}' }
+  - cost: { when: 'custom && cextGb > 0', name: "Extended memory ({family}{onSpot ? \", spot\" : \"\"})", quantity: 'count * billedHours * cextGb', unit: GB-hour, price: 'gcp.compute.custom{market}.extended_memory.{family}' }
+  - storage: { when: 'bootCreated', name: "Boot disk ({bootType})", gb: 'bootGb', price: 'gcp.compute.disk.{bootType}' }
+  - cost: { when: 'bootCreated && bootIopsBilled > 0', name: "Boot disk IOPS ({bootType})", quantity: 'bootIopsBilled', unit: IOPS-month, price: 'gcp.compute.disk_iops.{bootType}' }
+  - cost: { when: 'bootCreated && bootThrBilled > 0', name: "Boot disk throughput ({bootType})", quantity: 'bootThrBilled', unit: MiBps-month, price: 'gcp.compute.disk_throughput.{bootType}' }
+  - cost: { when: 'localSsds > 0', name: "Local SSD{onSpot ? \" (spot)\" : \"\"}", quantity: 'count * localSsds * 375 * hours / 730', unit: GB-month, price: 'gcp.compute.local_ssd{market}' }
+  - cost: { when: 'gpuOn', name: "GPU ({gpuType}{onSpot ? \", spot\" : \"\"})", quantity: 'count * gpuCount * gpuHours', unit: GPU-hour, price: 'gcp.compute.gpu{market}.{gpuType}' }
+  - cost: { when: 'ephemeralIp', name: "External IP address{onSpot ? \" (spot)\" : \"\"}", quantity: 'count * hours', unit: address-hour, price: 'gcp.compute.ip.{onSpot ? "spot_vm" : "standard_vm"}' }
+  - limit: { when: requestsPerInstance != nil, name: Requests per second, demand: total.peak, unit: requests/second, capacity: 'requestsPerInstance ?? 0' }
+terraform:
+  # Placement, identity and the template it came from are not calls; attached disks are, through their I/O.
+  ignoreRefs: [network_interface, source_machine_image, resource_policies, reservation_affinity]

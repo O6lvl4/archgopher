@@ -1,0 +1,218 @@
+{
+  "gcp.compute.snapshot.archive": {
+    "unit": "GB-month",
+    "source": "https://cloud.google.com/compute/disks-image-pricing",
+    "note": "Regional archive snapshot storage (storage_locations names the region), GiB-month. Read from the pricing page's regional tables; sync verifies rows with a single Billing Catalog SKU once credentials are set.",
+    "sync": {
+      "filters": {
+        "description": "^Archive Snapshot"
+      },
+      "service": "6F81-5844-456A",
+      "source": "gcp"
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.0243,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.0243,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.0198,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.0234,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.0237,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.0209,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.0224,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.019,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.019,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.019,
+        "verified": false
+      }
+    }
+  },
+  "gcp.compute.snapshot.archive_multi_regional": {
+    "unit": "GB-month",
+    "source": "https://cloud.google.com/compute/disks-image-pricing",
+    "note": "Multi-regional archive snapshot storage in the multi-region nearest the region (asia, eu or us), the default location, GiB-month. Read from the pricing page's regional tables; sync verifies rows with a single Billing Catalog SKU once credentials are set.",
+    "sync": {
+      "filters": {
+        "description": "^Multi-regional Archive"
+      },
+      "service": "6F81-5844-456A",
+      "source": "gcp"
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.031,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.031,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.031,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.031,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.031,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.028,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.028,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.024,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.024,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.024,
+        "verified": false
+      }
+    }
+  },
+  "gcp.compute.snapshot.standard": {
+    "unit": "GB-month",
+    "source": "https://cloud.google.com/compute/disks-image-pricing",
+    "note": "Regional standard snapshot storage (storage_locations names the region), GiB-month. us-east5 lists a lower first tier per account; its paid rate, equal to the recycle bin rate, is used. Read from the pricing page's regional tables; sync verifies rows with a single Billing Catalog SKU once credentials are set.",
+    "sync": {
+      "filters": {
+        "description": "^Storage PD Snapshot"
+      },
+      "service": "6F81-5844-456A",
+      "source": "gcp"
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.064,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.064,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.052,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.061,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.062,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.05,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.059,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.05,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.05,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.05,
+        "verified": false
+      }
+    }
+  },
+  "gcp.compute.snapshot.standard_multi_regional": {
+    "unit": "GB-month",
+    "source": "https://cloud.google.com/compute/disks-image-pricing",
+    "note": "Multi-regional standard snapshot storage in the multi-region nearest the region (asia, eu or us), the default location, GiB-month. Read from the pricing page's regional tables; sync verifies rows with a single Billing Catalog SKU once credentials are set.",
+    "sync": {
+      "filters": {
+        "description": "^Multi-regional"
+      },
+      "service": "6F81-5844-456A",
+      "source": "gcp"
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.083,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.083,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.083,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.083,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.083,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.075,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.075,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.065,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.065,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.065,
+        "verified": false
+      }
+    }
+  }
+}

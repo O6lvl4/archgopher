@@ -1,0 +1,21 @@
+type: google_compute_global_address
+label: Global static IP address
+category: Network
+icon: external-ip
+description: "A reserved global external IPv4 address, free on a global load balancer's forwarding rule (the usual case) and billed per hour at the region's unused rate when it is not assigned. Internal ranges (purpose VPC_PEERING or PRIVATE_SERVICE_CONNECT) are free."
+kinds: [traffic]
+attributes:
+  - { key: address_type, label: Address type, type: choice, options: [EXTERNAL, INTERNAL], default: EXTERNAL, hint: "Internal addresses are free" }
+  - { key: purpose, label: Purpose, type: string, optional: true, hint: "Set for internal ranges (VPC_PEERING, PRIVATE_SERVICE_CONNECT, SHARED_LOADBALANCER_VIP, GCE_ENDPOINT ...); every purpose but GCE_ENDPOINT is free" }
+assumptions:
+  - { key: use, label: Used by, type: choice, options: [vm, spot_vm, forwarding_rule, unused], default: forwarding_rule, hint: "vm: a standard VM or Cloud NAT; spot_vm: a Spot or preemptible VM; forwarding_rule: a load balancer's forwarding rule or a Cloud VPN gateway, which is free; unused: reserved and not assigned" }
+let:
+  - billed: 'address_type == "EXTERNAL" && (purpose ?? "GCE_ENDPOINT") == "GCE_ENDPOINT"'
+readings:
+  - cost: { when: 'billed && use == "vm"', name: External IP address (standard VM), quantity: 730, unit: address-hour, price: gcp.compute.ip.standard_vm }
+  - cost: { when: 'billed && use == "spot_vm"', name: External IP address (Spot VM), quantity: 730, unit: address-hour, price: gcp.compute.ip.spot_vm }
+  - cost: { when: 'billed && use == "unused"', name: External IP address (unused), quantity: 730, unit: address-hour, price: gcp.compute.ip.unused }
+terraform:
+  # An address is used by what names it; it calls nothing, and a reference to it is not a call.
+  passive: true
+  mentioned: true

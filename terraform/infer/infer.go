@@ -204,11 +204,8 @@ func (b *builder) node(r *eval.Resource) model.Node {
 	n := model.Node{ID: b.id(r), Type: r.Type, Address: r.Address, Attributes: map[string]any{}}
 	if s, ok := b.rules.Scouters[r.Type]; ok {
 		for _, f := range s.Attributes() {
-			if v := lookupPath(r.Attrs, f.TerraformPath()); v != nil {
+			if v := b.attribute(r, f.TerraformPath(), f.Type == field.Flag, 0); v != nil {
 				n.Attributes[f.Key] = v
-			} else if f.Type == field.Flag && hasBlock(r.Attrs, f.TerraformPath()) {
-				// A boolean that points at a block reads whether the block is written.
-				n.Attributes[f.Key] = true
 			}
 		}
 		for _, f := range s.Assumptions() {
@@ -469,10 +466,51 @@ func oneEdgePerPair(edges []model.Edge) []model.Edge {
 	return out
 }
 
-// lookupPath reads "a.b" from nested maps, taking the first element of block lists.
+// attribute reads a value at path. "ref->rest" reads rest on the resource
+// that the attribute ref references, so an instance group reads the machine
+// type of its instance template and a node pool the location of its cluster.
+// The first referenced resource that has the value wins. A boolean that
+// points at a block reads whether the block is written.
+func (b *builder) attribute(r *eval.Resource, path string, flag bool, depth int) any {
+	ref, rest, through := strings.Cut(path, "->")
+	if !through {
+		if v := lookupPath(r.Attrs, path); v != nil {
+			return v
+		}
+		if flag && hasBlock(r.Attrs, path) {
+			return true
+		}
+		return nil
+	}
+	if depth >= maxReferenceHops {
+		return nil
+	}
+	for _, addr := range r.Refs[ref] {
+		if target, ok := b.byAddr[addr]; ok {
+			if v := b.attribute(target, rest, flag, depth+1); v != nil {
+				return v
+			}
+		}
+	}
+	return nil
+}
+
+// maxReferenceHops bounds a path through references (a per-instance config
+// reads its group's template: two hops).
+const maxReferenceHops = 4
+
+// lookupPath reads "a.b" from nested maps, taking the first element of block
+// lists. A last step "#" counts the blocks or list elements written
+// ("scratch_disk.#").
 func lookupPath(m map[string]any, path string) any {
 	var cur any = m
 	for _, part := range strings.Split(path, ".") {
+		if part == "#" {
+			if list, ok := cur.([]any); ok {
+				return len(list)
+			}
+			return nil
+		}
 		if list, ok := cur.([]any); ok {
 			if len(list) == 0 {
 				return nil

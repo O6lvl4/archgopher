@@ -1,0 +1,28 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo stateful instance of a custom-2-8192 regional group
+  # custom- is N1: 2 vCPUs x 0.0426489 and 8 GiB x 0.00568995 per billed hour, with the 30% discount (511 h)
+  region: asia-northeast1
+  attributes:
+    machine_type: custom-2-8192
+  demand:
+    request:
+      monthly: 1000
+      peak: 1
+  costs:
+    Custom vCPUs (n1): 43.5871758
+    Custom memory (n1): 23.2605156
+    Boot disk (pd-standard): 0.52
+- name: Mumbai Spot n2-standard-8 instance of a regional group
+  # Spot: 0.147232 x 730; 10 GiB pd-standard at 0.048
+  region: asia-south1
+  attributes:
+    machine_type: n2-standard-8
+    provisioning_model: SPOT
+  demand:
+    request:
+      monthly: 1000
+      peak: 1
+  costs:
+    Instance (n2-standard-8, spot): 107.47936
+    Boot disk (pd-standard): 0.48

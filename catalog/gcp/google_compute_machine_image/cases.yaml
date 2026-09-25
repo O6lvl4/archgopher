@@ -1,0 +1,24 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo machine image of an instance with a 50 GiB boot disk
+  # 50 x 0.05
+  region: asia-northeast1
+  attributes:
+    source_boot_disk_size: 50
+  demand:
+    read:
+      monthly: 10
+      peak: 1
+  costs:
+    Machine image storage: 2.5
+- name: Frankfurt machine image of 120 GiB
+  # 120 x 0.06
+  region: europe-west3
+  assumptions:
+    storedGb: 120
+  demand:
+    read:
+      monthly: 10
+      peak: 1
+  costs:
+    Machine image storage: 7.2

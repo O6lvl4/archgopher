@@ -1,0 +1,98 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo n1-standard-2 with a T4, a 50 GiB balanced boot disk and an ephemeral external IP, all month
+  # N1 earns the 30% sustained use discount: 730 h bill as 182.5 x (1 + 0.8 + 0.6 + 0.4) = 511 h
+  # Instance 0.1218785 x 511; GPU 0.37 x 511 (GPUs on N1 earn it too); disk 0.13 x 50; IP 0.005 x 730
+  region: asia-northeast1
+  attributes:
+    machine_type: n1-standard-2
+    boot_disk_type: pd-balanced
+    boot_disk_size: 50
+    gpu_type: nvidia-tesla-t4
+    gpu_count: 1
+    external_ip: true
+  demand:
+    request:
+      monthly: 1000000
+      peak: 50
+  costs:
+    Instance (n1-standard-2): 62.2799135
+    Boot disk (pd-balanced): 6.5
+    GPU (nvidia-tesla-t4): 189.07
+    External IP address: 3.65
+- name: Northern Virginia n2-custom-4-40960-ext for half the month, with the default boot disk
+  # 4 vCPUs may carry 8 GiB each (32 GiB); the other 8 of 40 GiB are extended memory
+  # N2 earns the 20% discount: 365 h bill as 182.5 + 0.8678 x 182.5 = 340.8735 h
+  # vCPU 0.03738525 x 4, memory 0.00500955 x 32, extended 0.010756 x 8, per billed hour; boot pd-standard 0.044 x 10 GiB (the image size)
+  region: us-east4
+  attributes:
+    machine_type: n2-custom-4-40960-ext
+  assumptions:
+    monthlyHours: 365
+  demand:
+    request:
+      monthly: 100000
+      peak: 5
+  costs:
+    Custom vCPUs (n2): 50.974564064
+    Custom memory (n2): 54.643930942
+    Extended memory (n2): 29.331482928
+    Boot disk (pd-standard): 0.44
+- name: Tokyo Spot n2-standard-2 with a local SSD and an external IP
+  # Spot prices have no sustained use discount: 0.036052 x 730; local SSD 375 GiB x 0.0622; IP on a Spot VM 0.0025 x 730
+  region: asia-northeast1
+  attributes:
+    machine_type: n2-standard-2
+    provisioning_model: SPOT
+    scratch_disks: 1
+    external_ip: true
+  demand:
+    request:
+      monthly: 100000
+      peak: 5
+  costs:
+    Instance (n2-standard-2, spot): 26.31796
+    Boot disk (pd-standard): 0.52
+    Local SSD (spot): 23.325
+    External IP address (spot): 1.825
+- name: Tokyo n4-standard-2 boots from Hyperdisk Balanced with its default performance
+  # N4 takes only Hyperdisk: the boot disk defaults to hyperdisk-balanced, 10 GiB
+  # Default IOPS 6 x 10 + 3,000 = 3,060, of which 60 above the included 3,000 bill; throughput 1.5 x 10 + 140 = 155 MiB/s, 15 above 140 bill
+  # No sustained use discount on N4
+  region: asia-northeast1
+  attributes:
+    machine_type: n4-standard-2
+  assumptions:
+    requestsPerInstance: 200
+  demand:
+    request:
+      monthly: 1000000
+      peak: 150
+  costs:
+    Instance (n4-standard-2): 85.02816912
+    Boot disk (hyperdisk-balanced): 1.02
+    Boot disk IOPS (hyperdisk-balanced): 0.36
+    Boot disk throughput (hyperdisk-balanced): 0.765
+  limits:
+    Requests per second: 150
+- name: 'Oregon e2-medium on an attached google_compute_disk: the disk node carries the boot disk'
+  # E2 has no sustained use discount: 0.03350571 x 730
+  region: us-west1
+  attributes:
+    machine_type: e2-medium
+    boot_disk_source_disk: web-boot
+  demand:
+    request:
+      monthly: 1000
+      peak: 1
+  costs:
+    Instance (e2-medium): 24.4591683
+- name: A custom type without its shape is not read
+  region: asia-northeast1
+  attributes:
+    machine_type: n2-custom
+  demand:
+    request:
+      monthly: 1
+      peak: 1
+  error: custom machine type n2-custom is not read

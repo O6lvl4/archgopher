@@ -1,0 +1,48 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo group of three e2-standard-2 with 20 GiB balanced boot disks and external IPs
+  # 3 x 730 instance-hours at 0.08596572; 3 x 20 GiB at 0.13; 3 x 730 address-hours at 0.005
+  region: asia-northeast1
+  attributes:
+    target_size: 3
+    machine_type: e2-standard-2
+    disk_type: pd-balanced
+    disk_size_gb: 20
+    external_ip: true
+  assumptions:
+    requestsPerInstance: 100
+  demand:
+    request:
+      monthly: 10000000
+      peak: 240
+  costs:
+    Instances (e2-standard-2): 188.2649268
+    Boot disks (pd-balanced): 7.8
+    External IP address: 10.95
+  limits:
+    Requests per second: 240
+- name: Northern Virginia autoscaled preemptible n1-standard-4 with a T4 each, 2.5 instances on average
+  # Preemptible runs at Spot prices without the sustained use discount: 2.5 x 730 x 0.087465; GPUs 2.5 x 730 x 0.195; 2.5 x 10 GiB boot disks at 0.044
+  region: us-east4
+  attributes:
+    machine_type: n1-standard-4
+    preemptible: true
+    gpu_type: nvidia-tesla-t4
+    gpu_count: 1
+  assumptions:
+    instances: 2.5
+  demand:
+    request:
+      monthly: 1000000
+      peak: 20
+  costs:
+    Instances (n1-standard-4, spot): 159.623625
+    GPU (nvidia-tesla-t4, spot): 355.875
+    Boot disks (pd-standard): 1.1
+- name: A template outside this configuration needs machineType
+  region: asia-northeast1
+  demand:
+    request:
+      monthly: 1
+      peak: 1
+  error: 'the machine type is unknown: set machineType'

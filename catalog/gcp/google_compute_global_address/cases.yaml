@@ -1,0 +1,30 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo global address on a load balancer forwarding rule is free
+  region: asia-northeast1
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+- name: Oregon global address reserved and not assigned
+  # 0.01 x 730
+  region: us-west1
+  assumptions:
+    use: unused
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  costs:
+    External IP address (unused): 7.3
+- name: Tokyo range for private services access is free
+  region: asia-northeast1
+  attributes:
+    address_type: INTERNAL
+    purpose: VPC_PEERING
+  assumptions:
+    use: unused
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
