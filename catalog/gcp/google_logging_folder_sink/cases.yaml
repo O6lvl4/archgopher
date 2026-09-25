@@ -1,0 +1,68 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo, log entries drawn to a sink into a log bucket
+  region: asia-northeast1
+  attributes:
+    destination: logging.googleapis.com/projects/acme/locations/asia-northeast1/buckets/app-logs
+  demand:
+    route:
+        monthly: 3e+07
+        peak: 100
+  costs:
+    Log storage: 14.305114746
+  limits:
+    Log write rate: 5.859375
+- name: Belgium, 200 GiB a month exported to BigQuery
+  region: europe-west1
+  attributes:
+    destination: bigquery.googleapis.com/projects/acme/datasets/logs
+  assumptions:
+    gbPerMonth: 200
+  demand:
+    route:
+        monthly: 0
+        peak: 0
+  costs:
+    Log routing (billed at the destination): 0
+  limits:
+    Log write rate: 0
+- name: destination names a bucket in the graph, which bills its storage (Sydney, 4 KB entries at 1,500 a second)
+  region: australia-southeast1
+  assumptions:
+    kbPerEntry: 4
+  demand:
+    route:
+      monthly: 1.0e+08
+      peak: 1500
+  costs:
+    Log routing (billed at the destination): 0
+  limits:
+    Log write rate: 351.5625
+- name: destination from a variable, a log bucket in another project
+  region: asia-northeast1
+  assumptions:
+    routesToLogBucket: true
+    gbPerMonth: 10
+  demand:
+    route:
+      monthly: 1.0e+07
+      peak: 20
+  costs:
+    Log storage: 9.768371582
+  limits:
+    Log write rate: 1.171875
+- name: a disabled sink routes nothing
+  region: asia-northeast1
+  attributes:
+    destination: logging.googleapis.com/projects/acme/locations/global/buckets/app-logs
+    disabled: true
+  assumptions:
+    gbPerMonth: 50
+  demand:
+    route:
+        monthly: 0
+        peak: 0
+  costs:
+    Log storage: 0
+  limits:
+    Log write rate: 0

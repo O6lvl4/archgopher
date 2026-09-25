@@ -1,0 +1,69 @@
+{
+  "gcp.logging.write_mb_per_minute": {
+    "unit": "MB/minute",
+    "source": "https://cloud.google.com/logging/quotas",
+    "note": "Rate of entries.write requests per project and region: 4.8 GB a minute in the large regions, 300 MB in all others; also per billing account, folder and organization. Exclusion filters do not reduce it.",
+    "values": {
+      "*": {
+        "value": 300,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-east1": {
+        "value": 4800,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-northeast1": {
+        "value": 4800,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-south1": {
+        "value": 4800,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-southeast1": {
+        "value": 4800,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west1": {
+        "value": 4800,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west2": {
+        "value": 4800,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west3": {
+        "value": 4800,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west4": {
+        "value": 4800,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-central1": {
+        "value": 4800,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east4": {
+        "value": 4800,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west1": {
+        "value": 4800,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

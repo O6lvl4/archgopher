@@ -1,0 +1,41 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo, the _Default bucket fed by the built-in sink, kept 90 days
+  region: asia-northeast1
+  attributes:
+    bucket_id: _Default
+    retention_days: 90
+  assumptions:
+    gbPerMonth: 100
+  demand:
+    ingest:
+        monthly: 0
+        peak: 0
+  costs:
+    Log storage: 50
+    Retention beyond 30 days: 1.973684211
+- name: Iowa, a user-defined bucket fed by a sink in the graph, kept a year
+  region: us-central1
+  attributes:
+    bucket_id: audit-archive
+    retention_days: 365
+  assumptions:
+    kbPerEntry: 2
+  demand:
+    ingest:
+        monthly: 2e+07
+        peak: 50
+  costs:
+    Log storage: 19.073486328
+    Retention beyond 30 days: 4.203696
+- name: the _Required bucket is free
+  region: asia-northeast1
+  attributes:
+    bucket_id: _Required
+    retention_days: 400
+  assumptions:
+    gbPerMonth: 20
+  demand:
+    ingest:
+        monthly: 0
+        peak: 0
