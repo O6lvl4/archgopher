@@ -1,0 +1,19 @@
+type: azurerm_monitor_data_collection_rule
+label: Data collection rule
+category: Monitoring
+icon: data-collection-rules
+description: "Custom metric samples ingested into Azure Monitor Metrics. Logs it collects are billed as ingestion on the Log Analytics workspace it sends them to, drawn as an edge: load that reaches the rule from the machines it is associated with flows on to the workspace."
+kinds: [ingest]
+attributes:
+  - { key: metrics_destination, label: Sends to Azure Monitor Metrics, type: boolean, default: false, path: destinations.azure_monitor_metrics }
+assumptions:
+  - { key: metricSamplesMillions, label: Custom metric samples, type: number, unit: million/month, default: 0, hint: "Performance counters and custom metrics sent to Azure Monitor Metrics" }
+readings:
+  - cost: { when: metrics_destination || metricSamplesMillions > 0, name: Metrics ingestion, quantity: metricSamplesMillions * 1000000, unit: sample, price: azure.monitor.metrics_ingestion }
+terraform:
+  # An association applies the rule to a machine: what the machine emits reaches the rule.
+  links:
+    - type: azurerm_monitor_data_collection_rule_association
+      from: target_resource_id
+      to: [data_collection_rule_id]
+  ignoreRefs: [data_collection_endpoint_id, identity]

@@ -1,0 +1,32 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 10,000 three-minute jobs from webhooks (Japan East)
+  region: japaneast
+  assumptions:
+    minutesPerJob: 3
+  demand:
+    run:
+      monthly: 10000
+      peak: 2
+  costs:
+    # 30,000 minutes at 0.002
+    Job run time: 60
+  limits:
+    Job submissions: 2
+    # 2 jobs a second running 180 seconds each
+    Concurrent jobs: 360
+- name: other jobs and ten on-premises DSC nodes (East US)
+  region: eastus
+  assumptions:
+    jobMinutesPerMonth: 1000
+    nonAzureNodes: 10
+  demand:
+    run:
+      monthly: 0
+      peak: 0
+  costs:
+    Job run time: 2
+    Non-Azure configuration nodes: 60
+  limits:
+    Job submissions: 0
+    Concurrent jobs: 0

@@ -1,0 +1,46 @@
+{
+  "azure.monitor.alerts.dynamic_threshold": {
+    "unit": "time-series-month",
+    "source": "https://azure.microsoft.com/pricing/details/monitor/",
+    "note": "Dynamic thresholds, per time series, on top of the time series itself. Global meter",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Monitor",
+      "filters": {
+        "productName": "Azure Monitor",
+        "skuName": "Alerts",
+        "meterName": "Alerts Dynamic Threshold"
+      },
+      "region": "Global"
+    },
+    "values": {
+      "*": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.monitor.alerts.metric_series": {
+    "unit": "time-series-month",
+    "source": "https://azure.microsoft.com/pricing/details/monitor/",
+    "note": "Metric alert, per time series monitored; the first 10 a month are free (ignored, as every free tier). Global meter",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Monitor",
+      "filters": {
+        "productName": "Azure Monitor",
+        "skuName": "Alerts",
+        "meterName": "Alerts Metric Monitored"
+      },
+      "region": "Global"
+    },
+    "values": {
+      "*": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

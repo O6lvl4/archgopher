@@ -1,0 +1,134 @@
+{
+  "azure.automation.job_runtime": {
+    "unit": "minute",
+    "source": "https://azure.microsoft.com/pricing/details/automation/",
+    "note": "Process automation job run time; the first 500 minutes a month are free (ignored, as every free tier)",
+    "sync": {
+      "source": "azure",
+      "service": "Automation",
+      "filters": {
+        "productName": "Process Automation",
+        "skuName": "Basic",
+        "meterName": "Basic Runtime"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.automation.nonazure_node": {
+    "unit": "node-month",
+    "source": "https://azure.microsoft.com/pricing/details/automation/",
+    "note": "State configuration (DSC) node outside Azure; the first 5 are free (ignored) and Azure nodes are free",
+    "sync": {
+      "source": "azure",
+      "service": "Automation",
+      "filters": {
+        "productName": "Configuration Management",
+        "skuName": "Non-Azure",
+        "meterName": "Non-Azure Node"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

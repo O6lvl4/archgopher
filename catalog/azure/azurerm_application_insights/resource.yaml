@@ -1,0 +1,30 @@
+type: azurerm_application_insights
+label: Application Insights
+category: Monitoring
+icon: application-insights
+description: "Telemetry ingested after sampling and the daily cap, and retained beyond the 90 days included. A workspace-based component is billed at its Log Analytics workspace's prices: its telemetry is read here, not again on the workspace. A classic component (no workspace) is billed at Application Insights prices. Headroom is the event rate per component."
+kinds: [ingest]
+sla: azure.appinsights
+attributes:
+  - { key: workspace_based, label: Workspace-based, type: boolean, default: false, path: workspace_id, hint: "workspace_id names the Log Analytics workspace that bills the telemetry" }
+  - { key: retention_in_days, label: Retention, type: number, unit: days, default: 90 }
+  - { key: sampling_percentage, label: Sampling, type: number, unit: "%", default: 100, hint: "Share of telemetry kept" }
+  - { key: daily_data_cap_in_gb, label: Daily cap, type: number, unit: GB, optional: true }
+assumptions:
+  - { key: gbPerMonth, label: Telemetry sent directly, type: number, unit: GB, default: 0, hint: "Before sampling: SDKs, agents and anything not drawn as an edge" }
+  - { key: kbPerEvent, label: Telemetry per event from connected apps, type: number, unit: KB, default: 1, hint: "Each unit of load an edge brings, such as a request with its dependency calls, traces and exceptions" }
+let:
+  - sentGb: (gbPerMonth + demand.ingest.monthly * kbPerEvent / 1024 / 1024) * sampling_percentage / 100
+  - ingestedGb: 'daily_data_cap_in_gb != nil ? min(sentGb, daily_data_cap_in_gb * 30.4) : sentGb'
+  - retainedGb: ingestedGb * max(retention_in_days - 90, 0) / 30.4
+  - book: 'workspace_based ? "loganalytics" : "appinsights"'
+readings:
+  - cost: { name: Data ingested, quantity: ingestedGb, unit: GB, price: "azure.{book}.ingestion" }
+  - cost: { when: retainedGb > 0, name: Retention beyond 90 days, quantity: retainedGb, unit: GB-month, price: "azure.{book}.retention" }
+  - rate: { name: Events per second, unit: events/second, quota: azure.appinsights.events_per_second, peak: demand.ingest.peak * sampling_percentage / 100 }
+terraform:
+  # The workspace bills the telemetry; this component reads it, so the
+  # workspace is not called with it a second time.
+  ignoreRefs: [workspace_id]
+iam:
+  ingest: ["Monitoring Metrics Publisher"]

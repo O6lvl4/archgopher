@@ -1,0 +1,469 @@
+{
+  "azure.monitor.notifications.email": {
+    "unit": "email",
+    "per": 100000,
+    "source": "https://azure.microsoft.com/pricing/details/monitor/",
+    "note": "Email to an email receiver; the first 1,000 a month are free (ignored, as every free tier). Global meter: action groups are global",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Monitor",
+      "filters": {
+        "productName": "Azure Monitor",
+        "skuName": "Emails",
+        "meterName": "Emails"
+      },
+      "region": "Global"
+    },
+    "values": {
+      "*": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.monitor.notifications.itsm": {
+    "unit": "event",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/monitor/",
+    "note": "ITSM connector create or update event; the first 1,000 a month are free (ignored). Global meter: action groups are global",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Monitor",
+      "filters": {
+        "productName": "Azure Monitor",
+        "skuName": "Notifications",
+        "meterName": "Notifications ITSM Connector Create/Update Event"
+      },
+      "region": "Global"
+    },
+    "values": {
+      "*": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.monitor.notifications.push": {
+    "unit": "notification",
+    "per": 100000,
+    "source": "https://azure.microsoft.com/pricing/details/monitor/",
+    "note": "Azure app push notification; the first 1,000 a month are free (ignored). Global meter: action groups are global",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Monitor",
+      "filters": {
+        "productName": "Azure Monitor",
+        "skuName": "Notifications",
+        "meterName": "Notifications Push Notification"
+      },
+      "region": "Global"
+    },
+    "values": {
+      "*": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.monitor.notifications.secure_webhook": {
+    "unit": "notification",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/monitor/",
+    "note": "Secure webhook call (Microsoft Entra authentication); the first 1,000 a month are free (ignored). The Retail Prices API lists it per 10. Global meter: action groups are global",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Monitor",
+      "filters": {
+        "productName": "Azure Monitor",
+        "skuName": "Notifications",
+        "meterName": "Notifications Secure web hook"
+      },
+      "region": "Global",
+      "listPer": 10
+    },
+    "values": {
+      "*": {
+        "value": 6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.monitor.notifications.sms": {
+    "unit": "message",
+    "source": "https://azure.microsoft.com/pricing/details/monitor/",
+    "note": "SMS by the receiver's country calling code; the first 100 a month to country code 1 are free (ignored). Global meter: action groups are global",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Monitor",
+      "filters": {
+        "productName": "Azure Monitor",
+        "skuName": "SMS Country Code {row}"
+      },
+      "region": "Global"
+    },
+    "rows": {
+      "1": {
+        "*": 0.00645
+      },
+      "220": {
+        "*": 0.1
+      },
+      "221": {
+        "*": 0.153
+      },
+      "27": {
+        "*": 0.02492
+      },
+      "30": {
+        "*": 0.09
+      },
+      "31": {
+        "*": 0.135
+      },
+      "32": {
+        "*": 0.101
+      },
+      "33": {
+        "*": 0.054
+      },
+      "34": {
+        "*": 0.088
+      },
+      "351": {
+        "*": 0.035
+      },
+      "352": {
+        "*": 0.062
+      },
+      "353": {
+        "*": 0.0396
+      },
+      "354": {
+        "*": 0.0964
+      },
+      "357": {
+        "*": 0.03
+      },
+      "358": {
+        "*": 0.119
+      },
+      "359": {
+        "*": 0.136
+      },
+      "371": {
+        "*": 0.07
+      },
+      "372": {
+        "*": 0.114
+      },
+      "39": {
+        "*": 0.084
+      },
+      "40": {
+        "*": 0.086
+      },
+      "41": {
+        "*": 0.062
+      },
+      "420": {
+        "*": 0.084
+      },
+      "43": {
+        "*": 0.138
+      },
+      "44": {
+        "*": 0.036
+      },
+      "45": {
+        "*": 0.042
+      },
+      "47": {
+        "*": 0.087
+      },
+      "49": {
+        "*": 0.09982
+      },
+      "506": {
+        "*": 0.0468
+      },
+      "52": {
+        "*": 0.026
+      },
+      "55": {
+        "*": 0.0233
+      },
+      "56": {
+        "*": 0.05
+      },
+      "60": {
+        "*": 0.096
+      },
+      "61": {
+        "*": 0.057
+      },
+      "64": {
+        "*": 0.121
+      },
+      "65": {
+        "*": 0.03107
+      },
+      "7": {
+        "*": 0.08
+      },
+      "81": {
+        "*": 0.046
+      },
+      "82": {
+        "*": 0.047
+      },
+      "852": {
+        "*": 0.0283
+      },
+      "86": {
+        "*": 0.03446
+      },
+      "886": {
+        "*": 0.063
+      },
+      "90": {
+        "*": 0.0032
+      },
+      "91": {
+        "*": 0.0042
+      },
+      "92": {
+        "*": 0.0892
+      },
+      "961": {
+        "*": 0.173
+      },
+      "962": {
+        "*": 0.195
+      },
+      "970": {
+        "*": 0.187
+      },
+      "971": {
+        "*": 0.04
+      },
+      "972": {
+        "*": 0.016
+      },
+      "974": {
+        "*": 0.0397
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.monitor.notifications.voice": {
+    "unit": "call",
+    "source": "https://azure.microsoft.com/pricing/details/monitor/",
+    "note": "Voice call by the receiver's country calling code other than 1; the first 10 a month are free (ignored). Global meter: action groups are global",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Monitor",
+      "filters": {
+        "productName": "Azure Monitor",
+        "skuName": "Voice Calls",
+        "meterName": "Voice Calls Voice Call Country Code {row}"
+      },
+      "region": "Global"
+    },
+    "rows": {
+      "20": {
+        "*": 0.17
+      },
+      "234": {
+        "*": 0.125
+      },
+      "254": {
+        "*": 0.285
+      },
+      "27": {
+        "*": 0.45
+      },
+      "31": {
+        "*": 0.35
+      },
+      "32": {
+        "*": 0.45
+      },
+      "33": {
+        "*": 0.13
+      },
+      "34": {
+        "*": 0.65
+      },
+      "351": {
+        "*": 0.5
+      },
+      "352": {
+        "*": 0.23
+      },
+      "353": {
+        "*": 0.15
+      },
+      "358": {
+        "*": 0.45
+      },
+      "370": {
+        "*": 0.627
+      },
+      "372": {
+        "*": 0.48
+      },
+      "381": {
+        "*": 0.61
+      },
+      "385": {
+        "*": 0.615
+      },
+      "39": {
+        "*": 0.32
+      },
+      "40": {
+        "*": 0.03
+      },
+      "41": {
+        "*": 0.65
+      },
+      "420": {
+        "*": 0.12
+      },
+      "421": {
+        "*": 0.135
+      },
+      "43": {
+        "*": 0.28
+      },
+      "44": {
+        "*": 0.02
+      },
+      "45": {
+        "*": 0.1
+      },
+      "46": {
+        "*": 0.06
+      },
+      "47": {
+        "*": 0.14
+      },
+      "48": {
+        "*": 0.201
+      },
+      "49": {
+        "*": 0.2
+      },
+      "52": {
+        "*": 0.05
+      },
+      "54": {
+        "*": 0.32
+      },
+      "55": {
+        "*": 0.18
+      },
+      "56": {
+        "*": 0.78
+      },
+      "60": {
+        "*": 0.08
+      },
+      "61": {
+        "*": 0.18
+      },
+      "63": {
+        "*": 0.21
+      },
+      "64": {
+        "*": 0.08
+      },
+      "65": {
+        "*": 0.06
+      },
+      "7": {
+        "*": 0.31
+      },
+      "81": {
+        "*": 0.19
+      },
+      "82": {
+        "*": 0.04
+      },
+      "852": {
+        "*": 0.05
+      },
+      "86": {
+        "*": 0.06
+      },
+      "886": {
+        "*": 0.18
+      },
+      "91": {
+        "*": 0.05
+      },
+      "962": {
+        "*": 0.23
+      },
+      "971": {
+        "*": 0.23
+      },
+      "972": {
+        "*": 0.22
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.monitor.notifications.voice.1": {
+    "unit": "call",
+    "source": "https://azure.microsoft.com/pricing/details/monitor/",
+    "note": "Voice call to country code 1, a meter of its own beside the voice table; the first 10 a month are free (ignored). Global meter: action groups are global",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Monitor",
+      "filters": {
+        "productName": "Azure Monitor",
+        "skuName": "Voice Calls",
+        "meterName": "Voice Calls"
+      },
+      "region": "Global"
+    },
+    "values": {
+      "*": {
+        "value": 0.013,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.monitor.notifications.webhook": {
+    "unit": "notification",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/monitor/",
+    "note": "Webhook call; the first 100,000 a month are free (ignored). The Retail Prices API lists it per 10. Global meter: action groups are global",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Monitor",
+      "filters": {
+        "productName": "Azure Monitor",
+        "skuName": "Notifications",
+        "meterName": "Notifications Web hook"
+      },
+      "region": "Global",
+      "listPer": 10
+    },
+    "values": {
+      "*": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

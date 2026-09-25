@@ -1,0 +1,37 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 100 GB archived to storage (Japan East)
+  region: japaneast
+  attributes:
+    storage_account_id: true
+  assumptions:
+    gbPerMonth: 100
+  demand:
+    export:
+      monthly: 0
+      peak: 0
+  costs:
+    Platform logs processed: 36.2
+- name: sent to a workspace only, billed as its ingestion (East US)
+  region: eastus
+  attributes:
+    log_analytics_workspace_id: true
+  assumptions:
+    gbPerMonth: 100
+  demand:
+    export:
+      monthly: 0
+      peak: 0
+- name: streamed to an event hub and a workspace (East US)
+  region: eastus
+  attributes:
+    eventhub_authorization_rule_id: true
+    log_analytics_workspace_id: true
+  assumptions:
+    gbPerMonth: 20
+  demand:
+    export:
+      monthly: 0
+      peak: 0
+  costs:
+    Platform logs processed: 5

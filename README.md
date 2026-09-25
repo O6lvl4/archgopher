@@ -438,6 +438,7 @@ not zero.
 | `azurerm_key_vault_managed_hardware_security_module` | HSM pool hours (keys and operations included) | RSA 2048 unwrap throughput |
 ||||||| 8a08f5b
 | `azurerm_key_vault` | Operations | Requests per vault |
+<<<<<<< HEAD
 =======
 | `azurerm_eventgrid_system_topic` | Operations, as a custom topic | - |
 | `azurerm_eventhub_namespace` | Throughput-unit hours, ingress events and Capture (Basic, Standard), processing-unit hours (Premium), capacity-unit hours (Dedicated), retention beyond the included | Ingress per throughput unit, up to the auto-inflate ceiling |
@@ -453,7 +454,13 @@ not zero.
 | `azurerm_key_vault` | Operations | Requests per vault |
 >>>>>>> cov/azure-messaging-storage
 | `azurerm_log_analytics_workspace` | Ingestion (Application Insights folds in) and retention beyond 31 days | - |
+||||||| 8a08f5b
+| `azurerm_log_analytics_workspace` | Ingestion (Application Insights folds in) and retention beyond 31 days | - |
+=======
+| `azurerm_log_analytics_workspace` | Ingestion and retention beyond 31 days | - |
+>>>>>>> cov/azure-monitor
 | `azurerm_cognitive_deployment` | Azure OpenAI input, cached and output tokens by model and deployment type | Tokens and requests per minute from capacity or quota |
+<<<<<<< HEAD
 | `azurerm_linux_virtual_machine` / `azurerm_windows_virtual_machine` / `azurerm_virtual_machine` | Instance hours by size (Linux, Windows, or the base rate with Hybrid Benefit), OS disk tier and operations, inline data disks (legacy), Ultra Disk reservation | - |
 | `azurerm_linux_virtual_machine_scale_set` / `azurerm_windows_virtual_machine_scale_set` / `azurerm_virtual_machine_scale_set` | Instance hours by size times instances, their OS and data disks | - |
 | `azurerm_managed_disk` | Standard HDD, Standard SSD and Premium SSD by tier with operations; Ultra and Premium SSD v2 capacity, IOPS and throughput | IOPS against the tier or the provisioned IOPS |
@@ -473,6 +480,19 @@ not zero.
 | `azurerm_sentinel_data_connector_*` (8 connectors) | Sentinel pay-as-you-go ingestion per GB, including the Log Analytics charge; free data sources (alerts, most Office 365 audit logs) read nothing | - |
 | `azurerm_security_center_subscription_pricing` | The Defender for Cloud plan's unit: servers, instances, accounts (with transaction overage and malware scanning), vaults, subscriptions, vCores, images, RU/s, queries or tokens | - |
 | `azurerm_active_directory_domain_service` / `_replica_set` | Hours by SKU, per replica set | Recommended authentications per hour |
+||||||| 8a08f5b
+=======
+| `azurerm_application_insights` | Telemetry after sampling and the daily cap, and retention beyond 90 days, at the workspace's prices when workspace-based or classic prices | Events per second |
+| `azurerm_monitor_action_group` | Emails, push, ITSM events, webhooks (plain and secure), SMS and voice calls by country code, per time fired | Emails, SMS and calls per address or number |
+| `azurerm_monitor_metric_alert` | Time series monitored (resources in scope times criteria or dimension values), dynamic thresholds | - |
+| `azurerm_monitor_scheduled_query_rules_alert` / `azurerm_monitor_scheduled_query_rules_alert_v2` | The rule by evaluation frequency / and time series beyond the first | - |
+| `azurerm_monitor_data_collection_rule` | Custom metric samples; logs flow on to the workspace | - |
+| `azurerm_monitor_diagnostic_setting` | Platform logs sent to storage, an event hub or a partner | - |
+| `azurerm_log_analytics_solution` | Microsoft Sentinel analysis per GB; other solutions have no price of their own | - |
+| `azurerm_automation_account` | Job minutes and non-Azure configuration nodes | Job submissions and concurrent jobs |
+| `azurerm_automation_job_schedule` / `azurerm_automation_watcher` | Job minutes per run / watcher hours | - |
+| `azurerm_automation_dsc_configuration` / `azurerm_automation_dsc_nodeconfiguration` | Non-Azure configuration nodes | - |
+>>>>>>> cov/azure-monitor
 
 Role assignments become edges: an `azurerm_role_assignment` connects the
 resource whose managed identity holds the role (system- or user-assigned) to
@@ -593,6 +613,12 @@ when unset), `total.monthly` and `total.peak`, `demand.<kind>.monthly` and
 `.peak`, `region`, earlier `let` values, and `ceilDiv(a, b)`. `includes: [logs]` adds a
 facet's own assumption fields. A directory without `resource.yaml` holds rows
 several resources share, such as log prices.
+
+An attribute's `path` says where it sits in the resource block (`sku.name`
+reads the first `sku` block). A path ending in `.#` counts what it names across
+every block, such as `criteria.dimension.values.#` for every value of every
+dimension of every criterion. A boolean read from a block or an id reads
+whether it is written, even when the id is known only after apply.
 
 Prices that differ by one attribute only (an instance type, a database
 class) are a table: one entry with `rows` instead of `values`, one number per

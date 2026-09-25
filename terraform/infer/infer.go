@@ -204,11 +204,8 @@ func (b *builder) node(r *eval.Resource) model.Node {
 	n := model.Node{ID: b.id(r), Type: r.Type, Address: r.Address, Attributes: map[string]any{}}
 	if s, ok := b.rules.Scouters[r.Type]; ok {
 		for _, f := range s.Attributes() {
-			if v := lookupPath(r.Attrs, f.TerraformPath()); v != nil {
+			if v := readAttribute(r, f); v != nil {
 				n.Attributes[f.Key] = v
-			} else if f.Type == field.Flag && hasBlock(r.Attrs, f.TerraformPath()) {
-				// A boolean that points at a block reads whether the block is written.
-				n.Attributes[f.Key] = true
 			}
 		}
 		for _, f := range s.Assumptions() {
@@ -467,6 +464,79 @@ func oneEdgePerPair(edges []model.Edge) []model.Edge {
 		first.Ops = append(first.Ops, model.Op{Kind: e.Kind})
 	}
 	return out
+}
+
+// readAttribute reads a field's value from a resource, or nil when it is not
+// known before apply.
+//
+//   - A path ending in ".#" counts what it names across every block
+//     ("criteria.dimension.values.#" is every value of every dimension of every
+//     criterion); nothing written leaves the field to its default. A list whose
+//     elements are known only after apply counts the resources it references.
+//   - A boolean that points at a block or at a non-boolean value reads whether
+//     it is written, even when the value (an id) is known only after apply.
+func readAttribute(r *eval.Resource, f field.Field) any {
+	path := f.TerraformPath()
+	if base, ok := strings.CutSuffix(path, ".#"); ok {
+		if n := max(countPath(r.Attrs, base), len(r.Refs[base])); n > 0 {
+			return float64(n)
+		}
+		return nil
+	}
+	v := lookupPath(r.Attrs, path)
+	if f.Type != field.Flag {
+		return v
+	}
+	switch x := v.(type) {
+	case bool:
+		return x
+	case nil:
+		if hasBlock(r.Attrs, path) || len(r.Refs[path]) > 0 {
+			return true
+		}
+		return nil
+	case string:
+		if x == "true" || x == "false" {
+			return x == "true"
+		}
+		if x == "" {
+			return false
+		}
+	}
+	return true
+}
+
+// countPath counts the elements "a.b" holds, fanning out over every block
+// instance on the way: list elements and blocks count one each, a single
+// value counts one, nothing written counts zero.
+func countPath(m map[string]any, path string) int {
+	cur := []any{m}
+	for _, part := range strings.Split(path, ".") {
+		var next []any
+		for _, c := range cur {
+			if list, ok := c.([]any); ok {
+				for _, e := range list {
+					if obj, ok := e.(map[string]any); ok && obj[part] != nil {
+						next = append(next, obj[part])
+					}
+				}
+				continue
+			}
+			if obj, ok := c.(map[string]any); ok && obj[part] != nil {
+				next = append(next, obj[part])
+			}
+		}
+		cur = next
+	}
+	n := 0
+	for _, c := range cur {
+		if list, ok := c.([]any); ok {
+			n += len(list)
+		} else {
+			n++
+		}
+	}
+	return n
 }
 
 // lookupPath reads "a.b" from nested maps, taking the first element of block lists.

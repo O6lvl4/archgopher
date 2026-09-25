@@ -1,0 +1,37 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Microsoft Sentinel analysing 100 GB (Japan East)
+  region: japaneast
+  attributes:
+    solution_name: SecurityInsights
+  assumptions:
+    gbPerMonth: 100
+  demand:
+    ingest:
+      monthly: 0
+      peak: 0
+  costs:
+    Sentinel data analysis: 624
+- name: Sentinel fed by a connector, 4 KB events (East US)
+  region: eastus
+  attributes:
+    solution_name: SecurityInsights
+  assumptions:
+    kbPerEvent: 4
+  demand:
+    ingest:
+      monthly: 1000000.0
+      peak: 1
+  costs:
+    # 4 million KB = 3.8147 GB at 4.30
+    Sentinel data analysis: 16.403198242
+- name: Container insights has no price of its own
+  region: eastus
+  attributes:
+    solution_name: ContainerInsights
+  assumptions:
+    gbPerMonth: 100
+  demand:
+    ingest:
+      monthly: 0
+      peak: 0

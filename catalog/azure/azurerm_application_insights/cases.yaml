@@ -1,0 +1,36 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: workspace-based, half sampled, kept 120 days (Japan East)
+  region: japaneast
+  attributes:
+    workspace_based: true
+    sampling_percentage: 50
+    retention_in_days: 120
+  assumptions:
+    kbPerEvent: 2
+  demand:
+    ingest:
+      monthly: 10000000.0
+      peak: 200
+  costs:
+    # 10M x 2 KB = 19.0735 GB, half sampled = 9.5367 GB at the workspace's 3.34
+    Data ingested: 31.852722168
+    # 9.5367 GB x 30 / 30.4 days beyond 90, at the workspace's 0.15
+    Retention beyond 90 days: 1.411688955
+  limits:
+    Events per second: 100
+- name: classic component held by its daily cap (East US)
+  region: eastus
+  attributes:
+    daily_data_cap_in_gb: 1
+  assumptions:
+    gbPerMonth: 50
+  demand:
+    ingest:
+      monthly: 0
+      peak: 0
+  costs:
+    # 1 GB a day x 30.4 days = 30.4 GB at 2.30
+    Data ingested: 69.92
+  limits:
+    Events per second: 0

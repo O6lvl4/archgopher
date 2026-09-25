@@ -1,0 +1,13 @@
+{
+  "azure.monitor": {
+    "unit": "fraction",
+    "source": "https://www.microsoft.com/licensing/docs/view/Service-Level-Agreements-SLA-for-Online-Services",
+    "note": "Azure Monitor alert rules and action group notifications. From the consolidated SLA document, not machine-checked",
+    "values": {
+      "*": {
+        "value": 0.999,
+        "verified": false
+      }
+    }
+  }
+}

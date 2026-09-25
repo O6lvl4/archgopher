@@ -1,0 +1,14 @@
+{
+  "azure.appinsights.events_per_second": {
+    "unit": "events/second",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/fundamentals/service-limits#application-insights",
+    "note": "Throttling per Application Insights resource, averaged over a minute",
+    "values": {
+      "*": {
+        "value": 32000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

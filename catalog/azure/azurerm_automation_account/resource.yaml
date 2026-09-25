@@ -1,0 +1,24 @@
+type: azurerm_automation_account
+label: Automation account
+category: Compute
+icon: automation-accounts
+description: "Runbook job minutes for jobs started by load (webhooks, action groups) and other jobs, and State Configuration (DSC) nodes outside Azure. Free monthly minutes and nodes are not read; jobs of a job schedule are read on the schedule. Headroom is job submissions every 30 seconds and jobs running at once."
+kinds: [run]
+sla: azure.automation
+assumptions:
+  - { key: minutesPerJob, label: Run time per job, type: number, unit: minutes, default: 1, hint: "Billed per minute a job runs" }
+  - { key: jobMinutesPerMonth, label: Other job run time, type: number, unit: minutes, default: 0, hint: "Jobs not drawn as load or as a job schedule" }
+  - { key: nonAzureNodes, label: Non-Azure configuration nodes, type: number, default: 0, hint: "State Configuration nodes outside Azure; Azure nodes are free. Count each node once, here or on its configuration" }
+readings:
+  - cost: { name: Job run time, quantity: jobMinutesPerMonth + demand.run.monthly * minutesPerJob, unit: minute, price: azure.automation.job_runtime }
+  - cost: { when: nonAzureNodes > 0, name: Non-Azure configuration nodes, quantity: nonAzureNodes, unit: node-month, price: azure.automation.nonazure_node }
+  - rate: { name: Job submissions, unit: jobs/second, quota: azure.automation.job_submissions, peak: demand.run.peak }
+  - concurrency: { name: Concurrent jobs, unit: jobs, quota: azure.automation.concurrent_jobs, peak: demand.run.peak, seconds: minutesPerJob * 60 }
+terraform:
+  # Runbooks and their webhooks run in the account: starting one starts a job here.
+  aliases:
+    azurerm_automation_runbook: automation_account_name
+    azurerm_automation_webhook: automation_account_name
+  ignoreRefs: [identity, encryption]
+iam:
+  run: ["Automation Job Operator", "Automation Operator", "Automation Contributor"]

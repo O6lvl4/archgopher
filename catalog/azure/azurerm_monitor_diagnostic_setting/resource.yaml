@@ -1,0 +1,18 @@
+type: azurerm_monitor_diagnostic_setting
+label: Diagnostic setting
+category: Monitoring
+icon: diagnostic-settings
+description: "Platform logs processed on their way to a storage account, an event hub or a partner solution. Logs sent to a Log Analytics workspace are billed as that workspace's ingestion instead: count them there. Storing them and event hub throughput are billed on the destination."
+kinds: [export]
+attributes:
+  - { key: storage_account_id, label: To a storage account, type: boolean, default: false }
+  - { key: eventhub_authorization_rule_id, label: To an event hub, type: boolean, default: false }
+  - { key: partner_solution_id, label: To a partner solution, type: boolean, default: false }
+  - { key: log_analytics_workspace_id, label: To a Log Analytics workspace, type: boolean, default: false }
+assumptions:
+  - { key: gbPerMonth, label: Platform logs exported, type: number, unit: GB, default: 0, hint: "Resource logs of the target resource a month" }
+readings:
+  - cost: { when: storage_account_id || eventhub_authorization_rule_id || partner_solution_id, name: Platform logs processed, quantity: gbPerMonth, unit: GB, price: azure.monitor.platform_logs }
+terraform:
+  # The target is watched, not called; the destinations receive its logs.
+  ignoreRefs: [target_resource_id]

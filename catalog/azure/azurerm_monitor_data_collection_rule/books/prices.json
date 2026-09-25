@@ -1,0 +1,70 @@
+{
+  "azure.monitor.metrics_ingestion": {
+    "unit": "sample",
+    "per": 10000000,
+    "source": "https://azure.microsoft.com/pricing/details/monitor/",
+    "note": "Custom metric samples ingested into Azure Monitor Metrics. The Retail Prices API lists it per 10 million",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Monitor",
+      "filters": {
+        "productName": "Azure Monitor",
+        "skuName": "Metrics ingestion",
+        "meterName": "Metrics ingestion Metric samples"
+      },
+      "listPer": 10000000
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.16,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.16,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.16,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.16,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.16,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.16,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.16,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.16,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.16,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.16,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

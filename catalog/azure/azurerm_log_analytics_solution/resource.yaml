@@ -1,0 +1,19 @@
+type: azurerm_log_analytics_solution
+label: Log Analytics solution
+category: Security
+icon: solutions
+description: "Microsoft Sentinel (SecurityInsights) bills each GB it analyses, which on the simplified pricing tier includes the Log Analytics ingestion of the same data: keep those GB out of the workspace's own. Other solutions add no price of their own; the data they collect is billed on the workspace."
+kinds: [ingest]
+sla: azure.sentinel
+attributes:
+  - { key: solution_name, label: Solution, type: string, optional: true, hint: "SecurityInsights is Microsoft Sentinel" }
+assumptions:
+  - { key: gbPerMonth, label: Data analysed, type: number, unit: GB, default: 0, hint: "Security data from connectors and agents not drawn as an edge" }
+  - { key: kbPerEvent, label: Data per event from connected sources, type: number, unit: KB, default: 0, hint: "Each unit of load an edge brings" }
+let:
+  - sentinel: 'solution_name != nil && solution_name == "SecurityInsights"'
+readings:
+  - cost: { when: sentinel, name: Sentinel data analysis, quantity: gbPerMonth + demand.ingest.monthly * kbPerEvent / 1024 / 1024, unit: GB, price: azure.sentinel.analysis }
+terraform:
+  # A solution is installed on its workspace; it does not call it.
+  passive: true

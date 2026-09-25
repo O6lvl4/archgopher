@@ -1,0 +1,23 @@
+type: azurerm_monitor_scheduled_query_rules_alert_v2
+label: Log alert
+category: Monitoring
+icon: alerts
+description: "A monthly cost per rule by how often it runs its query (every 1, 5, 10 or 15 minutes or slower, priced at the next faster step), and per time series beyond the first: each resource in scope times each dimension value the query splits by. Load does not flow through an alert."
+kinds: [alarm]
+sla: azure.monitor
+attributes:
+  - { key: enabled, label: Enabled, type: boolean, default: true }
+  - { key: evaluation_frequency, label: Evaluation frequency, type: string, default: PT5M, hint: "ISO 8601: PT1M, PT5M, PT10M, PT15M, PT30M up to P1D" }
+  - { key: scopes, label: Resources in scope, type: number, default: 0, path: "scopes.#" }
+  - { key: dimension_values, label: Dimension values, type: number, default: 0, path: "criteria.dimension.values.#" }
+assumptions:
+  - { key: timeSeries, label: Time series per resource, type: number, optional: true, hint: "Set when a dimension splits by * or excludes values, or the query splits by several dimensions (their value counts multiply): the combinations the query returns for each resource" }
+let:
+  - step: 'evaluation_frequency == "PT1M" ? 1 : evaluation_frequency == "PT5M" ? 5 : evaluation_frequency == "PT10M" ? 10 : 15'
+  - series: 'max(scopes, 1) * (timeSeries != nil ? timeSeries : max(dimension_values, 1))'
+readings:
+  - cost: { when: enabled, name: "Log alert rule ({step}-minute frequency)", quantity: 1, unit: rule-month, price: "azure.monitor.alerts.log_rule.{step}" }
+  - cost: { when: enabled && series > 1, name: "Additional time series ({step}-minute frequency)", quantity: series - 1, unit: time-series-month, price: "azure.monitor.alerts.log_series.{step}" }
+terraform:
+  # An alert names what it queries and the action groups it fires; it calls nothing.
+  passive: true

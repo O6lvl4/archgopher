@@ -1,0 +1,14 @@
+type: azurerm_automation_dsc_configuration
+label: Automation DSC configuration
+category: Compute
+icon: automation-accounts
+description: "State Configuration (DSC) nodes outside Azure that apply this configuration, per node-month; Azure nodes and the first five are free (the free ones are not read). Count each node once: on its configuration or on the Automation account."
+kinds: [configure]
+sla: azure.automation
+assumptions:
+  - { key: nonAzureNodes, label: Non-Azure nodes, type: number, default: 0, hint: "Machines outside Azure (on-premises, other clouds) registered with State Configuration" }
+readings:
+  - cost: { name: Non-Azure configuration nodes, quantity: nonAzureNodes, unit: node-month, price: azure.automation.nonazure_node }
+terraform:
+  # A configuration lives in its Automation account; it calls nothing.
+  passive: true

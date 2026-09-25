@@ -1,0 +1,41 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: every minute split by three dimension values (Japan East)
+  region: japaneast
+  attributes:
+    evaluation_frequency: PT1M
+    scopes: 1
+    dimension_values: 3
+  demand:
+    alarm:
+      monthly: 0
+      peak: 0
+  costs:
+    Log alert rule (1-minute frequency): 3
+    # 3 time series, the first included: 2 at 0.30
+    Additional time series (1-minute frequency): 0.6
+- name: daily is priced as 15 minutes (East US)
+  region: eastus
+  attributes:
+    evaluation_frequency: P1D
+  demand:
+    alarm:
+      monthly: 0
+      peak: 0
+  costs:
+    Log alert rule (15-minute frequency): 0.5
+- name: two resources with five time series each given by hand
+  region: eastus
+  attributes:
+    evaluation_frequency: PT10M
+    scopes: 2
+  assumptions:
+    timeSeries: 5
+  demand:
+    alarm:
+      monthly: 0
+      peak: 0
+  costs:
+    Log alert rule (10-minute frequency): 1
+    # 10 time series, 9 beyond the first at 0.10
+    Additional time series (10-minute frequency): 0.9

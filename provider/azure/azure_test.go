@@ -16,6 +16,7 @@ var update = flag.Bool("update", false, "rewrite the bundled books in canonical 
 var (
 	attrs = map[string]map[string]any{
 <<<<<<< HEAD
+<<<<<<< HEAD
 		"azurerm_service_plan":                      {"sku_name": "P1v3"},
 		"azurerm_cognitive_deployment":              {"model_name": "gpt-4o"},
 		"azurerm_linux_virtual_machine":             {"size": "Standard_D2s_v5", "os_disk_type": "Premium_LRS"},
@@ -41,6 +42,19 @@ var (
 			"coolAfterModification": 30.0, "coldAfterModification": 90.0, "archiveAfterModification": 180.0,
 		},
 >>>>>>> cov/azure-messaging-storage
+||||||| 8a08f5b
+		"azurerm_service_plan":         {"sku_name": "P1v3"},
+		"azurerm_cognitive_deployment": {"model_name": "gpt-4o"},
+=======
+		"azurerm_service_plan":                           {"sku_name": "P1v3"},
+		"azurerm_cognitive_deployment":                   {"model_name": "gpt-4o"},
+		"azurerm_monitor_action_group":                   {"email_receivers": 1.0, "push_receivers": 1.0, "itsm_receivers": 1.0, "webhook_receivers": 2.0, "secure_webhook_receivers": 1.0, "sms_receivers": 1.0, "voice_receivers": 1.0},
+		"azurerm_monitor_diagnostic_setting":             {"storage_account_id": true},
+		"azurerm_monitor_data_collection_rule":           {"metrics_destination": true},
+		"azurerm_monitor_metric_alert":                   {"dynamic_criteria": 1.0},
+		"azurerm_monitor_scheduled_query_rules_alert_v2": {"scopes": 2.0},
+		"azurerm_log_analytics_solution":                 {"solution_name": "SecurityInsights"},
+>>>>>>> cov/azure-monitor
 	}
 	assume = map[string]map[string]any{
 <<<<<<< HEAD

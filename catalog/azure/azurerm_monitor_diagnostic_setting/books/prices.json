@@ -1,0 +1,68 @@
+{
+  "azure.monitor.platform_logs": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/monitor/",
+    "note": "Platform logs processed on the way to a storage account, an event hub or a partner solution; sent to a Log Analytics workspace they are billed as its ingestion instead",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Monitor",
+      "filters": {
+        "productName": "Azure Monitor",
+        "skuName": "Platform Logs",
+        "meterName": "Platform Logs Data Processed"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.362,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.35,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.362,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.338,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.325,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}
