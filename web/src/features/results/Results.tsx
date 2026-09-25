@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { ms, num, pct, tone, usd } from "../../lib/format";
+import { ms, num, pct, tone, unitPrice, usd } from "../../lib/format";
 import { coverageLine } from "../../lib/coverage";
-import type { Cost, Coverage, Limit, NodeResult, PathResult, RefUse, Result } from "../../lib/types";
+import type { Band, Cost, Coverage, Limit, NodeResult, PathResult, Pool, RefUse, Result } from "../../lib/types";
 import { DataTable, type Column } from "../../ui/DataTable";
 
-type Tab = "problems" | "costs" | "limits" | "paths" | "unverified";
+type Tab = "problems" | "costs" | "shared" | "limits" | "paths" | "unverified";
 
 interface Props {
   result: Result | undefined;
@@ -50,10 +50,21 @@ type LimitRow = Limit & { id: string };
 
 const costColumns: Column<CostRow>[] = [
   { label: "Node", cell: (r) => r.id },
-  { label: "Component", cell: (r) => r.name },
+  { label: "Component", cell: (r) => (r.pool ? `${r.name} (shared)` : r.name) },
   { label: "Quantity", cell: (r) => num(r.quantity), numeric: true },
   { label: "Unit", cell: (r) => r.unit },
   { label: "Monthly", cell: (r) => usd(r.monthlyUsd), numeric: true },
+];
+
+const bandText = (b: Band) => (b.free ? `${num(b.quantity)} free` : `${num(b.quantity)} at ${unitPrice(b.unitPrice)}`);
+
+const poolColumns: Column<Pool>[] = [
+  { label: "Price", cell: (p) => p.priceId },
+  { label: "Quantity", cell: (p) => num(p.quantity), numeric: true },
+  { label: "Unit", cell: (p) => p.unit },
+  { label: "Bands", cell: (p) => (p.bands ?? []).map(bandText).join(", ") },
+  { label: "Monthly", cell: (p) => usd(p.monthlyUsd), numeric: true },
+  { label: "Lines", cell: (p) => p.members.map((m) => `${m.node} (${m.line})`).join(", ") },
 ];
 
 const limitColumns: Column<LimitRow>[] = [
@@ -113,6 +124,10 @@ function Problems(props: Props) {
 const views: Record<Tab, { count: (p: Props) => number; view: (p: Props) => React.ReactNode }> = {
   problems: { count: (p) => problems(p).length, view: (p) => <Problems {...p} /> },
   costs: { count: (p) => costs(p.result).length, view: (p) => <DataTable columns={costColumns} rows={costs(p.result)} onRow={(r) => p.onSelect(owner(r.id))} /> },
+  shared: {
+    count: (p) => (p.result?.pools ?? []).length,
+    view: (p) => <DataTable columns={poolColumns} rows={p.result?.pools ?? []} empty="No price here is billed on the whole account's usage." />,
+  },
   limits: { count: (p) => limits(p.result).length, view: (p) => <DataTable columns={limitColumns} rows={limits(p.result)} onRow={(r) => p.onSelect(owner(r.id))} /> },
   paths: { count: (p) => (p.result?.paths ?? []).length, view: (p) => <DataTable columns={pathColumns} rows={p.result?.paths ?? []} /> },
   unverified: {

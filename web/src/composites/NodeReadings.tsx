@@ -12,7 +12,9 @@ export function NodeReadings({ reading }: { reading: NodeResult | undefined }) {
         <tbody>
           {costs.map((c) => (
             <tr key={`c-${c.name}`}>
-              <td>{c.name}</td>
+              <td title={c.pool ? "Billed on the whole account's usage: this line pays the pool's average price" : undefined}>
+                {c.pool ? `${c.name} (shared)` : c.name}
+              </td>
               <td className="num">
                 {num(c.quantity)} {c.unit}
               </td>

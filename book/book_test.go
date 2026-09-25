@@ -40,3 +40,34 @@ func TestTableAndValuesConflict(t *testing.T) {
 		t.Fatalf("got %v", err)
 	}
 }
+
+func TestFlattenKeepsTheTiersOfATieredTable(t *testing.T) {
+	one := 1.0
+	b, err := Book{"x": {Unit: "GB", Tiered: true, Pool: PoolRegion, Rows: map[string]map[string]*float64{"10240": {"r": &one}, "0": {"r": &one}}}}.Flatten()
+	if err != nil {
+		t.Fatal(err)
+	}
+	e := b["x"]
+	if !e.Tiered || len(e.Tiers) != 2 || e.Tiers[0].ID != "x.0" || e.Tiers[1].From != 10240 || e.Pool != PoolRegion {
+		t.Fatalf("x = %+v", e)
+	}
+	if _, ok := b["x.10240"]; !ok {
+		t.Fatal("the rows are gone")
+	}
+}
+
+func TestFlattenRefusesBadRules(t *testing.T) {
+	one := 1.0
+	for name, e := range map[string]Entry{
+		"no zero tier":     {Tiered: true, Rows: map[string]map[string]*float64{"5": {"r": &one}}},
+		"a named tier":     {Tiered: true, Rows: map[string]map[string]*float64{"0": {"r": &one}, "big": {"r": &one}}},
+		"tiers, no rows":   {Tiered: true},
+		"an unknown pool":  {Pool: "org"},
+		"max with no pool": {Combine: CombineMax},
+		"negative free":    {Free: -1},
+	} {
+		if _, err := (Book{"x": e}).Flatten(); err == nil {
+			t.Errorf("%s: accepted", name)
+		}
+	}
+}

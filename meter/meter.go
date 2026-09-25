@@ -18,9 +18,19 @@ type Cost struct {
 	Quantity float64 `json:"quantity"`
 	Unit     string  `json:"unit"`
 	PriceID  string  `json:"priceId"`
-	// UnitPrice and MonthlyUSD are nil when the price is not known.
+	// UnitPrice and MonthlyUSD are nil when the price is not known. When the
+	// price has tiers or free units, UnitPrice is what the line pays per unit
+	// on average.
 	UnitPrice  *float64 `json:"unitPrice"`
 	MonthlyUSD *float64 `json:"monthlyUsd"`
+	// Bands break a line priced by tiers or free units down by price. A
+	// pooled line has none: its pool carries them.
+	Bands []Band `json:"bands,omitempty"`
+	// Pool is set when the price is billed on a whole account's usage: the
+	// engine bills the pool once and shares it out by quantity. Until then,
+	// and when the node is read alone, the line is billed as if it were the
+	// only user of the pool.
+	Pool string `json:"pool,omitempty"`
 }
 
 // Limit compares peak demand with a capacity.
@@ -49,6 +59,9 @@ type RefUse struct {
 // Recorder collects readings while a scouter runs.
 type Recorder struct {
 	Region string
+	// NoFree bills free units like any other: the account's free allowances
+	// are used up elsewhere.
+	NoFree bool
 	books  book.Books
 	costs  []Cost
 	limits []Limit
@@ -90,6 +103,10 @@ func (r *Recorder) verified(name book.Name, id string) bool {
 
 // Cost records quantity (in unit) priced by priceID.
 func (r *Recorder) Cost(name string, quantity float64, unit, priceID string) {
+	if e, ok := r.books.Prices[priceID]; ok && e.Billed() {
+		r.billed(name, quantity, unit, priceID, e)
+		return
+	}
 	e, v, ok := r.lookup(book.Prices, priceID, unit)
 	if !ok {
 		return
@@ -105,6 +122,60 @@ func (r *Recorder) Cost(name string, quantity float64, unit, priceID string) {
 		c.UnitPrice, c.MonthlyUSD = &p, &m
 	}
 	r.costs = append(r.costs, c)
+}
+
+// billed records a line whose price has tiers, free units or a pool. A
+// pooled line is billed with the recorder's other lines of its pool when
+// they are read out: as if the node were the account's only user.
+func (r *Recorder) billed(name string, quantity float64, unit, priceID string, e book.Entry) {
+	if e.Unit != unit {
+		r.errs = append(r.errs, fmt.Errorf("prices %q is per %q but the reading counts %q", priceID, e.Unit, unit))
+		return
+	}
+	allowance := 0.0
+	if !r.NoFree && e.Pool == "" {
+		allowance = e.Free
+	}
+	bill, err := Bill(r.books.Prices, priceID, r.Region, quantity, allowance)
+	if err != nil {
+		var no *NotOfferedError
+		if errors.As(err, &no) {
+			no.Reading = name
+		}
+		r.errs = append(r.errs, err)
+		return
+	}
+	r.refs = append(r.refs, RefUse{Book: book.Prices, ID: priceID, Region: r.Region, Verified: bill.Verified, Known: bill.USD != nil, Source: e.Source})
+	c := Cost{Name: name, Quantity: quantity, Unit: unit, PriceID: priceID}
+	c.setBill(bill)
+	if e.Pool != "" {
+		c.Pool = PoolKey(e, priceID, r.Region)
+	}
+	r.costs = append(r.costs, c)
+}
+
+// setBill sets the line's price from a bill of its whole quantity.
+func (c *Cost) setBill(b Billing) {
+	c.Bands = b.Bands
+	c.UnitPrice, c.MonthlyUSD = nil, nil
+	if b.USD == nil {
+		return
+	}
+	m := *b.USD
+	c.MonthlyUSD = &m
+	if c.Quantity > 0 {
+		p := m / c.Quantity
+		c.UnitPrice = &p
+	}
+}
+
+// PoolKey names the pool a price's readings share: the price, and the
+// region for a pool per region.
+func PoolKey(e book.Entry, priceID, region string) string {
+	if e.Pool == book.PoolRegion {
+		return priceID + "@" + region
+	}
+	return priceID
 }
 
 // Limit records peak demand against the quota quotaID.
@@ -163,8 +234,18 @@ func (r *Recorder) Fail(format string, args ...any) {
 // Err joins every problem recorded so far.
 func (r *Recorder) Err() error { return errors.Join(r.errs...) }
 
-// Costs returns the cost lines recorded so far.
-func (r *Recorder) Costs() []Cost { return r.costs }
+// Costs returns the cost lines recorded so far, the pooled ones billed
+// together as the node's own pools. A pool that cannot be billed leaves its
+// lines unpriced; each line was already checked on its own.
+func (r *Recorder) Costs() []Cost {
+	out := append([]Cost(nil), r.costs...)
+	lines := make([]Owned, len(out))
+	for i := range out {
+		lines[i] = Owned{Cost: &out[i]}
+	}
+	Share(lines, r.books.Prices, r.Region, !r.NoFree)
+	return out
+}
 
 // Limits returns the limits recorded so far.
 func (r *Recorder) Limits() []Limit { return r.limits }

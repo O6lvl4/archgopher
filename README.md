@@ -741,6 +741,35 @@ regions: `"fromRegionCode": "{region}"`).
 }
 ```
 
+Most volume tiers and free allowances belong to the account, not to one
+resource: two buckets share the storage tiers, and the Lambda free requests
+are given once. An entry says so with its pricing rules, and the engine bills
+such a price once, over every line of the declaration that reads it, then
+shares the cost out by quantity. The declaration is one account.
+
+| Field | Means |
+| --- | --- |
+| `pool` | `account` (the whole declaration) or `region` (each region of it): the lines that read the price share its tiers and free units |
+| `tiered` | The table's rows are volume tiers: a row key is where the tier starts, in the entry's unit, counted over the pool's whole usage, and `"tier": "{row}"` in the sync spec verifies each one |
+| `free` | Units that cost nothing each month, given once per pool (a plan's included amount, an always-free allowance) |
+| `freeGroup` | Free units several prices share (the Lambda free GB-seconds cover both architectures, the CloudFront free terabyte every price zone): each pool of the group gets a share by its quantity |
+| `combine: max` | A fee the pool pays once however many lines need it: billed for the largest quantity, not the sum (a regional fee while any dedicated instance runs) |
+
+A pooled line pays the pool's average price, and the result lists each pool
+with its bands and the lines that share it. `billing: {free: false}` in the
+declaration bills free units like any other, for an account whose
+organization uses them up elsewhere. A node read alone (its cases, `gaps`)
+is billed as the only user of its pools.
+
+```json
+"aws.cloudfront.jp.transfer_out": {
+  "unit": "GB", "pool": "account", "tiered": true, "source": "https://aws.amazon.com/cloudfront/pricing/",
+  "sync": {"service": "AmazonCloudFront", "offerRegion": "aws-other", "tier": "{row}", "filters": {"usagetype": "JP-DataTransfer-Out-Bytes"}},
+  "rows": {"0": {"*": 0.114}, "10240": {"*": 0.089}, "51200": {"*": 0.086}},
+  "verified": true, "checkedAt": "2026-09-25"
+}
+```
+
 `go test ./provider/aws` loads the catalog, runs every resource's cases and
 checks that every row belongs to one directory.
 

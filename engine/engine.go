@@ -29,7 +29,10 @@ type Result struct {
 	UnpricedCosts int `json:"unpricedCosts"`
 	// Unverified lists reference values that nobody has checked, or that are unknown.
 	Unverified []meter.RefUse `json:"unverified"`
-	Warnings   []string       `json:"warnings"`
+	// Pools are the prices billed on the whole account's usage, with the
+	// lines that share each.
+	Pools    []meter.Pool `json:"pools,omitempty"`
+	Warnings []string     `json:"warnings"`
 }
 
 // NodeResult is one node's readings.
@@ -109,44 +112,78 @@ func Run(spec model.Spec, reg scouter.Registry, books book.Books) (Result, error
 		return Result{}, err
 	}
 	res := Result{Name: spec.Name, Region: spec.Region}
+	free := spec.Billing.FreeUnits()
 	demand := g.propagate()
 	unverified := map[meter.RefUse]bool{}
 	for _, id := range g.order {
 		n := g.nodes[id]
-		nr := readNode(n, demand[id], reg, books, spec.Region, unverified)
+		nr := readNode(n, demand[id], reg, books, spec.Region, free, unverified)
 		nr.Load, nr.LoadBasis = n.Load, arrivals[id].basis
 		if e := arrivals[id].err; e != "" {
 			nr.Error = strings.TrimPrefix(nr.Error+"; "+e, "; ")
 		}
-		res.MonthlyUSD += nr.MonthlyUSD
-		for _, c := range nr.Costs {
-			if c.MonthlyUSD == nil {
-				res.UnpricedCosts++
-			}
-		}
 		res.Nodes = append(res.Nodes, nr)
 	}
-	var warnings []string
 	for _, gr := range spec.Groups {
 		gb := g.crossing(gr.ID, demand)
 		if gr.Type == "" || gb == 0 {
 			continue
 		}
 		n := model.Node{ID: gr.ID, Type: gr.Type, Assumptions: gr.Assumptions}
-		nr := readNode(n, model.Demand{GroupKind: {Monthly: gb}}, reg, books, spec.Region, unverified)
-		res.MonthlyUSD += nr.MonthlyUSD
+		res.Groups = append(res.Groups, readNode(n, model.Demand{GroupKind: {Monthly: gb}}, reg, books, spec.Region, free, unverified))
+	}
+	var all []*NodeResult
+	for i := range res.Nodes {
+		all = append(all, &res.Nodes[i])
+	}
+	for i := range res.Groups {
+		all = append(all, &res.Groups[i])
+	}
+	res.Pools = sharePools(all, books.Prices, spec.Region, free)
+	for _, nr := range all {
+		nr.MonthlyUSD = 0
 		for _, c := range nr.Costs {
 			if c.MonthlyUSD == nil {
 				res.UnpricedCosts++
+				continue
 			}
+			nr.MonthlyUSD += *c.MonthlyUSD
 		}
-		res.Groups = append(res.Groups, nr)
+		res.MonthlyUSD += nr.MonthlyUSD
 	}
+	var warnings []string
 	res.Unverified = sortedRefs(unverified)
 	var pathWarnings []string
 	res.Paths, pathWarnings = g.paths(res.Nodes)
 	res.Warnings = append(warnings, pathWarnings...)
 	return res, nil
+}
+
+// sharePools bills every pool of the declaration once, over all its nodes'
+// lines. A pool that cannot be billed puts its error on each node sharing it.
+func sharePools(nodes []*NodeResult, prices book.Book, region string, free bool) []meter.Pool {
+	var lines []meter.Owned
+	byID := map[string]*NodeResult{}
+	for _, n := range nodes {
+		byID[n.ID] = n
+		for i := range n.Costs {
+			lines = append(lines, meter.Owned{Node: n.ID, Cost: &n.Costs[i]})
+		}
+	}
+	pools := meter.Share(lines, prices, region, free)
+	for _, p := range pools {
+		if p.Error == "" {
+			continue
+		}
+		seen := map[string]bool{}
+		for _, m := range p.Members {
+			if n := byID[m.Node]; !seen[m.Node] && !strings.Contains(n.Error, p.Error) {
+				seen[m.Node] = true
+				n.Error = strings.TrimPrefix(n.Error+"; "+p.Error, "; ")
+			}
+		}
+	}
+	return pools
 }
 
 // GroupKind is the demand a group's scouter reads: GB a month moved between
@@ -171,7 +208,7 @@ func (g *graph) crossing(group string, demand map[string]model.Demand) float64 {
 	return gb
 }
 
-func readNode(n model.Node, d model.Demand, reg scouter.Registry, books book.Books, region string, unverified map[meter.RefUse]bool) NodeResult {
+func readNode(n model.Node, d model.Demand, reg scouter.Registry, books book.Books, region string, free bool, unverified map[meter.RefUse]bool) NodeResult {
 	nr := NodeResult{ID: n.ID, Type: n.Type, Label: n.Type, Address: n.Address, Note: n.Note, Stale: n.Stale, Demand: d}
 	s, ok := reg[n.Type]
 	if !ok {
@@ -181,6 +218,7 @@ func readNode(n model.Node, d model.Demand, reg scouter.Registry, books book.Boo
 	m := s.Meta()
 	nr.Label = m.Label
 	r := meter.NewRecorder(region, books)
+	r.NoFree = !free
 	if m.SLA != "" {
 		e, v, err := books.SLAs.Lookup(m.SLA, region)
 		if err == nil {
@@ -196,11 +234,6 @@ func readNode(n model.Node, d model.Demand, reg scouter.Registry, books book.Boo
 		nr.Error = err.Error()
 	}
 	nr.Costs, nr.Limits = r.Costs(), r.Limits()
-	for _, c := range nr.Costs {
-		if c.MonthlyUSD != nil {
-			nr.MonthlyUSD += *c.MonthlyUSD
-		}
-	}
 	for _, u := range r.Refs() {
 		if !u.Verified || !u.Known {
 			unverified[u] = true

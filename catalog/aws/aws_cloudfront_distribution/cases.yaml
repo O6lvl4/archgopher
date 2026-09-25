@@ -55,7 +55,8 @@
   limits:
     Requests per distribution: 40
 # Past two transfer tiers: 1e9 × 64 KB / 1024 / 1024 = 61035.15625 GB.
-# 10240 × 0.114 = 1167.36; 40960 × 0.089 = 3645.44; (61035.15625 − 51200) × 0.086 = 845.8234375.
+# Transfer out, tier by tier: 10240 × 0.114 = 1167.36; 40960 × 0.089 = 3645.44;
+# (61035.15625 − 51200) × 0.086 = 845.8234375; together 5658.6234375.
 # HTTPS: 1e9 / 10000 × 0.012 = 1200.
 - name: transfer past two volume tiers (ap-northeast-1)
   region: ap-northeast-1
@@ -67,8 +68,6 @@
       peak: 40
   costs:
     HTTPS requests: 1200
-    Transfer out: 1167.36
-    Transfer out (next 40 TB): 3645.44
-    Transfer out (next 100 TB): 845.8234375
+    Transfer out: 5658.6234375
   limits:
     Requests per distribution: 40

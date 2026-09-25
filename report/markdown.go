@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/O6lvl4/archgopher/engine"
+	"github.com/O6lvl4/archgopher/meter"
 )
 
 // JSON writes the result as indented JSON.
@@ -62,6 +63,13 @@ func Markdown(w io.Writer, r engine.Result) error {
 		}
 	}
 
+	if len(r.Pools) > 0 {
+		b.WriteString("\n## Shared across the account\n\nThe provider bills these prices on what the whole account uses: volume tiers and free units count once, and each line above pays the average price of its pool.\n\n| Price | Quantity | Unit | Bands | Monthly | Lines |\n| --- | ---: | --- | --- | ---: | --- |\n")
+		for _, p := range r.Pools {
+			fmt.Fprintf(b, "| %s | %s | %s | %s | %s | %s |\n", p.PriceID, num(p.Quantity), p.Unit, bands(p.Bands), usdPtr(p.MonthlyUSD), poolLines(p))
+		}
+	}
+
 	b.WriteString("\n## Limits\n\n| Node | Limit | Peak demand | Capacity | Unit | Headroom |\n| --- | --- | ---: | ---: | --- | ---: |\n")
 	for _, n := range members(r) {
 		for _, l := range n.Limits {
@@ -107,6 +115,26 @@ func Markdown(w io.Writer, r engine.Result) error {
 	}
 	_, err := io.WriteString(w, b.String())
 	return err
+}
+
+func bands(list []meter.Band) string {
+	parts := make([]string, 0, len(list))
+	for _, x := range list {
+		if x.Free {
+			parts = append(parts, num(x.Quantity)+" free")
+			continue
+		}
+		parts = append(parts, num(x.Quantity)+" at "+price(x.UnitPrice))
+	}
+	return orDash(strings.Join(parts, ", "))
+}
+
+func poolLines(p meter.Pool) string {
+	parts := make([]string, 0, len(p.Members))
+	for _, m := range p.Members {
+		parts = append(parts, m.Node+" ("+m.Line+")")
+	}
+	return strings.Join(parts, ", ")
 }
 
 // members skips rolled-up pattern results, whose lines their members already

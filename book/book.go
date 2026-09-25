@@ -10,6 +10,7 @@ import (
 	"io/fs"
 	"path"
 	"sort"
+	"strconv"
 )
 
 // AnyRegion keys a value that holds in every region (SLAs, most quotas).
@@ -53,7 +54,46 @@ type Entry struct {
 	// ComposeOf reads Compose from another table of the same book (the Spot
 	// prices of the same machine types).
 	ComposeOf string `json:"composeOf,omitempty"`
+	// Pool says the provider bills the price on what a whole account uses,
+	// not on each resource: volume tiers are counted and free units given
+	// once for every reading of it. PoolAccount pools the whole declaration,
+	// PoolRegion each region of it. Empty prices each reading on its own.
+	Pool string `json:"pool,omitempty"`
+	// Free is how many units cost nothing each month: an always-free
+	// allowance, or what a plan includes. It is given once per pool.
+	Free float64 `json:"free,omitempty"`
+	// FreeGroup names free units several prices share (the Lambda free
+	// GB-seconds cover both architectures): every entry of the group has the
+	// same Free, and each pool gets a share by its quantity.
+	FreeGroup string `json:"freeGroup,omitempty"`
+	// Combine is CombineMax for a fee the pool pays once however many
+	// readings need it (a regional fee while any dedicated instance runs):
+	// the pool is billed for its largest quantity, not their sum.
+	Combine string `json:"combine,omitempty"`
+	// Tiered makes a table's rows volume tiers. A row key is where its tier
+	// starts, counted in Unit over the pool's whole usage; the first is "0".
+	Tiered bool `json:"tiered,omitempty"`
+	// Tiers are a tiered table's row keys as numbers, ascending. Flatten
+	// fills them on the entry it keeps under the table's own id.
+	Tiers []Tier `json:"-"`
 }
+
+// Pool scopes and the combine mode of Entry.
+const (
+	PoolAccount = "account"
+	PoolRegion  = "region"
+	CombineMax  = "max"
+)
+
+// Tier is one row of a tiered table: its start and the id of its row entry.
+type Tier struct {
+	From float64
+	ID   string
+}
+
+// Billed is true when the entry is priced by pricing rules, not a plain
+// quantity × value: tiers, free units or a pool.
+func (e Entry) Billed() bool { return e.Pool != "" || e.Free > 0 || e.Tiered }
 
 // Composition is how one row is made: its parts, and the regions where the
 // row is offered at all (a part can be sold where the whole is not).
@@ -178,16 +218,28 @@ func Load(fsys fs.FS, dir string) (Books, error) {
 	return b, nil
 }
 
-// Flatten turns every table into one entry per row, keyed "<id>.<row>".
+// Flatten turns every table into one entry per row, keyed "<id>.<row>". A
+// tiered table also keeps an entry under its own id, which carries the
+// pricing rules and the tiers but no values.
 func (b Book) Flatten() (Book, error) {
 	out := Book{}
 	for id, e := range b {
+		if err := e.checkRules(id); err != nil {
+			return nil, err
+		}
 		if len(e.Rows) == 0 {
 			out[id] = e
 			continue
 		}
 		if len(e.Values) > 0 {
 			return nil, fmt.Errorf("%q has both values and rows", id)
+		}
+		if e.Tiered {
+			tiers, err := tiersOf(id, e.Rows)
+			if err != nil {
+				return nil, err
+			}
+			out[id] = Entry{Unit: e.Unit, Per: e.Per, Source: e.Source, Note: e.Note, Pool: e.Pool, Free: e.Free, FreeGroup: e.FreeGroup, Combine: e.Combine, Tiered: true, Tiers: tiers, Verified: e.Verified, CheckedAt: e.CheckedAt}
 		}
 		for key, row := range e.Rows {
 			full := id + "." + key
@@ -202,6 +254,40 @@ func (b Book) Flatten() (Book, error) {
 		}
 	}
 	return out, nil
+}
+
+func (e Entry) checkRules(id string) error {
+	switch {
+	case e.Pool != "" && e.Pool != PoolAccount && e.Pool != PoolRegion:
+		return fmt.Errorf("%q: pool is %q, not %q or %q", id, e.Pool, PoolAccount, PoolRegion)
+	case e.Combine != "" && e.Combine != CombineMax:
+		return fmt.Errorf("%q: combine is %q, not %q", id, e.Combine, CombineMax)
+	case e.Combine != "" && e.Pool == "":
+		return fmt.Errorf("%q: combine needs a pool", id)
+	case e.Free < 0:
+		return fmt.Errorf("%q: free must not be negative", id)
+	case e.FreeGroup != "" && (e.Pool == "" || e.Free == 0):
+		return fmt.Errorf("%q: a free group needs a pool and free units", id)
+	case e.Tiered && len(e.Rows) == 0:
+		return fmt.Errorf("%q: tiered needs rows", id)
+	}
+	return nil
+}
+
+func tiersOf(id string, rows map[string]map[string]*float64) ([]Tier, error) {
+	tiers := make([]Tier, 0, len(rows))
+	for key := range rows {
+		from, err := strconv.ParseFloat(key, 64)
+		if err != nil || from < 0 {
+			return nil, fmt.Errorf("%q is tiered, so row %q must be where its tier starts", id, key)
+		}
+		tiers = append(tiers, Tier{From: from, ID: id + "." + key})
+	}
+	sort.Slice(tiers, func(i, j int) bool { return tiers[i].From < tiers[j].From })
+	if tiers[0].From != 0 {
+		return nil, fmt.Errorf("%q is tiered, so its first row must start at 0", id)
+	}
+	return tiers, nil
 }
 
 func (b *Books) ref(name Name) *Book {

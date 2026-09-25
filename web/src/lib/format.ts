@@ -9,6 +9,12 @@ export function usd(v: number | null | undefined): string {
   return usdFormat.format(v);
 }
 
+/** A price per single unit, which can be a millionth of a dollar: four significant digits. */
+export function unitPrice(v: number | null | undefined): string {
+  if (v === null || v === undefined) return "unknown";
+  return `$${v.toLocaleString("en-US", { maximumSignificantDigits: 4 })}`;
+}
+
 export function num(v: number | null | undefined): string {
   if (v === null || v === undefined) return "unknown";
   if (Math.abs(v) >= 10000) return compact.format(v);
