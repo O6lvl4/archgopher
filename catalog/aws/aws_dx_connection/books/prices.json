@@ -2,12 +2,12 @@
   "aws.dx.dedicated.100G": {
     "unit": "hour",
     "source": "https://aws.amazon.com/directconnect/pricing/",
-    "note": "Dedicated 100Gbps connection port-hour at the Direct Connect location (the row); priced in the location's home region",
+    "note": "Dedicated 100Gbps connection port-hour at the Direct Connect location (the row); priced in the location's home region. The connectionType filter also accepts a missing attribute: some locations (Equinix LS1, Lisbon) list their ports without it",
     "sync": {
       "service": "AWSDirectConnect",
       "filters": {
         "usagetype": "(?:[A-Z]+[0-9]|EU)-{row}-PortUsage:100G",
-        "connectionType": "Dedicated"
+        "connectionType": "Dedicated|"
       }
     },
     "rows": {
@@ -223,6 +223,18 @@
         "ap-southeast-2": null,
         "eu-central-1": 22.5,
         "eu-west-1": null,
+        "us-east-1": null,
+        "us-east-2": null,
+        "us-west-2": null
+      },
+      "EQLS1": {
+        "ap-northeast-1": null,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": null,
+        "eu-west-1": 22.5,
         "us-east-1": null,
         "us-east-2": null,
         "us-west-2": null
@@ -762,12 +774,12 @@
   "aws.dx.dedicated.10G": {
     "unit": "hour",
     "source": "https://aws.amazon.com/directconnect/pricing/",
-    "note": "Dedicated 10Gbps connection port-hour at the Direct Connect location (the row); priced in the location's home region",
+    "note": "Dedicated 10Gbps connection port-hour at the Direct Connect location (the row); priced in the location's home region. The connectionType filter also accepts a missing attribute: some locations (Equinix LS1, Lisbon) list their ports without it",
     "sync": {
       "service": "AWSDirectConnect",
       "filters": {
         "usagetype": "(?:[A-Z]+[0-9]|EU)-{row}-PortUsage:10G",
-        "connectionType": "Dedicated"
+        "connectionType": "Dedicated|"
       }
     },
     "rows": {
@@ -1067,6 +1079,18 @@
         "ap-southeast-2": null,
         "eu-central-1": 2.25,
         "eu-west-1": null,
+        "us-east-1": null,
+        "us-east-2": null,
+        "us-west-2": null
+      },
+      "EQLS1": {
+        "ap-northeast-1": null,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": null,
+        "eu-west-1": 2.25,
         "us-east-1": null,
         "us-east-2": null,
         "us-west-2": null
@@ -1906,12 +1930,12 @@
   "aws.dx.dedicated.1G": {
     "unit": "hour",
     "source": "https://aws.amazon.com/directconnect/pricing/",
-    "note": "Dedicated 1Gbps connection port-hour at the Direct Connect location (the row); priced in the location's home region",
+    "note": "Dedicated 1Gbps connection port-hour at the Direct Connect location (the row); priced in the location's home region. The connectionType filter also accepts a missing attribute: some locations (Equinix LS1, Lisbon) list their ports without it",
     "sync": {
       "service": "AWSDirectConnect",
       "filters": {
         "usagetype": "(?:[A-Z]+[0-9]|EU)-{row}-PortUsage:1G",
-        "connectionType": "Dedicated"
+        "connectionType": "Dedicated|"
       }
     },
     "rows": {
@@ -2175,6 +2199,18 @@
         "ap-southeast-2": null,
         "eu-central-1": 0.3,
         "eu-west-1": null,
+        "us-east-1": null,
+        "us-east-2": null,
+        "us-west-2": null
+      },
+      "EQLS1": {
+        "ap-northeast-1": null,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": null,
+        "eu-west-1": 0.3,
         "us-east-1": null,
         "us-east-2": null,
         "us-west-2": null
@@ -2990,12 +3026,12 @@
   "aws.dx.dedicated.400G": {
     "unit": "hour",
     "source": "https://aws.amazon.com/directconnect/pricing/",
-    "note": "Dedicated 400Gbps connection port-hour at the Direct Connect location (the row); priced in the location's home region",
+    "note": "Dedicated 400Gbps connection port-hour at the Direct Connect location (the row); priced in the location's home region. The connectionType filter also accepts a missing attribute: some locations (Equinix LS1, Lisbon) list their ports without it",
     "sync": {
       "service": "AWSDirectConnect",
       "filters": {
         "usagetype": "(?:[A-Z]+[0-9]|EU)-{row}-PortUsage:400G",
-        "connectionType": "Dedicated"
+        "connectionType": "Dedicated|"
       }
     },
     "rows": {
@@ -3066,12 +3102,12 @@
   "aws.dx.hosted.100M": {
     "unit": "hour",
     "source": "https://aws.amazon.com/directconnect/pricing/",
-    "note": "Hosted 100Mbps connection port-hour at the Direct Connect location (the row); priced in the location's home region",
+    "note": "Hosted 100Mbps connection port-hour at the Direct Connect location (the row); priced in the location's home region. The connectionType filter also accepts a missing attribute: some locations (Equinix LS1, Lisbon) list their ports without it",
     "sync": {
       "service": "AWSDirectConnect",
       "filters": {
         "usagetype": "(?:[A-Z]+[0-9]|EU)-{row}-HCPortUsage:100M",
-        "connectionType": "Hosted"
+        "connectionType": "Hosted|"
       }
     },
     "rows": {
@@ -3359,6 +3395,18 @@
         "ap-southeast-2": null,
         "eu-central-1": 0.06,
         "eu-west-1": null,
+        "us-east-1": null,
+        "us-east-2": null,
+        "us-west-2": null
+      },
+      "EQLS1": {
+        "ap-northeast-1": null,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": null,
+        "eu-west-1": 0.06,
         "us-east-1": null,
         "us-east-2": null,
         "us-west-2": null
@@ -4186,12 +4234,12 @@
   "aws.dx.hosted.10G": {
     "unit": "hour",
     "source": "https://aws.amazon.com/directconnect/pricing/",
-    "note": "Hosted 10Gbps connection port-hour at the Direct Connect location (the row); priced in the location's home region",
+    "note": "Hosted 10Gbps connection port-hour at the Direct Connect location (the row); priced in the location's home region. The connectionType filter also accepts a missing attribute: some locations (Equinix LS1, Lisbon) list their ports without it",
     "sync": {
       "service": "AWSDirectConnect",
       "filters": {
         "usagetype": "(?:[A-Z]+[0-9]|EU)-{row}-HCPortUsage:10G",
-        "connectionType": "Hosted"
+        "connectionType": "Hosted|"
       }
     },
     "rows": {
@@ -4491,6 +4539,18 @@
         "ap-southeast-2": null,
         "eu-central-1": 2.48,
         "eu-west-1": null,
+        "us-east-1": null,
+        "us-east-2": null,
+        "us-west-2": null
+      },
+      "EQLS1": {
+        "ap-northeast-1": null,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": null,
+        "eu-west-1": 2.48,
         "us-east-1": null,
         "us-east-2": null,
         "us-west-2": null
@@ -5330,12 +5390,12 @@
   "aws.dx.hosted.1G": {
     "unit": "hour",
     "source": "https://aws.amazon.com/directconnect/pricing/",
-    "note": "Hosted 1Gbps connection port-hour at the Direct Connect location (the row); priced in the location's home region",
+    "note": "Hosted 1Gbps connection port-hour at the Direct Connect location (the row); priced in the location's home region. The connectionType filter also accepts a missing attribute: some locations (Equinix LS1, Lisbon) list their ports without it",
     "sync": {
       "service": "AWSDirectConnect",
       "filters": {
         "usagetype": "(?:[A-Z]+[0-9]|EU)-{row}-HCPortUsage:1G",
-        "connectionType": "Hosted"
+        "connectionType": "Hosted|"
       }
     },
     "rows": {
@@ -5635,6 +5695,18 @@
         "ap-southeast-2": null,
         "eu-central-1": 0.33,
         "eu-west-1": null,
+        "us-east-1": null,
+        "us-east-2": null,
+        "us-west-2": null
+      },
+      "EQLS1": {
+        "ap-northeast-1": null,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": null,
+        "eu-west-1": 0.33,
         "us-east-1": null,
         "us-east-2": null,
         "us-west-2": null
@@ -6474,12 +6546,12 @@
   "aws.dx.hosted.200M": {
     "unit": "hour",
     "source": "https://aws.amazon.com/directconnect/pricing/",
-    "note": "Hosted 200Mbps connection port-hour at the Direct Connect location (the row); priced in the location's home region",
+    "note": "Hosted 200Mbps connection port-hour at the Direct Connect location (the row); priced in the location's home region. The connectionType filter also accepts a missing attribute: some locations (Equinix LS1, Lisbon) list their ports without it",
     "sync": {
       "service": "AWSDirectConnect",
       "filters": {
         "usagetype": "(?:[A-Z]+[0-9]|EU)-{row}-HCPortUsage:200M",
-        "connectionType": "Hosted"
+        "connectionType": "Hosted|"
       }
     },
     "rows": {
@@ -6779,6 +6851,18 @@
         "ap-southeast-2": null,
         "eu-central-1": 0.08,
         "eu-west-1": null,
+        "us-east-1": null,
+        "us-east-2": null,
+        "us-west-2": null
+      },
+      "EQLS1": {
+        "ap-northeast-1": null,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": null,
+        "eu-west-1": 0.08,
         "us-east-1": null,
         "us-east-2": null,
         "us-west-2": null
@@ -7618,12 +7702,12 @@
   "aws.dx.hosted.25G": {
     "unit": "hour",
     "source": "https://aws.amazon.com/directconnect/pricing/",
-    "note": "Hosted 25Gbps connection port-hour at the Direct Connect location (the row); priced in the location's home region",
+    "note": "Hosted 25Gbps connection port-hour at the Direct Connect location (the row); priced in the location's home region. The connectionType filter also accepts a missing attribute: some locations (Equinix LS1, Lisbon) list their ports without it",
     "sync": {
       "service": "AWSDirectConnect",
       "filters": {
         "usagetype": "(?:[A-Z]+[0-9]|EU)-{row}-HCPortUsage:25G",
-        "connectionType": "Hosted"
+        "connectionType": "Hosted|"
       }
     },
     "rows": {
@@ -7647,6 +7731,18 @@
         "ap-southeast-2": null,
         "eu-central-1": 6.2,
         "eu-west-1": null,
+        "us-east-1": null,
+        "us-east-2": null,
+        "us-west-2": null
+      },
+      "EQLS1": {
+        "ap-northeast-1": null,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": null,
+        "eu-west-1": 6.2,
         "us-east-1": null,
         "us-east-2": null,
         "us-west-2": null
@@ -7706,12 +7802,12 @@
   "aws.dx.hosted.2G": {
     "unit": "hour",
     "source": "https://aws.amazon.com/directconnect/pricing/",
-    "note": "Hosted 2Gbps connection port-hour at the Direct Connect location (the row); priced in the location's home region",
+    "note": "Hosted 2Gbps connection port-hour at the Direct Connect location (the row); priced in the location's home region. The connectionType filter also accepts a missing attribute: some locations (Equinix LS1, Lisbon) list their ports without it",
     "sync": {
       "service": "AWSDirectConnect",
       "filters": {
         "usagetype": "(?:[A-Z]+[0-9]|EU)-{row}-HCPortUsage:2G",
-        "connectionType": "Hosted"
+        "connectionType": "Hosted|"
       }
     },
     "rows": {
@@ -8011,6 +8107,18 @@
         "ap-southeast-2": null,
         "eu-central-1": 0.66,
         "eu-west-1": null,
+        "us-east-1": null,
+        "us-east-2": null,
+        "us-west-2": null
+      },
+      "EQLS1": {
+        "ap-northeast-1": null,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": null,
+        "eu-west-1": 0.66,
         "us-east-1": null,
         "us-east-2": null,
         "us-west-2": null
@@ -8850,12 +8958,12 @@
   "aws.dx.hosted.300M": {
     "unit": "hour",
     "source": "https://aws.amazon.com/directconnect/pricing/",
-    "note": "Hosted 300Mbps connection port-hour at the Direct Connect location (the row); priced in the location's home region",
+    "note": "Hosted 300Mbps connection port-hour at the Direct Connect location (the row); priced in the location's home region. The connectionType filter also accepts a missing attribute: some locations (Equinix LS1, Lisbon) list their ports without it",
     "sync": {
       "service": "AWSDirectConnect",
       "filters": {
         "usagetype": "(?:[A-Z]+[0-9]|EU)-{row}-HCPortUsage:300M",
-        "connectionType": "Hosted"
+        "connectionType": "Hosted|"
       }
     },
     "rows": {
@@ -9155,6 +9263,18 @@
         "ap-southeast-2": null,
         "eu-central-1": 0.12,
         "eu-west-1": null,
+        "us-east-1": null,
+        "us-east-2": null,
+        "us-west-2": null
+      },
+      "EQLS1": {
+        "ap-northeast-1": null,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": null,
+        "eu-west-1": 0.12,
         "us-east-1": null,
         "us-east-2": null,
         "us-west-2": null
@@ -9994,12 +10114,12 @@
   "aws.dx.hosted.400M": {
     "unit": "hour",
     "source": "https://aws.amazon.com/directconnect/pricing/",
-    "note": "Hosted 400Mbps connection port-hour at the Direct Connect location (the row); priced in the location's home region",
+    "note": "Hosted 400Mbps connection port-hour at the Direct Connect location (the row); priced in the location's home region. The connectionType filter also accepts a missing attribute: some locations (Equinix LS1, Lisbon) list their ports without it",
     "sync": {
       "service": "AWSDirectConnect",
       "filters": {
         "usagetype": "(?:[A-Z]+[0-9]|EU)-{row}-HCPortUsage:400M",
-        "connectionType": "Hosted"
+        "connectionType": "Hosted|"
       }
     },
     "rows": {
@@ -10299,6 +10419,18 @@
         "ap-southeast-2": null,
         "eu-central-1": 0.16,
         "eu-west-1": null,
+        "us-east-1": null,
+        "us-east-2": null,
+        "us-west-2": null
+      },
+      "EQLS1": {
+        "ap-northeast-1": null,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": null,
+        "eu-west-1": 0.16,
         "us-east-1": null,
         "us-east-2": null,
         "us-west-2": null
@@ -11138,12 +11270,12 @@
   "aws.dx.hosted.500M": {
     "unit": "hour",
     "source": "https://aws.amazon.com/directconnect/pricing/",
-    "note": "Hosted 500Mbps connection port-hour at the Direct Connect location (the row); priced in the location's home region",
+    "note": "Hosted 500Mbps connection port-hour at the Direct Connect location (the row); priced in the location's home region. The connectionType filter also accepts a missing attribute: some locations (Equinix LS1, Lisbon) list their ports without it",
     "sync": {
       "service": "AWSDirectConnect",
       "filters": {
         "usagetype": "(?:[A-Z]+[0-9]|EU)-{row}-HCPortUsage:500M",
-        "connectionType": "Hosted"
+        "connectionType": "Hosted|"
       }
     },
     "rows": {
@@ -11443,6 +11575,18 @@
         "ap-southeast-2": null,
         "eu-central-1": 0.2,
         "eu-west-1": null,
+        "us-east-1": null,
+        "us-east-2": null,
+        "us-west-2": null
+      },
+      "EQLS1": {
+        "ap-northeast-1": null,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": null,
+        "eu-west-1": 0.2,
         "us-east-1": null,
         "us-east-2": null,
         "us-west-2": null
@@ -12282,12 +12426,12 @@
   "aws.dx.hosted.50M": {
     "unit": "hour",
     "source": "https://aws.amazon.com/directconnect/pricing/",
-    "note": "Hosted 50Mbps connection port-hour at the Direct Connect location (the row); priced in the location's home region",
+    "note": "Hosted 50Mbps connection port-hour at the Direct Connect location (the row); priced in the location's home region. The connectionType filter also accepts a missing attribute: some locations (Equinix LS1, Lisbon) list their ports without it",
     "sync": {
       "service": "AWSDirectConnect",
       "filters": {
         "usagetype": "(?:[A-Z]+[0-9]|EU)-{row}-HCPortUsage:50M",
-        "connectionType": "Hosted"
+        "connectionType": "Hosted|"
       }
     },
     "rows": {
@@ -12587,6 +12731,18 @@
         "ap-southeast-2": null,
         "eu-central-1": 0.03,
         "eu-west-1": null,
+        "us-east-1": null,
+        "us-east-2": null,
+        "us-west-2": null
+      },
+      "EQLS1": {
+        "ap-northeast-1": null,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": null,
+        "eu-west-1": 0.03,
         "us-east-1": null,
         "us-east-2": null,
         "us-west-2": null
@@ -13414,12 +13570,12 @@
   "aws.dx.hosted.5G": {
     "unit": "hour",
     "source": "https://aws.amazon.com/directconnect/pricing/",
-    "note": "Hosted 5Gbps connection port-hour at the Direct Connect location (the row); priced in the location's home region",
+    "note": "Hosted 5Gbps connection port-hour at the Direct Connect location (the row); priced in the location's home region. The connectionType filter also accepts a missing attribute: some locations (Equinix LS1, Lisbon) list their ports without it",
     "sync": {
       "service": "AWSDirectConnect",
       "filters": {
         "usagetype": "(?:[A-Z]+[0-9]|EU)-{row}-HCPortUsage:5G",
-        "connectionType": "Hosted"
+        "connectionType": "Hosted|"
       }
     },
     "rows": {
@@ -13719,6 +13875,18 @@
         "ap-southeast-2": null,
         "eu-central-1": 1.65,
         "eu-west-1": null,
+        "us-east-1": null,
+        "us-east-2": null,
+        "us-west-2": null
+      },
+      "EQLS1": {
+        "ap-northeast-1": null,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": null,
+        "eu-west-1": 1.65,
         "us-east-1": null,
         "us-east-2": null,
         "us-west-2": null

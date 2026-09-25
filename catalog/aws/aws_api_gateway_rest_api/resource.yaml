@@ -2,11 +2,14 @@ type: aws_api_gateway_rest_api
 label: API Gateway (REST)
 category: Edge
 icon: api-gateway
-description: Requests; headroom is the account throttle shared by every API in the region.
+description: "Requests in volume tiers (first 333 million, next 667 million, next 19 billion, then the rest per month). Tiers are applied per API here; AWS applies them to all REST APIs in the account and region. Headroom is the account throttle shared by every API in the region."
 kinds: [request]
 sla: aws.apigateway
 readings:
-  - requests: { name: Requests, price: aws.apigateway.rest.requests, count: total.monthly }
+  - requests: { name: Requests, price: aws.apigateway.rest.requests, count: 'min(total.monthly, 333000000)' }
+  - cost: { when: total.monthly > 333000000, name: "Requests (next 667 million)", quantity: 'min(total.monthly - 333000000, 667000000)', unit: request, price: aws.apigateway.rest.requests_tier.2 }
+  - cost: { when: total.monthly > 1000000000, name: "Requests (next 19 billion)", quantity: 'min(total.monthly - 1000000000, 19000000000)', unit: request, price: aws.apigateway.rest.requests_tier.3 }
+  - cost: { when: total.monthly > 20000000000, name: "Requests (over 20 billion)", quantity: total.monthly - 20000000000, unit: request, price: aws.apigateway.rest.requests_tier.4 }
   - rate: { name: Account throttle, unit: requests/second, quota: aws.apigateway.account_rps, peak: total.peak }
 terraform:
   frontDoor: true

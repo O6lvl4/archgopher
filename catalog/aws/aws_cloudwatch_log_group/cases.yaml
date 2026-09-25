@@ -45,3 +45,20 @@
     Log delivery to S3 or Firehose: 4.768371582
   limits:
     PutLogEvents rate: 20
+# Delivery past two tiers: 40000 GB. 10240 × 0.25 = 2560; 20480 × 0.15 = 3072; (40000 − 30720) × 0.075 = 696.
+- name: delivery class past two volume tiers (us-east-1)
+  region: us-east-1
+  attributes:
+    log_group_class: DELIVERY
+  assumptions:
+    ingestGb: 40000
+  demand:
+    ingest:
+      monthly: 0
+      peak: 0
+  costs:
+    Log delivery to S3 or Firehose: 2560
+    Log delivery (next 20 TB): 3072
+    Log delivery (next 20 TB after 30 TB): 696
+  limits:
+    PutLogEvents rate: 0

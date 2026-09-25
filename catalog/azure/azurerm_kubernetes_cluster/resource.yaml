@@ -2,7 +2,7 @@ type: azurerm_kubernetes_cluster
 label: AKS cluster
 category: Compute
 icon: kubernetes-services
-description: "The Standard tier's uptime SLA or the Premium tier's long-term support per cluster-hour (the Free tier's control plane is free), the default node pool's VM hours by size, each node's managed OS disk (Premium SSD when the size takes premium storage, else Standard HDD; ephemeral disks are free), data processed by the standard load balancer, and the DNS zone of the HTTP application routing add-on. Other node pools are azurerm_kubernetes_cluster_node_pool nodes."
+description: "The Standard tier's uptime SLA or the Premium tier's long-term support per cluster-hour (the Free tier's control plane is free), the default node pool's VM hours by size, each node's managed OS disk (Premium SSD when the size takes premium storage, else Standard HDD; ephemeral disks are free), the standard load balancer that AKS creates (its hourly fee for the first five rules, and the data it processes), and the DNS zone of the HTTP application routing add-on. Other node pools are azurerm_kubernetes_cluster_node_pool nodes."
 kinds: [request]
 sla: azure.aks
 attributes:
@@ -31,6 +31,7 @@ readings:
   - cost: { when: sku_tier == "Premium", name: Long-term support, quantity: 730, unit: cluster-hour, price: azure.aks.long_term_support }
   - cost: { name: Node hours, quantity: n * monthlyHours, unit: instance-hour, price: "azure.vm.linux.{vm_size}" }
   - cost: { when: os_disk_type == "Managed", name: "OS disks ({dtier} LRS)", quantity: n, unit: disk-month, price: "azure.disk.lrs.{dtier}" }
+  - cost: { when: load_balancer_sku == "standard", name: Load balancer (first five rules), quantity: 730, unit: hour, price: azure.lb.standard.included_rules }
   - cost: { when: load_balancer_sku == "standard" && lbGbPerMonth > 0, name: Load balancer data processed, quantity: lbGbPerMonth, unit: GB, price: azure.aks.load_balancer.data_processed }
   - cost: { when: http_application_routing_enabled, name: DNS zone, quantity: 1, unit: zone-month, price: azure.aks.dns_zone }
 terraform:

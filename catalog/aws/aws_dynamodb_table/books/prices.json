@@ -1,4 +1,325 @@
 {
+  "aws.dynamodb.ia.ondemand.read": {
+    "unit": "read request unit",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/dynamodb/pricing/",
+    "note": "Standard-Infrequent Access table class",
+    "sync": {
+      "service": "AmazonDynamoDB",
+      "filters": {
+        "group": "DDB-ReadUnitsIA",
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?IA-ReadRequestUnits"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.178,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.1695,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.178,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.178,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.178,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.1905,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.177,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.155,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.155,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.155,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.dynamodb.ia.ondemand.write": {
+    "unit": "write request unit",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/dynamodb/pricing/",
+    "note": "Standard-Infrequent Access table class",
+    "sync": {
+      "service": "AmazonDynamoDB",
+      "filters": {
+        "group": "DDB-WriteUnitsIA",
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?IA-WriteRequestUnits"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.89,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.845,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.89,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.89,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.89,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.955,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.885,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.78,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.78,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.78,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.dynamodb.ia.provisioned.rcu": {
+    "unit": "RCU-hour",
+    "source": "https://aws.amazon.com/dynamodb/pricing/",
+    "note": "Standard-Infrequent Access table class; no free tier",
+    "sync": {
+      "service": "AmazonDynamoDB",
+      "filters": {
+        "group": "DDB-ReadUnitsIA",
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?IA-ReadCapacityUnit-Hrs"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0001855,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0001762,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.000185,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.0001855,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.0001855,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0001983,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.000184,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.00016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.00016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.00016,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.dynamodb.ia.provisioned.wcu": {
+    "unit": "WCU-hour",
+    "source": "https://aws.amazon.com/dynamodb/pricing/",
+    "note": "Standard-Infrequent Access table class; no free tier",
+    "sync": {
+      "service": "AmazonDynamoDB",
+      "filters": {
+        "group": "DDB-WriteUnitsIA",
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?IA-WriteCapacityUnit-Hrs"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0009275,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0008811,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.00093,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.00093,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.00093,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.000991,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.000919,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.00081,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.00081,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.00081,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.dynamodb.ia.storage": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/dynamodb/pricing/",
+    "note": "Standard-Infrequent Access table class; no free tier",
+    "sync": {
+      "service": "AmazonDynamoDB",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?IA-TimedStorage-ByteHrs"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.114,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.1083,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.114,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.114,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.114,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.1224,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.1132,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
   "aws.dynamodb.ondemand.read": {
     "unit": "read request unit",
     "per": 1000000,

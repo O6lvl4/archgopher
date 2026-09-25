@@ -66,3 +66,18 @@
     Compute: 343.1
     Storage: 2.76
     Backup storage: 0
+- name: the 104-vCore Edsv5 in East US
+  region: eastus
+  attributes:
+    sku_name: MO_Standard_E104ids_v5
+  assumptions:
+    peakConnections: 1000
+  demand:
+    query:
+      monthly: 1e+06
+      peak: 100
+  # 730 h x 12.282; 20 GB x 0.115
+  costs:
+    Compute: 8965.86
+    Storage: 2.3
+    Backup storage: 0

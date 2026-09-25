@@ -2,13 +2,14 @@ type: aws_dynamodb_table
 label: DynamoDB
 category: Database
 icon: dynamodb
-description: Read and write units (4 KB / 1 KB steps, each operation rounded up by the size its edge gives, else the item size) and storage. Headroom is provisioned capacity or the on-demand table limit. Auto scaling is not modelled.
+description: Read and write units at the table class's prices (4 KB / 1 KB steps, each operation rounded up by the size its edge gives, else the item size) and storage. Headroom is provisioned capacity or the on-demand table limit. Auto scaling is not modelled.
 kinds: [read, write]
 sla: aws.dynamodb
 attributes:
   - { key: billing_mode, label: Billing mode, type: choice, options: [PROVISIONED, PAY_PER_REQUEST], default: PROVISIONED }
   - { key: read_capacity, label: Read capacity, type: number, unit: RCU, optional: true }
   - { key: write_capacity, label: Write capacity, type: number, unit: WCU, optional: true }
+  - { key: table_class, label: Table class, type: choice, options: [STANDARD, STANDARD_INFREQUENT_ACCESS], default: STANDARD, hint: "Standard-IA stores for less and reads and writes for more" }
 assumptions:
   - { key: itemSizeKb, label: Item size, type: number, unit: KB, optional: true, hint: "For reads and writes whose edges give no kb; an edge's kb is the data one operation reads or writes (a Query's whole result)" }
   - { key: storageGb, label: Storage, type: number, unit: GB }
@@ -22,15 +23,16 @@ let:
   - readPeak: peakUnits(demand.read, 4, itemSizeKb) * readFactor
   - writePeak: peakUnits(demand.write, 1, itemSizeKb) * writeFactor
   - onDemand: 'billing_mode == "PAY_PER_REQUEST"'
+  - classPrefix: 'table_class == "STANDARD_INFREQUENT_ACCESS" ? "ia." : ""'
 readings:
-  - storage: { name: Storage, gb: storageGb, price: aws.dynamodb.storage }
-  - cost: { when: onDemand, name: Read request units, quantity: readUnits, unit: read request unit, price: aws.dynamodb.ondemand.read }
-  - cost: { when: onDemand, name: Write request units, quantity: writeUnits, unit: write request unit, price: aws.dynamodb.ondemand.write }
+  - storage: { name: Storage, gb: storageGb, price: 'aws.dynamodb.{classPrefix}storage' }
+  - cost: { when: onDemand, name: Read request units, quantity: readUnits, unit: read request unit, price: 'aws.dynamodb.{classPrefix}ondemand.read' }
+  - cost: { when: onDemand, name: Write request units, quantity: writeUnits, unit: write request unit, price: 'aws.dynamodb.{classPrefix}ondemand.write' }
   - rate: { when: onDemand, name: Table reads, unit: read units/second, quota: aws.dynamodb.ondemand.table_read, peak: readPeak }
   - rate: { when: onDemand, name: Table writes, unit: write units/second, quota: aws.dynamodb.ondemand.table_write, peak: writePeak }
   - fail: { when: "!onDemand && (read_capacity == nil || write_capacity == nil)", message: provisioned tables need read_capacity and write_capacity }
-  - capacity: { when: "!onDemand", name: Provisioned reads, units: read_capacity, unit: RCU-hour, price: aws.dynamodb.provisioned.rcu }
-  - capacity: { when: "!onDemand", name: Provisioned writes, units: write_capacity, unit: WCU-hour, price: aws.dynamodb.provisioned.wcu }
+  - capacity: { when: "!onDemand", name: Provisioned reads, units: read_capacity, unit: RCU-hour, price: 'aws.dynamodb.{classPrefix}provisioned.rcu' }
+  - capacity: { when: "!onDemand", name: Provisioned writes, units: write_capacity, unit: WCU-hour, price: 'aws.dynamodb.{classPrefix}provisioned.wcu' }
   - limit: { when: "!onDemand", name: Provisioned reads, demand: readPeak, unit: read units/second, capacity: read_capacity }
   - limit: { when: "!onDemand", name: Provisioned writes, demand: writePeak, unit: write units/second, capacity: write_capacity }
 terraform:

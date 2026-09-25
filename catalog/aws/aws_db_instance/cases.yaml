@@ -67,6 +67,16 @@
     Storage (gp3): 13.8
     Database Insights (advanced): 18.25
     Extended Support (year 3): 350.4
+- name: Multi-AZ on Extended Support bills the standby too (ap-northeast-1)
+  region: ap-northeast-1
+  attributes: { engine: postgres, instance_class: db.m6g.large, storage_type: gp3, allocated_storage: 100, multi_az: true }
+  assumptions: { vcpus: 2, extendedSupport: year1_2 }
+  demand: { query: { monthly: 1e+06, peak: 100 } }
+  # Extended Support: 2 vCPUs x 2 instances x 730 h x 0.12
+  costs:
+    Instance (db.m6g.large, Multi-AZ): 321.93
+    Storage (gp3): 27.6
+    Extended Support (years 1-2): 350.4
 - name: magnetic storage without ioPerQuery (us-east-1)
   region: us-east-1
   attributes: { engine: postgres, instance_class: db.t3.micro, storage_type: standard, allocated_storage: 50 }

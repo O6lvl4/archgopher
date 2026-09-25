@@ -2,7 +2,7 @@ type: aws_db_instance
 label: RDS instance
 category: Database
 icon: rds
-description: "Instance-hours by engine, license and deployment (Single-AZ, or Multi-AZ with one standby), allocated storage, provisioned IOPS and gp3 throughput above the included baseline, magnetic I/O, backup storage beyond the free allowance, surplus CPU credits, Database Insights and Extended Support per vCPU. Headroom is peak storage IOPS against what the volume provides. On-demand prices; Aurora engines are aws_rds_cluster_instance."
+description: "Instance-hours by engine, license and deployment (Single-AZ, or Multi-AZ with one standby), allocated storage, provisioned IOPS and gp3 throughput above the included baseline, magnetic I/O, backup storage beyond the free allowance, surplus CPU credits, Database Insights and Extended Support per vCPU (a Multi-AZ standby is billed too). Headroom is peak storage IOPS against what the volume provides. On-demand prices; Aurora engines are aws_rds_cluster_instance."
 kinds: [query]
 sla: aws.rds
 attributes:
@@ -64,7 +64,7 @@ readings:
   - cost: { when: longRetention, name: Performance Insights retention (first month), quantity: vcpu * 730, unit: vCPU-hour, price: aws.rds.insights.standard.first_month }
   - cost: { when: longRetention && retentionMonths > 1, name: "Performance Insights retention ({retentionMonths - 1} more months)", quantity: vcpu * 730 * (retentionMonths - 1), unit: vCPU-hour, price: aws.rds.insights.standard.additional_month }
   - cost: { when: insightsApiCalls > 0, name: Database Insights API, quantity: insightsApiCalls, unit: API call, price: aws.rds.insights.api }
-  - cost: { when: 'extendedSupport != "none"', name: "Extended Support ({extendedSupport == \"year3\" ? \"year 3\" : \"years 1-2\"})", quantity: vcpu * 730, unit: vCPU-hour, price: "aws.rds.extended_support.{extendedSupport}" }
+  - cost: { when: 'extendedSupport != "none"', name: "Extended Support ({extendedSupport == \"year3\" ? \"year 3\" : \"years 1-2\"})", quantity: 'vcpu * 730 * (multi_az ? 2 : 1)', unit: vCPU-hour, price: "aws.rds.extended_support.{extendedSupport}" }
   - cost: { when: manage_master_user_password, name: Master password secret, quantity: 1, unit: secret-month, price: aws.secretsmanager.secret }
   - limit: { when: 'ioPerQuery != nil && st != "standard"', name: Storage IOPS, demand: 'total.peak * (ioPerQuery ?? 0)', unit: IOPS, capacity: volumeIops }
 terraform:

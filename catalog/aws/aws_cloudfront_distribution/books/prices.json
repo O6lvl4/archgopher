@@ -311,6 +311,864 @@
       }
     }
   },
+  "aws.cloudfront.transfer_out_tier": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/cloudfront/pricing/",
+    "note": "Data transfer out to viewers after the first 10 TB, by price zone and volume tier, per account a month: 2 is the next 40 TB, 3 the next 100 TB, 4 the next 350 TB, 5 the next 524 TB, 6 the next 4 PB, 7 over 5 PB",
+    "sync": {
+      "service": "AmazonCloudFront",
+      "offerRegion": "aws-other",
+      "filters": {
+        "usagetype": "{part}-DataTransfer-Out-Bytes"
+      }
+    },
+    "rows": {
+      "ap.2": {
+        "*": 0.1
+      },
+      "ap.3": {
+        "*": 0.095
+      },
+      "ap.4": {
+        "*": 0.09
+      },
+      "ap.5": {
+        "*": 0.08
+      },
+      "ap.6": {
+        "*": 0.07
+      },
+      "ap.7": {
+        "*": 0.06
+      },
+      "au.2": {
+        "*": 0.098
+      },
+      "au.3": {
+        "*": 0.094
+      },
+      "au.4": {
+        "*": 0.092
+      },
+      "au.5": {
+        "*": 0.09
+      },
+      "au.6": {
+        "*": 0.085
+      },
+      "au.7": {
+        "*": 0.08
+      },
+      "ca.2": {
+        "*": 0.08
+      },
+      "ca.3": {
+        "*": 0.06
+      },
+      "ca.4": {
+        "*": 0.04
+      },
+      "ca.5": {
+        "*": 0.03
+      },
+      "ca.6": {
+        "*": 0.025
+      },
+      "ca.7": {
+        "*": 0.02
+      },
+      "eu.2": {
+        "*": 0.08
+      },
+      "eu.3": {
+        "*": 0.06
+      },
+      "eu.4": {
+        "*": 0.04
+      },
+      "eu.5": {
+        "*": 0.03
+      },
+      "eu.6": {
+        "*": 0.025
+      },
+      "eu.7": {
+        "*": 0.02
+      },
+      "in.2": {
+        "*": 0.085
+      },
+      "in.3": {
+        "*": 0.082
+      },
+      "in.4": {
+        "*": 0.08
+      },
+      "in.5": {
+        "*": 0.078
+      },
+      "in.6": {
+        "*": 0.075
+      },
+      "in.7": {
+        "*": 0.072
+      },
+      "jp.2": {
+        "*": 0.089
+      },
+      "jp.3": {
+        "*": 0.086
+      },
+      "jp.4": {
+        "*": 0.084
+      },
+      "jp.5": {
+        "*": 0.08
+      },
+      "jp.6": {
+        "*": 0.07
+      },
+      "jp.7": {
+        "*": 0.06
+      },
+      "me.2": {
+        "*": 0.105
+      },
+      "me.3": {
+        "*": 0.09
+      },
+      "me.4": {
+        "*": 0.08
+      },
+      "me.5": {
+        "*": 0.06
+      },
+      "me.6": {
+        "*": 0.05
+      },
+      "me.7": {
+        "*": 0.04
+      },
+      "sa.2": {
+        "*": 0.105
+      },
+      "sa.3": {
+        "*": 0.09
+      },
+      "sa.4": {
+        "*": 0.08
+      },
+      "sa.5": {
+        "*": 0.06
+      },
+      "sa.6": {
+        "*": 0.05
+      },
+      "sa.7": {
+        "*": 0.04
+      },
+      "us.2": {
+        "*": 0.08
+      },
+      "us.3": {
+        "*": 0.06
+      },
+      "us.4": {
+        "*": 0.04
+      },
+      "us.5": {
+        "*": 0.03
+      },
+      "us.6": {
+        "*": 0.025
+      },
+      "us.7": {
+        "*": 0.02
+      },
+      "za.2": {
+        "*": 0.105
+      },
+      "za.3": {
+        "*": 0.09
+      },
+      "za.4": {
+        "*": 0.08
+      },
+      "za.5": {
+        "*": 0.06
+      },
+      "za.6": {
+        "*": 0.05
+      },
+      "za.7": {
+        "*": 0.04
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25",
+    "compose": {
+      "ap.2": {
+        "parts": [
+          {
+            "part": "AP",
+            "times": 1,
+            "with": {
+              "tier": "10240"
+            }
+          }
+        ]
+      },
+      "ap.3": {
+        "parts": [
+          {
+            "part": "AP",
+            "times": 1,
+            "with": {
+              "tier": "51200"
+            }
+          }
+        ]
+      },
+      "ap.4": {
+        "parts": [
+          {
+            "part": "AP",
+            "times": 1,
+            "with": {
+              "tier": "153600"
+            }
+          }
+        ]
+      },
+      "ap.5": {
+        "parts": [
+          {
+            "part": "AP",
+            "times": 1,
+            "with": {
+              "tier": "512000"
+            }
+          }
+        ]
+      },
+      "ap.6": {
+        "parts": [
+          {
+            "part": "AP",
+            "times": 1,
+            "with": {
+              "tier": "1048576"
+            }
+          }
+        ]
+      },
+      "ap.7": {
+        "parts": [
+          {
+            "part": "AP",
+            "times": 1,
+            "with": {
+              "tier": "5242880"
+            }
+          }
+        ]
+      },
+      "au.2": {
+        "parts": [
+          {
+            "part": "AU",
+            "times": 1,
+            "with": {
+              "tier": "10240"
+            }
+          }
+        ]
+      },
+      "au.3": {
+        "parts": [
+          {
+            "part": "AU",
+            "times": 1,
+            "with": {
+              "tier": "51200"
+            }
+          }
+        ]
+      },
+      "au.4": {
+        "parts": [
+          {
+            "part": "AU",
+            "times": 1,
+            "with": {
+              "tier": "153600"
+            }
+          }
+        ]
+      },
+      "au.5": {
+        "parts": [
+          {
+            "part": "AU",
+            "times": 1,
+            "with": {
+              "tier": "512000"
+            }
+          }
+        ]
+      },
+      "au.6": {
+        "parts": [
+          {
+            "part": "AU",
+            "times": 1,
+            "with": {
+              "tier": "1048576"
+            }
+          }
+        ]
+      },
+      "au.7": {
+        "parts": [
+          {
+            "part": "AU",
+            "times": 1,
+            "with": {
+              "tier": "5242880"
+            }
+          }
+        ]
+      },
+      "ca.2": {
+        "parts": [
+          {
+            "part": "CA",
+            "times": 1,
+            "with": {
+              "tier": "10240"
+            }
+          }
+        ]
+      },
+      "ca.3": {
+        "parts": [
+          {
+            "part": "CA",
+            "times": 1,
+            "with": {
+              "tier": "51200"
+            }
+          }
+        ]
+      },
+      "ca.4": {
+        "parts": [
+          {
+            "part": "CA",
+            "times": 1,
+            "with": {
+              "tier": "153600"
+            }
+          }
+        ]
+      },
+      "ca.5": {
+        "parts": [
+          {
+            "part": "CA",
+            "times": 1,
+            "with": {
+              "tier": "512000"
+            }
+          }
+        ]
+      },
+      "ca.6": {
+        "parts": [
+          {
+            "part": "CA",
+            "times": 1,
+            "with": {
+              "tier": "1048576"
+            }
+          }
+        ]
+      },
+      "ca.7": {
+        "parts": [
+          {
+            "part": "CA",
+            "times": 1,
+            "with": {
+              "tier": "5242880"
+            }
+          }
+        ]
+      },
+      "eu.2": {
+        "parts": [
+          {
+            "part": "EU",
+            "times": 1,
+            "with": {
+              "tier": "10240"
+            }
+          }
+        ]
+      },
+      "eu.3": {
+        "parts": [
+          {
+            "part": "EU",
+            "times": 1,
+            "with": {
+              "tier": "51200"
+            }
+          }
+        ]
+      },
+      "eu.4": {
+        "parts": [
+          {
+            "part": "EU",
+            "times": 1,
+            "with": {
+              "tier": "153600"
+            }
+          }
+        ]
+      },
+      "eu.5": {
+        "parts": [
+          {
+            "part": "EU",
+            "times": 1,
+            "with": {
+              "tier": "512000"
+            }
+          }
+        ]
+      },
+      "eu.6": {
+        "parts": [
+          {
+            "part": "EU",
+            "times": 1,
+            "with": {
+              "tier": "1048576"
+            }
+          }
+        ]
+      },
+      "eu.7": {
+        "parts": [
+          {
+            "part": "EU",
+            "times": 1,
+            "with": {
+              "tier": "5242880"
+            }
+          }
+        ]
+      },
+      "in.2": {
+        "parts": [
+          {
+            "part": "IN",
+            "times": 1,
+            "with": {
+              "tier": "10240"
+            }
+          }
+        ]
+      },
+      "in.3": {
+        "parts": [
+          {
+            "part": "IN",
+            "times": 1,
+            "with": {
+              "tier": "51200"
+            }
+          }
+        ]
+      },
+      "in.4": {
+        "parts": [
+          {
+            "part": "IN",
+            "times": 1,
+            "with": {
+              "tier": "153600"
+            }
+          }
+        ]
+      },
+      "in.5": {
+        "parts": [
+          {
+            "part": "IN",
+            "times": 1,
+            "with": {
+              "tier": "512000"
+            }
+          }
+        ]
+      },
+      "in.6": {
+        "parts": [
+          {
+            "part": "IN",
+            "times": 1,
+            "with": {
+              "tier": "1048576"
+            }
+          }
+        ]
+      },
+      "in.7": {
+        "parts": [
+          {
+            "part": "IN",
+            "times": 1,
+            "with": {
+              "tier": "5242880"
+            }
+          }
+        ]
+      },
+      "jp.2": {
+        "parts": [
+          {
+            "part": "JP",
+            "times": 1,
+            "with": {
+              "tier": "10240"
+            }
+          }
+        ]
+      },
+      "jp.3": {
+        "parts": [
+          {
+            "part": "JP",
+            "times": 1,
+            "with": {
+              "tier": "51200"
+            }
+          }
+        ]
+      },
+      "jp.4": {
+        "parts": [
+          {
+            "part": "JP",
+            "times": 1,
+            "with": {
+              "tier": "153600"
+            }
+          }
+        ]
+      },
+      "jp.5": {
+        "parts": [
+          {
+            "part": "JP",
+            "times": 1,
+            "with": {
+              "tier": "512000"
+            }
+          }
+        ]
+      },
+      "jp.6": {
+        "parts": [
+          {
+            "part": "JP",
+            "times": 1,
+            "with": {
+              "tier": "1048576"
+            }
+          }
+        ]
+      },
+      "jp.7": {
+        "parts": [
+          {
+            "part": "JP",
+            "times": 1,
+            "with": {
+              "tier": "5242880"
+            }
+          }
+        ]
+      },
+      "me.2": {
+        "parts": [
+          {
+            "part": "ME",
+            "times": 1,
+            "with": {
+              "tier": "10240"
+            }
+          }
+        ]
+      },
+      "me.3": {
+        "parts": [
+          {
+            "part": "ME",
+            "times": 1,
+            "with": {
+              "tier": "51200"
+            }
+          }
+        ]
+      },
+      "me.4": {
+        "parts": [
+          {
+            "part": "ME",
+            "times": 1,
+            "with": {
+              "tier": "153600"
+            }
+          }
+        ]
+      },
+      "me.5": {
+        "parts": [
+          {
+            "part": "ME",
+            "times": 1,
+            "with": {
+              "tier": "512000"
+            }
+          }
+        ]
+      },
+      "me.6": {
+        "parts": [
+          {
+            "part": "ME",
+            "times": 1,
+            "with": {
+              "tier": "1048576"
+            }
+          }
+        ]
+      },
+      "me.7": {
+        "parts": [
+          {
+            "part": "ME",
+            "times": 1,
+            "with": {
+              "tier": "5242880"
+            }
+          }
+        ]
+      },
+      "sa.2": {
+        "parts": [
+          {
+            "part": "SA",
+            "times": 1,
+            "with": {
+              "tier": "10240"
+            }
+          }
+        ]
+      },
+      "sa.3": {
+        "parts": [
+          {
+            "part": "SA",
+            "times": 1,
+            "with": {
+              "tier": "51200"
+            }
+          }
+        ]
+      },
+      "sa.4": {
+        "parts": [
+          {
+            "part": "SA",
+            "times": 1,
+            "with": {
+              "tier": "153600"
+            }
+          }
+        ]
+      },
+      "sa.5": {
+        "parts": [
+          {
+            "part": "SA",
+            "times": 1,
+            "with": {
+              "tier": "512000"
+            }
+          }
+        ]
+      },
+      "sa.6": {
+        "parts": [
+          {
+            "part": "SA",
+            "times": 1,
+            "with": {
+              "tier": "1048576"
+            }
+          }
+        ]
+      },
+      "sa.7": {
+        "parts": [
+          {
+            "part": "SA",
+            "times": 1,
+            "with": {
+              "tier": "5242880"
+            }
+          }
+        ]
+      },
+      "us.2": {
+        "parts": [
+          {
+            "part": "US",
+            "times": 1,
+            "with": {
+              "tier": "10240"
+            }
+          }
+        ]
+      },
+      "us.3": {
+        "parts": [
+          {
+            "part": "US",
+            "times": 1,
+            "with": {
+              "tier": "51200"
+            }
+          }
+        ]
+      },
+      "us.4": {
+        "parts": [
+          {
+            "part": "US",
+            "times": 1,
+            "with": {
+              "tier": "153600"
+            }
+          }
+        ]
+      },
+      "us.5": {
+        "parts": [
+          {
+            "part": "US",
+            "times": 1,
+            "with": {
+              "tier": "512000"
+            }
+          }
+        ]
+      },
+      "us.6": {
+        "parts": [
+          {
+            "part": "US",
+            "times": 1,
+            "with": {
+              "tier": "1048576"
+            }
+          }
+        ]
+      },
+      "us.7": {
+        "parts": [
+          {
+            "part": "US",
+            "times": 1,
+            "with": {
+              "tier": "5242880"
+            }
+          }
+        ]
+      },
+      "za.2": {
+        "parts": [
+          {
+            "part": "ZA",
+            "times": 1,
+            "with": {
+              "tier": "10240"
+            }
+          }
+        ]
+      },
+      "za.3": {
+        "parts": [
+          {
+            "part": "ZA",
+            "times": 1,
+            "with": {
+              "tier": "51200"
+            }
+          }
+        ]
+      },
+      "za.4": {
+        "parts": [
+          {
+            "part": "ZA",
+            "times": 1,
+            "with": {
+              "tier": "153600"
+            }
+          }
+        ]
+      },
+      "za.5": {
+        "parts": [
+          {
+            "part": "ZA",
+            "times": 1,
+            "with": {
+              "tier": "512000"
+            }
+          }
+        ]
+      },
+      "za.6": {
+        "parts": [
+          {
+            "part": "ZA",
+            "times": 1,
+            "with": {
+              "tier": "1048576"
+            }
+          }
+        ]
+      },
+      "za.7": {
+        "parts": [
+          {
+            "part": "ZA",
+            "times": 1,
+            "with": {
+              "tier": "5242880"
+            }
+          }
+        ]
+      }
+    }
+  },
   "aws.cloudfront.us.https_requests": {
     "unit": "request",
     "per": 10000,

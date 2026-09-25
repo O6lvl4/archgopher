@@ -199,6 +199,18 @@
       }
     },
     "rows": {
+      "X1": {
+        "australiaeast": 0.181,
+        "centralindia": 0.152,
+        "eastus": 0.146,
+        "eastus2": 0.146,
+        "germanywestcentral": 0.174,
+        "japaneast": 0.187,
+        "koreacentral": 0.177,
+        "northeurope": 0.161,
+        "southeastasia": 0.181,
+        "westus2": 0.146
+      },
       "X10": {
         "australiaeast": 0.723,
         "centralindia": 0.606,

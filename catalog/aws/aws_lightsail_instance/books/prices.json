@@ -59,6 +59,54 @@
         "us-east-2": 0.01075,
         "us-west-2": 0.01075
       },
+      "128GB": {
+        "ap-northeast-1": 1.18817,
+        "ap-northeast-2": 1.18817,
+        "ap-south-1": 1.18817,
+        "ap-southeast-1": 1.18817,
+        "ap-southeast-2": 1.18817,
+        "eu-central-1": 1.18817,
+        "eu-west-1": 1.18817,
+        "us-east-1": 1.18817,
+        "us-east-2": 1.18817,
+        "us-west-2": 1.18817
+      },
+      "128GB_IPv6": {
+        "ap-northeast-1": 1.18279,
+        "ap-northeast-2": 1.18279,
+        "ap-south-1": 1.18279,
+        "ap-southeast-1": 1.18279,
+        "ap-southeast-2": 1.18279,
+        "eu-central-1": 1.18279,
+        "eu-west-1": 1.18279,
+        "us-east-1": 1.18279,
+        "us-east-2": 1.18279,
+        "us-west-2": 1.18279
+      },
+      "128GB_win": {
+        "ap-northeast-1": 1.68548,
+        "ap-northeast-2": 1.68548,
+        "ap-south-1": 1.68548,
+        "ap-southeast-1": 1.68548,
+        "ap-southeast-2": 1.68548,
+        "eu-central-1": 1.68548,
+        "eu-west-1": 1.68548,
+        "us-east-1": 1.68548,
+        "us-east-2": 1.68548,
+        "us-west-2": 1.68548
+      },
+      "128GB_win_IPv6": {
+        "ap-northeast-1": 1.6801,
+        "ap-northeast-2": 1.6801,
+        "ap-south-1": 1.6801,
+        "ap-southeast-1": 1.6801,
+        "ap-southeast-2": 1.6801,
+        "eu-central-1": 1.6801,
+        "eu-west-1": 1.6801,
+        "us-east-1": 1.6801,
+        "us-east-2": 1.6801,
+        "us-west-2": 1.6801
+      },
       "16GB": {
         "ap-northeast-1": 0.1129,
         "ap-northeast-2": 0.1129,
@@ -107,6 +155,54 @@
         "us-east-2": 0.16129,
         "us-west-2": 0.16129
       },
+      "192GB": {
+        "ap-northeast-1": 1.77956,
+        "ap-northeast-2": 1.77956,
+        "ap-south-1": 1.77956,
+        "ap-southeast-1": 1.77956,
+        "ap-southeast-2": 1.77956,
+        "eu-central-1": 1.77956,
+        "eu-west-1": 1.77956,
+        "us-east-1": 1.77956,
+        "us-east-2": 1.77956,
+        "us-west-2": 1.77956
+      },
+      "192GB_IPv6": {
+        "ap-northeast-1": 1.77419,
+        "ap-northeast-2": 1.77419,
+        "ap-south-1": 1.77419,
+        "ap-southeast-1": 1.77419,
+        "ap-southeast-2": 1.77419,
+        "eu-central-1": 1.77419,
+        "eu-west-1": 1.77419,
+        "us-east-1": 1.77419,
+        "us-east-2": 1.77419,
+        "us-west-2": 1.77419
+      },
+      "192GB_win": {
+        "ap-northeast-1": 2.53225,
+        "ap-northeast-2": 2.53225,
+        "ap-south-1": 2.53225,
+        "ap-southeast-1": 2.53225,
+        "ap-southeast-2": 2.53225,
+        "eu-central-1": 2.53225,
+        "eu-west-1": 2.53225,
+        "us-east-1": 2.53225,
+        "us-east-2": 2.53225,
+        "us-west-2": 2.53225
+      },
+      "192GB_win_IPv6": {
+        "ap-northeast-1": 2.52688,
+        "ap-northeast-2": 2.52688,
+        "ap-south-1": 2.52688,
+        "ap-southeast-1": 2.52688,
+        "ap-southeast-2": 2.52688,
+        "eu-central-1": 2.52688,
+        "eu-west-1": 2.52688,
+        "us-east-1": 2.52688,
+        "us-east-2": 2.52688,
+        "us-west-2": 2.52688
+      },
       "1GB": {
         "ap-northeast-1": 0.0094,
         "ap-northeast-2": 0.0094,
@@ -154,6 +250,54 @@
         "us-east-1": 0.01612,
         "us-east-2": 0.01612,
         "us-west-2": 0.01612
+      },
+      "256GB": {
+        "ap-northeast-1": 2.37096,
+        "ap-northeast-2": 2.37096,
+        "ap-south-1": 2.37096,
+        "ap-southeast-1": 2.37096,
+        "ap-southeast-2": 2.37096,
+        "eu-central-1": 2.37096,
+        "eu-west-1": 2.37096,
+        "us-east-1": 2.37096,
+        "us-east-2": 2.37096,
+        "us-west-2": 2.37096
+      },
+      "256GB_IPv6": {
+        "ap-northeast-1": 2.36559,
+        "ap-northeast-2": 2.36559,
+        "ap-south-1": 2.36559,
+        "ap-southeast-1": 2.36559,
+        "ap-southeast-2": 2.36559,
+        "eu-central-1": 2.36559,
+        "eu-west-1": 2.36559,
+        "us-east-1": 2.36559,
+        "us-east-2": 2.36559,
+        "us-west-2": 2.36559
+      },
+      "256GB_win": {
+        "ap-northeast-1": 3.36559,
+        "ap-northeast-2": 3.36559,
+        "ap-south-1": 3.36559,
+        "ap-southeast-1": 3.36559,
+        "ap-southeast-2": 3.36559,
+        "eu-central-1": 3.36559,
+        "eu-west-1": 3.36559,
+        "us-east-1": 3.36559,
+        "us-east-2": 3.36559,
+        "us-west-2": 3.36559
+      },
+      "256GB_win_IPv6": {
+        "ap-northeast-1": 3.36021,
+        "ap-northeast-2": 3.36021,
+        "ap-south-1": 3.36021,
+        "ap-southeast-1": 3.36021,
+        "ap-southeast-2": 3.36021,
+        "eu-central-1": 3.36021,
+        "eu-west-1": 3.36021,
+        "us-east-1": 3.36021,
+        "us-east-2": 3.36021,
+        "us-west-2": 3.36021
       },
       "2GB": {
         "ap-northeast-1": 0.01612,

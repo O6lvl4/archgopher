@@ -25,3 +25,18 @@
     Publishes: 2
   limits:
     Publish rate: 40
+- name: FIFO topic publishes (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    fifo_topic: true
+  assumptions:
+    messageKb: 70
+  demand:
+    publish:
+        monthly: 2e+06
+        peak: 40
+  costs:
+    # 2 chunks of 64 KB x 2,000,000 = 4 M requests x $0.39 per million
+    Publishes (FIFO): 1.56
+    # 70 KB x 2,000,000 / 1,048,576 = 133.514404 GB x $0.0221
+    Publish payload (FIFO): 2.950668335

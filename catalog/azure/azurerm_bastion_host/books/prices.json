@@ -67,7 +67,7 @@
   "azure.bastion.data_out": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/azure-bastion/",
-    "note": "Outbound data transfer through the host, first paid tier; the first 5 GB a month are free (ignored, as every free tier)",
+    "note": "Outbound data transfer through the host, first paid tier (Basic, Standard and Premium list the same price; the Standard meter is read); the first 5 GB a month are free (ignored, as every free tier)",
     "sync": {
       "source": "azure",
       "service": "Azure Bastion",

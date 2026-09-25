@@ -2,7 +2,7 @@ type: aws_cloudfront_distribution
 label: CloudFront
 category: Edge
 icon: cloudfront
-description: "HTTPS requests and transfer out, priced by where viewers are: by default the CloudFront price zone of the region. Free tier is ignored."
+description: "HTTPS requests and transfer out, priced by where viewers are: by default the CloudFront price zone of the region. Transfer out is in volume tiers (first 10 TB, next 40 TB, next 100 TB, next 350 TB, next 524 TB, next 4 PB, then the rest per month); tiers are applied per distribution here, while AWS applies them per price zone to all distributions in the account. Free tier is ignored."
 kinds: [request]
 sla: aws.cloudfront
 assumptions:
@@ -21,9 +21,16 @@ let:
       region startsWith "sa-" ? "sa" :
       region startsWith "af-" ? "za" :
       region startsWith "me-" ? "me" : "us"
+  - gb: total.monthly * responseKb / 1024 / 1024
 readings:
   - requests: { name: HTTPS requests, price: "aws.cloudfront.{zone}.https_requests", count: total.monthly }
-  - cost: { name: Transfer out, quantity: total.monthly * responseKb / 1024 / 1024, unit: GB, price: "aws.cloudfront.{zone}.transfer_out" }
+  - cost: { name: Transfer out, quantity: 'min(gb, 10240)', unit: GB, price: "aws.cloudfront.{zone}.transfer_out" }
+  - cost: { when: gb > 10240, name: Transfer out (next 40 TB), quantity: 'min(gb - 10240, 40960)', unit: GB, price: "aws.cloudfront.transfer_out_tier.{zone}.2" }
+  - cost: { when: gb > 51200, name: Transfer out (next 100 TB), quantity: 'min(gb - 51200, 102400)', unit: GB, price: "aws.cloudfront.transfer_out_tier.{zone}.3" }
+  - cost: { when: gb > 153600, name: Transfer out (next 350 TB), quantity: 'min(gb - 153600, 358400)', unit: GB, price: "aws.cloudfront.transfer_out_tier.{zone}.4" }
+  - cost: { when: gb > 512000, name: Transfer out (next 524 TB), quantity: 'min(gb - 512000, 536576)', unit: GB, price: "aws.cloudfront.transfer_out_tier.{zone}.5" }
+  - cost: { when: gb > 1048576, name: Transfer out (next 4 PB), quantity: 'min(gb - 1048576, 4194304)', unit: GB, price: "aws.cloudfront.transfer_out_tier.{zone}.6" }
+  - cost: { when: gb > 5242880, name: Transfer out (over 5 PB), quantity: gb - 5242880, unit: GB, price: "aws.cloudfront.transfer_out_tier.{zone}.7" }
   - rate: { name: Requests per distribution, unit: requests/second, quota: aws.cloudfront.distribution_rps, peak: total.peak }
 terraform:
   # The outermost front door: references to it (callback URLs, links in emails) are mentions.

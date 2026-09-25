@@ -137,6 +137,7 @@
     "note": "Integration service environment, Premium scale unit, per unit",
     "sync": {
       "filters": {
+        "meterName": "Scale Unit",
         "productName": "Logic Apps Integration Service Environment",
         "skuName": "Scale"
       },

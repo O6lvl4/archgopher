@@ -2,11 +2,12 @@
   "azure.logicapps.enterprise_connector": {
     "unit": "call",
     "source": "https://azure.microsoft.com/pricing/details/logic/",
-    "note": "Managed enterprise connector call from a Standard workflow",
+    "note": "Managed enterprise connector call from a Standard workflow, billed at the Consumption plan's connector rate (not the Connectors SKU, which differs outside the US)",
     "sync": {
       "filters": {
         "meterName": "Consumption Enterprise Connector Actions",
-        "productName": "Logic Apps"
+        "productName": "Logic Apps",
+        "skuName": "Consumption"
       },
       "service": "Logic Apps",
       "source": "azure"
@@ -199,11 +200,12 @@
   "azure.logicapps.standard_connector": {
     "unit": "call",
     "source": "https://azure.microsoft.com/pricing/details/logic/",
-    "note": "Managed standard connector call from a Standard workflow",
+    "note": "Managed standard connector call from a Standard workflow, billed at the Consumption plan's connector rate (not the Connectors SKU, which differs outside the US)",
     "sync": {
       "filters": {
         "meterName": "Consumption Standard Connector Actions",
-        "productName": "Logic Apps"
+        "productName": "Logic Apps",
+        "skuName": "Consumption"
       },
       "service": "Logic Apps",
       "source": "azure"

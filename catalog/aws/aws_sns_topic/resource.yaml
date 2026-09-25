@@ -2,14 +2,18 @@ type: aws_sns_topic
 label: SNS
 category: Messaging
 icon: sns
-description: Publishes in 64 KB chunks; deliveries are read on each subscription. Headroom is the regional publish rate.
+description: "Publishes in 64 KB chunks; a FIFO topic bills its own publish price plus each GB published. Deliveries are read on each subscription. Headroom is the regional publish rate of standard topics."
 kinds: [publish]
 sla: aws.sns
+attributes:
+  - { key: fifo_topic, label: FIFO, type: boolean, default: false }
 assumptions:
   - { key: messageKb, label: Message size, type: number, unit: KB, default: 1, hint: "Billed in 64 KB chunks; for messages whose edges give no kb" }
 readings:
-  - requests: { name: Publishes, price: aws.sns.publish, count: 'units(total, 64, messageKb)' }
-  - rate: { name: Publish rate, unit: requests/second, quota: aws.sns.publish_rps, peak: total.peak }
+  - requests: { when: '!fifo_topic', name: Publishes, price: aws.sns.publish, count: 'units(total, 64, messageKb)' }
+  - requests: { when: fifo_topic, name: Publishes (FIFO), price: aws.sns.fifo.publish, count: 'units(total, 64, messageKb)' }
+  - cost: { when: fifo_topic, name: Publish payload (FIFO), quantity: 'units(total, 1, messageKb) / 1048576', unit: GB, price: aws.sns.fifo.publish_payload }
+  - rate: { when: '!fifo_topic', name: Publish rate, unit: requests/second, quota: aws.sns.publish_rps, peak: total.peak }
 terraform:
   links:
     # Each subscription is a node between the topic and its endpoint.

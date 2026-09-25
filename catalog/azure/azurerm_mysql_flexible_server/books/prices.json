@@ -983,6 +983,18 @@
       "source": "azure"
     },
     "rows": {
+      "104": {
+        "australiaeast": 14.747,
+        "centralindia": 14.009,
+        "eastus": 12.282,
+        "eastus2": 12.282,
+        "germanywestcentral": 14.862,
+        "japaneast": 14.747,
+        "koreacentral": 14.747,
+        "northeurope": 13.634,
+        "southeastasia": 14.747,
+        "westus2": 12.282
+      },
       "16": {
         "australiaeast": 2.269,
         "centralindia": 2.155,

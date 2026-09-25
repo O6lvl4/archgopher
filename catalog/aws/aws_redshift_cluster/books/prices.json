@@ -194,6 +194,70 @@
       }
     }
   },
+  "aws.redshift.backup.rg": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/redshift/pricing/",
+    "note": "Backup storage of RG clusters beyond the free allowance, one price without volume tiers",
+    "sync": {
+      "service": "AmazonRedshift",
+      "filters": {
+        "productFamily": "Storage Snapshot",
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-Redshift:PaidUniqueSnapshots:RG"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0245,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
   "aws.redshift.concurrency_scaling": {
     "unit": "node-second",
     "source": "https://aws.amazon.com/redshift/pricing/",

@@ -10,8 +10,8 @@
       peak: 10
   costs:
     Base fee: 35
-    Requests: 1.08
-    Transfer to clients: 5.483627319
+    Requests (first 250 million): 1.08
+    Transfer to clients (first 10 TB): 5.483627319
 - name: Premium in East US for viewers in India
   region: eastus
   attributes:
@@ -25,8 +25,8 @@
       peak: 10
   costs:
     Base fee: 330
-    Requests: 1.68
-    Transfer to clients: 5.197525024
+    Requests (first 250 million): 1.68
+    Transfer to clients (first 10 TB): 5.197525024
 - name: Standard in East US picks the North America and Europe zone
   region: eastus
   assumptions:
@@ -37,5 +37,26 @@
       peak: 10
   costs:
     Base fee: 35
-    Requests: 0.9
-    Transfer to clients: 3.933906555
+    Requests (first 250 million): 0.9
+    Transfer to clients (first 10 TB): 3.933906555
+- name: Standard in East US past the first volume tiers
+  region: eastus
+  assumptions:
+    responseKb: 200
+  demand:
+    request:
+      monthly: 400000000.0
+      peak: 200
+  # 400M requests × 200 KB = 76,293.9453125 GB
+  costs:
+    Base fee: 35
+    # 250M / 10K × $0.009
+    Requests (first 250 million): 225
+    # 150M / 10K × $0.0081
+    Requests (next 750 million): 121.5
+    # 10,000 GB × $0.0825
+    Transfer to clients (first 10 TB): 825
+    # 40,000 GB × $0.065002
+    Transfer to clients (next 40 TB): 2600.08
+    # 26,293.9453125 GB × $0.056001
+    Transfer to clients (next 100 TB): 1472.487231445

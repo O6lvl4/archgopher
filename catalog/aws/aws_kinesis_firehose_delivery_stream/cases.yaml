@@ -85,3 +85,19 @@
     Direct PUT requests: 1
     Direct PUT throughput: 0.000976562
   error: set vpcAzs
+- name: CloudWatch vended logs as source, billed by bytes (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    vendedLogs: true
+    recordKb: 1
+  demand:
+    put:
+      monthly: 104857600
+      peak: 10
+  # 104857600 records x 1 KB = 100 GB, not rounded up to 5 KB; x 0.16
+  costs:
+    Data ingested (first 500 TB): 16.0
+  limits:
+    Direct PUT records: 10
+    Direct PUT requests: 10
+    Direct PUT throughput: 0.009765625

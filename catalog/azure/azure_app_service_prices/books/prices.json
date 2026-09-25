@@ -2,7 +2,7 @@
   "azure.appservice.ip_ssl": {
     "unit": "month",
     "source": "https://azure.microsoft.com/pricing/details/app-service/",
-    "note": "IP-based SSL binding, per binding; SNI bindings are free",
+    "note": "IP-based SSL binding, per binding; SNI bindings are free. Standard and higher plans include one IP SSL binding, which the readings do not subtract",
     "sync": {
       "filters": {
         "productName": "Azure App Service SSL Connections",

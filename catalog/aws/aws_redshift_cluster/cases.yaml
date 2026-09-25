@@ -46,3 +46,14 @@
   assumptions: { storageGb: 100 }
   demand: { query: { monthly: 1e+07, peak: 100 } }
   error: Multi-AZ needs an RA3 or RG node type
+- name: single RG node, backups at one price without tiers (ap-northeast-1)
+  region: ap-northeast-1
+  attributes: { node_type: rg.large }
+  assumptions: { storageGb: 1024, backupGb: 60000 }
+  demand: { query: { monthly: 1e+07, peak: 100 } }
+  costs:
+    Nodes (rg.large): 326.529         # 730 h x $0.4473
+    Managed storage: 26.7264          # 1,024 GB x $0.0261
+    Backup storage: 1500              # 60,000 GB x $0.025, no 50 TB tier on RG
+  limits:
+    Storage: 1

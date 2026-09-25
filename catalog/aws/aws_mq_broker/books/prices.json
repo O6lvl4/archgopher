@@ -168,7 +168,7 @@
   "aws.mq.activemq.efs_storage": {
     "unit": "GB-month",
     "source": "https://aws.amazon.com/amazon-mq/pricing/",
-    "note": "ActiveMQ durability-optimized storage (EFS)",
+    "note": "ActiveMQ durability-optimized storage (EFS). eu-west-1 is recorded as not offered: neither the Price List nor the Amazon MQ pricing page lists a durability-optimized storage price there",
     "sync": {
       "filters": {
         "usagetype": "((?:[A-Z]+[0-9]|EU)-)?TimedStorage-ByteHrs"

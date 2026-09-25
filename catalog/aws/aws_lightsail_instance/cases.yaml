@@ -26,6 +26,17 @@
     Bundle (2GB_win_IPv6): 19.6224
   limits:
     Requests per second: 5
+- name: 8xlarge Linux bundle (us-east-1)
+  region: us-east-1
+  attributes:
+    bundle_id: 8xlarge_3_0
+  demand:
+    request:
+      monthly: 0
+      peak: 0
+  # 730 h x 1.18817
+  costs:
+    Bundle (128GB): 867.3641
 - name: not a general-purpose bundle (us-east-1)
   region: us-east-1
   attributes:

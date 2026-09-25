@@ -2,7 +2,7 @@ type: azurerm_mysql_flexible_server
 label: MySQL flexible server
 category: Database
 icon: mysql
-description: "Compute hours by SKU (Burstable per instance, General Purpose and Business Critical per vCore), provisioned storage, pre-provisioned IOPS above the free 360, and backup storage beyond the free amount. High availability runs a standby of the same size, so compute and storage double. Headroom is connections against the SKU's default max_connections, where Microsoft publishes it (not yet for Ddsv5 and the v6 series)."
+description: "Compute hours by SKU (Burstable per instance, General Purpose and Business Critical per vCore), provisioned storage, pre-provisioned IOPS above the free 360, and backup storage beyond the free amount. High availability runs a standby of the same size, so compute and storage double. Headroom is connections against the SKU's default max_connections, where Microsoft publishes it (not yet for Ddsv5, E104ids_v5 and the v6 series)."
 kinds: [query]
 sla: azure.mysql.flexible
 attributes:
@@ -12,7 +12,7 @@ attributes:
   - { key: high_availability_mode, label: High availability, type: string, optional: true, path: high_availability.mode, hint: "ZoneRedundant or SameZone runs a standby" }
 assumptions:
   - { key: peakConnections, label: Peak connections, type: number, hint: "Open connections at the busiest moment, pooled or not" }
-  - { key: backupGb, label: Backup storage beyond the free amount, type: number, unit: GB, default: 0, hint: "Backups are free up to the provisioned storage" }
+  - { key: backupGb, label: Backup storage beyond the free amount, type: number, unit: GB, default: 0, hint: "Backups are free up to the provisioned storage. A geo-redundant server uses twice the backup storage of a locally redundant one, at the same rate; the Backup Storage used metric already counts it" }
 let:
   - parts: 'split(sku_name, "_")'
   - tier: 'len(parts) >= 3 ? lower(parts[0]) : ""'
@@ -23,11 +23,11 @@ let:
   - series: 'size != "" ? lower(size[0:1] + trim(size[1:], "0123456789") + version) : ""'
   - burst: 'tier == "b" && size in ["B1s", "B1ms", "B2s", "B2ms", "B4ms", "B8ms", "B12ms", "B16ms", "B20ms"]'
   - perVcore: '(tier == "gp" && series in ["ddsv4", "ddsv5", "dadsv5", "dsv6", "dasv6", "ddsv6", "dadsv6"]) || (tier == "mo" && series in ["edsv4", "eadsv5", "esv6", "easv6", "edsv6", "eadsv6"])'
-  - edsv5: 'tier == "mo" && series == "edsv5"'
-  - connectionsKnown: 'burst || edsv5 || series in ["ddsv4", "dadsv5", "edsv4", "eadsv5"]'
+  - edsv5: 'tier == "mo" && series in ["edsv5", "eidsv5"]'
+  - connectionsKnown: 'burst || series in ["edsv5", "ddsv4", "dadsv5", "edsv4", "eadsv5"]'
   - servers: 'high_availability_mode != nil ? 2.0 : 1.0'
 readings:
-  - fail: { when: '!burst && !perVcore && !edsv5', message: "{sku_name} is not read yet: Burstable B1s-B20ms, General Purpose Ddsv4, Ddsv5, Dadsv5 and the v6 series, Business Critical Edsv4, Edsv5, Eadsv5 and the v6 series are" }
+  - fail: { when: '!burst && !perVcore && !edsv5', message: "{sku_name} is not read yet: Burstable B1s-B20ms, General Purpose Ddsv4, Ddsv5, Dadsv5 and the v6 series, Business Critical Edsv4, Edsv5 (with E104ids_v5), Eadsv5 and the v6 series are" }
   - cost: { when: 'burst && size == "B1s"', name: Compute, quantity: 730 * servers, unit: hour, price: azure.mysql.flex.b1s }
   - cost: { when: 'burst && size != "B1s"', name: Compute, quantity: 730 * servers, unit: hour, price: "azure.mysql.flex.burstable.{size}" }
   - cost: { when: perVcore, name: Compute, quantity: 730 * cores * servers, unit: vCore-hour, price: "azure.mysql.flex.{series}.vcore" }

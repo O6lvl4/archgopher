@@ -613,6 +613,13 @@ SKUs Compute Engine bills it by, its vCPUs, memory, GPUs (A2 and A3 included),
 bundled Local or Titanium SSD and the M2 premium, taken from the
 machineTypes API with the regions each type is offered in.
 
+AWS and Azure prices are checked the same way, entry by entry against the
+public price lists: 179,124 AWS cells and 76,477 Azure cells, including the
+volume tiers each product bills by. Six AWS prices have no usage type in the
+Price List (AgentCore policy and registry, Systems Manager hybrid activations)
+and are read from the pricing pages, with notes saying so. A cell left empty
+is a product not sold in that region.
+
 ### Cloudflare
 
 | Type | Reads | Headroom |

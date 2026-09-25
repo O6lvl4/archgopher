@@ -1,4 +1,133 @@
 {
+  "aws.sns.fifo.publish": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/sns/pricing/",
+    "note": "FIFO topic publish API requests; each 64 KB chunk of a message is one request",
+    "sync": {
+      "service": "AmazonSNS",
+      "filters": {
+        "group": "SNS-FIFO-Requests",
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?F-Request-Tier1"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.39,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.36,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.33,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.39,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.39,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.36,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.33,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.sns.fifo.publish_payload": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/sns/pricing/",
+    "note": "FIFO topic publish payload, per GB published",
+    "sync": {
+      "service": "AmazonSNS",
+      "filters": {
+        "group": "SNS-Publish-Payload",
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?F-Ingress-Tier1"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0221,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0204,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0187,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.0221,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.0221,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0204,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.0187,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.017,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.017,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.017,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
   "aws.sns.publish": {
     "unit": "request",
     "per": 1000000,

@@ -63,3 +63,15 @@
         monthly: 2e+06
         peak: 40
   error: WEBSOCKET APIs are not supported yet
+# Over the first tier: 300M × 1/1e6 = 300; (4e8 − 3e8) = 100M × 0.9/1e6 = 90.
+- name: HTTP past the first volume tier (us-east-1)
+  region: us-east-1
+  demand:
+    request:
+        monthly: 4e+08
+        peak: 40
+  costs:
+    Requests: 300
+    Requests (over 300 million): 90
+  limits:
+    Account throttle: 40

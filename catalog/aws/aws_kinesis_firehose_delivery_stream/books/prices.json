@@ -1224,6 +1224,201 @@
       }
     }
   },
+  "aws.firehose.vended_logs.tier1": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/firehose/pricing/",
+    "note": "CloudWatch vended logs as source (a service's logs delivered through CloudWatch Logs); billed bytes; tier from 0 GB a month",
+    "sync": {
+      "filters": {
+        "operation": "PutRecord",
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?VendedLogsBilledBytes"
+      },
+      "service": "AmazonKinesisFirehose",
+      "tier": "0"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.16,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.16,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.17,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.17,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.14,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.13,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.13,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.16,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.firehose.vended_logs.tier2": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/firehose/pricing/",
+    "note": "CloudWatch vended logs as source (a service's logs delivered through CloudWatch Logs); billed bytes; tier from 512,000 GB a month",
+    "sync": {
+      "filters": {
+        "operation": "PutRecord",
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?VendedLogsBilledBytes"
+      },
+      "service": "AmazonKinesisFirehose",
+      "tier": "512000"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.14,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.14,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.13,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.14,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.14,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.13,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.13,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.firehose.vended_logs.tier3": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/firehose/pricing/",
+    "note": "CloudWatch vended logs as source (a service's logs delivered through CloudWatch Logs); billed bytes; tier from 2,048,000 GB a month",
+    "sync": {
+      "filters": {
+        "operation": "PutRecord",
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?VendedLogsBilledBytes"
+      },
+      "service": "AmazonKinesisFirehose",
+      "tier": "2048000"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.09,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.09,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
   "aws.firehose.vpc.az_hour": {
     "unit": "AZ-hour",
     "source": "https://aws.amazon.com/firehose/pricing/",

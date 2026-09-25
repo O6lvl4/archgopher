@@ -2,7 +2,7 @@ type: azurerm_cdn_frontdoor_profile
 label: Front Door
 category: Edge
 icon: front-door
-description: "Standard or Premium profile: the monthly base fee, requests and data transfer to clients, priced by the billing zone of the edge that serves the viewers (by default the zone of the region). Transfer from the edge to the origin and the free tier are not read."
+description: "Standard or Premium profile: the monthly base fee, requests and data transfer to clients by volume tier, priced by the billing zone of the edge that serves the viewers (by default the zone of the region). Transfer from the edge to the origin and the free tier are not read."
 kinds: [request]
 sla: azure.frontdoor
 attributes:
@@ -22,10 +22,23 @@ let:
       region startsWith "brazil" ? "zone3" :
       region startsWith "australia" ? "zone4" :
       region in ["centralindia", "southindia", "westindia", "jioindiawest", "jioindiacentral"] ? "zone5" : "zone1"
+  - gb: total.monthly * responseKb / 1024 / 1024
+  - req: total.monthly
+  - t: '"azure.frontdoor." + s + "." + zone + ".transfer_out."'
+  - r: '"azure.frontdoor." + s + "." + zone + ".requests."'
 readings:
   - cost: { name: Base fee, quantity: 1, unit: month, price: "azure.frontdoor.{s}.base" }
-  - requests: { name: Requests, price: "azure.frontdoor.{s}.{zone}.requests", count: total.monthly }
-  - cost: { name: Transfer to clients, quantity: total.monthly * responseKb / 1024 / 1024, unit: GB, price: "azure.frontdoor.{s}.{zone}.transfer_out" }
+  - requests: { name: Requests (first 250 million), price: "{r}0", count: 'min(req, 250000000)' }
+  - requests: { when: req > 250000000, name: Requests (next 750 million), price: "{r}25000", count: 'min(req, 1000000000) - 250000000' }
+  - requests: { when: req > 1000000000, name: Requests (next 4 billion), price: "{r}100000", count: 'min(req, 5000000000) - 1000000000' }
+  - requests: { when: req > 5000000000, name: Requests (over 5 billion), price: "{r}500000", count: req - 5000000000 }
+  - cost: { name: Transfer to clients (first 10 TB), quantity: 'min(gb, 10000)', unit: GB, price: "{t}0" }
+  - cost: { when: gb > 10000, name: Transfer to clients (next 40 TB), quantity: 'min(gb, 50000) - 10000', unit: GB, price: "{t}10000" }
+  - cost: { when: gb > 50000, name: Transfer to clients (next 100 TB), quantity: 'min(gb, 150000) - 50000', unit: GB, price: "{t}50000" }
+  - cost: { when: gb > 150000, name: Transfer to clients (next 350 TB), quantity: 'min(gb, 500000) - 150000', unit: GB, price: "{t}150000" }
+  - cost: { when: gb > 500000, name: Transfer to clients (next 500 TB), quantity: 'min(gb, 1000000) - 500000', unit: GB, price: "{t}500000" }
+  - cost: { when: gb > 1000000, name: Transfer to clients (next 4 PB), quantity: 'min(gb, 5000000) - 1000000', unit: GB, price: "{t}1000000" }
+  - cost: { when: gb > 5000000, name: Transfer to clients (over 5 PB), quantity: gb - 5000000, unit: GB, price: "{t}5000000" }
 terraform:
   frontDoor: true
   mentioned: true

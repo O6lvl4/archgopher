@@ -645,7 +645,7 @@
     "unit": "record",
     "per": 1000,
     "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-service/",
-    "note": "Custom question answering, first tier, per 1,000 text records",
+    "note": "Custom question answering, per 1,000 text records; rows are the first unit (1,000 records) of each volume tier: 0, 2.5 million records",
     "sync": {
       "filters": {
         "meterName": "Standard QA Text Records",
@@ -654,60 +654,37 @@
       },
       "listPer": 1000,
       "service": "Foundry Tools",
-      "source": "azure"
+      "source": "azure",
+      "tier": "{row}"
     },
-    "values": {
-      "australiaeast": {
-        "value": 1.5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "australiaeast": 1.5,
+        "centralindia": 1.5,
+        "eastus": 1.5,
+        "eastus2": 1.5,
+        "germanywestcentral": null,
+        "japaneast": 1.5,
+        "koreacentral": 1.5,
+        "northeurope": 1.5,
+        "southeastasia": 1.5,
+        "westus2": 1.5
       },
-      "centralindia": {
-        "value": 1.5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eastus": {
-        "value": 1.5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "eastus2": {
-        "value": 1.5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "germanywestcentral": {
-        "value": null,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "japaneast": {
-        "value": 1.5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "koreacentral": {
-        "value": 1.5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "northeurope": {
-        "value": 1.5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "southeastasia": {
-        "value": 1.5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "westus2": {
-        "value": 1.5,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "2500": {
+        "australiaeast": 1.00005,
+        "centralindia": 1.00005,
+        "eastus": 1.00005,
+        "eastus2": 1.00005,
+        "germanywestcentral": null,
+        "japaneast": 1.00005,
+        "koreacentral": 1.00005,
+        "northeurope": 1.00005,
+        "southeastasia": 1.00005,
+        "westus2": 1.00005
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-26"
   },
   "azure.language.custom_summarization": {
     "unit": "record",
@@ -847,7 +824,7 @@
     "unit": "record",
     "per": 1000,
     "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-service/",
-    "note": "Text analytics for health, first paid tier after the 5,000 free records, per 1,000 text records",
+    "note": "Text analytics for health, per 1,000 text records; rows are the first unit (1,000 records) of each paid volume tier: 5,000 (after the free 5,000, which are ignored as every free tier), 500,000, 2.5 million, 10 million records",
     "sync": {
       "filters": {
         "meterName": "Standard Health Text Records",
@@ -856,60 +833,61 @@
       },
       "listPer": 1000,
       "service": "Foundry Tools",
-      "source": "azure"
+      "source": "azure",
+      "tier": "{row}"
     },
-    "values": {
-      "australiaeast": {
-        "value": 20,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "10000": {
+        "australiaeast": 5,
+        "centralindia": 5,
+        "eastus": 5,
+        "eastus2": 5,
+        "germanywestcentral": null,
+        "japaneast": 5,
+        "koreacentral": 5,
+        "northeurope": 5,
+        "southeastasia": 5,
+        "westus2": 5
       },
-      "centralindia": {
-        "value": 20,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "2500": {
+        "australiaeast": 6,
+        "centralindia": 6,
+        "eastus": 6,
+        "eastus2": 6,
+        "germanywestcentral": null,
+        "japaneast": 6,
+        "koreacentral": 6,
+        "northeurope": 6,
+        "southeastasia": 6,
+        "westus2": 6
       },
-      "eastus": {
-        "value": 20,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "5": {
+        "australiaeast": 20,
+        "centralindia": 20,
+        "eastus": 20,
+        "eastus2": 20,
+        "germanywestcentral": null,
+        "japaneast": 20,
+        "koreacentral": 20,
+        "northeurope": 20,
+        "southeastasia": 20,
+        "westus2": 20
       },
-      "eastus2": {
-        "value": 20,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "germanywestcentral": {
-        "value": null,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "japaneast": {
-        "value": 20,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "koreacentral": {
-        "value": 20,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "northeurope": {
-        "value": 20,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "southeastasia": {
-        "value": 20,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "westus2": {
-        "value": 20,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "500": {
+        "australiaeast": 15,
+        "centralindia": 15,
+        "eastus": 15,
+        "eastus2": 15,
+        "germanywestcentral": null,
+        "japaneast": 15,
+        "koreacentral": 15,
+        "northeurope": 15,
+        "southeastasia": 15,
+        "westus2": 15
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-26"
   },
   "azure.language.summarization": {
     "unit": "record",
@@ -983,7 +961,7 @@
     "unit": "record",
     "per": 1000,
     "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-service/",
-    "note": "Text analytics (sentiment, key phrases, entities, PII, language detection), first tier, per 1,000 text records",
+    "note": "Text analytics (sentiment, key phrases, entities, PII, language detection), per 1,000 text records; rows are the first unit (1,000 records) of each volume tier: 0, 500,000, 2.5 million, 10 million records",
     "sync": {
       "filters": {
         "meterName": "Standard Text Records",
@@ -992,60 +970,61 @@
       },
       "listPer": 1000,
       "service": "Foundry Tools",
-      "source": "azure"
+      "source": "azure",
+      "tier": "{row}"
     },
-    "values": {
-      "australiaeast": {
-        "value": 1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+    "rows": {
+      "0": {
+        "australiaeast": 1,
+        "centralindia": 1,
+        "eastus": 1,
+        "eastus2": 1,
+        "germanywestcentral": null,
+        "japaneast": 1,
+        "koreacentral": 1,
+        "northeurope": 1,
+        "southeastasia": 1,
+        "westus2": 1
       },
-      "centralindia": {
-        "value": 1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "10000": {
+        "australiaeast": 0.25,
+        "centralindia": 0.25,
+        "eastus": 0.25,
+        "eastus2": 0.25,
+        "germanywestcentral": null,
+        "japaneast": 0.25,
+        "koreacentral": 0.25,
+        "northeurope": 0.25,
+        "southeastasia": 0.25,
+        "westus2": 0.25
       },
-      "eastus": {
-        "value": 1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "2500": {
+        "australiaeast": 0.3,
+        "centralindia": 0.3,
+        "eastus": 0.3,
+        "eastus2": 0.3,
+        "germanywestcentral": null,
+        "japaneast": 0.3,
+        "koreacentral": 0.3,
+        "northeurope": 0.3,
+        "southeastasia": 0.3,
+        "westus2": 0.3
       },
-      "eastus2": {
-        "value": 1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "germanywestcentral": {
-        "value": null,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "japaneast": {
-        "value": 1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "koreacentral": {
-        "value": 1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "northeurope": {
-        "value": 1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "southeastasia": {
-        "value": 1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      },
-      "westus2": {
-        "value": 1,
-        "verified": true,
-        "checkedAt": "2026-09-25"
+      "500": {
+        "australiaeast": 0.75,
+        "centralindia": 0.75,
+        "eastus": 0.75,
+        "eastus2": 0.75,
+        "germanywestcentral": null,
+        "japaneast": 0.75,
+        "koreacentral": 0.75,
+        "northeurope": 0.75,
+        "southeastasia": 0.75,
+        "westus2": 0.75
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-26"
   },
   "azure.luis.commit.azure.overage": {
     "unit": "transaction",

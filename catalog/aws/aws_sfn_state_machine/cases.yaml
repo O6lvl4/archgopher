@@ -85,3 +85,18 @@
         monthly: 2e+06
         peak: 40
   error: durationMs is required for express workflows
+- name: express duration rounds up to 100 ms (us-east-1)
+  region: us-east-1
+  attributes:
+    type: EXPRESS
+  assumptions:
+    durationMs: 250
+    memoryMb: 64
+  demand:
+    execution:
+        monthly: 1e+06
+        peak: 10
+  costs:
+    # 250 ms bills as 300 ms: 1,000,000 x 0.3 s x 64 / 1024 GB = 18,750 GB-s x $0.00001667
+    Duration: 0.3125625
+    Requests: 1

@@ -7,7 +7,7 @@ kinds: [request]
 sla: aws.ec2.instance
 attributes:
   - { key: instance_type, label: Instance type, type: string, optional: true, hint: "Empty when a launch template sets it" }
-  - { key: tenancy, label: Tenancy, type: choice, options: [default, dedicated, host], default: default, path: tenancy, hint: "dedicated has its own price table; on a Dedicated Host the host is billed instead" }
+  - { key: tenancy, label: Tenancy, type: choice, options: [default, dedicated, host], default: default, path: tenancy, hint: "dedicated has its own price table; AWS also bills a regional fee of about $2 an hour per account while any dedicated instance runs there, which is not read here; on a Dedicated Host the host is billed instead" }
   - { key: on_host, label: On a Dedicated Host, type: boolean, default: false, path: host_id, hint: "host_id is set: the aws_ec2_host carries the instance-hours" }
   - { key: ebs_optimized, label: EBS-optimized, type: boolean, default: false, hint: "Only previous-generation types charge for it" }
   - { key: monitoring, label: Detailed monitoring, type: boolean, default: false, hint: "About 7 CloudWatch metrics per instance" }

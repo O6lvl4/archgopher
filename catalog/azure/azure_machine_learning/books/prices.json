@@ -5,7 +5,7 @@
     "note": "Azure Machine Learning compute runs on Linux VMs billed at the VM's pay-as-you-go price with no ML surcharge; rows are VM sizes in lower case (Spot and Low Priority not read here)",
     "sync": {
       "filters": {
-        "armSkuName": "(?i){row}",
+        "armSkuName": "(?i){row} *",
         "meterName": ".*[^de]",
         "productName": ".*([Ss]eries|Linux|Srs|Basic|RTX6kv6)",
         "skuName": "[^ ]*( [^SL][^ ]*)*"
@@ -21242,7 +21242,7 @@
         "southeastasia": null,
         "westus2": null
       },
-      "standard_nm16ads_ma35d  ": {
+      "standard_nm16ads_ma35d": {
         "australiaeast": null,
         "centralindia": null,
         "eastus": 1.95,
@@ -21588,7 +21588,7 @@
     "note": "Low priority Linux VMs for Azure Machine Learning compute clusters (vm_priority LowPriority), which Azure can preempt; rows are VM sizes in lower case",
     "sync": {
       "filters": {
-        "armSkuName": "(?i){row}",
+        "armSkuName": "(?i){row} *",
         "meterName": ".* Low Priority",
         "productName": ".*([Ss]eries|Linux|Srs|Basic|RTX6kv6)",
         "skuName": ".* Low Priority"
@@ -33753,7 +33753,7 @@
         "southeastasia": null,
         "westus2": null
       },
-      "standard_nm16ads_ma35d  ": {
+      "standard_nm16ads_ma35d": {
         "australiaeast": null,
         "centralindia": null,
         "eastus": 0.39,
