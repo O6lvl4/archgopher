@@ -1,0 +1,33 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: kept warm all month
+  region: us-east-1
+  attributes:
+    provisioned_concurrent_executions: 10
+  assumptions:
+    memoryMb: 1024
+  costs:
+    Provisioned concurrency (1024 MB, x86_64): 109.500876
+- name: arm64 serving routed invocations
+  region: ap-northeast-1
+  attributes:
+    provisioned_concurrent_executions: 5
+  assumptions:
+    memoryMb: 512
+    architecture: arm64
+    durationMs: 100
+  demand:
+    invoke:
+      monthly: 2e+06
+      peak: 40
+  costs:
+    Provisioned concurrency (512 MB, arm64): 28.295676
+    Requests: 0.4
+    Duration (provisioned, arm64): 1.00492
+  limits:
+    Provisioned concurrency used: 4
+- name: memory unknown
+  region: us-east-1
+  attributes:
+    provisioned_concurrent_executions: 10
+  error: missing assumption "memoryMb"

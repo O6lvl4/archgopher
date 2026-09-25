@@ -1,0 +1,258 @@
+{
+  "aws.cloudtrail.data_events": {
+    "unit": "event",
+    "per": 100000,
+    "source": "https://aws.amazon.com/cloudtrail/pricing/",
+    "note": "Data events delivered",
+    "sync": {
+      "service": "AWSCloudTrail",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-DataEventsRecorded"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.cloudtrail.insights_events": {
+    "unit": "event",
+    "per": 100000,
+    "source": "https://aws.amazon.com/cloudtrail/pricing/",
+    "note": "Events analyzed by CloudTrail Insights, per insight type",
+    "sync": {
+      "service": "AWSCloudTrail",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-InsightsEvents"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.35,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.35,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.35,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.35,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.35,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.35,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.35,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.35,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.35,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.35,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.cloudtrail.management_events": {
+    "unit": "event",
+    "per": 100000,
+    "source": "https://aws.amazon.com/cloudtrail/pricing/",
+    "note": "Management events delivered by a trail that is not the first copy in the region",
+    "sync": {
+      "service": "AWSCloudTrail",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-PaidEventsRecorded"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.cloudtrail.network_events": {
+    "unit": "event",
+    "per": 100000,
+    "source": "https://aws.amazon.com/cloudtrail/pricing/",
+    "note": "Network activity events delivered (VPC endpoint activity)",
+    "sync": {
+      "service": "AWSCloudTrail",
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-NetworkEventsRecorded"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

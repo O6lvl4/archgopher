@@ -1,0 +1,32 @@
+type: aws_cloudtrail
+label: CloudTrail
+category: Management
+icon: cloudtrail
+description: "Events a trail delivers, per 100,000: management events only when another trail in the region already records them (the first copy is free), data and network activity events whenever selected, and events CloudTrail Insights analyzes per insight type. Event counts come from the account's activity, not from calls in the graph."
+kinds: [record]
+sla: aws.cloudtrail
+attributes:
+  - { key: include_management_events, label: Management events, type: boolean, default: true, path: event_selector.include_management_events }
+  - { key: data_resources, label: Data event selectors, type: boolean, default: false, path: event_selector.data_resource, hint: "Written when a basic event selector names data resources" }
+  - { key: advanced_selectors, label: Advanced event selectors, type: boolean, default: false, path: advanced_event_selector, hint: "Advanced selectors choose data, network activity or management events" }
+  - { key: insights, label: CloudTrail Insights, type: boolean, default: false, path: insight_selector }
+assumptions:
+  - { key: additionalCopy, label: Additional copy of management events, type: boolean, default: false, hint: "True when another trail in the region already records management events; only the first copy is free" }
+  - { key: managementEvents, label: Management events per month, type: number, unit: events, optional: true, hint: "Billed only for an additional copy" }
+  - { key: dataEvents, label: Data events per month, type: number, unit: events, optional: true, hint: "S3 object, Lambda invoke and other data-plane calls the selectors match" }
+  - { key: networkEvents, label: Network activity events per month, type: number, unit: events, default: 0, hint: "VPC endpoint activity selected by advanced selectors" }
+  - { key: insightEvents, label: Events analyzed by Insights per month, type: number, unit: events, optional: true, hint: "Management write events (API call rate) or all management events (error rate) the trail records" }
+  - { key: insightTypes, label: Insight types, type: number, default: 1, hint: "2 when both ApiCallRateInsight and ApiErrorRateInsight are enabled; each analyzes the events once" }
+let:
+  - selectsData: 'data_resources || advanced_selectors'
+readings:
+  - fail: { when: 'additionalCopy && include_management_events && managementEvents == nil', message: managementEvents is required for an additional copy of management events }
+  - cost: { when: 'additionalCopy && include_management_events', name: Management events (additional copy), quantity: 'managementEvents ?? 0', unit: event, price: aws.cloudtrail.management_events }
+  - fail: { when: 'selectsData && dataEvents == nil', message: dataEvents is required when the trail selects data events }
+  - cost: { when: 'selectsData || (dataEvents ?? 0) > 0', name: Data events, quantity: 'dataEvents ?? 0', unit: event, price: aws.cloudtrail.data_events }
+  - cost: { when: networkEvents > 0, name: Network activity events, quantity: networkEvents, unit: event, price: aws.cloudtrail.network_events }
+  - fail: { when: 'insights && insightEvents == nil', message: insightEvents is required when CloudTrail Insights is enabled }
+  - cost: { when: insights, name: Insights events analyzed, quantity: '(insightEvents ?? 0) * insightTypes', unit: event, price: aws.cloudtrail.insights_events }
+terraform:
+  # A trail writes to its bucket, log group and topic on AWS's side; it calls nothing in the graph.
+  passive: true

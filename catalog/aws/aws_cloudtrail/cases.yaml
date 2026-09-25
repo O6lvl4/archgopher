@@ -1,0 +1,30 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: first copy of management events is free
+  region: us-east-1
+- name: data events and two insight types
+  region: us-east-1
+  attributes:
+    data_resources: true
+    insights: true
+  assumptions:
+    dataEvents: 5e+06
+    insightEvents: 2e+06
+    insightTypes: 2
+  costs:
+    Data events: 5
+    Insights events analyzed: 14
+- name: additional copy with network activity events
+  region: ap-northeast-1
+  assumptions:
+    additionalCopy: true
+    managementEvents: 3e+06
+    networkEvents: 1e+06
+  costs:
+    Management events (additional copy): 60
+    Network activity events: 1
+- name: data selectors without a count
+  region: ap-northeast-1
+  attributes:
+    advanced_selectors: true
+  error: dataEvents is required

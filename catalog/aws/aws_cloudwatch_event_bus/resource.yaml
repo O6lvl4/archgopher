@@ -1,0 +1,32 @@
+type: aws_cloudwatch_event_bus
+label: EventBridge event bus
+category: Messaging
+icon: eventbridge
+description: "Custom events published, or partner events received on a partner bus, in 64 KB chunks; archive processing and storage when the bus is archived; schema discovery in 8 KB chunks when a discoverer watches it. Delivery to targets is free. Headroom is the regional PutEvents rate. Targets that name the bus in event_bus_name receive what it carries."
+kinds: [put]
+sla: aws.eventbridge
+attributes:
+  - { key: event_source_name, label: Partner event source, type: string, optional: true, hint: "Set on a partner bus: its events come from a SaaS partner, not from PutEvents" }
+assumptions:
+  - { key: eventKb, label: Event size, type: number, unit: KB, default: 1, hint: "Billed in 64 KB chunks; for events whose edges give no kb" }
+  - { key: entriesPerPut, label: Events per PutEvents request, type: number, default: 1, hint: "A request carries up to 10 entries" }
+  - { key: archived, label: Archived, type: boolean, default: false, hint: "An aws_cloudwatch_event_archive records the bus's events" }
+  - { key: archiveRetentionDays, label: Archive retention, type: number, unit: days, default: 0, hint: "0 means kept indefinitely; storage is then shown after 12 months" }
+  - { key: schemaDiscovery, label: Schema discovery, type: boolean, default: false, hint: "An aws_schemas_discoverer ingests the bus's events; the first 5 million per month are free and ignored" }
+let:
+  - partner: event_source_name != nil && event_source_name != ""
+  - archiveGb: 'total.monthly * eventKb / 1048576'
+  - archiveMonths: 'archiveRetentionDays > 0 ? archiveRetentionDays / 30.4 : 12'
+readings:
+  - requests: { when: '!partner', name: Custom events published, price: aws.eventbridge.custom_events, unit: event, count: 'units(total, 64, eventKb)' }
+  - requests: { when: partner, name: Partner events received, price: aws.eventbridge.partner_events, unit: event, count: 'units(total, 64, eventKb)' }
+  - cost: { when: archived, name: Archive processing, quantity: archiveGb, unit: GB, price: aws.eventbridge.archive_processing }
+  - cost: { when: archived, name: 'Archive storage{archiveRetentionDays > 0 ? "" : " (after 12 months, never expires)"}', quantity: archiveGb * archiveMonths, unit: GB-month, price: aws.eventbridge.archive_storage }
+  - requests: { when: schemaDiscovery, name: Schema discovery, price: aws.eventbridge.schema_discovery, unit: event, count: 'units(total, 8, eventKb)' }
+  - rate: { when: '!partner', name: PutEvents rate, unit: requests/second, quota: aws.eventbridge.put_events_tps, peak: total.peak / entriesPerPut }
+terraform:
+  links:
+    - { type: aws_cloudwatch_event_target, from: event_bus_name, to: [arn] }
+  ignoreRefs: [kms_key_identifier, dead_letter_config]
+iam:
+  put: ["events:PutEvents"]

@@ -15,11 +15,16 @@ var attrs = map[string]map[string]any{
 	"aws_dynamodb_table":      {"billing_mode": "PAY_PER_REQUEST"},
 	"aws_sfn_state_machine":   {"type": "STANDARD"},
 	"aws_ecs_task_definition": {"cpu": 256.0, "memory": 512.0},
+	// Required in Terraform, so they have no default.
+	"aws_lambda_provisioned_concurrency_config": {"provisioned_concurrent_executions": 5.0},
+	"aws_sns_topic_subscription":                {"protocol": "https"},
 }
 
 var assume = map[string]map[string]any{
 	"aws_rds_cluster":       {"ioPerQuery": 2.0, "peakAcu": 4.0},
 	"aws_sfn_state_machine": {"transitionsPerExecution": 5.0},
+	// Invocations routed to provisioned concurrency need their duration.
+	"aws_lambda_provisioned_concurrency_config": {"durationMs": 100.0},
 	// Operations whose edges give no size take the table's item size.
 	"aws_dynamodb_table": {"itemSizeKb": 1.0},
 	// Network nodes that load passes through need the data each unit carries.

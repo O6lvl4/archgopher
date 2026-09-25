@@ -1,0 +1,41 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: custom events
+  region: us-east-1
+  demand:
+    put:
+      monthly: 2e+06
+      peak: 40
+  costs:
+    Custom events published: 2
+  limits:
+    PutEvents rate: 40
+- name: large events, archived for 30 days, with schema discovery
+  region: ap-northeast-1
+  assumptions:
+    eventKb: 100
+    entriesPerPut: 10
+    archived: true
+    archiveRetentionDays: 30
+    schemaDiscovery: true
+  demand:
+    put:
+      monthly: 2e+06
+      peak: 40
+  costs:
+    Custom events published: 4
+    Archive processing: 24.795532227
+    Archive storage: 4.705629851
+    Schema discovery: 2.6
+  limits:
+    PutEvents rate: 4
+- name: partner bus
+  region: us-east-1
+  attributes:
+    event_source_name: aws.partner/example.com/123/orders
+  demand:
+    put:
+      monthly: 2e+06
+      peak: 40
+  costs:
+    Partner events received: 2

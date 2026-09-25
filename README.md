@@ -194,8 +194,9 @@ without state and without cloud credentials, so it also works on a pull request.
   Edges do not need them: they come from references.
 - **Edges.** A node that references another node calls it (a Lambda whose
   environment names a table). Helper resources connect nodes (API Gateway
-  integrations, event source mappings, SNS subscriptions, EventBridge targets,
-  S3 notifications). IAM policies attached to a node's role add edges with
+  integrations, event source mappings, EventBridge targets, S3
+  notifications). A helper that bills on its own sits on the path instead:
+  an SNS subscription is a node between its topic and its endpoint. IAM policies attached to a node's role add edges with
   kinds: `dynamodb:PutItem` becomes a `write` edge, `s3:GetObject` a `read`
   edge. Policies written with `jsonencode`, `aws_iam_policy_document` and
   `dynamic "statement"` blocks fed from module variables are all followed
@@ -229,7 +230,7 @@ nodes: they pass load through and appear in the report as skipped.
 Every import ends with its coverage, the way Infracost counts resources:
 
 ```text
-43 resources read, 108 free, 17 without a price yet: aws_acm_certificate, aws_cloudwatch_log_group ×8, ...
+43 resources read, 108 free, 17 without a price yet: aws_acm_certificate, aws_instance ×2, ...
 ```
 
 Free resources cost nothing by themselves (roles, policies, rules,

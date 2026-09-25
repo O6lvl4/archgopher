@@ -254,3 +254,22 @@ func TestMergeFollowsTerraformSchedules(t *testing.T) {
 		}
 	}
 }
+
+// A subscription sits between its topic and its endpoint, and an event bus
+// reaches the targets that name it.
+func TestFanOutThroughSubscriptionsAndBuses(t *testing.T) {
+	spec, _ := build(t, "testdata/fanout", eval.Options{})
+	want := []string{
+		"app>orders-sns:-",
+		"billing>billing-sqs:-",
+		"orders-sns>billing:-",
+		"orders-sns>webhook:-",
+		"orders>orders-sns:-",
+	}
+	if got := edges(spec); strings.Join(got, "\n") != strings.Join(want, "\n") {
+		t.Errorf("edges:\n%s\nwant:\n%s", strings.Join(got, "\n"), strings.Join(want, "\n"))
+	}
+	if n := nodeByID(spec, "webhook"); n.Attributes["protocol"] != "https" {
+		t.Errorf("the subscription should read its protocol: %+v", n.Attributes)
+	}
+}

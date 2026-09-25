@@ -1,0 +1,29 @@
+type: aws_config_organization_managed_rule
+label: Config organization managed rule
+category: Management
+icon: config
+description: "Rule evaluations in volume tiers (first 100,000, next 400,000, then the rest per month). An evaluation is one resource checked once: on each configuration change for change-triggered rules, on each run for periodic ones, and on each on-demand start. The rule is deployed to every member account, each billed on its own tiers."
+kinds: [evaluate]
+sla: aws.config
+attributes:
+  - { key: maximum_execution_frequency, label: Run frequency, type: string, default: "", hint: "Set on periodic rules; periodic rules without it run every 24 hours" }
+assumptions:
+  - { key: resources, label: Resources in scope, type: number, unit: resources, hint: "Resources the rule checks in each account; 1 for a periodic rule that checks the account as a whole" }
+  - { key: changesPerResource, label: Changes per resource per month, type: number, default: 1, hint: "Each recorded configuration change triggers one evaluation of a change-triggered rule; periodic rules ignore it" }
+  - { key: accounts, label: Member accounts, type: number, default: 1, hint: "Accounts in the organization the rule is deployed to, excluding those in excluded_accounts" }
+  - { key: periodicRule, label: Periodic, type: boolean, default: false, hint: "True for a managed periodic rule written without a frequency" }
+let:
+  - periodic: 'maximum_execution_frequency != "" || periodicRule'
+  - changeTriggered: '!periodic'
+  - hours: '{"One_Hour": 1, "Three_Hours": 3, "Six_Hours": 6, "Twelve_Hours": 12, "TwentyFour_Hours": 24}[maximum_execution_frequency] ?? 24'
+  - runs: 'periodic ? 730 / hours : 0'
+  - perAccount: 'resources * ((changeTriggered ? changesPerResource : 0) + runs) + demand.evaluate.monthly * resources'
+readings:
+  - cost: { name: "Rule evaluations (first 100K)", quantity: "min(perAccount, 100000) * accounts", unit: evaluation, price: aws.config.evaluations_tier1 }
+  - cost: { when: perAccount > 100000, name: "Rule evaluations (next 400K)", quantity: "min(perAccount - 100000, 400000) * accounts", unit: evaluation, price: aws.config.evaluations_tier2 }
+  - cost: { when: perAccount > 500000, name: "Rule evaluations (over 500K)", quantity: "(perAccount - 500000) * accounts", unit: evaluation, price: aws.config.evaluations_tier3 }
+terraform:
+  # Config deploys and evaluates the rule on AWS's side; it calls nothing.
+  passive: true
+iam:
+  evaluate: ["config:StartConfigRulesEvaluation"]

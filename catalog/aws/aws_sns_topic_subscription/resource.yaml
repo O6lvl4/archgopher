@@ -1,0 +1,31 @@
+type: aws_sns_topic_subscription
+label: SNS subscription
+category: Messaging
+icon: sns
+description: "Deliveries by protocol: HTTP/S in 64 KB chunks, email, mobile push and Firehose per notification; SQS and Lambda are free, except SQS behind a FIFO topic. Payload-based filtering (filter_policy_scope MessageBody) bills every GB it scans. SMS is priced by destination country and not read. It sits between its topic and its endpoint: what the topic publishes reaches it, and what passes the filter goes on."
+kinds: [deliver]
+sla: aws.sns
+attributes:
+  - { key: protocol, label: Protocol, type: choice, options: [sqs, lambda, http, https, email, email-json, sms, application, firehose] }
+  - { key: filter_policy_scope, label: Filter policy scope, type: string, default: MessageAttributes, hint: "MessageBody filters on the payload, which is billed per GB scanned" }
+assumptions:
+  - { key: messageKb, label: Message size, type: number, unit: KB, default: 1, hint: "For messages whose edges give no kb" }
+  - { key: matchShare, label: Share delivered, type: number, default: 1, hint: "Share of the topic's messages that pass the filter policy; set perUnit on the edge to the endpoint to match" }
+  - { key: fifoTopic, label: FIFO topic, type: boolean, default: false, hint: "Deliveries from a FIFO topic to SQS are billed per message and per GB" }
+let:
+  - http: 'protocol == "http" || protocol == "https"'
+  - email: 'protocol == "email" || protocol == "email-json"'
+  - delivered: total.monthly * matchShare
+  - deliveredGb: 'total.monthly * matchShare * messageKb / 1048576'
+readings:
+  - cost: { when: http, name: HTTP/S deliveries, quantity: 'units(total, 64, messageKb) * matchShare', unit: notification, price: aws.sns.delivery.http }
+  - cost: { when: email, name: Email deliveries, quantity: delivered, unit: notification, price: aws.sns.delivery.email }
+  - cost: { when: protocol == "application", name: Mobile push deliveries, quantity: delivered, unit: notification, price: aws.sns.delivery.mobile_push }
+  - cost: { when: protocol == "firehose", name: Firehose deliveries, quantity: delivered, unit: notification, price: aws.sns.delivery.firehose }
+  - cost: { when: fifoTopic && protocol == "sqs", name: FIFO deliveries, quantity: delivered, unit: message, price: aws.sns.fifo.delivery }
+  - cost: { when: fifoTopic && protocol == "sqs", name: FIFO delivery payload, quantity: deliveredGb, unit: GB, price: aws.sns.fifo.delivery_payload }
+  - cost: { when: filter_policy_scope == "MessageBody", name: Payload filtering, quantity: 'total.monthly * messageKb / 1048576', unit: GB, price: aws.sns.filtering.payload }
+  - fail: { when: protocol == "sms", message: SMS deliveries are priced by destination country and are not read, continue: true }
+terraform:
+  # The topic reaches the subscription through the topic's link; the endpoint is the call onward.
+  ignoreRefs: [topic_arn, subscription_role_arn, redrive_policy]
