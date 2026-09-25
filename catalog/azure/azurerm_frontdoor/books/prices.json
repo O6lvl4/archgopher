@@ -1,0 +1,236 @@
+{
+  "azure.frontdoor_classic.frontend_host": {
+    "unit": "host-month",
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Classic: each frontend host (custom domain) beyond the 100 included",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 1",
+      "filters": {
+        "productName": "Azure Front Door Service",
+        "skuName": "Standard",
+        "meterName": "Standard Custom Domain"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.frontdoor_classic.routing_rule_overage": {
+    "unit": "rule-hour",
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Classic: each routing rule beyond 5, per hour",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 1",
+      "filters": {
+        "productName": "Azure Front Door Service",
+        "skuName": "Standard",
+        "meterName": "Standard Overage Routing Rules"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.frontdoor_classic.routing_rules": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Classic: the first 5 routing rules together, per hour",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 1",
+      "filters": {
+        "productName": "Azure Front Door Service",
+        "skuName": "Standard",
+        "meterName": "Standard Included Routing Rules"
+      },
+      "tier": "5"
+    },
+    "values": {
+      "*": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.frontdoor_classic.transfer_in": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Classic: data transfer from clients to the edge, the same in every zone",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 1",
+      "filters": {
+        "productName": "Azure Front Door Service",
+        "skuName": "Standard",
+        "meterName": "Standard Data Transfer In"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.frontdoor_classic.zone1.transfer_out": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Classic: data transfer from the edge to clients in billing Zone 1 (North America, Europe, Middle East and Africa), by the first GB of each volume tier: 0, 10 TB, 50 TB",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 1",
+      "filters": {
+        "productName": "Azure Front Door Service",
+        "skuName": "Standard",
+        "meterName": "Standard Data Transfer Out"
+      },
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "*": 0.17
+      },
+      "10000": {
+        "*": 0.15
+      },
+      "50000": {
+        "*": 0.13
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.frontdoor_classic.zone2.transfer_out": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Classic: data transfer from the edge to clients in billing Zone 2 (Asia Pacific including Japan), by the first GB of each volume tier: 0, 10 TB, 50 TB",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 2",
+      "filters": {
+        "productName": "Azure Front Door Service",
+        "skuName": "Standard",
+        "meterName": "Standard Data Transfer Out"
+      },
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "*": 0.25
+      },
+      "10000": {
+        "*": 0.22
+      },
+      "50000": {
+        "*": 0.19
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.frontdoor_classic.zone3.transfer_out": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Classic: data transfer from the edge to clients in billing Zone 3 (South America), by the first GB of each volume tier: 0, 10 TB, 50 TB",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 3",
+      "filters": {
+        "productName": "Azure Front Door Service",
+        "skuName": "Standard",
+        "meterName": "Standard Data Transfer Out"
+      },
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "*": 0.5
+      },
+      "10000": {
+        "*": 0.426
+      },
+      "50000": {
+        "*": 0.36
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.frontdoor_classic.zone4.transfer_out": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Classic: data transfer from the edge to clients in billing Zone 4 (Australia), by the first GB of each volume tier: 0, 10 TB, 50 TB",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 4",
+      "filters": {
+        "productName": "Azure Front Door Service",
+        "skuName": "Standard",
+        "meterName": "Standard Data Transfer Out"
+      },
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "*": 0.28
+      },
+      "10000": {
+        "*": 0.24
+      },
+      "50000": {
+        "*": 0.2
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.frontdoor_classic.zone5.transfer_out": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/frontdoor/",
+    "note": "Classic: data transfer from the edge to clients in billing Zone 5 (India), by the first GB of each volume tier: 0, 10 TB, 50 TB",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 5",
+      "filters": {
+        "productName": "Azure Front Door Service",
+        "skuName": "Standard",
+        "meterName": "Standard Data Transfer Out"
+      },
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "*": 0.34
+      },
+      "10000": {
+        "*": 0.29
+      },
+      "50000": {
+        "*": 0.245
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "azure.cdn.profile_bandwidth_gbps": {
+    "unit": "Gbps",
+    "source": "https://learn.microsoft.com/azure/azure-resource-manager/management/azure-subscription-service-limits#content-delivery-network-limits",
+    "note": "Standard from Microsoft (classic): bandwidth per profile, for traffic spread worldwide; Azure Support can raise it",
+    "values": {
+      "*": {
+        "value": 75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.cdn.profile_rps": {
+    "unit": "requests/second",
+    "source": "https://learn.microsoft.com/azure/azure-resource-manager/management/azure-subscription-service-limits#content-delivery-network-limits",
+    "note": "Standard from Microsoft (classic): requests per second per profile, for traffic spread worldwide; Azure Support can raise it",
+    "values": {
+      "*": {
+        "value": 100000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.cdn.rules_per_endpoint": {
+    "unit": "rules",
+    "source": "https://learn.microsoft.com/azure/azure-resource-manager/management/azure-subscription-service-limits#content-delivery-network-limits",
+    "note": "Rules engine rules per endpoint",
+    "values": {
+      "*": {
+        "value": 25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

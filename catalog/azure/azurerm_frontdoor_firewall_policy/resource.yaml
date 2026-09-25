@@ -1,0 +1,16 @@
+type: azurerm_frontdoor_firewall_policy
+label: Front Door (classic) WAF policy
+category: Security
+icon: waf-policy
+description: "Web Application Firewall on classic Front Door: the policy per month, each custom rule and each managed rule set per month, and the requests they evaluate. The requests are the load of the Front Door frontends that link the policy. Headroom is the custom rules a policy may hold."
+kinds: [request]
+attributes:
+  - { key: custom_rules, label: Custom rules, type: number, default: 0, path: custom_rule }
+  - { key: managed_rulesets, label: Managed rule sets, type: number, default: 0, path: managed_rule }
+readings:
+  - cost: { name: Policy, quantity: 1, unit: policy-month, price: azure.frontdoor_classic.waf.policy }
+  - cost: { when: custom_rules > 0, name: Custom rules, quantity: custom_rules, unit: rule-month, price: azure.frontdoor_classic.waf.rule }
+  - requests: { when: custom_rules > 0, name: Custom rule requests, count: total.monthly, price: azure.frontdoor_classic.waf.requests }
+  - cost: { when: managed_rulesets > 0, name: Managed rule sets, quantity: managed_rulesets, unit: ruleset-month, price: azure.frontdoor_classic.waf.managed_ruleset }
+  - requests: { when: managed_rulesets > 0, name: Managed rule set requests, count: total.monthly, price: azure.frontdoor_classic.waf.managed_requests }
+  - limit: { name: Custom rules, demand: custom_rules, unit: rules, quota: azure.frontdoor_classic.waf.custom_rules }

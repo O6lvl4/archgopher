@@ -1,0 +1,239 @@
+{
+  "azure.cdn.microsoft.rule": {
+    "unit": "rule-month",
+    "source": "https://azure.microsoft.com/pricing/details/cdn/",
+    "note": "Azure CDN Standard from Microsoft (classic): each rules engine rule beyond the 5 included, the same in every zone",
+    "sync": {
+      "source": "azure",
+      "service": "Content Delivery Network",
+      "region": "Zone 1",
+      "filters": {
+        "productName": "Azure CDN from Microsoft",
+        "skuName": "Standard",
+        "meterName": "Standard Rule"
+      },
+      "tier": "5"
+    },
+    "values": {
+      "*": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.cdn.microsoft.rules_requests": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cdn/",
+    "note": "Azure CDN Standard from Microsoft (classic): requests processed by the rules engine, the same in every zone",
+    "sync": {
+      "source": "azure",
+      "service": "Content Delivery Network",
+      "region": "Zone 1",
+      "filters": {
+        "productName": "Azure CDN from Microsoft",
+        "skuName": "Standard",
+        "meterName": "Standard Requests"
+      },
+      "listPer": 1000000
+    },
+    "values": {
+      "*": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.cdn.microsoft.zone1.transfer": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/cdn/",
+    "note": "Azure CDN Standard from Microsoft (classic): data transfer to clients in billing Zone 1 (North America, Europe, Middle East and Africa), by the first GB of each volume tier: 0, 10 TB, 50 TB, 150 TB, 500 TB, 1 PB",
+    "sync": {
+      "source": "azure",
+      "service": "Content Delivery Network",
+      "region": "Zone 1",
+      "filters": {
+        "productName": "Azure CDN from Microsoft",
+        "skuName": "Standard",
+        "meterName": "Standard Data Transfer"
+      },
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "*": 0.081
+      },
+      "10000": {
+        "*": 0.075
+      },
+      "1000000": {
+        "*": 0.023
+      },
+      "150000": {
+        "*": 0.037
+      },
+      "50000": {
+        "*": 0.056
+      },
+      "500000": {
+        "*": 0.028
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.cdn.microsoft.zone2.transfer": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/cdn/",
+    "note": "Azure CDN Standard from Microsoft (classic): data transfer to clients in billing Zone 2 (Asia Pacific including Japan), by the first GB of each volume tier: 0, 10 TB, 50 TB, 150 TB, 500 TB, 1 PB",
+    "sync": {
+      "source": "azure",
+      "service": "Content Delivery Network",
+      "region": "Zone 2",
+      "filters": {
+        "productName": "Azure CDN from Microsoft",
+        "skuName": "Standard",
+        "meterName": "Standard Data Transfer"
+      },
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "*": 0.129
+      },
+      "10000": {
+        "*": 0.121
+      },
+      "1000000": {
+        "*": 0.065
+      },
+      "150000": {
+        "*": 0.093
+      },
+      "50000": {
+        "*": 0.112
+      },
+      "500000": {
+        "*": 0.075
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.cdn.microsoft.zone3.transfer": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/cdn/",
+    "note": "Azure CDN Standard from Microsoft (classic): data transfer to clients in billing Zone 3 (South America), by the first GB of each volume tier: 0, 10 TB, 50 TB, 150 TB, 500 TB, 1 PB",
+    "sync": {
+      "source": "azure",
+      "service": "Content Delivery Network",
+      "region": "Zone 3",
+      "filters": {
+        "productName": "Azure CDN from Microsoft",
+        "skuName": "Standard",
+        "meterName": "Standard Data Transfer"
+      },
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "*": 0.233
+      },
+      "10000": {
+        "*": 0.186
+      },
+      "1000000": {
+        "*": 0.121
+      },
+      "150000": {
+        "*": 0.149
+      },
+      "50000": {
+        "*": 0.168
+      },
+      "500000": {
+        "*": 0.13
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.cdn.microsoft.zone4.transfer": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/cdn/",
+    "note": "Azure CDN Standard from Microsoft (classic): data transfer to clients in billing Zone 4 (Australia), by the first GB of each volume tier: 0, 10 TB, 50 TB, 150 TB, 500 TB, 1 PB",
+    "sync": {
+      "source": "azure",
+      "service": "Content Delivery Network",
+      "region": "Zone 4",
+      "filters": {
+        "productName": "Azure CDN from Microsoft",
+        "skuName": "Standard",
+        "meterName": "Standard Data Transfer"
+      },
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "*": 0.13
+      },
+      "10000": {
+        "*": 0.126
+      },
+      "1000000": {
+        "*": 0.084
+      },
+      "150000": {
+        "*": 0.093
+      },
+      "50000": {
+        "*": 0.112
+      },
+      "500000": {
+        "*": 0.088
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.cdn.microsoft.zone5.transfer": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/cdn/",
+    "note": "Azure CDN Standard from Microsoft (classic): data transfer to clients in billing Zone 5 (India), by the first GB of each volume tier: 0, 10 TB, 50 TB, 150 TB, 500 TB, 1 PB",
+    "sync": {
+      "source": "azure",
+      "service": "Content Delivery Network",
+      "region": "Zone 5",
+      "filters": {
+        "productName": "Azure CDN from Microsoft",
+        "skuName": "Standard",
+        "meterName": "Standard Data Transfer"
+      },
+      "tier": "{row}"
+    },
+    "rows": {
+      "0": {
+        "*": 0.158
+      },
+      "10000": {
+        "*": 0.121
+      },
+      "1000000": {
+        "*": 0.093
+      },
+      "150000": {
+        "*": 0.093
+      },
+      "50000": {
+        "*": 0.102
+      },
+      "500000": {
+        "*": 0.093
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

@@ -1,0 +1,18 @@
+type: azurerm_traffic_manager_azure_endpoint
+label: Traffic Manager Azure endpoint
+category: Edge
+icon: traffic-manager
+description: "Health checks of an Azure resource (target_resource_id) per month, with the fast interval and HTTPS add-ons when the profile's monitor asks for them. A disabled endpoint is not probed. Nothing calls an endpoint: clients reach its target directly."
+kinds: [probe]
+attributes:
+  - { key: enabled, label: Enabled, type: boolean, default: true }
+assumptions:
+  - { key: fastInterval, label: Fast interval health checks, type: boolean, default: false, hint: "True when the profile's monitor_config interval_in_seconds is 10" }
+  - { key: https, label: HTTPS health checks, type: boolean, default: false, hint: "True when the profile's monitor_config protocol is HTTPS" }
+readings:
+  - cost: { when: enabled, name: Health checks, quantity: 1, unit: endpoint-month, price: azure.trafficmanager.azure.health_checks }
+  - cost: { when: enabled && fastInterval, name: Fast interval health checks, quantity: 1, unit: endpoint-month, price: azure.trafficmanager.azure.fast_interval }
+  - cost: { when: enabled && https, name: HTTPS health checks, quantity: 1, unit: endpoint-month, price: azure.trafficmanager.azure.https }
+terraform:
+  # An endpoint names its profile and its target; neither is a call.
+  passive: true

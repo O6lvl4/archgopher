@@ -1,0 +1,134 @@
+{
+  "azure.trafficmanager.azure.fast_interval": {
+    "unit": "endpoint-month",
+    "source": "https://azure.microsoft.com/pricing/details/traffic-manager/",
+    "note": "Azure Endpoint, fast interval (10 s) health check add-on",
+    "sync": {
+      "source": "azure",
+      "service": "Traffic Manager",
+      "region": "Global",
+      "filters": {
+        "productName": "Traffic Manager",
+        "skuName": "Azure Endpoint",
+        "meterName": "Azure Endpoint Fast Interval Health Check Add-ons"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.trafficmanager.azure.health_checks": {
+    "unit": "endpoint-month",
+    "source": "https://azure.microsoft.com/pricing/details/traffic-manager/",
+    "note": "Azure Endpoint, basic health checks",
+    "sync": {
+      "source": "azure",
+      "service": "Traffic Manager",
+      "region": "Global",
+      "filters": {
+        "productName": "Traffic Manager",
+        "skuName": "Azure Endpoint",
+        "meterName": "Azure Endpoint Health Checks"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.36,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.trafficmanager.azure.https": {
+    "unit": "endpoint-month",
+    "source": "https://azure.microsoft.com/pricing/details/traffic-manager/",
+    "note": "Azure Endpoint, HTTPS health check add-on",
+    "sync": {
+      "source": "azure",
+      "service": "Traffic Manager",
+      "region": "Global",
+      "filters": {
+        "productName": "Traffic Manager",
+        "skuName": "Azure Endpoint",
+        "meterName": "Azure Endpoint HTTPS Health Check Add-On"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.trafficmanager.external.fast_interval": {
+    "unit": "endpoint-month",
+    "source": "https://azure.microsoft.com/pricing/details/traffic-manager/",
+    "note": "Non-Azure Endpoint, fast interval (10 s) health check add-on",
+    "sync": {
+      "source": "azure",
+      "service": "Traffic Manager",
+      "region": "Global",
+      "filters": {
+        "productName": "Traffic Manager",
+        "skuName": "Non-Azure Endpoint",
+        "meterName": "Non-Azure Endpoint Fast Interval Health Check Add-ons"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.trafficmanager.external.health_checks": {
+    "unit": "endpoint-month",
+    "source": "https://azure.microsoft.com/pricing/details/traffic-manager/",
+    "note": "Non-Azure Endpoint, basic health checks",
+    "sync": {
+      "source": "azure",
+      "service": "Traffic Manager",
+      "region": "Global",
+      "filters": {
+        "productName": "Traffic Manager",
+        "skuName": "Non-Azure Endpoint",
+        "meterName": "Non-Azure Endpoint Health Checks"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.54,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.trafficmanager.external.https": {
+    "unit": "endpoint-month",
+    "source": "https://azure.microsoft.com/pricing/details/traffic-manager/",
+    "note": "Non-Azure Endpoint, HTTPS health check add-on",
+    "sync": {
+      "source": "azure",
+      "service": "Traffic Manager",
+      "region": "Global",
+      "filters": {
+        "productName": "Traffic Manager",
+        "skuName": "Non-Azure Endpoint",
+        "meterName": "Non-Azure Endpoint HTTPS Health Check Add-On"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

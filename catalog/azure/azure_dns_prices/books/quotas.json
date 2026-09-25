@@ -1,0 +1,26 @@
+{
+  "azure.dns.records_per_set": {
+    "unit": "records",
+    "source": "https://learn.microsoft.com/azure/azure-resource-manager/management/azure-subscription-service-limits#azure-dns-limits",
+    "note": "Records per record set in a public zone; Azure Support can raise it",
+    "values": {
+      "*": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.dns.txt_records_per_set": {
+    "unit": "records",
+    "source": "https://learn.microsoft.com/azure/azure-resource-manager/management/azure-subscription-service-limits#azure-dns-limits",
+    "note": "TXT records per record set in a public zone",
+    "values": {
+      "*": {
+        "value": 400,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "azure.frontdoor_classic.waf.custom_rules": {
+    "unit": "rules",
+    "source": "https://learn.microsoft.com/azure/azure-resource-manager/management/azure-subscription-service-limits#azure-front-door-classic-limits",
+    "note": "Custom rules per WAF policy on Front Door (classic)",
+    "values": {
+      "*": {
+        "value": 100,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

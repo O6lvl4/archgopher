@@ -1,0 +1,24 @@
+{
+  "azure.trafficmanager.nested_endpoint": {
+    "unit": "endpoint-month",
+    "source": "https://azure.microsoft.com/pricing/details/traffic-manager/",
+    "note": "Nested endpoint (a child profile used as an endpoint); its own endpoints are health-checked in the child profile",
+    "sync": {
+      "source": "azure",
+      "service": "Traffic Manager",
+      "region": "Global",
+      "filters": {
+        "productName": "Traffic Manager",
+        "skuName": "Nested Endpoint",
+        "meterName": "Nested Endpoint Nested Endpoint"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

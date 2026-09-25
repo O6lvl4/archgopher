@@ -1,0 +1,52 @@
+{
+  "azure.dns.queries": {
+    "unit": "query",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/dns/",
+    "note": "Public zone queries, first billion a month in the subscription",
+    "sync": {
+      "source": "azure",
+      "service": "Azure DNS",
+      "region": "Zone 1",
+      "filters": {
+        "productName": "Azure DNS",
+        "skuName": "Public",
+        "meterName": "Public Queries"
+      },
+      "tier": "0",
+      "listPer": 1000000
+    },
+    "values": {
+      "*": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.dns.queries_over_1b": {
+    "unit": "query",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/dns/",
+    "note": "Public zone queries beyond the first billion a month",
+    "sync": {
+      "source": "azure",
+      "service": "Azure DNS",
+      "region": "Zone 1",
+      "filters": {
+        "productName": "Azure DNS",
+        "skuName": "Public",
+        "meterName": "Public Queries"
+      },
+      "tier": "1000",
+      "listPer": 1000000
+    },
+    "values": {
+      "*": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}
