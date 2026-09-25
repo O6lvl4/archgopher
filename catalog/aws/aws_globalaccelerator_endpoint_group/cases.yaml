@@ -48,6 +48,20 @@
   # 100 GB × $0.105 (EU-AU)
   costs:
     Data transfer premium: 10.5
+- name: endpoint group in Jakarta is Asia Pacific, 100 GB (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    endpoint_group_region: ap-southeast-3
+  assumptions:
+    gbPerMonth: 100
+  demand:
+    request:
+      monthly: 0
+      peak: 0
+  # Asia Pacific excludes only South Korea, India, the Philippines and Thailand:
+  # 100 GB × $0.01 (AP-AP)
+  costs:
+    Data transfer premium: 1
 - name: load passes through without a size (us-east-1)
   region: us-east-1
   demand:

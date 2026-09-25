@@ -46,3 +46,12 @@
       peak: 0
   costs:
     Alias queries: 0
+- name: record in a private hosted zone answers for free (us-east-1)
+  region: us-east-1
+  assumptions:
+    privateZone: true
+    queriesPerMonth: 1e+08
+  demand:
+    query:
+      monthly: 0
+      peak: 0

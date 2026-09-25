@@ -2,7 +2,7 @@ type: aws_route53_record
 label: Route 53 record
 category: Edge
 icon: route-53
-description: "Queries answered for the record, by routing policy: standard, latency, geolocation, geoproximity or IP-based (CIDR), with the price beyond 1 billion a month. Queries to alias records that point at AWS resources are free. Resolvers cache answers for the record's TTL, so queries are far fewer than requests: give them as queriesPerMonth or draw load to the record. A record answers where to connect and passes no load on."
+description: "Queries answered for the record, by routing policy: standard, latency, geolocation, geoproximity or IP-based (CIDR), with the price beyond 1 billion a month. Queries to alias records that point at AWS resources and to records in private hosted zones are free. Resolvers cache answers for the record's TTL, so queries are far fewer than requests: give them as queriesPerMonth or draw load to the record. A record answers where to connect and passes no load on."
 kinds: [query]
 sla: aws.route53
 attributes:
@@ -12,14 +12,15 @@ attributes:
   - { key: cidr, label: IP-based routing, type: boolean, default: false, path: cidr_routing_policy }
   - { key: alias, label: Alias, type: boolean, default: false, hint: "Queries to aliases of AWS resources (load balancers, CloudFront, S3 websites) are free" }
 assumptions:
+  - { key: privateZone, label: Private hosted zone, type: boolean, default: false, hint: "Route 53 does not charge for queries to private hosted zones" }
   - { key: queriesPerMonth, label: Queries per month, type: number, default: 0, hint: "Queries not drawn as load; Route 53 query logs or the DNSQueries metric of the zone tell" }
 let:
   - policy: 'cidr ? "Cidr" : geoproximity ? "Geo-Proximity" : geolocation ? "Geo" : latency ? "LBR" : "DNS"'
   - queries: 'total.monthly + queriesPerMonth'
 readings:
-  - requests: { when: alias, name: Alias queries, count: queries, unit: query, price: 'aws.route53.alias_queries.{policy}' }
-  - requests: { when: '!alias', name: Queries (first 1 billion), count: 'min(queries, 1e9)', unit: query, price: 'aws.route53.queries.{policy}' }
-  - requests: { when: '!alias && queries > 1e9', name: Queries (over 1 billion), count: 'queries - 1e9', unit: query, price: 'aws.route53.queries_over_1b.{policy}' }
+  - requests: { when: 'alias && !privateZone', name: Alias queries, count: queries, unit: query, price: 'aws.route53.alias_queries.{policy}' }
+  - requests: { when: '!alias && !privateZone', name: Queries (first 1 billion), count: 'min(queries, 1e9)', unit: query, price: 'aws.route53.queries.{policy}' }
+  - requests: { when: '!alias && !privateZone && queries > 1e9', name: Queries (over 1 billion), count: 'queries - 1e9', unit: query, price: 'aws.route53.queries_over_1b.{policy}' }
 terraform:
   # A record names its zone, health check and the resource it points at: none is a call.
   passive: true

@@ -9,16 +9,17 @@ attributes:
 assumptions:
   - { key: kbPerUnit, label: Data per unit, type: number, unit: KB, optional: true, hint: "Per request, in the direction that carries more (usually the response)" }
   - { key: gbPerMonth, label: Other data per month, type: number, unit: GB, default: 0, hint: "Dominant-direction traffic not drawn as load" }
-  - { key: clients, label: Clients in, type: choice, options: [region, NA, EU, AP, KR, IN, AU, ME, SA, ZA], default: region, hint: "Location of most clients: North America, Europe, Asia Pacific, South Korea, India and Southeast Asia, Australia and New Zealand, Middle East, South America, Africa. region picks the endpoints' group" }
+  - { key: clients, label: Clients in, type: choice, options: [region, NA, EU, AP, KR, IN, AU, ME, SA, ZA], default: region, hint: "Location of most clients: United States, Mexico and Canada; Europe, Israel and Türkiye; Asia Pacific; South Korea; India, the Philippines, Thailand and Vietnam; Australia and New Zealand; Middle East; South America; South Africa, Kenya and Nigeria. region picks the endpoints' group" }
 let:
   - home: 'endpoint_group_region != "" ? endpoint_group_region : region'
-  # Global Accelerator's source location groups: Seoul, the Indian and Southeast Asian
-  # regions and the Australian and New Zealand regions are groups of their own.
+  # Global Accelerator's source location groups: Asia Pacific excludes South Korea,
+  # India, the Philippines and Thailand; Seoul, the Indian regions with Bangkok, and
+  # the Australian and New Zealand regions are groups of their own.
   - from: >-
       home startsWith "us-" || home startsWith "ca-" || home startsWith "mx-" ? "NA" :
       home startsWith "eu-" || home startsWith "il-" ? "EU" :
       home == "ap-northeast-2" ? "KR" :
-      home startsWith "ap-south-" || home in ["ap-southeast-3", "ap-southeast-5", "ap-southeast-7"] ? "IN" :
+      home startsWith "ap-south-" || home == "ap-southeast-7" ? "IN" :
       home in ["ap-southeast-2", "ap-southeast-4", "ap-southeast-6"] ? "AU" :
       home startsWith "ap-" || home startsWith "cn-" ? "AP" :
       home startsWith "me-" ? "ME" :
