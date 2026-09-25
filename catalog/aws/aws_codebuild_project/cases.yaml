@@ -60,3 +60,25 @@
         monthly: 10
         peak: 0.001
   error: 'only on-demand general compute is priced: CUSTOM_INSTANCE_TYPE runs on a reserved-capacity fleet or custom instance type'
+- name: a reserved-capacity fleet bills the project's builds
+  region: ap-northeast-1
+  attributes:
+    fleet: true
+  assumptions:
+    buildMinutes: 5
+  demand:
+    build:
+        monthly: 10
+        peak: 0.001
+  error: 'builds run on a reserved-capacity fleet, billed by the fleet: on-demand compute is not read'
+- name: EC2 environment types run only on fleets
+  region: us-east-1
+  attributes:
+    environment_type: ARM_EC2
+  assumptions:
+    buildMinutes: 5
+  demand:
+    build:
+        monthly: 10
+        peak: 0.001
+  error: 'ARM_EC2 runs only on a reserved-capacity fleet: on-demand compute is not read'
