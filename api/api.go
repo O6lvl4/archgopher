@@ -104,8 +104,9 @@ type TerraformRequest struct {
 
 // TerraformResponse is the declaration built from Terraform.
 type TerraformResponse struct {
-	Spec     model.Spec `json:"spec"`
-	Warnings []string   `json:"warnings"`
+	Spec     model.Spec     `json:"spec"`
+	Warnings []string       `json:"warnings"`
+	Coverage infer.Coverage `json:"coverage"`
 }
 
 // Terraform builds a declaration from files held in memory.
@@ -123,7 +124,8 @@ func Terraform(req TerraformRequest) (TerraformResponse, error) {
 	if name == "" {
 		name = path.Base(root)
 	}
-	spec, warnings := infer.Build(ev, cloud.TerraformRules(), name)
+	rules := cloud.TerraformRules()
+	spec, warnings := infer.Build(ev, rules, name)
 	if req.Merge != nil {
 		var w []string
 		spec, w = merge.Merge(*req.Merge, spec)
@@ -135,7 +137,7 @@ func Terraform(req TerraformRequest) (TerraformResponse, error) {
 	if warnings == nil {
 		warnings = []string{}
 	}
-	return TerraformResponse{Spec: spec, Warnings: warnings}, nil
+	return TerraformResponse{Spec: spec, Warnings: warnings, Coverage: infer.Cover(ev, rules)}, nil
 }
 
 // RootCandidates lists the directories that hold .tf files, the choices for a root module.

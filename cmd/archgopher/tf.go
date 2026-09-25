@@ -93,7 +93,8 @@ func fromTerraform(dir string, opt eval.Options, name, region string, existing *
 	if name == "" {
 		name = infer.DefaultName(dir)
 	}
-	spec, warnings := infer.Build(ev, cloud.TerraformRules(), name)
+	rules := cloud.TerraformRules()
+	spec, warnings := infer.Build(ev, rules, name)
 	if region != "" {
 		spec.Region = region
 	}
@@ -105,6 +106,7 @@ func fromTerraform(dir string, opt eval.Options, name, region string, existing *
 	if cloud.FillRegion(&spec) {
 		warnings = append(warnings, "no region found; using "+cloud.DefaultRegion+" (set --region)")
 	}
+	fmt.Fprintln(os.Stderr, infer.Cover(ev, rules).Summary())
 	return spec, warnings, nil
 }
 

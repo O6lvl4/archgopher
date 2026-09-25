@@ -12,7 +12,7 @@ import { useReactFlow } from "@xyflow/react";
 import { NEW_FRAME } from "../lib/frames";
 import { freeSpot, NODE_HEIGHT, NODE_WIDTH } from "../lib/layout";
 import { freshGroupId, freshId, type Selection } from "../lib/state";
-import type { CatalogEntry } from "../lib/types";
+import type { CatalogEntry, Coverage } from "../lib/types";
 import { message, useWorkspace } from "./workspace";
 
 function useNotice() {
@@ -31,6 +31,7 @@ export function App() {
   const [selection, setSelection] = useState<Selection>();
   const [importing, setImporting] = useState(false);
   const [warnings, setWarnings] = useState<string[]>([]);
+  const [coverage, setCoverage] = useState<Coverage>();
   const [notice, setNotice] = useNotice();
 
   const replace = (run: () => void) => {
@@ -72,6 +73,7 @@ export function App() {
       const res = engine.terraform({ files: r.files, root: r.root, vars: r.vars, merge: r.merge ? ws.spec : undefined });
       ws.load(res.spec);
       setWarnings(res.warnings);
+      setCoverage(res.coverage);
       setImporting(false);
     });
 
@@ -112,7 +114,7 @@ export function App() {
       <aside className="panel">
         <Inspector spec={ws.spec} result={ws.result} catalog={ws.catalogMap} regions={ws.regions} selection={selection} dispatch={ws.dispatch} />
       </aside>
-      <Results result={ws.result} error={ws.error} warnings={warnings} onSelect={(id) => setSelection((ws.spec.groups ?? []).some((g) => g.id === id) ? { kind: "group", id } : { kind: "node", id })} />
+      <Results result={ws.result} error={ws.error} warnings={warnings} coverage={coverage} onSelect={(id) => setSelection((ws.spec.groups ?? []).some((g) => g.id === id) ? { kind: "group", id } : { kind: "node", id })} />
       {importing && <TerraformDialog canMerge={ws.spec.nodes.length > 0} onImport={onImport} onClose={() => setImporting(false)} />}
     </div>
   );

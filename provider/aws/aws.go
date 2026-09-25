@@ -131,6 +131,7 @@ func IAM() iam.Config {
 func TerraformRules() infer.Rules {
 	parts := []infer.Rules{common(), {
 		Scouters: Registry(),
+		Free:     freeTypes(),
 		Sources:  []infer.EdgeSource{iam.Source(IAM())},
 	}}
 	for _, u := range mustUnits() {
@@ -139,4 +140,13 @@ func TerraformRules() infer.Rules {
 		}
 	}
 	return infer.Combine(parts...)
+}
+
+// freeTypes are the resource types that cost nothing by themselves.
+func freeTypes() map[string]bool {
+	f, err := definition.FreeTypes(catalog.AWS, catalog.AWSRoot)
+	if err != nil {
+		panic("archgopher: AWS free types: " + err.Error())
+	}
+	return f
 }

@@ -88,6 +88,7 @@ func Regions() ([]string, error) {
 func TerraformRules() infer.Rules {
 	parts := []infer.Rules{{
 		Scouters: Registry(), Region: Region,
+		Free:       freeTypes(),
 		IgnoreRefs: []string{"service_account", "service_account_email", "encryption_key_name", "kms_key_name"},
 	}}
 	for _, u := range mustUnits() {
@@ -123,4 +124,13 @@ func Region(ev *eval.Evaluated) string {
 		}
 	}
 	return best
+}
+
+// freeTypes are the resource types that cost nothing by themselves.
+func freeTypes() map[string]bool {
+	f, err := definition.FreeTypes(catalog.GCP, catalog.GCPRoot)
+	if err != nil {
+		panic("archgopher: Google Cloud free types: " + err.Error())
+	}
+	return f
 }

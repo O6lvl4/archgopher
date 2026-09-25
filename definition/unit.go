@@ -7,6 +7,7 @@ import (
 	"io/fs"
 	"path"
 	"sort"
+	"strings"
 
 	"gopkg.in/yaml.v3"
 
@@ -87,4 +88,23 @@ func strict(data []byte, out any) error {
 	dec := yaml.NewDecoder(bytes.NewReader(data))
 	dec.KnownFields(true)
 	return dec.Decode(out)
+}
+
+// FreeTypes reads root/free.txt: resource types that cost nothing by
+// themselves, one per line, with # comments. A catalog without one has none.
+func FreeTypes(fsys fs.FS, root string) (map[string]bool, error) {
+	data, err := fs.ReadFile(fsys, path.Join(root, "free.txt"))
+	if errors.Is(err, fs.ErrNotExist) {
+		return map[string]bool{}, nil
+	}
+	if err != nil {
+		return nil, err
+	}
+	out := map[string]bool{}
+	for _, line := range strings.Split(string(data), "\n") {
+		if t := strings.TrimSpace(line); t != "" && !strings.HasPrefix(t, "#") {
+			out[t] = true
+		}
+	}
+	return out, nil
 }

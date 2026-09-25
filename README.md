@@ -223,9 +223,20 @@ without state and without cloud credentials, so it also works on a pull request.
 - **Cycles** (a callback URL, mutual references) are broken by dropping the
   closing edge, with a warning.
 
-Resource types that should be nodes but have no scouter yet (ECS services,
-Kinesis streams, load balancers...) still become nodes: they pass load through
-and appear in the report as skipped.
+Resource types that should be nodes but have no scouter yet still become
+nodes: they pass load through and appear in the report as skipped.
+
+Every import ends with its coverage, the way Infracost counts resources:
+
+```text
+43 resources read, 108 free, 17 without a price yet: aws_acm_certificate, aws_cloudwatch_log_group ×8, ...
+```
+
+Free resources cost nothing by themselves (roles, policies, rules,
+associations) or only connect or place nodes (integrations, networks drawn as
+frames). The list of free types per provider is `catalog/<provider>/free.txt`,
+taken from Infracost's (Apache License 2.0); they never become nodes. The web
+UI shows the same line under Problems after an import.
 
 ## Pull requests
 

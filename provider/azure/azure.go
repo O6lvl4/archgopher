@@ -91,6 +91,7 @@ func Regions() ([]string, error) {
 func TerraformRules() infer.Rules {
 	parts := []infer.Rules{{
 		Scouters:   Registry(),
+		Free:       freeTypes(),
 		Region:     Region,
 		Sources:    []infer.EdgeSource{RBAC(roles())},
 		IgnoreRefs: []string{"identity", "key_vault_reference_identity_id"},
@@ -127,4 +128,13 @@ func Region(ev *eval.Evaluated) string {
 // armName turns a display location into its ARM name.
 func armName(loc string) string {
 	return strings.ToLower(strings.ReplaceAll(loc, " ", ""))
+}
+
+// freeTypes are the resource types that cost nothing by themselves.
+func freeTypes() map[string]bool {
+	f, err := definition.FreeTypes(catalog.Azure, catalog.AzureRoot)
+	if err != nil {
+		panic("archgopher: Azure free types: " + err.Error())
+	}
+	return f
 }

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ms, num, pct, tone, usd } from "../../lib/format";
-import type { Cost, Limit, NodeResult, PathResult, RefUse, Result } from "../../lib/types";
+import { coverageLine } from "../../lib/coverage";
+import type { Cost, Coverage, Limit, NodeResult, PathResult, RefUse, Result } from "../../lib/types";
 import { DataTable, type Column } from "../../ui/DataTable";
 
 type Tab = "problems" | "costs" | "limits" | "paths" | "unverified";
@@ -9,6 +10,8 @@ interface Props {
   result: Result | undefined;
   error: string | undefined;
   warnings: string[];
+  /** What the last Terraform import made of its resources. */
+  coverage?: Coverage;
   onSelect: (id: string) => void;
 }
 
@@ -23,7 +26,7 @@ function leaves(r: Result | undefined): NodeResult[] {
   return [...(r?.nodes ?? []).filter((n) => !n.members), ...(r?.groups ?? [])];
 }
 
-function problems({ result, error, warnings }: Props): Problem[] {
+function problems({ result, error, warnings, coverage }: Props): Problem[] {
   const out: Problem[] = error ? [{ text: error, tone: "bad" }] : [];
   for (const n of leaves(result)) {
     if (n.error) out.push({ id: n.id, text: n.error, tone: "bad" });
@@ -31,7 +34,12 @@ function problems({ result, error, warnings }: Props): Problem[] {
     if (n.stale) out.push({ id: n.id, text: `no longer in Terraform (${n.address ?? ""})`, tone: "warn" });
   }
   for (const w of [...(result?.warnings ?? []), ...warnings]) out.push({ text: w, tone: "warn" });
-  return out;
+  return coverage ? [...out, coverageProblem(coverage)] : out;
+}
+
+function coverageProblem(coverage: Coverage): Problem {
+  const c = coverageLine(coverage);
+  return { text: c.text, tone: c.unpriced ? "warn" : "muted" };
 }
 
 /** Member ids look like "orders/fn"; selecting one selects the pattern node on the canvas. */

@@ -186,9 +186,17 @@ export interface Result {
   warnings: string[] | null;
 }
 
+/** Managed resources of an import by what became of them, counted per type. */
+export interface Coverage {
+  read: Record<string, number>;
+  free: Record<string, number>;
+  unpriced: Record<string, number>;
+}
+
 export interface TerraformResponse {
   spec: Spec;
   warnings: string[];
+  coverage: Coverage;
 }
 
 /** One provider's regions, as the price books cover them. */

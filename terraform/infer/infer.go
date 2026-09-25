@@ -46,6 +46,9 @@ type Rules struct {
 	// Region reads the region from the evaluated configuration: provider blocks
 	// (AWS) or resource locations (Azure). Empty when it cannot tell.
 	Region func(ev *eval.Evaluated) string
+	// Free types cost nothing by themselves (roles, rules, associations).
+	// They never become nodes; Cover counts them apart from unpriced ones.
+	Free map[string]bool
 	// Scouters supply the fields to copy from Terraform and the assumptions to ask for.
 	Scouters scouter.Registry
 	// Boundaries are types that nodes sit in (a VPC), mapped to what people
@@ -93,7 +96,7 @@ func Combine(parts ...Rules) Rules {
 	out := Rules{
 		NodeTypes: map[string]bool{}, Aliases: map[string]string{}, Mentioned: map[string]bool{}, Passive: map[string]bool{},
 		FrontDoors: map[string]bool{}, FrontDoorAliases: map[string]string{}, Schedules: map[string]string{},
-		Scouters: scouter.Registry{}, Boundaries: map[string]string{},
+		Scouters: scouter.Registry{}, Boundaries: map[string]string{}, Free: map[string]bool{},
 	}
 	for _, p := range parts {
 		copyMap(out.NodeTypes, p.NodeTypes)
@@ -105,6 +108,7 @@ func Combine(parts ...Rules) Rules {
 		copyMap(out.Schedules, p.Schedules)
 		copyMap(out.Scouters, p.Scouters)
 		copyMap(out.Boundaries, p.Boundaries)
+		copyMap(out.Free, p.Free)
 		out.Links = append(out.Links, p.Links...)
 		out.IgnoreRefs = append(out.IgnoreRefs, p.IgnoreRefs...)
 		out.Sources = append(out.Sources, p.Sources...)
