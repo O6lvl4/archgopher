@@ -1,0 +1,18 @@
+type: aws_s3_bucket_inventory
+label: S3 Inventory
+category: Storage
+icon: s3
+description: "A fee per million objects listed in each report: daily reports list the objects 730 / 24 times a month, weekly ones 730 / 168 times. The reports are written to a bucket, which that bucket's node reads."
+kinds: [list]
+attributes:
+  - { key: enabled, label: Enabled, type: boolean, default: true }
+  - { key: frequency, label: Frequency, type: choice, options: [Daily, Weekly], default: Daily, path: schedule.frequency }
+assumptions:
+  - { key: objects, label: Objects listed per report, type: number, hint: "Objects the filter covers, with every version when included_object_versions is All" }
+let:
+  - reports: 'frequency == "Daily" ? 730.0 / 24 : 730.0 / 168'
+readings:
+  - cost: { when: enabled, name: Objects listed, quantity: objects * reports, unit: object, price: aws.s3.inventory.objects }
+terraform:
+  # Names its bucket and the report destination; calls nothing.
+  passive: true

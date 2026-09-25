@@ -1,0 +1,32 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Archive tiers enabled (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    monitoredObjects: 2000000
+    frequentGb: 500
+    infrequentGb: 1000
+    archiveInstantGb: 2000
+    archiveGb: 3000
+    deepArchiveGb: 10000
+  costs:
+    # 2,000,000 / 1,000 x 0.0025; 500 x 0.025; 1000 x 0.0138; 2000 x 0.005; 3000 x 0.0045; 10000 x 0.002
+    Monitoring and automation: 5
+    Frequent Access: 12.5
+    Infrequent Access: 13.8
+    Archive Instant Access: 10
+    Archive Access: 13.5
+    Deep Archive Access: 20
+- name: Disabled with objects in the archive tiers (us-east-1)
+  region: us-east-1
+  attributes:
+    status: Disabled
+  assumptions:
+    monitoredObjects: 400000
+    infrequentGb: 800
+    archiveGb: 10
+  costs:
+    # 400,000 / 1,000 x 0.0025; 800 x 0.0125
+    Monitoring and automation: 1
+    Infrequent Access: 10
+  error: Disabled

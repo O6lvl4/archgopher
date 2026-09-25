@@ -1,0 +1,38 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: EFS, Aurora and DynamoDB backups with a restore (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    efsWarmGb: 500
+    efsColdGb: 2000
+    efsItemRestoresPerMonth: 3
+    auroraSnapshotGb: 300
+    dynamodbBackupGb: 50
+    dynamodbRestoreGbPerMonth: 20
+  costs:
+    # 500 x 0.06; 2000 x 0.012; 3 x 0.6; 300 x 0.023; 50 x 0.114; 20 x 0.171
+    EFS backup (warm): 30
+    EFS backup (cold): 24
+    EFS restore (item-level): 1.8
+    Aurora snapshots: 6.9
+    DynamoDB backups: 5.7
+    DynamoDB restore: 3.42
+- name: EBS, RDS, S3 and FSx backups (us-east-1)
+  region: us-east-1
+  assumptions:
+    ebsSnapshotGb: 1000
+    rdsSnapshotGb: 200
+    s3BackupGb: 400
+    fsxWindowsBackupGb: 100
+    fsxLustreBackupGb: 100
+    efsWarmRestoreGbPerMonth: 50
+    efsColdRestoreGbPerMonth: 10
+  costs:
+    # 1000 x 0.05; 200 x 0.095; 400 x 0.05; 100 x 0.05 twice; 50 x 0.02; 10 x 0.03
+    EBS snapshots: 50
+    RDS snapshots: 19
+    S3 backups: 20
+    FSx for Windows backups: 5
+    FSx for Lustre backups: 5
+    EFS restore (warm): 1
+    EFS restore (cold): 0.3

@@ -1,0 +1,24 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Enabled (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    noncurrentGb: 120
+  costs:
+    # 120 GB x 0.025
+    Noncurrent versions: 3
+- name: Suspended keeps what was written (eu-central-1)
+  region: eu-central-1
+  attributes:
+    status: Suspended
+  assumptions:
+    noncurrentGb: 40
+  costs:
+    # 40 GB x 0.0245
+    Noncurrent versions: 0.98
+- name: Disabled (us-east-1)
+  region: us-east-1
+  attributes:
+    status: Disabled
+  assumptions:
+    noncurrentGb: 0

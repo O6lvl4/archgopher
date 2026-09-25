@@ -1,0 +1,40 @@
+type: aws_backup_vault
+label: Backup vault
+category: Storage
+icon: backup
+description: "Backup storage and restores of the recovery points kept in the vault, by the service backed up: EFS warm and cold storage and restores, EBS, RDS and Aurora snapshots, DynamoDB and S3 backups, FSx for Windows File Server and Lustre backups. Each amount is what the vault holds or restores in a month; snapshot amounts count only what the service bills beyond its free allowance."
+kinds: [backup]
+sla: aws.backup
+assumptions:
+  - { key: efsWarmGb, label: EFS backups (warm), type: number, unit: GB, default: 0 }
+  - { key: efsColdGb, label: EFS backups (cold), type: number, unit: GB, default: 0 }
+  - { key: efsWarmRestoreGbPerMonth, label: EFS restored from warm, type: number, unit: GB, default: 0 }
+  - { key: efsColdRestoreGbPerMonth, label: EFS restored from cold, type: number, unit: GB, default: 0 }
+  - { key: efsItemRestoresPerMonth, label: EFS item-level restore jobs, type: number, default: 0 }
+  - { key: ebsSnapshotGb, label: EBS snapshots, type: number, unit: GB, default: 0 }
+  - { key: rdsSnapshotGb, label: RDS snapshots, type: number, unit: GB, default: 0, hint: "Beyond the free backup storage equal to the database size" }
+  - { key: auroraSnapshotGb, label: Aurora snapshots, type: number, unit: GB, default: 0, hint: "Beyond the free backup storage equal to the cluster size" }
+  - { key: dynamodbBackupGb, label: DynamoDB backups, type: number, unit: GB, default: 0 }
+  - { key: dynamodbRestoreGbPerMonth, label: DynamoDB restored, type: number, unit: GB, default: 0 }
+  - { key: s3BackupGb, label: S3 backups, type: number, unit: GB, default: 0 }
+  - { key: fsxWindowsBackupGb, label: FSx for Windows backups, type: number, unit: GB, default: 0 }
+  - { key: fsxLustreBackupGb, label: FSx for Lustre backups, type: number, unit: GB, default: 0 }
+readings:
+  - storage: { when: efsWarmGb > 0, name: EFS backup (warm), gb: efsWarmGb, price: aws.backup.efs.warm }
+  - storage: { when: efsColdGb > 0, name: EFS backup (cold), gb: efsColdGb, price: aws.backup.efs.cold }
+  - cost: { when: efsWarmRestoreGbPerMonth > 0, name: EFS restore (warm), quantity: efsWarmRestoreGbPerMonth, unit: GB, price: aws.backup.efs.warm_restore }
+  - cost: { when: efsColdRestoreGbPerMonth > 0, name: EFS restore (cold), quantity: efsColdRestoreGbPerMonth, unit: GB, price: aws.backup.efs.cold_restore }
+  - cost: { when: efsItemRestoresPerMonth > 0, name: EFS restore (item-level), quantity: efsItemRestoresPerMonth, unit: request, price: aws.backup.efs.item_restore }
+  - storage: { when: ebsSnapshotGb > 0, name: EBS snapshots, gb: ebsSnapshotGb, price: aws.backup.ebs_snapshot }
+  - storage: { when: rdsSnapshotGb > 0, name: RDS snapshots, gb: rdsSnapshotGb, price: aws.backup.rds_snapshot }
+  - storage: { when: auroraSnapshotGb > 0, name: Aurora snapshots, gb: auroraSnapshotGb, price: aws.backup.aurora_snapshot }
+  - storage: { when: dynamodbBackupGb > 0, name: DynamoDB backups, gb: dynamodbBackupGb, price: aws.backup.dynamodb.warm }
+  - cost: { when: dynamodbRestoreGbPerMonth > 0, name: DynamoDB restore, quantity: dynamodbRestoreGbPerMonth, unit: GB, price: aws.backup.dynamodb.restore }
+  - storage: { when: s3BackupGb > 0, name: S3 backups, gb: s3BackupGb, price: aws.backup.s3.warm }
+  - storage: { when: fsxWindowsBackupGb > 0, name: FSx for Windows backups, gb: fsxWindowsBackupGb, price: aws.backup.fsx_windows }
+  - storage: { when: fsxLustreBackupGb > 0, name: FSx for Lustre backups, gb: fsxLustreBackupGb, price: aws.backup.fsx_lustre }
+terraform:
+  # Backup plans name the vault; the vault itself calls nothing.
+  passive: true
+iam:
+  backup: ["backup:StartBackupJob", "backup:StartCopyJob"]

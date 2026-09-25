@@ -1,0 +1,14 @@
+{
+  "aws.fsx.windows.max_throughput_mbps": {
+    "unit": "MBps",
+    "source": "https://docs.aws.amazon.com/fsx/latest/WindowsGuide/limits.html",
+    "note": "Maximum throughput capacity of one file system",
+    "values": {
+      "*": {
+        "value": 12288,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

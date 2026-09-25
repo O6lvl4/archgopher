@@ -1,0 +1,14 @@
+{
+  "aws.fsx.windows": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/fsx/sla/",
+    "note": "Single-AZ file systems, the lowest commitment; Multi-AZ file systems are 99.99%",
+    "values": {
+      "*": {
+        "value": 0.995,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

@@ -1,0 +1,825 @@
+{
+  "aws.backup.aurora_snapshot": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/rds/aurora/pricing/",
+    "note": "Aurora backup storage beyond the free amount equal to the cluster size; the same for Aurora MySQL",
+    "sync": {
+      "service": "AmazonRDS",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Aurora:BackupUsage",
+        "databaseEngine": "Aurora PostgreSQL"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.021,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.021,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.021,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.021,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.backup.dynamodb.restore": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/backup/pricing/",
+    "note": "DynamoDB restored from warm storage",
+    "sync": {
+      "service": "AWSBackup",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Restore-WarmBytes-DynamoDB"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.171,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.16245,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.171,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.171,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.171,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.1836,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.17,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.backup.dynamodb.warm": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/backup/pricing/",
+    "note": "DynamoDB backups in warm storage",
+    "sync": {
+      "service": "AWSBackup",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?WarmStorage-ByteHrs-DynamoDB"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.114,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.1083,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.114,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.114,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.114,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.1224,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.backup.ebs_snapshot": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/ebs/pricing/",
+    "note": "EBS snapshots, Standard tier",
+    "sync": {
+      "service": "AmazonEC2",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?EBS:SnapshotUsage"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.055,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.054,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.backup.efs.cold": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/backup/pricing/",
+    "note": "EFS backups in cold storage",
+    "sync": {
+      "service": "AWSBackup",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?ColdStorage-ByteHrs-EFS"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.011,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.011,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.backup.efs.cold_restore": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/backup/pricing/",
+    "note": "EFS restored from cold storage",
+    "sync": {
+      "service": "AWSBackup",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Restore-ColdBytes-EFS"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.033,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.033,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.backup.efs.item_restore": {
+    "unit": "request",
+    "source": "https://aws.amazon.com/backup/pricing/",
+    "note": "Item-level (partial) EFS restore jobs",
+    "sync": {
+      "service": "AWSBackup",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?PartialRestore-Jobs-EFS"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.55,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.55,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.backup.efs.warm": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/backup/pricing/",
+    "note": "EFS backups in warm storage",
+    "sync": {
+      "service": "AWSBackup",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?WarmStorage-ByteHrs-EFS"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.055,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.055,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.backup.efs.warm_restore": {
+    "unit": "GB",
+    "source": "https://aws.amazon.com/backup/pricing/",
+    "note": "EFS restored from warm storage",
+    "sync": {
+      "service": "AWSBackup",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Restore-WarmBytes-EFS"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.024,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.022,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.022,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.024,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.024,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.024,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.backup.fsx_lustre": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/fsx/lustre/pricing/",
+    "note": "FSx for Lustre backups",
+    "sync": {
+      "service": "AmazonFSx",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?BackupUsage",
+        "operation": "CreateFileSystem:Lustre"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.055,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.054,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.backup.fsx_windows": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/fsx/windows/pricing/",
+    "note": "FSx for Windows File Server backups (Single-AZ)",
+    "sync": {
+      "service": "AmazonFSx",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?BackupUsage",
+        "operation": "CreateFileSystem:Windows"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.055,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.054,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.backup.rds_snapshot": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/rds/pricing/",
+    "note": "RDS backup storage beyond the free amount equal to the database size; the same for every engine",
+    "sync": {
+      "service": "AmazonRDS",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?RDS:ChargedBackupUsage",
+        "databaseEngine": "PostgreSQL"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.095,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.095,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.095,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.095,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.095,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.103,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.095,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.095,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.095,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.095,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.backup.s3.warm": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/backup/pricing/",
+    "note": "S3 backups in warm storage",
+    "sync": {
+      "service": "AWSBackup",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?WarmStorage-ByteHrs-S3"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.055,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.055,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

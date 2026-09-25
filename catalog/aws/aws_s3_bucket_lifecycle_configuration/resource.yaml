@@ -1,0 +1,20 @@
+type: aws_s3_bucket_lifecycle_configuration
+label: S3 lifecycle rules
+category: Storage
+icon: s3
+description: "Transition requests into the storage class the first rule's transition names, and the storage of the objects held there. The bucket node reads S3 Standard only, so give it the data that stays in Standard. Expiration is free; retrieval fees and minimum storage durations are not read. Rules that only expire objects cost nothing."
+kinds: [transition]
+attributes:
+  - { key: storage_class, label: Transition to, type: choice, options: [STANDARD_IA, ONEZONE_IA, INTELLIGENT_TIERING, GLACIER_IR, GLACIER, DEEP_ARCHIVE], optional: true, path: rule.transition.storage_class, hint: "Unset when the rules only expire objects" }
+assumptions:
+  - { key: transitionsPerMonth, label: Objects transitioned per month, type: number, hint: "One transition request per object" }
+  - { key: transitionedGb, label: Stored in the target class, type: number, unit: GB, hint: "Data the rules have moved and still keep there" }
+let:
+  - code: 'storage_class == nil ? "" : storage_class == "STANDARD_IA" ? "SIA" : storage_class == "ONEZONE_IA" ? "ZIA" : storage_class == "INTELLIGENT_TIERING" ? "INT" : storage_class == "GLACIER_IR" ? "GIR" : storage_class == "GLACIER" ? "Glacier" : "GDA"'
+  - storageId: 'storage_class == nil ? "" : storage_class == "STANDARD_IA" ? "standard_ia.storage" : storage_class == "ONEZONE_IA" ? "one_zone_ia.storage" : storage_class == "INTELLIGENT_TIERING" ? "intelligent_tiering.frequent" : storage_class == "GLACIER_IR" ? "glacier_ir.storage" : storage_class == "GLACIER" ? "glacier.storage" : "deep_archive.storage"'
+readings:
+  - requests: { when: storage_class != nil, name: 'Transitions to {storage_class}', count: transitionsPerMonth, price: 'aws.s3.lifecycle.transition.{code}' }
+  - storage: { when: storage_class != nil, name: 'Storage in {storage_class}', gb: transitionedGb, price: 'aws.s3.{storageId}' }
+terraform:
+  # Names its bucket; calls nothing.
+  passive: true

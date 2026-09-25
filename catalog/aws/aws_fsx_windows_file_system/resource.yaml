@@ -1,0 +1,31 @@
+type: aws_fsx_windows_file_system
+label: FSx for Windows File Server
+category: Storage
+icon: fsx-windows
+description: "Throughput capacity, SSD or HDD storage capacity and SSD IOPS provisioned above the 3 per GB included, priced by deployment (Single-AZ or Multi-AZ), plus backup storage. Headroom is the data clients move against the throughput capacity. The SLA is the Single-AZ one; Multi-AZ is 99.99%."
+kinds: [read, write]
+sla: aws.fsx.windows
+attributes:
+  - { key: deployment_type, label: Deployment type, type: choice, options: [SINGLE_AZ_1, SINGLE_AZ_2, MULTI_AZ_1], default: SINGLE_AZ_1 }
+  - { key: storage_type, label: Storage type, type: choice, options: [SSD, HDD], default: SSD }
+  - { key: storage_capacity, label: Storage capacity, type: number, unit: GiB, default: 32, hint: "Terraform sets it unless the file system is restored from a backup; 32 is the SSD minimum" }
+  - { key: throughput_capacity, label: Throughput capacity, type: number, unit: MBps, default: 8, hint: "Terraform requires it; 8 is the minimum" }
+  - { key: iops_mode, label: SSD IOPS mode, type: choice, options: [AUTOMATIC, USER_PROVISIONED], default: AUTOMATIC, path: disk_iops_configuration.mode }
+  - { key: iops, label: SSD IOPS, type: number, optional: true, path: disk_iops_configuration.iops }
+assumptions:
+  - { key: backupGb, label: Backup storage, type: number, unit: GB, default: 0, hint: "Automatic daily and user-initiated backups, incremental after the first" }
+  - { key: opKb, label: Data per read or write, type: number, unit: KB, hint: "For operations whose edges give no kb" }
+let:
+  - deployment: 'deployment_type == "MULTI_AZ_1" ? "multi_az" : "single_az"'
+  - ssd: 'storage_type == "SSD"'
+  - extraIops: 'ssd && iops_mode == "USER_PROVISIONED" && iops != nil ? max(iops - 3 * storage_capacity, 0) : 0.0'
+readings:
+  - cost: { name: Throughput capacity, quantity: throughput_capacity, unit: MBps-month, price: 'aws.fsx.windows.{deployment}.throughput' }
+  - storage: { name: '{storage_type} storage', gb: storage_capacity, price: 'aws.fsx.windows.{deployment}.{ssd ? "ssd" : "hdd"}_storage' }
+  - cost: { when: extraIops > 0, name: Provisioned SSD IOPS, quantity: extraIops, unit: IOPS-month, price: 'aws.fsx.windows.{deployment}.ssd_iops' }
+  - storage: { when: backupGb > 0, name: Backup storage, gb: backupGb, price: 'aws.fsx.windows.{deployment}.backup' }
+  - limit: { name: Throughput, demand: '(peakUnits(demand.read, 1, opKb) + peakUnits(demand.write, 1, opKb)) / 1000', unit: MBps, capacity: throughput_capacity }
+  - limit: { name: Throughput capacity, demand: throughput_capacity, unit: MBps, quota: aws.fsx.windows.max_throughput_mbps }
+terraform:
+  # SMB clients call it; it calls nothing (its directory, keys and audit logs are settings).
+  passive: true

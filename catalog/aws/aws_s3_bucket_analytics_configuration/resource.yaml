@@ -1,0 +1,13 @@
+type: aws_s3_bucket_analytics_configuration
+label: S3 Storage Class Analysis
+category: Storage
+icon: s3
+description: "Storage Class Analysis: a fee per million objects monitored each month in the configuration's filter. Exported reports are written to a bucket, which that bucket's node reads."
+kinds: [analyze]
+assumptions:
+  - { key: monitoredObjects, label: Objects monitored, type: number, hint: "Objects the filter covers" }
+readings:
+  - cost: { name: Objects monitored, quantity: monitoredObjects, unit: object-month, price: aws.s3.analytics.objects }
+terraform:
+  # Names its bucket and the export destination; calls nothing.
+  passive: true

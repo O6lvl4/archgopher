@@ -1,0 +1,696 @@
+{
+  "aws.s3.deep_archive.storage": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/s3/pricing/",
+    "note": "S3 Glacier Deep Archive",
+    "sync": {
+      "service": "AmazonS3GlacierDeepArchive",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?TimedStorage-GDA-ByteHrs"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0018,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.00099,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.00099,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.00099,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.00099,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.s3.glacier.storage": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/s3/pricing/",
+    "note": "S3 Glacier Flexible Retrieval",
+    "sync": {
+      "service": "AmazonS3",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?TimedStorage-GlacierByteHrs"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0045,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0045,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0045,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.0045,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.0045,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.00405,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.0036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.0036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.0036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.0036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.s3.glacier_ir.storage": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/s3/pricing/",
+    "note": "S3 Glacier Instant Retrieval",
+    "sync": {
+      "service": "AmazonS3",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?TimedStorage-GIR-ByteHrs"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.004,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.004,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.004,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.004,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.s3.intelligent_tiering.archive": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/s3/pricing/",
+    "note": "S3 Intelligent-Tiering Archive Access tier (opt-in)",
+    "sync": {
+      "service": "AmazonS3",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?TimedStorage-INT-AA-ByteHrs"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0045,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0045,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0045,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.0045,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.0045,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.00405,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.0036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.0036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.0036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.0036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.s3.intelligent_tiering.archive_instant": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/s3/pricing/",
+    "note": "S3 Intelligent-Tiering Archive Instant Access tier",
+    "sync": {
+      "service": "AmazonS3",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?TimedStorage-INT-AIA-ByteHrs"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.004,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.004,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.004,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.004,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.s3.intelligent_tiering.deep_archive": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/s3/pricing/",
+    "note": "S3 Intelligent-Tiering Deep Archive Access tier (opt-in)",
+    "sync": {
+      "service": "AmazonS3",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?TimedStorage-INT-DAA-ByteHrs"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0018,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.00099,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.00099,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.00099,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.00099,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.s3.intelligent_tiering.frequent": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/s3/pricing/",
+    "note": "S3 Intelligent-Tiering Frequent Access tier, first 50 TB",
+    "sync": {
+      "service": "AmazonS3",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?TimedStorage-INT-FA-ByteHrs"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0245,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.s3.intelligent_tiering.infrequent": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/s3/pricing/",
+    "note": "S3 Intelligent-Tiering Infrequent Access tier",
+    "sync": {
+      "service": "AmazonS3",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?TimedStorage-INT-IA-ByteHrs"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0138,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0138,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0138,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.0138,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.0138,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0135,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.s3.intelligent_tiering.monitoring": {
+    "unit": "object-month",
+    "per": 1000,
+    "source": "https://aws.amazon.com/s3/pricing/",
+    "note": "Monitoring and automation, per object of 128 KB or more",
+    "sync": {
+      "service": "AmazonS3",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Monitoring-Automation-INT"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.0025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.0025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.0025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.0025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.0025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.0025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.s3.one_zone_ia.storage": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/s3/pricing/",
+    "note": "S3 One Zone-Infrequent Access",
+    "sync": {
+      "service": "AmazonS3",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?TimedStorage-ZIA-ByteHrs"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.011,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.011,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.011,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.011,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.011,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0108,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.s3.standard_ia.storage": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/s3/pricing/",
+    "note": "S3 Standard-Infrequent Access",
+    "sync": {
+      "service": "AmazonS3",
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?TimedStorage-SIA-ByteHrs"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0138,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0138,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0138,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.0138,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.0138,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0135,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Daily, 20 million objects (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    objects: 20000000
+  costs:
+    # 20 M objects x 730 / 24 reports = 608.333 M objects x 0.0028
+    Objects listed: 1.703333333
+- name: Weekly, 20 million objects (us-east-1)
+  region: us-east-1
+  attributes:
+    frequency: Weekly
+  assumptions:
+    objects: 20000000
+  costs:
+    # 20 M x 730 / 168 = 86.905 M objects x 0.0025
+    Objects listed: 0.217261905
+- name: Disabled (us-east-1)
+  region: us-east-1
+  attributes:
+    enabled: false
+  assumptions:
+    objects: 20000000

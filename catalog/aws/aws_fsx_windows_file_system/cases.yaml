@@ -1,0 +1,47 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Single-AZ SSD with provisioned IOPS (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    deployment_type: SINGLE_AZ_1
+    storage_type: SSD
+    storage_capacity: 1024
+    throughput_capacity: 64
+    iops_mode: USER_PROVISIONED
+    iops: 6000
+  assumptions:
+    backupGb: 200
+    opKb: 64
+  demand:
+    read:
+      monthly: 1000000
+      peak: 500
+    write:
+      monthly: 200000
+      peak: 100
+  costs:
+    # 64 MBps x 2.53; 1024 GB x 0.156; (6000 - 3 x 1024) IOPS x 0.0144; 200 GB x 0.05
+    Throughput capacity: 161.92
+    SSD storage: 159.744
+    Provisioned SSD IOPS: 42.1632
+    Backup storage: 10
+  limits:
+    # (500 + 100)/s x 64 KB = 38,400 KB/s
+    Throughput: 38.4
+    Throughput capacity: 64
+- name: Multi-AZ HDD (us-east-1)
+  region: us-east-1
+  attributes:
+    deployment_type: MULTI_AZ_1
+    storage_type: HDD
+    storage_capacity: 2000
+    throughput_capacity: 32
+  assumptions:
+    opKb: 4
+  costs:
+    # 32 MBps x 4.5; 2000 GB x 0.025
+    Throughput capacity: 144
+    HDD storage: 50
+  limits:
+    Throughput: 0
+    Throughput capacity: 32

@@ -1,0 +1,55 @@
+type: aws_efs_file_system
+label: EFS file system
+category: Storage
+icon: efs
+description: "Storage by class (Standard or One Zone, Infrequent Access, Archive), data read and tiered into the colder classes, Elastic throughput per GB read and written, and Provisioned throughput above what Standard storage includes. Headroom is the file system's read and write throughput for its throughput mode (reads are metered at a third for Bursting and Provisioned) and, for Bursting, the baseline its Standard storage earns. The SLA is the regional one; One Zone is 99.9%."
+kinds: [read, write]
+sla: aws.efs
+attributes:
+  - { key: availability_zone_name, label: One Zone in, type: string, optional: true, hint: "Set for One Zone file systems" }
+  - { key: throughput_mode, label: Throughput mode, type: choice, options: [bursting, provisioned, elastic], default: bursting }
+  - { key: provisioned_throughput_in_mibps, label: Provisioned throughput, type: number, unit: MiBps, optional: true }
+  - { key: lifecycle_policy, label: Lifecycle policy, type: boolean, default: false, hint: "Moves files to Infrequent Access or Archive" }
+assumptions:
+  - { key: storageGb, label: Standard storage, type: number, unit: GB, hint: "Data in the Standard (or One Zone) class" }
+  - { key: iaGb, label: Infrequent Access storage, type: number, unit: GB, default: 0 }
+  - { key: archiveGb, label: Archive storage, type: number, unit: GB, default: 0, hint: "Regional file systems only" }
+  - { key: iaReadGbPerMonth, label: Read from Infrequent Access, type: number, unit: GB, default: 0 }
+  - { key: iaWriteGbPerMonth, label: Tiered into Infrequent Access, type: number, unit: GB, default: 0, hint: "Data the lifecycle policy moves in, plus writes to files already there" }
+  - { key: archiveReadGbPerMonth, label: Read from Archive, type: number, unit: GB, default: 0 }
+  - { key: archiveWriteGbPerMonth, label: Tiered into Archive, type: number, unit: GB, default: 0 }
+  - { key: opKb, label: Data per read or write, type: number, unit: KB, hint: "For operations whose edges give no kb" }
+let:
+  - oneZone: 'availability_zone_name != nil && availability_zone_name != ""'
+  - elastic: 'throughput_mode == "elastic"'
+  - provisioned: 'throughput_mode == "provisioned"'
+  - readGb: units(demand.read, 1, opKb) / 1048576
+  - writeGb: units(demand.write, 1, opKb) / 1048576
+  - readMibps: peakUnits(demand.read, 1, opKb) / 1024
+  - writeMibps: peakUnits(demand.write, 1, opKb) / 1024
+  - included: storageGb / 20
+  - limits: 'oneZone && !(throughput_mode == "bursting") ? "one_zone" : throughput_mode'
+readings:
+  - storage: { name: '{oneZone ? "One Zone" : "Standard"} storage', gb: storageGb, price: 'aws.efs.{oneZone ? "one_zone" : "standard"}.storage' }
+  - storage: { when: iaGb > 0, name: '{oneZone ? "One Zone-" : ""}Infrequent Access storage', gb: iaGb, price: 'aws.efs.{oneZone ? "one_zone.ia_storage" : elastic ? "ia.storage_elastic" : "ia.storage"}' }
+  - fail: { when: oneZone && archiveGb > 0, message: "One Zone file systems have no Archive class: archiveGb must be 0", continue: true }
+  - storage: { when: "!oneZone && archiveGb > 0", name: Archive storage, gb: archiveGb, price: aws.efs.archive.storage }
+  - cost: { when: iaReadGbPerMonth > 0, name: Infrequent Access reads, quantity: iaReadGbPerMonth, unit: GB, price: aws.efs.ia.read }
+  - cost: { when: iaWriteGbPerMonth > 0, name: Infrequent Access tiering and writes, quantity: iaWriteGbPerMonth, unit: GB, price: aws.efs.ia.write }
+  - cost: { when: archiveReadGbPerMonth > 0, name: Archive reads, quantity: archiveReadGbPerMonth, unit: GB, price: aws.efs.archive.read }
+  - cost: { when: archiveWriteGbPerMonth > 0, name: Archive tiering and writes, quantity: archiveWriteGbPerMonth, unit: GB, price: aws.efs.archive.write }
+  - cost: { when: elastic, name: Elastic throughput reads, quantity: readGb, unit: GB, price: aws.efs.elastic.read }
+  - cost: { when: elastic, name: Elastic throughput writes, quantity: writeGb, unit: GB, price: aws.efs.elastic.write }
+  - fail: { when: provisioned && provisioned_throughput_in_mibps == nil, message: "provisioned throughput mode needs provisioned_throughput_in_mibps" }
+  - cost: { when: provisioned, name: Provisioned throughput, quantity: 'max((provisioned_throughput_in_mibps ?? 0) - included, 0)', unit: MiBps-month, price: aws.efs.provisioned_throughput }
+  - limit: { name: Read throughput, demand: readMibps, unit: MiB/s, quota: 'aws.efs.{limits}.read_mibps' }
+  - limit: { name: Write throughput, demand: writeMibps, unit: MiB/s, quota: 'aws.efs.{limits}.write_mibps' }
+  - limit: { when: provisioned, name: Provisioned throughput, demand: readMibps / 3 + writeMibps, unit: MiB/s, capacity: provisioned_throughput_in_mibps }
+  - limit: { when: 'throughput_mode == "bursting"', name: Baseline throughput (bursts above it spend credits), demand: readMibps / 3 + writeMibps, unit: MiB/s, capacity: included }
+terraform:
+  # Clients mount the file system; it calls nothing. Lambda and ECS reach it through access points and mount targets.
+  passive: true
+  aliases: { aws_efs_access_point: file_system_id, aws_efs_mount_target: file_system_id, aws_efs_file_system_policy: file_system_id, aws_efs_backup_policy: file_system_id }
+iam:
+  read: ["elasticfilesystem:ClientMount"]
+  write: ["elasticfilesystem:ClientWrite"]

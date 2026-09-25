@@ -1,0 +1,15 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Ten million objects (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    monitoredObjects: 10000000
+  costs:
+    # 10,000,000 / 1,000,000 x 0.10
+    Objects monitored: 1
+- name: Half a million objects (us-west-2)
+  region: us-west-2
+  assumptions:
+    monitoredObjects: 500000
+  costs:
+    Objects monitored: 0.05

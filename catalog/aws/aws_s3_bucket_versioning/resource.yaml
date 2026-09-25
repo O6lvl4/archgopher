@@ -1,0 +1,15 @@
+type: aws_s3_bucket_versioning
+label: S3 versioning
+category: Storage
+icon: s3
+description: "Noncurrent object versions kept by versioning, stored at the S3 Standard price. The bucket node reads the current versions; lifecycle rules that expire or move noncurrent versions shrink this amount. Suspended versioning keeps the versions already written."
+kinds: [version]
+attributes:
+  - { key: status, label: Status, type: choice, options: [Enabled, Suspended, Disabled], default: Enabled, path: versioning_configuration.status }
+assumptions:
+  - { key: noncurrentGb, label: Noncurrent versions, type: number, unit: GB, hint: "Overwritten and deleted object versions still kept" }
+readings:
+  - storage: { when: 'status != "Disabled"', name: Noncurrent versions, gb: noncurrentGb, price: aws.s3.standard.storage }
+terraform:
+  # Names its bucket; calls nothing.
+  passive: true

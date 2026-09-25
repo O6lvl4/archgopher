@@ -1,0 +1,14 @@
+{
+  "aws.fsx.openzfs": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/fsx/sla/",
+    "note": "Single-AZ (non-HA) file systems, the lowest commitment; Single-AZ HA is 99.9% and Multi-AZ 99.99%",
+    "values": {
+      "*": {
+        "value": 0.995,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

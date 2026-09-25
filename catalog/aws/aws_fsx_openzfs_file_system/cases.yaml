@@ -1,0 +1,49 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Single-AZ 2 with provisioned IOPS (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    deployment_type: SINGLE_AZ_2
+    storage_capacity: 256
+    throughput_capacity: 160
+    iops_mode: USER_PROVISIONED
+    iops: 2000
+  assumptions:
+    opKb: 128
+  demand:
+    read:
+      monthly: 5000000
+      peak: 1000
+  costs:
+    # 160 MBps x 0.35; 256 GB x 0.108; (2000 - 3 x 256) IOPS x 0.0068
+    Throughput capacity: 56
+    SSD storage: 27.648
+    Provisioned SSD IOPS: 8.3776
+  limits:
+    # 1000/s x 128 KB
+    Throughput: 128
+    Throughput capacity: 160
+- name: Multi-AZ with backups (us-east-1)
+  region: us-east-1
+  attributes:
+    deployment_type: MULTI_AZ_1
+    storage_capacity: 1024
+    throughput_capacity: 320
+  assumptions:
+    backupGb: 500
+    opKb: 4
+  costs:
+    # 320 MBps x 0.87; 1024 GB x 0.18; 500 GB x 0.05
+    Throughput capacity: 278.4
+    SSD storage: 184.32
+    Backup storage: 25
+  limits:
+    Throughput: 0
+    Throughput capacity: 320
+- name: Intelligent-Tiering is not priced
+  region: us-east-1
+  attributes:
+    storage_type: INTELLIGENT_TIERING
+  assumptions:
+    opKb: 4
+  error: Intelligent-Tiering

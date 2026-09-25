@@ -1,0 +1,35 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Internet across three tiers, inter-region and within the region (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    intraRegionGb: 1000
+    internetGb: 60000
+    otherRegionsGb: 500
+  costs:
+    # 1000 GB x 2 x 0.01
+    Within the region: 20
+    # 10,240 x 0.114; 40,960 x 0.089; (60,000 - 51,200) = 8,800 x 0.086
+    Out to the internet (first 10 TB): 1167.36
+    Out to the internet (next 40 TB): 3645.44
+    Out to the internet (next 100 TB): 756.8
+    # 500 x 0.09
+    To other regions: 45
+- name: US East to US East and over 150 TB out (us-east-1)
+  region: us-east-1
+  assumptions:
+    internetGb: 200000
+    usEastGb: 1000
+  costs:
+    # 10,240 x 0.09; 40,960 x 0.085; 102,400 x 0.07; 46,400 x 0.05
+    Out to the internet (first 10 TB): 921.6
+    Out to the internet (next 40 TB): 3481.6
+    Out to the internet (next 100 TB): 7168
+    Out to the internet (over 150 TB): 2320
+    # 1000 x 0.01
+    To the other US East region: 10
+- name: US East transfer written outside US East (eu-west-1)
+  region: eu-west-1
+  assumptions:
+    usEastGb: 10
+  error: otherRegionsGb

@@ -1,0 +1,188 @@
+{
+  "aws.efs.bursting.read_mibps": {
+    "unit": "MiB/s",
+    "source": "https://docs.aws.amazon.com/efs/latest/ug/limits.html",
+    "note": "Bursting throughput per file system: 5 GiBps in us-east-1, us-east-2, us-west-2, ap-southeast-2 and eu-west-1, 3 GiBps elsewhere",
+    "values": {
+      "*": {
+        "value": 3072,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 5120,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 5120,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 5120,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 5120,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 5120,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.efs.bursting.write_mibps": {
+    "unit": "MiB/s",
+    "source": "https://docs.aws.amazon.com/efs/latest/ug/limits.html",
+    "note": "Bursting throughput per file system: 3 GiBps writes in us-east-1, us-east-2, us-west-2, ap-southeast-2 and eu-west-1, 1 GiBps elsewhere",
+    "values": {
+      "*": {
+        "value": 1024,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 3072,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 3072,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 3072,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 3072,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 3072,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.efs.elastic.read_mibps": {
+    "unit": "MiB/s",
+    "source": "https://docs.aws.amazon.com/efs/latest/ug/limits.html",
+    "note": "Elastic throughput per regional file system for all clients: 60 GiBps in the larger regions, 20 GiBps elsewhere (all ten regions here are larger)",
+    "values": {
+      "*": {
+        "value": 61440,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.efs.elastic.write_mibps": {
+    "unit": "MiB/s",
+    "source": "https://docs.aws.amazon.com/efs/latest/ug/limits.html",
+    "note": "Elastic throughput per regional file system: 5 GiBps metered writes in the larger regions, 1 GiBps elsewhere",
+    "values": {
+      "*": {
+        "value": 5120,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.efs.one_zone.read_mibps": {
+    "unit": "MiB/s",
+    "source": "https://docs.aws.amazon.com/efs/latest/ug/limits.html",
+    "note": "Elastic and Provisioned throughput per One Zone file system, every region",
+    "values": {
+      "*": {
+        "value": 3072,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.efs.one_zone.write_mibps": {
+    "unit": "MiB/s",
+    "source": "https://docs.aws.amazon.com/efs/latest/ug/limits.html",
+    "note": "Elastic and Provisioned throughput per One Zone file system, every region",
+    "values": {
+      "*": {
+        "value": 1024,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.efs.provisioned.read_mibps": {
+    "unit": "MiB/s",
+    "source": "https://docs.aws.amazon.com/efs/latest/ug/limits.html",
+    "note": "Provisioned throughput per regional file system: 10 GiBps in us-east-1, us-east-2, us-west-2 and eu-west-1, 3 GiBps elsewhere",
+    "values": {
+      "*": {
+        "value": 3072,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 10240,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 10240,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 10240,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 10240,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.efs.provisioned.write_mibps": {
+    "unit": "MiB/s",
+    "source": "https://docs.aws.amazon.com/efs/latest/ug/limits.html",
+    "note": "Provisioned throughput per regional file system: 3.33 GiBps metered writes in us-east-1, us-east-2, us-west-2 and eu-west-1, 1 GiBps elsewhere",
+    "values": {
+      "*": {
+        "value": 1024,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 3410,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 3410,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 3410,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 3410,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

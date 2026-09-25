@@ -1,0 +1,40 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: SFTP by default (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    fileMb: 10
+  demand:
+    upload:
+      monthly: 30000
+      peak: 2
+    download:
+      monthly: 10240
+      peak: 1
+  costs:
+    # 730 h x 0.30; 30,000 x 10 MB = 292.96875 GB x 0.04; 10,240 x 10 MB = 100 GB x 0.04
+    SFTP protocol enabled: 219
+    Data uploaded: 11.71875
+    Data downloaded: 4
+  limits:
+    # 3 sessions/s x 60 s
+    Concurrent sessions: 180
+- name: SFTP and FTPS, uploads only (us-east-1)
+  region: us-east-1
+  attributes:
+    protocols: [SFTP, FTPS]
+  assumptions:
+    fileMb: 1024
+    sessionSeconds: 600
+  demand:
+    upload:
+      monthly: 1000
+      peak: 0.1
+  costs:
+    # 2 x 730 h x 0.30; 1000 x 1 GB x 0.04
+    SFTP protocol enabled: 219
+    FTPS protocol enabled: 219
+    Data uploaded: 40
+    Data downloaded: 0
+  limits:
+    Concurrent sessions: 60
