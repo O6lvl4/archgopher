@@ -1,0 +1,68 @@
+{
+  "azure.vnetgateway.s2s_connection": {
+    "unit": "tunnel-hour",
+    "source": "https://azure.microsoft.com/pricing/details/vpn-gateway/",
+    "note": "Site-to-site and VNet-to-VNet tunnels beyond the 10 a gateway includes; the same price on every SKU",
+    "sync": {
+      "filters": {
+        "meterName": "S2S Connection",
+        "productName": "VPN Gateway",
+        "skuName": "VpnGw1"
+      },
+      "service": "VPN Gateway",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

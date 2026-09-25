@@ -1,0 +1,15 @@
+type: azurerm_network_ddos_protection_plan
+label: DDoS protection plan
+category: Security
+icon: ddos-protection
+description: "DDoS Network Protection: the plan's hours, which cover 100 public IP resources across the VNets it protects, and each resource beyond. Load does not flow through a plan."
+kinds: [protect]
+sla: azure.ddos
+assumptions:
+  - { key: protectedResources, label: Public IP resources protected, type: number, default: 0, hint: "Public IP addresses in every VNet linked to the plan, in all subscriptions of the tenant" }
+readings:
+  - cost: { name: Plan hours, quantity: 730, unit: hour, price: azure.ddos.network.plan }
+  - cost: { when: protectedResources > 100, name: Resources beyond 100, quantity: (protectedResources - 100) * 730, unit: resource-hour, price: azure.ddos.network.resource }
+terraform:
+  # VNets name the plan; the plan calls nothing.
+  passive: true

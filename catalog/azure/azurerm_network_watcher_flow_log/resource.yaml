@@ -1,0 +1,18 @@
+type: azurerm_network_watcher_flow_log
+label: Flow log
+category: Monitoring
+icon: network-watcher
+description: "NSG or VNet flow logs: GB collected and, with traffic analytics, GB processed at the 60- or 10-minute interval. The logs' storage is billed on the storage account and the analytics results on the Log Analytics workspace. Load does not flow through it."
+kinds: [collect]
+attributes:
+  - { key: enabled, label: Enabled, type: boolean, default: true }
+  - { key: traffic_analytics, label: Traffic analytics, type: boolean, default: false, path: traffic_analytics.enabled }
+  - { key: interval_in_minutes, label: Analytics interval, type: number, unit: min, default: 60, path: traffic_analytics.interval_in_minutes }
+assumptions:
+  - { key: gbPerMonth, label: Flow logs per month, type: number, unit: GB, default: 0, hint: "Roughly the flows through the NSG or VNet; Azure Monitor shows it once enabled" }
+readings:
+  - cost: { when: enabled, name: Logs collected, quantity: gbPerMonth, unit: GB, price: azure.networkwatcher.logs_collected }
+  - cost: { when: enabled && traffic_analytics, name: 'Traffic analytics ({interval_in_minutes == 10 ? "10" : "60"}-minute interval)', quantity: gbPerMonth, unit: GB, price: 'azure.networkwatcher.traffic_analytics.{interval_in_minutes == 10 ? "10min" : "60min"}' }
+terraform:
+  # A flow log names what it watches and where it writes; it calls nothing.
+  passive: true

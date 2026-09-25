@@ -1,0 +1,14 @@
+{
+  "azure.virtualwan.vpn.scale_unit_gbps": {
+    "unit": "Gbps",
+    "source": "https://learn.microsoft.com/en-us/azure/virtual-wan/gateway-settings",
+    "note": "Aggregate throughput of one site-to-site or point-to-site VPN scale unit in a Virtual WAN hub",
+    "values": {
+      "*": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

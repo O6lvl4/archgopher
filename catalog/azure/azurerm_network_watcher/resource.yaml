@@ -1,0 +1,14 @@
+type: azurerm_network_watcher
+label: Network Watcher
+category: Monitoring
+icon: network-watcher
+description: "Network diagnostic tool checks (IP flow verify, next hop, VPN troubleshoot, packet capture and the like). Flow logs and connection monitors are read on their own nodes. Load does not flow through it."
+kinds: [diagnose]
+sla: azure.networkwatcher
+assumptions:
+  - { key: checks, label: Diagnostic checks per month, type: number, default: 0, hint: "Calls to the diagnostic tools, from the portal, scripts or automation" }
+readings:
+  - cost: { name: Diagnostic checks, quantity: checks, unit: check, price: azure.networkwatcher.diagnostic_check }
+terraform:
+  # Flow logs and monitors name the watcher; it calls nothing.
+  passive: true

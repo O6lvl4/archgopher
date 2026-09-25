@@ -1,0 +1,23 @@
+type: azurerm_network_connection_monitor
+label: Connection monitor
+category: Monitoring
+icon: network-watcher
+description: "Tests per month: each enabled test group runs one test per source, destination and test configuration, priced in volume tiers. Only the first test group is read from Terraform; add the others' tests by hand. Its results land in a Log Analytics workspace, billed there. Load does not flow through it."
+kinds: [test]
+attributes:
+  - { key: group_enabled, label: First test group enabled, type: boolean, default: true, path: test_group.enabled }
+  - { key: sources, label: Sources in the first test group, type: list, default: [], path: test_group.source_endpoints }
+  - { key: destinations, label: Destinations in the first test group, type: list, default: [], path: test_group.destination_endpoints }
+  - { key: configurations, label: Test configurations in the first test group, type: list, default: [], path: test_group.test_configuration_names }
+assumptions:
+  - { key: otherTests, label: Tests in other test groups, type: number, default: 0, hint: "Sources × destinations × test configurations of each further enabled test group" }
+let:
+  - tests: '(group_enabled ? len(sources) * len(destinations) * len(configurations) : 0) + otherTests'
+readings:
+  - cost: { name: Tests, quantity: 'min(tests, 240010)', unit: test-month, price: azure.networkwatcher.connection_monitor.tier1 }
+  - cost: { when: tests > 240010, name: Tests beyond 240010, quantity: 'min(tests, 750010) - 240010', unit: test-month, price: azure.networkwatcher.connection_monitor.tier2 }
+  - cost: { when: tests > 750010, name: Tests beyond 750010, quantity: 'min(tests, 1000010) - 750010', unit: test-month, price: azure.networkwatcher.connection_monitor.tier3 }
+  - cost: { when: tests > 1000010, name: Tests beyond 1000010, quantity: tests - 1000010, unit: test-month, price: azure.networkwatcher.connection_monitor.tier4 }
+terraform:
+  # A monitor names its watcher, endpoints and workspace; it calls nothing.
+  passive: true

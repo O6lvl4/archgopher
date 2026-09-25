@@ -1,0 +1,134 @@
+{
+  "azure.virtualwan.expressroute.additional_scale_unit": {
+    "unit": "scale unit-hour",
+    "source": "https://azure.microsoft.com/pricing/details/virtual-wan/",
+    "note": "Virtual WAN ExpressRoute gateway scale units 6 to 10",
+    "sync": {
+      "filters": {
+        "meterName": "ExpressRoute Additional Scale Unit",
+        "productName": "Virtual WAN",
+        "skuName": "ExpressRoute Additional Scale Unit"
+      },
+      "service": "Virtual WAN",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.virtualwan.expressroute.scale_unit": {
+    "unit": "scale unit-hour",
+    "source": "https://azure.microsoft.com/pricing/details/virtual-wan/",
+    "note": "Virtual WAN ExpressRoute gateway, per 2 Gbps scale unit (scale units 1 to 5)",
+    "sync": {
+      "filters": {
+        "meterName": "ExpressRoute Scale Unit",
+        "productName": "Virtual WAN",
+        "skuName": "ExpressRoute Scale Unit"
+      },
+      "service": "Virtual WAN",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.42,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.42,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.42,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.42,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.42,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.42,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.42,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.42,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.42,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.42,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

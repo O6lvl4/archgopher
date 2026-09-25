@@ -1,0 +1,31 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: one scale unit (japaneast)
+  region: japaneast
+  attributes:
+    scale_units: 1
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # 730 h × $0.42
+  costs:
+    Scale unit hours: 306.6
+  limits:
+    Throughput: 0
+- name: seven scale units, two at the additional rate (eastus)
+  region: eastus
+  attributes:
+    scale_units: 7
+  assumptions:
+    kbPerUnit: 4
+  demand:
+    traffic:
+      monthly: 1e+07
+      peak: 100
+  # 5 × 730 h × $0.42; 2 × 730 h × $0.25; 100/s × 4 KB × 8 bit against 7 × 2 Gbps
+  costs:
+    Scale unit hours: 1533
+    Additional scale unit hours: 365
+  limits:
+    Throughput: 0.0030517578125

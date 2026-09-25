@@ -1,0 +1,27 @@
+type: azurerm_virtual_hub
+label: Virtual WAN hub
+category: Network
+icon: virtual-wan-hub
+description: "A Standard hub: deployment hours, routing infrastructure units beyond the 2 included, and data processed by the hub router. Basic hubs cost nothing. Place it on the path: load that passes through carries kbPerUnit each. Headroom is the router's aggregate throughput, 3 Gbps up to 3 units and 1 Gbps a unit beyond."
+kinds: [traffic]
+sla: azure.virtualwan
+attributes:
+  - { key: sku, label: SKU, type: choice, options: [Standard, Basic], default: Standard, hint: "Unset follows the Virtual WAN, Standard by default" }
+  - { key: virtual_router_auto_scale_min_capacity, label: Routing infrastructure units, type: number, default: 2 }
+assumptions:
+  - { key: kbPerUnit, label: Data per unit, type: number, unit: KB, optional: true, hint: "Per request or message passing through the hub router, VNet to VNet or branch to VNet" }
+  - { key: gbPerMonth, label: Other data per month, type: number, unit: GB, default: 0, hint: "Traffic not drawn as load" }
+let:
+  - standard: 'sku == "Standard"'
+  - perUnit: 'kbPerUnit != nil ? kbPerUnit : 0.0'
+  - units: virtual_router_auto_scale_min_capacity
+readings:
+  - fail: { when: 'total.monthly > 0 && kbPerUnit == nil', message: "load passes through this hub: set kbPerUnit, the data each unit carries" }
+  - cost: { when: standard, name: Hub hours, quantity: 730, unit: hour, price: azure.virtualwan.hub.standard.unit }
+  - cost: { when: standard && units > 2, name: Routing infrastructure units beyond 2, quantity: 730 * (units - 2), unit: unit-hour, price: azure.virtualwan.hub.routing_unit }
+  - cost: { when: standard, name: Data processed, quantity: 'gbPerMonth + total.monthly * perUnit / 1024 / 1024', unit: GB, price: azure.virtualwan.hub.standard.data_processed }
+  - limit: { when: standard, name: Router throughput, demand: 'total.peak * perUnit * 8 / 1024 / 1024', unit: Gbps, capacity: 'max(3.0, units)' }
+terraform:
+  # Gateways and connections name the hub; nothing calls it. Draw the traffic through it by hand.
+  mentioned: true
+  passive: true

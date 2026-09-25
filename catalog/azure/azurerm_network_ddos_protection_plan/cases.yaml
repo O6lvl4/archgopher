@@ -1,0 +1,23 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: one plan within its 100 resources (japaneast)
+  region: japaneast
+  demand:
+    protect:
+      monthly: 0
+      peak: 0
+  # 730 h × $4.032258
+  costs:
+    Plan hours: 2943.54834
+- name: 150 protected resources (eastus)
+  region: eastus
+  assumptions:
+    protectedResources: 150
+  demand:
+    protect:
+      monthly: 0
+      peak: 0
+  # 730 h × $4.032258; (150 − 100) × 730 h × $0.040322
+  costs:
+    Plan hours: 2943.54834
+    Resources beyond 100: 1471.753

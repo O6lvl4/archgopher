@@ -1,0 +1,21 @@
+type: azurerm_vpn_gateway
+label: VPN gateway (Virtual WAN)
+category: Network
+icon: virtual-wan
+description: "A site-to-site VPN gateway in a Virtual WAN hub: scale unit-hours. Each connection to a site is read on its connection, and traffic through the hub router on the hub. Place it on the path: headroom is 500 Mbps per scale unit."
+kinds: [traffic]
+sla: azure.virtualwan
+attributes:
+  - { key: scale_unit, label: Scale units, type: number, default: 1 }
+assumptions:
+  - { key: kbPerUnit, label: Data per unit, type: number, unit: KB, optional: true, hint: "Per request or message passing through, for the throughput headroom" }
+let:
+  - perUnit: 'kbPerUnit != nil ? kbPerUnit : 0.0'
+readings:
+  - fail: { when: 'total.monthly > 0 && kbPerUnit == nil', message: "load passes through this gateway: set kbPerUnit, the data each unit carries" }
+  - cost: { name: Scale unit hours, quantity: 730 * scale_unit, unit: scale unit-hour, price: azure.virtualwan.vpn_s2s.scale_unit }
+  - rate: { name: Throughput, unit: Gbps, quota: azure.virtualwan.vpn.scale_unit_gbps, peak: 'total.peak * perUnit * 8 / 1024 / 1024', scale: scale_unit }
+terraform:
+  # Connections name the gateway; nothing calls it. Draw the traffic through it by hand.
+  mentioned: true
+  passive: true

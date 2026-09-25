@@ -1,0 +1,381 @@
+{
+  "azure.vnetgateway.expressroute": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/expressroute/",
+    "note": "ExpressRoute virtual network gateway by the price list's SKU name (HighPerformance is High Performance, UltraPerformance is Ultra High Performance), per gateway-hour; ErGwScale per scale unit-hour",
+    "sync": {
+      "filters": {
+        "productName": "ExpressRoute.* Gateway",
+        "skuName": "{row}"
+      },
+      "service": "ExpressRoute",
+      "source": "azure"
+    },
+    "rows": {
+      "ErGw1AZ": {
+        "australiaeast": 0.361,
+        "centralindia": 0.361,
+        "eastus": 0.361,
+        "eastus2": 0.361,
+        "germanywestcentral": 0.361,
+        "japaneast": 0.361,
+        "koreacentral": 0.361,
+        "northeurope": 0.361,
+        "southeastasia": 0.361,
+        "westus2": 0.361
+      },
+      "ErGw2AZ": {
+        "australiaeast": 0.632,
+        "centralindia": 0.632,
+        "eastus": 0.632,
+        "eastus2": 0.632,
+        "germanywestcentral": 0.632,
+        "japaneast": 0.632,
+        "koreacentral": 0.632,
+        "northeurope": 0.632,
+        "southeastasia": 0.632,
+        "westus2": 0.632
+      },
+      "ErGw3AZ": {
+        "australiaeast": 2.151,
+        "centralindia": 2.151,
+        "eastus": 2.151,
+        "eastus2": 2.151,
+        "germanywestcentral": 2.151,
+        "japaneast": 2.151,
+        "koreacentral": 2.151,
+        "northeurope": 2.151,
+        "southeastasia": 2.151,
+        "westus2": 2.151
+      },
+      "ErGwScale": {
+        "australiaeast": 0.21,
+        "centralindia": 0.21,
+        "eastus": 0.21,
+        "eastus2": 0.21,
+        "germanywestcentral": 0.21,
+        "japaneast": 0.21,
+        "koreacentral": 0.21,
+        "northeurope": 0.21,
+        "southeastasia": 0.21,
+        "westus2": 0.21
+      },
+      "High Performance": {
+        "australiaeast": 0.49,
+        "centralindia": 0.49,
+        "eastus": 0.49,
+        "eastus2": 0.49,
+        "germanywestcentral": 0.49,
+        "japaneast": 0.49,
+        "koreacentral": 0.49,
+        "northeurope": 0.49,
+        "southeastasia": 0.49,
+        "westus2": 0.49
+      },
+      "Standard": {
+        "australiaeast": 0.19,
+        "centralindia": 0.19,
+        "eastus": 0.19,
+        "eastus2": 0.19,
+        "germanywestcentral": 0.19,
+        "japaneast": 0.19,
+        "koreacentral": 0.19,
+        "northeurope": 0.19,
+        "southeastasia": 0.19,
+        "westus2": 0.19
+      },
+      "Ultra High Performance": {
+        "australiaeast": 1.87,
+        "centralindia": 1.87,
+        "eastus": 1.87,
+        "eastus2": 1.87,
+        "germanywestcentral": 1.87,
+        "japaneast": 1.87,
+        "koreacentral": 1.87,
+        "northeurope": 1.87,
+        "southeastasia": 1.87,
+        "westus2": 1.87
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.vnetgateway.inter_vnet_out.zone1": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/vpn-gateway/",
+    "note": "VNet-to-VNet data sent through a VPN gateway, billing zone 1",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Inter-Virtual Network Data Transfer Out",
+        "productName": "VPN Gateway Bandwidth"
+      },
+      "region": "Zone 1",
+      "service": "VPN Gateway",
+      "source": "azure"
+    },
+    "values": {
+      "*": {
+        "value": 0.035,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.vnetgateway.inter_vnet_out.zone2": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/vpn-gateway/",
+    "note": "VNet-to-VNet data sent through a VPN gateway, billing zone 2",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Inter-Virtual Network Data Transfer Out",
+        "productName": "VPN Gateway Bandwidth"
+      },
+      "region": "Zone 2",
+      "service": "VPN Gateway",
+      "source": "azure"
+    },
+    "values": {
+      "*": {
+        "value": 0.09,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.vnetgateway.inter_vnet_out.zone3": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/vpn-gateway/",
+    "note": "VNet-to-VNet data sent through a VPN gateway, billing zone 3",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Inter-Virtual Network Data Transfer Out",
+        "productName": "VPN Gateway Bandwidth"
+      },
+      "region": "Zone 3",
+      "service": "VPN Gateway",
+      "source": "azure"
+    },
+    "values": {
+      "*": {
+        "value": 0.16,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.vnetgateway.p2s_connection": {
+    "unit": "connection-hour",
+    "source": "https://azure.microsoft.com/pricing/details/vpn-gateway/",
+    "note": "Point-to-site connections beyond the 128 a gateway includes; the same price on every SKU",
+    "sync": {
+      "filters": {
+        "meterName": "P2S Connection",
+        "productName": "VPN Gateway",
+        "skuName": "VpnGw1"
+      },
+      "service": "VPN Gateway",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.vnetgateway.vpn": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/vpn-gateway/",
+    "note": "VPN gateway by SKU, per gateway-hour; includes 10 site-to-site tunnels and 128 point-to-site connections",
+    "sync": {
+      "filters": {
+        "meterName": "{row}( Gateway)?",
+        "productName": "VPN Gateway"
+      },
+      "service": "VPN Gateway",
+      "source": "azure"
+    },
+    "rows": {
+      "Basic": {
+        "australiaeast": 0.036,
+        "centralindia": 0.036,
+        "eastus": 0.036,
+        "eastus2": 0.036,
+        "germanywestcentral": 0.036,
+        "japaneast": 0.036,
+        "koreacentral": 0.036,
+        "northeurope": 0.036,
+        "southeastasia": 0.036,
+        "westus2": 0.036
+      },
+      "VpnGw1": {
+        "australiaeast": 0.19,
+        "centralindia": 0.19,
+        "eastus": 0.19,
+        "eastus2": 0.19,
+        "germanywestcentral": 0.19,
+        "japaneast": 0.19,
+        "koreacentral": 0.19,
+        "northeurope": 0.19,
+        "southeastasia": 0.19,
+        "westus2": 0.19
+      },
+      "VpnGw1AZ": {
+        "australiaeast": 0.21,
+        "centralindia": 0.21,
+        "eastus": 0.21,
+        "eastus2": 0.21,
+        "germanywestcentral": 0.21,
+        "japaneast": 0.21,
+        "koreacentral": 0.21,
+        "northeurope": 0.21,
+        "southeastasia": 0.21,
+        "westus2": 0.21
+      },
+      "VpnGw2": {
+        "australiaeast": 0.49,
+        "centralindia": 0.49,
+        "eastus": 0.49,
+        "eastus2": 0.49,
+        "germanywestcentral": 0.49,
+        "japaneast": 0.49,
+        "koreacentral": 0.49,
+        "northeurope": 0.49,
+        "southeastasia": 0.49,
+        "westus2": 0.49
+      },
+      "VpnGw2AZ": {
+        "australiaeast": 0.54,
+        "centralindia": 0.54,
+        "eastus": 0.54,
+        "eastus2": 0.54,
+        "germanywestcentral": 0.54,
+        "japaneast": 0.54,
+        "koreacentral": 0.54,
+        "northeurope": 0.54,
+        "southeastasia": 0.54,
+        "westus2": 0.54
+      },
+      "VpnGw3": {
+        "australiaeast": 1.25,
+        "centralindia": 1.25,
+        "eastus": 1.25,
+        "eastus2": 1.25,
+        "germanywestcentral": 1.25,
+        "japaneast": 1.25,
+        "koreacentral": 1.25,
+        "northeurope": 1.25,
+        "southeastasia": 1.25,
+        "westus2": 1.25
+      },
+      "VpnGw3AZ": {
+        "australiaeast": 1.38,
+        "centralindia": 1.38,
+        "eastus": 1.38,
+        "eastus2": 1.38,
+        "germanywestcentral": 1.38,
+        "japaneast": 1.38,
+        "koreacentral": 1.38,
+        "northeurope": 1.38,
+        "southeastasia": 1.38,
+        "westus2": 1.38
+      },
+      "VpnGw4": {
+        "australiaeast": 2.1,
+        "centralindia": 2.1,
+        "eastus": 2.1,
+        "eastus2": 2.1,
+        "germanywestcentral": 2.1,
+        "japaneast": 2.1,
+        "koreacentral": 2.1,
+        "northeurope": 2.1,
+        "southeastasia": 2.1,
+        "westus2": 2.1
+      },
+      "VpnGw4AZ": {
+        "australiaeast": 2.31,
+        "centralindia": 2.31,
+        "eastus": 2.31,
+        "eastus2": 2.31,
+        "germanywestcentral": 2.31,
+        "japaneast": 2.31,
+        "koreacentral": 2.31,
+        "northeurope": 2.31,
+        "southeastasia": 2.31,
+        "westus2": 2.31
+      },
+      "VpnGw5": {
+        "australiaeast": 3.65,
+        "centralindia": 3.65,
+        "eastus": 3.65,
+        "eastus2": 3.65,
+        "germanywestcentral": 3.65,
+        "japaneast": 3.65,
+        "koreacentral": 3.65,
+        "northeurope": 3.65,
+        "southeastasia": 3.65,
+        "westus2": 3.65
+      },
+      "VpnGw5AZ": {
+        "australiaeast": 4.02,
+        "centralindia": 4.02,
+        "eastus": 4.02,
+        "eastus2": 4.02,
+        "germanywestcentral": 4.02,
+        "japaneast": 4.02,
+        "koreacentral": 4.02,
+        "northeurope": 4.02,
+        "southeastasia": 4.02,
+        "westus2": 4.02
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

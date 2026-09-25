@@ -20,6 +20,12 @@ var (
 	}
 	assume = map[string]map[string]any{
 		"azurerm_cosmosdb_account": {"provisionedRus": 400.0},
+		// Network nodes that load passes through need the data each unit carries.
+		"azurerm_virtual_network_gateway":   {"kbPerUnit": 4.0},
+		"azurerm_vpn_gateway":               {"kbPerUnit": 4.0},
+		"azurerm_point_to_site_vpn_gateway": {"kbPerUnit": 4.0},
+		"azurerm_express_route_gateway":     {"kbPerUnit": 4.0},
+		"azurerm_virtual_hub":               {"kbPerUnit": 4.0},
 	}
 )
 

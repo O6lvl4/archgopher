@@ -1,0 +1,34 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: one scale unit, 24 users connected on average (japaneast)
+  region: japaneast
+  attributes:
+    scale_unit: 1
+  assumptions:
+    connectedUsers: 24
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # 730 h × $0.361; 24 × 730 h × $0.0125
+  costs:
+    Scale unit hours: 263.53
+    Connection unit hours: 219
+  limits:
+    Throughput: 0
+- name: three scale units, 1 million requests of 8 KB (eastus)
+  region: eastus
+  attributes:
+    scale_unit: 3
+  assumptions:
+    kbPerUnit: 8
+  demand:
+    traffic:
+      monthly: 1e+06
+      peak: 50
+  # 3 × 730 h × $0.361; 50/s × 8 KB × 8 bit
+  costs:
+    Scale unit hours: 790.59
+    Connection unit hours: 0
+  limits:
+    Throughput: 0.0030517578125

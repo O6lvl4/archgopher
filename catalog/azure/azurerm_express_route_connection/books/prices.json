@@ -1,0 +1,68 @@
+{
+  "azure.virtualwan.expressroute.connection_unit": {
+    "unit": "connection-hour",
+    "source": "https://azure.microsoft.com/pricing/details/virtual-wan/",
+    "note": "Virtual WAN ExpressRoute connection unit, per circuit connection",
+    "sync": {
+      "filters": {
+        "meterName": "ExpressRoute Connection Unit",
+        "productName": "Virtual WAN",
+        "skuName": "ExpressRoute Connection Unit"
+      },
+      "service": "Virtual WAN",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+type: azurerm_virtual_network_gateway_connection
+label: Gateway connection
+category: Network
+icon: connections
+description: "A site-to-site (IPsec) or VNet-to-VNet tunnel on a virtual network gateway: tunnel-hours for tunnels beyond the 10 the gateway includes. ExpressRoute connections cost nothing here; the circuit and the gateway are billed. Data sent through it is read on the gateway."
+kinds: [traffic]
+attributes:
+  - { key: connection_type, label: Type, type: choice, options: [IPsec, Vnet2Vnet, ExpressRoute], default: IPsec, path: type }
+assumptions:
+  - { key: included, label: Among the included tunnels, type: boolean, default: false, hint: "A gateway includes 10 site-to-site and VNet-to-VNet tunnels (a Basic gateway allows only those 10); set true for connections within them" }
+let:
+  - tunnel: 'connection_type in ["IPsec", "Vnet2Vnet"]'
+readings:
+  - cost: { when: tunnel && !included, name: Tunnel hours, quantity: 730, unit: tunnel-hour, price: azure.vnetgateway.s2s_connection }
+terraform:
+  # A connection names its gateways and the local network; it calls nothing.
+  passive: true

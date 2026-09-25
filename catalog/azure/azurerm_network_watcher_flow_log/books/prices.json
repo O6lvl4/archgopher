@@ -1,0 +1,197 @@
+{
+  "azure.networkwatcher.logs_collected": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/network-watcher/",
+    "note": "Flow logs collected (NSG flow logs; VNet flow logs have the same price); the first 5 GB a month are free (ignored, as every free tier). Storage for the logs is billed on the storage account",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Network Logs Collected",
+        "productName": "Network Watcher"
+      },
+      "service": "Network Watcher",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.networkwatcher.traffic_analytics.10min": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/network-watcher/",
+    "note": "Traffic analytics processing at the 10-minute interval, per GB of flow logs",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Traffic Analytics Processing at 10-Minute Interval",
+        "productName": "Network Watcher"
+      },
+      "service": "Network Watcher",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 3.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 3.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 3.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 3.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 3.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 3.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 3.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 3.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 3.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 3.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.networkwatcher.traffic_analytics.60min": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/network-watcher/",
+    "note": "Traffic analytics processing at the 60-minute interval, per GB of flow logs",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Traffic Analytics Processing",
+        "productName": "Network Watcher"
+      },
+      "service": "Network Watcher",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 2.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 2.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 2.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 2.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 2.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 2.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 2.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 2.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 2.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 2.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

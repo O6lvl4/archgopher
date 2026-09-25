@@ -1,0 +1,134 @@
+{
+  "azure.virtualwan.vpn_p2s.connection_unit": {
+    "unit": "connection-hour",
+    "source": "https://azure.microsoft.com/pricing/details/virtual-wan/",
+    "note": "Virtual WAN point-to-site connection unit, per user connected for an hour",
+    "sync": {
+      "filters": {
+        "meterName": "VPN P2S Connection Unit",
+        "productName": "Virtual WAN",
+        "skuName": "VPN P2S Connection Unit"
+      },
+      "service": "Virtual WAN",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.virtualwan.vpn_p2s.scale_unit": {
+    "unit": "scale unit-hour",
+    "source": "https://azure.microsoft.com/pricing/details/virtual-wan/",
+    "note": "Virtual WAN point-to-site VPN gateway, per 500 Mbps scale unit",
+    "sync": {
+      "filters": {
+        "meterName": "VPN P2S Scale Unit",
+        "productName": "Virtual WAN",
+        "skuName": "VPN P2S Scale Unit"
+      },
+      "service": "Virtual WAN",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.361,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.361,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.361,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.361,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.361,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.361,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.361,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.361,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.361,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.361,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

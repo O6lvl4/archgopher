@@ -1,0 +1,29 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: site-to-site tunnel beyond the included ten (japaneast)
+  region: japaneast
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # 730 h × $0.015
+  costs:
+    Tunnel hours: 10.95
+- name: VNet-to-VNet tunnel among the included ten (eastus)
+  region: eastus
+  attributes:
+    connection_type: Vnet2Vnet
+  assumptions:
+    included: true
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+- name: ExpressRoute connection (eastus)
+  region: eastus
+  attributes:
+    connection_type: ExpressRoute
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
