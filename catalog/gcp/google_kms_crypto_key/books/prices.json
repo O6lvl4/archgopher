@@ -1,34 +1,128 @@
 {
-  "gcp.kms.operation": {
+  "gcp.kms.operation.hsm_large": {
     "unit": "operation",
     "per": 10000,
     "source": "https://cloud.google.com/kms/pricing",
-    "note": "Cryptographic operations (encrypt, decrypt, sign, MAC, random bytes); HSM RSA 3072/4096 and elliptic curve keys cost more. Admin operations are free. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
-    "rows": {
-      "hsm_large": {
-        "*": 0.15
+    "note": "HSM RSA 3072/4096 and elliptic curve operations, which share this price; random bytes too. Admin operations are free. One SKU for every location; sync reads it in us-central1.",
+    "sync": {
+      "source": "gcp",
+      "service": "EE2F-D110-890C",
+      "filters": {
+        "description": "HSM cryptographic operations with a RSA 3072 bit key"
       },
-      "standard": {
-        "*": 0.03
+      "region": "us-central1"
+    },
+    "values": {
+      "*": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
-  "gcp.kms.version": {
+  "gcp.kms.operation.standard": {
+    "unit": "operation",
+    "per": 10000,
+    "source": "https://cloud.google.com/kms/pricing",
+    "note": "Software symmetric operations; HSM symmetric, RSA 2048, MAC, software asymmetric and external operations have the same price. Admin operations are free. One SKU for every location; sync reads it in us-central1.",
+    "sync": {
+      "source": "gcp",
+      "service": "EE2F-D110-890C",
+      "filters": {
+        "description": "Cryptographic operations with a software symmetric key"
+      },
+      "region": "us-central1"
+    },
+    "values": {
+      "*": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "gcp.kms.version.external": {
     "unit": "version-hour",
     "source": "https://cloud.google.com/kms/pricing",
-    "note": "Active key version (enabled, disabled or scheduled for destruction) by protection level: software, HSM symmetric and RSA 2048, HSM RSA 3072/4096 and elliptic curve (first 2,000 a month), external. The same in every region. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
-    "rows": {
-      "external": {
-        "*": 0.004109589
+    "note": "External (Cloud EKM) key version. Active means enabled, disabled or scheduled for destruction. The catalog prices a version-month, 730 version-hours; one SKU for every location, read in us-central1.",
+    "sync": {
+      "source": "gcp",
+      "service": "EE2F-D110-890C",
+      "filters": {
+        "description": "Active external symmetric key versions"
       },
-      "hsm": {
-        "*": 0.001369863
+      "region": "us-central1",
+      "listPer": 730
+    },
+    "values": {
+      "*": {
+        "value": 0.0041095890411,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "gcp.kms.version.hsm": {
+    "unit": "version-hour",
+    "source": "https://cloud.google.com/kms/pricing",
+    "note": "HSM symmetric or RSA 2048 key version. Active means enabled, disabled or scheduled for destruction. The catalog prices a version-month, 730 version-hours; one SKU for every location, read in us-central1.",
+    "sync": {
+      "source": "gcp",
+      "service": "EE2F-D110-890C",
+      "filters": {
+        "description": "Active HSM symmetric key versions"
       },
-      "hsm_large": {
-        "*": 0.003424658
+      "region": "us-central1",
+      "listPer": 730
+    },
+    "values": {
+      "*": {
+        "value": 0.0013698630137,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "gcp.kms.version.hsm_large": {
+    "unit": "version-hour",
+    "source": "https://cloud.google.com/kms/pricing",
+    "note": "HSM RSA 3072/4096 or elliptic curve key version, at the first-2,000-a-month price (the SKU's first tier; $1 above). Active means enabled, disabled or scheduled for destruction. The catalog prices a version-month, 730 version-hours; one SKU for every location, read in us-central1.",
+    "sync": {
+      "source": "gcp",
+      "service": "EE2F-D110-890C",
+      "filters": {
+        "description": "Active HSM RSA 3072 bit key versions"
       },
-      "software": {
-        "*": 0.000082192
+      "region": "us-central1",
+      "listPer": 730,
+      "tier": "0"
+    },
+    "values": {
+      "*": {
+        "value": 0.00342465753425,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "gcp.kms.version.software": {
+    "unit": "version-hour",
+    "source": "https://cloud.google.com/kms/pricing",
+    "note": "Software key version (symmetric; software asymmetric and MAC keys have the same price). Active means enabled, disabled or scheduled for destruction. The catalog prices a version-month, 730 version-hours; one SKU for every location, read in us-central1.",
+    "sync": {
+      "source": "gcp",
+      "service": "EE2F-D110-890C",
+      "filters": {
+        "description": "Active software symmetric key versions"
+      },
+      "region": "us-central1",
+      "listPer": 730
+    },
+    "values": {
+      "*": {
+        "value": 0.0000821917808219,
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   }

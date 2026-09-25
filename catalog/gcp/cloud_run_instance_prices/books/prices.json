@@ -2,108 +2,128 @@
   "gcp.cloudrun.instance.cpu": {
     "unit": "vCPU-second",
     "source": "https://cloud.google.com/run/pricing",
-    "note": "Instance-based billing: the instance's whole lifetime, as for services with CPU always allocated and for jobs (Tier 1 or Tier 2 by region). Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Services with instance-based billing (CPU always allocated): the instance's whole lifetime, Tier 1 or Tier 2 by region. The Billing Catalog has one SKU per region (\"Services CPU (Instance-based billing) in <region>\"; the CPU SKUs of some regions read \"in in <region>\"). Jobs bill under their own SKUs (gcp.cloudrun.jobs.*).",
     "sync": {
       "source": "gcp",
       "service": "152E-C115-5142",
       "filters": {
-        "description": "Services CPU .*Instance-based billing.*"
+        "description": "Services CPU \\(Instance-based billing\\) in (in )?[a-z0-9-]+"
       }
     },
     "values": {
       "asia-northeast1": {
         "value": 0.000018,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.0000216,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 0.000018,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.0000216,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.0000216,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.000018,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.0000216,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.000018,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.000018,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.000018,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.cloudrun.instance.memory": {
     "unit": "GiB-second",
     "source": "https://cloud.google.com/run/pricing",
-    "note": "Instance-based billing: the instance's whole lifetime, as for services with CPU always allocated and for jobs (Tier 1 or Tier 2 by region). Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Services with instance-based billing (CPU always allocated): the instance's whole lifetime, Tier 1 or Tier 2 by region. The Billing Catalog has one SKU per region (\"Services Memory (Instance-based billing) in <region>\"; the CPU SKUs of some regions read \"in in <region>\"). Jobs bill under their own SKUs (gcp.cloudrun.jobs.*).",
     "sync": {
       "source": "gcp",
       "service": "152E-C115-5142",
       "filters": {
-        "description": "Services Memory .*Instance-based billing.*"
+        "description": "Services Memory \\(Instance-based billing\\) in [a-z0-9-]+"
       }
     },
     "values": {
       "asia-northeast1": {
         "value": 0.000002,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.0000024,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 0.000002,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.0000024,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.0000024,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.000002,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.0000024,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.000002,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.000002,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.000002,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   }

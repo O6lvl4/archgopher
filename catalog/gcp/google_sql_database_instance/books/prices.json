@@ -2,540 +2,1082 @@
   "gcp.sql.f1_micro": {
     "unit": "instance-hour",
     "source": "https://cloud.google.com/sql/pricing",
-    "note": "Shared-core db-f1-micro, zonal. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Shared-core db-f1-micro, zonal, per instance-hour. Cloud SQL lists MySQL and PostgreSQL under separate SKUs at the same price in every region here; sync reads the PostgreSQL one for both.",
     "sync": {
       "source": "gcp",
       "service": "9662-B51E-5089",
       "filters": {
-        "description": "Cloud SQL for PostgreSQL: Zonal - Micro instance in .+"
+        "description": "Cloud SQL for PostgreSQL: Zonal - Micro instance in .+",
+        "usageUnit": "h"
       }
     },
     "values": {
       "asia-northeast1": {
         "value": 0.014,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.0137,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 0.0126,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.0147,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.0142,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.0105,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.0126,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.0112,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.0105,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.0105,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.sql.f1_micro_ha": {
     "unit": "instance-hour",
     "source": "https://cloud.google.com/sql/pricing",
-    "note": "Shared-core db-f1-micro, regional (high availability). From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Shared-core db-f1-micro, regional (high availability), per instance-hour. Cloud SQL lists MySQL and PostgreSQL under separate SKUs at the same price in every region here; sync reads the PostgreSQL one for both.",
     "sync": {
       "source": "gcp",
       "service": "9662-B51E-5089",
       "filters": {
-        "description": "Cloud SQL for PostgreSQL: Regional - Micro instance in .+"
+        "description": "Cloud SQL for PostgreSQL: Regional - Micro instance in .+",
+        "usageUnit": "h"
       }
     },
     "values": {
       "asia-northeast1": {
         "value": 0.0273,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.0273,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 0.0252,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.0294,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.0284,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.021,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.0252,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.0225,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.021,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.021,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.sql.g1_small": {
     "unit": "instance-hour",
     "source": "https://cloud.google.com/sql/pricing",
-    "note": "Shared-core db-g1-small, zonal. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Shared-core db-g1-small, zonal, per instance-hour. Cloud SQL lists MySQL and PostgreSQL under separate SKUs at the same price in every region here; sync reads the PostgreSQL one for both.",
     "sync": {
       "source": "gcp",
       "service": "9662-B51E-5089",
       "filters": {
-        "description": "Cloud SQL for PostgreSQL: Zonal - Small instance in .+"
+        "description": "Cloud SQL for PostgreSQL: Zonal - Small instance in .+",
+        "usageUnit": "h"
       }
     },
     "values": {
       "asia-northeast1": {
         "value": 0.046,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.0455,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 0.042,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.049,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.0473,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.035,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.042,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.0375,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.035,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.035,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.sql.g1_small_ha": {
     "unit": "instance-hour",
     "source": "https://cloud.google.com/sql/pricing",
-    "note": "Shared-core db-g1-small, regional (high availability). From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Shared-core db-g1-small, regional (high availability), per instance-hour. Cloud SQL lists MySQL and PostgreSQL under separate SKUs at the same price in every region here; sync reads the PostgreSQL one for both.",
     "sync": {
       "source": "gcp",
       "service": "9662-B51E-5089",
       "filters": {
-        "description": "Cloud SQL for PostgreSQL: Regional - Small instance in .+"
+        "description": "Cloud SQL for PostgreSQL: Regional - Small instance in .+",
+        "usageUnit": "h"
       }
     },
     "values": {
       "asia-northeast1": {
         "value": 0.091,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.091,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 0.084,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.098,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.0945,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.07,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.084,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.0749,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.07,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.07,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.sql.memory": {
-    "unit": "GB-hour",
+    "unit": "GiB-hour",
     "source": "https://cloud.google.com/sql/pricing",
-    "note": "Enterprise edition, general purpose, zonal instance memory (GiB-hour), MySQL and PostgreSQL. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Enterprise edition memory per GiB-hour, zonal instance, custom machine types (and PostgreSQL's db-n1 types). Cloud SQL lists MySQL and PostgreSQL under separate SKUs at the same price in every region here; sync reads the PostgreSQL one for both.",
     "sync": {
       "source": "gcp",
       "service": "9662-B51E-5089",
       "filters": {
-        "description": "Cloud SQL for PostgreSQL: Zonal - RAM in .+"
+        "description": "Cloud SQL for PostgreSQL: Zonal - RAM in .+",
+        "usageUnit": "GiBy.h"
       }
     },
     "values": {
       "asia-northeast1": {
         "value": 0.0091,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.0091,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 0.0084,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.0098,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.0095,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.007,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.0084,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.0075,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.007,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.007,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.sql.memory_ha": {
-    "unit": "GB-hour",
+    "unit": "GiB-hour",
     "source": "https://cloud.google.com/sql/pricing",
-    "note": "Enterprise edition, general purpose, regional (high availability) instance memory (GiB-hour), MySQL and PostgreSQL. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Enterprise edition memory per GiB-hour, regional (high availability) instance, custom machine types (and PostgreSQL's db-n1 types). Cloud SQL lists MySQL and PostgreSQL under separate SKUs at the same price in every region here; sync reads the PostgreSQL one for both.",
     "sync": {
       "source": "gcp",
       "service": "9662-B51E-5089",
       "filters": {
-        "description": "Cloud SQL for PostgreSQL: Regional - RAM in .+"
+        "description": "Cloud SQL for PostgreSQL: Regional - RAM in .+",
+        "usageUnit": "GiBy.h"
       }
     },
     "values": {
       "asia-northeast1": {
         "value": 0.0182,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.0182,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 0.0168,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.0196,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.0189,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.014,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.0168,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.015,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.014,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.014,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
-  "gcp.sql.ssd": {
-    "unit": "GB-month",
+  "gcp.sql.mysql_n1_highmem": {
+    "unit": "instance-hour",
     "source": "https://cloud.google.com/sql/pricing",
-    "note": "SSD storage capacity of a zonal instance (GiB-month). From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Enterprise edition MySQL legacy machine type db-n1-highmem-<vCPUs>, zonal, per instance-hour; the row is the vCPU count. MySQL bills these at their own SKU, not as vCPU plus memory (highmem comes to about 1.4% more than the sum). PostgreSQL has no such SKU and bills db-n1 types as vCPU plus memory.",
     "sync": {
       "source": "gcp",
       "service": "9662-B51E-5089",
       "filters": {
-        "description": "Cloud SQL for PostgreSQL: Zonal - Standard storage in .+"
+        "description": "Cloud SQL for MySQL: Zonal - {row} vCPU \\+ [0-9.]+GB RAM in .+",
+        "resourceGroup": "SQLGen2InstancesN1Highmem",
+        "usageUnit": "h"
+      }
+    },
+    "rows": {
+      "16": {
+        "asia-northeast1": 1.831,
+        "asia-northeast3": 1.8309,
+        "asia-south1": 1.6901,
+        "asia-southeast1": 1.9718,
+        "australia-southeast1": 1.9013,
+        "europe-west1": 1.4084,
+        "europe-west3": 1.6901,
+        "us-east4": 1.507,
+        "us-east5": 1.4084,
+        "us-west1": 1.4084
+      },
+      "2": {
+        "asia-northeast1": 0.229,
+        "asia-northeast3": 0.2289,
+        "asia-south1": 0.2113,
+        "asia-southeast1": 0.2465,
+        "australia-southeast1": 0.2377,
+        "europe-west1": 0.1761,
+        "europe-west3": 0.2113,
+        "us-east4": 0.1884,
+        "us-east5": 0.1761,
+        "us-west1": 0.1761
+      },
+      "32": {
+        "asia-northeast1": 3.662,
+        "asia-northeast3": 3.6618,
+        "asia-south1": 3.3802,
+        "asia-southeast1": 3.9435,
+        "australia-southeast1": 3.8027,
+        "europe-west1": 2.8168,
+        "europe-west3": 3.3802,
+        "us-east4": 3.014,
+        "us-east5": 2.8168,
+        "us-west1": 2.8168
+      },
+      "4": {
+        "asia-northeast1": 0.458,
+        "asia-northeast3": 0.4577,
+        "asia-south1": 0.4225,
+        "asia-southeast1": 0.4929,
+        "australia-southeast1": 0.4753,
+        "europe-west1": 0.3521,
+        "europe-west3": 0.4225,
+        "us-east4": 0.3767,
+        "us-east5": 0.3521,
+        "us-west1": 0.3521
+      },
+      "64": {
+        "asia-northeast1": 7.3237,
+        "asia-northeast3": 7.3237,
+        "asia-south1": 6.7603,
+        "asia-southeast1": 7.887,
+        "australia-southeast1": 7.6054,
+        "europe-west1": 5.6336,
+        "europe-west3": 6.7603,
+        "us-east4": 6.028,
+        "us-east5": 5.6336,
+        "us-west1": 5.6336
+      },
+      "8": {
+        "asia-northeast1": 0.915,
+        "asia-northeast3": 0.9155,
+        "asia-south1": 0.845,
+        "asia-southeast1": 0.9859,
+        "australia-southeast1": 0.9507,
+        "europe-west1": 0.7042,
+        "europe-west3": 0.845,
+        "us-east4": 0.7535,
+        "us-east5": 0.7042,
+        "us-west1": 0.7042
+      },
+      "96": {
+        "asia-northeast1": 10.9855,
+        "asia-northeast3": 10.9855,
+        "asia-south1": 10.1405,
+        "asia-southeast1": 11.8306,
+        "australia-southeast1": 11.408,
+        "europe-west1": 8.4504,
+        "europe-west3": 10.1405,
+        "us-east4": 9.0419,
+        "us-east5": 8.4504,
+        "us-west1": 8.4504
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "gcp.sql.mysql_n1_highmem_ha": {
+    "unit": "instance-hour",
+    "source": "https://cloud.google.com/sql/pricing",
+    "note": "Enterprise edition MySQL legacy machine type db-n1-highmem-<vCPUs>, regional (high availability), per instance-hour; the row is the vCPU count. MySQL bills these at their own SKU, not as vCPU plus memory (highmem comes to about 1.4% more than the sum). PostgreSQL has no such SKU and bills db-n1 types as vCPU plus memory.",
+    "sync": {
+      "source": "gcp",
+      "service": "9662-B51E-5089",
+      "filters": {
+        "description": "Cloud SQL for MySQL: Regional - {row} vCPU \\+ [0-9.]+GB RAM in .+",
+        "resourceGroup": "SQLGen2InstancesN1Highmem",
+        "usageUnit": "h"
+      }
+    },
+    "rows": {
+      "16": {
+        "asia-northeast1": 3.6618,
+        "asia-northeast3": 3.6618,
+        "asia-south1": 3.3802,
+        "asia-southeast1": 3.9435,
+        "australia-southeast1": 3.8027,
+        "europe-west1": 2.8168,
+        "europe-west3": 3.3802,
+        "us-east4": 3.014,
+        "us-east5": 2.8168,
+        "us-west1": 2.8168
+      },
+      "2": {
+        "asia-northeast1": 0.4577,
+        "asia-northeast3": 0.4577,
+        "asia-south1": 0.4225,
+        "asia-southeast1": 0.4929,
+        "australia-southeast1": 0.4753,
+        "europe-west1": 0.3521,
+        "europe-west3": 0.4225,
+        "us-east4": 0.3767,
+        "us-east5": 0.3521,
+        "us-west1": 0.3521
+      },
+      "32": {
+        "asia-northeast1": 7.3237,
+        "asia-northeast3": 7.3237,
+        "asia-south1": 6.7603,
+        "asia-southeast1": 7.887,
+        "australia-southeast1": 7.6054,
+        "europe-west1": 5.6336,
+        "europe-west3": 6.7603,
+        "us-east4": 6.028,
+        "us-east5": 5.6336,
+        "us-west1": 5.6336
+      },
+      "4": {
+        "asia-northeast1": 0.9155,
+        "asia-northeast3": 0.9155,
+        "asia-south1": 0.845,
+        "asia-southeast1": 0.9859,
+        "australia-southeast1": 0.9507,
+        "europe-west1": 0.7042,
+        "europe-west3": 0.845,
+        "us-east4": 0.7535,
+        "us-east5": 0.7042,
+        "us-west1": 0.7042
+      },
+      "64": {
+        "asia-northeast1": 14.6474,
+        "asia-northeast3": 14.6474,
+        "asia-south1": 13.5206,
+        "asia-southeast1": 15.7741,
+        "australia-southeast1": 15.2107,
+        "europe-west1": 11.2672,
+        "europe-west3": 13.5206,
+        "us-east4": 12.0559,
+        "us-east5": 11.2672,
+        "us-west1": 11.2672
+      },
+      "8": {
+        "asia-northeast1": 1.8309,
+        "asia-northeast3": 1.8309,
+        "asia-south1": 1.6901,
+        "asia-southeast1": 1.9718,
+        "australia-southeast1": 1.9013,
+        "europe-west1": 1.4084,
+        "europe-west3": 1.6901,
+        "us-east4": 1.507,
+        "us-east5": 1.4084,
+        "us-west1": 1.4084
+      },
+      "96": {
+        "asia-northeast1": 21.971,
+        "asia-northeast3": 21.971,
+        "asia-south1": 20.281,
+        "asia-southeast1": 23.6611,
+        "australia-southeast1": 22.8161,
+        "europe-west1": 16.9008,
+        "europe-west3": 20.281,
+        "us-east4": 18.0839,
+        "us-east5": 16.9008,
+        "us-west1": 16.9008
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "gcp.sql.mysql_n1_standard": {
+    "unit": "instance-hour",
+    "source": "https://cloud.google.com/sql/pricing",
+    "note": "Enterprise edition MySQL legacy machine type db-n1-standard-<vCPUs>, zonal, per instance-hour; the row is the vCPU count. MySQL bills these at their own SKU, not as vCPU plus memory (highmem comes to about 1.4% more than the sum). PostgreSQL has no such SKU and bills db-n1 types as vCPU plus memory.",
+    "sync": {
+      "source": "gcp",
+      "service": "9662-B51E-5089",
+      "filters": {
+        "description": "Cloud SQL for MySQL: Zonal - {row} vCPU \\+ [0-9.]+GB RAM in .+",
+        "resourceGroup": "SQLGen2InstancesN1Standard",
+        "usageUnit": "h"
+      }
+    },
+    "rows": {
+      "1": {
+        "asia-northeast1": 0.088,
+        "asia-northeast3": 0.0878,
+        "asia-south1": 0.0811,
+        "asia-southeast1": 0.0946,
+        "australia-southeast1": 0.0912,
+        "europe-west1": 0.0676,
+        "europe-west3": 0.0811,
+        "us-east4": 0.0723,
+        "us-east5": 0.0676,
+        "us-west1": 0.0676
+      },
+      "16": {
+        "asia-northeast1": 1.405,
+        "asia-northeast3": 1.4055,
+        "asia-south1": 1.2974,
+        "asia-southeast1": 1.5136,
+        "australia-southeast1": 1.4596,
+        "europe-west1": 1.0812,
+        "europe-west3": 1.2974,
+        "us-east4": 1.1568,
+        "us-east5": 1.0812,
+        "us-west1": 1.0812
+      },
+      "2": {
+        "asia-northeast1": 0.176,
+        "asia-northeast3": 0.1756,
+        "asia-south1": 0.1621,
+        "asia-southeast1": 0.1891,
+        "australia-southeast1": 0.1824,
+        "europe-west1": 0.1351,
+        "europe-west3": 0.1621,
+        "us-east4": 0.1446,
+        "us-east5": 0.1351,
+        "us-west1": 0.1351
+      },
+      "32": {
+        "asia-northeast1": 2.811,
+        "asia-northeast3": 2.8105,
+        "asia-south1": 2.5943,
+        "asia-southeast1": 3.0267,
+        "australia-southeast1": 2.9186,
+        "europe-west1": 2.162,
+        "europe-west3": 2.5943,
+        "us-east4": 2.3133,
+        "us-east5": 2.162,
+        "us-west1": 2.162
+      },
+      "4": {
+        "asia-northeast1": 0.351,
+        "asia-northeast3": 0.3513,
+        "asia-south1": 0.3242,
+        "asia-southeast1": 0.3783,
+        "australia-southeast1": 0.3648,
+        "europe-west1": 0.2702,
+        "europe-west3": 0.3242,
+        "us-east4": 0.2891,
+        "us-east5": 0.2702,
+        "us-west1": 0.2702
+      },
+      "64": {
+        "asia-northeast1": 5.6211,
+        "asia-northeast3": 5.6211,
+        "asia-south1": 5.1887,
+        "asia-southeast1": 6.0535,
+        "australia-southeast1": 5.8373,
+        "europe-west1": 4.3239,
+        "europe-west3": 5.1887,
+        "us-east4": 4.6266,
+        "us-east5": 4.3239,
+        "us-west1": 4.3239
+      },
+      "8": {
+        "asia-northeast1": 0.703,
+        "asia-northeast3": 0.7025,
+        "asia-south1": 0.6485,
+        "asia-southeast1": 0.7566,
+        "australia-southeast1": 0.7295,
+        "europe-west1": 0.5404,
+        "europe-west3": 0.6485,
+        "us-east4": 0.5782,
+        "us-east5": 0.5404,
+        "us-west1": 0.5404
+      },
+      "96": {
+        "asia-northeast1": 8.4316,
+        "asia-northeast3": 8.4316,
+        "asia-south1": 7.783,
+        "asia-southeast1": 9.0802,
+        "australia-southeast1": 8.7559,
+        "europe-west1": 6.4859,
+        "europe-west3": 7.783,
+        "us-east4": 6.9399,
+        "us-east5": 6.4859,
+        "us-west1": 6.4859
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "gcp.sql.mysql_n1_standard_ha": {
+    "unit": "instance-hour",
+    "source": "https://cloud.google.com/sql/pricing",
+    "note": "Enterprise edition MySQL legacy machine type db-n1-standard-<vCPUs>, regional (high availability), per instance-hour; the row is the vCPU count. MySQL bills these at their own SKU, not as vCPU plus memory (highmem comes to about 1.4% more than the sum). PostgreSQL has no such SKU and bills db-n1 types as vCPU plus memory.",
+    "sync": {
+      "source": "gcp",
+      "service": "9662-B51E-5089",
+      "filters": {
+        "description": "Cloud SQL for MySQL: Regional - {row} vCPU \\+ [0-9.]+GB RAM in .+",
+        "resourceGroup": "SQLGen2InstancesN1Standard",
+        "usageUnit": "h"
+      }
+    },
+    "rows": {
+      "1": {
+        "asia-northeast1": 0.1756,
+        "asia-northeast3": 0.1756,
+        "asia-south1": 0.1621,
+        "asia-southeast1": 0.1891,
+        "australia-southeast1": 0.1824,
+        "europe-west1": 0.1351,
+        "europe-west3": 0.1621,
+        "us-east4": 0.1446,
+        "us-east5": 0.1351,
+        "us-west1": 0.1351
+      },
+      "16": {
+        "asia-northeast1": 2.811,
+        "asia-northeast3": 2.811,
+        "asia-south1": 2.5948,
+        "asia-southeast1": 3.0272,
+        "australia-southeast1": 2.9191,
+        "europe-west1": 2.1623,
+        "europe-west3": 2.5948,
+        "us-east4": 2.3137,
+        "us-east5": 2.1623,
+        "us-west1": 2.1623
+      },
+      "2": {
+        "asia-northeast1": 0.3513,
+        "asia-northeast3": 0.3513,
+        "asia-south1": 0.3242,
+        "asia-southeast1": 0.3783,
+        "australia-southeast1": 0.3648,
+        "europe-west1": 0.2702,
+        "europe-west3": 0.3242,
+        "us-east4": 0.2891,
+        "us-east5": 0.2702,
+        "us-west1": 0.2702
+      },
+      "32": {
+        "asia-northeast1": 5.6211,
+        "asia-northeast3": 5.6211,
+        "asia-south1": 5.1887,
+        "asia-southeast1": 6.0535,
+        "australia-southeast1": 5.8373,
+        "europe-west1": 4.3239,
+        "europe-west3": 5.1887,
+        "us-east4": 4.6266,
+        "us-east5": 4.3239,
+        "us-west1": 4.3239
+      },
+      "4": {
+        "asia-northeast1": 0.7025,
+        "asia-northeast3": 0.7025,
+        "asia-south1": 0.6485,
+        "asia-southeast1": 0.7566,
+        "australia-southeast1": 0.7295,
+        "europe-west1": 0.5404,
+        "europe-west3": 0.6485,
+        "us-east4": 0.5782,
+        "us-east5": 0.5404,
+        "us-west1": 0.5404
+      },
+      "64": {
+        "asia-northeast1": 11.2421,
+        "asia-northeast3": 11.2421,
+        "asia-south1": 10.3774,
+        "asia-southeast1": 12.1069,
+        "australia-southeast1": 11.6745,
+        "europe-west1": 8.6478,
+        "europe-west3": 10.3774,
+        "us-east4": 9.2531,
+        "us-east5": 8.6478,
+        "us-west1": 8.6478
+      },
+      "8": {
+        "asia-northeast1": 1.405,
+        "asia-northeast3": 1.405,
+        "asia-south1": 1.297,
+        "asia-southeast1": 1.5131,
+        "australia-southeast1": 1.4591,
+        "europe-west1": 1.0808,
+        "europe-west3": 1.297,
+        "us-east4": 1.1565,
+        "us-east5": 1.0808,
+        "us-west1": 1.0808
+      },
+      "96": {
+        "asia-northeast1": 16.8632,
+        "asia-northeast3": 16.8632,
+        "asia-south1": 15.566,
+        "asia-southeast1": 18.1604,
+        "australia-southeast1": 17.5118,
+        "europe-west1": 12.9717,
+        "europe-west3": 15.566,
+        "us-east4": 13.8797,
+        "us-east5": 12.9717,
+        "us-west1": 12.9717
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "gcp.sql.ssd": {
+    "unit": "GiB-month",
+    "source": "https://cloud.google.com/sql/pricing",
+    "note": "SSD storage capacity of a zonal instance per GiB-month (Cloud SQL's disk_size counts GiB). Cloud SQL lists MySQL and PostgreSQL under separate SKUs at the same price in every region here; sync reads the PostgreSQL one for both.",
+    "sync": {
+      "source": "gcp",
+      "service": "9662-B51E-5089",
+      "filters": {
+        "description": "Cloud SQL for PostgreSQL: Zonal - Standard storage in .+",
+        "usageUnit": "GiBy.mo"
       }
     },
     "values": {
       "asia-northeast1": {
         "value": 0.221,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.221,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 0.204,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.238,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.2295,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.17,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.204,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.1819,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.17,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.17,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.sql.ssd_ha": {
-    "unit": "GB-month",
+    "unit": "GiB-month",
     "source": "https://cloud.google.com/sql/pricing",
-    "note": "SSD storage capacity of a regional (high availability) instance (GiB-month). From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "SSD storage capacity of a regional (high availability) instance per GiB-month, the primary's and the standby's disks together. Cloud SQL lists MySQL and PostgreSQL under separate SKUs at the same price in every region here; sync reads the PostgreSQL one for both.",
     "sync": {
       "source": "gcp",
       "service": "9662-B51E-5089",
       "filters": {
-        "description": "Cloud SQL for PostgreSQL: Regional - Standard storage in .+"
+        "description": "Cloud SQL for PostgreSQL: Regional - Standard storage in .+",
+        "usageUnit": "GiBy.mo"
       }
     },
     "values": {
       "asia-northeast1": {
         "value": 0.442,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.442,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 0.408,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.476,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.459,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.34,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.408,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.3638,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.34,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.34,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.sql.vcpu": {
     "unit": "vCPU-hour",
     "source": "https://cloud.google.com/sql/pricing",
-    "note": "Enterprise edition, general purpose, zonal (single zone) instance, MySQL and PostgreSQL. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Enterprise edition vCPU-hour, zonal (single zone) instance, custom machine types (and PostgreSQL's db-n1 types). Cloud SQL lists MySQL and PostgreSQL under separate SKUs at the same price in every region here; sync reads the PostgreSQL one for both.",
     "sync": {
       "source": "gcp",
       "service": "9662-B51E-5089",
       "filters": {
-        "description": "Cloud SQL for PostgreSQL: Zonal - vCPU in .+"
+        "description": "Cloud SQL for PostgreSQL: Zonal - vCPU in .+",
+        "usageUnit": "h"
       }
     },
     "values": {
       "asia-northeast1": {
         "value": 0.0537,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.0537,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 0.0496,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.0578,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.0558,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.0413,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.0496,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.0442,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.0413,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.0413,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.sql.vcpu_ha": {
     "unit": "vCPU-hour",
     "source": "https://cloud.google.com/sql/pricing",
-    "note": "Enterprise edition, general purpose, regional (high availability) instance, MySQL and PostgreSQL. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Enterprise edition vCPU-hour, regional (high availability) instance, custom machine types (and PostgreSQL's db-n1 types). Cloud SQL lists MySQL and PostgreSQL under separate SKUs at the same price in every region here; sync reads the PostgreSQL one for both.",
     "sync": {
       "source": "gcp",
       "service": "9662-B51E-5089",
       "filters": {
-        "description": "Cloud SQL for PostgreSQL: Regional - vCPU in .+"
+        "description": "Cloud SQL for PostgreSQL: Regional - vCPU in .+",
+        "usageUnit": "h"
       }
     },
     "values": {
       "asia-northeast1": {
         "value": 0.1074,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.1074,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 0.0991,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.1156,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.1115,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.0826,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.0991,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.0884,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.0826,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.0826,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   }

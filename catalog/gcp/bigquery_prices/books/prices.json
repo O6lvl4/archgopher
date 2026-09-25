@@ -1,69 +1,106 @@
 {
-  "gcp.bigquery.multi.query": {
+  "gcp.bigquery.multi.query.eu": {
     "unit": "TiB",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "On-demand analysis per TiB scanned in the US or EU multi-region; the free TiB a month is ignored. Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
-    "rows": {
-      "eu": {
-        "*": 6.25
+    "note": "On-demand analysis per TiB scanned in the EU multi-region; the free TiB a month (the SKU's first tier) is ignored.",
+    "sync": {
+      "filters": {
+        "description": "Analysis"
       },
-      "us": {
-        "*": 6.25
+      "region": "europe",
+      "service": "24E6-581D-38E5",
+      "source": "gcp"
+    },
+    "values": {
+      "*": {
+        "value": 6.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "gcp.bigquery.multi.query.us": {
+    "unit": "TiB",
+    "source": "https://cloud.google.com/bigquery/pricing",
+    "note": "On-demand analysis per TiB scanned in the US multi-region; the free TiB a month (the SKU's first tier) is ignored.",
+    "sync": {
+      "filters": {
+        "description": "Analysis"
+      },
+      "region": "us",
+      "service": "24E6-581D-38E5",
+      "source": "gcp"
+    },
+    "values": {
+      "*": {
+        "value": 6.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.bigquery.query": {
     "unit": "TiB",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "On-demand analysis per TiB scanned in a region; the free TiB a month is ignored. Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "On-demand analysis per TiB scanned in a region; the free TiB a month (the SKU's first tier) is ignored.",
     "sync": {
-      "source": "gcp",
-      "service": "24E6-581D-38E5",
       "filters": {
         "description": "Analysis \\(.+\\)"
       },
+      "service": "24E6-581D-38E5",
+      "source": "gcp",
       "tier": "last"
     },
     "values": {
       "asia-northeast1": {
         "value": 7.5,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 7.5,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 7.5,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 8.4375,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 8.125,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 7.5,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 8.125,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 6.25,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 6.25,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 6.25,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   }

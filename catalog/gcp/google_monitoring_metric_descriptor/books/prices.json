@@ -1,80 +1,90 @@
 {
   "gcp.monitoring.read_time_series": {
-    "unit": "million time series",
+    "unit": "time series",
+    "per": 1000000,
     "source": "https://cloud.google.com/stackdriver/pricing",
-    "note": "Monitoring read API calls, from October 2, 2025: per time series returned, at least one per call; calls from the console (not Cloud Shell) and write calls are free. The first million a billing account a month are free and ignored. From the pricing page; sync verifies it against the Billing Catalog once credentials are set. The SKU's list unit is unconfirmed.",
+    "note": "Monitoring read API calls: per time series returned, at least one per call; calls from the console (not Cloud Shell) and write calls are free. The first million a billing account a month are free and ignored. Synced from the Billing Catalog.",
     "sync": {
-      "source": "gcp",
-      "service": "58CD-E7C3-72CA",
       "filters": {
-        "description": "Monitoring API"
+        "description": "Time series billed count",
+        "usageUnit": "count"
       },
-      "region": "global"
+      "region": "global",
+      "service": "58CD-E7C3-72CA",
+      "source": "gcp",
+      "tier": "1000000"
     },
     "values": {
       "*": {
         "value": 0.5,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.monitoring.volume_tier1": {
     "unit": "MiB",
     "source": "https://cloud.google.com/stackdriver/pricing",
-    "note": "Metric volume charged by bytes ingested, 150 to 100,000 MiB a billing account; the first 150 MiB are free and ignored, and the tier bounds are applied to one metric. From the pricing page; sync verifies it against the Billing Catalog once credentials are set. The SKU's list unit is unconfirmed.",
+    "note": "Metric volume charged by bytes ingested, 150 to 100,000 MiB a billing account; the first 150 MiB are free and ignored, and the tier bounds are applied to one metric. Synced from the Billing Catalog.",
     "sync": {
-      "source": "gcp",
-      "service": "58CD-E7C3-72CA",
       "filters": {
-        "description": "Metric Volume"
+        "description": "Metric Volume",
+        "usageUnit": "MiBy"
       },
       "region": "global",
+      "service": "58CD-E7C3-72CA",
+      "source": "gcp",
       "tier": "150"
     },
     "values": {
       "*": {
         "value": 0.258,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.monitoring.volume_tier2": {
     "unit": "MiB",
     "source": "https://cloud.google.com/stackdriver/pricing",
-    "note": "Metric volume charged by bytes ingested, 100,000 to 250,000 MiB a billing account. From the pricing page; sync verifies it against the Billing Catalog once credentials are set. The SKU's list unit is unconfirmed.",
+    "note": "Metric volume charged by bytes ingested, 100,000 to 250,000 MiB a billing account. Synced from the Billing Catalog.",
     "sync": {
-      "source": "gcp",
-      "service": "58CD-E7C3-72CA",
       "filters": {
-        "description": "Metric Volume"
+        "description": "Metric Volume",
+        "usageUnit": "MiBy"
       },
       "region": "global",
+      "service": "58CD-E7C3-72CA",
+      "source": "gcp",
       "tier": "100000"
     },
     "values": {
       "*": {
         "value": 0.151,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.monitoring.volume_tier3": {
     "unit": "MiB",
     "source": "https://cloud.google.com/stackdriver/pricing",
-    "note": "Metric volume charged by bytes ingested, over 250,000 MiB a billing account. From the pricing page; sync verifies it against the Billing Catalog once credentials are set. The SKU's list unit is unconfirmed.",
+    "note": "Metric volume charged by bytes ingested, over 250,000 MiB a billing account. Synced from the Billing Catalog.",
     "sync": {
-      "source": "gcp",
-      "service": "58CD-E7C3-72CA",
       "filters": {
-        "description": "Metric Volume"
+        "description": "Metric Volume",
+        "usageUnit": "MiBy"
       },
       "region": "global",
+      "service": "58CD-E7C3-72CA",
+      "source": "gcp",
       "tier": "250000"
     },
     "values": {
       "*": {
         "value": 0.061,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   }

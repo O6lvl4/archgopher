@@ -23,7 +23,7 @@ readings:
   - cost: { when: mib > 0, name: "Metric volume (first 100,000 MiB)", quantity: 'min(mib, 100000)', unit: MiB, price: gcp.monitoring.volume_tier1 }
   - cost: { when: mib > 100000, name: "Metric volume (next 150,000 MiB)", quantity: 'min(mib - 100000, 150000)', unit: MiB, price: gcp.monitoring.volume_tier2 }
   - cost: { when: mib > 250000, name: "Metric volume (over 250,000 MiB)", quantity: mib - 250000, unit: MiB, price: gcp.monitoring.volume_tier3 }
-  - cost: { when: timeSeriesReadPerMonth > 0, name: Read API time series, quantity: timeSeriesReadPerMonth / 1000000, unit: million time series, price: gcp.monitoring.read_time_series }
+  - cost: { when: timeSeriesReadPerMonth > 0, name: Read API time series, quantity: timeSeriesReadPerMonth, unit: time series, price: gcp.monitoring.read_time_series }
   - limit: { name: Write rate per time series, demand: perSeriesPeak, unit: points/second, quota: gcp.monitoring.points_per_series_per_second }
   - limit: { name: Active time series, demand: 'timeSeries / max(monitoredResources, 1)', unit: time series, quota: gcp.monitoring.active_time_series }
 terraform:

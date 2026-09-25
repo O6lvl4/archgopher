@@ -2,41 +2,120 @@
   "gcp.artifactregistry.storage": {
     "unit": "GB-month",
     "source": "https://cloud.google.com/artifact-registry/pricing",
-    "note": "Storage, the same for regional and multi-regional repositories; the free 0.5 GB is ignored. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Storage, the same for regional and multi-regional repositories (one global SKU); the free 0.5 GB is ignored.",
     "sync": {
-      "source": "gcp",
-      "service": "149C-F9EC-3994",
       "filters": {
         "description": "Artifact Registry Storage"
       },
-      "region": "global"
+      "region": "global",
+      "service": "149C-F9EC-3994",
+      "source": "gcp"
     },
     "values": {
       "*": {
         "value": 0.1,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
-  "gcp.artifactregistry.transfer": {
+  "gcp.artifactregistry.transfer.asia": {
     "unit": "GB",
     "source": "https://cloud.google.com/artifact-registry/pricing",
-    "note": "Data transfer from a repository to Google Cloud in another location: within North America, Europe or Asia, between continents (excluding Oceania), or to or from Oceania. Within one location it is free. From the pricing page. No sync spec: one SKU filter cannot tell the routes apart, so a table sync would write one price into every row.",
-    "rows": {
-      "asia": {
-        "*": 0.05
+    "note": "Data transfer from a repository to Google Cloud in another location, between locations in Asia Pacific; the SKU is sold in every Asia Pacific region at one price, read in asia-northeast1. Within one location it is free.",
+    "sync": {
+      "filters": {
+        "description": "Artifact Registry Network Inter Region Egress AsiaPacfic to AsiaPacfic"
       },
-      "europe": {
-        "*": 0.02
+      "region": "asia-northeast1",
+      "service": "149C-F9EC-3994",
+      "source": "gcp"
+    },
+    "values": {
+      "*": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "gcp.artifactregistry.transfer.europe": {
+    "unit": "GB",
+    "source": "https://cloud.google.com/artifact-registry/pricing",
+    "note": "Data transfer from a repository to Google Cloud in another location, between locations in Europe; the SKU is sold in every European region at one price, read in europe-west1. Within one location it is free.",
+    "sync": {
+      "filters": {
+        "description": "Artifact Registry Network Inter Region Egress Europe to Europe"
       },
-      "intercontinental": {
-        "*": 0.08
+      "region": "europe-west1",
+      "service": "149C-F9EC-3994",
+      "source": "gcp"
+    },
+    "values": {
+      "*": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "gcp.artifactregistry.transfer.intercontinental": {
+    "unit": "GB",
+    "source": "https://cloud.google.com/artifact-registry/pricing",
+    "note": "Data transfer from a repository to Google Cloud in another location, between continents, excluding Oceania. Within one location it is free.",
+    "sync": {
+      "filters": {
+        "description": "Artifact Registry Network Inter Region Egress Intercontinental \\(Excl Oceania\\)"
       },
-      "north_america": {
-        "*": 0.01
+      "region": "global",
+      "service": "149C-F9EC-3994",
+      "source": "gcp"
+    },
+    "values": {
+      "*": {
+        "value": 0.08,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "gcp.artifactregistry.transfer.north_america": {
+    "unit": "GB",
+    "source": "https://cloud.google.com/artifact-registry/pricing",
+    "note": "Data transfer from a repository to Google Cloud in another location, between locations in North America; the SKU is sold in every North American region at one price, read in us-central1. Within one location it is free.",
+    "sync": {
+      "filters": {
+        "description": "Artifact Registry Network Inter Region Egress North America to North America"
       },
-      "oceania": {
-        "*": 0.15
+      "region": "us-central1",
+      "service": "149C-F9EC-3994",
+      "source": "gcp"
+    },
+    "values": {
+      "*": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "gcp.artifactregistry.transfer.oceania": {
+    "unit": "GB",
+    "source": "https://cloud.google.com/artifact-registry/pricing",
+    "note": "Data transfer from a repository to Google Cloud in another location, to or from Oceania. Within one location it is free.",
+    "sync": {
+      "filters": {
+        "description": "Artifact Registry Network Inter Region Egress Intercontinental to/from Oceania"
+      },
+      "region": "global",
+      "service": "149C-F9EC-3994",
+      "source": "gcp"
+    },
+    "values": {
+      "*": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   }

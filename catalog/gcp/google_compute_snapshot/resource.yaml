@@ -12,11 +12,15 @@ assumptions:
   - { key: storedGb, label: Stored size, type: number, unit: GiB, optional: true, hint: "The snapshot's storage size (used, compressed blocks); overrides the source disk's size" }
 let:
   - gb: 'storedGb ?? source_disk_size ?? -1.0'
-  - regional: 'len(storage_locations) > 0 && storage_locations[0] matches "[0-9]$"'
+  - loc: 'len(storage_locations) > 0 ? lower(storage_locations[0]) : ""'
+  - regional: 'loc matches "[0-9]$"'
+  # The multi-region storage_locations names, or the one nearest the region.
+  - multi: 'loc in ["asia", "eu", "us"] ? loc : region startsWith "europe" ? "eu" : (region startsWith "us" || region startsWith "northamerica") ? "us" : (region startsWith "asia" || region startsWith "australia") ? "asia" : ""'
   - kind: 'snapshot_type == "ARCHIVE" ? "archive" : "standard"'
 readings:
   - fail: { when: 'gb < 0', message: "the snapshot's size is unknown: set storedGb" }
-  - storage: { name: 'Snapshot storage ({kind}, {regional ? "regional" : "multi-regional"})', gb: gb, price: 'gcp.compute.snapshot.{kind}{regional ? "" : "_multi_regional"}' }
+  - fail: { when: '!regional && multi == ""', message: "no multi-region is known to be nearest {region}: set storage_locations" }
+  - storage: { name: 'Snapshot storage ({kind}, {regional ? "regional" : "multi-regional"})', gb: gb, price: 'gcp.compute.snapshot.{kind}{regional ? "" : "_multi_regional." + multi}' }
 terraform:
   # A snapshot names its source disk; it calls nothing.
   passive: true

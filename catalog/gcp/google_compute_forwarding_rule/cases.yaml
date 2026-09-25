@@ -8,9 +8,9 @@
     request:
       monthly: 1e+07
       peak: 100
-  # 730 h × $0.025 (the first rule pays the minimum); 1e7 × 4 KB = 38.14697265625 GiB × $0.012
+  # 730 h × $0.038 (the first rule pays Tokyo's minimum); 1e7 × 4 KB = 38.14697265625 GiB × $0.012
   costs:
-    Forwarding rule hours: 18.25
+    Forwarding rule hours: 27.74
     Data processed: 0.457763671875
 - name: internal Application Load Balancer, 1,000 requests a second of 64 KB (us-east4)
   region: us-east4
@@ -73,19 +73,21 @@
   costs:
     Endpoint hours: 7.3
     Endpoint data processed: 0.3814697265625
-- name: Private Service Connect endpoint to regional Google APIs (us-east4)
+- name: Private Service Connect endpoint to regional Google APIs, 10 million requests of 4 KB (us-east4)
   region: us-east4
   attributes:
     load_balancing_scheme: ""
   assumptions:
     pscTarget: google-apis
+    kbPerUnit: 4
   demand:
     request:
       monthly: 1e+07
       peak: 100
-  # 730 h × $0.01, no data charge
+  # 730 h × $0.01; 1e7 × 4 KB = 38.14697265625 GiB × $0.01 (the regional API endpoints SKU)
   costs:
     Endpoint hours: 7.3
+    Endpoint data processed: 0.3814697265625
 - name: load passes through without a size (asia-northeast1)
   region: asia-northeast1
   demand:

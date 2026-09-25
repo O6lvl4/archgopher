@@ -2,11 +2,11 @@ type: google_cloud_scheduler_job
 label: Cloud Scheduler job
 category: Scheduling
 icon: cloud-scheduler
-description: "One job-month per job, paused jobs included; executions are free. Free jobs are ignored, as every free tier. Its Unix cron schedule becomes the node's traffic on Terraform import and is sent on to its target."
+description: "A job-day for every day of the month (730 hours) per job, paused jobs included, at $0.10 per 31 days; executions are free. Free jobs are ignored, as every free tier. Its Unix cron schedule becomes the node's traffic on Terraform import and is sent on to its target."
 kinds: [fire]
 sla: gcp.scheduler
 readings:
-  - cost: { name: Jobs, quantity: 1, unit: job-month, price: gcp.scheduler.job }
+  - cost: { name: Jobs, quantity: 730 / 24, unit: job-day, price: gcp.scheduler.job }
 terraform:
   schedule: schedule
   # http_target.uri and pubsub_target.topic_name are the calls; the tokens and

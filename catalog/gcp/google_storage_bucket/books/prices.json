@@ -3,55 +3,20 @@
     "unit": "operation",
     "per": 1000,
     "source": "https://cloud.google.com/storage/pricing",
-    "note": "Class A operations (writes and lists) on Standard storage in a regional bucket with a flat namespace. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Class A operations (writes and lists) on Standard storage in a regional bucket with a flat namespace, the same in every region. The catalog lists one global SKU per 1 operation; the first free tier (the Always Free grant) is ignored.",
     "sync": {
-      "source": "gcp",
-      "service": "95FF-2EF5-5EA1",
       "filters": {
         "description": "Regional Standard Class A Operations"
       },
-      "listPer": 1
+      "region": "global",
+      "service": "95FF-2EF5-5EA1",
+      "source": "gcp"
     },
     "values": {
-      "asia-northeast1": {
+      "*": {
         "value": 0.005,
-        "verified": false
-      },
-      "asia-northeast3": {
-        "value": 0.005,
-        "verified": false
-      },
-      "asia-south1": {
-        "value": 0.005,
-        "verified": false
-      },
-      "asia-southeast1": {
-        "value": 0.005,
-        "verified": false
-      },
-      "australia-southeast1": {
-        "value": 0.005,
-        "verified": false
-      },
-      "europe-west1": {
-        "value": 0.005,
-        "verified": false
-      },
-      "europe-west3": {
-        "value": 0.005,
-        "verified": false
-      },
-      "us-east4": {
-        "value": 0.005,
-        "verified": false
-      },
-      "us-east5": {
-        "value": 0.005,
-        "verified": false
-      },
-      "us-west1": {
-        "value": 0.005,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
@@ -59,110 +24,85 @@
     "unit": "operation",
     "per": 1000,
     "source": "https://cloud.google.com/storage/pricing",
-    "note": "Class B operations (reads) on Standard storage in a regional bucket with a flat namespace. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Class B operations (reads) on Standard storage in a regional bucket with a flat namespace, the same in every region. The catalog lists one global SKU per 1 operation; the first free tier (the Always Free grant) is ignored.",
     "sync": {
-      "source": "gcp",
-      "service": "95FF-2EF5-5EA1",
       "filters": {
         "description": "Regional Standard Class B Operations"
       },
-      "listPer": 1
+      "region": "global",
+      "service": "95FF-2EF5-5EA1",
+      "source": "gcp"
     },
     "values": {
-      "asia-northeast1": {
+      "*": {
         "value": 0.0004,
-        "verified": false
-      },
-      "asia-northeast3": {
-        "value": 0.0004,
-        "verified": false
-      },
-      "asia-south1": {
-        "value": 0.0004,
-        "verified": false
-      },
-      "asia-southeast1": {
-        "value": 0.0004,
-        "verified": false
-      },
-      "australia-southeast1": {
-        "value": 0.0004,
-        "verified": false
-      },
-      "europe-west1": {
-        "value": 0.0004,
-        "verified": false
-      },
-      "europe-west3": {
-        "value": 0.0004,
-        "verified": false
-      },
-      "us-east4": {
-        "value": 0.0004,
-        "verified": false
-      },
-      "us-east5": {
-        "value": 0.0004,
-        "verified": false
-      },
-      "us-west1": {
-        "value": 0.0004,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.storage.standard.storage": {
     "unit": "GB-month",
     "source": "https://cloud.google.com/storage/pricing",
-    "note": "Standard storage in a regional location (GiB-month). From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Standard storage in a regional bucket (GiB-month). us-west1 shares the \"US Regional\" SKU whose first 5 GiB are the Always Free grant; the paid tier is used.",
     "sync": {
-      "source": "gcp",
-      "service": "95FF-2EF5-5EA1",
       "filters": {
         "description": "Standard Storage .+",
         "resourceGroup": "RegionalStorage"
-      }
+      },
+      "service": "95FF-2EF5-5EA1",
+      "source": "gcp"
     },
     "values": {
       "asia-northeast1": {
         "value": 0.023,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.023,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
-        "value": 0.02,
-        "verified": false
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.02,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.023,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.02,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.023,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.023,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.02,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.02,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   }

@@ -70,3 +70,39 @@
       monthly: 100000
       peak: 10
   error: "machine type db-perf-optimized-N-2 is not priced: use db-custom-<vCPUs>-<memory MB>, db-n1-standard-<n>, db-n1-highmem-<n>, db-f1-micro or db-g1-small"
+- name: Tokyo MySQL on db-n1-highmem-4, zonal, billed at its own machine-type SKU
+  region: asia-northeast1
+  attributes:
+    tier: db-n1-highmem-4
+    disk_size: 10
+    database_version: MYSQL_8_0
+  demand:
+    query:
+      monthly: 100000
+      peak: 10
+  costs:
+    Machine type: 334.34
+    SSD storage: 2.21
+- name: Northern Virginia MySQL on db-n1-standard-2, high availability
+  region: us-east4
+  attributes:
+    tier: db-n1-standard-2
+    availability_type: REGIONAL
+    database_version: MYSQL_8_0
+  demand:
+    query:
+      monthly: 100000
+      peak: 10
+  costs:
+    Machine type: 211.043
+    SSD storage: 3.638
+- name: MySQL has no db-n1-highmem-1
+  region: us-east4
+  attributes:
+    tier: db-n1-highmem-1
+    database_version: MYSQL_8_0
+  demand:
+    query:
+      monthly: 100000
+      peak: 10
+  error: machine type db-n1-highmem-1 does not exist

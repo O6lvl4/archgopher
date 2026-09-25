@@ -2,54 +2,66 @@
   "gcp.network.internet_out": {
     "unit": "GB",
     "source": "https://cloud.google.com/vpc/network-pricing",
-    "note": "Internet data transfer out, Premium Tier, to North America, first 1 TiB a month tier. The free grant is ignored, as every free tier. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Internet data transfer out, Premium Tier, to North America: the first paid tier (up to 1 or 10 TiB a month, by region). The free grant is ignored, as every free tier. Synced from the Billing Catalog.",
     "sync": {
-      "source": "gcp",
-      "service": "6F81-5844-456A",
       "filters": {
-        "description": "Network Internet (Egress|Data Transfer Out) from .+ to (Americas|North America)"
-      }
+        "description": "Network Internet Data Transfer Out from .+ to Americas",
+        "resourceGroup": "PremiumInternetEgress",
+        "usageUnit": "GiBy"
+      },
+      "service": "6F81-5844-456A",
+      "source": "gcp"
     },
     "values": {
       "asia-northeast1": {
         "value": 0.12,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.19,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 0.12,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.12,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.19,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.12,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.12,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.12,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.12,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.12,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   }

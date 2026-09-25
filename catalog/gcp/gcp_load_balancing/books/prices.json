@@ -2,239 +2,500 @@
   "gcp.lb.data_processed": {
     "unit": "GB",
     "source": "https://cloud.google.com/load-balancing/pricing",
-    "note": "Inbound and outbound data processed by passthrough and proxy Network Load Balancers and external Application Load Balancers, each direction at this price (per GiB). From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Inbound and outbound data processed by passthrough and proxy Network Load Balancers and external Application Load Balancers, each direction at this price (per GiB). Read from the regional external passthrough Network Load Balancer SKU; the external proxy and Application Load Balancer SKUs list the same price in every region of this book. Synced from the Billing Catalog.",
     "sync": {
-      "source": "gcp",
-      "service": "6F81-5844-456A",
       "filters": {
-        "description": "Network Load Balancing: Data Processing Charge.*"
-      }
+        "description": "Regional External Passthrough Network Load Balancer Outbound Data Processing for .*",
+        "resourceGroup": "LoadBalancing",
+        "usageUnit": "GiBy"
+      },
+      "service": "E505-1604-58F8",
+      "source": "gcp"
     },
     "values": {
       "asia-northeast1": {
         "value": 0.012,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.012,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 0.01,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.009,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.011,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.008,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.01,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.009,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.01,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.008,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.lb.forwarding_rule.additional": {
     "unit": "hour",
     "source": "https://cloud.google.com/load-balancing/pricing",
-    "note": "Each forwarding rule after the first five of a project. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Global forwarding rules: each one after the first five of a project, an hour. Regional rules are priced by region: gcp.lb.forwarding_rule.regional.additional. Synced from the Billing Catalog.",
     "sync": {
-      "source": "gcp",
-      "service": "6F81-5844-456A",
-      "region": "global",
       "filters": {
-        "description": "Network Load Balancing: Forwarding Rule Additional.*"
-      }
+        "description": "Cloud Load Balancer Forwarding Rule Additional Global",
+        "usageUnit": "h"
+      },
+      "region": "global",
+      "service": "E505-1604-58F8",
+      "source": "gcp"
     },
     "values": {
       "*": {
         "value": 0.01,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.lb.forwarding_rule.first5": {
     "unit": "hour",
     "source": "https://cloud.google.com/load-balancing/pricing",
-    "note": "The first five forwarding rules of a project, regional and global counted separately, cost this much an hour together, one rule or five. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Global forwarding rules: the first five of a project cost this much an hour together, one rule or five. Regional rules are priced by region: gcp.lb.forwarding_rule.regional.first5. Synced from the Billing Catalog.",
     "sync": {
-      "source": "gcp",
-      "service": "6F81-5844-456A",
-      "region": "global",
       "filters": {
-        "description": "Network Load Balancing: Forwarding Rule Minimum.*"
-      }
+        "description": "Cloud Load Balancer Forwarding Rule Minimum Global",
+        "usageUnit": "h"
+      },
+      "region": "global",
+      "service": "E505-1604-58F8",
+      "source": "gcp"
     },
     "values": {
       "*": {
         "value": 0.025,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "gcp.lb.forwarding_rule.regional.additional": {
+    "unit": "hour",
+    "source": "https://cloud.google.com/load-balancing/pricing",
+    "note": "Regional forwarding rules: each one after the first five of a project in a region, an hour. Synced from the Billing Catalog.",
+    "sync": {
+      "filters": {
+        "description": "Cloud Load Balancer Forwarding Rule Additional for .*",
+        "usageUnit": "h"
+      },
+      "service": "E505-1604-58F8",
+      "source": "gcp"
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-northeast3": {
+        "value": 0.015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-south1": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-southeast1": {
+        "value": 0.011,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "australia-southeast1": {
+        "value": 0.014,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west3": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east4": {
+        "value": 0.011,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east5": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "gcp.lb.forwarding_rule.regional.first5": {
+    "unit": "hour",
+    "source": "https://cloud.google.com/load-balancing/pricing",
+    "note": "Regional forwarding rules: the first five of a project in a region cost this much an hour together, one rule or five. Synced from the Billing Catalog.",
+    "sync": {
+      "filters": {
+        "description": "Cloud Load Balancer Forwarding Rule Minimum for .*",
+        "usageUnit": "h"
+      },
+      "service": "E505-1604-58F8",
+      "source": "gcp"
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.038,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-northeast3": {
+        "value": 0.038,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-south1": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-southeast1": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "australia-southeast1": {
+        "value": 0.034,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west1": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west3": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east4": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east5": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west1": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.lb.internal.data_processed": {
     "unit": "GB",
     "source": "https://cloud.google.com/load-balancing/pricing",
-    "note": "Internal Application Load Balancers: requests and responses processed (per GiB). From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Internal Application Load Balancers: requests and responses processed, each direction at this price (per GiB). Synced from the Billing Catalog.",
     "sync": {
-      "source": "gcp",
-      "service": "6F81-5844-456A",
       "filters": {
-        "description": "Network Internal Load Balancing: Data Processing.*"
-      }
+        "description": "Regional Internal Application Load Balancer Outbound Data Processing for .*",
+        "resourceGroup": "LoadBalancing",
+        "usageUnit": "GiBy"
+      },
+      "service": "E505-1604-58F8",
+      "source": "gcp"
     },
     "values": {
       "asia-northeast1": {
         "value": 0.008,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.008,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 0.008,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.008,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.011,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.008,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.008,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.008,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.008,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.008,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.lb.internal.proxy_instance": {
     "unit": "hour",
     "source": "https://cloud.google.com/load-balancing/pricing",
-    "note": "Internal Application Load Balancers (regional and cross-region): each managed Envoy proxy instance, at least three per INTERNAL_MANAGED forwarding rule; one instance handles 18 MB/s or 1,400 requests a second. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Internal Application Load Balancers (regional and cross-region): each managed Envoy proxy instance, at least three per INTERNAL_MANAGED forwarding rule; one instance handles 18 MB/s or 1,400 requests a second. Read from the regional SKU; the cross-region SKU lists the same price in every region of this book. Synced from the Billing Catalog.",
     "sync": {
-      "source": "gcp",
-      "service": "6F81-5844-456A",
       "filters": {
-        "description": "Network Load Balancing: Forwarding Rule Minimum Service Charge.*Internal.*|Internal (HTTP|Application) Load Balancing.*Proxy.*"
-      }
+        "description": "Regional Internal Application Load Balancer Proxy Instance Charge for .*",
+        "resourceGroup": "LoadBalancing",
+        "usageUnit": "h"
+      },
+      "service": "E505-1604-58F8",
+      "source": "gcp"
     },
     "values": {
       "asia-northeast1": {
         "value": 0.025,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.025,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 0.025,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.025,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.034,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.025,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.025,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.025,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.025,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.025,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "gcp.lb.internal_passthrough.data_processed": {
+    "unit": "GB",
+    "source": "https://cloud.google.com/load-balancing/pricing",
+    "note": "Inbound and outbound data processed by an internal passthrough Network Load Balancer (an INTERNAL forwarding rule), each direction at this price (per GiB). Synced from the Billing Catalog.",
+    "sync": {
+      "filters": {
+        "description": "Regional Internal Passthrough Network Load Balancer Outbound Data Processing for .*",
+        "resourceGroup": "LoadBalancing",
+        "usageUnit": "GiBy"
+      },
+      "service": "E505-1604-58F8",
+      "source": "gcp"
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-northeast3": {
+        "value": 0.012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-south1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-southeast1": {
+        "value": 0.009,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "australia-southeast1": {
+        "value": 0.011,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west1": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west3": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east4": {
+        "value": 0.009,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east5": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west1": {
+        "value": 0.008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.psc.data_processed": {
     "unit": "GB",
     "source": "https://cloud.google.com/vpc/pricing",
-    "note": "Private Service Connect consumer data processing to a published service, inbound and outbound (per GiB), the first PiB of the billing account a month (then $0.006, from 5 PiB $0.004). Endpoints to Google APIs have no data charge. From the pricing page; sync verifies it against the Billing Catalog once credentials are set. The service id and filter are unchecked.",
+    "note": "Private Service Connect consumer data processing to a published service, inbound and outbound (per GiB), the first PiB of the billing account a month (then $0.006, from 5 PiB $0.004). Synced from the Billing Catalog.",
     "sync": {
-      "source": "gcp",
-      "service": "E505-1604-58F8",
-      "region": "global",
       "filters": {
-        "description": ".*Private Service Connect.*[Dd]ata [Pp]rocessing.*"
+        "description": "Networking Private Service Connect Consumer Data Processing",
+        "usageUnit": "GiBy"
       },
+      "region": "global",
+      "service": "E505-1604-58F8",
+      "source": "gcp",
       "tier": "first"
     },
     "values": {
       "*": {
         "value": 0.01,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.psc.endpoint_hour": {
     "unit": "hour",
     "source": "https://cloud.google.com/vpc/pricing",
-    "note": "Each Private Service Connect endpoint (a forwarding rule with an empty load balancing scheme), to a published service or to Google APIs, an hour. From the pricing page; sync verifies it against the Billing Catalog once credentials are set. The service id and filter are unchecked.",
+    "note": "Each Private Service Connect endpoint (a forwarding rule with an empty load balancing scheme), to a published service or to Google APIs, an hour. Synced from the Billing Catalog.",
+    "sync": {
+      "filters": {
+        "description": "Networking Private Service Connect Consumer End Point",
+        "usageUnit": "h"
+      },
+      "region": "global",
+      "service": "E505-1604-58F8",
+      "source": "gcp"
+    },
+    "values": {
+      "*": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "gcp.psc.regional_api.data_processed": {
+    "unit": "GB",
+    "source": "https://cloud.google.com/vpc/pricing",
+    "note": "Private Service Connect endpoints to regional Google APIs: data processed, inbound and outbound (per GiB), the first PiB of the billing account; later tiers are cheaper and not read. Synced from the Billing Catalog.",
     "sync": {
       "source": "gcp",
       "service": "E505-1604-58F8",
       "region": "global",
+      "tier": "first",
       "filters": {
-        "description": ".*Private Service Connect.*[Ee]ndpoint.*"
+        "description": "Networking Private Service Connect Regional Based API Endpoints Data Processing"
       }
     },
     "values": {
       "*": {
         "value": 0.01,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   }

@@ -1,20 +1,22 @@
 {
   "gcp.scheduler.job": {
-    "unit": "job-month",
+    "unit": "job-day",
     "source": "https://cloud.google.com/scheduler/pricing",
-    "note": "$0.10 per job per 31 days, billed per day; paused jobs count. Read from the pricing page; sync verifies it against the Billing Catalog once credentials are set and the service id below is filled in (GET /v1/services).",
+    "note": "$0.10 per job per 31 days, billed per job-day, paused jobs included. The SKU counts job-days; its first 93 (three free jobs for 31 days) are free and ignored, as every free tier.",
     "sync": {
       "source": "gcp",
-      "service": "Cloud Scheduler",
-      "region": "global",
+      "service": "1F14-4801-0E16",
       "filters": {
         "description": "Jobs"
-      }
+      },
+      "region": "global",
+      "tier": "93"
     },
     "values": {
       "*": {
-        "value": 0.1,
-        "verified": false
+        "value": 0.003225806,
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   }

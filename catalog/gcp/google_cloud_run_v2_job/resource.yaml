@@ -18,8 +18,8 @@ let:
   - instanceSeconds: 'total.monthly * task_count * max(taskSeconds, 60)'
   - waves: 'ceilDiv(task_count, parallelism > 0 ? parallelism : task_count)'
 readings:
-  - cost: { name: vCPU, quantity: instanceSeconds * vcpu, unit: vCPU-second, price: gcp.cloudrun.instance.cpu }
-  - cost: { name: Memory, quantity: instanceSeconds * gib, unit: GiB-second, price: gcp.cloudrun.instance.memory }
+  - cost: { name: vCPU, quantity: instanceSeconds * vcpu, unit: vCPU-second, price: gcp.cloudrun.jobs.cpu }
+  - cost: { name: Memory, quantity: instanceSeconds * gib, unit: GiB-second, price: gcp.cloudrun.jobs.memory }
   - rate: { name: Job runs, unit: runs/minute, quota: gcp.cloudrun.jobs.runs_per_minute, peak: total.peak * 60 }
   - concurrency: { name: Running executions, unit: executions, quota: gcp.cloudrun.jobs.running_executions, peak: total.peak, seconds: taskSeconds * waves }
 terraform:

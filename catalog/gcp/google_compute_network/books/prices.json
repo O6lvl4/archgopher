@@ -2,54 +2,22 @@
   "gcp.network.inter_zone": {
     "unit": "GB",
     "source": "https://cloud.google.com/vpc/network-pricing",
-    "note": "Data transfer to a different zone in the same region within one VPC network, charged to the sender. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Data transfer to a different zone in the same region within one VPC network, charged to the sender. One price in every region: the Billing Catalog's single SKU (Compute Engine, Network Inter Zone Data Transfer Out) lists only us-central1, us-east1, us-west1, asia-east1 and europe-west1, so it is read in us-central1 for all. Synced from the Billing Catalog.",
     "sync": {
-      "source": "gcp",
-      "service": "6F81-5844-456A",
       "filters": {
-        "description": "Network Inter Zone (Egress|Data Transfer Out)"
-      }
+        "description": "Network Inter Zone Data Transfer Out",
+        "resourceGroup": "InterzoneEgress",
+        "usageUnit": "GiBy"
+      },
+      "region": "us-central1",
+      "service": "6F81-5844-456A",
+      "source": "gcp"
     },
     "values": {
-      "asia-northeast1": {
+      "*": {
         "value": 0.01,
-        "verified": false
-      },
-      "asia-northeast3": {
-        "value": 0.01,
-        "verified": false
-      },
-      "asia-south1": {
-        "value": 0.01,
-        "verified": false
-      },
-      "asia-southeast1": {
-        "value": 0.01,
-        "verified": false
-      },
-      "australia-southeast1": {
-        "value": 0.01,
-        "verified": false
-      },
-      "europe-west1": {
-        "value": 0.01,
-        "verified": false
-      },
-      "europe-west3": {
-        "value": 0.01,
-        "verified": false
-      },
-      "us-east4": {
-        "value": 0.01,
-        "verified": false
-      },
-      "us-east5": {
-        "value": 0.01,
-        "verified": false
-      },
-      "us-west1": {
-        "value": 0.01,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   }

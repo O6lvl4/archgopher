@@ -3,38 +3,43 @@
     "unit": "operation",
     "per": 10000,
     "source": "https://cloud.google.com/secret-manager/pricing",
-    "note": "Access operations; the first 10,000 a month are free and ignored. From the pricing page; sync verifies it against the Billing Catalog once credentials are set. The SKU's list unit is unconfirmed.",
+    "note": "Access operations beyond the free 10,000 a month (the SKU's first tier). One SKU for every location; it is not listed under \"global\", so sync reads it in us-central1.",
     "sync": {
       "source": "gcp",
       "service": "EE82-7A5E-871C",
       "filters": {
         "description": "Secret access operations"
       },
-      "region": "global"
+      "region": "us-central1",
+      "tier": "10000"
     },
     "values": {
       "*": {
         "value": 0.03,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.secretmanager.versions": {
     "unit": "version-hour",
     "source": "https://cloud.google.com/secret-manager/pricing",
-    "note": "Active secret version per location (about $0.06 a month); automatic replication counts as one location. The first 6 versions are free and ignored. From the pricing page; sync verifies it against the Billing Catalog once credentials are set. The SKU's list unit is unconfirmed.",
+    "note": "Active secret version per location; automatic replication counts as one location. The catalog prices a version-month ($0.06), 730 version-hours. The first 6 versions (the SKU's first tier) are free and ignored.",
     "sync": {
       "source": "gcp",
       "service": "EE82-7A5E-871C",
       "filters": {
         "description": "Secret version replica storage"
       },
-      "region": "global"
+      "region": "global",
+      "tier": "6",
+      "listPer": 730
     },
     "values": {
       "*": {
-        "value": 0.000082192,
-        "verified": false
+        "value": 0.0000821917808219,
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   }

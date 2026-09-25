@@ -45,6 +45,36 @@ type Entry struct {
 	// Verified and CheckedAt hold for every value of a table.
 	Verified  bool   `json:"verified,omitempty"`
 	CheckedAt string `json:"checkedAt,omitempty"`
+	// Compose builds a table row out of several prices the provider does
+	// list, when it lists none for the row itself: a Compute Engine machine
+	// type is so many vCPU-hours, GiB-hours of memory, GPU-hours and local
+	// SSD. The engine reads the rows; sync resolves each part and sums them.
+	Compose map[string]Composition `json:"compose,omitempty"`
+	// ComposeOf reads Compose from another table of the same book (the Spot
+	// prices of the same machine types).
+	ComposeOf string `json:"composeOf,omitempty"`
+}
+
+// Composition is how one row is made: its parts, and the regions where the
+// row is offered at all (a part can be sold where the whole is not).
+type Composition struct {
+	In    []string `json:"in,omitempty"`
+	Parts []Part   `json:"parts"`
+}
+
+// Part is one listed price and how many of its units one unit of the row
+// takes: 8 vCPU-hours for one hour of an 8-vCPU machine. Name fills {part}
+// in the sync filters literally; Match fills it as a regular expression, for
+// a price the provider names differently from region to region. With
+// overrides keys of the sync spec for this part (a license sold "global");
+// WithIn does so in one region only, where the provider lists two prices
+// under one name and only an id tells them apart.
+type Part struct {
+	Name   string                     `json:"part"`
+	Match  string                     `json:"match,omitempty"`
+	Times  float64                    `json:"times"`
+	With   json.RawMessage            `json:"with,omitempty"`
+	WithIn map[string]json.RawMessage `json:"withIn,omitempty"`
 }
 
 // Value is the number for one region. A nil Value means "not known".

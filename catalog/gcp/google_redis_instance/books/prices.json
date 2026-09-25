@@ -2,12 +2,13 @@
   "gcp.redis.basic": {
     "unit": "GiB-hour",
     "source": "https://cloud.google.com/memorystore/docs/redis/pricing",
-    "note": "Basic Tier per provisioned GiB-hour, by capacity tier: M1 1-4 GiB, M2 5-10, M3 11-35, M4 36-100, M5 over 100. Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Basic Tier per provisioned GiB-hour, by capacity tier: M1 1-4 GiB, M2 5-10, M3 11-35, M4 36-100, M5 over 100.",
     "sync": {
       "source": "gcp",
       "service": "5AF5-2C11-D467",
       "filters": {
-        "description": "(?i)Redis Capacity Basic {row}( .*)?"
+        "description": "(?i)Redis Capacity Basic {row}( .*)?",
+        "usageUnit": "GiBy.h"
       }
     },
     "rows": {
@@ -71,17 +72,20 @@
         "us-east5": 0.016,
         "us-west1": 0.016
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
   },
   "gcp.redis.replica_node": {
     "unit": "GiB-hour",
     "source": "https://cloud.google.com/memorystore/docs/redis/pricing",
-    "note": "Standard Tier with read replicas, per provisioned GiB-hour per node (the primary and each replica), M2 and larger. Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Standard Tier with read replicas, per provisioned GiB-hour per node (the primary and each replica), M2 and larger.",
     "sync": {
       "source": "gcp",
       "service": "5AF5-2C11-D467",
       "filters": {
-        "description": "(?i)Redis Capacity Standard Node {row}( .*)?"
+        "description": "(?i)Redis Standard Node Capacity {row}( .*)?",
+        "usageUnit": "GiBy.h"
       }
     },
     "rows": {
@@ -133,17 +137,20 @@
         "us-east5": 0.016,
         "us-west1": 0.016
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
   },
   "gcp.redis.standard": {
     "unit": "GiB-hour",
     "source": "https://cloud.google.com/memorystore/docs/redis/pricing",
-    "note": "Standard Tier (read replicas disabled) per provisioned GiB-hour, by capacity tier. Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Standard Tier (read replicas disabled) per provisioned GiB-hour, by capacity tier.",
     "sync": {
       "source": "gcp",
       "service": "5AF5-2C11-D467",
       "filters": {
-        "description": "(?i)Redis Capacity Standard {row}( .*)?"
+        "description": "(?i)Redis Capacity Standard {row}( .*)?",
+        "usageUnit": "GiBy.h"
       }
     },
     "rows": {
@@ -207,6 +214,8 @@
         "us-east5": 0.03,
         "us-west1": 0.03
       }
-    }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
   }
 }

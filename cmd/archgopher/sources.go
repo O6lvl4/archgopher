@@ -33,7 +33,7 @@ type sources struct {
 
 // absent reports an error that means the price list offers nothing there.
 func absent(err error) bool {
-	return errors.Is(err, pricelist.ErrAbsent) || errors.Is(err, retailprices.ErrAbsent) || errors.Is(err, billingcatalog.ErrAbsent)
+	return errors.Is(err, pricelist.ErrAbsent) || errors.Is(err, retailprices.ErrAbsent) || errors.Is(err, billingcatalog.ErrAbsent) || errors.Is(err, errNotOffered)
 }
 
 // unauthorized reports an error that means the price list needs credentials

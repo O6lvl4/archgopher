@@ -2,10 +2,10 @@
   "gcp.compute.image_storage": {
     "unit": "GB-month",
     "source": "https://cloud.google.com/compute/disks-image-pricing",
-    "note": "Custom image storage (GiB-month). Read from the pricing page's regional tables; sync verifies rows with a single Billing Catalog SKU once credentials are set.",
+    "note": "Custom image storage (GiB-month). The catalog names most regions' SKU \"Storage Image in <place>\"; a few regions share one \"Storage Image\" SKU.",
     "sync": {
       "filters": {
-        "description": "^Storage Image"
+        "description": "Storage Image( in .+)?"
       },
       "service": "6F81-5844-456A",
       "source": "gcp"
@@ -13,43 +13,53 @@
     "values": {
       "asia-northeast1": {
         "value": 0.065,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.065,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 0.06,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.055,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.068,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.05,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.06,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.055,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.05,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.05,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   }

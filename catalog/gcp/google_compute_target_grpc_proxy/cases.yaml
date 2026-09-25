@@ -6,9 +6,9 @@
     request:
       monthly: 1e+07
       peak: 100
-  # 730 h × $0.0006945
+  # 730 h × $0.000694444 ($0.50 over 720 hours)
   costs:
-    Mesh clients: 0.506985
+    Mesh clients: 0.50694412
 - name: 20 client instances (europe-west1)
   region: europe-west1
   assumptions:
@@ -17,6 +17,6 @@
     request:
       monthly: 1e+07
       peak: 100
-  # 20 × 730 h × $0.0006945
+  # 20 × 730 h × $0.000694444
   costs:
-    Mesh clients: 10.1397
+    Mesh clients: 10.1388824

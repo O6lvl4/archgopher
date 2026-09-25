@@ -1,27 +1,48 @@
 {
-  "gcp.pubsub.export": {
+  "gcp.pubsub.export.bigquery": {
     "unit": "TiB",
     "source": "https://cloud.google.com/pubsub/pricing",
-    "note": "BigQuery and Cloud Storage subscriptions per TiB read from the subscription and written, the same in every region, with no free tier. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "BigQuery subscriptions per TiB read from the subscription and written, the same in every region, with no free tier (SKU \"Message Delivery to BigQuery\").",
     "sync": {
       "source": "gcp",
       "service": "A1E8-BE35-7EBC",
       "filters": {
-        "description": "(BigQuery|Cloud Storage) Subscriptions?.*"
+        "description": "Message Delivery to BigQuery"
       },
       "region": "global"
     },
     "values": {
       "*": {
         "value": 50,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "gcp.pubsub.export.cloud_storage": {
+    "unit": "TiB",
+    "source": "https://cloud.google.com/pubsub/pricing",
+    "note": "Cloud Storage subscriptions per TiB read from the subscription and written, the same in every region, with no free tier (SKU \"Message Delivery to Google Cloud Storage\").",
+    "sync": {
+      "source": "gcp",
+      "service": "A1E8-BE35-7EBC",
+      "filters": {
+        "description": "Message Delivery to Google Cloud Storage"
+      },
+      "region": "global"
+    },
+    "values": {
+      "*": {
+        "value": 50,
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.pubsub.storage": {
     "unit": "GiB-month",
     "source": "https://cloud.google.com/pubsub/pricing",
-    "note": "Message storage: retained acknowledged messages, snapshots and unacknowledged backlog older than a day, the same in every region. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Message storage: retained acknowledged messages, snapshots and unacknowledged backlog older than a day, the same in every region. Read from \"Subscriptions retained acknowledged messages\"; the backlog and snapshot SKUs have the same price.",
     "sync": {
       "source": "gcp",
       "service": "A1E8-BE35-7EBC",
@@ -33,7 +54,8 @@
     "values": {
       "*": {
         "value": 0.27,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   }

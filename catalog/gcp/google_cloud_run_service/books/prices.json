@@ -2,54 +2,64 @@
   "gcp.cloudrun.idle_cpu": {
     "unit": "vCPU-second",
     "source": "https://cloud.google.com/run/pricing",
-    "note": "Request-based billing, idle time of minimum instances; their idle memory bills at the active memory price (Tier 1 or Tier 2 by region). The SKU description is unconfirmed. Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Request-based billing, idle time of minimum instances, Tier 1 or Tier 2 by region (SKU \"Services Min Instance CPU [Tier 2] (Request-based billing)\"). Their idle memory SKU (\"Services Min Instance Memory\") has the active memory price, so the reading uses gcp.cloudrun.memory.",
     "sync": {
       "source": "gcp",
       "service": "152E-C115-5142",
       "filters": {
-        "description": "Idle Min-Instance CPU Allocation Time( \\(tier 2\\))?"
+        "description": "Services Min Instance CPU (Tier 2 +)?\\(Request-based billing\\)"
       }
     },
     "values": {
       "asia-northeast1": {
         "value": 0.0000025,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.0000035,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 0.0000025,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.0000035,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.0000035,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.0000025,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.0000035,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.0000025,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.0000025,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.0000025,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   }

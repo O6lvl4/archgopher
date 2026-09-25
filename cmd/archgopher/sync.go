@@ -91,7 +91,7 @@ func (s *syncer) file(w io.Writer, path string, check bool) error {
 			continue
 		}
 		if len(e.Rows) > 0 {
-			if err := s.table(w, id, &e); err != nil {
+			if err := s.table(w, id, &e, prices); err != nil {
 				return err
 			}
 			prices[id] = e
@@ -136,7 +136,7 @@ func (s *syncer) file(w io.Writer, path string, check bool) error {
 // row key, quoted for the price list's regular expressions. Rows are checked
 // in the regions they already have, or the one asked for; the table is
 // verified when every value was resolved, and dated when one changed.
-func (s *syncer) table(w io.Writer, id string, e *book.Entry) error {
+func (s *syncer) table(w io.Writer, id string, e *book.Entry, all book.Book) error {
 	keys := make([]string, 0, len(e.Rows))
 	for k := range e.Rows {
 		keys = append(keys, k)
@@ -159,12 +159,15 @@ func (s *syncer) table(w io.Writer, id string, e *book.Entry) error {
 		regions = append(regions, r)
 	}
 	sort.Strings(regions)
+	compose := e.Compose
+	if e.ComposeOf != "" {
+		compose = all[e.ComposeOf].Compose
+	}
 	specs := map[string]priceSource{}
 	for _, key := range keys {
-		raw := strings.ReplaceAll(string(e.Sync), "{row}", jsonQuoteMeta(key))
-		spec, err := s.sources.of(json.RawMessage(raw))
+		spec, err := s.rowSource(e.Sync, key, compose)
 		if err != nil {
-			return fmt.Errorf("%s: sync: %w", id, err)
+			return fmt.Errorf("%s.%s: sync: %w", id, key, err)
 		}
 		specs[key] = spec
 	}
@@ -199,6 +202,110 @@ func (s *syncer) table(w io.Writer, id string, e *book.Entry) error {
 	}
 	return nil
 }
+
+// rowSource is the price source of one table row: the sync spec with {row}
+// filled in, or, for a composed row, the sum of its parts, each resolved with
+// {part} filled in.
+func (s *syncer) rowSource(sync json.RawMessage, key string, compose map[string]book.Composition) (priceSource, error) {
+	raw := strings.ReplaceAll(string(sync), "{row}", jsonQuoteMeta(key))
+	c, composed := compose[key]
+	if !composed {
+		return s.sources.of(json.RawMessage(raw))
+	}
+	out := composite{in: map[string]bool{}}
+	for _, r := range c.In {
+		out.in[r] = true
+	}
+	for _, p := range c.Parts {
+		spec, err := partSpec(raw, p, p.With)
+		if err != nil {
+			return nil, fmt.Errorf("part %s: %w", p.Name, err)
+		}
+		src, err := s.sources.of(spec)
+		if err != nil {
+			return nil, err
+		}
+		w := weighted{src: src, times: p.Times, name: p.Name, in: map[string]priceSource{}}
+		for region, with := range p.WithIn {
+			spec, err := partSpec(string(spec), book.Part{Name: p.Name}, with)
+			if err != nil {
+				return nil, fmt.Errorf("part %s in %s: %w", p.Name, region, err)
+			}
+			if w.in[region], err = s.sources.of(spec); err != nil {
+				return nil, err
+			}
+		}
+		out.parts = append(out.parts, w)
+	}
+	return out, nil
+}
+
+// partSpec is a row's sync spec for one part: {part} filled with the part's
+// name, quoted, or its pattern, and the part's own keys laid over the spec.
+func partSpec(raw string, p book.Part, overlay json.RawMessage) (json.RawMessage, error) {
+	fill := jsonQuoteMeta(p.Name)
+	if p.Match != "" {
+		b, err := json.Marshal(p.Match)
+		if err != nil {
+			return nil, err
+		}
+		fill = string(b[1 : len(b)-1])
+	}
+	spec := json.RawMessage(strings.ReplaceAll(raw, "{part}", fill))
+	if len(overlay) == 0 {
+		return spec, nil
+	}
+	var base, with map[string]json.RawMessage
+	if err := json.Unmarshal(spec, &base); err != nil {
+		return nil, err
+	}
+	if err := json.Unmarshal(overlay, &with); err != nil {
+		return nil, err
+	}
+	for k, v := range with {
+		base[k] = v
+	}
+	return json.Marshal(base)
+}
+
+// errNotOffered is a composed row outside the regions it is offered in.
+var errNotOffered = errors.New("not offered in this region")
+
+// composite prices a row as the sum of its parts.
+type composite struct {
+	in    map[string]bool
+	parts []weighted
+}
+
+type weighted struct {
+	src   priceSource
+	times float64
+	name  string
+	// in holds the part's own source in a region that needs one.
+	in map[string]priceSource
+}
+
+func (c composite) quote(region string) (quote, error) {
+	if len(c.in) > 0 && !c.in[region] {
+		return quote{}, errNotOffered
+	}
+	var q quote
+	for _, p := range c.parts {
+		src := p.src
+		if s, ok := p.in[region]; ok {
+			src = s
+		}
+		pq, err := src.quote(region)
+		if err != nil {
+			return quote{}, fmt.Errorf("%s: %w", p.name, err)
+		}
+		q.usdPerUnit += pq.usdPerUnit * p.times
+	}
+	q.label = fmt.Sprintf("%d parts", len(c.parts))
+	return q, nil
+}
+
+func (c composite) global() bool { return false }
 
 // jsonQuoteMeta quotes a row key for a regular expression inside a JSON string.
 func jsonQuoteMeta(key string) string {

@@ -2,54 +2,66 @@
   "gcp.vpn.tunnel_hour": {
     "unit": "hour",
     "source": "https://cloud.google.com/network-connectivity/docs/vpn/pricing",
-    "note": "Each tunnel attached to a Classic or HA VPN gateway, by the gateway's region. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Each tunnel attached to a Classic or HA VPN gateway, by the gateway's region. Synced from the Billing Catalog.",
     "sync": {
-      "source": "gcp",
-      "service": "E505-1604-58F8",
       "filters": {
-        "description": "(Networking )?(Cloud )?VPN Tunnel.*"
-      }
+        "description": "Networking Cloud VPN Tunnel .*",
+        "resourceGroup": "VPNTunnel",
+        "usageUnit": "h"
+      },
+      "service": "E505-1604-58F8",
+      "source": "gcp"
     },
     "values": {
       "asia-northeast1": {
         "value": 0.075,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.075,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 0.05,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.055,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.068,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.05,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.06,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.055,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.05,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.05,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   }

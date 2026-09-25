@@ -3,21 +3,22 @@
     "unit": "query",
     "per": 1000000,
     "source": "https://cloud.google.com/dns/pricing",
-    "note": "Regular queries, the first billion of the billing account a month (then $0.20 per million). No free tier. From the pricing page; sync verifies it against the Billing Catalog once credentials are set. The service id below is a placeholder: fill it in from GET /v1/services.",
+    "note": "Regular queries, the first billion of the billing account a month (then $0.20 per million). No free tier. Synced from the Billing Catalog.",
     "sync": {
-      "source": "gcp",
-      "service": "Cloud DNS",
-      "region": "global",
       "filters": {
-        "description": "DNS Query \\(port 53\\)"
+        "description": "DNS Query \\(port 53\\)",
+        "usageUnit": "count"
       },
-      "tier": "first",
-      "listPer": 1
+      "region": "global",
+      "service": "FA26-5236-B8B5",
+      "source": "gcp",
+      "tier": "first"
     },
     "values": {
       "*": {
         "value": 0.4,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
@@ -25,17 +26,7 @@
     "unit": "query",
     "per": 1000000,
     "source": "https://cloud.google.com/dns/pricing",
-    "note": "Queries answered by a routing policy (weighted, geolocation, failover), the first billion a month (then $0.35 per million). From the pricing page; sync verifies it against the Billing Catalog once credentials are set. The service id below is a placeholder: fill it in from GET /v1/services.",
-    "sync": {
-      "source": "gcp",
-      "service": "Cloud DNS",
-      "region": "global",
-      "filters": {
-        "description": ".*[Rr]outing [Pp]olic.*"
-      },
-      "tier": "first",
-      "listPer": 1
-    },
+    "note": "Queries answered by a routing policy (weighted, geolocation, failover), the first billion a month (then $0.35 per million). By hand from https://cloud.google.com/dns/pricing: the Billing Catalog's Cloud DNS service (FA26-5236-B8B5) lists only ManagedZone and DNS Query (port 53), and Networking has no routing policy query SKU, so sync cannot check it.",
     "values": {
       "*": {
         "value": 0.7,

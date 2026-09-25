@@ -9,8 +9,9 @@
     read:
       monthly: 10
       peak: 1
+  # 50 GiB × $0.065
   costs:
-    Machine image storage: 2.5
+    Machine image storage: 3.25
 - name: Frankfurt machine image of 120 GiB
   # 120 x 0.06
   region: europe-west3

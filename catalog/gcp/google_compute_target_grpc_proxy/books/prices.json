@@ -2,19 +2,21 @@
   "gcp.servicemesh.client_hour": {
     "unit": "client-hour",
     "source": "https://cloud.google.com/service-mesh/pricing",
-    "note": "Cloud Service Mesh standalone: each client (proxyless gRPC instance, Envoy-enabled pod or Cloud Run instance) an hour, about $0.50 a month. From the pricing page; sync verifies it against the Billing Catalog once credentials are set. The service id below is a placeholder: fill it in from GET /v1/services.",
+    "note": "Cloud Service Mesh standalone (Traffic Director): each client (proxyless gRPC instance, Envoy-enabled pod or Cloud Run instance) an hour, $0.50 for a 720-hour month. Synced from the Billing Catalog (Networking, Traffic Director Endpoint).",
     "sync": {
-      "source": "gcp",
-      "service": "Cloud Service Mesh",
-      "region": "global",
       "filters": {
-        "description": ".*Service Mesh.*[Cc]lient.*"
-      }
+        "description": "Networking Traffic Director Endpoint",
+        "usageUnit": "h"
+      },
+      "region": "global",
+      "service": "E505-1604-58F8",
+      "source": "gcp"
     },
     "values": {
       "*": {
-        "value": 0.0006945,
-        "verified": false
+        "value": 0.000694444,
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   }

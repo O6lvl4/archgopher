@@ -605,9 +605,13 @@ the resource it is scoped to, with the kinds the role grants. Each resource's
 | `google_container_cluster` | Management fee, Autopilot Pod vCPU, memory and ephemeral storage, the default or first inline node pool's nodes | - |
 | `google_container_node_pool` | Nodes per zone times zones (its own, else the cluster's): instance hours, boot disks, local SSDs, GPUs, public nodes' IPs | Requests against the nodes |
 
-Google Cloud prices are read from the pricing pages until a credentialed
-`sync` checks them against the Billing Catalog; they are marked unverified
-until then.
+Every Google Cloud price is checked against the Billing Catalog, 13,217
+cells in all. Three have no SKU to check against and are read from the
+pricing pages, with notes saying so: Cloud DNS routing-policy queries, the
+Cloud NAT gateway cap and free log routing. A machine type is priced as the
+SKUs Compute Engine bills it by, its vCPUs, memory, GPUs (A2 and A3 included),
+bundled Local or Titanium SSD and the M2 premium, taken from the
+machineTypes API with the regions each type is offered in.
 
 ### Cloudflare
 
@@ -709,7 +713,15 @@ class) are a table: one entry with `rows` instead of `values`, one number per
 region, `null` where the row is not offered. Row `t3.micro` of
 `aws.ec2.linux` is priced as `aws.ec2.linux.t3.micro`, so a reading names it
 with `'aws.ec2.linux.{instance_type}'`. `{row}` in the sync filters stands for
-the row key, so one spec verifies every row. `{region}` stands for the region
+the row key, so one spec verifies every row. When the provider lists no price for the row
+itself, `compose` builds it from prices it does list: a Compute Engine
+machine type is so many vCPU-hours, GiB-hours of memory, GPU-hours and SSD.
+`{part}` in the filters stands for each part's name (or its `match`
+pattern); `with` lays keys over the spec for one part (a license sold
+`global`) and `withIn` for one region, where two prices share a name and
+only a SKU id tells them apart. `in` lists the regions the row is offered
+in, and `composeOf` reuses another table's parts (the Spot prices of the
+same machines). `{region}` stands for the region
 being verified, for offers that list a price from both ends (data sent between
 regions: `"fromRegionCode": "{region}"`).
 

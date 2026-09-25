@@ -26,3 +26,17 @@
       peak: 1
   costs:
     Snapshot storage (archive, regional): 0.76
+- name: Tokyo archive snapshot of 100 GiB kept in the EU multi-region
+  region: asia-northeast1
+  attributes:
+    snapshot_type: ARCHIVE
+    storage_locations:
+    - eu
+  assumptions:
+    storedGb: 100
+  demand:
+    read:
+      monthly: 10
+      peak: 1
+  costs:
+    Snapshot storage (archive, multi-regional): 2.8

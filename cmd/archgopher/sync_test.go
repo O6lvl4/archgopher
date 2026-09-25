@@ -2,14 +2,19 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
+	"fmt"
+	"math"
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 	"time"
 
 	"github.com/O6lvl4/archgopher/book"
 	"github.com/O6lvl4/archgopher/provider/aws/pricelist"
+	"github.com/O6lvl4/archgopher/provider/gcp/billingcatalog"
 )
 
 type roundTripFunc func(*http.Request) (*http.Response, error)
@@ -57,3 +62,59 @@ func TestSyncTableRows(t *testing.T) {
 }
 
 func f(v float64) *float64 { return &v }
+
+type fixed map[string]float64
+
+func (f fixed) quote(region string) (quote, error) {
+	v, ok := f[region]
+	if !ok {
+		return quote{}, fmt.Errorf("%w: none in %s", billingcatalog.ErrAbsent, region)
+	}
+	return quote{usdPerUnit: v}, nil
+}
+
+func (f fixed) global() bool { return false }
+
+// A composed row is the sum of its parts, each times its count; outside the
+// regions it is offered in, or where a part is not sold, it is not offered.
+func TestCompositeSumsItsParts(t *testing.T) {
+	c := composite{in: map[string]bool{"r1": true, "r2": true}, parts: []weighted{
+		{src: fixed{"r1": 0.03, "r2": 0.04, "r3": 0.05}, times: 8, name: "core"},
+		{src: fixed{"r1": 0.004, "r3": 0.005}, times: 32, name: "ram"},
+	}}
+	q, err := c.quote("r1")
+	if err != nil || math.Abs(q.usdPerUnit-(8*0.03+32*0.004)) > 1e-12 {
+		t.Fatalf("r1: %v %v", q, err)
+	}
+	if _, err := c.quote("r2"); !absent(err) {
+		t.Errorf("r2 lacks the ram part: %v", err)
+	}
+	if _, err := c.quote("r3"); !absent(err) {
+		t.Errorf("r3 is outside the regions the row is offered in: %v", err)
+	}
+}
+
+// A part fills {part} with its name quoted, or its pattern as written, and
+// lays its own keys over the spec.
+func TestPartSpec(t *testing.T) {
+	raw := `{"source":"gcp","service":"s","filters":{"description":"{part} running in .+"}}`
+	got, err := partSpec(raw, book.Part{Name: "N2 Instance Core (x)"}, nil)
+	if err != nil || !strings.Contains(string(got), `N2 Instance Core \\(x\\) running in`) {
+		t.Errorf("name: %s %v", got, err)
+	}
+	got, err = partSpec(raw, book.Part{Name: "ext", Match: "N2D AMD Custom Extended( Instance)? Ram"}, json.RawMessage(`{"region":"global"}`))
+	if err != nil || !strings.Contains(string(got), `Extended( Instance)? Ram running`) || !strings.Contains(string(got), `"region":"global"`) {
+		t.Errorf("match and with: %s %v", got, err)
+	}
+}
+
+// A part with a source of its own in one region reads it there only.
+func TestCompositeRegionalPart(t *testing.T) {
+	c := composite{parts: []weighted{{src: fixed{"r1": 1, "r2": 1}, times: 2, name: "core", in: map[string]priceSource{"r2": fixed{"r2": 3}}}}}
+	if q, _ := c.quote("r1"); q.usdPerUnit != 2 {
+		t.Errorf("r1: %v", q.usdPerUnit)
+	}
+	if q, _ := c.quote("r2"); q.usdPerUnit != 6 {
+		t.Errorf("r2: %v", q.usdPerUnit)
+	}
+}

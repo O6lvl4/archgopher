@@ -1,149 +1,127 @@
 {
-  "gcp.cloudrun.cpu": {
+  "gcp.cloudrun.jobs.cpu": {
     "unit": "vCPU-second",
     "source": "https://cloud.google.com/run/pricing",
-    "note": "Request-based billing, active time, Tier 1 or Tier 2 by region (SKU \"Services CPU [Tier 2] (Request-based billing)\"). Cloud Run functions (2nd gen) bill the same price under their own per-region SKUs in the Cloud Run Functions service.",
+    "note": "Cloud Run jobs: every task's instance lifetime, Tier 1 or Tier 2 by region. The Billing Catalog has one SKU per region (\"Jobs CPU in <region>\"); \"Delayed Jobs\" SKUs are a different, cheaper offer.",
     "sync": {
       "source": "gcp",
       "service": "152E-C115-5142",
       "filters": {
-        "description": "Services CPU (Tier 2 +)?\\(Request-based billing\\)"
+        "description": "Jobs CPU in [a-z0-9-]+"
       }
     },
     "values": {
       "asia-northeast1": {
-        "value": 0.000024,
+        "value": 0.000018,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
-        "value": 0.0000336,
+        "value": 0.0000216,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "asia-south1": {
-        "value": 0.000024,
+        "value": 0.000018,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
-        "value": 0.0000336,
+        "value": 0.0000216,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
-        "value": 0.0000336,
+        "value": 0.0000216,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "europe-west1": {
-        "value": 0.000024,
+        "value": 0.000018,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "europe-west3": {
-        "value": 0.0000336,
+        "value": 0.0000216,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "us-east4": {
-        "value": 0.000024,
+        "value": 0.000018,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "us-east5": {
-        "value": 0.000024,
+        "value": 0.000018,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "us-west1": {
-        "value": 0.000024,
+        "value": 0.000018,
         "verified": true,
         "checkedAt": "2026-09-25"
       }
     }
   },
-  "gcp.cloudrun.memory": {
+  "gcp.cloudrun.jobs.memory": {
     "unit": "GiB-second",
     "source": "https://cloud.google.com/run/pricing",
-    "note": "Request-based billing, active time, Tier 1 or Tier 2 by region (SKU \"Services Memory [Tier 2] (Request-based billing)\"); also the idle memory price of minimum instances. Cloud Run functions (2nd gen) bill the same price under their own per-region SKUs.",
+    "note": "Cloud Run jobs: every task's instance lifetime, Tier 1 or Tier 2 by region. The Billing Catalog has one SKU per region (\"Jobs Memory in <region>\"); \"Delayed Jobs\" SKUs are a different, cheaper offer.",
     "sync": {
       "source": "gcp",
       "service": "152E-C115-5142",
       "filters": {
-        "description": "Services Memory (Tier 2 +)?\\(Request-based billing\\)"
+        "description": "Jobs Memory in [a-z0-9-]+"
       }
     },
     "values": {
       "asia-northeast1": {
-        "value": 0.0000025,
+        "value": 0.000002,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
-        "value": 0.0000035,
+        "value": 0.0000024,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "asia-south1": {
-        "value": 0.0000025,
+        "value": 0.000002,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
-        "value": 0.0000035,
+        "value": 0.0000024,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
-        "value": 0.0000035,
+        "value": 0.0000024,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "europe-west1": {
-        "value": 0.0000025,
+        "value": 0.000002,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "europe-west3": {
-        "value": 0.0000035,
+        "value": 0.0000024,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "us-east4": {
-        "value": 0.0000025,
+        "value": 0.000002,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "us-east5": {
-        "value": 0.0000025,
+        "value": 0.000002,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "us-west1": {
-        "value": 0.0000025,
-        "verified": true,
-        "checkedAt": "2026-09-25"
-      }
-    }
-  },
-  "gcp.cloudrun.requests": {
-    "unit": "request",
-    "per": 1000000,
-    "source": "https://cloud.google.com/run/pricing",
-    "note": "Requests beyond the free 2 million a month (the SKU's first tier), the same in every region. Cloud Run functions (2nd gen) invocations have the same price (SKU \"Cloud Run Functions Invocations\").",
-    "sync": {
-      "source": "gcp",
-      "service": "152E-C115-5142",
-      "filters": {
-        "description": "Requests"
-      },
-      "region": "global",
-      "tier": "2000000"
-    },
-    "values": {
-      "*": {
-        "value": 0.4,
+        "value": 0.000002,
         "verified": true,
         "checkedAt": "2026-09-25"
       }

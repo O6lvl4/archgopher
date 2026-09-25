@@ -10,7 +10,7 @@
       monthly: 500000
       peak: 5
   costs:
-    Key versions: 0.06000016
+    Key versions: 0.06
     Cryptographic operations: 3
   limits:
     Cryptographic requests: 600
@@ -25,7 +25,7 @@
       monthly: 200000
       peak: 5
   costs:
-    Key versions: 12.5000017
+    Key versions: 12.5
     Cryptographic operations: 3
   limits:
     Cryptographic requests: 300

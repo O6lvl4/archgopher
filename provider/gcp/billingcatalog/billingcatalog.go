@@ -18,6 +18,7 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -62,7 +63,13 @@ type Sku struct {
 		UsageType          string `json:"usageType"`
 	} `json:"category"`
 	ServiceRegions []string `json:"serviceRegions"`
-	PricingInfo    []struct {
+	// GeoTaxonomy names the regions of a sku listed under "global" whose
+	// region is only in its description (Firestore: "Read Ops Tokyo").
+	GeoTaxonomy struct {
+		Type    string   `json:"type"`
+		Regions []string `json:"regions"`
+	} `json:"geoTaxonomy"`
+	PricingInfo []struct {
 		PricingExpression struct {
 			UsageUnit            string  `json:"usageUnit"`
 			UsageUnitDescription string  `json:"usageUnitDescription"`
@@ -85,6 +92,8 @@ func (s Sku) Field(name string) string {
 		return s.Category.UsageType
 	case "usageUnit":
 		return s.Unit()
+	case "skuId":
+		return s.SkuID
 	}
 	return ""
 }
@@ -111,6 +120,13 @@ func (s Sku) In(region string) bool {
 	for _, r := range s.ServiceRegions {
 		if r == region {
 			return true
+		}
+	}
+	if s.GeoTaxonomy.Type == "REGIONAL" {
+		for _, r := range s.GeoTaxonomy.Regions {
+			if r == region {
+				return true
+			}
 		}
 	}
 	return false
@@ -158,6 +174,13 @@ type Client struct {
 	// Auth sets credentials on a request; nil means read them from the
 	// environment on first use.
 	Auth func(*http.Request) error
+
+	// A price table resolves thousands of rows against one service: its
+	// skus stay in memory, and so do the skus each set of filters matches
+	// in any region.
+	mu      sync.Mutex
+	skus    map[string][]Sku
+	matched map[string][]Sku
 }
 
 // NewClient caches under the user cache directory for a day.
@@ -304,15 +327,50 @@ type Price struct {
 	Rate Rate
 }
 
+// matching returns the skus of the spec's service that match its filters in
+// any region, remembered per service and filters.
+func (c *Client) matching(spec Spec) ([]Sku, error) {
+	key, err := json.Marshal([]any{spec.Service, spec.Filters})
+	if err != nil {
+		return nil, err
+	}
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	if m, ok := c.matched[string(key)]; ok {
+		return m, nil
+	}
+	skus, ok := c.skus[spec.Service]
+	if !ok {
+		if skus, err = c.Skus(spec.Service); err != nil {
+			return nil, err
+		}
+		if c.skus == nil {
+			c.skus = map[string][]Sku{}
+		}
+		c.skus[spec.Service] = skus
+	}
+	m, err := Find(skus, "", spec.Filters)
+	if err != nil {
+		return nil, err
+	}
+	if c.matched == nil {
+		c.matched = map[string][]Sku{}
+	}
+	c.matched[string(key)] = m
+	return m, nil
+}
+
 // Resolve finds exactly one price for a spec, or explains why it cannot.
 func (c *Client) Resolve(spec Spec, region string) (Price, error) {
-	skus, err := c.Skus(spec.Service)
+	all, err := c.matching(spec)
 	if err != nil {
 		return Price{}, err
 	}
-	ms, err := Find(skus, spec.For(region), spec.Filters)
-	if err != nil {
-		return Price{}, err
+	var ms []Sku
+	for _, s := range all {
+		if s.In(spec.For(region)) {
+			ms = append(ms, s)
+		}
 	}
 	switch len(ms) {
 	case 0:
@@ -378,8 +436,19 @@ func writeCache(path string, skus []Sku) error {
 	if err != nil {
 		return err
 	}
-	tmp := path + ".tmp"
-	if err := os.WriteFile(tmp, data, 0o644); err != nil {
+	// A temporary file of its own, so processes caching the same service at
+	// once never write into one file.
+	f, err := os.CreateTemp(filepath.Dir(path), filepath.Base(path)+".*.tmp")
+	if err != nil {
+		return err
+	}
+	tmp := f.Name()
+	defer os.Remove(tmp)
+	if _, err := f.Write(data); err != nil {
+		f.Close()
+		return err
+	}
+	if err := f.Close(); err != nil {
 		return err
 	}
 	return os.Rename(tmp, path)

@@ -22,7 +22,7 @@ let:
   - retainedGib: 'retain_acked_messages ? total.monthly * messageKb * 1000 / 1073741824 * retentionDays * 24 / 730 : 0.0'
 readings:
   - cost: { when: '!export', name: Delivery throughput, quantity: 'total.monthly * billedKb * 1000 / 1099511627776', unit: TiB, price: gcp.pubsub.throughput }
-  - cost: { when: export, name: Export throughput, quantity: 'total.monthly * billedKb * 1000 / 1099511627776', unit: TiB, price: gcp.pubsub.export }
+  - cost: { when: export, name: Export throughput, quantity: 'total.monthly * billedKb * 1000 / 1099511627776', unit: TiB, price: 'gcp.pubsub.export.{bigquery ? "bigquery" : "cloud_storage"}' }
   - cost: { when: retain_acked_messages, name: Retained acknowledged messages, quantity: retainedGib, unit: GiB-month, price: gcp.pubsub.storage }
   - cost: { when: backlogGb > 0, name: Backlog storage, quantity: backlogGb, unit: GiB-month, price: gcp.pubsub.storage }
   - cost: { when: snapshotGb > 0, name: Snapshot storage, quantity: snapshotGb, unit: GiB-month, price: gcp.pubsub.storage }

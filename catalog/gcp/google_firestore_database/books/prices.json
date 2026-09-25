@@ -3,55 +3,65 @@
     "unit": "document delete",
     "per": 100000,
     "source": "https://cloud.google.com/firestore/pricing",
-    "note": "Standard edition, regional location, document deletes beyond the free quota. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Standard edition, regional location, document deletes beyond the free quota. The SKU is \"Cloud Firestore Entity Deletes <place>\", not its \"(with free tier)\" twin; the catalog lists it under \"global\" and names its region in geoTaxonomy.",
     "sync": {
       "source": "gcp",
       "service": "EE2C-7FAC-5E08",
       "filters": {
-        "description": "Cloud Firestore Entity Deletes"
-      },
-      "listPer": 1
+        "description": "Cloud Firestore Entity Deletes [A-Z][A-Za-z.-]*(?: [A-Z][A-Za-z.-]*)*",
+        "usageType": "OnDemand"
+      }
     },
     "values": {
       "asia-northeast1": {
         "value": 0.013,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.013,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 0.012,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.0123,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.013,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.011,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.013,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.011,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.01,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.01,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
@@ -59,109 +69,130 @@
     "unit": "document read",
     "per": 100000,
     "source": "https://cloud.google.com/firestore/pricing",
-    "note": "Standard edition, regional location, document reads beyond the free quota. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Standard edition, regional location, document reads beyond the free quota. The SKU is \"Cloud Firestore Read Ops <place>\", not its \"(with free tier)\" twin; the catalog lists it under \"global\" and names its region in geoTaxonomy.",
     "sync": {
       "source": "gcp",
       "service": "EE2C-7FAC-5E08",
       "filters": {
-        "description": "Cloud Firestore Read Ops"
-      },
-      "listPer": 1
+        "description": "Cloud Firestore Read Ops [A-Z][A-Za-z.-]*(?: [A-Z][A-Za-z.-]*)*",
+        "usageType": "OnDemand"
+      }
     },
     "values": {
       "asia-northeast1": {
         "value": 0.038,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.038,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 0.035,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.0369,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.038,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.033,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.039,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.033,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.03,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.03,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.firestore.storage": {
     "unit": "GB-month",
     "source": "https://cloud.google.com/firestore/pricing",
-    "note": "Standard edition, regional location, stored data including index entries (GiB-month). From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Standard edition, regional location, stored data including index entries (GiB-month) beyond the free quota. The SKU is \"Cloud Firestore Storage <place>\", not its \"(with free tier)\" twin; the catalog lists it under \"global\" and names its region in geoTaxonomy.",
     "sync": {
       "source": "gcp",
       "service": "EE2C-7FAC-5E08",
       "filters": {
-        "description": "Cloud Firestore Storage"
+        "description": "Cloud Firestore Storage [A-Z][A-Za-z.-]*(?: [A-Z][A-Za-z.-]*)*",
+        "usageType": "OnDemand"
       }
     },
     "values": {
       "asia-northeast1": {
         "value": 0.115,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.192,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 0.104,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.1846,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.115,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.165,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.117,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.099,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.15,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.15,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
@@ -169,55 +200,65 @@
     "unit": "document write",
     "per": 100000,
     "source": "https://cloud.google.com/firestore/pricing",
-    "note": "Standard edition, regional location, document writes beyond the free quota. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Standard edition, regional location, document writes beyond the free quota. The SKU is \"Cloud Firestore Entity Writes <place>\", not its \"(with free tier)\" twin; the catalog lists it under \"global\" and names its region in geoTaxonomy.",
     "sync": {
       "source": "gcp",
       "service": "EE2C-7FAC-5E08",
       "filters": {
-        "description": "Cloud Firestore Entity Writes"
-      },
-      "listPer": 1
+        "description": "Cloud Firestore Entity Writes [A-Z][A-Za-z.-]*(?: [A-Z][A-Za-z.-]*)*",
+        "usageType": "OnDemand"
+      }
     },
     "values": {
       "asia-northeast1": {
         "value": 0.115,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.115,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 0.104,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.1107,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.115,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.099,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.117,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.099,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.09,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.09,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   }

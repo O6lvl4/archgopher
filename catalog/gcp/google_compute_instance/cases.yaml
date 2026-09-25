@@ -109,3 +109,17 @@
   costs:
     Instance (e2-micro, spot): 4.70704
     Boot disk (pd-standard): 0.52
+- name: Tokyo a2-highgpu-1g bills its A100 with the machine type
+  # A2 earns no sustained use discount. The machine type is its SKUs:
+  # 12 vCPU x 0.040618 + 85 GiB x 0.005419 + 1 A100 x 3.101559926 = 4.049590926 an hour, x 730
+  # Boot disk: the pd-standard default, 10 GiB x 0.052
+  region: asia-northeast1
+  attributes:
+    machine_type: a2-highgpu-1g
+  demand:
+    request:
+      monthly: 1000000
+      peak: 50
+  costs:
+    Instance (a2-highgpu-1g): 2956.2013760
+    Boot disk (pd-standard): 0.52

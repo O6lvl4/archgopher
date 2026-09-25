@@ -2,127 +2,193 @@
   "gcp.functions.v1.cpu": {
     "unit": "GHz-second",
     "source": "https://cloud.google.com/functions/pricing-1stgen",
-    "note": "1st gen compute time per GHz-second of CPU, in 100 ms increments (1 vCPU is 2.4 GHz). Tier 1 or Tier 2 by region as listed for Cloud Run; the free tier is ignored. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "1st gen compute time per GHz-second of CPU, in 100 ms increments (1 vCPU is 2.4 GHz). The catalog lists the unit as seconds; its price is the pricing page's per GHz-second. 1st gen Tier 1 or Tier 2 by region; the 1st gen tiers are not Cloud Run's (asia-south1 is Tier 2 here) and us-east5 does not run 1st gen functions. The free tier is ignored.",
     "sync": {
       "source": "gcp",
       "service": "29E7-DA93-CA13",
       "filters": {
-        "description": "CPU Time( \\(tier 2\\))?"
+        "description": "Cloud Run functions \\(1st Gen\\) CPU (Tier 2 )?\\(Request-based billing\\)"
       }
     },
     "values": {
       "asia-northeast1": {
         "value": 0.00001,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.000014,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
-        "value": 0.00001,
-        "verified": false
+        "value": 0.000014,
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.000014,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.000014,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.00001,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.000014,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.00001,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
-        "value": 0.00001,
-        "verified": false
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.00001,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.functions.v1.egress": {
-    "unit": "GB",
+    "unit": "GiB",
     "source": "https://cloud.google.com/functions/pricing-1stgen",
-    "note": "Outbound data from a 1st gen function, flat in every region; the free 5 GB a month is ignored. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Outbound data from a 1st gen function, one SKU per region at the same price; the free 5 GiB a month (the SKU's first tier) is ignored. us-east5 does not run 1st gen functions.",
     "sync": {
       "source": "gcp",
       "service": "29E7-DA93-CA13",
       "filters": {
-        "description": "Network Egress from .+"
+        "description": "Cloud Run Functions \\(1st Gen\\) Network Data Transfer Out from [a-z0-9-]+"
       },
-      "region": "global"
+      "tier": "5"
     },
     "values": {
-      "*": {
+      "asia-northeast1": {
         "value": 0.12,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-northeast3": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-south1": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-southeast1": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "australia-southeast1": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west1": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west3": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east4": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east5": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west1": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.functions.v1.idle_cpu": {
     "unit": "GHz-second",
     "source": "https://cloud.google.com/functions/pricing-1stgen",
-    "note": "1st gen idle time of minimum instances per GHz-second. Tier 1 or Tier 2 by region as listed for Cloud Run; the free tier is ignored. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "1st gen idle time of minimum instances per GHz-second (the catalog lists seconds). 1st gen Tier 1 or Tier 2 by region; the 1st gen tiers are not Cloud Run's (asia-south1 is Tier 2 here) and us-east5 does not run 1st gen functions. The free tier is ignored.",
     "sync": {
       "source": "gcp",
       "service": "29E7-DA93-CA13",
       "filters": {
-        "description": "Idle Min-Instance CPU Time( \\(tier 2\\))?"
+        "description": "Cloud Run functions \\(1st Gen\\) Min Instance CPU (Tier 2 )?\\(Request-based billing\\)"
       }
     },
     "values": {
       "asia-northeast1": {
         "value": 0.000001042,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.00000146,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
-        "value": 0.000001042,
-        "verified": false
+        "value": 0.00000146,
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.00000146,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.00000146,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.000001042,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.00000146,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.000001042,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
-        "value": 0.000001042,
-        "verified": false
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.000001042,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
@@ -130,74 +196,85 @@
     "unit": "invocation",
     "per": 1000000,
     "source": "https://cloud.google.com/functions/pricing-1stgen",
-    "note": "Invocations beyond the free 2 million a month, the same in every region. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Invocations beyond the free 2 million a month (the SKU's first tier), the same in every region.",
     "sync": {
       "source": "gcp",
       "service": "29E7-DA93-CA13",
       "filters": {
-        "description": "Invocations"
+        "description": "Cloud Run Functions \\(1st Gen\\) Invocations"
       },
       "region": "global",
-      "listPer": 1
+      "tier": "2000000"
     },
     "values": {
       "*": {
         "value": 0.4,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.functions.v1.memory": {
-    "unit": "GB-second",
+    "unit": "GiB-second",
     "source": "https://cloud.google.com/functions/pricing-1stgen",
-    "note": "1st gen compute time per GB-second of memory, in 100 ms increments; also the idle price of minimum instances. Tier 1 or Tier 2 by region as listed for Cloud Run; the free tier is ignored. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "1st gen compute time per GiB-second of memory (the pricing page's GB is 2^30 bytes), in 100 ms increments; minimum instances' idle memory SKU has the same price. 1st gen Tier 1 or Tier 2 by region; the 1st gen tiers are not Cloud Run's (asia-south1 is Tier 2 here) and us-east5 does not run 1st gen functions. The free tier is ignored.",
     "sync": {
       "source": "gcp",
       "service": "29E7-DA93-CA13",
       "filters": {
-        "description": "Memory Time( \\(tier 2\\))?"
+        "description": "Cloud Run functions \\(1st Gen\\) Memory (Tier 2 )?\\(Request-based billing\\)"
       }
     },
     "values": {
       "asia-northeast1": {
         "value": 0.0000025,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.0000035,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
-        "value": 0.0000025,
-        "verified": false
+        "value": 0.0000035,
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.0000035,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.0000035,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.0000025,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.0000035,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.0000025,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
-        "value": 0.0000025,
-        "verified": false
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.0000025,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   }

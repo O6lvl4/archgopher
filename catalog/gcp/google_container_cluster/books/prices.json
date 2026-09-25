@@ -1,171 +1,201 @@
 {
   "gcp.gke.autopilot.ephemeral": {
-    "unit": "GB-hour",
+    "unit": "GiB-hour",
     "source": "https://cloud.google.com/kubernetes-engine/pricing",
-    "note": "Autopilot Pod ephemeral requests on the default container-optimized compute platform. Read from the pricing page's regional tables; sync verifies rows with a single Billing Catalog SKU once credentials are set.",
+    "note": "Autopilot Pod ephemeral storage requests on the default container-optimized compute platform, which the pricing page prices as \"Ephemeral SSD Storage\" (SKU \"Autopilot SSD Pod Ephemeral Storage Requests (<region>)\"); the cheaper \"Autopilot Pod Ephemeral Storage Requests\" SKU is not this platform's.",
     "sync": {
-      "filters": {
-        "description": "^Autopilot Pod Ephemeral Storage Requests"
-      },
+      "source": "gcp",
       "service": "CCD8-9BF1-090E",
-      "source": "gcp"
+      "filters": {
+        "description": "Autopilot SSD Pod Ephemeral Storage Requests \\([a-z0-9-]+\\)"
+      }
     },
     "values": {
       "asia-northeast1": {
         "value": 0.0001784,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.0001784,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 0.0001668,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.0001713,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.0001972,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.0001529,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.0001789,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.0001564,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.0001389,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.0001389,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.gke.autopilot.memory": {
-    "unit": "GB-hour",
+    "unit": "GiB-hour",
     "source": "https://cloud.google.com/kubernetes-engine/pricing",
-    "note": "Autopilot Pod memory requests on the default container-optimized compute platform. Read from the pricing page's regional tables; sync verifies rows with a single Billing Catalog SKU once credentials are set.",
+    "note": "Autopilot Pod memory requests on the default container-optimized compute platform, per GiB-hour (SKU \"Autopilot Pod Memory Requests (<region>)\").",
     "sync": {
-      "filters": {
-        "description": "^Autopilot Pod Memory Requests"
-      },
+      "source": "gcp",
       "service": "CCD8-9BF1-090E",
-      "source": "gcp"
+      "filters": {
+        "description": "Autopilot Pod Memory Requests \\([a-z0-9-]+\\)"
+      }
     },
     "values": {
       "asia-northeast1": {
         "value": 0.0063215,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.0063215,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 0.0059124,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.0060729,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.0069875,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.0054202,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.0063421,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.0055442,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.0049225,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.0049225,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.gke.autopilot.vcpu": {
     "unit": "vCPU-hour",
     "source": "https://cloud.google.com/kubernetes-engine/pricing",
-    "note": "Autopilot Pod vcpu requests on the default container-optimized compute platform. Read from the pricing page's regional tables; sync verifies rows with a single Billing Catalog SKU once credentials are set.",
+    "note": "Autopilot Pod vCPU requests on the default container-optimized compute platform. The catalog prices the mCPU-hour (\"Autopilot Pod mCPU Requests (<region>)\"), so one vCPU-hour is 1,000 of them.",
     "sync": {
-      "filters": {
-        "description": "^Autopilot Pod mCPU Requests"
-      },
-      "listPer": 0.001,
+      "source": "gcp",
       "service": "CCD8-9BF1-090E",
-      "source": "gcp"
+      "filters": {
+        "description": "Autopilot Pod mCPU Requests \\([a-z0-9-]+\\)"
+      },
+      "listPer": 0.001
     },
     "values": {
       "asia-northeast1": {
         "value": 0.0571,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.0571,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 0.0534,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.0549,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.0632,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.049,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.0573,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.0501,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.0445,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.0445,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.gke.cluster": {
     "unit": "cluster-hour",
     "source": "https://cloud.google.com/kubernetes-engine/pricing",
-    "note": "Cluster management fee, the same for zonal, regional and Autopilot clusters. The free tier credit ($74.40 a month per billing account) is ignored, as every free tier. Read from the pricing page's regional tables; sync verifies rows with a single Billing Catalog SKU once credentials are set.",
+    "note": "Cluster management fee, the same for zonal, regional and Autopilot clusters (each has its own SKU at $0.10 an hour). The free tier credit ($74.40 a month per billing account) is ignored, as every free tier.",
     "sync": {
       "filters": {
         "description": "^Regional Kubernetes Clusters$"
@@ -177,7 +207,8 @@
     "values": {
       "*": {
         "value": 0.1,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   }

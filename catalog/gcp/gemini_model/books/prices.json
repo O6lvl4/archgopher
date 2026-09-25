@@ -3,19 +3,20 @@
     "unit": "token",
     "per": 1000000,
     "source": "https://cloud.google.com/vertex-ai/generative-ai/pricing",
-    "note": "Global endpoint, Standard PayGo, up to 200K input tokens. From the pricing page; sync verifies it against the Billing Catalog once credentials are set. The SKU's list unit is unconfirmed.",
+    "note": "Global endpoint, Standard PayGo, up to 200K input tokens. The catalog prices one token.",
     "sync": {
       "source": "gcp",
       "service": "C7E2-9256-1C43",
       "filters": {
-        "description": "Gemini 2\\.5 Flash Lite Input Text Caching"
+        "description": " ?Gemini 2\\.5 Flash Lite Input Text Caching"
       },
       "region": "global"
     },
     "values": {
       "*": {
         "value": 0.01,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
@@ -23,7 +24,7 @@
     "unit": "token",
     "per": 1000000,
     "source": "https://cloud.google.com/vertex-ai/generative-ai/docs/context-cache/context-cache-overview",
-    "note": "Creating a cache bills its tokens at the standard input price; hourly storage for explicit caches is not counted. From the pricing page; sync verifies it against the Billing Catalog once credentials are set. The SKU's list unit is unconfirmed.",
+    "note": "Creating a cache bills its tokens at the standard input price; hourly storage for explicit caches is not counted. The catalog prices one token.",
     "sync": {
       "source": "gcp",
       "service": "C7E2-9256-1C43",
@@ -35,7 +36,8 @@
     "values": {
       "*": {
         "value": 0.1,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
@@ -43,7 +45,7 @@
     "unit": "token",
     "per": 1000000,
     "source": "https://cloud.google.com/vertex-ai/generative-ai/pricing",
-    "note": "Global endpoint, Standard PayGo, up to 200K input tokens. From the pricing page; sync verifies it against the Billing Catalog once credentials are set. The SKU's list unit is unconfirmed.",
+    "note": "Global endpoint, Standard PayGo, up to 200K input tokens. The catalog prices one token.",
     "sync": {
       "source": "gcp",
       "service": "C7E2-9256-1C43",
@@ -55,7 +57,8 @@
     "values": {
       "*": {
         "value": 0.1,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
@@ -63,7 +66,7 @@
     "unit": "token",
     "per": 1000000,
     "source": "https://cloud.google.com/vertex-ai/generative-ai/pricing",
-    "note": "Global endpoint, Standard PayGo, up to 200K input tokens. From the pricing page; sync verifies it against the Billing Catalog once credentials are set. Thinking output has its own SKU at the same price. The SKU's list unit is unconfirmed.",
+    "note": "Global endpoint, Standard PayGo, up to 200K input tokens. Thinking output has its own SKU at the same price. The catalog prices one token.",
     "sync": {
       "source": "gcp",
       "service": "C7E2-9256-1C43",
@@ -75,7 +78,8 @@
     "values": {
       "*": {
         "value": 0.4,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
@@ -83,19 +87,20 @@
     "unit": "token",
     "per": 1000000,
     "source": "https://cloud.google.com/vertex-ai/generative-ai/pricing",
-    "note": "Global endpoint, Standard PayGo, up to 200K input tokens. From the pricing page; sync verifies it against the Billing Catalog once credentials are set. The SKU's list unit is unconfirmed.",
+    "note": "Global endpoint, Standard PayGo, up to 200K input tokens. The catalog prices one token.",
     "sync": {
       "source": "gcp",
       "service": "C7E2-9256-1C43",
       "filters": {
-        "description": "Gemini 2\\.5 Flash GA Input Text Caching"
+        "description": " ?Gemini 2\\.5 Flash GA Input Text Caching"
       },
       "region": "global"
     },
     "values": {
       "*": {
         "value": 0.03,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
@@ -103,7 +108,7 @@
     "unit": "token",
     "per": 1000000,
     "source": "https://cloud.google.com/vertex-ai/generative-ai/docs/context-cache/context-cache-overview",
-    "note": "Creating a cache bills its tokens at the standard input price; hourly storage for explicit caches is not counted. From the pricing page; sync verifies it against the Billing Catalog once credentials are set. The SKU's list unit is unconfirmed.",
+    "note": "Creating a cache bills its tokens at the standard input price; hourly storage for explicit caches is not counted. The catalog prices one token.",
     "sync": {
       "source": "gcp",
       "service": "C7E2-9256-1C43",
@@ -115,7 +120,8 @@
     "values": {
       "*": {
         "value": 0.3,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
@@ -123,7 +129,7 @@
     "unit": "token",
     "per": 1000000,
     "source": "https://cloud.google.com/vertex-ai/generative-ai/pricing",
-    "note": "Global endpoint, Standard PayGo, up to 200K input tokens. From the pricing page; sync verifies it against the Billing Catalog once credentials are set. The SKU's list unit is unconfirmed.",
+    "note": "Global endpoint, Standard PayGo, up to 200K input tokens. The catalog prices one token.",
     "sync": {
       "source": "gcp",
       "service": "C7E2-9256-1C43",
@@ -135,7 +141,8 @@
     "values": {
       "*": {
         "value": 0.3,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
@@ -143,19 +150,20 @@
     "unit": "token",
     "per": 1000000,
     "source": "https://cloud.google.com/vertex-ai/generative-ai/pricing",
-    "note": "Global endpoint, Standard PayGo, up to 200K input tokens. From the pricing page; sync verifies it against the Billing Catalog once credentials are set. Thinking output has its own SKU at the same price. The SKU's list unit is unconfirmed.",
+    "note": "Global endpoint, Standard PayGo, up to 200K input tokens. Thinking output has its own SKU at the same price. The catalog prices one token.",
     "sync": {
       "source": "gcp",
       "service": "C7E2-9256-1C43",
       "filters": {
-        "description": "Gemini 2\\.5 Flash GA Text Output - Predictions"
+        "description": " ?Gemini 2\\.5 Flash GA Text Output - Predictions"
       },
       "region": "global"
     },
     "values": {
       "*": {
         "value": 2.5,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
@@ -163,19 +171,20 @@
     "unit": "token",
     "per": 1000000,
     "source": "https://cloud.google.com/vertex-ai/generative-ai/pricing",
-    "note": "Global endpoint, Standard PayGo, up to 200K input tokens. From the pricing page; sync verifies it against the Billing Catalog once credentials are set. The SKU's list unit is unconfirmed.",
+    "note": "Global endpoint, Standard PayGo, up to 200K input tokens. The catalog prices one token.",
     "sync": {
       "source": "gcp",
       "service": "C7E2-9256-1C43",
       "filters": {
-        "description": "Gemini 2\\.5 Pro Input Text Caching"
+        "description": " ?Gemini 2\\.5 Pro Input Text Caching"
       },
       "region": "global"
     },
     "values": {
       "*": {
         "value": 0.125,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
@@ -183,7 +192,7 @@
     "unit": "token",
     "per": 1000000,
     "source": "https://cloud.google.com/vertex-ai/generative-ai/docs/context-cache/context-cache-overview",
-    "note": "Creating a cache bills its tokens at the standard input price; hourly storage for explicit caches is not counted. From the pricing page; sync verifies it against the Billing Catalog once credentials are set. The SKU's list unit is unconfirmed.",
+    "note": "Creating a cache bills its tokens at the standard input price; hourly storage for explicit caches is not counted. The catalog prices one token.",
     "sync": {
       "source": "gcp",
       "service": "C7E2-9256-1C43",
@@ -195,7 +204,8 @@
     "values": {
       "*": {
         "value": 1.25,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
@@ -203,7 +213,7 @@
     "unit": "token",
     "per": 1000000,
     "source": "https://cloud.google.com/vertex-ai/generative-ai/pricing",
-    "note": "Global endpoint, Standard PayGo, up to 200K input tokens. From the pricing page; sync verifies it against the Billing Catalog once credentials are set. The SKU's list unit is unconfirmed.",
+    "note": "Global endpoint, Standard PayGo, up to 200K input tokens. The catalog prices one token.",
     "sync": {
       "source": "gcp",
       "service": "C7E2-9256-1C43",
@@ -215,7 +225,8 @@
     "values": {
       "*": {
         "value": 1.25,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
@@ -223,7 +234,7 @@
     "unit": "token",
     "per": 1000000,
     "source": "https://cloud.google.com/vertex-ai/generative-ai/pricing",
-    "note": "Global endpoint, Standard PayGo, up to 200K input tokens. From the pricing page; sync verifies it against the Billing Catalog once credentials are set. Thinking output has its own SKU at the same price. The SKU's list unit is unconfirmed.",
+    "note": "Global endpoint, Standard PayGo, up to 200K input tokens. Thinking output has its own SKU at the same price. The catalog prices one token.",
     "sync": {
       "source": "gcp",
       "service": "C7E2-9256-1C43",
@@ -235,7 +246,8 @@
     "values": {
       "*": {
         "value": 10,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   }

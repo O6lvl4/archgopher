@@ -9,7 +9,7 @@
       monthly: 1.0e+06
       peak: 10
   costs:
-    Versions: 0.06000016
+    Versions: 0.06
     Access operations: 3
   limits:
     Access requests: 600
@@ -23,7 +23,7 @@
       monthly: 5.0e+06
       peak: 2000
   costs:
-    Versions: 0.36000096
+    Versions: 0.36
     Access operations: 15
   limits:
     Access requests: 120000

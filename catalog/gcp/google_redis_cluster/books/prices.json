@@ -2,199 +2,585 @@
   "gcp.redis_cluster.aof": {
     "unit": "GB-hour",
     "source": "https://cloud.google.com/memorystore/docs/cluster/pricing",
-    "note": "AOF persistence per GB-hour of the instance's total size. Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "AOF persistence per GB-hour of the instance's total size.",
     "sync": {
       "source": "gcp",
       "service": "5AF5-2C11-D467",
       "filters": {
-        "description": "Memorystore for Redis Cluster: AOF Storage.*"
+        "description": "Memorystore for Redis Cluster: AOF Storage.*",
+        "usageUnit": "GBy.h"
       }
     },
     "values": {
       "asia-northeast1": {
         "value": 0.00070367,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.00070367,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 0.00056986,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.000676,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.00068493,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.00060334,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.00064658,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.00054795,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.00054795,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.00054795,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
   "gcp.redis_cluster.backup": {
     "unit": "GB-hour",
     "source": "https://cloud.google.com/memorystore/docs/cluster/pricing",
-    "note": "Backup storage per GB-hour, at least 24 hours for each backup. Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
+    "note": "Backup storage per GB-hour, at least 24 hours for each backup.",
     "sync": {
       "source": "gcp",
       "service": "5AF5-2C11-D467",
       "filters": {
-        "description": "Memorystore for Redis Cluster: Backups.*"
+        "description": "Memorystore for Redis Cluster: Backups.*",
+        "usageUnit": "GBy.h"
       }
     },
     "values": {
       "asia-northeast1": {
         "value": 0.00012778,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-northeast3": {
         "value": 0.00012778,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-south1": {
         "value": 0.00012778,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "asia-southeast1": {
         "value": 0.00011111,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "australia-southeast1": {
         "value": 0.00012778,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west1": {
         "value": 0.00011111,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "europe-west3": {
         "value": 0.00012778,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east4": {
         "value": 0.00012778,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-east5": {
         "value": 0.00011111,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
       "us-west1": {
         "value": 0.00011111,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   },
-  "gcp.redis_cluster.node": {
+  "gcp.redis_cluster.node.REDIS_HIGHCPU_MEDIUM": {
     "unit": "node-hour",
     "source": "https://cloud.google.com/memorystore/docs/cluster/pricing",
-    "note": "Price per node (shard primaries and replicas) per hour, by node type. Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
-    "rows": {
-      "REDIS_HIGHCPU_MEDIUM": {
-        "asia-northeast1": 0.638208,
-        "asia-northeast3": 0.638208,
-        "asia-south1": 0.518544,
-        "asia-southeast1": 0.613278,
-        "australia-southeast1": 0.62325,
-        "europe-west1": 0.54846,
-        "europe-west3": 0.588348,
-        "us-east4": 0.4986,
-        "us-east5": 0.4986,
-        "us-west1": 0.4986
+    "note": "Price per node (shard primaries and replicas) per hour of redis-highcpu-medium. One entry per node type rather than one table, because the catalog's descriptions do not spell the Terraform node_type.",
+    "sync": {
+      "source": "gcp",
+      "service": "5AF5-2C11-D467",
+      "filters": {
+        "description": "Redis Cluster Node Highcpu Medium .+",
+        "usageUnit": "h"
+      }
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.638208,
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
-      "REDIS_HIGHMEM_2XLARGE": {
-        "asia-northeast1": 2.083072,
-        "asia-northeast3": 2.083072,
-        "asia-south1": 1.692496,
-        "asia-southeast1": 2.001702,
-        "australia-southeast1": 2.03425,
-        "europe-west1": 1.79014,
-        "europe-west3": 1.920332,
-        "us-east4": 1.6274,
-        "us-east5": 1.6274,
-        "us-west1": 1.6274
+      "asia-northeast3": {
+        "value": 0.638208,
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
-      "REDIS_HIGHMEM_MEDIUM": {
-        "asia-northeast1": 0.247,
-        "asia-northeast3": 0.247,
-        "asia-south1": 0.2,
-        "asia-southeast1": 0.2372,
-        "australia-southeast1": 0.2404,
-        "europe-west1": 0.2117,
-        "europe-west3": 0.2269,
-        "us-east4": 0.1923,
-        "us-east5": 0.1923,
-        "us-west1": 0.1923
+      "asia-south1": {
+        "value": 0.518544,
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
-      "REDIS_HIGHMEM_XLARGE": {
-        "asia-northeast1": 1.102,
-        "asia-northeast3": 1.102,
-        "asia-south1": 0.8924,
-        "asia-southeast1": 1.0586,
-        "australia-southeast1": 1.0726,
-        "europe-west1": 0.9449,
-        "europe-west3": 1.0126,
-        "us-east4": 0.8581,
-        "us-east5": 0.8581,
-        "us-west1": 0.8581
+      "asia-southeast1": {
+        "value": 0.613278,
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
-      "REDIS_SHARED_CORE_NANO": {
-        "asia-northeast1": 0.0408,
-        "asia-northeast3": 0.0408,
-        "asia-south1": 0.0331,
-        "asia-southeast1": 0.0392,
-        "australia-southeast1": 0.0398,
-        "europe-west1": 0.035,
-        "europe-west3": 0.0375,
-        "us-east4": 0.0318,
-        "us-east5": 0.0318,
-        "us-west1": 0.0318
+      "australia-southeast1": {
+        "value": 0.62325,
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
-      "REDIS_STANDARD_LARGE": {
-        "asia-northeast1": 0.729344,
-        "asia-northeast3": 0.729344,
-        "asia-south1": 0.592592,
-        "asia-southeast1": 0.700854,
-        "australia-southeast1": 0.71225,
-        "europe-west1": 0.62678,
-        "europe-west3": 0.672364,
-        "us-east4": 0.5698,
-        "us-east5": 0.5698,
-        "us-west1": 0.5698
+      "europe-west1": {
+        "value": 0.54846,
+        "verified": true,
+        "checkedAt": "2026-09-25"
       },
-      "REDIS_STANDARD_SMALL": {
-        "asia-northeast1": 0.183,
-        "asia-northeast3": 0.183,
-        "asia-south1": 0.1482,
-        "asia-southeast1": 0.1758,
-        "australia-southeast1": 0.1781,
-        "europe-west1": 0.1569,
-        "europe-west3": 0.1682,
-        "us-east4": 0.1425,
-        "us-east5": 0.1425,
-        "us-west1": 0.1425
+      "europe-west3": {
+        "value": 0.588348,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east4": {
+        "value": 0.4986,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east5": {
+        "value": 0.4986,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west1": {
+        "value": 0.4986,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "gcp.redis_cluster.node.REDIS_HIGHMEM_2XLARGE": {
+    "unit": "node-hour",
+    "source": "https://cloud.google.com/memorystore/docs/cluster/pricing",
+    "note": "Price per node (shard primaries and replicas) per hour of redis-highmem-2xlarge. One entry per node type rather than one table, because the catalog's descriptions do not spell the Terraform node_type.",
+    "sync": {
+      "source": "gcp",
+      "service": "5AF5-2C11-D467",
+      "filters": {
+        "description": "Redis Cluster Node Highmem 2xlarge .+",
+        "usageUnit": "h"
+      }
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 2.083072,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-northeast3": {
+        "value": 2.083072,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-south1": {
+        "value": 1.692496,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-southeast1": {
+        "value": 2.001702,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "australia-southeast1": {
+        "value": 2.03425,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west1": {
+        "value": 1.79014,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west3": {
+        "value": 1.920332,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east4": {
+        "value": 1.6274,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east5": {
+        "value": 1.6274,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west1": {
+        "value": 1.6274,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "gcp.redis_cluster.node.REDIS_HIGHMEM_MEDIUM": {
+    "unit": "node-hour",
+    "source": "https://cloud.google.com/memorystore/docs/cluster/pricing",
+    "note": "Price per node (shard primaries and replicas) per hour of redis-highmem-medium. The Billing Catalog names this node type \"Default\" (the node type a cluster gets when node_type is unset); its prices match the pricing page's redis-highmem-medium column. One entry per node type rather than one table, because the catalog's descriptions do not spell the Terraform node_type.",
+    "sync": {
+      "source": "gcp",
+      "service": "5AF5-2C11-D467",
+      "filters": {
+        "description": "Redis Cluster Node Default .+",
+        "usageUnit": "h"
+      }
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.247,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-northeast3": {
+        "value": 0.247,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-south1": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-southeast1": {
+        "value": 0.2372,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "australia-southeast1": {
+        "value": 0.2404,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west1": {
+        "value": 0.2117,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west3": {
+        "value": 0.2269,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east4": {
+        "value": 0.1923,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east5": {
+        "value": 0.1923,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west1": {
+        "value": 0.1923,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "gcp.redis_cluster.node.REDIS_HIGHMEM_XLARGE": {
+    "unit": "node-hour",
+    "source": "https://cloud.google.com/memorystore/docs/cluster/pricing",
+    "note": "Price per node (shard primaries and replicas) per hour of redis-highmem-xlarge. One entry per node type rather than one table, because the catalog's descriptions do not spell the Terraform node_type.",
+    "sync": {
+      "source": "gcp",
+      "service": "5AF5-2C11-D467",
+      "filters": {
+        "description": "Redis Cluster Node Highmem XLarge .+",
+        "usageUnit": "h"
+      }
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 1.102,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-northeast3": {
+        "value": 1.102,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-south1": {
+        "value": 0.8924,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-southeast1": {
+        "value": 1.0586,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "australia-southeast1": {
+        "value": 1.0726,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west1": {
+        "value": 0.9449,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west3": {
+        "value": 1.0126,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east4": {
+        "value": 0.8581,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east5": {
+        "value": 0.8581,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west1": {
+        "value": 0.8581,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "gcp.redis_cluster.node.REDIS_SHARED_CORE_NANO": {
+    "unit": "node-hour",
+    "source": "https://cloud.google.com/memorystore/docs/cluster/pricing",
+    "note": "Price per node (shard primaries and replicas) per hour of redis-shared-core-nano. One entry per node type rather than one table, because the catalog's descriptions do not spell the Terraform node_type.",
+    "sync": {
+      "source": "gcp",
+      "service": "5AF5-2C11-D467",
+      "filters": {
+        "description": "Redis Cluster Node Shared Core Nano .+",
+        "usageUnit": "h"
+      }
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.0408,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-northeast3": {
+        "value": 0.0408,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-south1": {
+        "value": 0.0331,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-southeast1": {
+        "value": 0.0392,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "australia-southeast1": {
+        "value": 0.0398,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west1": {
+        "value": 0.035,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west3": {
+        "value": 0.0375,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east4": {
+        "value": 0.0318,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east5": {
+        "value": 0.0318,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west1": {
+        "value": 0.0318,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "gcp.redis_cluster.node.REDIS_STANDARD_LARGE": {
+    "unit": "node-hour",
+    "source": "https://cloud.google.com/memorystore/docs/cluster/pricing",
+    "note": "Price per node (shard primaries and replicas) per hour of redis-standard-large. One entry per node type rather than one table, because the catalog's descriptions do not spell the Terraform node_type.",
+    "sync": {
+      "source": "gcp",
+      "service": "5AF5-2C11-D467",
+      "filters": {
+        "description": "Redis Cluster Node Standard Large .+",
+        "usageUnit": "h"
+      }
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.729344,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-northeast3": {
+        "value": 0.729344,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-south1": {
+        "value": 0.592592,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-southeast1": {
+        "value": 0.700854,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "australia-southeast1": {
+        "value": 0.71225,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west1": {
+        "value": 0.62678,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west3": {
+        "value": 0.672364,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east4": {
+        "value": 0.5698,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east5": {
+        "value": 0.5698,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west1": {
+        "value": 0.5698,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "gcp.redis_cluster.node.REDIS_STANDARD_SMALL": {
+    "unit": "node-hour",
+    "source": "https://cloud.google.com/memorystore/docs/cluster/pricing",
+    "note": "Price per node (shard primaries and replicas) per hour of redis-standard-small. One entry per node type rather than one table, because the catalog's descriptions do not spell the Terraform node_type.",
+    "sync": {
+      "source": "gcp",
+      "service": "5AF5-2C11-D467",
+      "filters": {
+        "description": "Redis Cluster Node Standard Small .+",
+        "usageUnit": "h"
+      }
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.183,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-northeast3": {
+        "value": 0.183,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-south1": {
+        "value": 0.1482,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-southeast1": {
+        "value": 0.1758,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "australia-southeast1": {
+        "value": 0.1781,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west1": {
+        "value": 0.1569,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west3": {
+        "value": 0.1682,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east4": {
+        "value": 0.1425,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east5": {
+        "value": 0.1425,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west1": {
+        "value": 0.1425,
+        "verified": true,
+        "checkedAt": "2026-09-25"
       }
     }
   }

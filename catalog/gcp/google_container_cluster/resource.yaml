@@ -86,8 +86,8 @@ readings:
   - capacity: { name: '{autopilot ? "Autopilot cluster" : "Cluster"} management fee', units: 1, unit: cluster-hour, price: gcp.gke.cluster }
   - fail: { when: 'autopilot && (autopilotVcpu == nil || autopilotMemoryGb == nil)', message: "Autopilot bills the Pods' requests: set autopilotVcpu and autopilotMemoryGb", continue: true }
   - capacity: { when: 'autopilot && autopilotVcpu != nil', name: Autopilot Pod vCPU, units: 'autopilotVcpu ?? 0', unit: vCPU-hour, price: gcp.gke.autopilot.vcpu }
-  - capacity: { when: 'autopilot && autopilotMemoryGb != nil', name: Autopilot Pod memory, units: 'autopilotMemoryGb ?? 0', unit: GB-hour, price: gcp.gke.autopilot.memory }
-  - capacity: { when: 'autopilot && autopilotEphemeralGb > 0', name: Autopilot Pod ephemeral storage, units: autopilotEphemeralGb, unit: GB-hour, price: gcp.gke.autopilot.ephemeral }
+  - capacity: { when: 'autopilot && autopilotMemoryGb != nil', name: Autopilot Pod memory, units: 'autopilotMemoryGb ?? 0', unit: GiB-hour, price: gcp.gke.autopilot.memory }
+  - capacity: { when: 'autopilot && autopilotEphemeralGb > 0', name: Autopilot Pod ephemeral storage, units: autopilotEphemeralGb, unit: GiB-hour, price: gcp.gke.autopilot.ephemeral }
   - fail: { when: 'nodes > 0 && (mt == "")', message: "the machine type is unknown" }
   - fail: { when: 'nodes > 0 && (custom && !shaped)', message: "custom machine type {mt} is not read: write it as custom-<vCPUs>-<MiB>, <family>-custom-<vCPUs>-<MiB> or e2-custom-(micro|small|medium)-<MiB>" }
   - cost: { when: 'nodes > 0 && (!custom)', name: "Nodes ({mt}{onSpot ? \", spot\" : \"\"})", quantity: 'count * billedHours', unit: instance-hour, price: 'gcp.compute.machine{market}.{mt}' }
