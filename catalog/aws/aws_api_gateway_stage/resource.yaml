@@ -1,0 +1,20 @@
+type: aws_api_gateway_stage
+label: API Gateway stage
+category: Edge
+icon: api-gateway
+description: "Where requests to a REST API arrive: the stage passes them on to its API, which bills them and carries the SLA, so the stage adds no availability of its own. A stage with a cache pays its dedicated cache by the hour, by size. Requests answered from the cache still reach the API's request count; the calls behind the API are fewer, which the edges from the API say."
+kinds: [request]
+attributes:
+  - { key: cache_cluster_enabled, label: Cache, type: boolean, default: false }
+  - { key: cache_cluster_size, label: Cache size, type: choice, options: ["0.5", "1.6", "6.1", "13.5", "28.4", "58.2", "118", "237"], default: "0.5", unit: GB }
+let:
+  # The price list names two sizes more precisely than Terraform does.
+  - size: 'cache_cluster_size == "1.6" ? "1.55" : cache_cluster_size == "6.1" ? "6.05" : cache_cluster_size'
+readings:
+  - cost: { when: cache_cluster_enabled, name: 'Cache ({cache_cluster_size} GB)', quantity: 730, unit: hour, price: 'aws.apigateway.cache.{size}' }
+terraform:
+  # Users call the stage's invoke URL; the stage calls its API.
+  frontDoor: true
+  ignoreRefs: [access_log_settings, client_certificate_id, documentation_version, canary_settings]
+iam:
+  request: ["execute-api:Invoke"]

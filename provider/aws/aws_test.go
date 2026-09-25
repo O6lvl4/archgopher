@@ -63,6 +63,10 @@ var assume = map[string]map[string]any{
 	"aws_networkfirewall_firewall":               {"kbPerUnit": 4.0},
 	"aws_ec2_client_vpn_endpoint":                {"clients": 10.0},
 	"aws_flow_log":                               {"gbPerMonth": 10.0},
+	"aws_lb":                                     {"kbPerUnit": 4.0},
+	"aws_alb":                                    {"kbPerUnit": 4.0},
+	"aws_elb":                                    {"kbPerUnit": 4.0},
+	"aws_globalaccelerator_endpoint_group":       {"kbPerUnit": 4.0},
 }
 
 // TestRegionalQuotas pins quotas that differ by region, read from each
@@ -122,6 +126,9 @@ func TestIAMKinds(t *testing.T) {
 		{"aws_sqs_queue", []string{"sqs:ReceiveMessage"}, ""},
 		{"aws_sqs_queue", nil, ""},
 		{"aws_kinesis_stream", []string{"kinesis:PutRecord"}, ""},
+		{"aws_api_gateway_stage", []string{"execute-api:Invoke"}, "request"},
+		{"aws_acmpca_certificate_authority", []string{"acm-pca:IssueCertificate"}, "issue"},
+		{"aws_acmpca_certificate_authority", []string{"acm-pca:DescribeCertificateAuthority"}, ""},
 	}
 	for _, c := range cases {
 		got := strings.Join(IAM().Kinds(c.target, c.actions), ",")

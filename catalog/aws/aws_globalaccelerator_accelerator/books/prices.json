@@ -1,0 +1,21 @@
+{
+  "aws.globalaccelerator.fixed_fee": {
+    "unit": "hour",
+    "source": "https://aws.amazon.com/global-accelerator/pricing/",
+    "note": "Fixed fee for every full or partial hour an accelerator exists, enabled or not",
+    "sync": {
+      "service": "AWSGlobalAccelerator",
+      "filters": {
+        "usagetype": "Global-Accelerator-fixed-fee"
+      },
+      "offerRegion": "aws-other"
+    },
+    "values": {
+      "*": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

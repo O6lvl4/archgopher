@@ -1,0 +1,47 @@
+{
+  "aws.route53.health_check": {
+    "unit": "check-month",
+    "source": "https://aws.amazon.com/route53/pricing/",
+    "note": "Health check of an AWS or a non-AWS endpoint; the first 50 of AWS endpoints in an account are free",
+    "sync": {
+      "service": "AmazonRoute53",
+      "filters": {
+        "usagetype": "Health-Check-{row}"
+      },
+      "tier": "last",
+      "offerRegion": "aws-other"
+    },
+    "rows": {
+      "AWS": {
+        "*": 0.5
+      },
+      "Non-AWS": {
+        "*": 0.75
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "aws.route53.health_check_option": {
+    "unit": "feature-month",
+    "source": "https://aws.amazon.com/route53/pricing/",
+    "note": "Optional feature of a health check (HTTPS, string matching, fast interval, latency measurement)",
+    "sync": {
+      "service": "AmazonRoute53",
+      "filters": {
+        "usagetype": "Health-Check-Option-{row}"
+      },
+      "offerRegion": "aws-other"
+    },
+    "rows": {
+      "AWS": {
+        "*": 1
+      },
+      "Non-AWS": {
+        "*": 2
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

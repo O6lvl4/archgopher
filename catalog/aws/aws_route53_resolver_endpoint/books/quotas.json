@@ -1,0 +1,14 @@
+{
+  "aws.route53resolver.qps_per_ip": {
+    "unit": "queries/second",
+    "source": "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html",
+    "note": "UDP queries per IP address of an endpoint; as low as 1,500 when connections are tracked or queries pass a Network Load Balancer",
+    "values": {
+      "*": {
+        "value": 10000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

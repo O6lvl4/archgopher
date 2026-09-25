@@ -1,0 +1,100 @@
+{
+  "aws.route53.alias_queries": {
+    "unit": "query",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/route53/pricing/",
+    "note": "Queries to alias records that point at AWS resources, by routing policy",
+    "sync": {
+      "service": "AmazonRoute53",
+      "filters": {
+        "usagetype": "Intra-AWS-{row}-Queries"
+      },
+      "offerRegion": "aws-other"
+    },
+    "rows": {
+      "Cidr": {
+        "*": 0
+      },
+      "DNS": {
+        "*": 0
+      },
+      "Geo": {
+        "*": 0
+      },
+      "Geo-Proximity": {
+        "*": 0
+      },
+      "LBR": {
+        "*": 0
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "aws.route53.queries": {
+    "unit": "query",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/route53/pricing/",
+    "note": "Queries by routing policy (DNS standard, LBR latency, Geo, Geo-Proximity, Cidr IP-based), first 1 billion a month",
+    "sync": {
+      "service": "AmazonRoute53",
+      "filters": {
+        "usagetype": "{row}-Queries"
+      },
+      "tier": "first",
+      "offerRegion": "aws-other"
+    },
+    "rows": {
+      "Cidr": {
+        "*": 0.8
+      },
+      "DNS": {
+        "*": 0.4
+      },
+      "Geo": {
+        "*": 0.7
+      },
+      "Geo-Proximity": {
+        "*": 0.7
+      },
+      "LBR": {
+        "*": 0.6
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "aws.route53.queries_over_1b": {
+    "unit": "query",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/route53/pricing/",
+    "note": "Queries by routing policy beyond 1 billion a month",
+    "sync": {
+      "service": "AmazonRoute53",
+      "filters": {
+        "usagetype": "{row}-Queries"
+      },
+      "tier": "1000000000",
+      "offerRegion": "aws-other"
+    },
+    "rows": {
+      "Cidr": {
+        "*": 0.4
+      },
+      "DNS": {
+        "*": 0.2
+      },
+      "Geo": {
+        "*": 0.35
+      },
+      "Geo-Proximity": {
+        "*": 0.35
+      },
+      "LBR": {
+        "*": 0.3
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

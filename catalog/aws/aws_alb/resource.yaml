@@ -1,0 +1,49 @@
+type: aws_alb
+label: Load balancer
+category: Network
+icon: elastic-load-balancing
+description: "aws_alb is the older name of aws_lb and reads the same. Application, Network or Gateway Load Balancer: load balancer-hours and capacity units (LCU, NLCU, GLCU). A capacity unit-hour bills the largest of new connections, active connections, data processed and (Application) rule evaluations, read from the month's average rate, so bursts bill more. Reserved capacity (minimum_load_balancer_capacity) bills at the reserved rate and only usage above it at the LCU rate. Internet-facing load balancers also pay a public IPv4 address per Availability Zone. It sits on the path: load that passes through carries kbPerUnit each and flows on to the targets."
+kinds: [request]
+sla: aws.elb
+attributes:
+  - { key: load_balancer_type, label: Type, type: choice, options: [application, network, gateway], default: application }
+  - { key: internal, label: Internal, type: boolean, default: false }
+  - { key: ip_address_type, label: IP address type, type: choice, options: [ipv4, dualstack, dualstack-without-public-ipv4], default: ipv4 }
+  - { key: subnets, label: Subnets, type: list, optional: true, hint: "One load balancer node per subnet, one subnet per Availability Zone" }
+  - { key: subnet_mapping, label: Subnet mappings, type: number, optional: true, hint: "Counted from the subnet_mapping blocks" }
+  - { key: elastic_ips, label: Elastic IPs, type: boolean, default: false, path: subnet_mapping.allocation_id, hint: "Elastic IPs are billed as Elastic IPs, not here" }
+  - { key: capacity_units, label: Reserved capacity units, type: number, default: 0, path: minimum_load_balancer_capacity.capacity_units }
+assumptions:
+  - { key: kbPerUnit, label: Data per unit, type: number, unit: KB, optional: true, hint: "Per request passing through, request and response together" }
+  - { key: gbPerMonth, label: Other data per month, type: number, unit: GB, default: 0, hint: "Traffic not drawn as load" }
+  - { key: requestsPerConnection, label: Requests per connection, type: number, default: 1, hint: "Requests that reuse one connection (keep-alive, HTTP/2); for Network and Gateway, units per flow" }
+  - { key: connectionSeconds, label: Connection duration, type: number, unit: s, default: 1, hint: "How long a connection or flow stays open; active connections are new connections × this" }
+  - { key: rulesPerRequest, label: Rules evaluated per request, type: number, default: 1, hint: "Application only: listener rules processed per request; the first 10 are free" }
+  - { key: targets, label: Targets, type: choice, options: [instance, lambda], default: instance, hint: "Application only: a capacity unit holds 1 GB an hour for instance and IP targets, 0.4 GB for Lambda targets" }
+  - { key: protocol, label: Listener protocol, type: choice, options: [TCP, UDP, TLS], default: TCP, hint: "Network only: a capacity unit holds 800 new TCP flows a second (UDP 400, TLS 50) and 100,000 active TCP flows (UDP 50,000, TLS 3,000)" }
+  - { key: trustStores, label: Trust stores, type: number, default: 0, hint: "Application only: trust stores associated for mutual TLS" }
+  - { key: azs, label: Availability Zones, type: number, default: 2, hint: "Used when the subnets are not known from Terraform" }
+let:
+  - app: 'load_balancer_type == "application"'
+  - zones: 'len(subnets) > 0 ? float(len(subnets)) : subnet_mapping != nil ? subnet_mapping : azs'
+  - gbHour: '(gbPerMonth + total.monthly * (kbPerUnit != nil ? kbPerUnit : 0.0) / 1024 / 1024) / 730'
+  - rps: 'total.monthly / 2628000'
+  - newPerSecond: 'rps / requestsPerConnection'
+  - active: 'newPerSecond * connectionSeconds'
+  - newPerUnit: 'app ? 25.0 : load_balancer_type == "gateway" ? 600.0 : protocol == "UDP" ? 400.0 : protocol == "TLS" ? 50.0 : 800.0'
+  - activePerUnit: 'app ? 3000.0 : load_balancer_type == "gateway" ? 60000.0 : protocol == "UDP" ? 50000.0 : protocol == "TLS" ? 3000.0 : 100000.0'
+  - gbPerUnit: 'app && targets == "lambda" ? 0.4 : 1.0'
+  - rules: 'app ? rps * max(rulesPerRequest - 10, 0) / 1000 : 0.0'
+  - units: 'max(newPerSecond / newPerUnit, active / activePerUnit, gbHour / gbPerUnit, rules)'
+  - publicIpv4: '!internal && load_balancer_type != "gateway" && ip_address_type != "dualstack-without-public-ipv4" && !elastic_ips'
+readings:
+  - fail: { when: 'total.monthly > 0 && kbPerUnit == nil', message: "load passes through this load balancer: set kbPerUnit, the data each unit carries" }
+  - cost: { name: Load balancer hours, quantity: 730, unit: hour, price: 'aws.elb.{load_balancer_type}.hour' }
+  - cost: { name: Capacity units, quantity: 'max(units - capacity_units, 0) * 730', unit: LCU-hour, price: 'aws.elb.{load_balancer_type}.lcu' }
+  - cost: { when: capacity_units > 0, name: Reserved capacity units, quantity: capacity_units * 730, unit: LCU-hour, price: 'aws.elb.{load_balancer_type}.reserved_lcu' }
+  - cost: { when: app && trustStores > 0, name: Trust store associations, quantity: trustStores * 730, unit: hour, price: aws.elb.application.trust_store_hour }
+  - cost: { when: publicIpv4, name: Public IPv4 addresses, quantity: zones * 730, unit: hour, price: aws.elb.public_ipv4_hour }
+terraform:
+  # Users reach it unless something in the graph calls it; listeners stand for it.
+  frontDoor: true
+  ignoreRefs: [security_groups, subnets, subnet_mapping, access_logs, connection_logs, health_check_logs]

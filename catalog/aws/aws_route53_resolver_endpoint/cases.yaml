@@ -1,0 +1,34 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: outbound endpoint with two addresses, 100 million queries (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    ip_address: 2
+  demand:
+    query:
+      monthly: 1e+08
+      peak: 500
+  # 2 × 730 h × $0.125; 100 million × $0.40 per million; peak 500/s against 2 × 10,000
+  costs:
+    Network interfaces: 182.5
+    Queries (first 1 billion): 40
+  limits:
+    Queries per IP address: 500
+- name: DNS over HTTPS inbound endpoint, three addresses, 1.5 billion queries (us-east-1)
+  region: us-east-1
+  attributes:
+    ip_address: 3
+    protocols: [DoH]
+  assumptions:
+    queriesPerMonth: 1.5e+09
+  demand:
+    query:
+      monthly: 0
+      peak: 0
+  # 3 × 730 h × $0.125; 1,000 million × $0.40 + 500 million × $0.20
+  costs:
+    Network interfaces: 273.75
+    Queries (first 1 billion): 400
+    Queries (over 1 billion): 100
+  limits:
+    Queries per IP address: 0

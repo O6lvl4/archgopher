@@ -1,0 +1,14 @@
+{
+  "aws.acmpca.issue_certificate_tps": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/general/latest/gr/pca.html",
+    "note": "IssueCertificate requests per account and region; adjustable",
+    "values": {
+      "*": {
+        "value": 25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

@@ -392,6 +392,14 @@ the demand and says the capacity is unknown.
 | `aws_ec2_traffic_mirror_session` | Mirrored interface-hours | - |
 | `aws_flow_log` | Vended log delivery to CloudWatch Logs, S3 or Firehose, Parquet conversion | - |
 | `aws_waf_web_acl` | WAF Classic: web ACL-months, rule-months, requests, at us-east-1 prices | - |
+| `aws_lb` / `aws_alb` | Load balancer-hours and capacity units (LCU, NLCU, GLCU) from new and active connections, bytes and rule evaluations, reserved capacity, trust stores, public IPv4 addresses | - |
+| `aws_elb` | Classic load balancer-hours, data processed, public IPv4 addresses | - |
+| `aws_globalaccelerator_accelerator` / `aws_globalaccelerator_endpoint_group` | Fixed fee / data transfer premium in the dominant direction, by the endpoints' and the clients' location groups | - |
+| `aws_route53_zone` / `aws_route53_record` | Hosted zone-months and record sets beyond 10,000 / queries by routing policy in two tiers (alias queries are free) | - |
+| `aws_route53_health_check` | Health check-months for AWS or other endpoints, optional features | - |
+| `aws_route53_resolver_endpoint` | Network interface-hours per IP address (DNS over HTTPS priced apart), queries in two tiers | Queries per second per IP address |
+| `aws_api_gateway_stage` | The dedicated cache by size; requests pass on to the REST API | - |
+| `aws_acm_certificate` / `aws_acmpca_certificate_authority` | Private certificate issues spread over the renewal period (public ones are free) / CA-months, certificates in tiers or short-lived, OCSP | IssueCertificate rate |
 | `aws_cloudwatch_metric_alarm` | Alarm metric-months, standard or high resolution, anomaly detection | - |
 | `aws_bedrock_guardrail` | Text units per configured policy (content, topics, sensitive information, contextual grounding) | ApplyGuardrail and per-policy text units per second (varies by region) |
 | `bedrock_model` | Input, output, cache read and cache write tokens (Claude 4.5 models), global or regional inference | Tokens per minute (output × burndown, cache reads excluded) and requests per minute |

@@ -72,7 +72,8 @@ type Link struct {
 	To   []string
 }
 
-// Self in Link.To stands for the link resource itself when it is a node.
+// Self in Link.To stands for the link resource itself when it is a node:
+// an endpoint group that names its listener is called through that listener.
 const Self = "self"
 
 // Hint is an edge an EdgeSource proposes. Kind "" means the target's default.

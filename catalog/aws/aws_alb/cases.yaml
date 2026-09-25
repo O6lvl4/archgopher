@@ -1,0 +1,36 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Internal ALB, a million 100 KB requests (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    internal: true
+  assumptions:
+    kbPerUnit: 100
+  demand:
+    request:
+      monthly: 1e+06
+      peak: 5
+  # 730 h × $0.0243; bytes dominate: 95.367431640625 GB a month = GB-hours of LCU, × $0.008.
+  # Internal: no public address.
+  costs:
+    Load balancer hours: 17.739
+    Capacity units: 0.762939453125
+- name: Internet-facing UDP NLB in two subnets (us-east-1)
+  region: us-east-1
+  attributes:
+    load_balancer_type: network
+    subnets: [a, b]
+  assumptions:
+    kbPerUnit: 0.5
+    protocol: UDP
+    connectionSeconds: 30
+  demand:
+    request:
+      monthly: 5.256e+07
+      peak: 40
+  # 20 flows/s ÷ 400 = 0.05 NLCU (active 600 ÷ 50,000 = 0.012, bytes 0.0343 GB/h), × 730 × $0.006.
+  # 730 h × $0.0225; two public IPv4 addresses × 730 h × $0.005.
+  costs:
+    Load balancer hours: 16.425
+    Capacity units: 0.219
+    Public IPv4 addresses: 7.3

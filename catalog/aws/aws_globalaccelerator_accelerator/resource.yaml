@@ -1,0 +1,14 @@
+type: aws_globalaccelerator_accelerator
+label: Global Accelerator
+category: Edge
+icon: global-accelerator
+description: "A fixed fee for every hour the accelerator exists, enabled or not. Users reach its static addresses and it passes load on to its endpoint groups, which charge the data transfer premium."
+kinds: [request]
+sla: aws.globalaccelerator
+readings:
+  - cost: { name: Fixed fee, quantity: 730, unit: hour, price: aws.globalaccelerator.fixed_fee }
+terraform:
+  frontDoor: true
+  # Listeners stand for the accelerator; an endpoint group reached through a listener is called by it.
+  aliases: { aws_globalaccelerator_listener: accelerator_arn }
+  ignoreRefs: [attributes]

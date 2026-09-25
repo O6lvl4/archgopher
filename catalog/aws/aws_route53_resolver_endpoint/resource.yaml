@@ -1,0 +1,24 @@
+type: aws_route53_resolver_endpoint
+label: Route 53 Resolver endpoint
+category: Network
+icon: route-53
+description: "An elastic network interface-hour per IP address (DNS over HTTPS interfaces have their own price) and the queries that pass through, inbound from the network or outbound to it, with the price beyond 1 billion a month. Headroom is 10,000 UDP queries a second per IP address, as low as 1,500 when connections are tracked."
+kinds: [query]
+attributes:
+  - { key: ip_address, label: IP addresses, type: number, optional: true, hint: "Counted from the ip_address blocks; at least 2" }
+  - { key: protocols, label: Protocols, type: list, optional: true, hint: "Do53, DoH, DoH-FIPS" }
+assumptions:
+  - { key: ipAddresses, label: IP addresses, type: number, default: 2, hint: "Used when the ip_address blocks are not known from Terraform" }
+  - { key: queriesPerMonth, label: Queries per month, type: number, default: 0, hint: "Queries not drawn as load; the endpoint's CloudWatch metrics tell" }
+let:
+  - ips: 'ip_address != nil ? ip_address : ipAddresses'
+  - doh: '"DoH" in protocols || "DoH-FIPS" in protocols'
+  - queries: 'total.monthly + queriesPerMonth'
+readings:
+  - cost: { name: Network interfaces, quantity: ips * 730, unit: hour, price: 'aws.route53resolver.{doh ? "doh_" : ""}interface_hour' }
+  - requests: { name: Queries (first 1 billion), count: 'min(queries, 1e9)', unit: query, price: aws.route53resolver.queries }
+  - requests: { when: queries > 1e9, name: Queries (over 1 billion), count: 'queries - 1e9', unit: query, price: aws.route53resolver.queries_over_1b }
+  - rate: { name: Queries per IP address, unit: queries/second, quota: aws.route53resolver.qps_per_ip, peak: total.peak, scale: ips }
+terraform:
+  # It names its subnets and security groups; forwarding rules name it. None is a call.
+  passive: true

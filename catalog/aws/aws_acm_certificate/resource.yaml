@@ -1,0 +1,16 @@
+type: aws_acm_certificate
+label: ACM certificate
+category: Security
+icon: certificate-manager
+description: "Public certificates are free. A private certificate (certificate_authority_arn) pays its private CA's issuance price each time ACM issues or renews it, about every 11 months, spread over the months between. The CA itself is its own node. Load does not flow through a certificate."
+kinds: [issue]
+attributes:
+  - { key: private, label: Private, type: boolean, default: false, path: certificate_authority_arn, hint: "Issued by a private CA" }
+assumptions:
+  - { key: monthsBetweenIssues, label: Months between issues, type: number, unit: month, default: 11, hint: "ACM renews a managed certificate 60 days before its 13 months run out" }
+readings:
+  - cost: { when: private, name: Private certificate issuance, quantity: 1 / monthsBetweenIssues, unit: certificate, price: aws.acmpca.certificate }
+terraform:
+  # Listeners, distributions and validations name the certificate; nothing calls it.
+  mentioned: true
+  passive: true

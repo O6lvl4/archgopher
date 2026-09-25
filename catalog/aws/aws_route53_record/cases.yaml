@@ -1,0 +1,57 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: standard record, 5 million queries (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    queriesPerMonth: 5e+06
+  demand:
+    query:
+      monthly: 0
+      peak: 0
+  # 5 × $0.40 per million
+  costs:
+    Queries (first 1 billion): 2
+- name: latency records answering 3 billion queries (us-east-1)
+  region: us-east-1
+  attributes:
+    latency: true
+  demand:
+    query:
+      monthly: 3e+09
+      peak: 2000
+  # 1,000 million × $0.60 + 2,000 million × $0.30
+  costs:
+    Queries (first 1 billion): 600
+    Queries (over 1 billion): 600
+- name: geolocation record with drawn load (eu-west-1)
+  region: eu-west-1
+  attributes:
+    geolocation: true
+  demand:
+    query:
+      monthly: 1e+07
+      peak: 10
+  # 10 million × $0.70 per million
+  costs:
+    Queries (first 1 billion): 7
+- name: alias of a load balancer answers for free (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    alias: true
+  assumptions:
+    queriesPerMonth: 1e+08
+  demand:
+    query:
+      monthly: 0
+      peak: 0
+  costs:
+    Alias queries: 0
+- name: record in a private hosted zone answers for free (us-east-1)
+  region: us-east-1
+  assumptions:
+    privateZone: true
+    queriesPerMonth: 1e+08
+  demand:
+    query:
+      monthly: 0
+      peak: 0
