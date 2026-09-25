@@ -1,6 +1,6 @@
 // Package aws is the AWS provider. Resources live as data in catalog/aws, one
 // directory per resource type; this package loads them and adds what is not
-// per resource: the IAM edge source, the schedule syntax, account-wide
+// per resource: the IAM edge source, account-wide
 // Terraform rules and the L3 patterns.
 package aws
 
@@ -12,7 +12,6 @@ import (
 	"github.com/O6lvl4/archgopher/catalog"
 	"github.com/O6lvl4/archgopher/definition"
 	"github.com/O6lvl4/archgopher/provider/aws/iam"
-	"github.com/O6lvl4/archgopher/provider/aws/schedule"
 	"github.com/O6lvl4/archgopher/scouter"
 	"github.com/O6lvl4/archgopher/terraform/infer"
 )
@@ -128,12 +127,11 @@ func IAM() iam.Config {
 }
 
 // TerraformRules combine the account-wide rules, every resource's rules, the
-// IAM edge source and the EventBridge schedule syntax.
+// IAM edge source.
 func TerraformRules() infer.Rules {
 	parts := []infer.Rules{common(), {
-		Scouters:     Registry(),
-		Sources:      []infer.EdgeSource{iam.Source(IAM())},
-		ScheduleLoad: schedule.Load,
+		Scouters: Registry(),
+		Sources:  []infer.EdgeSource{iam.Source(IAM())},
 	}}
 	for _, u := range mustUnits() {
 		if u.Resource != nil {

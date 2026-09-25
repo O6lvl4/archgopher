@@ -13,6 +13,7 @@ import (
 	"github.com/O6lvl4/archgopher/meter"
 	"github.com/O6lvl4/archgopher/model"
 	"github.com/O6lvl4/archgopher/scouter"
+	"github.com/O6lvl4/archgopher/traffic"
 )
 
 // Result is everything the engine read from a spec.
@@ -33,13 +34,17 @@ type Result struct {
 
 // NodeResult is one node's readings.
 type NodeResult struct {
-	ID         string        `json:"id"`
-	Type       string        `json:"type"`
-	Label      string        `json:"label"`
-	Address    string        `json:"address,omitempty"`
-	Note       string        `json:"note,omitempty"`
-	Stale      bool          `json:"stale,omitempty"`
-	Demand     model.Demand  `json:"demand"`
+	ID      string       `json:"id"`
+	Type    string       `json:"type"`
+	Label   string       `json:"label"`
+	Address string       `json:"address,omitempty"`
+	Note    string       `json:"note,omitempty"`
+	Stale   bool         `json:"stale,omitempty"`
+	Demand  model.Demand `json:"demand"`
+	// Load is the load the node brings in, and LoadBasis how it was worked
+	// out when it was given as traffic.
+	Load       *model.Load   `json:"load,omitempty"`
+	LoadBasis  string        `json:"loadBasis,omitempty"`
 	Costs      []meter.Cost  `json:"costs"`
 	Limits     []meter.Limit `json:"limits"`
 	Latency    *Latency      `json:"latency,omitempty"`
@@ -95,6 +100,10 @@ const MaxPaths = 200
 // Structural errors (duplicate IDs, dangling edges, cycles, bad kinds) fail the run;
 // a node's own errors are reported on the node and load still flows through it.
 func Run(spec model.Spec, reg scouter.Registry, books book.Books) (Result, error) {
+	spec, arrivals, err := resolveTraffic(spec)
+	if err != nil {
+		return Result{}, err
+	}
 	g, err := buildGraph(spec, reg)
 	if err != nil {
 		return Result{}, err
@@ -105,6 +114,10 @@ func Run(spec model.Spec, reg scouter.Registry, books book.Books) (Result, error
 	for _, id := range g.order {
 		n := g.nodes[id]
 		nr := readNode(n, demand[id], reg, books, spec.Region, unverified)
+		nr.Load, nr.LoadBasis = n.Load, arrivals[id].basis
+		if e := arrivals[id].err; e != "" {
+			nr.Error = strings.TrimPrefix(nr.Error+"; "+e, "; ")
+		}
 		res.MonthlyUSD += nr.MonthlyUSD
 		for _, c := range nr.Costs {
 			if c.MonthlyUSD == nil {
@@ -422,4 +435,32 @@ func number(v any) (float64, bool) {
 		return float64(x), true
 	}
 	return 0, false
+}
+
+type arrival struct{ basis, err string }
+
+// resolveTraffic turns each node's traffic into its load. Traffic that cannot
+// be read is an error on that node, which then brings no load.
+func resolveTraffic(spec model.Spec) (model.Spec, map[string]arrival, error) {
+	out := map[string]arrival{}
+	nodes := make([]model.Node, len(spec.Nodes))
+	for i, n := range spec.Nodes {
+		nodes[i] = n
+		if n.Traffic == nil {
+			continue
+		}
+		if n.Load != nil {
+			return spec, nil, fmt.Errorf("node %q: give load or traffic, not both", n.ID)
+		}
+		r, err := traffic.Resolve(*n.Traffic)
+		if err != nil {
+			out[n.ID] = arrival{err: "traffic: " + err.Error()}
+			continue
+		}
+		l := r.Load
+		nodes[i].Load = &l
+		out[n.ID] = arrival{basis: r.Basis}
+	}
+	spec.Nodes = nodes
+	return spec, out, nil
 }

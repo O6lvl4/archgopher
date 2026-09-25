@@ -24,6 +24,21 @@ export interface SpecNode {
   stale?: boolean;
   /** The id of the boundary the node sits in (a VPC). */
   group?: string;
+  /** The load said another way; the engine turns it into a load. A node has one or the other. */
+  traffic?: Traffic;
+}
+
+/** How load arrives: exactly one shape, and when it comes. */
+export interface Traffic {
+  rate?: { count: number; per: string };
+  users?: { count: number; actions: number; per: string };
+  concurrent?: { users: number; everySeconds: number };
+  schedule?: string;
+  batch?: { items: number; every: string; withinSeconds: number };
+  hours?: string;
+  days?: string;
+  peakFactor?: number;
+  peakPerSecond?: number;
 }
 
 /** A boundary nodes sit in: a VPC, a virtual network. */
@@ -117,6 +132,9 @@ export interface NodeResult {
   note?: string;
   stale?: boolean;
   demand: Record<string, Load> | null;
+  /** The load the node brings in, and how its traffic was turned into it. */
+  load?: Load;
+  loadBasis?: string;
   costs: Cost[] | null;
   limits: Limit[] | null;
   latency?: { p50Ms: number; p99Ms: number };

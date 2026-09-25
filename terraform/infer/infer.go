@@ -14,6 +14,7 @@ import (
 	"github.com/O6lvl4/archgopher/model"
 	"github.com/O6lvl4/archgopher/scouter"
 	"github.com/O6lvl4/archgopher/terraform/eval"
+	"github.com/O6lvl4/archgopher/traffic"
 )
 
 // Rules tell the builder how a provider's resources form a load graph.
@@ -35,10 +36,9 @@ type Rules struct {
 	FrontDoors map[string]bool
 	// FrontDoorAliases are helper resources that expose a node to users (a Lambda function URL).
 	FrontDoorAliases map[string]string
-	// Schedules maps a node type to the attribute holding its schedule expression,
-	// and ScheduleLoad turns the expression into a load.
-	Schedules    map[string]string
-	ScheduleLoad func(expr string) (model.Load, error)
+	// Schedules maps a node type to the attribute holding its schedule
+	// expression, which becomes the node's traffic.
+	Schedules map[string]string
 	// IgnoreRefs are attribute path prefixes whose references are not calls (roles, keys, DLQs).
 	IgnoreRefs []string
 	// Sources add edges from knowledge the builder does not have, such as IAM permissions.
@@ -108,9 +108,6 @@ func Combine(parts ...Rules) Rules {
 		out.Links = append(out.Links, p.Links...)
 		out.IgnoreRefs = append(out.IgnoreRefs, p.IgnoreRefs...)
 		out.Sources = append(out.Sources, p.Sources...)
-		if out.ScheduleLoad == nil {
-			out.ScheduleLoad = p.ScheduleLoad
-		}
 		out.Region = firstRegion(out.Region, p.Region)
 	}
 	return out
@@ -222,10 +219,11 @@ func (b *builder) node(r *eval.Resource) model.Node {
 		n.Note = "No scouter reads " + r.Type + " yet; load passes through."
 	}
 	if attr, ok := b.rules.Schedules[r.Type]; ok {
+		// The schedule itself is the traffic, so the declaration keeps what
+		// Terraform says and follows it when it changes.
 		expr, _ := r.Attrs[attr].(string)
-		if load, err := b.scheduleLoad(expr); err == nil {
-			n.Load = &load
-			n.Note = join(n.Note, "Load from "+expr+".")
+		if _, err := traffic.Parse(expr); err == nil {
+			n.Traffic = &model.Traffic{Schedule: expr}
 		} else {
 			b.warnings = append(b.warnings, fmt.Sprintf("%s: %v", r.Address, err))
 		}
@@ -524,13 +522,6 @@ func join(a, b string) string {
 		return b
 	}
 	return a + " " + b
-}
-
-func (b *builder) scheduleLoad(expr string) (model.Load, error) {
-	if b.rules.ScheduleLoad == nil {
-		return model.Load{}, fmt.Errorf("no schedule reader for %q", expr)
-	}
-	return b.rules.ScheduleLoad(expr)
 }
 
 // DefaultName names a declaration after the Terraform directory.

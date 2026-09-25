@@ -255,3 +255,6 @@ table.grid tbody tr:hover { background: var(--surface-2); }
 @media (max-width: 900px) {
   .react-flow__minimap { display: none; }
 }
+.traffic-result { margin: 4px 0 8px; padding: 8px 10px; border-radius: 8px; background: var(--surface-2); font-size: 12px; display: flex; flex-direction: column; gap: 4px; }
+.traffic-result strong { font-size: 13px; font-variant-numeric: tabular-nums; }
+.traffic-basis { color: var(--muted); line-height: 1.45; }

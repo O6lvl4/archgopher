@@ -10,10 +10,11 @@ groups:
 nodes:
   - id: users
     type: entry
-    load:
-      monthly: 5000000
-      peakPerSecond: 40
-    note: 5 million report requests a month.
+    traffic:
+      users: { count: 8000, actions: 30, per: day }
+      hours: "9-18"
+      days: weekdays
+    note: Staff open about 30 reports a day in office hours.
   - id: api
     type: aws_apigatewayv2_api
   - id: reports

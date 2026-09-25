@@ -1,7 +1,6 @@
 package infer_test
 
 import (
-	"math"
 	"sort"
 	"strings"
 	"testing"
@@ -76,8 +75,8 @@ func TestExampleGraph(t *testing.T) {
 	if _, ok := h.Assumptions["durationMs"]; !ok {
 		t.Error("required assumptions should be listed as placeholders")
 	}
-	if c := nodeByID(spec, "cleanup"); c.Load == nil || c.Load.Monthly != 730 {
-		t.Errorf("rate(1 hour) should become 730 fires a month: %+v", c.Load)
+	if c := nodeByID(spec, "cleanup"); c.Load != nil || c.Traffic == nil || c.Traffic.Schedule != "rate(1 hour)" {
+		t.Errorf("the schedule should become the node's traffic, as written: %+v %+v", c.Load, c.Traffic)
 	}
 }
 
@@ -142,8 +141,8 @@ func TestPoliciesForEachAndFunctions(t *testing.T) {
 	if n := nodeByID(spec, "t"); !strings.Contains(n.Note, "2 instances") {
 		t.Errorf("for_each over two tables should be noted: %q", n.Note)
 	}
-	if n := nodeByID(spec, "nightly"); n.Load == nil || math.Abs(n.Load.Monthly-30.4) > 1e-9 {
-		t.Errorf("a daily cron fires about 30.4 times a month: %+v", n.Load)
+	if n := nodeByID(spec, "nightly"); n.Traffic == nil || n.Traffic.Schedule == "" {
+		t.Errorf("a cron schedule should become the node's traffic: %+v", n.Traffic)
 	}
 }
 
@@ -230,5 +229,25 @@ func TestMergeFollowsTerraformGroups(t *testing.T) {
 	again, _ := merge.Merge(merged, fresh)
 	if len(again.Groups) != len(merged.Groups) {
 		t.Error("merging twice must not add groups")
+	}
+}
+
+func TestMergeFollowsTerraformSchedules(t *testing.T) {
+	fresh, _ := build(t, "../../examples/serverless-api", eval.Options{})
+	addr := nodeByID(fresh, "cleanup").Address
+	byHand := &model.Traffic{Rate: &model.Rate{Count: 10, Per: "day"}}
+	for _, c := range []struct {
+		name     string
+		existing model.Node
+		want     string
+	}{
+		{"an old schedule follows Terraform", model.Node{ID: "cleanup", Type: "aws_cloudwatch_event_rule", Address: addr, Traffic: &model.Traffic{Schedule: "rate(2 hours)"}}, "rate(1 hour)"},
+		{"traffic written by hand stays", model.Node{ID: "cleanup", Type: "aws_cloudwatch_event_rule", Address: addr, Traffic: byHand}, ""},
+	} {
+		merged, _ := merge.Merge(model.Spec{Region: "us-east-1", Nodes: []model.Node{c.existing}}, fresh)
+		got := nodeByID(merged, "cleanup").Traffic
+		if c.want == "" && got != byHand || c.want != "" && (got == nil || got.Schedule != c.want) {
+			t.Errorf("%s: %+v", c.name, got)
+		}
 	}
 }

@@ -9,8 +9,9 @@ import (
 )
 
 // Merge folds a freshly built declaration into an existing one. The address is
-// the seam: Terraform owns type, attributes and the group a node sits in;
-// people own ids, assumptions, load, notes, positions and edges. Nodes that left Terraform are kept and
+// the seam: Terraform owns type, attributes, the group a node sits in and a
+// schedule's traffic; people own ids, assumptions, load and other traffic,
+// notes, positions and edges. Nodes that left Terraform are kept and
 // marked stale, never deleted.
 func Merge(existing, fresh model.Spec) (model.Spec, []string) {
 	var warnings []string
@@ -59,6 +60,11 @@ func Merge(existing, fresh model.Spec) (model.Spec, []string) {
 			}
 			if n.Load == nil {
 				n.Load = f.Load
+			}
+			// A schedule from Terraform follows Terraform, unless people gave
+			// the node a load or traffic of another shape.
+			if f.Traffic != nil && n.Load == nil && (n.Traffic == nil || n.Traffic.Schedule != "") {
+				n.Traffic = f.Traffic
 			}
 			rename[f.ID] = n.ID
 			continue

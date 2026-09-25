@@ -84,8 +84,11 @@ type Node struct {
 	Attributes map[string]any `yaml:"attributes,omitempty" json:"attributes,omitempty"`
 	// Assumptions are numbers Terraform cannot know (camelCase keys).
 	Assumptions map[string]any `yaml:"assumptions,omitempty" json:"assumptions,omitempty"`
-	// Load makes the node an entry point of the graph.
-	Load     *Load     `yaml:"load,omitempty" json:"load,omitempty"`
+	// Load makes the node an entry point of the graph: volume and peak.
+	Load *Load `yaml:"load,omitempty" json:"load,omitempty"`
+	// Traffic is the same said another way (users and their actions, a
+	// schedule, ...); it is turned into a Load. A node has one or the other.
+	Traffic  *Traffic  `yaml:"traffic,omitempty" json:"traffic,omitempty"`
 	Note     string    `yaml:"note,omitempty" json:"note,omitempty"`
 	Position *Position `yaml:"position,omitempty" json:"position,omitempty"`
 	// Group is the id of the boundary the node sits in; empty for none.

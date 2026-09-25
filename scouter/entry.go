@@ -20,7 +20,7 @@ type entryScouter struct{}
 func (entryScouter) Meta() Meta {
 	return Meta{
 		Type: EntryType, Label: "Entry", Category: "Entry",
-		Description: "Where load comes from: users, clients or another system. Set monthly volume and peak rate.",
+		Description: "Where load comes from: users, clients or another system. Say how much as a volume and a peak, a rate, users and what each does, users at work at the same time, a schedule or batches.",
 		Kinds:       []string{"unit"}, External: true, Icon: "general/entry",
 	}
 }

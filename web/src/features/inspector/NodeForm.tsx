@@ -3,6 +3,7 @@ import { withValue, type Action } from "../../lib/state";
 import type { CatalogEntry, Field, NodeResult, SpecNode, Values } from "../../lib/types";
 import { FieldInput } from "../../ui/FieldInput";
 import { NodeReadings } from "../../composites/NodeReadings";
+import { TrafficForm } from "./TrafficForm";
 
 interface Props {
   node: SpecNode;
@@ -37,38 +38,18 @@ export function Fields({ title, fields, values, onChange }: { title: string; fie
   );
 }
 
-function LoadFields({ node, dispatch }: Pick<Props, "node" | "dispatch">) {
-  const load = node.load ?? { monthly: 0, peakPerSecond: 0 };
-  const set = (key: "monthly" | "peakPerSecond", v: unknown) =>
-    dispatch({ type: "updateNode", id: node.id, patch: { load: { ...load, [key]: typeof v === "number" ? v : 0 } } });
-  const fields: Field[] = [
-    { key: "monthly", label: "Monthly volume", type: "number", required: true, hint: "Drives cost" },
-    { key: "peakPerSecond", label: "Peak per second", type: "number", required: true, hint: "Drives headroom" },
-  ];
-  return (
-    <section className="panel-section">
-      <h3>Load</h3>
-      {fields.map((f) => (
-        <FieldInput key={f.key} field={f} value={node.load?.[f.key as "monthly"]} onChange={(v) => set(f.key as "monthly", v)} />
-      ))}
-      {node.load && node.type !== "entry" && (
-        <button className="link" onClick={() => dispatch({ type: "updateNode", id: node.id, patch: { load: undefined } })}>
-          Remove load
-        </button>
-      )}
-    </section>
-  );
-}
-
 export function Problem({ reading }: { reading: NodeResult | undefined }) {
   const text = reading?.error ?? reading?.skipped;
   if (!text) return null;
   return <p className={`notice ${reading?.error ? "tone-bad" : "tone-muted"}`}>{text}</p>;
 }
 
+/** An entry always brings load; any other node does once load or traffic is set on it. */
+const bringsLoad = (node: SpecNode) => node.type === "entry" || node.load !== undefined || node.traffic !== undefined;
+
 export function NodeForm({ node, entry, reading, dispatch }: Props) {
   const update = (patch: Partial<SpecNode>) => dispatch({ type: "updateNode", id: node.id, patch });
-  const showLoad = node.type === "entry" || node.load !== undefined;
+  const showLoad = bringsLoad(node);
   return (
     <div className="panel-body">
       <header className="panel-head">
@@ -83,7 +64,7 @@ export function NodeForm({ node, entry, reading, dispatch }: Props) {
       {entry && <p className="panel-desc">{entry.description}</p>}
       <Problem reading={reading} />
       <IdInput node={node} dispatch={dispatch} />
-      {showLoad && <LoadFields node={node} dispatch={dispatch} />}
+      {showLoad && <TrafficForm node={node} reading={reading} dispatch={dispatch} />}
       <Fields title="From Terraform" fields={entry?.attributes ?? []} values={node.attributes} onChange={(k, v) => update({ attributes: withValue(node.attributes, k, v) })} />
       <Fields title="Assumptions" fields={entry?.assumptions ?? []} values={node.assumptions} onChange={(k, v) => update({ assumptions: withValue(node.assumptions, k, v) })} />
       <NodeReadings reading={reading} />

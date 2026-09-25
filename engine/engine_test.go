@@ -107,6 +107,8 @@ func TestStructuralErrors(t *testing.T) {
 		"kind":       {Region: "r1", Nodes: []model.Node{node("a", 1), node("b", 1)}, Edges: []model.Edge{{From: "a", To: "b", Kind: "delete"}}},
 		"no group":   {Region: "r1", Nodes: []model.Node{grouped("a", "vpc")}},
 		"two groups": {Region: "r1", Groups: []model.Group{{ID: "vpc", Kind: "VPC"}, {ID: "vpc", Kind: "VPC"}}},
+		"load and traffic": {Region: "r1", Nodes: []model.Node{{ID: "a", Type: "entry", Load: &model.Load{Monthly: 1},
+			Traffic: &model.Traffic{Schedule: "rate(1 hour)"}}}},
 	}
 	for name, spec := range cases {
 		if _, err := Run(spec, registry(), books()); err == nil {
@@ -156,5 +158,30 @@ func TestGroupsDoNotChangeReadings(t *testing.T) {
 	}
 	if a.MonthlyUSD != b.MonthlyUSD {
 		t.Errorf("monthly %v with a group, %v without", b.MonthlyUSD, a.MonthlyUSD)
+	}
+}
+
+// Traffic becomes the node's load, with the arithmetic; traffic that cannot be
+// read is an error on that node only.
+func TestTrafficBecomesLoad(t *testing.T) {
+	spec := model.Spec{Region: "r1", Nodes: []model.Node{
+		{ID: "hourly", Type: "entry", Traffic: &model.Traffic{Schedule: "rate(1 hour)"}},
+		{ID: "broken", Type: "entry", Traffic: &model.Traffic{Rate: &model.Rate{Count: 1, Per: "fortnight"}}},
+	}}
+	res, err := Run(spec, registry(), books())
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, n := range res.Nodes {
+		switch n.ID {
+		case "hourly":
+			if n.Load == nil || n.Load.Monthly != 730 || n.LoadBasis == "" || n.Error != "" {
+				t.Errorf("hourly: %+v", n)
+			}
+		case "broken":
+			if n.Load != nil || !strings.Contains(n.Error, "traffic:") {
+				t.Errorf("broken: %+v", n)
+			}
+		}
 	}
 }

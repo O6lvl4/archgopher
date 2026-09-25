@@ -20,22 +20,24 @@ const module = "github.com/O6lvl4/archgopher/"
 var allowed = map[string][]string{
 	// Core: the vocabulary, then L1 meters, L2 facets, scouters and the engine.
 	"model": {},
-	"field": {},
-	"book":  {},
-	"meter": {"book"},
-	"facet": {"book", "meter", "model"},
+	// Traffic turns the ways people describe load into a Load.
+	"traffic": {"model"},
+	"field":   {},
+	"book":    {},
+	"meter":   {"book"},
+	"facet":   {"book", "meter", "model"},
 	// Resources as data: a definition compiles into a scouter from facets.
 	"definition": {"book", "facet", "field", "meter", "model", "scouter", "terraform/infer"},
 	"catalog":    {},
 	"scouter":    {"field", "meter", "model"},
-	"engine":     {"book", "meter", "model", "scouter"},
+	"engine":     {"book", "meter", "model", "scouter", "traffic"},
 	"pattern":    {"engine", "field", "meter", "model", "scouter"},
 	"report":     {"engine", "meter", "model"},
 
 	// Terraform adapter: read, evaluate, infer, merge. No provider knowledge.
 	"terraform/config": {},
 	"terraform/eval":   {"terraform/config"},
-	"terraform/infer":  {"field", "model", "scouter", "terraform/eval"},
+	"terraform/infer":  {"field", "model", "scouter", "terraform/eval", "traffic"},
 	"terraform/merge":  {"model"},
 
 	// Checks every provider catalog must pass, called from provider tests.
@@ -46,8 +48,7 @@ var allowed = map[string][]string{
 	"provider/aws/iam":       {"terraform/eval", "terraform/infer"},
 	"provider/aws/pricelist": {},
 	"provider/aws/pattern":   {"model", "pattern", "scouter"},
-	"provider/aws/schedule":  {"model"},
-	"provider/aws":           {"book", "catalog", "definition", "scouter", "terraform/eval", "terraform/infer", "provider/aws/iam", "provider/aws/schedule"},
+	"provider/aws":           {"book", "catalog", "definition", "scouter", "terraform/eval", "terraform/infer", "provider/aws/iam"},
 
 	// Azure provider: resources are data in catalog/azure.
 	"provider/azure/retailprices": {},

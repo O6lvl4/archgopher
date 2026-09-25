@@ -18,10 +18,8 @@ nodes:
   - id: cleanup
     type: aws_cloudwatch_event_rule
     address: aws_cloudwatch_event_rule.cleanup
-    load:
-      monthly: 730
-      peakPerSecond: 0.0002777777777777778
-    note: Load from rate(1 hour).
+    traffic:
+      schedule: rate(1 hour)
   - id: notes
     type: aws_dynamodb_table
     address: aws_dynamodb_table.notes

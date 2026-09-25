@@ -33,12 +33,13 @@ function Readings({ reading }: { reading: NodeResult | undefined }) {
   );
 }
 
-/** An entry has nothing to read; it shows the load it sends instead. */
-function EntryLoad({ node }: { node: CardNode["data"]["node"] }) {
+/** An entry has nothing to read; it shows the load it sends instead, as the engine worked it out. */
+function EntryLoad({ node, reading }: { node: CardNode["data"]["node"]; reading: NodeResult | undefined }) {
+  const load = reading?.load ?? node.load;
   return (
     <div className="card-metrics">
-      <Metric label="Per month" value={node.load ? num(node.load.monthly) : "not set"} tone={node.load ? undefined : "bad"} />
-      <Metric label="Peak / s" value={node.load ? num(node.load.peakPerSecond) : "not set"} tone={node.load ? undefined : "bad"} />
+      <Metric label="Per month" value={load ? num(load.monthly) : "not set"} tone={load ? undefined : "bad"} />
+      <Metric label="Peak / s" value={load ? num(load.peakPerSecond) : "not set"} tone={load ? undefined : "bad"} />
     </div>
   );
 }
@@ -68,7 +69,7 @@ export function ScouterNode({ data, selected }: NodeProps<CardNode>) {
           </div>
         </div>
       </div>
-      {node.type === "entry" ? <EntryLoad node={node} /> : <Readings reading={reading} />}
+      {node.type === "entry" ? <EntryLoad node={node} reading={reading} /> : <Readings reading={reading} />}
       <Handle type="source" position={Position.Right} />
     </div>
   );

@@ -38,6 +38,23 @@ func Markdown(w io.Writer, r engine.Result) error {
 			n.ID, label(n), usd(n.MonthlyUSD), pct(n.MinHeadroom()), latency(n.Latency), sla(n.SLA), status(n))
 	}
 
+	var arrivals []engine.NodeResult
+	for _, n := range r.Nodes {
+		if n.Load != nil {
+			arrivals = append(arrivals, n)
+		}
+	}
+	if len(arrivals) > 0 {
+		b.WriteString("\n## Load in\n\n| Node | Monthly | Peak / s | How |\n| --- | ---: | ---: | --- |\n")
+		for _, n := range arrivals {
+			how := n.LoadBasis
+			if how == "" {
+				how = "given"
+			}
+			fmt.Fprintf(b, "| %s | %s | %s | %s |\n", n.ID, num(n.Load.Monthly), num(n.Load.PeakPerSecond), how)
+		}
+	}
+
 	b.WriteString("\n## Cost lines\n\n| Node | Component | Quantity | Unit | Unit price | Monthly |\n| --- | --- | ---: | --- | ---: | ---: |\n")
 	for _, n := range members(r) {
 		for _, c := range n.Costs {

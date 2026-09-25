@@ -120,6 +120,38 @@ edges:
 | `groups` / `group` | Boundaries drawn around nodes, such as a VPC (`{ id, kind, label, type, assumptions }`), and the one a node sits in. A node reads the same inside a group as outside; the group reads the traffic between its nodes. |
 | `kb` | Data one unit moves over the edge, both ways. Between two nodes of one group, the group's `type` reads it: `aws_vpc` charges the share that crosses Availability Zones, `(zones - 1) / zones`, out of one zone and into the other; a Google Cloud network charges the sender; an Azure VNet charges nothing. |
 
+### Saying how much load
+
+`load` is the number the engine uses: a month's volume and the peak per
+second. `traffic` says the same the way people think of it, and the engine
+works out the load and shows the arithmetic next to it (in the report's
+"Load in" table and on the entry in the UI). A node has one or the other.
+
+| Shape | Example | Becomes |
+| --- | --- | --- |
+| `rate` | `{ count: 20000, per: day }` | per `second`, `minute` or `hour` is the rate while active; per `day`, `week` or `month` is a total |
+| `users` | `{ count: 5000, actions: 20, per: day }` | users × actions × the active days (or weeks, or 1 for a month) |
+| `concurrent` | `{ users: 50, everySeconds: 30 }` | a closed model: 50 / 30 = 1.67 per second while active, never more |
+| `schedule` | `rate(1 hour)`, `cron(0 2 * * ? *)`, `*/15 9-17 * * 1-5`, `0 */5 * * * *` | EventBridge, Unix (Cloud Scheduler) and Azure cron; the peak is one fire per shortest gap |
+| `batch` | `{ items: 10000, every: rate(6 hours), withinSeconds: 600 }` | items × runs; the peak is items over the time a run takes |
+
+For `rate`, `users` and `concurrent`, `hours` (`"9-18"`, `"9-12,13-18"`,
+`"22-6"`) and `days` (`all`, `weekdays`, `weekends`) say when the traffic
+comes: the same volume in fewer hours peaks higher. The peak is the average
+while active times `peakFactor`, 2 for totals and users and 1 for rates and
+concurrent users, unless `peakPerSecond` sets it.
+
+```yaml
+- id: staff
+  type: entry
+  traffic:
+    users: { count: 8000, actions: 30, per: day }
+    hours: "9-18"
+    days: weekdays
+# 8,000 users × 30 a day × 21.7 weekdays = 5,214,286 a month; 7.41/s on
+# average over 9 h a day on weekdays, ×2 for peaks = 14.8/s
+```
+
 Load flows in topological order: a node's total throughput times `perUnit`
 lands on the downstream node under `kind`. Cycles are errors.
 
@@ -149,7 +181,8 @@ without state and without cloud credentials, so it also works on a pull request.
   element by element.
 - **Entries.** Front doors nobody calls (CloudFront, API Gateway, load
   balancers, Cognito, Lambda function URLs) get a shared `users` entry.
-  `rate()` and `cron()` schedules become the load of their rule.
+  Schedules (EventBridge rules and schedules, Cloud Scheduler jobs) become
+  the node's `traffic` as written, so a changed schedule follows on merge.
 - **Boundaries.** A node that references a security group, subnet or subnet
   group leading to a VPC (an `aws_vpc`, a VNet, a Google Cloud network, managed
   or looked up with a data source) sits in that VPC's frame. Only placement
