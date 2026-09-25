@@ -1,0 +1,26 @@
+type: aws_neptune_cluster
+label: Neptune cluster
+category: Database
+icon: neptune
+description: "Cluster storage, I/O on standard storage and backup storage beyond the free allowance. Instances are aws_neptune_cluster_instance nodes. Headroom is stored data against the cluster storage limit."
+kinds: [query]
+sla: aws.neptune
+attributes:
+  - { key: storage_type, label: Storage type, type: choice, options: ["", standard, iopt1], default: "", hint: "iopt1 (I/O-Optimized) has no I/O charge" }
+assumptions:
+  - { key: storageGb, label: Storage, type: number, unit: GB }
+  - { key: ioPerQuery, label: I/O per query, type: number, optional: true, hint: "Required for standard storage" }
+  - { key: backupGb, label: Backup storage beyond the free allowance, type: number, unit: GB, default: 0, hint: "Backups up to the cluster storage are free" }
+let:
+  - iopt: 'storage_type == "iopt1"'
+readings:
+  - storage: { name: Storage, gb: storageGb, price: 'aws.neptune.{iopt ? "iopt.storage" : "storage"}' }
+  - fail: { when: "!iopt && ioPerQuery == nil", message: ioPerQuery is required for standard storage, continue: true }
+  - cost: { when: "!iopt && ioPerQuery != nil", name: I/O, quantity: 'total.monthly * (ioPerQuery ?? 0)', unit: I/O request, price: aws.neptune.io }
+  - storage: { when: backupGb > 0, name: Backup storage, gb: backupGb, price: aws.neptune.backup }
+  - limit: { name: Cluster storage, demand: storageGb, unit: GiB, quota: aws.neptune.cluster_storage }
+terraform:
+  # A cluster names its subnet group and keys; it calls nothing.
+  passive: true
+iam:
+  query: ["neptune-db:connect", "neptune-db:ReadDataViaQuery", "neptune-db:WriteDataViaQuery", "neptune-db:DeleteDataViaQuery"]

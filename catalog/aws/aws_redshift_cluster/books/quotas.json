@@ -1,0 +1,53 @@
+{
+  "aws.redshift.node_storage": {
+    "unit": "TB",
+    "source": "https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html",
+    "note": "Storage per node: the managed storage limit (a hard limit) for RA3 and RG, local SSD for DC2. Rows ending in .single are single-node clusters",
+    "rows": {
+      "dc2.8xlarge": {
+        "*": 2.56
+      },
+      "dc2.large": {
+        "*": 0.16
+      },
+      "dc2.large.single": {
+        "*": 0.16
+      },
+      "ra3.16xlarge": {
+        "*": 128
+      },
+      "ra3.4xlarge": {
+        "*": 128
+      },
+      "ra3.large": {
+        "*": 8
+      },
+      "ra3.large.single": {
+        "*": 1
+      },
+      "ra3.xlplus": {
+        "*": 32
+      },
+      "ra3.xlplus.single": {
+        "*": 4
+      },
+      "rg.12xlarge": {
+        "*": 128
+      },
+      "rg.4xlarge": {
+        "*": 128
+      },
+      "rg.large": {
+        "*": 8
+      },
+      "rg.large.single": {
+        "*": 1
+      },
+      "rg.xlarge": {
+        "*": 32
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

@@ -1,0 +1,24 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Monthly USD per cost line, peak demand per limit. After an intended change:
+#   go test ./provider/aws -update
+- name: Valkey with three shards and a replica each (ap-northeast-1)
+  region: ap-northeast-1
+  attributes: { engine: valkey, node_type: cache.r7g.large, num_node_groups: 3, replicas_per_node_group: 1, snapshot_retention_limit: 7 }
+  assumptions: { snapshotGb: 10, datasetGb: 30 }
+  demand: { query: { monthly: 1e+07, peak: 100 } }
+  costs:
+    Nodes (cache.r7g.large, Valkey): 921.552
+    Backup storage: 5.1
+  limits:
+    Memory: 30
+- name: Redis OSS primary and replica (us-east-1)
+  region: us-east-1
+  attributes: { node_type: cache.t4g.small, num_cache_clusters: 2 }
+  demand: { query: { monthly: 1e+07, peak: 100 } }
+  costs:
+    Nodes (cache.t4g.small, Redis OSS): 46.72
+- name: Memcached is not a replication group (us-east-1)
+  region: us-east-1
+  attributes: { engine: memcached, node_type: cache.t4g.small }
+  demand: { query: { monthly: 1e+07, peak: 100 } }
+  error: is not priced

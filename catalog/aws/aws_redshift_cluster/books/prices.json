@@ -1,0 +1,670 @@
+{
+  "aws.redshift.backup.first_50tb": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/redshift/pricing/",
+    "note": "Backup storage beyond the free allowance (the provisioned storage of the cluster)",
+    "sync": {
+      "filters": {
+        "productFamily": "Storage Snapshot",
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Redshift:PaidSnapshots"
+      },
+      "service": "AmazonRedshift",
+      "tier": "0"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0245,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.redshift.backup.next_450tb": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/redshift/pricing/",
+    "note": "Backup storage beyond the free allowance (the provisioned storage of the cluster)",
+    "sync": {
+      "filters": {
+        "productFamily": "Storage Snapshot",
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Redshift:PaidSnapshots"
+      },
+      "service": "AmazonRedshift",
+      "tier": "51200"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.024,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.024,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.024,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.024,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.024,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0235,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.022,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.022,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.022,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.022,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.redshift.backup.over_500tb": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/redshift/pricing/",
+    "note": "Backup storage beyond the free allowance (the provisioned storage of the cluster)",
+    "sync": {
+      "filters": {
+        "productFamily": "Storage Snapshot",
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Redshift:PaidSnapshots"
+      },
+      "service": "AmazonRedshift",
+      "tier": "512000"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.023,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0225,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.021,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.021,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.021,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.021,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.redshift.concurrency_scaling": {
+    "unit": "node-second",
+    "source": "https://aws.amazon.com/redshift/pricing/",
+    "note": "Beyond the free credits (one hour a day per cluster)",
+    "sync": {
+      "filters": {
+        "concurrencyscalingfreeusage": "No",
+        "productFamily": "Redshift Concurrency Scaling",
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?CS:{row}"
+      },
+      "service": "AmazonRedshift"
+    },
+    "rows": {
+      "dc2.8xlarge": {
+        "ap-northeast-1": 0.00169,
+        "ap-northeast-2": 0.00161,
+        "ap-south-1": null,
+        "ap-southeast-1": 0.00178,
+        "ap-southeast-2": 0.00178,
+        "eu-central-1": 0.00168,
+        "eu-west-1": 0.00156,
+        "us-east-1": 0.00133,
+        "us-east-2": 0.00133,
+        "us-west-2": 0.00133
+      },
+      "dc2.large": {
+        "ap-northeast-1": 0.00009,
+        "ap-northeast-2": 0.00008,
+        "ap-south-1": 0.00009,
+        "ap-southeast-1": 0.00009,
+        "ap-southeast-2": 0.00009,
+        "eu-central-1": 0.00009,
+        "eu-west-1": 0.00008,
+        "us-east-1": 0.00007,
+        "us-east-2": 0.00007,
+        "us-west-2": 0.00007
+      },
+      "ds2.8xlarge": {
+        "ap-northeast-1": 0.00264,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": null,
+        "eu-west-1": 0.00211,
+        "us-east-1": 0.00189,
+        "us-east-2": 0.00189,
+        "us-west-2": 0.00189
+      },
+      "ds2.xlarge": {
+        "ap-northeast-1": 0.00033,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": null,
+        "eu-west-1": 0.00026,
+        "us-east-1": 0.00024,
+        "us-east-2": 0.00024,
+        "us-west-2": 0.00024
+      },
+      "ra3.16xlarge": {
+        "ap-northeast-1": 0.00426,
+        "ap-northeast-2": 0.00426,
+        "ap-south-1": 0.00411,
+        "ap-southeast-1": 0.00434,
+        "ap-southeast-2": 0.00434,
+        "eu-central-1": 0.00432,
+        "eu-west-1": 0.004,
+        "us-east-1": 0.00362,
+        "us-east-2": 0.00362,
+        "us-west-2": 0.00362
+      },
+      "ra3.4xlarge": {
+        "ap-northeast-1": 0.00106,
+        "ap-northeast-2": 0.00106,
+        "ap-south-1": 0.00102,
+        "ap-southeast-1": 0.00108,
+        "ap-southeast-2": 0.00108,
+        "eu-central-1": 0.00108,
+        "eu-west-1": 0.001,
+        "us-east-1": 0.0009,
+        "us-east-2": 0.0009,
+        "us-west-2": 0.0009
+      },
+      "ra3.large": {
+        "ap-northeast-1": 0.00018,
+        "ap-northeast-2": 0.00018,
+        "ap-south-1": 0.00017,
+        "ap-southeast-1": 0.00018,
+        "ap-southeast-2": 0.00018,
+        "eu-central-1": 0.00018,
+        "eu-west-1": 0.00017,
+        "us-east-1": 0.00015,
+        "us-east-2": 0.00015,
+        "us-west-2": 0.00015
+      },
+      "ra3.xlplus": {
+        "ap-northeast-1": 0.00035,
+        "ap-northeast-2": 0.00035,
+        "ap-south-1": 0.00034,
+        "ap-southeast-1": 0.00036,
+        "ap-southeast-2": 0.00036,
+        "eu-central-1": 0.00036,
+        "eu-west-1": 0.00033,
+        "us-east-1": 0.0003,
+        "us-east-2": 0.0003,
+        "us-west-2": 0.0003
+      },
+      "rg.12xlarge": {
+        "ap-northeast-1": 0.00298,
+        "ap-northeast-2": 0.00298,
+        "ap-south-1": 0.00288,
+        "ap-southeast-1": 0.00304,
+        "ap-southeast-2": 0.00304,
+        "eu-central-1": 0.00302,
+        "eu-west-1": 0.0028,
+        "us-east-1": 0.00253,
+        "us-east-2": 0.00253,
+        "us-west-2": 0.00253
+      },
+      "rg.4xlarge": {
+        "ap-northeast-1": 0.00099,
+        "ap-northeast-2": 0.00099,
+        "ap-south-1": 0.00095,
+        "ap-southeast-1": 0.00101,
+        "ap-southeast-2": 0.00101,
+        "eu-central-1": 0.00101,
+        "eu-west-1": 0.00093,
+        "us-east-1": 0.00084,
+        "us-east-2": 0.00084,
+        "us-west-2": 0.00084
+      },
+      "rg.large": {
+        "ap-northeast-1": 0.00012,
+        "ap-northeast-2": 0.00012,
+        "ap-south-1": 0.00012,
+        "ap-southeast-1": 0.00013,
+        "ap-southeast-2": 0.00013,
+        "eu-central-1": 0.00013,
+        "eu-west-1": 0.00012,
+        "us-east-1": 0.00011,
+        "us-east-2": 0.00011,
+        "us-west-2": 0.00011
+      },
+      "rg.xlarge": {
+        "ap-northeast-1": 0.00025,
+        "ap-northeast-2": 0.00025,
+        "ap-south-1": 0.00024,
+        "ap-southeast-1": 0.00025,
+        "ap-southeast-2": 0.00025,
+        "eu-central-1": 0.00025,
+        "eu-west-1": 0.00023,
+        "us-east-1": 0.00021,
+        "us-east-2": 0.00021,
+        "us-west-2": 0.00021
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "aws.redshift.managed_storage": {
+    "unit": "GB-month",
+    "source": "https://aws.amazon.com/redshift/pricing/",
+    "note": "RA3 and RG nodes",
+    "sync": {
+      "filters": {
+        "productFamily": "Redshift Managed Storage",
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?RMS:{row}"
+      },
+      "service": "AmazonRedshift"
+    },
+    "rows": {
+      "ra3.16xlarge": {
+        "ap-northeast-1": 0.0261,
+        "ap-northeast-2": 0.0261,
+        "ap-south-1": 0.0261,
+        "ap-southeast-1": 0.0261,
+        "ap-southeast-2": 0.0261,
+        "eu-central-1": 0.0256,
+        "eu-west-1": 0.024,
+        "us-east-1": 0.024,
+        "us-east-2": 0.024,
+        "us-west-2": 0.024
+      },
+      "ra3.4xlarge": {
+        "ap-northeast-1": 0.0261,
+        "ap-northeast-2": 0.0261,
+        "ap-south-1": 0.0261,
+        "ap-southeast-1": 0.0261,
+        "ap-southeast-2": 0.0261,
+        "eu-central-1": 0.0256,
+        "eu-west-1": 0.024,
+        "us-east-1": 0.024,
+        "us-east-2": 0.024,
+        "us-west-2": 0.024
+      },
+      "ra3.large": {
+        "ap-northeast-1": 0.0261,
+        "ap-northeast-2": 0.0261,
+        "ap-south-1": 0.0261,
+        "ap-southeast-1": 0.0261,
+        "ap-southeast-2": 0.0261,
+        "eu-central-1": 0.0256,
+        "eu-west-1": 0.024,
+        "us-east-1": 0.024,
+        "us-east-2": 0.024,
+        "us-west-2": 0.024
+      },
+      "ra3.xlplus": {
+        "ap-northeast-1": 0.0261,
+        "ap-northeast-2": 0.0261,
+        "ap-south-1": 0.0261,
+        "ap-southeast-1": 0.0261,
+        "ap-southeast-2": 0.0261,
+        "eu-central-1": 0.0256,
+        "eu-west-1": 0.024,
+        "us-east-1": 0.024,
+        "us-east-2": 0.024,
+        "us-west-2": 0.024
+      },
+      "rg.12xlarge": {
+        "ap-northeast-1": 0.0261,
+        "ap-northeast-2": 0.0261,
+        "ap-south-1": 0.0261,
+        "ap-southeast-1": 0.0261,
+        "ap-southeast-2": 0.0261,
+        "eu-central-1": 0.0256,
+        "eu-west-1": 0.024,
+        "us-east-1": 0.024,
+        "us-east-2": 0.024,
+        "us-west-2": 0.024
+      },
+      "rg.4xlarge": {
+        "ap-northeast-1": 0.0261,
+        "ap-northeast-2": 0.0261,
+        "ap-south-1": 0.0261,
+        "ap-southeast-1": 0.0261,
+        "ap-southeast-2": 0.0261,
+        "eu-central-1": 0.0256,
+        "eu-west-1": 0.024,
+        "us-east-1": 0.024,
+        "us-east-2": 0.024,
+        "us-west-2": 0.024
+      },
+      "rg.large": {
+        "ap-northeast-1": 0.0261,
+        "ap-northeast-2": 0.0261,
+        "ap-south-1": 0.0261,
+        "ap-southeast-1": 0.0261,
+        "ap-southeast-2": 0.0261,
+        "eu-central-1": 0.0256,
+        "eu-west-1": 0.024,
+        "us-east-1": 0.024,
+        "us-east-2": 0.024,
+        "us-west-2": 0.024
+      },
+      "rg.xlarge": {
+        "ap-northeast-1": 0.0261,
+        "ap-northeast-2": 0.0261,
+        "ap-south-1": 0.0261,
+        "ap-southeast-1": 0.0261,
+        "ap-southeast-2": 0.0261,
+        "eu-central-1": 0.0256,
+        "eu-west-1": 0.024,
+        "us-east-1": 0.024,
+        "us-east-2": 0.024,
+        "us-west-2": 0.024
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "aws.redshift.node": {
+    "unit": "node-hour",
+    "source": "https://aws.amazon.com/redshift/pricing/",
+    "sync": {
+      "filters": {
+        "instanceType": "{row}",
+        "productFamily": "Compute Instance",
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Node:.+"
+      },
+      "service": "AmazonRedshift"
+    },
+    "rows": {
+      "dc2.8xlarge": {
+        "ap-northeast-1": 6.095,
+        "ap-northeast-2": 5.8,
+        "ap-south-1": 6.1,
+        "ap-southeast-1": 6.4,
+        "ap-southeast-2": 6.4,
+        "eu-central-1": 6.048,
+        "eu-west-1": 5.6,
+        "us-east-1": 4.8,
+        "us-east-2": 4.8,
+        "us-west-2": 4.8
+      },
+      "dc2.large": {
+        "ap-northeast-1": 0.314,
+        "ap-northeast-2": 0.3,
+        "ap-south-1": 0.315,
+        "ap-southeast-1": 0.33,
+        "ap-southeast-2": 0.33,
+        "eu-central-1": 0.324,
+        "eu-west-1": 0.3,
+        "us-east-1": 0.25,
+        "us-east-2": 0.25,
+        "us-west-2": 0.25
+      },
+      "ra3.16xlarge": {
+        "ap-northeast-1": 15.347,
+        "ap-northeast-2": 15.347,
+        "ap-south-1": 14.827,
+        "ap-southeast-1": 15.636,
+        "ap-southeast-2": 15.636,
+        "eu-central-1": 15.578,
+        "eu-west-1": 14.424,
+        "us-east-1": 13.04,
+        "us-east-2": 13.04,
+        "us-west-2": 13.04
+      },
+      "ra3.4xlarge": {
+        "ap-northeast-1": 3.836,
+        "ap-northeast-2": 3.836,
+        "ap-south-1": 3.706,
+        "ap-southeast-1": 3.909,
+        "ap-southeast-2": 3.909,
+        "eu-central-1": 3.894,
+        "eu-west-1": 3.606,
+        "us-east-1": 3.26,
+        "us-east-2": 3.26,
+        "us-west-2": 3.26
+      },
+      "ra3.large": {
+        "ap-northeast-1": 0.639,
+        "ap-northeast-2": 0.639,
+        "ap-south-1": 0.618,
+        "ap-southeast-1": 0.652,
+        "ap-southeast-2": 0.652,
+        "eu-central-1": 0.649,
+        "eu-west-1": 0.601,
+        "us-east-1": 0.543,
+        "us-east-2": 0.543,
+        "us-west-2": 0.543
+      },
+      "ra3.xlplus": {
+        "ap-northeast-1": 1.278,
+        "ap-northeast-2": 1.278,
+        "ap-south-1": 1.235,
+        "ap-southeast-1": 1.303,
+        "ap-southeast-2": 1.303,
+        "eu-central-1": 1.298,
+        "eu-west-1": 1.202,
+        "us-east-1": 1.086,
+        "us-east-2": 1.086,
+        "us-west-2": 1.086
+      },
+      "rg.12xlarge": {
+        "ap-northeast-1": 10.7429,
+        "ap-northeast-2": 10.7429,
+        "ap-south-1": 10.3789,
+        "ap-southeast-1": 10.9452,
+        "ap-southeast-2": 10.9452,
+        "eu-central-1": 10.9046,
+        "eu-west-1": 10.0968,
+        "us-east-1": 9.128,
+        "us-east-2": 9.128,
+        "us-west-2": 9.128
+      },
+      "rg.4xlarge": {
+        "ap-northeast-1": 3.58027,
+        "ap-northeast-2": 3.58027,
+        "ap-south-1": 3.45893,
+        "ap-southeast-1": 3.6484,
+        "ap-southeast-2": 3.6484,
+        "eu-central-1": 3.6344,
+        "eu-west-1": 3.3656,
+        "us-east-1": 3.04267,
+        "us-east-2": 3.04267,
+        "us-west-2": 3.04267
+      },
+      "rg.large": {
+        "ap-northeast-1": 0.4473,
+        "ap-northeast-2": 0.4473,
+        "ap-south-1": 0.4326,
+        "ap-southeast-1": 0.4564,
+        "ap-southeast-2": 0.4564,
+        "eu-central-1": 0.4543,
+        "eu-west-1": 0.4207,
+        "us-east-1": 0.3801,
+        "us-east-2": 0.3801,
+        "us-west-2": 0.3801
+      },
+      "rg.xlarge": {
+        "ap-northeast-1": 0.8946,
+        "ap-northeast-2": 0.8946,
+        "ap-south-1": 0.8645,
+        "ap-southeast-1": 0.9121,
+        "ap-southeast-2": 0.9121,
+        "eu-central-1": 0.9086,
+        "eu-west-1": 0.8414,
+        "us-east-1": 0.7602,
+        "us-east-2": 0.7602,
+        "us-west-2": 0.7602
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "aws.redshift.spectrum": {
+    "unit": "TB",
+    "source": "https://aws.amazon.com/redshift/pricing/",
+    "note": "Redshift Spectrum, per TB scanned",
+    "sync": {
+      "filters": {
+        "productFamily": "Redshift Data Scan",
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?DataScanned"
+      },
+      "service": "AmazonRedshift"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

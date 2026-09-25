@@ -1,0 +1,14 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Monthly USD per cost line, peak demand per limit. After an intended change:
+#   go test ./provider/aws -update
+- name: T3 with storage above what it includes (ap-northeast-1)
+  region: ap-northeast-1
+  attributes: { replication_instance_class: dms.t3.medium, allocated_storage: 100 }
+  costs:
+    Instance (dms.t3.medium, Single-AZ): 81.76
+    Storage above 50 GB: 6.9
+- name: Multi-AZ R5 within its included storage (us-east-1)
+  region: us-east-1
+  attributes: { replication_instance_class: dms.r5.large, multi_az: true, allocated_storage: 100 }
+  costs:
+    Instance (dms.r5.large, Multi-AZ): 257.69

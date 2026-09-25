@@ -1,0 +1,386 @@
+{
+  "aws.rds.extended_support.year1_2": {
+    "unit": "vCPU-hour",
+    "source": "https://aws.amazon.com/rds/pricing/",
+    "note": "RDS Extended Support, years 1 and 2; the PostgreSQL 11 row, which every engine and version matches",
+    "sync": {
+      "filters": {
+        "databaseEngine": "PostgreSQL",
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?ExtendedSupport:Yr1-Yr2:PostgreSQL11"
+      },
+      "service": "AmazonRDS"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.114,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.122,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.112,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.rds.extended_support.year3": {
+    "unit": "vCPU-hour",
+    "source": "https://aws.amazon.com/rds/pricing/",
+    "note": "RDS Extended Support, year 3; the PostgreSQL 11 row, which every engine and version matches",
+    "sync": {
+      "filters": {
+        "databaseEngine": "PostgreSQL",
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?ExtendedSupport:Yr3:PostgreSQL11"
+      },
+      "service": "AmazonRDS"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.228,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.244,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.224,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.rds.insights.advanced": {
+    "unit": "vCPU-hour",
+    "source": "https://aws.amazon.com/cloudwatch/pricing/",
+    "note": "CloudWatch Database Insights; the RDS for PostgreSQL row, which every RDS and Aurora engine matches",
+    "sync": {
+      "filters": {
+        "operation": "RDS-PostgreSQL:Provisioned",
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?CW:DatabaseInsights-vCPU-Hours"
+      },
+      "service": "AmazonCloudWatch"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.0125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.rds.insights.api": {
+    "unit": "API call",
+    "per": 1000,
+    "source": "https://aws.amazon.com/cloudwatch/pricing/",
+    "note": "Calls beyond the free 1 million a month per account",
+    "sync": {
+      "filters": {
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?CW:DatabaseInsights-API"
+      },
+      "service": "AmazonCloudWatch"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.rds.insights.standard.additional_month": {
+    "unit": "vCPU-hour",
+    "source": "https://aws.amazon.com/cloudwatch/pricing/",
+    "note": "CloudWatch Database Insights; the RDS for PostgreSQL row, which every RDS and Aurora engine matches; each month of retention after the first",
+    "sync": {
+      "filters": {
+        "operation": "RDS-PostgreSQL:Provisioned",
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?CW:DatabaseInsights-Standard-AMR-vCPU-Hours"
+      },
+      "service": "AmazonCloudWatch"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.000101,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.000101,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.000096,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.000101,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.000101,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.000103,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.000094,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.000086,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.000086,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.000086,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.rds.insights.standard.first_month": {
+    "unit": "vCPU-hour",
+    "source": "https://aws.amazon.com/cloudwatch/pricing/",
+    "note": "CloudWatch Database Insights; the RDS for PostgreSQL row, which every RDS and Aurora engine matches; Performance Insights retention of the first month beyond the free 7 days",
+    "sync": {
+      "filters": {
+        "operation": "RDS-PostgreSQL:Provisioned",
+        "usagetype": "((?:[A-Z]+[0-9]|EU)-)?CW:DatabaseInsights-Standard-FMR-vCPU-Hours"
+      },
+      "service": "AmazonCloudWatch"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.002405,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.002405,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.002305,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.002405,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.002405,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.002455,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.002255,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.002054,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.002054,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.002054,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

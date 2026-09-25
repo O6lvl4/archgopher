@@ -1,0 +1,25 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Monthly USD per cost line, peak demand per limit. After an intended change:
+#   go test ./provider/aws -update
+- name: Redis OSS node with retained snapshots (ap-northeast-1)
+  region: ap-northeast-1
+  attributes: { engine: redis, node_type: cache.t4g.micro, snapshot_retention_limit: 3 }
+  assumptions: { snapshotGb: 2, datasetGb: 0.3 }
+  demand: { query: { monthly: 1e+07, peak: 100 } }
+  costs:
+    Nodes (cache.t4g.micro, Redis OSS): 18.25
+    Backup storage: 0.34
+  limits:
+    Memory: 0.3
+- name: Memcached across three nodes (us-east-1)
+  region: us-east-1
+  attributes: { engine: memcached, node_type: cache.r7g.large, num_cache_nodes: 3 }
+  assumptions: { datasetGb: 20 }
+  demand: { query: { monthly: 1e+07, peak: 100 } }
+  costs:
+    Nodes (cache.r7g.large, Memcached): 479.61
+  limits:
+    Memory: 20
+- name: a member of a replication group (us-east-1)
+  region: us-east-1
+  demand: { query: { monthly: 1e+07, peak: 100 } }

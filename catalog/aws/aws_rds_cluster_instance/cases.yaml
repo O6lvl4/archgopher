@@ -1,0 +1,40 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Monthly USD per cost line, peak demand per limit. After an intended change:
+#   go test ./provider/aws -update
+- name: Aurora PostgreSQL Standard (ap-northeast-1)
+  region: ap-northeast-1
+  attributes: { engine: aurora-postgresql, instance_class: db.r6g.large }
+  demand: { query: { monthly: 1e+06, peak: 100 } }
+  costs:
+    Instance (db.r6g.large, Standard): 228.49
+- name: I/O-Optimized with a month of Performance Insights (us-east-1)
+  region: us-east-1
+  attributes: { engine: aurora-postgresql, instance_class: db.r6g.large, performance_insights_enabled: true, performance_insights_retention_period: 31 }
+  assumptions: { ioOptimized: true, vcpus: 2 }
+  demand: { query: { monthly: 1e+06, peak: 100 } }
+  costs:
+    Instance (db.r6g.large, I/O-Optimized): 246.74
+    Performance Insights retention (first month): 2.99884
+- name: Aurora MySQL burstable on Extended Support (us-east-1)
+  region: us-east-1
+  attributes: { engine: aurora-mysql, instance_class: db.t4g.medium }
+  assumptions: { cpuCreditVcpuHours: 20, vcpus: 2, extendedSupport: year1_2 }
+  demand: { query: { monthly: 1e+06, peak: 100 } }
+  costs:
+    Instance (db.t4g.medium, Standard): 53.29
+    CPU credits (db.t4g): 1.8
+    Extended Support (years 1-2): 146
+- name: db.serverless bills on the cluster (ap-northeast-1)
+  region: ap-northeast-1
+  attributes: { engine: aurora-postgresql, instance_class: db.serverless }
+  demand: { query: { monthly: 1e+06, peak: 100 } }
+- name: not an Aurora engine (us-east-1)
+  region: us-east-1
+  attributes: { engine: mysql, instance_class: db.r6g.large }
+  demand: { query: { monthly: 1e+06, peak: 100 } }
+  error: is not Aurora
+- name: engine unknown before apply (us-east-1)
+  region: us-east-1
+  attributes: { instance_class: db.r6g.large }
+  demand: { query: { monthly: 1e+06, peak: 100 } }
+  error: engine is unknown

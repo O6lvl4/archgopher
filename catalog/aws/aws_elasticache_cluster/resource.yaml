@@ -1,0 +1,29 @@
+type: aws_elasticache_cluster
+label: ElastiCache cluster
+category: Database
+icon: elasticache
+description: "Node-hours by engine (Redis OSS, Valkey, Memcached) and backup storage for retained Redis OSS and Valkey snapshots. A cluster without node_type is a member of a replication group, whose node carries the cost. Headroom is the data set against node memory. On-demand prices."
+kinds: [query]
+sla: aws.elasticache
+attributes:
+  - { key: engine, label: Engine, type: string, optional: true, hint: "redis, valkey or memcached" }
+  - { key: node_type, label: Node type, type: string, optional: true, hint: "Unset on a member of a replication group" }
+  - { key: num_cache_nodes, label: Nodes, type: number, default: 1 }
+  - { key: snapshot_retention_limit, label: Snapshot retention, type: number, unit: days, default: 0 }
+assumptions:
+  - { key: snapshotGb, label: Snapshot size, type: number, unit: GB, default: 0, hint: "One daily snapshot; every retained one after the first is billed" }
+  - { key: datasetGb, label: Data set, type: number, unit: GiB, optional: true, hint: "Compared with the memory of the node (all nodes for Memcached, which shards)" }
+let:
+  - member: node_type == nil
+  - eng: '(engine ?? "") in ["valkey", "memcached"] ? (engine ?? "") : "redis"'
+  - label: 'eng == "valkey" ? "Valkey" : (eng == "memcached" ? "Memcached" : "Redis OSS")'
+  - nodeType: 'node_type ?? ""'
+readings:
+  - cost: { when: "!member", name: "Nodes ({nodeType}, {label})", quantity: num_cache_nodes * 730, unit: node-hour, price: "aws.elasticache.{eng}.{nodeType}" }
+  - storage: { when: '!member && eng != "memcached" && snapshot_retention_limit > 1 && snapshotGb > 0', name: Backup storage, gb: snapshotGb * (snapshot_retention_limit - 1), price: "aws.elasticache.backup.{eng}" }
+  - rate: { when: "!member && datasetGb != nil", name: Memory, unit: GiB, peak: 'datasetGb ?? 0', quota: "aws.elasticache.node_memory.{nodeType}", scale: 'eng == "memcached" ? num_cache_nodes : 1' }
+terraform:
+  # A cluster names its replication group, subnet group and parameters; it calls nothing.
+  passive: true
+iam:
+  query: ["elasticache:Connect"]

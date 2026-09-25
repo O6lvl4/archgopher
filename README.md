@@ -356,7 +356,15 @@ the demand and says the capacity is unknown.
 | `aws_sqs_queue` | Requests in 64 KB chunks | FIFO send rate, by region in high throughput mode |
 | `aws_sns_topic` | Publishes in 64 KB chunks | Publish rate |
 | `aws_sfn_state_machine` | Transitions (standard), requests and GB-seconds (express) | StartExecution rate |
-| `aws_rds_cluster` | Aurora Serverless v2 ACU-hours, storage, I/O (Standard or I/O-Optimized), the managed master password secret | Peak ACU against max capacity |
+| `aws_rds_cluster` | Aurora Serverless v2 ACU-hours (provisioned instances are their own nodes), storage, I/O (Standard or I/O-Optimized), backup storage, Backtrack, snapshot export, the managed master password secret | Peak ACU against max capacity |
+| `aws_rds_cluster_instance` | Provisioned Aurora instance-hours (Standard or I/O-Optimized), surplus CPU credits, Database Insights and Extended Support per vCPU | - |
+| `aws_db_instance` | Instance-hours by engine, license and Single-AZ or Multi-AZ, storage (gp2, gp3, io1, io2, magnetic), IOPS and gp3 throughput above the baseline, magnetic I/O, backups beyond the free allowance, CPU credits, Database Insights, Extended Support, the managed master password secret | Storage IOPS against the volume |
+| `aws_docdb_cluster` / `aws_neptune_cluster` | Storage (standard or I/O-Optimized), I/O, backups beyond the free allowance | Storage against the cluster limit |
+| `aws_docdb_cluster_instance` / `aws_neptune_cluster_instance` | Instance-hours (standard or I/O-Optimized), serverless DCU or NCU-hours, CPU credits | - |
+| `aws_docdb_cluster_snapshot` / `aws_neptune_cluster_snapshot` | Snapshot storage beyond the free allowance | - |
+| `aws_elasticache_cluster` / `aws_elasticache_replication_group` | Node-hours by engine (Redis OSS, Valkey, Memcached) and node count, retained snapshots | Data set against node memory × shards |
+| `aws_redshift_cluster` | Node-hours (doubled on Multi-AZ), managed storage, concurrency scaling, Spectrum, backups in three tiers | Stored data against the nodes' storage |
+| `aws_dms_replication_instance` | Instance-hours (Single-AZ or Multi-AZ), storage above what the class includes | - |
 | `aws_scheduler_schedule` | Invocations | - |
 | `aws_cloudwatch_event_rule` | Nothing (scheduled rules are free) | - |
 | `aws_ecs_task_definition` | Fargate vCPU and GB hours per run (1-minute minimum, x86_64 or arm64), ephemeral storage above 20 GB | vCPUs running against the Fargate quota, task launch rate, RunTask calls |

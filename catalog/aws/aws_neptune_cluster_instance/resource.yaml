@@ -1,0 +1,26 @@
+type: aws_neptune_cluster_instance
+label: Neptune instance
+category: Database
+icon: neptune
+description: "Instance-hours, standard or I/O-Optimized, and surplus CPU credits; a db.serverless instance is billed in NCU-hours. Storage and I/O are billed on the aws_neptune_cluster node. On-demand prices."
+kinds: [query]
+sla: aws.neptune
+attributes:
+  - { key: instance_class, label: Instance class, type: string }
+assumptions:
+  - { key: ioOptimized, label: I/O-Optimized cluster, type: boolean, default: false, hint: "Set when the cluster's storage_type is iopt1" }
+  - { key: averageNcu, label: Average NCU, type: number, optional: true, hint: "db.serverless only: capacity averaged over the month" }
+  - { key: cpuCreditVcpuHours, label: Surplus CPU credits, type: number, unit: vCPU-hours, default: 0, hint: "db.t3 and db.t4g: vCPU-hours above the baseline that earned credits do not cover" }
+let:
+  - storage: 'ioOptimized ? "iopt" : "standard"'
+  - serverless: 'instance_class == "db.serverless"'
+  - family: 'instance_class startsWith "db.t4g." ? "db.t4g" : "db.t3"'
+  - burstable: 'instance_class startsWith "db.t3." || instance_class startsWith "db.t4g."'
+readings:
+  - cost: { when: "!serverless", name: "Instance ({instance_class}, {ioOptimized ? \"I/O-Optimized\" : \"standard\"})", quantity: 730, unit: instance-hour, price: "aws.neptune.{storage}.{instance_class}" }
+  - fail: { when: serverless && averageNcu == nil, message: averageNcu is required for a db.serverless instance }
+  - capacity: { when: serverless, name: Serverless capacity, units: 'averageNcu ?? 0', unit: NCU-hour, price: 'aws.neptune.{ioOptimized ? "iopt.serverless" : "serverless"}.ncu_hour' }
+  - cost: { when: burstable && cpuCreditVcpuHours > 0, name: "CPU credits ({family})", quantity: cpuCreditVcpuHours, unit: vCPU-hour, price: "aws.neptune.cpu_credits.{family}" }
+terraform:
+  # An instance names its cluster; queries reach the cluster's endpoint.
+  passive: true

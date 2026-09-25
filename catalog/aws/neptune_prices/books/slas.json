@@ -1,0 +1,14 @@
+{
+  "aws.neptune": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/neptune/sla/",
+    "note": "Multi-AZ clusters; a single instance is 99.5%",
+    "values": {
+      "*": {
+        "value": 0.9999,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

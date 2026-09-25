@@ -1,0 +1,13 @@
+type: aws_neptune_cluster_snapshot
+label: Neptune snapshot
+category: Database
+icon: neptune
+description: "A manual snapshot, billed as backup storage for the data it keeps beyond the cluster's free allowance. Nothing calls it."
+kinds: [snapshot]
+assumptions:
+  - { key: snapshotGb, label: Billed snapshot size, type: number, unit: GB, hint: "Snapshot data beyond the free allowance (backups up to the cluster storage)" }
+readings:
+  - storage: { name: Snapshot storage, gb: snapshotGb, price: aws.neptune.backup }
+terraform:
+  # A snapshot names its cluster; it calls nothing.
+  passive: true

@@ -1,0 +1,14 @@
+{
+  "aws.elasticache": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/elasticache/sla/",
+    "note": "Multi-AZ configurations; cross-AZ without automatic failover is 99.9%, single-AZ 99.5%",
+    "values": {
+      "*": {
+        "value": 0.9999,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}
