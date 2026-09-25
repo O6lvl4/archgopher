@@ -1,0 +1,53 @@
+{
+  "aws.kinesis.ondemand.write_mbps": {
+    "unit": "MB/s",
+    "source": "https://docs.aws.amazon.com/streams/latest/dev/service-sizes-and-limits.html",
+    "note": "How far an on-demand stream scales its writes by default (10 GB/s in N. Virginia, Oregon and Ireland); new streams start at 4 MB/s and double with the observed peak; raise by support ticket",
+    "values": {
+      "*": {
+        "value": 200,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 10000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 10000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 10000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.kinesis.shard.write_mbps": {
+    "unit": "MB/s",
+    "source": "https://docs.aws.amazon.com/streams/latest/dev/service-sizes-and-limits.html",
+    "note": "Per shard",
+    "values": {
+      "*": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.kinesis.shard.write_records": {
+    "unit": "records/second",
+    "source": "https://docs.aws.amazon.com/streams/latest/dev/service-sizes-and-limits.html",
+    "note": "Per shard",
+    "values": {
+      "*": {
+        "value": 1000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "aws.mq": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/amazon-mq/sla/",
+    "note": "Active/standby and clustered brokers; single-instance brokers have no SLA",
+    "values": {
+      "*": {
+        "value": 0.999,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

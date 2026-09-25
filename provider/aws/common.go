@@ -27,7 +27,6 @@ func common() infer.Rules {
 	return infer.Rules{
 		NodeTypes: nodes,
 		Links: []infer.Link{
-			{Type: "aws_pipes_pipe", From: "source", To: []string{"target"}},
 			{Type: "aws_lb_target_group_attachment", From: "target_group_arn", To: []string{"target_id"}},
 		},
 		Aliases:    map[string]string{"aws_lb_listener": "load_balancer_arn"},

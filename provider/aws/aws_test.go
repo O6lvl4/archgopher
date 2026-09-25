@@ -125,10 +125,12 @@ func TestIAMKinds(t *testing.T) {
 		{"aws_s3_bucket", []string{"s3:PutObject"}, "write"},
 		{"aws_sqs_queue", []string{"sqs:ReceiveMessage"}, ""},
 		{"aws_sqs_queue", nil, ""},
-		{"aws_kinesis_stream", []string{"kinesis:PutRecord"}, ""},
 		{"aws_api_gateway_stage", []string{"execute-api:Invoke"}, "request"},
 		{"aws_acmpca_certificate_authority", []string{"acm-pca:IssueCertificate"}, "issue"},
 		{"aws_acmpca_certificate_authority", []string{"acm-pca:DescribeCertificateAuthority"}, ""},
+		{"aws_kinesis_stream", []string{"kinesis:PutRecord"}, "put"},
+		{"aws_kinesis_stream", []string{"kinesis:GetRecords"}, ""},
+		{"aws_no_such_type", []string{"nosuch:Put"}, ""},
 	}
 	for _, c := range cases {
 		got := strings.Join(IAM().Kinds(c.target, c.actions), ",")

@@ -1,0 +1,41 @@
+type: aws_glue_job
+label: Glue job
+category: Analytics
+icon: glue
+description: "DPU-hours per run, billed per second with a 1-minute minimum (10 minutes on Glue 0.9 and 1.0); streaming jobs run all month. The rate follows the job: standard or Flex, memory-optimized (R) workers, Ray, and the lower Glue 6.0+ rates. Headroom is the job's concurrent runs and the account's concurrent DPUs."
+kinds: [run]
+sla: aws.glue
+attributes:
+  - { key: command_name, label: Job type, type: string, default: glueetl, path: command.name, hint: "glueetl, gluestreaming, pythonshell or glueray"  }
+  - { key: glue_version, label: Glue version, type: string, optional: true, hint: "Unset is 0.9"  }
+  - { key: execution_class, label: Execution class, type: choice, options: [STANDARD, FLEX], default: STANDARD }
+  - { key: worker_type, label: Worker type, type: string, optional: true }
+  - { key: number_of_workers, label: Workers, type: number, optional: true }
+  - { key: max_capacity, label: Max capacity, type: number, unit: DPU, optional: true, hint: "Used without a worker type; unset is 10 DPUs, or 0.0625 for Python shell"  }
+  - { key: max_concurrent_runs, label: Max concurrent runs, type: number, default: 1, path: execution_property.max_concurrent_runs }
+assumptions:
+  - { key: runMinutes, label: Run time, type: number, unit: minutes, hint: "One run from start to end; ignored for streaming jobs"  }
+let:
+  - streaming: command_name == "gluestreaming"
+  - shell: command_name == "pythonshell"
+  - ray: command_name == "glueray"
+  - version: 'glue_version != nil ? float(glue_version ?? "0.9") : 0.9'
+  - worker: upper(worker_type ?? "")
+  - perWorker: '{"G.025X": 0.25, "G.1X": 1, "G.2X": 2, "G.4X": 4, "G.8X": 8, "G.12X": 12, "G.16X": 16, "R.1X": 1, "R.2X": 2, "R.4X": 4, "R.8X": 8, "Z.2X": 2}[worker] ?? 0'
+  - dpus: 'worker != "" && number_of_workers != nil ? (number_of_workers ?? 0) * perWorker : (max_capacity ?? (shell ? 0.0625 : 10))'
+  - gen2: version >= 6
+  - memory: worker startsWith "R."
+  - rate: 'ray ? "ray" : (memory ? "memory" : (execution_class == "FLEX" ? "flex" : "etl")) + (gen2 && !ray ? "_gen2" : "")'
+  - billedHours: 'max(runMinutes, version < 2 && !shell ? 10 : 1) / 60'
+  - concurrentRuns: 'streaming ? 1 : total.peak * runMinutes * 60'
+readings:
+  - fail: { when: worker != "" && perWorker == 0, message: 'worker type {worker_type} is not known'  }
+  - cost: { when: streaming, name: 'Streaming job ({dpus} DPU)', quantity: dpus * 730, unit: DPU-hour, price: 'aws.glue.{rate}'  }
+  - cost: { when: '!streaming', name: 'Job runs ({dpus} DPU)', quantity: total.monthly * dpus * billedHours, unit: DPU-hour, price: 'aws.glue.{rate}'  }
+  - limit: { when: '!streaming', name: Concurrent runs, demand: concurrentRuns, unit: runs, capacity: max_concurrent_runs }
+  - limit: { when: '!ray', name: Account DPUs, demand: concurrentRuns * dpus, unit: DPUs, quota: aws.glue.task_dpus }
+  - limit: { when: ray, name: Account Ray M-DPUs, demand: concurrentRuns * dpus, unit: DPUs, quota: aws.glue.ray_mdpus }
+terraform:
+  ignoreRefs: [connections, security_configuration, notification_property]
+iam:
+  run: ["glue:StartJobRun"]

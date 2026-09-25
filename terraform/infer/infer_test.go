@@ -156,6 +156,14 @@ func TestEdgeResources(t *testing.T) {
 	}
 }
 
+func TestResourcesInBetweenAreFedByTheirSource(t *testing.T) {
+	spec, _ := build(t, "testdata/inbetween", eval.Options{})
+	want := "archive>archive-s3:- clicks>archive:- orders-sqs>orders:- orders>enrich:- orders>handler:-"
+	if got := strings.Join(edges(spec), " "); got != want {
+		t.Errorf("a pipe and a delivery stream sit between their source and target:\n got %s\nwant %s", got, want)
+	}
+}
+
 func TestPoliciesForEachAndFunctions(t *testing.T) {
 	spec, warnings := build(t, "testdata/policies", eval.Options{})
 	if len(warnings) > 0 {

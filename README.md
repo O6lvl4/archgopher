@@ -196,7 +196,9 @@ without state and without cloud credentials, so it also works on a pull request.
   environment names a table). Helper resources connect nodes (API Gateway
   integrations, event source mappings, EventBridge targets, S3
   notifications). A helper that bills on its own sits on the path instead:
-  an SNS subscription is a node between its topic and its endpoint. IAM policies attached to a node's role add edges with
+  an SNS subscription is a node between its topic and its endpoint, and a resource
+  that sits between two others (an EventBridge pipe, a Firehose stream or Flink
+  SQL application reading Kinesis) is fed by its source and calls its target. IAM policies attached to a node's role add edges with
   kinds: `dynamodb:PutItem` becomes a `write` edge, `s3:GetObject` a `read`
   edge. Policies written with `jsonencode`, `aws_iam_policy_document` and
   `dynamic "statement"` blocks fed from module variables are all followed
@@ -401,6 +403,18 @@ the demand and says the capacity is unknown.
 | `aws_api_gateway_stage` | The dedicated cache by size; requests pass on to the REST API | - |
 | `aws_acm_certificate` / `aws_acmpca_certificate_authority` | Private certificate issues spread over the renewal period (public ones are free) / CA-months, certificates in tiers or short-lived, OCSP | IssueCertificate rate |
 | `aws_cloudwatch_metric_alarm` | Alarm metric-months, standard or high resolution, anomaly detection | - |
+| `aws_kinesis_stream` | On-demand stream-hours, data written and read, fan-out reads, retention; or provisioned shard-hours, PUT payload units, extended and long-term retention, fan-out consumer-shard-hours | Write MB/s and records against the shards, or the on-demand write ceiling |
+| `aws_kinesis_firehose_delivery_stream` | Data ingested in volume tiers by source (Direct PUT, Kinesis, MSK) and for Iceberg, format conversion, dynamic partitioning, VPC delivery | Direct PUT records, requests and MiB per second (by region) |
+| `aws_kinesisanalyticsv2_application` / `aws_kinesis_analytics_application` | KPU-hours, orchestration KPUs, running storage, durable backups (Flink, Studio or SQL); nothing while stopped | KPUs per application |
+| `aws_kinesisanalyticsv2_application_snapshot` | Durable backup GB-months | - |
+| `aws_msk_cluster` | Broker-hours by type (standard or Express), EBS storage, provisioned throughput, tiered storage; Express data in and storage | Data kept against the brokers' volumes |
+| `aws_mq_broker` | Broker-hours by engine, deployment mode and type, EFS or EBS storage | - |
+| `aws_opensearch_domain` / `aws_elasticsearch_domain` | Data, master and UltraWarm node-hours, EBS storage (gp2, gp3, io1, magnetic) with gp3 and io1 IOPS and throughput, managed storage | Data kept against the volumes |
+| `aws_glue_job` | DPU-hours per run (1- or 10-minute minimum) or all month for streaming; standard, Flex, memory-optimized, Ray and Glue 6.0+ rates | Concurrent runs of the job, account DPUs |
+| `aws_glue_crawler` | DPU-hours per crawl (10-minute minimum); the schedule becomes its load | Crawlers running in the account |
+| `aws_glue_catalog_database` | Objects stored, requests | Tables per database |
+| `aws_mwaa_environment` | Environment-hours by class, workers, schedulers and web servers beyond those included, metadata database | Concurrent tasks against the maximum workers' slots |
+| `aws_pipes_pipe` | Requests in 64 KB chunks after the filter | - |
 | `aws_bedrock_guardrail` | Text units per configured policy (content, topics, sensitive information, contextual grounding) | ApplyGuardrail and per-policy text units per second (varies by region) |
 | `bedrock_model` | Input, output, cache read and cache write tokens (Claude 4.5 models), global or regional inference | Tokens per minute (output × burndown, cache reads excluded) and requests per minute |
 | `aws_bedrockagentcore_agent_runtime` | Active vCPU-hours and peak-memory GB-hours per session (platform V1 or V2), logs | Concurrent sessions, session creation rate, data-plane calls, session length |

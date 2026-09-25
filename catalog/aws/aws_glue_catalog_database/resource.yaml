@@ -1,0 +1,18 @@
+type: aws_glue_catalog_database
+label: Glue Data Catalog database
+category: Analytics
+icon: glue
+description: "Objects stored (tables, partitions, table versions, indexes) per 100,000 a month and requests per million. The free tier, a million of each a month per account, is ignored. Headroom is the tables in the database."
+kinds: [request]
+sla: aws.glue
+assumptions:
+  - { key: objects, label: Objects stored, type: number, hint: "Tables, partitions, table versions and partition indexes in this database"  }
+  - { key: tables, label: Tables, type: number, optional: true }
+readings:
+  - cost: { name: Stored objects, quantity: objects, unit: object-month, price: aws.glue.catalog.storage }
+  - requests: { name: Requests, price: aws.glue.catalog.requests, count: total.monthly }
+  - limit: { when: tables != nil, name: Tables, demand: 'tables ?? 0', unit: tables, quota: aws.glue.tables_per_database }
+terraform:
+  ignoreRefs: [target_database, create_table_default_permission, federated_database]
+iam:
+  request: ["glue:GetDatabase", "glue:GetTable", "glue:GetTables", "glue:GetPartition", "glue:GetPartitions", "glue:BatchGetPartition", "glue:CreateTable", "glue:UpdateTable", "glue:DeleteTable", "glue:CreatePartition", "glue:BatchCreatePartition", "glue:UpdatePartition", "glue:DeletePartition", "glue:BatchDeletePartition"]

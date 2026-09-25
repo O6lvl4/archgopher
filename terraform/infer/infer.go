@@ -63,9 +63,10 @@ type Rules struct {
 
 // Link connects the node(s) referenced by From to the node(s) referenced by To.
 // When the link's own type is a node, it sits in between: From calls it, and
-// its references (To among them) are its own calls.
-// A To path of Self names the link resource itself, for a helper that is a
-// node on the path (an SNS subscription between its topic and endpoint).
+// its references (To among them) are its own calls. A path of Self names the
+// link resource itself, so a resource between two others (a pipe, an SNS
+// subscription) can say it receives from its source (To: [self]) and calls
+// its target (From: self).
 type Link struct {
 	Type string
 	From string
@@ -321,8 +322,8 @@ func (b *builder) edges() []edgeKey {
 			if r.Type != l.Type {
 				continue
 			}
-			froms := b.targetsAt(r, l.From)
-			if b.isNode(r.Address) {
+			froms := b.linkEnds(r, l.From)
+			if b.isNode(r.Address) && l.From != Self {
 				// A helper with a cost of its own (a Pub/Sub subscription) is a
 				// node on the path: from → it, and its own references carry on.
 				for _, from := range froms {
@@ -331,11 +332,7 @@ func (b *builder) edges() []edgeKey {
 				continue
 			}
 			for _, p := range l.To {
-				tos := b.targetsAt(r, p)
-				if p == Self && b.isNode(r.Address) {
-					tos = []string{r.Address}
-				}
-				for _, to := range tos {
+				for _, to := range b.linkEnds(r, p) {
 					for _, from := range froms {
 						add(from, to, "")
 					}
@@ -391,6 +388,18 @@ func (b *builder) targets(ref string) []string {
 		return b.targetsAt(r, path)
 	}
 	return nil
+}
+
+// linkEnds resolves one end of a link: the nodes a path references, or the
+// link resource itself for Self.
+func (b *builder) linkEnds(r *eval.Resource, path string) []string {
+	if path == Self {
+		if b.isNode(r.Address) {
+			return []string{r.Address}
+		}
+		return nil
+	}
+	return b.targetsAt(r, path)
 }
 
 func (b *builder) targetsAt(r *eval.Resource, path string) []string {

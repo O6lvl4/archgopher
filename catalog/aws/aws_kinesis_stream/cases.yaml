@@ -1,0 +1,68 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: on-demand, 3-day retention, two readers and one fan-out consumer (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    stream_mode: ON_DEMAND
+    retention_period: 72
+  assumptions:
+    recordKb: 2
+    consumers: 2
+    efoConsumers: 1
+  demand:
+    put:
+      monthly: 1048576000
+      peak: 1000
+  costs:
+    Stream hours: 37.96
+    Data written: 208.0
+    Data read: 208.0
+    Enhanced fan-out data read: 130.0
+    Extended retention (24 hours to 7 days): 15.780821918
+  limits:
+    Write throughput: 1.953125
+- name: provisioned, 10-day retention, 30 KB records and two fan-out consumers (us-east-1)
+  region: us-east-1
+  attributes:
+    shard_count: 4
+    retention_period: 240
+  assumptions:
+    recordKb: 30
+    efoConsumers: 2
+    longTermReadGb: 50
+  demand:
+    put:
+      monthly: 10000000
+      peak: 500
+  costs:
+    Shards: 43.8
+    PUT payload units: 0.28
+    Extended retention (24 hours to 7 days): 58.4
+    Long-term retention (over 7 days): 0.649021096
+    Long-term data read: 1.05
+    Enhanced fan-out consumer-shard hours: 87.6
+    Enhanced fan-out data read: 7.438659668
+  limits:
+    Write throughput: 14.6484375
+    Write records: 500
+- name: provisioned without shard_count (ap-northeast-1)
+  region: ap-northeast-1
+  demand:
+    put:
+      monthly: 1000
+      peak: 1
+  error: provisioned streams need shard_count
+- name: provisioned, one shard, 24 hours (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    shard_count: 1
+  demand:
+    put:
+      monthly: 2000000
+      peak: 50
+  costs:
+    Shards: 14.235
+    PUT payload units: 0.043
+  limits:
+    Write throughput: 0.048828125
+    Write records: 50

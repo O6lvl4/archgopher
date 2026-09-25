@@ -1,0 +1,59 @@
+type: aws_kinesis_firehose_delivery_stream
+label: Data Firehose
+category: Analytics
+icon: data-firehose
+description: "Data ingested in volume tiers, priced by source: Direct PUT and Kinesis Data Streams round each record up to 5 KB, MSK bills bytes; Apache Iceberg destinations have their own tiers. Format conversion, dynamic partitioning (GB, objects, JQ hours) and delivery into a VPC (GB and AZ-hours) are added when configured. Headroom is the Direct PUT record, request and byte rates of the stream."
+kinds: [put]
+sla: aws.firehose
+attributes:
+  - { key: destination, label: Destination, type: string, default: extended_s3 }
+  - { key: kinesis_source, label: Kinesis Data Streams source, type: boolean, default: false, path: kinesis_source_configuration }
+  - { key: msk_source, label: MSK source, type: boolean, default: false, path: msk_source_configuration }
+  - { key: format_conversion_block, label: Format conversion configured, type: boolean, default: false, path: extended_s3_configuration.data_format_conversion_configuration }
+  - { key: format_conversion_enabled, label: Format conversion enabled, type: boolean, optional: true, path: extended_s3_configuration.data_format_conversion_configuration.enabled, hint: "Unset means enabled when the block is written"  }
+  - { key: dynamic_partitioning, label: Dynamic partitioning, type: boolean, default: false, path: extended_s3_configuration.dynamic_partitioning_configuration.enabled }
+  - { key: elasticsearch_vpc, label: Elasticsearch delivery in a VPC, type: boolean, default: false, path: elasticsearch_configuration.vpc_config }
+  - { key: opensearch_vpc, label: OpenSearch delivery in a VPC, type: boolean, default: false, path: opensearch_configuration.vpc_config }
+  - { key: opensearchserverless_vpc, label: OpenSearch Serverless delivery in a VPC, type: boolean, default: false, path: opensearchserverless_configuration.vpc_config }
+assumptions:
+  - { key: recordKb, label: Record size, type: number, unit: KB, default: 1, hint: "For records whose edges give no kb"  }
+  - { key: recordsPerRequest, label: Records per request, type: number, default: 1, hint: "PutRecordBatch sends up to 500"  }
+  - { key: vpcAzs, label: VPC delivery AZs, type: number, optional: true, hint: "Availability Zones of the subnets in vpc_config; each is billed by the hour"  }
+  - { key: partitionObjects, label: Objects delivered, type: number, optional: true, hint: "S3 objects dynamic partitioning writes a month"  }
+  - { key: jqHours, label: JQ processing hours, type: number, default: 0, hint: "Metadata extraction with JQ expressions, per month"  }
+let:
+  - directPut: '!kinesis_source && !msk_source'
+  - iceberg: 'destination == "iceberg"'
+  - roundedGb: units(total, 5, recordKb) * 5 / 1048576
+  - bytesGb: units(total, 1, recordKb) / 1048576
+  - gb: 'msk_source || iceberg ? bytesGb : roundedGb'
+  - source: 'msk_source ? "msk_source" : (kinesis_source ? "kds_source" : "direct_put")'
+  - ice: 'directPut ? "iceberg.direct_put" : "iceberg.streaming"'
+  - conversion: 'format_conversion_block && (format_conversion_enabled ?? true)'
+  - vpc: elasticsearch_vpc || opensearch_vpc || opensearchserverless_vpc
+readings:
+  - cost: { when: '!iceberg', name: "Data ingested (first 500 TB)", quantity: 'min(gb, 512000)', unit: GB, price: "aws.firehose.{source}.tier1"  }
+  - cost: { when: '!iceberg && gb > 512000', name: "Data ingested (next 1.5 PB)", quantity: 'min(gb - 512000, 1536000)', unit: GB, price: "aws.firehose.{source}.tier2"  }
+  - cost: { when: '!iceberg && gb > 2048000', name: "Data ingested (over 2 PB)", quantity: gb - 2048000, unit: GB, price: "aws.firehose.{source}.tier3"  }
+  - cost: { when: iceberg, name: "Data ingested into Iceberg (first 250 TB)", quantity: 'min(gb, 256000)', unit: GB, price: "aws.firehose.{ice}.tier1"  }
+  - cost: { when: iceberg && gb > 256000, name: "Data ingested into Iceberg (next 750 TB)", quantity: 'min(gb - 256000, 768000)', unit: GB, price: "aws.firehose.{ice}.tier2"  }
+  - cost: { when: iceberg && gb > 1024000, name: "Data ingested into Iceberg (over 1 PB)", quantity: gb - 1024000, unit: GB, price: "aws.firehose.{ice}.tier3"  }
+  - cost: { when: conversion, name: Format conversion, quantity: gb, unit: GB, price: aws.firehose.format_conversion }
+  - cost: { when: dynamic_partitioning, name: Dynamic partitioning, quantity: bytesGb, unit: GB, price: aws.firehose.dynamic_partitioning }
+  - fail: { when: dynamic_partitioning && partitionObjects == nil, message: "dynamic partitioning bills each S3 object: set partitionObjects", continue: true }
+  - cost: { when: dynamic_partitioning && partitionObjects != nil, name: Dynamically partitioned objects, quantity: 'partitionObjects ?? 0', unit: object, price: aws.firehose.dynamic_partitioning.objects }
+  - cost: { when: jqHours > 0, name: JQ processing, quantity: jqHours, unit: hour, price: aws.firehose.dynamic_partitioning.jq_hour }
+  - cost: { when: vpc, name: Data delivered into the VPC, quantity: bytesGb, unit: GB, price: aws.firehose.vpc.data }
+  - fail: { when: vpc && vpcAzs == nil, message: "delivery into a VPC bills each Availability Zone by the hour: set vpcAzs", continue: true }
+  - cost: { when: vpc && vpcAzs != nil, name: VPC delivery AZ hours, quantity: '(vpcAzs ?? 0) * 730', unit: AZ-hour, price: aws.firehose.vpc.az_hour }
+  - rate: { when: directPut, name: Direct PUT records, unit: records/second, quota: aws.firehose.direct_put.records_per_second, peak: total.peak }
+  - rate: { when: directPut, name: Direct PUT requests, unit: requests/second, quota: aws.firehose.direct_put.requests_per_second, peak: total.peak / recordsPerRequest }
+  - rate: { when: directPut, name: Direct PUT throughput, unit: MiB/s, quota: aws.firehose.direct_put.mib_per_second, peak: 'peakUnits(total, 1, recordKb) / 1024' }
+terraform:
+  # A stream that reads Kinesis or MSK is fed by it; everything else it names it writes to.
+  links:
+    - { type: aws_kinesis_firehose_delivery_stream, from: kinesis_source_configuration.kinesis_stream_arn, to: [self]  }
+    - { type: aws_kinesis_firehose_delivery_stream, from: msk_source_configuration.msk_cluster_arn, to: [self]  }
+  ignoreRefs: [kinesis_source_configuration, msk_source_configuration]
+iam:
+  put: ["firehose:PutRecord", "firehose:PutRecordBatch"]

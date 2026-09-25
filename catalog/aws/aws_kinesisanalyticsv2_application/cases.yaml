@@ -1,0 +1,58 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Flink, parallelism 8 at 2 per KPU, with backups (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    start_application: true
+    configuration_type: CUSTOM
+    parallelism: 8
+    parallelism_per_kpu: 2
+  assumptions:
+    backupGb: 20
+  demand:
+    process:
+      monthly: 0
+      peak: 0
+  costs:
+    Processing (Flink): 414.64
+    Orchestration: 103.66
+    Running storage: 24.0
+    Durable backups: 0.5
+  limits:
+    KPUs: 4
+- name: Studio notebook (us-east-1)
+  region: us-east-1
+  attributes:
+    start_application: true
+    runtime_environment: ZEPPELIN-FLINK-3_0
+  demand:
+    process:
+      monthly: 0
+      peak: 0
+  costs:
+    Processing (Studio): 80.3
+    Orchestration: 160.6
+    Running storage: 5.0
+  limits:
+    KPUs: 1
+- name: SQL runtime averaging 3 KPUs, started elsewhere (us-east-1)
+  region: us-east-1
+  attributes:
+    runtime_environment: SQL-1_0
+  assumptions:
+    averageKpus: 3
+    running: true
+  demand:
+    process:
+      monthly: 0
+      peak: 0
+  costs:
+    Processing (SQL): 240.9
+- name: Flink left stopped by Terraform (ap-northeast-1)
+  region: ap-northeast-1
+  demand:
+    process:
+      monthly: 0
+      peak: 0
+  limits:
+    KPUs: 1

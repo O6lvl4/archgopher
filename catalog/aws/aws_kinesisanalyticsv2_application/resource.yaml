@@ -1,0 +1,41 @@
+type: aws_kinesisanalyticsv2_application
+label: Managed Service for Apache Flink
+category: Analytics
+icon: managed-flink
+description: "KPU-hours while the application runs, plus one orchestration KPU for Apache Flink (two for Studio notebooks), 50 GB of running storage per KPU and durable backups. SQL runtimes bill KPUs only. KPUs come from parallelism over parallelism per KPU; auto scaling makes the average an assumption. Headroom is the KPUs against the per-application quota."
+kinds: [process]
+sla: aws.flink
+attributes:
+  - { key: runtime_environment, label: Runtime, type: string, default: FLINK-1_20 }
+  - { key: start_application, label: Started by Terraform, type: boolean, default: false }
+  - { key: configuration_type, label: Parallelism configuration, type: choice, options: [DEFAULT, CUSTOM], default: DEFAULT, path: application_configuration.flink_application_configuration.parallelism_configuration.configuration_type, hint: "DEFAULT runs parallelism 1 at 1 per KPU"  }
+  - { key: parallelism, label: Parallelism, type: number, optional: true, path: application_configuration.flink_application_configuration.parallelism_configuration.parallelism }
+  - { key: parallelism_per_kpu, label: Parallelism per KPU, type: number, optional: true, path: application_configuration.flink_application_configuration.parallelism_configuration.parallelism_per_kpu }
+assumptions:
+  - { key: averageKpus, label: Average KPUs, type: number, optional: true, hint: "With auto scaling, the KPUs averaged over the month; otherwise read from the parallelism"  }
+  - { key: backupGb, label: Durable backups, type: number, unit: GB, default: 0, hint: "Snapshots kept, also those aws_kinesisanalyticsv2_application_snapshot does not name"  }
+  - { key: running, label: Running, type: boolean, optional: true, hint: "Set when the application is started outside Terraform"  }
+let:
+  - on: running ?? start_application
+  - custom: configuration_type == "CUSTOM"
+  - configured: 'ceilDiv(custom ? (parallelism ?? 1) : 1, custom ? (parallelism_per_kpu ?? 1) : 1)'
+  - kpus: averageKpus ?? configured
+  - runtime: upper(runtime_environment)
+  - sql: runtime startsWith "SQL"
+  - studio: runtime startsWith "ZEPPELIN"
+  - extra: 'sql ? 0 : (studio ? 2 : 1)'
+  - kind: 'studio ? "flink.studio" : "flink"'
+readings:
+  - capacity: { when: on && sql, name: Processing (SQL), units: kpus, unit: KPU-hour, price: aws.kinesisanalytics.sql.kpu_hour }
+  - capacity: { when: on && !sql, name: 'Processing ({studio ? "Studio" : "Flink"})', units: kpus, unit: KPU-hour, price: 'aws.{kind}.kpu_hour'  }
+  - capacity: { when: on && !sql, name: Orchestration, units: extra, unit: KPU-hour, price: 'aws.{kind}.kpu_hour'  }
+  - storage: { when: on && !sql, name: Running storage, gb: kpus * 50, price: 'aws.{kind}.running_storage'  }
+  - storage: { when: backupGb > 0, name: Durable backups, gb: backupGb, price: aws.flink.backup }
+  - limit: { when: '!sql', name: KPUs, demand: kpus, unit: KPUs, quota: aws.flink.kpus }
+terraform:
+  # A SQL application reads its inputs: the stream feeds it. Flink sources and
+  # sinks in environment properties are what it calls.
+  links:
+    - { type: aws_kinesisanalyticsv2_application, from: application_configuration.sql_application_configuration.input.kinesis_streams_input.resource_arn, to: [self]  }
+    - { type: aws_kinesisanalyticsv2_application, from: application_configuration.sql_application_configuration.input.kinesis_firehose_input.resource_arn, to: [self]  }
+  ignoreRefs: [application_configuration.sql_application_configuration.input, application_configuration.sql_application_configuration.reference_data_source, application_configuration.application_code_configuration, application_configuration.vpc_configuration, cloudwatch_logging_options, service_execution_role]

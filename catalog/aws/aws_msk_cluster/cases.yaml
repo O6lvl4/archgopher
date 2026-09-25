@@ -1,0 +1,69 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: three kafka.m5.large with provisioned throughput (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    number_of_broker_nodes: 3
+    instance_type: kafka.m5.large
+    volume_size: 100
+    throughput_enabled: true
+    volume_throughput: 250
+  assumptions:
+    storedGb: 50
+  demand:
+    produce:
+      monthly: 1000000
+      peak: 10
+  costs:
+    Brokers (kafka.m5.large): 593.49
+    Broker storage: 36.0
+    Provisioned storage throughput: 72.0
+  limits:
+    Broker storage: 150
+- name: three Express brokers (us-east-1)
+  region: us-east-1
+  attributes:
+    number_of_broker_nodes: 3
+    instance_type: express.m7g.large
+  assumptions:
+    storedGb: 500
+  demand:
+    produce:
+      monthly: 1048576000
+      peak: 1000
+  costs:
+    Brokers (express.m7g.large): 893.52
+    Data written: 10.0
+    Express storage: 50.0
+- name: six kafka.m7g.xlarge with tiered storage and the deprecated volume attribute (us-east-1)
+  region: us-east-1
+  attributes:
+    number_of_broker_nodes: 6
+    instance_type: kafka.m7g.xlarge
+    ebs_volume_size: 1000
+    storage_mode: TIERED
+  assumptions:
+    tieredGb: 2000
+    tieredReadGb: 100
+  demand:
+    produce:
+      monthly: 1000000
+      peak: 10
+  costs:
+    Brokers (kafka.m7g.xlarge): 1787.04
+    Broker storage: 600.0
+    Tiered storage: 120.0
+    Tiered storage read: 0.15
+- name: Express without storedGb (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    number_of_broker_nodes: 3
+    instance_type: express.m7g.large
+  demand:
+    produce:
+      monthly: 1048576
+      peak: 1
+  costs:
+    Brokers (express.m7g.large): 1154.13
+    Data written: 0.015
+  error: set storedGb

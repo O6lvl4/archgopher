@@ -1,0 +1,13 @@
+{
+  "aws.glue.tables_per_database": {
+    "unit": "tables",
+    "source": "https://docs.aws.amazon.com/general/latest/gr/glue.html",
+    "values": {
+      "*": {
+        "value": 200000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

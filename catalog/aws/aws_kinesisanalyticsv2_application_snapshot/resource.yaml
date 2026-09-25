@@ -1,0 +1,14 @@
+type: aws_kinesisanalyticsv2_application_snapshot
+label: Flink application snapshot
+category: Analytics
+icon: managed-flink
+description: "A durable application backup, billed per GB-month for as long as it is kept. Load does not flow through a snapshot."
+kinds: [snapshot]
+sla: aws.flink
+assumptions:
+  - { key: snapshotGb, label: Snapshot size, type: number, unit: GB, hint: "The application state when the snapshot was taken"  }
+readings:
+  - storage: { name: Durable backup, gb: snapshotGb, price: aws.flink.backup }
+terraform:
+  # A snapshot names its application; it calls nothing.
+  passive: true
