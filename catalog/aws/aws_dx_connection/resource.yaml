@@ -2,23 +2,24 @@ type: aws_dx_connection
 label: Direct Connect connection
 category: Network
 icon: direct-connect
-description: "Port-hours by capacity at the Direct Connect location, and data sent out of the region to that location over a private or transit virtual interface; data coming in is free. Place it on the path to the other side: load that passes through carries kbPerUnit each and flows on. A port is priced in the region its location belongs to, so a location outside the declaration's region is not offered there."
+description: "Port-hours by capacity at the Direct Connect location, and data sent out of the region to that location over a virtual interface (private, transit and public are priced the same); data coming in is free. Place it on the path to the other side: load that passes through carries kbPerUnit each and flows on. A port is priced in the region its location belongs to, so a location outside the declaration's region is not offered there. Flat-rate ports with data transfer included are not read."
 kinds: [traffic]
 sla: aws.dx.single_connection
 attributes:
   - { key: bandwidth, label: Bandwidth, type: choice, options: [50Mbps, 100Mbps, 200Mbps, 300Mbps, 400Mbps, 500Mbps, 1Gbps, 2Gbps, 5Gbps, 10Gbps, 25Gbps, 100Gbps, 400Gbps] }
   - { key: location, label: Location, type: string, hint: "The Direct Connect location code, such as EqTY2" }
 assumptions:
-  - { key: connectionType, label: Connection type, type: choice, options: [dedicated, hosted], default: dedicated, hint: "Hosted connections are provisioned by a partner and priced per capacity from 50 Mbps to 25 Gbps" }
+  - { key: connectionType, label: Connection type, type: choice, options: [dedicated, hosted], default: dedicated, hint: "Only 1 and 10 Gbps come both ways: 100 and 400 Gbps are always dedicated, the other capacities always hosted (provisioned by a partner)" }
   - { key: kbPerUnit, label: Data sent per unit, type: number, unit: KB, optional: true, hint: "Per request or message passing through, what AWS sends to the other side" }
   - { key: gbPerMonth, label: Other data sent per month, type: number, unit: GB, default: 0, hint: "Traffic not drawn as load, such as backups to the data center" }
 let:
+  - portType: 'bandwidth in ["1Gbps", "10Gbps"] ? connectionType : (bandwidth in ["100Gbps", "400Gbps"] ? "dedicated" : "hosted")'
   - capacity: 'replace(bandwidth, "bps", "")'
   - gbps: 'hasSuffix(bandwidth, "Gbps") ? float(replace(bandwidth, "Gbps", "")) : float(replace(bandwidth, "Mbps", "")) / 1000'
   - perUnit: 'kbPerUnit != nil ? kbPerUnit : 0.0'
 readings:
   - fail: { when: 'total.monthly > 0 && kbPerUnit == nil', message: "load passes through this connection: set kbPerUnit, the data each unit sends" }
-  - cost: { name: "Port hours ({connectionType} {bandwidth})", quantity: 730, unit: hour, price: "aws.dx.{connectionType}.{capacity}.{location}" }
+  - cost: { name: "Port hours ({portType} {bandwidth})", quantity: 730, unit: hour, price: "aws.dx.{portType}.{capacity}.{location}" }
   - cost: { name: "Data sent out to {location}", quantity: 'gbPerMonth + total.monthly * perUnit / 1024 / 1024', unit: GB, price: "aws.dx.transfer_out.{location}" }
   - limit: { name: Port bandwidth, demand: 'total.peak * perUnit * 8 / 1024 / 1024', unit: Gbps, capacity: gbps }
 terraform:

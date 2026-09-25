@@ -211,7 +211,7 @@ func (b *builder) node(r *eval.Resource) model.Node {
 				n.Attributes[f.Key] = true
 			} else if c, ok := countBlocks(r.Attrs, f.TerraformPath()); ok && f.Type == field.Number {
 				// A number that points at a block reads how many are written.
-				n.Attributes[f.Key] = c
+				n.Attributes[f.Key] = float64(c)
 			}
 		}
 		for _, f := range s.Assumptions() {

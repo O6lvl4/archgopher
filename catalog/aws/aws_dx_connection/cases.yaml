@@ -34,13 +34,11 @@
     Data sent out to EqDC2: 20.0
   limits:
     Port bandwidth: 0
-- name: hosted 500 Mbps from a partner at Equinix TY2 (ap-northeast-1)
+- name: 500 Mbps is always hosted, from a partner at Equinix TY2 (ap-northeast-1)
   region: ap-northeast-1
   attributes:
     bandwidth: 500Mbps
     location: EqTY2
-  assumptions:
-    connectionType: hosted
   demand:
     traffic:
       monthly: 0
@@ -66,3 +64,20 @@
   limits:
     Port bandwidth: 0
   error: not offered
+- name: hosted 1 Gbps from a partner at Equinix TY2 (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    bandwidth: 1Gbps
+    location: EqTY2
+  assumptions:
+    connectionType: hosted
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # 730 h × $0.314
+  costs:
+    Port hours (hosted 1Gbps): 229.22
+    Data sent out to EqTY2: 0
+  limits:
+    Port bandwidth: 0

@@ -15,4 +15,5 @@ readings:
   - requests: { name: Inspected requests, price: aws.waf.classic.requests, count: total.monthly }
 terraform:
   # A CloudFront distribution names the web ACL in web_acl_id: every viewer request passes through it.
-  ignoreRefs: [rules, logging_configuration, default_action]
+  # logging_configuration sends a record per request to its Firehose stream, so it stays an edge.
+  ignoreRefs: [rules, default_action]
