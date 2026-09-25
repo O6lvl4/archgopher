@@ -26,6 +26,16 @@
     Rule evaluations (first 100K): 100
     Rule evaluations (next 400K): 320
     Rule evaluations (over 500K): 845
+- name: custom lambda rule scheduled in source_detail
+  region: ap-northeast-1
+  attributes:
+    owner: CUSTOM_LAMBDA
+    message_type: ScheduledNotification
+    detail_frequency: Twelve_Hours
+  assumptions:
+    resources: 1000
+  costs:
+    Rule evaluations (first 100K): 60.833333333
 - name: resources unknown
   region: us-east-1
   error: missing assumption "resources"

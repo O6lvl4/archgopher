@@ -8,15 +8,18 @@ sla: aws.config
 attributes:
   - { key: maximum_execution_frequency, label: Run frequency, type: string, default: "", hint: "Set on periodic rules; periodic rules without it run every 24 hours" }
   - { key: owner, label: Rule owner, type: choice, options: [AWS, CUSTOM_LAMBDA, CUSTOM_POLICY], default: AWS, path: source.owner }
+  - { key: message_type, label: Custom rule trigger, type: string, default: "", path: source.source_detail.message_type, hint: "ScheduledNotification makes a custom rule periodic" }
+  - { key: detail_frequency, label: Custom rule run frequency, type: string, default: "", path: source.source_detail.maximum_execution_frequency, hint: "A custom periodic rule sets its frequency in source_detail" }
 assumptions:
   - { key: resources, label: Resources in scope, type: number, unit: resources, hint: "Resources the rule checks in each account; 1 for a periodic rule that checks the account as a whole" }
   - { key: changesPerResource, label: Changes per resource per month, type: number, default: 1, hint: "Each recorded configuration change triggers one evaluation of a change-triggered rule; periodic rules ignore it" }
   - { key: periodicRule, label: Periodic, type: boolean, default: false, hint: "True for a managed periodic rule written without a frequency" }
 let:
   - accounts: 1
-  - periodic: 'maximum_execution_frequency != "" || periodicRule'
+  - frequency: 'maximum_execution_frequency != "" ? maximum_execution_frequency : detail_frequency'
+  - periodic: 'frequency != "" || message_type == "ScheduledNotification" || periodicRule'
   - changeTriggered: '!periodic'
-  - hours: '{"One_Hour": 1, "Three_Hours": 3, "Six_Hours": 6, "Twelve_Hours": 12, "TwentyFour_Hours": 24}[maximum_execution_frequency] ?? 24'
+  - hours: '{"One_Hour": 1, "Three_Hours": 3, "Six_Hours": 6, "Twelve_Hours": 12, "TwentyFour_Hours": 24}[frequency] ?? 24'
   - runs: 'periodic ? 730 / hours : 0'
   - perAccount: 'resources * ((changeTriggered ? changesPerResource : 0) + runs) + demand.evaluate.monthly * resources'
 readings:
