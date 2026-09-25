@@ -1,0 +1,24 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Standard tier with three D2s_v5 nodes
+  region: japaneast
+  attributes: { sku_tier: Standard, vm_size: Standard_D2s_v5, node_count: 3 }
+  costs:
+    Uptime SLA: 73
+    Node hours: 271.56
+    OS disks (P10 LRS): 68.01
+- name: Free tier autoscaling from two D2_v3 nodes, with load balancer data and HTTP routing
+  region: eastus
+  attributes: { vm_size: Standard_D2_v3, node_count: 1, min_count: 2, http_application_routing_enabled: true }
+  assumptions: { lbGbPerMonth: 1000 }
+  costs:
+    Node hours: 140.16
+    OS disks (S10 LRS): 11.776
+    Load balancer data processed: 5
+    DNS zone: 0.5
+- name: Premium tier on ephemeral OS disks
+  region: japaneast
+  attributes: { sku_tier: Premium, vm_size: Standard_D2s_v5, os_disk_type: Ephemeral }
+  costs:
+    Long-term support: 438
+    Node hours: 90.52

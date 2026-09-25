@@ -1,0 +1,32 @@
+type: azurerm_kubernetes_cluster_node_pool
+label: AKS node pool
+category: Compute
+icon: kubernetes-services
+description: "A user node pool: VM hours by size, Linux or Windows, and each node's managed OS disk (Premium SSD when the size takes premium storage, else Standard HDD; ephemeral disks are free). Spot pools are priced at pay-as-you-go rates."
+kinds: [request]
+sla: azure.aks
+attributes:
+  - { key: vm_size, label: Node size, type: string, hint: "A VM size such as Standard_D2s_v5" }
+  - { key: node_count, label: Nodes, type: number, optional: true }
+  - { key: min_count, label: Minimum nodes, type: number, optional: true, hint: "With the autoscaler; read when node_count is unset or 1" }
+  - { key: os_type, label: OS, type: choice, options: [Linux, Windows], default: Linux }
+  - { key: os_sku, label: OS SKU, type: string, optional: true, hint: "Windows2019 and Windows2022 are Windows" }
+  - { key: os_disk_type, label: OS disk type, type: choice, options: [Managed, Ephemeral], default: Managed }
+  - { key: os_disk_size_gb, label: OS disk size, type: number, unit: GiB, optional: true, hint: "Unset is 128 GiB" }
+assumptions:
+  - { key: averageNodes, label: Average nodes, type: number, optional: true, hint: "Nodes running on average when the autoscaler adds some; unset reads node_count or min_count" }
+  - { key: monthlyHours, label: Hours running, type: number, unit: hours, default: 730, hint: "Hours a month each node runs" }
+let:
+  - terraformNodes: 'node_count != nil && !(node_count == 1 && min_count != nil) ? node_count : min_count != nil ? min_count : 1.0'
+  - n: 'averageNodes != nil ? averageNodes : terraformNodes'
+  - os: 'os_type == "Windows" || (os_sku != nil && lower(os_sku) startsWith "windows") ? "windows" : "linux"'
+  - premiumStorage: 'vm_size matches "^[^_]+_(([DdGg][Ss]|[Mm])[^_]*|[^_]*[0-9]+[A-Za-z]*s[^_]*)(_.*)?$"'
+  - dclass: 'premiumStorage ? "P" : "S"'
+  - dsize: 'os_disk_size_gb != nil ? os_disk_size_gb : 128.0'
+  - dnum: 'dsize <= 4 ? 1 : dsize <= 8 ? 2 : dsize <= 16 ? 3 : dsize <= 32 ? 4 : dsize <= 64 ? 6 : dsize <= 128 ? 10 : dsize <= 256 ? 15 : dsize <= 512 ? 20 : dsize <= 1024 ? 30 : dsize <= 2048 ? 40 : dsize <= 4096 ? 50 : dsize <= 8192 ? 60 : dsize <= 16384 ? 70 : 80'
+  - dtier: 'dclass + string(dclass == "S" ? max(dnum, 4) : dnum)'
+readings:
+  - cost: { name: '{os == "windows" ? "Node hours (Windows)" : "Node hours"}', quantity: n * monthlyHours, unit: instance-hour, price: "azure.vm.{os}.{vm_size}" }
+  - cost: { when: os_disk_type == "Managed", name: "OS disks ({dtier} LRS)", quantity: n, unit: disk-month, price: "azure.disk.lrs.{dtier}" }
+terraform:
+  ignoreRefs: [kubernetes_cluster_id, vnet_subnet_id, pod_subnet_id, proximity_placement_group_id, capacity_reservation_group_id, host_group_id, node_public_ip_prefix_id, snapshot_id]

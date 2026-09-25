@@ -1,0 +1,17 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: up to 50 GB is half an instance
+  region: japaneast
+  assumptions: { protectedGb: 40 }
+  costs:
+    Protected instance: 5
+- name: 800 GB is two 500 GB instances
+  region: japaneast
+  assumptions: { protectedGb: 800 }
+  costs:
+    Protected instance: 20
+- name: 300 GB is one instance
+  region: eastus
+  assumptions: { protectedGb: 300 }
+  costs:
+    Protected instance: 10

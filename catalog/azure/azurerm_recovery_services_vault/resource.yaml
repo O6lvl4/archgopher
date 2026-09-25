@@ -1,0 +1,19 @@
+type: azurerm_recovery_services_vault
+label: Recovery Services vault
+category: Storage
+icon: recovery-services-vaults
+description: "Backup data stored in the vault, by its storage redundancy (read-access geo-redundant with cross-region restore). Protected instance fees are on the azurerm_backup_protected_vm nodes."
+kinds: [store]
+sla: azure.backup
+attributes:
+  - { key: storage_mode_type, label: Storage redundancy, type: choice, options: [GeoRedundant, LocallyRedundant, ZoneRedundant], default: GeoRedundant }
+  - { key: cross_region_restore_enabled, label: Cross-region restore, type: boolean, default: false }
+assumptions:
+  - { key: storedGb, label: Backup data stored, type: number, unit: GB, hint: "The protected items' data plus the incremental recovery points the backup policies retain" }
+let:
+  - r: 'storage_mode_type == "LocallyRedundant" ? "lrs" : storage_mode_type == "ZoneRedundant" ? "zrs" : cross_region_restore_enabled ? "ragrs" : "grs"'
+readings:
+  - storage: { name: Backup storage, gb: storedGb, price: "azure.backup.storage.{r}" }
+terraform:
+  passive: true
+  ignoreRefs: [identity, encryption, monitoring]

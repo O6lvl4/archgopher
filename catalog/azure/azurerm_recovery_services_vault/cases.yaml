@@ -1,0 +1,19 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 1 TB in a geo-redundant vault
+  region: japaneast
+  assumptions: { storedGb: 1000 }
+  costs:
+    Backup storage: 44.8
+- name: locally redundant
+  region: eastus
+  attributes: { storage_mode_type: LocallyRedundant }
+  assumptions: { storedGb: 500 }
+  costs:
+    Backup storage: 11.2
+- name: cross-region restore reads RA-GRS
+  region: japaneast
+  attributes: { cross_region_restore_enabled: true }
+  assumptions: { storedGb: 100 }
+  costs:
+    Backup storage: 5.69

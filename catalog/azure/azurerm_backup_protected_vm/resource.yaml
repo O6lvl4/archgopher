@@ -1,0 +1,15 @@
+type: azurerm_backup_protected_vm
+label: Backup-protected VM
+category: Storage
+icon: recovery-services-vaults
+description: "The protected instance fee by the size of the data backed up: half an instance up to 50 GB, then one instance per 500 GB. The backup data is stored and billed on the azurerm_recovery_services_vault node."
+kinds: [backup]
+sla: azure.backup
+assumptions:
+  - { key: protectedGb, label: Data protected, type: number, unit: GB, hint: "Used data on the VM's OS and data disks; at most their provisioned size" }
+let:
+  - instances: 'protectedGb <= 50 ? 0.5 : ceilDiv(protectedGb, 500)'
+readings:
+  - cost: { name: Protected instance, quantity: instances, unit: instance-month, price: azure.backup.vm.protected_instance }
+terraform:
+  passive: true

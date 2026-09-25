@@ -1,0 +1,15 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Windows VM with two 512 GiB Premium data disks
+  region: japaneast
+  attributes: { vm_size: Standard_D2s_v5, windows_config: true, os_disk_type: Premium_LRS, data_disk_type: Premium_LRS, data_disk_size_gb: 512 }
+  assumptions: { dataDisks: 2 }
+  costs:
+    Instance hours (Windows): 157.68
+    OS disk (P10 LRS): 22.67
+    Data disks (P20 LRS): 168.4
+- name: Linux VM on an unmanaged disk pays the instance only
+  region: eastus
+  attributes: { vm_size: Standard_D2s_v5 }
+  costs:
+    Instance hours: 70.08

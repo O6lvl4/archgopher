@@ -1,0 +1,24 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: D2s_v5 with a Premium SSD OS disk of the image's size
+  region: japaneast
+  attributes: { size: Standard_D2s_v5, os_disk_type: Premium_LRS }
+  costs:
+    Instance hours: 90.52
+    OS disk (P4 LRS): 6.0724
+- name: B2s running 200 hours on a 64 GiB Standard SSD
+  region: eastus
+  attributes: { size: Standard_B2s, os_disk_type: StandardSSD_LRS, os_disk_size_gb: 64 }
+  assumptions: { monthlyHours: 200, osDiskOpsPerMonth: 1000000 }
+  costs:
+    Instance hours: 8.32
+    OS disk (E6 LRS): 4.8
+    OS disk operations: 0.2
+- name: Ultra Disk compatibility without an Ultra Disk reserves the vCPUs
+  region: japaneast
+  attributes: { size: Standard_D2s_v5, os_disk_type: Standard_LRS, ultra_ssd_enabled: true }
+  assumptions: { ultraReservedVcpus: 2 }
+  costs:
+    Instance hours: 90.52
+    OS disk (S4 LRS): 1.536
+    Ultra Disk reservation: 12.702

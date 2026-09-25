@@ -1,0 +1,51 @@
+type: azurerm_virtual_machine_scale_set
+label: VM scale set (legacy)
+category: Compute
+icon: vm-scale-sets
+description: "The legacy scale set resource: pay-as-you-go instance hours by SKU times its capacity, Linux or Windows (a Windows image, os_type or os_profile_windows_config; Azure Hybrid Benefit with license_type pays the base rate), and each instance's managed OS disk and data disks by tier (with operations on Standard HDD and SSD). Spot, Low Priority and reserved prices are not read."
+kinds: [request]
+sla: azure.vm.scale_set
+attributes:
+  - { key: sku_name, label: Size, type: string, path: sku.name, hint: "A VM size such as Standard_D2s_v5" }
+  - { key: sku_capacity, label: Instances, type: number, default: 0, path: sku.capacity }
+  - { key: license_type, label: License type, type: string, optional: true, hint: "Windows_Server or Windows_Client brings your own license (Azure Hybrid Benefit)" }
+  - { key: os_type, label: OS type, type: string, optional: true, path: storage_profile_os_disk.os_type }
+  - { key: image_offer, label: Image offer, type: string, optional: true, path: storage_profile_image_reference.offer }
+  - { key: windows_config, label: Windows configuration, type: boolean, default: false, path: os_profile_windows_config }
+  - { key: os_disk_type, label: OS disk type, type: string, default: "", path: storage_profile_os_disk.managed_disk_type, hint: "Unset for unmanaged (VHD) disks" }
+  - { key: os_disk_size_gb, label: OS disk size, type: number, unit: GiB, optional: true, path: storage_profile_os_disk.disk_size_gb, hint: "Unset takes the image's size: 30 GiB for most Linux images, 127 GiB for Windows Server" }
+  - { key: data_disk_type, label: Data disk type, type: string, default: "", path: storage_profile_data_disk.managed_disk_type, hint: "The first storage_profile_data_disk block" }
+  - { key: data_disk_size_gb, label: Data disk size, type: number, unit: GiB, optional: true, path: storage_profile_data_disk.disk_size_gb }
+assumptions:
+  - { key: averageInstances, label: Average instances, type: number, optional: true, hint: "Instances running on average when autoscale moves the count; unset reads sku.capacity" }
+  - { key: monthlyHours, label: Hours running, type: number, unit: hours, default: 730, hint: "Hours a month each instance is allocated" }
+  - { key: dataDisksPerInstance, label: Data disks per instance, type: number, default: 1, hint: "storage_profile_data_disk blocks of the first block's type and size; the import reads the first block only" }
+  - { key: osDiskOpsPerMonth, label: OS disk operations, type: number, default: 0, hint: "Per month across all instances; Standard HDD and SSD bill every 10,000" }
+  - { key: dataDiskOpsPerMonth, label: Data disk operations, type: number, default: 0, hint: "Per month across all data disks; Standard HDD and SSD bill every 10,000" }
+let:
+  - n: 'averageInstances != nil ? averageInstances : sku_capacity'
+  - windows: 'windows_config || (os_type != nil && lower(os_type) == "windows") || (image_offer != nil && lower(image_offer) == "windowsserver")'
+  - hybrid: 'windows && license_type != nil && license_type in ["Windows_Server", "Windows_Client"]'
+  - os: 'windows && !hybrid ? "windows" : "linux"'
+  - dtype: os_disk_type
+  - dsize: 'os_disk_size_gb != nil ? os_disk_size_gb : windows ? 127.0 : 30.0'
+  - dclass: 'dtype startsWith "StandardSSD" ? "E" : dtype startsWith "Standard_" ? "S" : dtype startsWith "Premium_" ? "P" : dtype == "" ? "none" : "unread"'
+  - dred: 'dtype endsWith "ZRS" ? "zrs" : "lrs"'
+  - dnum: 'dsize <= 4 ? 1 : dsize <= 8 ? 2 : dsize <= 16 ? 3 : dsize <= 32 ? 4 : dsize <= 64 ? 6 : dsize <= 128 ? 10 : dsize <= 256 ? 15 : dsize <= 512 ? 20 : dsize <= 1024 ? 30 : dsize <= 2048 ? 40 : dsize <= 4096 ? 50 : dsize <= 8192 ? 60 : dsize <= 16384 ? 70 : 80'
+  - dtier: 'dclass + string(dclass == "S" ? max(dnum, 4) : dnum)'
+  - xtype: data_disk_type
+  - xsize: 'data_disk_size_gb != nil ? data_disk_size_gb : 0.0'
+  - xclass: 'xtype startsWith "StandardSSD" ? "E" : xtype startsWith "Standard_" ? "S" : xtype startsWith "Premium_" ? "P" : xtype == "" ? "none" : "unread"'
+  - xred: 'xtype endsWith "ZRS" ? "zrs" : "lrs"'
+  - xnum: 'xsize <= 4 ? 1 : xsize <= 8 ? 2 : xsize <= 16 ? 3 : xsize <= 32 ? 4 : xsize <= 64 ? 6 : xsize <= 128 ? 10 : xsize <= 256 ? 15 : xsize <= 512 ? 20 : xsize <= 1024 ? 30 : xsize <= 2048 ? 40 : xsize <= 4096 ? 50 : xsize <= 8192 ? 60 : xsize <= 16384 ? 70 : 80'
+  - xtier: 'xclass + string(xclass == "S" ? max(xnum, 4) : xnum)'
+readings:
+  - fail: { when: 'dclass == "unread" || xclass == "unread"', message: "only Standard HDD, Standard SSD and Premium SSD disks are read, not {dtype} {xtype}", continue: true }
+  - cost: { name: '{os == "windows" ? "Instance hours (Windows)" : hybrid ? "Instance hours (Hybrid Benefit)" : "Instance hours"}', quantity: n * monthlyHours, unit: instance-hour, price: "azure.vm.{os}.{sku_name}" }
+  - cost: { when: 'dclass in ["S", "E", "P"]', name: "OS disks ({dtier} {upper(dred)})", quantity: n, unit: disk-month, price: "azure.disk.{dred}.{dtier}" }
+  - cost: { when: 'dclass in ["S", "E"] && osDiskOpsPerMonth > 0', name: OS disk operations, quantity: osDiskOpsPerMonth, unit: operation, price: '{dclass == "S" ? "azure.disk.operations.standard_hdd_" : "azure.disk.operations.standard_ssd_"}{dred}' }
+  - fail: { when: 'xclass in ["S", "E", "P"] && xsize <= 0', message: "the data disk has no disk_size_gb" }
+  - cost: { when: 'xclass in ["S", "E", "P"]', name: "Data disks ({xtier} {upper(xred)})", quantity: n * dataDisksPerInstance, unit: disk-month, price: "azure.disk.{xred}.{xtier}" }
+  - cost: { when: 'xclass in ["S", "E"] && dataDiskOpsPerMonth > 0', name: Data disk operations, quantity: dataDiskOpsPerMonth, unit: operation, price: '{xclass == "S" ? "azure.disk.operations.standard_hdd_" : "azure.disk.operations.standard_ssd_"}{xred}' }
+terraform:
+  ignoreRefs: [network_profile, proximity_placement_group_id, health_probe_id, storage_profile_os_disk, storage_profile_data_disk, storage_profile_image_reference, identity, os_profile, os_profile_linux_config, os_profile_secrets, os_profile_windows_config, boot_diagnostics, plan, extension, rolling_upgrade_policy]

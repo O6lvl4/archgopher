@@ -434,6 +434,12 @@ not zero.
 | `azurerm_key_vault` | Operations | Requests per vault |
 | `azurerm_log_analytics_workspace` | Ingestion (Application Insights folds in) and retention beyond 31 days | - |
 | `azurerm_cognitive_deployment` | Azure OpenAI input, cached and output tokens by model and deployment type | Tokens and requests per minute from capacity or quota |
+| `azurerm_linux_virtual_machine` / `azurerm_windows_virtual_machine` / `azurerm_virtual_machine` | Instance hours by size (Linux, Windows, or the base rate with Hybrid Benefit), OS disk tier and operations, inline data disks (legacy), Ultra Disk reservation | - |
+| `azurerm_linux_virtual_machine_scale_set` / `azurerm_windows_virtual_machine_scale_set` / `azurerm_virtual_machine_scale_set` | Instance hours by size times instances, their OS and data disks | - |
+| `azurerm_managed_disk` | Standard HDD, Standard SSD and Premium SSD by tier with operations; Ultra and Premium SSD v2 capacity, IOPS and throughput | IOPS against the tier or the provisioned IOPS |
+| `azurerm_snapshot` / `azurerm_image` | Data held, at the snapshot price | - |
+| `azurerm_backup_protected_vm` / `azurerm_recovery_services_vault` | Protected instances by data size / backup storage by the vault's redundancy | - |
+| `azurerm_kubernetes_cluster` / `azurerm_kubernetes_cluster_node_pool` | Standard tier uptime SLA or Premium long-term support, node hours by size and OS, managed OS disks, load balancer data, the HTTP routing DNS zone | - |
 
 Role assignments become edges: an `azurerm_role_assignment` connects the
 resource whose managed identity holds the role (system- or user-assigned) to

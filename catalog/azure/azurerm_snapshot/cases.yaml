@@ -1,0 +1,16 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: incremental snapshot holding 40 GB of changes
+  region: japaneast
+  attributes: { disk_size_gb: 128, incremental_enabled: true }
+  assumptions: { storedGb: 40 }
+  costs:
+    Snapshot storage: 2
+- name: full snapshot read at the disk size
+  region: eastus
+  attributes: { disk_size_gb: 128 }
+  costs:
+    Snapshot storage: 6.4
+- name: no size
+  region: eastus
+  error: "the data held is unknown"

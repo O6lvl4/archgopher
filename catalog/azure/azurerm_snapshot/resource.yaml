@@ -1,0 +1,19 @@
+type: azurerm_snapshot
+label: Disk snapshot
+category: Storage
+icon: disks-snapshots
+description: "Data held, at the Standard HDD LRS snapshot price. A full snapshot holds the used size of the disk; an incremental one holds only the changes since the last."
+kinds: [restore]
+attributes:
+  - { key: disk_size_gb, label: Disk size, type: number, unit: GiB, optional: true, hint: "Unset takes the source disk's size" }
+  - { key: incremental_enabled, label: Incremental, type: boolean, default: false }
+assumptions:
+  - { key: storedGb, label: Data held, type: number, unit: GB, optional: true, hint: "Used data of the source disk, or the changes an incremental snapshot keeps; unset reads the disk size" }
+let:
+  - gb: 'storedGb != nil ? storedGb : disk_size_gb != nil ? disk_size_gb : 0.0'
+readings:
+  - fail: { when: gb <= 0, message: "the data held is unknown: set storedGb (disk_size_gb is not written; the source disk's size is a ceiling)" }
+  - storage: { name: Snapshot storage, gb: gb, price: azure.disk.snapshot }
+terraform:
+  mentioned: true
+  passive: true
