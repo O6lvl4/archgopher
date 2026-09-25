@@ -20,3 +20,7 @@
   region: eastus
   attributes: { ip_version: IPv6 }
   error: "IPv6 public addresses are not priced yet"
+- name: StandardV2 is not priced (eastus)
+  region: eastus
+  attributes: { sku: StandardV2 }
+  error: "StandardV2 public addresses have no meter"

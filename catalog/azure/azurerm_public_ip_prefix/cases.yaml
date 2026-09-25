@@ -15,3 +15,7 @@
   region: japaneast
   attributes: { prefix_length: 24 }
   assumptions: { byoip: true }
+- name: StandardV2 prefix is not priced (eastus)
+  region: eastus
+  attributes: { sku: StandardV2 }
+  error: "StandardV2 prefixes have no meter"

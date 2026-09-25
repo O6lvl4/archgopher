@@ -6,7 +6,7 @@ description: "Standard and cross-region (Global tier) load balancers: the hourly
 kinds: [traffic]
 sla: azure.lb
 attributes:
-  - { key: sku, label: SKU, type: choice, options: [Basic, Standard, Gateway], default: Basic }
+  - { key: sku, label: SKU, type: choice, options: [Basic, Standard, Gateway], default: Standard }
   - { key: sku_tier, label: Tier, type: choice, options: [Regional, Global], default: Regional, hint: "Global is a cross-region load balancer" }
 assumptions:
   - { key: kbPerUnit, label: Data per unit, type: number, unit: KB, optional: true, hint: "Per request or flow passing through, request and response together" }

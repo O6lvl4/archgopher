@@ -27,6 +27,7 @@
     Data processed: 0.4
 - name: Basic load balancer costs nothing (japaneast)
   region: japaneast
+  attributes: { sku: Basic }
   demand: { traffic: { monthly: 1000, peak: 1 } }
 - name: load passes through without a size (japaneast)
   region: japaneast
