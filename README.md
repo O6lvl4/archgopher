@@ -431,10 +431,27 @@ not zero.
 | `azurerm_cdn_frontdoor_profile` | Base fee, requests and transfer out by the viewers' zone | - |
 | `azurerm_servicebus_namespace` | Operations (Basic, Standard with its base fee), or Premium messaging units | Operations per second |
 | `azurerm_eventgrid_topic` | Operations | Events per second |
+<<<<<<< HEAD
 | `azurerm_key_vault` | Secret operations | Requests per vault |
 | `azurerm_key_vault_key` | Operations (RSA 2048 or advanced), HSM key-months per version, automatic rotations | Vault rate for the key type and protection |
 | `azurerm_key_vault_certificate` | Renewals read from the policy, operations | Requests per vault |
 | `azurerm_key_vault_managed_hardware_security_module` | HSM pool hours (keys and operations included) | RSA 2048 unwrap throughput |
+||||||| 8a08f5b
+| `azurerm_key_vault` | Operations | Requests per vault |
+=======
+| `azurerm_eventgrid_system_topic` | Operations, as a custom topic | - |
+| `azurerm_eventhub_namespace` | Throughput-unit hours, ingress events and Capture (Basic, Standard), processing-unit hours (Premium), capacity-unit hours (Dedicated), retention beyond the included | Ingress per throughput unit, up to the auto-inflate ceiling |
+| `azurerm_iothub` | Units by tier (F1 is free) | Daily messages and device-to-cloud sends per unit |
+| `azurerm_iothub_dps` | Operations | Registrations per minute per unit |
+| `azurerm_notification_hub_namespace` | Base fee and pushes beyond the included 10 million, by tier | Active devices, the free tier's pushes |
+| `azurerm_signalr_service` | Unit-days and messages beyond those included, per 2 KB | Concurrent connections per unit |
+| `azurerm_app_configuration` | Store- and replica-days, requests beyond the daily allowance | Requests per hour or day by tier, read rate |
+| `azurerm_storage_queue` | Data stored, Class 1 and 2 operations by redundancy, geo-replication transfer | Messages per second per queue |
+| `azurerm_storage_table` | Data stored, write, batch, read, scan, delete and list operations by redundancy and encryption | Entities per second per partition |
+| `azurerm_storage_share` | Data, snapshots and metadata stored, operations and cool retrieval by tier and redundancy; premium provisioned size | IOPS per share |
+| `azurerm_storage_management_policy` | Tier changes billed as the destination tier's writes | - |
+| `azurerm_key_vault` | Operations | Requests per vault |
+>>>>>>> cov/azure-messaging-storage
 | `azurerm_log_analytics_workspace` | Ingestion (Application Insights folds in) and retention beyond 31 days | - |
 | `azurerm_cognitive_deployment` | Azure OpenAI input, cached and output tokens by model and deployment type | Tokens and requests per minute from capacity or quota |
 | `azurerm_linux_virtual_machine` / `azurerm_windows_virtual_machine` / `azurerm_virtual_machine` | Instance hours by size (Linux, Windows, or the base rate with Hybrid Benefit), OS disk tier and operations, inline data disks (legacy), Ultra Disk reservation | - |

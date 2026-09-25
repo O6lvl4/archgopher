@@ -1,0 +1,32 @@
+{
+  "azure.signalr.connections_per_unit": {
+    "unit": "connections",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits#azure-signalr-service-limits",
+    "note": "Concurrent connections per unit",
+    "rows": {
+      "free": {
+        "*": 20
+      },
+      "premium": {
+        "*": 1000
+      },
+      "standard": {
+        "*": 1000
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.signalr.free_messages_per_day": {
+    "unit": "messages/day",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits#azure-signalr-service-limits",
+    "note": "Free tier messages a day, counted per 2 KB",
+    "values": {
+      "*": {
+        "value": 20000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

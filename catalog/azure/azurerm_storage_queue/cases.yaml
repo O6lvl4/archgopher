@@ -1,0 +1,51 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: LRS queue with a polling consumer in Japan East
+  region: japaneast
+  assumptions:
+    storedGb: 1
+    emptyPolls: 100000
+  demand:
+    send:
+      monthly: 1000000.0
+      peak: 20
+    receive:
+      monthly: 1000000.0
+      peak: 20
+  costs:
+    Data stored: 0.045
+    Class 1 operations: 0.8
+    Class 2 operations: 0.44
+  limits:
+    Messages per second: 40
+- name: GRS queue replicates what is sent, East US
+  region: eastus
+  assumptions:
+    redundancy: GRS
+    messageKb: 4
+  demand:
+    send:
+      monthly: 10000000.0
+      peak: 100
+    receive:
+      monthly: 10000000.0
+      peak: 100
+  costs:
+    Data stored: 0
+    Class 1 operations: 16.0
+    Class 2 operations: 4.0
+    Geo-replication transfer: 0.762939453
+  limits:
+    Messages per second: 200
+- name: GZRS has no Class 1 price
+  region: japaneast
+  assumptions:
+    redundancy: GZRS
+  demand:
+    send:
+      monthly: 1
+      peak: 1
+    receive:
+      monthly: 1
+      peak: 1
+  error: the Azure price list has no Class 1 operation price for GZRS queues

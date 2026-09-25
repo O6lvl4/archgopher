@@ -1,0 +1,73 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Standard with two throughput units in Japan East
+  region: japaneast
+  attributes:
+    sku: Standard
+    capacity: 2
+  demand:
+    send:
+      monthly: 10000000.0
+      peak: 500
+  costs:
+    Throughput units: 43.8
+    Ingress events: 0.28
+  limits:
+    Ingress rate: 500
+- name: Basic in East US, 100 KB events count twice and throttle per KB
+  region: eastus
+  attributes:
+    sku: Basic
+  assumptions:
+    eventKb: 100
+  demand:
+    send:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Throughput units: 10.95
+    Ingress events: 0.056
+  limits:
+    Ingress rate: 1000
+- name: Standard with Capture and auto-inflate in East US
+  region: eastus
+  attributes:
+    sku: Standard
+    auto_inflate_enabled: true
+    maximum_throughput_units: 10
+  assumptions:
+    captureEnabled: true
+  demand:
+    send:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Throughput units: 21.9
+    Ingress events: 0.028
+    Capture: 73.0
+  limits:
+    Ingress rate: 10
+- name: Premium with retention beyond the included terabyte
+  region: japaneast
+  attributes:
+    sku: Premium
+  assumptions:
+    retentionGb: 1500
+  demand:
+    send:
+      monthly: 100000000.0
+      peak: 1000
+  costs:
+    Processing units: 1087.7
+    Retention beyond the included 1 TB per unit: 72.5
+- name: on a Dedicated cluster
+  region: eastus
+  attributes:
+    sku: Standard
+    dedicated_cluster_id: /subscriptions/x/resourceGroups/y/providers/Microsoft.EventHub/clusters/z
+  demand:
+    send:
+      monthly: 100000000.0
+      peak: 1000
+  costs:
+    Capacity units: 4999.77

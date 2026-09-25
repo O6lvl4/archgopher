@@ -1,0 +1,34 @@
+type: azurerm_storage_table
+label: Storage table
+category: Database
+icon: storage-table
+description: "Table Storage: data stored and write, batch write, read, scan, delete and list operations, by the account's redundancy and whether it encrypts with a customer-managed key (priced far higher). Standard RA-GZRS writes have no listed price and are read at the read price, as Infracost does. Headroom is entities per second per partition."
+kinds: [read, write, query, delete]
+sla: azure.storage
+assumptions:
+  - { key: redundancy, label: Account redundancy, type: choice, options: [LRS, ZRS, GRS, RAGRS, GZRS, RAGZRS], default: LRS, hint: "account_replication_type of the storage account" }
+  - { key: customerManagedKey, label: Customer-managed key, type: boolean, default: false, hint: "The account encrypts tables with a customer-managed key" }
+  - { key: storedGb, label: Data stored, type: number, unit: GB }
+  - { key: entitiesPerBatch, label: Entities per batch, type: number, default: 1, hint: "Writes sent as entity group transactions; one batch write each" }
+  - { key: listOperations, label: List operations, type: number, default: 0, hint: "Calls a month that list tables" }
+  - { key: partitions, label: Partitions, type: number, default: 1, hint: "Partition keys the load spreads over evenly" }
+let:
+  - r: 'redundancy == "RAGRS" ? "RA-GRS" : redundancy == "RAGZRS" ? "RA-GZRS" : redundancy'
+  - sku: '(customerManagedKey ? "Account Encrypted " : "Standard ") + r'
+  - unlisted: 'sku == "Standard RA-GZRS"'
+readings:
+  - storage: { name: Data stored, gb: storedGb, price: "azure.storage.tables.stored.{sku}" }
+  - requests: { when: entitiesPerBatch <= 1, name: Write operations, unit: operation, price: 'azure.storage.tables.{unlisted ? "read" : "write"}.{sku}', count: demand.write.monthly }
+  - requests: { when: entitiesPerBatch > 1, name: Batch write operations, unit: operation, price: 'azure.storage.tables.{unlisted ? "read" : "batch_write"}.{sku}', count: demand.write.monthly / entitiesPerBatch }
+  - requests: { name: Read operations, unit: operation, price: "azure.storage.tables.read.{sku}", count: demand.read.monthly }
+  - requests: { name: Scan operations, unit: operation, price: "azure.storage.tables.scan.{sku}", count: demand.query.monthly }
+  - requests: { name: Delete operations, unit: operation, price: "azure.storage.tables.delete.{sku}", count: demand.delete.monthly }
+  - requests: { when: listOperations > 0, name: List operations, unit: operation, price: "azure.storage.tables.list.{sku}", count: listOperations }
+  - rate: { name: Entities per second per partition, unit: entities/second, quota: azure.storage.table_entities_per_partition, peak: total.peak, scale: 'max(partitions, 1.0)' }
+terraform:
+  ignoreRefs: [storage_account_name, storage_account_id]
+iam:
+  read: ["Storage Table Data Reader", "Storage Table Data Contributor"]
+  query: ["Storage Table Data Reader", "Storage Table Data Contributor"]
+  write: ["Storage Table Data Contributor"]
+  delete: ["Storage Table Data Contributor"]

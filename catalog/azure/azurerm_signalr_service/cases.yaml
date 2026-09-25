@@ -1,0 +1,48 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: two Standard units beyond the included messages in Japan East
+  region: japaneast
+  attributes:
+    sku_name: Standard_S1
+    capacity: 2
+  assumptions:
+    concurrentConnections: 1500
+  demand:
+    send:
+      monthly: 100000000.0
+      peak: 100
+  costs:
+    Units: 97.941666667
+    Messages beyond the included 1 million a day per unit: 39.166666667
+  limits:
+    Concurrent connections: 1500
+- name: Premium in East US, 4 KB messages count twice
+  region: eastus
+  attributes:
+    sku_name: Premium_P1
+  assumptions:
+    concurrentConnections: 800
+    messageKb: 4
+  demand:
+    send:
+      monthly: 10000000.0
+      peak: 10
+  costs:
+    Units: 60.833333333
+    Messages beyond the included 1 million a day per unit: 0
+  limits:
+    Concurrent connections: 800
+- name: Free counts messages against its daily limit
+  region: japaneast
+  attributes:
+    sku_name: Free_F1
+  assumptions:
+    concurrentConnections: 10
+  demand:
+    send:
+      monthly: 200000.0
+      peak: 1
+  costs: {}
+  limits:
+    Messages per day: 6575.342465753
+    Concurrent connections: 10

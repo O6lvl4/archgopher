@@ -1,0 +1,21 @@
+type: azurerm_eventgrid_system_topic
+label: Event Grid system topic
+category: Messaging
+icon: eventgrid-system-topic
+description: "Events an Azure service emits (Blob Storage, Resource Manager, ...), priced as Event Grid Basic operations: each 64 KB of an event counted once when published and once per delivery to a subscription. The monthly free operations are not read. The source service is not an edge in Terraform: draw it by hand."
+kinds: [publish]
+sla: azure.eventgrid
+assumptions:
+  - { key: eventKb, label: Event size, type: number, unit: KB, default: 1, hint: "Counted per 64 KB; for events whose edges give no kb" }
+  - { key: subscriptionsPerEvent, label: Deliveries per event, type: number, default: 1, hint: "Event subscriptions whose filters match each event" }
+let:
+  - events: units(total, 64, eventKb)
+readings:
+  - requests: { name: Operations, unit: operation, price: azure.eventgrid.basic.operations, count: events * (1 + subscriptionsPerEvent) }
+terraform:
+  links:
+    - type: azurerm_eventgrid_system_topic_event_subscription
+      from: system_topic
+      to: [azure_function_endpoint.function_id, webhook_endpoint.url, service_bus_queue_endpoint_id, service_bus_topic_endpoint_id, eventhub_endpoint_id, hybrid_connection_endpoint_id, storage_queue_endpoint.queue_name]
+  # The topic names the resource whose events it carries; that resource emits, it is not called.
+  ignoreRefs: [source_resource_id, source_arm_resource_id, identity]

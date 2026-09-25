@@ -1,0 +1,270 @@
+{
+  "azure.signalr.premium.messages": {
+    "unit": "message",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/signalr-service/",
+    "note": "Premium messages beyond those included, per 2 KB",
+    "sync": {
+      "filters": {
+        "meterName": "Premium Message",
+        "productName": "SignalR",
+        "skuName": "Premium"
+      },
+      "listPer": 1000000,
+      "service": "SignalR",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.signalr.premium.unit": {
+    "unit": "unit-day",
+    "source": "https://azure.microsoft.com/pricing/details/signalr-service/",
+    "note": "Premium unit, per day; includes 1 million messages a day",
+    "sync": {
+      "filters": {
+        "meterName": "Premium Unit",
+        "productName": "SignalR",
+        "skuName": "Premium"
+      },
+      "service": "SignalR",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.signalr.standard.messages": {
+    "unit": "message",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/signalr-service/",
+    "note": "Standard messages beyond those included, per 2 KB",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Message",
+        "productName": "SignalR",
+        "skuName": "Standard"
+      },
+      "listPer": 1000000,
+      "service": "SignalR",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.signalr.standard.unit": {
+    "unit": "unit-day",
+    "source": "https://azure.microsoft.com/pricing/details/signalr-service/",
+    "note": "Standard unit, per day; includes 1 million messages a day",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Unit",
+        "productName": "SignalR",
+        "skuName": "Standard"
+      },
+      "service": "SignalR",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1.61,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1.61,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1.61,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1.61,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 1.61,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1.61,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1.61,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1.61,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1.61,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1.61,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

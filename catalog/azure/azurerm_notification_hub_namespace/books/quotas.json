@@ -1,0 +1,32 @@
+{
+  "azure.notificationhubs.active_devices": {
+    "unit": "devices",
+    "source": "https://azure.microsoft.com/pricing/details/notification-hubs/",
+    "note": "Active devices per namespace by tier",
+    "rows": {
+      "basic": {
+        "*": 200000
+      },
+      "free": {
+        "*": 500
+      },
+      "standard": {
+        "*": 10000000
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.notificationhubs.free_pushes": {
+    "unit": "pushes/month",
+    "source": "https://azure.microsoft.com/pricing/details/notification-hubs/",
+    "note": "The free tier sends 1 million pushes a month and no more",
+    "values": {
+      "*": {
+        "value": 1000000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

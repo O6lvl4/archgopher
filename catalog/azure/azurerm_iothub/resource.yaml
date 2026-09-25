@@ -1,0 +1,31 @@
+type: azurerm_iothub
+label: IoT Hub
+category: IoT
+icon: iot-hub
+description: "Units of the Basic or Standard tier, a fixed monthly price each; the free tier (F1) costs nothing. Headroom is the daily message quota (messages metered in 4 KB, 0.5 KB on F1), read against the average day, and the device-to-cloud send throttle per unit. Load is device-to-cloud messages."
+kinds: [send]
+sla: azure.iothub
+attributes:
+  - { key: sku_name, label: Tier, type: choice, options: [F1, B1, B2, B3, S1, S2, S3], default: S1, path: sku.name }
+  - { key: capacity, label: Units, type: number, default: 1, path: sku.capacity }
+assumptions:
+  - { key: messageKb, label: Message size, type: number, unit: KB, default: 1, hint: "Messages count against the daily quota per 4 KB (0.5 KB on F1); for messages whose edges give no kb" }
+let:
+  - meterKb: 'sku_name == "F1" ? 0.5 : 4.0'
+  - days: 730.0 / 24.0
+readings:
+  - cost: { when: 'sku_name != "F1"', name: Units, quantity: capacity, unit: unit-month, price: "azure.iothub.unit.{sku_name}" }
+  - rate: { name: Messages per day, unit: messages/day, quota: "azure.iothub.daily_messages.{sku_name}", peak: 'units(total, meterKb, messageKb) / days', scale: capacity }
+  - rate: { name: Device-to-cloud sends, unit: sends/second, quota: "azure.iothub.d2c_sends_per_unit.{sku_name}", peak: total.peak, scale: 'sku_name in ["F1", "B1", "S1"] ? max(capacity, 100.0 / 12.0) : capacity' }
+terraform:
+  # Devices reach the hub from outside Terraform.
+  frontDoor: true
+  links:
+    - { type: azurerm_iothub_endpoint_servicebus_queue, from: iothub_id, to: [connection_string, endpoint_uri] }
+    - { type: azurerm_iothub_endpoint_servicebus_topic, from: iothub_id, to: [connection_string, endpoint_uri] }
+    - { type: azurerm_iothub_endpoint_eventhub, from: iothub_id, to: [connection_string, endpoint_uri] }
+    - { type: azurerm_iothub_endpoint_storage_container, from: iothub_id, to: [connection_string, endpoint_uri] }
+    - { type: azurerm_iothub_endpoint_cosmosdb_account, from: iothub_id, to: [endpoint_uri] }
+  ignoreRefs: [identity, network_rule_set]
+iam:
+  send: ["IoT Hub Data Contributor"]

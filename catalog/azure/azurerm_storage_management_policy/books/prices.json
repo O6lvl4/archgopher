@@ -1,0 +1,190 @@
+{
+  "azure.storage.blob.tier_write": {
+    "unit": "operation",
+    "per": 10000,
+    "source": "https://azure.microsoft.com/pricing/details/storage/blobs/",
+    "note": "Write operations of the destination tier, which Set Blob Tier and lifecycle tiering are billed as. RA-GRS rows carry the GRS meter; Cool has no RA-GZRS row and is read at GZRS",
+    "sync": {
+      "filters": {
+        "meterName": ".*Write Operations",
+        "productName": "General Block Blob v2",
+        "skuName": "{row}"
+      },
+      "listPer": 10000,
+      "service": "Storage",
+      "source": "azure"
+    },
+    "rows": {
+      "Archive GRS": {
+        "australiaeast": 0.265,
+        "centralindia": 0.27,
+        "eastus": 0.21,
+        "eastus2": 0.2,
+        "germanywestcentral": 0.23,
+        "japaneast": 0.2692,
+        "koreacentral": 0.2436,
+        "northeurope": 0.23,
+        "southeastasia": 0.295,
+        "westus2": 0.2
+      },
+      "Archive LRS": {
+        "australiaeast": 0.12,
+        "centralindia": 0.12,
+        "eastus": 0.1,
+        "eastus2": 0.1,
+        "germanywestcentral": 0.12,
+        "japaneast": 0.1142,
+        "koreacentral": 0.1086,
+        "northeurope": 0.11,
+        "southeastasia": 0.12,
+        "westus2": 0.1
+      },
+      "Archive RA-GRS": {
+        "australiaeast": 0.265,
+        "centralindia": 0.27,
+        "eastus": 0.21,
+        "eastus2": 0.2,
+        "germanywestcentral": 0.23,
+        "japaneast": 0.2692,
+        "koreacentral": 0.2436,
+        "northeurope": 0.23,
+        "southeastasia": 0.295,
+        "westus2": 0.2
+      },
+      "Cold GRS": {
+        "australiaeast": 0.432,
+        "centralindia": 0.452,
+        "eastus": 0.36,
+        "eastus2": 0.401,
+        "germanywestcentral": 0.36,
+        "japaneast": 0.36,
+        "koreacentral": 0.405,
+        "northeurope": 0.36,
+        "southeastasia": 0.36,
+        "westus2": 0.396
+      },
+      "Cold GZRS": {
+        "australiaeast": 0.452,
+        "centralindia": 0.472,
+        "eastus": 0.38,
+        "eastus2": 0.421,
+        "germanywestcentral": 0.38,
+        "japaneast": 0.38,
+        "koreacentral": 0.425,
+        "northeurope": 0.38,
+        "southeastasia": 0.38,
+        "westus2": 0.416
+      },
+      "Cold LRS": {
+        "australiaeast": 0.18,
+        "centralindia": 0.18,
+        "eastus": 0.18,
+        "eastus2": 0.18,
+        "germanywestcentral": 0.18,
+        "japaneast": 0.18,
+        "koreacentral": 0.18,
+        "northeurope": 0.18,
+        "southeastasia": 0.18,
+        "westus2": 0.18
+      },
+      "Cold RA-GRS": {
+        "australiaeast": 0.432,
+        "centralindia": 0.452,
+        "eastus": 0.36,
+        "eastus2": 0.401,
+        "germanywestcentral": 0.36,
+        "japaneast": 0.36,
+        "koreacentral": 0.405,
+        "northeurope": 0.36,
+        "southeastasia": 0.36,
+        "westus2": 0.396
+      },
+      "Cold RA-GZRS": {
+        "australiaeast": 0.452,
+        "centralindia": 0.472,
+        "eastus": 0.38,
+        "eastus2": 0.421,
+        "germanywestcentral": 0.38,
+        "japaneast": 0.38,
+        "koreacentral": 0.425,
+        "northeurope": 0.38,
+        "southeastasia": 0.38,
+        "westus2": 0.416
+      },
+      "Cold ZRS": {
+        "australiaeast": 0.2,
+        "centralindia": 0.2,
+        "eastus": 0.2,
+        "eastus2": 0.2,
+        "germanywestcentral": 0.2,
+        "japaneast": 0.2,
+        "koreacentral": 0.2,
+        "northeurope": 0.2,
+        "southeastasia": 0.2,
+        "westus2": 0.2
+      },
+      "Cool GRS": {
+        "australiaeast": 0.2,
+        "centralindia": 0.2,
+        "eastus": 0.2,
+        "eastus2": 0.2,
+        "germanywestcentral": 0.2,
+        "japaneast": 0.2,
+        "koreacentral": 0.2,
+        "northeurope": 0.2,
+        "southeastasia": 0.2,
+        "westus2": 0.2
+      },
+      "Cool GZRS": {
+        "australiaeast": 0.2,
+        "centralindia": 0.28,
+        "eastus": 0.2,
+        "eastus2": 0.2,
+        "germanywestcentral": 0.2,
+        "japaneast": 0.2,
+        "koreacentral": 0.27,
+        "northeurope": 0.2,
+        "southeastasia": 0.2,
+        "westus2": 0.2
+      },
+      "Cool LRS": {
+        "australiaeast": 0.1,
+        "centralindia": 0.1,
+        "eastus": 0.1,
+        "eastus2": 0.1,
+        "germanywestcentral": 0.1,
+        "japaneast": 0.1,
+        "koreacentral": 0.1,
+        "northeurope": 0.1,
+        "southeastasia": 0.1,
+        "westus2": 0.1
+      },
+      "Cool RA-GRS": {
+        "australiaeast": 0.2,
+        "centralindia": 0.2,
+        "eastus": 0.2,
+        "eastus2": 0.2,
+        "germanywestcentral": 0.2,
+        "japaneast": 0.2,
+        "koreacentral": 0.2,
+        "northeurope": 0.2,
+        "southeastasia": 0.2,
+        "westus2": 0.2
+      },
+      "Cool ZRS": {
+        "australiaeast": 0.1,
+        "centralindia": 0.1,
+        "eastus": 0.1,
+        "eastus2": 0.1,
+        "germanywestcentral": 0.1,
+        "japaneast": 0.1,
+        "koreacentral": 0.1,
+        "northeurope": 0.1,
+        "southeastasia": 0.1,
+        "westus2": 0.1
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

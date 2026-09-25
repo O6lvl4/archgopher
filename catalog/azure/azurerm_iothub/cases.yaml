@@ -1,0 +1,43 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: two S1 units in Japan East
+  region: japaneast
+  attributes:
+    sku_name: S1
+    capacity: 2
+  demand:
+    send:
+      monthly: 10000000.0
+      peak: 50
+  costs:
+    Units: 50.0
+  limits:
+    Messages per day: 328767.123287671
+    Device-to-cloud sends: 50
+- name: B2 in East US, 8 KB messages count twice against the quota
+  region: eastus
+  attributes:
+    sku_name: B2
+  assumptions:
+    messageKb: 8
+  demand:
+    send:
+      monthly: 1000000.0
+      peak: 5
+  costs:
+    Units: 50.0
+  limits:
+    Messages per day: 65753.424657534
+    Device-to-cloud sends: 5
+- name: the free tier costs nothing and meters 0.5 KB messages
+  region: japaneast
+  attributes:
+    sku_name: F1
+  demand:
+    send:
+      monthly: 100000.0
+      peak: 1
+  costs: {}
+  limits:
+    Messages per day: 6575.342465753
+    Device-to-cloud sends: 1

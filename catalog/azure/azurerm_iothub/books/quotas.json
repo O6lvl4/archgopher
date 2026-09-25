@@ -1,0 +1,62 @@
+{
+  "azure.iothub.d2c_sends_per_unit": {
+    "unit": "sends/second",
+    "source": "https://learn.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-quotas-throttling",
+    "note": "Device-to-cloud send operations a second per unit; Free, B1 and S1 get at least 100 a second across their units",
+    "rows": {
+      "B1": {
+        "*": 12
+      },
+      "B2": {
+        "*": 120
+      },
+      "B3": {
+        "*": 6000
+      },
+      "F1": {
+        "*": 12
+      },
+      "S1": {
+        "*": 12
+      },
+      "S2": {
+        "*": 120
+      },
+      "S3": {
+        "*": 6000
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.iothub.daily_messages": {
+    "unit": "messages/day",
+    "source": "https://azure.microsoft.com/pricing/details/iot-hub/",
+    "note": "Messages a day per unit, metered in 4 KB (0.5 KB on the free tier)",
+    "rows": {
+      "B1": {
+        "*": 400000
+      },
+      "B2": {
+        "*": 6000000
+      },
+      "B3": {
+        "*": 300000000
+      },
+      "F1": {
+        "*": 8000
+      },
+      "S1": {
+        "*": 400000
+      },
+      "S2": {
+        "*": 6000000
+      },
+      "S3": {
+        "*": 300000000
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

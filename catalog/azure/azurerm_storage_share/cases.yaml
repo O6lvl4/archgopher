@@ -1,0 +1,72 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: transaction optimized LRS share in Japan East
+  region: japaneast
+  assumptions:
+    storageGb: 100
+    otherOperations: 1000000
+  demand:
+    read:
+      monthly: 1000000.0
+      peak: 50
+    write:
+      monthly: 1000000.0
+      peak: 50
+  costs:
+    Data stored: 6.0
+    Write operations: 1.5
+    Read operations: 0.15
+    Other operations: 0.15
+  limits:
+    Request rate: 100
+- name: hot ZRS share with metadata in East US
+  region: eastus
+  attributes:
+    access_tier: Hot
+  assumptions:
+    redundancy: ZRS
+    storageGb: 100
+    metadataGb: 5
+  demand:
+    read:
+      monthly: 1000000.0
+      peak: 10
+    write:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Data stored: 3.6
+    Metadata: 0.1855
+    Write operations: 8.13
+    Read operations: 0.52
+  limits:
+    Request rate: 20
+- name: premium share bills its quota in Japan East
+  region: japaneast
+  attributes:
+    access_tier: Premium
+    quota: 1024
+  assumptions:
+    snapshotsGb: 10
+  demand:
+    read:
+      monthly: 10000000.0
+      peak: 2000
+    write:
+      monthly: 1000000.0
+      peak: 500
+  costs:
+    Provisioned capacity: 196.608
+    Snapshots: 1.63
+  limits:
+    IOPS: 2500
+- name: a standard share needs its stored data
+  region: japaneast
+  demand:
+    read:
+      monthly: 1
+      peak: 1
+    write:
+      monthly: 1
+      peak: 1
+  error: set storageGb, the data the share holds

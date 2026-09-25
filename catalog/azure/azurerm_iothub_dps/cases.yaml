@@ -1,0 +1,24 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: registrations in Japan East
+  region: japaneast
+  demand:
+    register:
+      monthly: 100000.0
+      peak: 2
+  costs:
+    Operations: 14.5
+  limits:
+    Registrations: 120
+- name: registrations with an enrollment call each in East US
+  region: eastus
+  assumptions:
+    operationsPerRegistration: 2
+  demand:
+    register:
+      monthly: 1000000.0
+      peak: 20
+  costs:
+    Operations: 200.0
+  limits:
+    Registrations: 1200

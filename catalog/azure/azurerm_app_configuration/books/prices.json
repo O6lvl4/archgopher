@@ -1,0 +1,536 @@
+{
+  "azure.appconfig.developer.instance": {
+    "unit": "store-day",
+    "source": "https://azure.microsoft.com/pricing/details/app-configuration/",
+    "note": "Developer store, includes 3,000 requests a day",
+    "sync": {
+      "filters": {
+        "meterName": "Developer Instance",
+        "productName": "App Configuration",
+        "skuName": "Developer"
+      },
+      "service": "App Configuration",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.appconfig.developer.overage": {
+    "unit": "request",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/app-configuration/",
+    "note": "Developer requests beyond the daily allowance",
+    "sync": {
+      "filters": {
+        "meterName": "Developer Overage Operations",
+        "productName": "App Configuration",
+        "skuName": "Developer"
+      },
+      "listPer": 1000,
+      "service": "App Configuration",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.04,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.appconfig.premium.instance": {
+    "unit": "store-day",
+    "source": "https://azure.microsoft.com/pricing/details/app-configuration/",
+    "note": "Premium store with one replica, each including 800,000 requests a day",
+    "sync": {
+      "filters": {
+        "meterName": "Premium Instance",
+        "productName": "App Configuration",
+        "skuName": "Premium"
+      },
+      "service": "App Configuration",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 9.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 9.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 9.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 9.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 9.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 9.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 9.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 9.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 9.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 9.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.appconfig.premium.overage": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://azure.microsoft.com/pricing/details/app-configuration/",
+    "note": "Premium requests beyond the daily allowance (origin and replicas are priced the same)",
+    "sync": {
+      "filters": {
+        "meterName": "Premium Overage Operations",
+        "productName": "App Configuration",
+        "skuName": "Premium"
+      },
+      "listPer": 10000,
+      "service": "App Configuration",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.appconfig.premium.replica": {
+    "unit": "store-day",
+    "source": "https://azure.microsoft.com/pricing/details/app-configuration/",
+    "note": "Premium replica beyond the one included",
+    "sync": {
+      "filters": {
+        "meterName": "Premium Replica Instance",
+        "productName": "App Configuration",
+        "skuName": "Premium"
+      },
+      "service": "App Configuration",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 4.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 4.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 4.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 4.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 4.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 4.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 4.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 4.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 4.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 4.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.appconfig.standard.instance": {
+    "unit": "store-day",
+    "source": "https://azure.microsoft.com/pricing/details/app-configuration/",
+    "note": "Standard store, includes 200,000 requests a day",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Instance",
+        "productName": "App Configuration",
+        "skuName": "Standard"
+      },
+      "service": "App Configuration",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.appconfig.standard.overage": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://azure.microsoft.com/pricing/details/app-configuration/",
+    "note": "Standard requests beyond the daily allowance (origin and replicas are priced the same)",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Overage Operations",
+        "productName": "App Configuration",
+        "skuName": "Standard"
+      },
+      "listPer": 10000,
+      "service": "App Configuration",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.appconfig.standard.replica": {
+    "unit": "store-day",
+    "source": "https://azure.microsoft.com/pricing/details/app-configuration/",
+    "note": "Standard replica, includes 200,000 requests a day",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Replica Instance",
+        "productName": "App Configuration",
+        "skuName": "Standard"
+      },
+      "service": "App Configuration",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Standard with a replica in Japan East
+  region: japaneast
+  attributes:
+    sku: standard
+    replicated: true
+  demand:
+    read:
+      monthly: 20000000.0
+      peak: 5
+  costs:
+    Store: 36.5
+    Replicas: 36.5
+    Requests beyond the daily allowance: 47.0
+  limits:
+    Requests per hour: 18000
+    Read rate: 5
+- name: Premium without replicas in East US
+  region: eastus
+  attributes:
+    sku: premium
+  demand:
+    read:
+      monthly: 30000000.0
+      peak: 20
+  costs:
+    Store: 292.0
+    Requests beyond the daily allowance: 34.0
+  limits:
+    Read rate: 20
+- name: Free costs nothing and stops at 1,000 requests a day
+  region: japaneast
+  demand:
+    read:
+      monthly: 10000.0
+      peak: 1
+  costs: {}
+  limits:
+    Requests per day: 328.767123288

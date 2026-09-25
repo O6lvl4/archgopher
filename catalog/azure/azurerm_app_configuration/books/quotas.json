@@ -1,0 +1,53 @@
+{
+  "azure.appconfig.developer.requests_per_hour": {
+    "unit": "requests/hour",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-app-configuration/faq",
+    "note": "Developer stores answer 6,000 requests an hour",
+    "values": {
+      "*": {
+        "value": 6000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.appconfig.free.requests_per_day": {
+    "unit": "requests/day",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-app-configuration/faq",
+    "note": "Free stores answer 1,000 requests a day, then 429 until midnight UTC",
+    "values": {
+      "*": {
+        "value": 1000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.appconfig.read_rps": {
+    "unit": "requests/second",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-app-configuration/faq",
+    "note": "Read run rate per store",
+    "rows": {
+      "premium": {
+        "*": 450
+      },
+      "standard": {
+        "*": 300
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.appconfig.standard.requests_per_hour": {
+    "unit": "requests/hour",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-app-configuration/faq",
+    "note": "Standard stores: 30,000 requests an hour; frequent unchanged requests (sentinel keys) mostly do not count",
+    "values": {
+      "*": {
+        "value": 30000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

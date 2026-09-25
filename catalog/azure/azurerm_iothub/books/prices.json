@@ -1,0 +1,92 @@
+{
+  "azure.iothub.unit": {
+    "unit": "unit-month",
+    "source": "https://azure.microsoft.com/pricing/details/iot-hub/",
+    "note": "IoT Hub unit by tier, per month",
+    "sync": {
+      "filters": {
+        "meterName": "{row} Unit",
+        "productName": "IoT Hub",
+        "skuName": "{row}"
+      },
+      "service": "IoT Hub",
+      "source": "azure"
+    },
+    "rows": {
+      "B1": {
+        "australiaeast": 10,
+        "centralindia": 14,
+        "eastus": 10,
+        "eastus2": 10,
+        "germanywestcentral": 10,
+        "japaneast": 10,
+        "koreacentral": 10,
+        "northeurope": 10,
+        "southeastasia": 10,
+        "westus2": 10
+      },
+      "B2": {
+        "australiaeast": 50,
+        "centralindia": 70,
+        "eastus": 50,
+        "eastus2": 50,
+        "germanywestcentral": 50,
+        "japaneast": 50,
+        "koreacentral": 50,
+        "northeurope": 50,
+        "southeastasia": 50,
+        "westus2": 50
+      },
+      "B3": {
+        "australiaeast": 500,
+        "centralindia": 700,
+        "eastus": 500,
+        "eastus2": 500,
+        "germanywestcentral": 500,
+        "japaneast": 500,
+        "koreacentral": null,
+        "northeurope": 500,
+        "southeastasia": 500,
+        "westus2": 500
+      },
+      "S1": {
+        "australiaeast": 25,
+        "centralindia": 35,
+        "eastus": 25,
+        "eastus2": 25,
+        "germanywestcentral": 32.5,
+        "japaneast": 25,
+        "koreacentral": 25,
+        "northeurope": 25,
+        "southeastasia": 25,
+        "westus2": 25
+      },
+      "S2": {
+        "australiaeast": 250,
+        "centralindia": 350,
+        "eastus": 250,
+        "eastus2": 250,
+        "germanywestcentral": 250,
+        "japaneast": 250,
+        "koreacentral": 250,
+        "northeurope": 250,
+        "southeastasia": 250,
+        "westus2": 250
+      },
+      "S3": {
+        "australiaeast": 2500,
+        "centralindia": 3500,
+        "eastus": 2500,
+        "eastus2": 2500,
+        "germanywestcentral": 2500,
+        "japaneast": 2500,
+        "koreacentral": 2500,
+        "northeurope": 2500,
+        "southeastasia": 2500,
+        "westus2": 2500
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

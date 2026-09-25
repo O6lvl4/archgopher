@@ -1,0 +1,14 @@
+{
+  "azure.storage.files.share_iops": {
+    "unit": "requests/second",
+    "source": "https://learn.microsoft.com/en-us/azure/storage/files/storage-files-scale-targets",
+    "note": "Maximum IOPS of a standard file share with large file shares (20,000); premium shares scale with their size",
+    "values": {
+      "*": {
+        "value": 20000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: cool after 30 days, archive after 90, LRS in Japan East
+  region: japaneast
+  attributes:
+    coolAfterModification: 30
+    archiveAfterModification: 90
+  assumptions:
+    blobsAged: 1000000
+  demand:
+    manage:
+      monthly: 0
+      peak: 0
+  costs:
+    Moves to cool: 10.0
+    Moves to archive: 11.42
+- name: RA-GZRS cool on last access and cold on creation, East US
+  region: eastus
+  attributes:
+    coolAfterAccess: 30
+    coldAfterCreation: 180
+  assumptions:
+    redundancy: RAGZRS
+    blobsAged: 1000000
+  demand:
+    manage:
+      monthly: 0
+      peak: 0
+  costs:
+    Moves to cool: 20.0
+    Moves to cold: 38.0
+- name: archive is not offered on ZRS
+  region: japaneast
+  attributes:
+    archiveAfterModification: 90
+  assumptions:
+    redundancy: ZRS
+    blobsAged: 1
+  demand:
+    manage:
+      monthly: 0
+      peak: 0
+  error: the archive tier is not offered on ZRS accounts
+- name: a policy that only deletes costs nothing and needs no blob count
+  region: japaneast
+  demand:
+    manage:
+      monthly: 0
+      peak: 0
+  costs: {}
+- name: a tiering policy needs the blobs it ages
+  region: eastus
+  attributes:
+    coolAfterModification: 30
+  demand:
+    manage:
+      monthly: 0
+      peak: 0
+  error: set blobsAged, the blobs that reach the policy's tier thresholds a month

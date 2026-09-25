@@ -1,0 +1,27 @@
+type: azurerm_signalr_service
+label: SignalR Service
+category: Messaging
+icon: signalr
+description: "Unit-days of the Standard or Premium tier and messages beyond the 1 million a day each unit includes, counted per 2 KB. Free costs nothing and stops at 20,000 messages a day. Headroom is concurrent connections per unit. Load is messages the service sends to clients."
+kinds: [send]
+sla: azure.signalr
+attributes:
+  - { key: sku_name, label: SKU, type: choice, options: [Free_F1, Standard_S1, Premium_P1, Premium_P2], default: Standard_S1, path: sku.name }
+  - { key: capacity, label: Units, type: number, default: 1, path: sku.capacity }
+assumptions:
+  - { key: messageKb, label: Message size, type: number, unit: KB, default: 1, hint: "Messages are counted per 2 KB; for messages whose edges give no kb" }
+  - { key: concurrentConnections, label: Concurrent connections, type: number, hint: "Clients connected at the peak" }
+let:
+  - tier: 'sku_name == "Free_F1" ? "free" : sku_name startsWith "Standard" ? "standard" : "premium"'
+  - n: max(capacity, 1.0)
+  - days: 730.0 / 24.0
+  - messages: units(total, 2, messageKb)
+readings:
+  - cost: { when: 'tier != "free"', name: Units, quantity: n * days, unit: unit-day, price: "azure.signalr.{tier}.unit" }
+  - requests: { when: 'tier != "free"', name: Messages beyond the included 1 million a day per unit, unit: message, price: "azure.signalr.{tier}.messages", count: 'max(messages - 1000000 * n * days, 0.0)' }
+  - rate: { when: 'tier == "free"', name: Messages per day, unit: messages/day, quota: azure.signalr.free_messages_per_day, peak: messages / days }
+  - rate: { name: Concurrent connections, unit: connections, quota: "azure.signalr.connections_per_unit.{tier}", peak: concurrentConnections, scale: n }
+terraform:
+  ignoreRefs: [identity]
+iam:
+  send: ["SignalR App Server", "SignalR Service Owner"]

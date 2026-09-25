@@ -1,0 +1,601 @@
+{
+  "azure.eventhubs.basic.ingress": {
+    "unit": "event",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/event-hubs/",
+    "note": "Basic ingress events, each 64 KB of an event counted once",
+    "sync": {
+      "filters": {
+        "meterName": "Basic Ingress Events",
+        "productName": "Event Hubs",
+        "skuName": "Basic"
+      },
+      "listPer": 1000000,
+      "service": "Event Hubs",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.eventhubs.basic.throughput_unit": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/event-hubs/",
+    "note": "Basic throughput unit",
+    "sync": {
+      "filters": {
+        "meterName": "Basic Throughput Unit",
+        "productName": "Event Hubs",
+        "skuName": "Basic"
+      },
+      "service": "Event Hubs",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.eventhubs.dedicated.capacity_unit": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/event-hubs/",
+    "note": "Dedicated capacity unit",
+    "sync": {
+      "filters": {
+        "meterName": "Dedicated Capacity Unit",
+        "productName": "Event Hubs",
+        "skuName": "Dedicated",
+        "unitOfMeasure": "1 Hour"
+      },
+      "service": "Event Hubs",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 8.576,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 8.384,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 6.849,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 6.849,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 6.849,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 8.576,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 8.193,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 7.617,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 8.001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 6.849,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.eventhubs.dedicated.extended_retention": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/event-hubs/",
+    "note": "Dedicated retention beyond the 10 TB included per capacity unit",
+    "sync": {
+      "filters": {
+        "meterName": "Dedicated Extended Retention",
+        "productName": "Event Hubs",
+        "skuName": "Dedicated"
+      },
+      "service": "Event Hubs",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.145,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.14,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.13,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.145,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.135,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.13,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.eventhubs.premium.extended_retention": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/event-hubs/",
+    "note": "Premium retention beyond the 1 TB included per processing unit",
+    "sync": {
+      "filters": {
+        "meterName": "Premium Extended Retention",
+        "productName": "Event Hubs",
+        "skuName": "Premium"
+      },
+      "service": "Event Hubs",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.145,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.14,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.13,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.145,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.135,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.13,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.eventhubs.premium.processing_unit": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/event-hubs/",
+    "note": "Premium processing unit",
+    "sync": {
+      "filters": {
+        "meterName": "Premium Processing Unit",
+        "productName": "Event Hubs",
+        "skuName": "Premium"
+      },
+      "service": "Event Hubs",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1.49,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1.438,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1.027,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1.027,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 1.336,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1.49,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1.387,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1.233,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1.336,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1.027,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.eventhubs.standard.capture": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/event-hubs/",
+    "note": "Capture, per throughput unit",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Capture",
+        "productName": "Event Hubs",
+        "skuName": "Standard"
+      },
+      "service": "Event Hubs",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.eventhubs.standard.ingress": {
+    "unit": "event",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/event-hubs/",
+    "note": "Standard ingress events, each 64 KB of an event counted once",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Ingress Events",
+        "productName": "Event Hubs",
+        "skuName": "Standard"
+      },
+      "listPer": 1000000,
+      "service": "Event Hubs",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.028,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.eventhubs.standard.throughput_unit": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/event-hubs/",
+    "note": "Standard throughput unit",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Throughput Unit",
+        "productName": "Event Hubs",
+        "skuName": "Standard"
+      },
+      "service": "Event Hubs",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}
