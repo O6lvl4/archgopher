@@ -384,3 +384,5 @@ azurerm_virtual_wan
 azurerm_vpn_server_configuration
 azurerm_web_application_firewall_policy
 azurerm_windows_web_app
+# Infracost registers it with no price: rules bill through the firewall policy.
+azurerm_firewall_policy_rule_collection_group

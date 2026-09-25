@@ -21,6 +21,10 @@ each resource on its own. archgopher asks a different question: *if 30
 million requests a month arrive at the front door, what does every resource
 behind it see, what does it cost, and where does it run out of room first?*
 
+It reads every resource type Infracost prices (336 across AWS, Azure and
+Google Cloud; the 11 Infracost registers without a price are counted as free)
+and 33 more, such as Bedrock AgentCore, Bedrock Guardrails and Cloudflare.
+
 [日本語の README](README.ja.md)
 
 ## Quick start
@@ -236,7 +240,7 @@ nodes: they pass load through and appear in the report as skipped.
 Every import ends with its coverage, the way Infracost counts resources:
 
 ```text
-43 resources read, 108 free, 17 without a price yet: aws_acm_certificate, aws_instance ×2, ...
+59 resources read, 109 free, 1 without a price yet: aws_appsync_graphql_api
 ```
 
 Free resources cost nothing by themselves (roles, policies, rules,
@@ -502,6 +506,7 @@ not zero.
 | `azurerm_servicebus_namespace` | Operations (Basic, Standard with its base fee), or Premium messaging units | Operations per second |
 | `azurerm_eventgrid_topic` | Operations | Events per second |
 | `azurerm_key_vault` | Secret operations | Requests per vault |
+| `azurerm_log_analytics_workspace` | Ingestion and retention beyond 31 days | - |
 | `azurerm_key_vault_key` | Operations (RSA 2048 or advanced), HSM key-months per version, automatic rotations | Vault rate for the key type and protection |
 | `azurerm_key_vault_certificate` | Renewals read from the policy, operations | Requests per vault |
 | `azurerm_key_vault_managed_hardware_security_module` | HSM pool hours (keys and operations included) | RSA 2048 unwrap throughput |
@@ -535,6 +540,17 @@ not zero.
 | `azurerm_automation_account` | Job minutes and non-Azure configuration nodes | Job submissions and concurrent jobs |
 | `azurerm_automation_job_schedule` / `azurerm_automation_watcher` | Job minutes per run / watcher hours | - |
 | `azurerm_automation_dsc_configuration` / `azurerm_automation_dsc_nodeconfiguration` | Non-Azure configuration nodes | - |
+| `azurerm_eventgrid_system_topic` | Operations, as a custom topic | - |
+| `azurerm_eventhub_namespace` | Throughput-unit hours, ingress events and Capture (Basic, Standard), processing-unit hours (Premium), capacity-unit hours (Dedicated), retention beyond the included | Ingress per throughput unit, up to the auto-inflate ceiling |
+| `azurerm_iothub` | Units by tier (F1 is free) | Daily messages and device-to-cloud sends per unit |
+| `azurerm_iothub_dps` | Operations | Registrations per minute per unit |
+| `azurerm_notification_hub_namespace` | Base fee and pushes beyond the included 10 million, by tier | Active devices, the free tier's pushes |
+| `azurerm_signalr_service` | Unit-days and messages beyond those included, per 2 KB | Concurrent connections per unit |
+| `azurerm_app_configuration` | Store- and replica-days, requests beyond the daily allowance | Requests per hour or day by tier, read rate |
+| `azurerm_storage_queue` | Data stored, Class 1 and 2 operations by redundancy, geo-replication transfer | Messages per second per queue |
+| `azurerm_storage_table` | Data stored, write, batch, read, scan, delete and list operations by redundancy and encryption | Entities per second per partition |
+| `azurerm_storage_share` | Data, snapshots and metadata stored, operations and cool retrieval by tier and redundancy; premium provisioned size | IOPS per share |
+| `azurerm_storage_management_policy` | Tier changes billed as the destination tier's writes | - |
 
 Role assignments become edges: an `azurerm_role_assignment` connects the
 resource whose managed identity holds the role (system- or user-assigned) to
@@ -670,34 +686,23 @@ iam:
 | `cost` / `limit` | Any quantity × price / any demand against a quota or capacity |
 | `fail` | A problem with the declaration; stops the node unless `continue: true` |
 
-An attribute's `path` is where Terraform holds it: `root_block_device.volume_size`
-reads the first block, and `setting[name=InstanceType].value` the first block
-whose `name` is `InstanceType`. A boolean whose path holds a block, a reference
-or an id reads whether it is written.
-
 Expressions see every attribute and assumption by key (optional ones are nil
 when unset), `total.monthly` and `total.peak`, `demand.<kind>.monthly` and
 `.peak`, `region`, earlier `let` values, and `ceilDiv(a, b)`. `includes: [logs]` adds a
 facet's own assumption fields. A directory without `resource.yaml` holds rows
-several resources share, such as log prices. An attribute's `path` walks
-nested blocks (`destination_options.file_format`); a number whose path names
-repeated blocks reads how many are written (a firewall's `subnet_mapping`).
+several resources share, such as log prices.
 
-An attribute's `path` says where it sits in the resource block (`sku.name`
-reads the first `sku` block, `boot_disk.initialize_params.size` a nested one).
-`ref->path` reads `path` on the resource that attribute `ref` references, so an
-instance group reads `version.instance_template->machine_type` and a node pool
-`cluster->location`. A path ending in `.#` counts what it names across every
-block, such as `criteria.dimension.values.#` for every value of every dimension
-of every criterion, and a step `*` reads the rest of the path in every block as
-a `list` attribute, `""` where a block leaves it unset, so several lists line
-up block by block (`version.instance_template->disk.*.disk_size_gb`). A
-boolean read from a block or an id reads whether it is written, even when the
-id is known only after apply.
+An attribute's `path` says where Terraform keeps it:
 
-An attribute's `path` says where Terraform keeps it: `ephemeral_storage.size_in_gib`
-reads a nested block, and `->` follows a reference, so an ECS service reads its
-task size with `path: task_definition->cpu` from the task definition it names.
+| Path | Reads |
+| --- | --- |
+| `sku.name`, `boot_disk.initialize_params.size` | The value in the first block, through nested blocks |
+| `setting[name=InstanceType].value` | The first block whose `name` is `InstanceType` (Beanstalk options) |
+| `task_definition->cpu` | `cpu` on the resource the attribute references (a service's task size); `->` may repeat up to four hops |
+| `criteria.dimension.values.#` | How many values are written, across every block |
+| `version.instance_template->disk.*.disk_size_gb` | A `list`: the value in every block, `""` where a block leaves it unset, so several lists line up |
+| a number pointing at repeated blocks | How many are written (a firewall's `subnet_mapping`) |
+| a boolean pointing at a block, a reference or an id | Whether it is written, even when the id is known only after apply |
 
 Prices that differ by one attribute only (an instance type, a database
 class) are a table: one entry with `rows` instead of `values`, one number per

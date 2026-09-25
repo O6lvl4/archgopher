@@ -19,6 +19,9 @@
 archgopher が答えるのは別の問いです。「入口に月3,000万件が来たとき、後ろの資源はそれぞれ何件を受け、
 いくらかかり、どこが最初に上限に当たるか」。
 
+対象範囲は、Infracost が値段を付けている資源の型すべて（AWS・Azure・Google Cloud で 336 型。Infracost が値段なしで登録している 11 型は無料として数える）と、
+それ以外の 33 型（Bedrock AgentCore・Bedrock Guardrails・Cloudflare など）です。
+
 [English README](README.md)
 
 ## 使い方

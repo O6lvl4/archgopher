@@ -442,5 +442,14 @@ tls_private_key
 tls_self_signed_cert
 # Infracost registers these outside FreeResources, as resources with no price
 # ("Free resource."). A subnet only places nodes: public IPv4 addresses are
-# billed per address, not per subnet.
+# billed per address, not per subnet. The ECS cluster, its capacity providers
+# and task sets are billed through the service's tasks; an EIP association
+# through the address; a lifecycle policy through the repository's storage.
+aws_appautoscaling_target
+aws_cloudwatch_event_target
+aws_ecr_lifecycle_policy
+aws_ecs_cluster
+aws_ecs_cluster_capacity_providers
+aws_ecs_task_set
+aws_eip_association
 aws_subnet

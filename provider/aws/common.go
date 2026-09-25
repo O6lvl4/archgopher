@@ -10,12 +10,7 @@ var roleAttrs = []string{"role", "role_arn", "task_role_arn"}
 
 // knownTypes become nodes even without a scouter, so load keeps flowing and
 // the report lists them as not read yet.
-var knownTypes = []string{
-	"aws_appsync_graphql_api", "aws_autoscaling_group", "aws_batch_job_queue",
-	"aws_db_instance", "aws_efs_file_system", "aws_elasticache_cluster",
-	"aws_elasticache_replication_group", "aws_glue_job", "aws_instance", "aws_kinesis_firehose_delivery_stream",
-	"aws_kinesis_stream", "aws_lb", "aws_mq_broker", "aws_msk_cluster", "aws_opensearch_domain",
-}
+var knownTypes = []string{"aws_appsync_graphql_api", "aws_batch_job_queue"}
 
 // common holds the rules that belong to no single service: IAM and KMS
 // references, resources without a scouter yet, and where the region lives.
