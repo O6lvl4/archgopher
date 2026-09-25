@@ -2,7 +2,7 @@ type: azurerm_network_connection_monitor
 label: Connection monitor
 category: Monitoring
 icon: network-watcher
-description: "Tests per month: each enabled test group runs one test per source, destination and test configuration, priced in volume tiers from 10, 240,010, 750,010 and 1,000,010 tests after the first 10 free, counted over every connection monitor of the account in the region. Only the first test group is read from Terraform; add the others' tests by hand. Its results land in a Log Analytics workspace, billed there. Load does not flow through it."
+description: "Tests per month: each enabled test group runs one test per source, destination and test configuration, priced in volume tiers from 10, 240,010, 750,010 and 1,000,010 tests, counted over every connection monitor of the account in the region. Only the first test group is read from Terraform; add the others' tests by hand. Its results land in a Log Analytics workspace, billed there. Load does not flow through it."
 kinds: [test]
 attributes:
   - { key: group_enabled, label: First test group enabled, type: boolean, default: true, path: test_group.enabled }

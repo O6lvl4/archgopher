@@ -2,7 +2,7 @@ type: google_monitoring_metric_descriptor
 label: Monitoring metric (user-defined)
 category: Monitoring
 icon: cloud-monitoring
-description: "A user-defined metric billed by bytes ingested: 8 bytes a point for scalar values, 80 for distributions, in volume tiers per MiB (from 150, 100,000 and 250,000 MiB) counted over every metric of the billing account, whose first 150 MiB are free. Points come from time series written on a period and from load drawn to it, one point per unit. Read API calls outside the console bill per time series returned, the first million a billing account free. Managed Service for Prometheus metrics bill per sample and are not read. Headroom is the one point every 5 seconds a time series accepts and the active time series per monitored resource (the metric's time series spread over its monitored resources)."
+description: "A user-defined metric billed by bytes ingested: 8 bytes a point for scalar values, 80 for distributions, in volume tiers per MiB (from 150, 100,000 and 250,000 MiB) counted over every metric of the billing account. Points come from time series written on a period and from load drawn to it, one point per unit. Read API calls outside the console bill per time series returned. Managed Service for Prometheus metrics bill per sample and are not read. Headroom is the one point every 5 seconds a time series accepts and the active time series per monitored resource (the metric's time series spread over its monitored resources)."
 kinds: [write]
 sla: gcp.observability
 attributes:

@@ -79,7 +79,7 @@
   region: ap-northeast-1
   assumptions:
     storageGb: 5
-    internetGbPerMonth: 117.62
+    internetGbPerMonth: 17.62
   demand:
     read:
       monthly: 10000
@@ -90,7 +90,7 @@
   costs:
     GET requests: 0.0037
     Storage: 0.125
-    # The always-free 100 GB out to the internet first: (117.62 - 100) x 0.114 = 2.00868
+    # 17.62 x 0.114 = 2.00868
     Transfer out to the internet: 2.00868
     PUT requests: 0
   limits:

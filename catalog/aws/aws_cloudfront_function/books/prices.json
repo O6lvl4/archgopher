@@ -3,7 +3,7 @@
     "unit": "invocation",
     "per": 1000000,
     "source": "https://aws.amazon.com/cloudfront/pricing/",
-    "note": "CloudFront Functions executions. Always free: 2,000,000 a month (https://aws.amazon.com/free/, Always free: Amazon CloudFront), given by the Price List as a $0 first tier; CloudFront is global, so the pool is the account",
+    "note": "CloudFront Functions executions. The price list's first tier is a free grant, billed here at the first paid tier's price. CloudFront is global, so the pool is the account",
     "sync": {
       "service": "AmazonCloudFront",
       "offerRegion": "aws-other",

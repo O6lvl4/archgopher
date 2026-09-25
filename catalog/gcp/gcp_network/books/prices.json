@@ -2,7 +2,7 @@
   "gcp.network.internet_out": {
     "unit": "GB",
     "source": "https://cloud.google.com/vpc/network-pricing",
-    "note": "Internet data transfer out, Premium Tier, to North America, one SKU per source region. Volume tiers count the billing account's transfer on the SKU in a month (\"per 1 month / account\"; \"The monthly usage is counted by each SKU\", https://cloud.google.com/vpc/network-pricing). Where they start differs by region: us-west1's SKU gives the first GiB free and breaks at 1 GiB, 1 TiB and 10 TiB; most other regions break at 1 TiB and 10 TiB; Tokyo and Seoul only at 10 TiB. Each row is the rate in effect from its start in that region. Synced from the Billing Catalog.",
+    "note": "Internet data transfer out, Premium Tier, to North America, one SKU per source region. Volume tiers count the billing account's transfer on the SKU in a month (\"per 1 month / account\"; \"The monthly usage is counted by each SKU\", https://cloud.google.com/vpc/network-pricing). Where they start differs by region: us-west1's SKU breaks at 1 GiB, 1 TiB and 10 TiB, most other regions at 1 TiB and 10 TiB, Tokyo and Seoul only at 10 TiB. Each row is the rate in effect from its start in that region. Synced from the Billing Catalog. Where the first tier is a free grant (us-west1), it is billed at the first paid tier's price.",
     "sync": {
       "filters": {
         "description": "Network Internet Data Transfer Out from .+ to Americas",

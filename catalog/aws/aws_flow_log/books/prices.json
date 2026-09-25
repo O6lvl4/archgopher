@@ -2,7 +2,7 @@
   "aws.flowlogs.cloudwatch": {
     "unit": "GB",
     "source": "https://aws.amazon.com/cloudwatch/pricing/",
-    "note": "Vended logs (VPC flow logs) ingested into CloudWatch Logs, Standard class; storage is billed on the log group. Volume tiers from 10 TB, 30 TB and 50 TB a month; the pricing page does not say whether they count per region or over the account, or whether destinations share them, so they are counted per region and per destination. The always-free 5 GB of log ingestion does not cover vended logs (https://aws.amazon.com/cloudwatch/pricing/)",
+    "note": "Vended logs (VPC flow logs) ingested into CloudWatch Logs, Standard class; storage is billed on the log group. Volume tiers from 10 TB, 30 TB and 50 TB a month; the pricing page does not say whether they count per region or over the account, or whether destinations share them, so they are counted per region and per destination",
     "sync": {
       "service": "AmazonCloudWatch",
       "filters": {
@@ -69,7 +69,7 @@
   "aws.flowlogs.firehose": {
     "unit": "GB",
     "source": "https://aws.amazon.com/cloudwatch/pricing/",
-    "note": "Vended logs (VPC flow logs) delivered to Amazon Data Firehose; the stream bills its own ingestion. Volume tiers from 10 TB, 30 TB and 50 TB a month; the pricing page does not say whether they count per region or over the account, or whether destinations share them, so they are counted per region and per destination. The always-free 5 GB of log ingestion does not cover vended logs (https://aws.amazon.com/cloudwatch/pricing/)",
+    "note": "Vended logs (VPC flow logs) delivered to Amazon Data Firehose; the stream bills its own ingestion. Volume tiers from 10 TB, 30 TB and 50 TB a month; the pricing page does not say whether they count per region or over the account, or whether destinations share them, so they are counted per region and per destination",
     "sync": {
       "service": "AmazonCloudWatch",
       "filters": {
@@ -198,7 +198,7 @@
   "aws.flowlogs.s3": {
     "unit": "GB",
     "source": "https://aws.amazon.com/cloudwatch/pricing/",
-    "note": "Vended logs (VPC flow logs) delivered to S3; storage is billed on the bucket. Volume tiers from 10 TB, 30 TB and 50 TB a month; the pricing page does not say whether they count per region or over the account, or whether destinations share them, so they are counted per region and per destination. The always-free 5 GB of log ingestion does not cover vended logs (https://aws.amazon.com/cloudwatch/pricing/)",
+    "note": "Vended logs (VPC flow logs) delivered to S3; storage is billed on the bucket. Volume tiers from 10 TB, 30 TB and 50 TB a month; the pricing page does not say whether they count per region or over the account, or whether destinations share them, so they are counted per region and per destination",
     "sync": {
       "service": "AmazonCloudWatch",
       "filters": {

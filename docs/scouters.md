@@ -283,10 +283,9 @@ are read from the pricing pages by hand and marked verified with the date they
 were read. Each price is the same everywhere (`*`), so a Cloudflare node prices
 in the region of any declaration, and a declaration of Cloudflare alone needs
 no region. The amounts the Workers Paid plan includes (Workers requests and
-CPU time, Workers KV, Durable Objects, D1, Queues) and R2's free tier are free
-units counted over the whole account: every node of a declaration shares
-them, and the plan's $5 fee is paid once. The Workers AI neurons (10,000 a
-day) are not subtracted.
+CPU time, Workers KV, Durable Objects, D1, Queues) are counted once over the
+whole account: every node of a declaration shares them, and the plan's $5
+fee is paid once. Free tiers (R2's, the Workers AI neurons) are not counted.
 
 `archgopher catalog` prints every scouter with its fields as JSON.
 
@@ -387,26 +386,28 @@ regions: `"fromRegionCode": "{region}"`).
 }
 ```
 
-Most volume tiers and free allowances belong to the account, not to one
-resource: two buckets share the storage tiers, and the Lambda free requests
-are given once. An entry says so with its pricing rules, and the engine bills
-such a price once, over every line of the declaration that reads it, then
-shares the cost out by quantity. The declaration is one account.
+Most volume tiers belong to the account, not to one resource: two buckets
+share the storage tiers, and two distributions the transfer tiers of a price
+zone. An entry says so with its pricing rules, and the engine bills such a
+price once, over every line of the declaration that reads it, then shares
+the cost out by quantity. The declaration is one account.
 
 | Field | Means |
 | --- | --- |
-| `pool` | `account` (the whole declaration) or `region` (each region of it): the lines that read the price share its tiers and free units |
+| `pool` | `account` (the whole declaration) or `region` (each region of it): the lines that read the price share its tiers and included units |
 | `tiered` | The table's rows are volume tiers: a row key is where the tier starts, in the entry's unit, counted over the pool's whole usage, and `"tier": "{row}"` in the sync spec verifies each one (a provider that counts in larger units, `listPer`, has its starts converted) |
-| `free` | Units that cost nothing each month, given once per pool (a plan's included amount, an always-free allowance) |
-| `freeGroup` | Free units several prices share (the Lambda free GB-seconds cover both architectures, the CloudFront free terabyte every price zone): each pool of the group gets a share by its quantity |
+| `included` | Units a paid plan includes each month, given once per pool (the Workers Paid plan's requests) |
 | `combine: max` | A fee the pool pays once however many lines need it: billed for the largest quantity, not the sum (a regional fee while any dedicated instance runs) |
 
+Free tiers are not counted: archgopher reads what an architecture costs
+month after month, and an always-free allowance or a free grant is not that
+(and under consolidated billing it belongs to the whole organization). Where
+a price list gives a free grant as a zero-priced first tier, that tier is
+billed at the first paid tier's price.
+
 A pooled line pays the pool's average price, and the result lists each pool
-with its bands and the lines that share it. `billing: {free: false}` in the
-declaration bills free units like any other, and a free grant the provider
-lists as a zero-priced first tier at the first paid tier's price, for an
-account whose organization uses them up elsewhere. A node read alone (its cases, `gaps`)
-is billed as the only user of its pools.
+with its bands and the lines that share it. A node read alone (its cases,
+`gaps`) is billed as the only user of its pools.
 
 ```json
 "aws.cloudfront.jp.transfer_out": {

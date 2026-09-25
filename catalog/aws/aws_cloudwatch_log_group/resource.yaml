@@ -2,7 +2,7 @@ type: aws_cloudwatch_log_group
 label: CloudWatch log group
 category: Monitoring
 icon: cloudwatch
-description: "Ingestion by log class, storage for the retention period, and Logs Insights queries by GB scanned. The always-free 5 GB a month of Standard ingestion, of storage and of data scanned are each given once over the account. The Delivery class bills vended delivery to S3 or Firehose in volume tiers from 10 TB, 30 TB and 50 TB a month, counted over the account in the region, and keeps nothing. Writers reach it through IAM (logs:PutLogEvents) or references; a Lambda function that counts its own logs should not also send them here. Headroom is the account's PutLogEvents rate."
+description: "Ingestion by log class, storage for the retention period, and Logs Insights queries by GB scanned. The Delivery class bills vended delivery to S3 or Firehose in volume tiers from 10 TB, 30 TB and 50 TB a month, counted over the account in the region, and keeps nothing. Writers reach it through IAM (logs:PutLogEvents) or references; a Lambda function that counts its own logs should not also send them here. Headroom is the account's PutLogEvents rate."
 kinds: [ingest, query]
 sla: aws.cloudwatch
 attributes:

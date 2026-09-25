@@ -2,7 +2,7 @@ type: cloudflare_workers_paid_plan
 label: Workers Paid plan
 category: Compute
 icon: receipt
-description: "The $5 monthly minimum of Workers Paid, charged once per account. It includes, each month and for the whole account: Workers 10M requests and 30M CPU ms; Workers KV 10M reads, 1M each of writes, deletes and lists, and 1 GB; Durable Objects 1M requests, 400,000 GB-s, 25B SQLite rows read, 50M rows written and 5 GB; D1 25B rows read, 50M rows written and 5 GB; Queues 1M operations; Workers Logs 20M events; Workers AI 10,000 neurons a day. The Workers, KV, Durable Objects, D1 and Queues prices give these as free units counted over the whole account, whether or not this node is placed; the Workers AI neurons are not subtracted. The fee is paid once however many plan nodes are placed. Load does not flow through the plan."
+description: "The $5 monthly minimum of Workers Paid, charged once per account. It includes, each month and for the whole account: Workers 10M requests and 30M CPU ms; Workers KV 10M reads, 1M each of writes, deletes and lists, and 1 GB; Durable Objects 1M requests, 400,000 GB-s, 25B SQLite rows read, 50M rows written and 5 GB; D1 25B rows read, 50M rows written and 5 GB; Queues 1M operations; Workers Logs 20M events; Workers AI 10,000 neurons a day. The Workers, KV, Durable Objects, D1 and Queues prices give these as included units counted over the whole account, whether or not this node is placed; the Workers AI neurons are not subtracted. The fee is paid once however many plan nodes are placed. Load does not flow through the plan."
 kinds: [plan]
 sla: cloudflare.workers
 # A plan is not a Terraform resource: place it by hand, once per account.

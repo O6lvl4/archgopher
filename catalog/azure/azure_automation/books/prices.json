@@ -2,7 +2,7 @@
   "azure.automation.job_runtime": {
     "unit": "minute",
     "source": "https://azure.microsoft.com/pricing/details/automation/",
-    "note": "Process automation job run time. The first 500 minutes a month are free (https://azure.microsoft.com/pricing/details/automation/: 500 minutes free; not for rate plans with a flat discount or a fixed monthly credit), given in the price list as the zero-priced first tier. The page does not say whether the free units are counted per region; billing aggregates usage over every Automation account of the subscription and the meter is regional, so they are counted per region here",
+    "note": "Process automation job run time (https://azure.microsoft.com/pricing/details/automation/). The price list's first tier is a free grant, billed here at the first paid tier's price",
     "sync": {
       "source": "azure",
       "service": "Automation",
@@ -47,7 +47,7 @@
   "azure.automation.nonazure_node": {
     "unit": "node-month",
     "source": "https://azure.microsoft.com/pricing/details/automation/",
-    "note": "State configuration (DSC) node outside Azure; Azure nodes are free. The first 5 nodes a month are free (https://azure.microsoft.com/pricing/details/automation/: 5 nodes free), given in the price list as the zero-priced first tier. The page does not say whether the free units are counted per region; billing aggregates usage over every Automation account of the subscription and the meter is regional, so they are counted per region here",
+    "note": "State configuration (DSC) node outside Azure; Azure nodes are free (https://azure.microsoft.com/pricing/details/automation/). The price list's first tier is a free grant, billed here at the first paid tier's price",
     "sync": {
       "source": "azure",
       "service": "Automation",

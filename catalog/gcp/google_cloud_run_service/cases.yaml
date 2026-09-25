@@ -1,6 +1,5 @@
 # Worked examples: given these values and this load, the resource reads this.
 # Expected values are computed by hand from the unit prices, not taken from the engine.
-# Requests within the billing account's free 2 million.
 - name: Tokyo (Tier 1), request-based, 1 vCPU and 512 MiB, 80 concurrent
   region: asia-northeast1
   assumptions:
@@ -12,10 +11,9 @@
   costs:
     vCPU: 0.06
     Memory: 0.003125
-    Requests: 0
+    Requests: 0.4
   limits:
     Instances: 1
-# Requests within the billing account's free 2 million.
 - name: Tokyo (Tier 1), request-based with one idle minimum instance
   region: asia-northeast1
   attributes:
@@ -29,7 +27,7 @@
   costs:
     vCPU: 0.06
     Memory: 0.003125
-    Requests: 0
+    Requests: 0.4
     Idle minimum instances vCPU: 6.56375
     Idle minimum instances memory: 3.281875
   limits:

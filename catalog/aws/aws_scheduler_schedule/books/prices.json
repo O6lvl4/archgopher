@@ -3,7 +3,7 @@
     "unit": "invocation",
     "per": 1000000,
     "source": "https://aws.amazon.com/eventbridge/pricing/",
-    "note": "Scheduled invocations. Always free: 14,000,000 a month (https://aws.amazon.com/free/, Always free: Amazon EventBridge; https://aws.amazon.com/eventbridge/pricing/), given by the Price List as a $0 first tier and counted each month across all regions, so the pool is the account",
+    "note": "Scheduled invocations. The price list's first tier is a free grant, billed here at the first paid tier's price",
     "sync": {
       "service": "AWSEvents",
       "filters": {

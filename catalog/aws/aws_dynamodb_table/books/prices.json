@@ -132,7 +132,7 @@
   "aws.dynamodb.ia.provisioned.rcu": {
     "unit": "RCU-hour",
     "source": "https://aws.amazon.com/dynamodb/pricing/",
-    "note": "Standard-Infrequent Access table class; no free tier",
+    "note": "Standard-Infrequent Access table class",
     "sync": {
       "service": "AmazonDynamoDB",
       "filters": {
@@ -196,7 +196,7 @@
   "aws.dynamodb.ia.provisioned.wcu": {
     "unit": "WCU-hour",
     "source": "https://aws.amazon.com/dynamodb/pricing/",
-    "note": "Standard-Infrequent Access table class; no free tier",
+    "note": "Standard-Infrequent Access table class",
     "sync": {
       "service": "AmazonDynamoDB",
       "filters": {
@@ -260,7 +260,7 @@
   "aws.dynamodb.ia.storage": {
     "unit": "GB-month",
     "source": "https://aws.amazon.com/dynamodb/pricing/",
-    "note": "Standard-Infrequent Access table class; no free tier",
+    "note": "Standard-Infrequent Access table class",
     "sync": {
       "service": "AmazonDynamoDB",
       "filters": {
@@ -451,7 +451,7 @@
   "aws.dynamodb.provisioned.rcu": {
     "unit": "RCU-hour",
     "source": "https://aws.amazon.com/dynamodb/pricing/",
-    "note": "Standard table class, provisioned read capacity. Always free: 25 RCU, 18,600 RCU-hours a month (https://aws.amazon.com/free/, Always free: Amazon DynamoDB), given by the Price List as a $0 first tier and counted over every region of the account (https://aws.amazon.com/free/free-tier-faqs/)",
+    "note": "Standard table class, provisioned read capacity. The price list's first tier is a free grant, billed here at the first paid tier's price",
     "sync": {
       "service": "AmazonDynamoDB",
       "filters": {
@@ -494,7 +494,7 @@
   "aws.dynamodb.provisioned.wcu": {
     "unit": "WCU-hour",
     "source": "https://aws.amazon.com/dynamodb/pricing/",
-    "note": "Standard table class, provisioned write capacity. Always free: 25 WCU, 18,600 WCU-hours a month (https://aws.amazon.com/free/, Always free: Amazon DynamoDB), given by the Price List as a $0 first tier and counted over every region of the account (https://aws.amazon.com/free/free-tier-faqs/)",
+    "note": "Standard table class, provisioned write capacity. The price list's first tier is a free grant, billed here at the first paid tier's price",
     "sync": {
       "service": "AmazonDynamoDB",
       "filters": {
@@ -537,7 +537,7 @@
   "aws.dynamodb.storage": {
     "unit": "GB-month",
     "source": "https://aws.amazon.com/dynamodb/pricing/",
-    "note": "Standard table class storage. Always free: 25 GB a month (https://aws.amazon.com/free/, Always free: Amazon DynamoDB), given by the Price List as a $0 first tier and counted over every region of the account (https://aws.amazon.com/free/free-tier-faqs/)",
+    "note": "Standard table class storage. The price list's first tier is a free grant, billed here at the first paid tier's price",
     "sync": {
       "service": "AmazonDynamoDB",
       "filters": {

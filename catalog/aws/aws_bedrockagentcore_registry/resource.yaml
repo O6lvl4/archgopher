@@ -2,7 +2,7 @@ type: aws_bedrockagentcore_registry
 label: Agent Registry
 category: AI
 icon: agentcore
-description: "Records stored and search calls. The monthly free 5,000 records and 1,000,000 searches are given once for the account."
+description: "Records stored and search calls."
 kinds: [search]
 sla: aws.agentcore
 assumptions:

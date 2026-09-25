@@ -3,7 +3,7 @@
     "unit": "operation",
     "per": 1000000,
     "source": "https://azure.microsoft.com/pricing/details/event-grid/",
-    "note": "Operations on custom, system and partner topics and domains (Basic tier). The API meter is named Standard Operations, priced per 100,000; the Event Grid namespace meters (Standard Event Operations, throughput units) are the Standard tier and not read here. The first 100,000 operations a month are free (https://azure.microsoft.com/pricing/details/event-grid/: free usage per month 100,000 operations); the page does not say over what they are counted, so they are counted per region here, over every topic of the account. The price list gives them as the zero-priced first tier",
+    "note": "Operations on custom, system and partner topics and domains (Basic tier; https://azure.microsoft.com/pricing/details/event-grid/). The API meter is named Standard Operations, priced per 100,000; the Event Grid namespace meters (Standard Event Operations, throughput units) are the Standard tier and not read here. The price list's first tier is a free grant, billed here at the first paid tier's price",
     "sync": {
       "source": "azure",
       "service": "Event Grid",

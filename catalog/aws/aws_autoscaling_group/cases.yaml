@@ -38,11 +38,11 @@
       monthly: 0
       peak: 0
   # on-demand 2 + 8 x 25% = 4, spot 6; 4 x 730 x 0.096; 6 x 730 x 0.4 x 0.096;
-  # (10 x 7 metrics - 10 always free) x 0.30 = 18; 10 x 8 GB x 0.10
+  # 10 x 7 metrics x 0.30 = 21; 10 x 8 GB x 0.10
   costs:
     Instance (linux, m5.large): 280.32
     Spot instance (linux, m5.large): 168.192
-    Detailed monitoring: 18
+    Detailed monitoring: 21
     Root volumes (gp2): 8
 - name: no instance type (us-east-1)
   region: us-east-1
@@ -55,7 +55,7 @@
       peak: 0
   error: "no instance type: set instanceType"
 # Detailed monitoring past the first metric tier: 2,000 x 7 = 14,000 metrics.
-# (10,000 - 10 always free) x 0.30 = 2997; (14,000 - 10,000) x 0.10 = 400; together 3397.
+# 10,000 x 0.30 = 3000; (14,000 - 10,000) x 0.10 = 400; together 3400.
 # 2,000 x 730 x 0.096 = 140160; 2,000 x 8 GB x 0.10 = 1600.
 - name: detailed monitoring past the first metric tier (us-east-1)
   region: us-east-1
@@ -71,7 +71,7 @@
       peak: 0
   costs:
     Instance (linux, m5.large): 140160
-    Detailed monitoring: 3397
+    Detailed monitoring: 3400
     Root volumes (gp2): 1600
 # Dedicated tenancy: 3 x 730 h x 0.102 = 223.38; 3 x 8 GB x 0.10 = 2.4; the region's
 # Dedicated per region fee is paid once, however many dedicated instances run: 730 h x 2 = 1460.

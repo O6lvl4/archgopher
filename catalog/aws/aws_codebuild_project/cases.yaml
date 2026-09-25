@@ -9,7 +9,7 @@
         monthly: 600
         peak: 0.001
   costs:
-    Build minutes (Linux:g1.small): 14.5  # (600 builds × 5 billed min − 100 always free) × 0.005
+    Build minutes (Linux:g1.small): 15  # 600 builds × 5 billed min × 0.005
   limits:
     Build time against timeout: 4.5
     Concurrent builds: 0.27  # 0.001 builds/s × 270 s
@@ -82,7 +82,7 @@
         monthly: 10
         peak: 0.001
   error: 'ARM_EC2 runs only on a reserved-capacity fleet: on-demand compute is not read'
-- name: Lambda compute on arm 1 GB, past the always-free seconds
+- name: Lambda compute on arm 1 GB
   region: us-east-1
   attributes:
     compute_type: BUILD_LAMBDA_1GB
@@ -94,7 +94,7 @@
         monthly: 1000
         peak: 0.01
   costs:
-    Build seconds (Lambda arm.1GB): 1.14  # (1000 × 120 s − 6,000 always free) × 0.00001
+    Build seconds (Lambda arm.1GB): 1.2  # 1000 × 120 s × 0.00001
   limits:
     Build time against timeout: 2
     Concurrent builds: 1.2

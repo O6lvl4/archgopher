@@ -1,7 +1,6 @@
 # Worked examples: given these values and this load, the resource reads this.
 # Expected values are computed by hand from the unit prices, not taken from the engine.
-# Within the free grant of the subscription: 1M executions are the first million, free;
-# 1e6 × 0.25 s × 0.25 GB = 62500 GB-seconds, under the 400000 free.
+# 1e6 × 0.2 / 1e6 = 0.2 for executions; 1e6 × 0.25 s × 0.25 GB = 62500 GB-seconds × 0.000016 = 1.
 - name: Consumption, 250 ms at 256 MB (eastus)
   region: eastus
   assumptions:
@@ -12,12 +11,12 @@
       monthly: 1000000.0
       peak: 10
   costs:
-    Executions: 0
-    Execution time: 0
+    Executions: 0.2
+    Execution time: 1.0
   limits:
     Instances: 0.025
     Execution time limit: 0.25
-# 1e5 × 0.1 s × 0.25 GB = 2500 GB-seconds and 1e5 executions, both within the free grant.
+# 1e5 × 0.2 / 1e6 = 0.02 for executions; 1e5 × 0.1 s × 0.25 GB = 2500 GB-seconds × 0.000016 = 0.04.
 - name: short executions bill 100 ms and 128 MB steps
   region: japaneast
   assumptions:
@@ -28,8 +27,8 @@
       monthly: 100000.0
       peak: 1
   costs:
-    Executions: 0
-    Execution time: 0
+    Executions: 0.02
+    Execution time: 0.04
   limits:
     Instances: 0.001
     Execution time limit: 0.05
@@ -44,20 +43,3 @@
       peak: 10
   costs: {}
   limits: {}
-# Past the free grant: (10e6 − 1e6) × 0.2 / 1e6 = 1.8 for executions;
-# 10e6 × 1 s × 0.5 GB = 5e6 GB-seconds, (5e6 − 400000) × 0.000016 = 73.6.
-- name: past the free grant (eastus)
-  region: eastus
-  assumptions:
-    executionMs: 1000
-    memoryMb: 512
-  demand:
-    invoke:
-      monthly: 10000000.0
-      peak: 40
-  costs:
-    Executions: 1.8
-    Execution time: 73.6
-  limits:
-    Instances: 0.4
-    Execution time limit: 1.0

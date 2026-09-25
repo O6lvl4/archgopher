@@ -185,7 +185,7 @@
   "aws.codebuild.build_minute.ARM:g1.small": {
     "unit": "minute",
     "source": "https://aws.amazon.com/codebuild/pricing/",
-    "note": "On-demand build minutes on build.arm1.small, rounded up to the minute. Always free: 100 build minutes a month over general1.small and arm1.small together (https://aws.amazon.com/codebuild/pricing/: the CodeBuild free tier does not expire; https://aws.amazon.com/free/, Always free: AWS CodeBuild), counted over the account. Kept out of the build_minute table so it can carry the free minutes",
+    "note": "On-demand build minutes on build.arm1.small, rounded up to the minute",
     "sync": {
       "filters": {
         "usagetype": "(?:[A-Z]+[0-9]|EU)-Build-Min:ARM:g1\\.small"
@@ -243,15 +243,12 @@
         "verified": true,
         "checkedAt": "2026-09-25"
       }
-    },
-    "pool": "account",
-    "free": 100,
-    "freeGroup": "aws.codebuild.free_build_minutes"
+    }
   },
   "aws.codebuild.build_minute.Linux:g1.small": {
     "unit": "minute",
     "source": "https://aws.amazon.com/codebuild/pricing/",
-    "note": "On-demand build minutes on build.general1.small (Linux), rounded up to the minute. Always free: 100 build minutes a month over general1.small and arm1.small together (https://aws.amazon.com/codebuild/pricing/: the CodeBuild free tier does not expire; https://aws.amazon.com/free/, Always free: AWS CodeBuild; the price list's Global-Build-Min:Linux:g1.small grant, 0 to 100 at $0), counted over the account. Kept out of the build_minute table so it can carry the free minutes",
+    "note": "On-demand build minutes on build.general1.small (Linux), rounded up to the minute",
     "sync": {
       "filters": {
         "usagetype": "(?:[A-Z]+[0-9]|EU)-Build-Min:Linux:g1\\.small"
@@ -309,10 +306,7 @@
         "verified": true,
         "checkedAt": "2026-09-25"
       }
-    },
-    "pool": "account",
-    "free": 100,
-    "freeGroup": "aws.codebuild.free_build_minutes"
+    }
   },
   "aws.codebuild.docker_second": {
     "unit": "second",
@@ -563,7 +557,7 @@
   "aws.codebuild.lambda_second.arm.1GB": {
     "unit": "second",
     "source": "https://aws.amazon.com/codebuild/pricing/",
-    "note": "On-demand Lambda compute build seconds on lambda.arm.1GB. Always free: 6,000 build seconds a month over lambda.arm.1GB and lambda.x86-64.1GB together (https://aws.amazon.com/codebuild/pricing/: the CodeBuild free tier does not expire; the price list's Global-Build-Sec:Lambda.1GB grant, 0 to 6,000 at $0), counted over the account. Kept out of the lambda_second table so it can carry the free seconds",
+    "note": "On-demand Lambda compute build seconds on lambda.arm.1GB",
     "sync": {
       "filters": {
         "usagetype": "(?:[A-Z]+[0-9]|EU)-Build-Sec:Linux:Lambda:arm\\.1GB"
@@ -621,15 +615,12 @@
         "verified": true,
         "checkedAt": "2026-09-25"
       }
-    },
-    "pool": "account",
-    "free": 6000,
-    "freeGroup": "aws.codebuild.free_lambda_seconds"
+    }
   },
   "aws.codebuild.lambda_second.x86-64.1GB": {
     "unit": "second",
     "source": "https://aws.amazon.com/codebuild/pricing/",
-    "note": "On-demand Lambda compute build seconds on lambda.x86-64.1GB. Always free: 6,000 build seconds a month over lambda.arm.1GB and lambda.x86-64.1GB together (https://aws.amazon.com/codebuild/pricing/: the CodeBuild free tier does not expire; the price list's Global-Build-Sec:Lambda.1GB grant, 0 to 6,000 at $0), counted over the account. Kept out of the lambda_second table so it can carry the free seconds",
+    "note": "On-demand Lambda compute build seconds on lambda.x86-64.1GB",
     "sync": {
       "filters": {
         "usagetype": "(?:[A-Z]+[0-9]|EU)-Build-Sec:Linux:Lambda:x86\\-64\\.1GB"
@@ -687,9 +678,6 @@
         "verified": true,
         "checkedAt": "2026-09-25"
       }
-    },
-    "pool": "account",
-    "free": 6000,
-    "freeGroup": "aws.codebuild.free_lambda_seconds"
+    }
   }
 }

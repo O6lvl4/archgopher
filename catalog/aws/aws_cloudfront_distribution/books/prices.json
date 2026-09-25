@@ -3,7 +3,7 @@
     "unit": "request",
     "per": 10000,
     "source": "https://aws.amazon.com/cloudfront/pricing/",
-    "note": "HTTPS requests served from edges in Asia Pacific (Hong Kong, Singapore, South Korea, Taiwan, and others). Always free: 10,000,000 HTTP or HTTPS requests a month over every price zone together (https://aws.amazon.com/free/, Always free: Amazon CloudFront; the price list's Global-Requests-Tier1 grant, 0 to 10 million at $0); CloudFront is global, so the pool is the account",
+    "note": "HTTPS requests served from edges in Asia Pacific (Hong Kong, Singapore, South Korea, Taiwan, and others)",
     "sync": {
       "service": "AmazonCloudFront",
       "offerRegion": "aws-other",
@@ -17,15 +17,12 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       }
-    },
-    "pool": "account",
-    "free": 10000000,
-    "freeGroup": "aws.cloudfront.free_requests"
+    }
   },
   "aws.cloudfront.ap.transfer_out": {
     "unit": "GB",
     "source": "https://aws.amazon.com/cloudfront/pricing/",
-    "note": "Data transfer out to viewers in Asia Pacific (Hong Kong, Singapore, South Korea, Taiwan, and others). Volume tiers count the account's transfer to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB. Always free: 1 TB (1,024 GB) a month over every price zone together (https://aws.amazon.com/free/, Always free: Amazon CloudFront; the price list's Global-DataTransfer-Out-Bytes grant, 0 to 1,024 GB at $0)",
+    "note": "Data transfer out to viewers in Asia Pacific (Hong Kong, Singapore, South Korea, Taiwan, and others). Volume tiers count the account's transfer to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB",
     "sync": {
       "service": "AmazonCloudFront",
       "offerRegion": "aws-other",
@@ -60,15 +57,13 @@
     "verified": true,
     "checkedAt": "2026-09-25",
     "pool": "account",
-    "free": 1024,
-    "freeGroup": "aws.cloudfront.free_transfer_out",
     "tiered": true
   },
   "aws.cloudfront.au.https_requests": {
     "unit": "request",
     "per": 10000,
     "source": "https://aws.amazon.com/cloudfront/pricing/",
-    "note": "HTTPS requests served from edges in Australia and New Zealand. Always free: 10,000,000 HTTP or HTTPS requests a month over every price zone together (https://aws.amazon.com/free/, Always free: Amazon CloudFront; the price list's Global-Requests-Tier1 grant, 0 to 10 million at $0); CloudFront is global, so the pool is the account",
+    "note": "HTTPS requests served from edges in Australia and New Zealand",
     "sync": {
       "service": "AmazonCloudFront",
       "offerRegion": "aws-other",
@@ -82,15 +77,12 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       }
-    },
-    "pool": "account",
-    "free": 10000000,
-    "freeGroup": "aws.cloudfront.free_requests"
+    }
   },
   "aws.cloudfront.au.transfer_out": {
     "unit": "GB",
     "source": "https://aws.amazon.com/cloudfront/pricing/",
-    "note": "Data transfer out to viewers in Australia and New Zealand. Volume tiers count the account's transfer to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB. Always free: 1 TB (1,024 GB) a month over every price zone together (https://aws.amazon.com/free/, Always free: Amazon CloudFront; the price list's Global-DataTransfer-Out-Bytes grant, 0 to 1,024 GB at $0)",
+    "note": "Data transfer out to viewers in Australia and New Zealand. Volume tiers count the account's transfer to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB",
     "sync": {
       "service": "AmazonCloudFront",
       "offerRegion": "aws-other",
@@ -125,15 +117,13 @@
     "verified": true,
     "checkedAt": "2026-09-25",
     "pool": "account",
-    "free": 1024,
-    "freeGroup": "aws.cloudfront.free_transfer_out",
     "tiered": true
   },
   "aws.cloudfront.ca.https_requests": {
     "unit": "request",
     "per": 10000,
     "source": "https://aws.amazon.com/cloudfront/pricing/",
-    "note": "HTTPS requests served from edges in Canada. Always free: 10,000,000 HTTP or HTTPS requests a month over every price zone together (https://aws.amazon.com/free/, Always free: Amazon CloudFront; the price list's Global-Requests-Tier1 grant, 0 to 10 million at $0); CloudFront is global, so the pool is the account",
+    "note": "HTTPS requests served from edges in Canada",
     "sync": {
       "service": "AmazonCloudFront",
       "offerRegion": "aws-other",
@@ -147,15 +137,12 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       }
-    },
-    "pool": "account",
-    "free": 10000000,
-    "freeGroup": "aws.cloudfront.free_requests"
+    }
   },
   "aws.cloudfront.ca.transfer_out": {
     "unit": "GB",
     "source": "https://aws.amazon.com/cloudfront/pricing/",
-    "note": "Data transfer out to viewers in Canada. Volume tiers count the account's transfer to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB. Always free: 1 TB (1,024 GB) a month over every price zone together (https://aws.amazon.com/free/, Always free: Amazon CloudFront; the price list's Global-DataTransfer-Out-Bytes grant, 0 to 1,024 GB at $0)",
+    "note": "Data transfer out to viewers in Canada. Volume tiers count the account's transfer to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB",
     "sync": {
       "service": "AmazonCloudFront",
       "offerRegion": "aws-other",
@@ -190,15 +177,13 @@
     "verified": true,
     "checkedAt": "2026-09-25",
     "pool": "account",
-    "free": 1024,
-    "freeGroup": "aws.cloudfront.free_transfer_out",
     "tiered": true
   },
   "aws.cloudfront.eu.https_requests": {
     "unit": "request",
     "per": 10000,
     "source": "https://aws.amazon.com/cloudfront/pricing/",
-    "note": "HTTPS requests served from edges in Europe and Israel. Always free: 10,000,000 HTTP or HTTPS requests a month over every price zone together (https://aws.amazon.com/free/, Always free: Amazon CloudFront; the price list's Global-Requests-Tier1 grant, 0 to 10 million at $0); CloudFront is global, so the pool is the account",
+    "note": "HTTPS requests served from edges in Europe and Israel",
     "sync": {
       "service": "AmazonCloudFront",
       "offerRegion": "aws-other",
@@ -212,15 +197,12 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       }
-    },
-    "pool": "account",
-    "free": 10000000,
-    "freeGroup": "aws.cloudfront.free_requests"
+    }
   },
   "aws.cloudfront.eu.transfer_out": {
     "unit": "GB",
     "source": "https://aws.amazon.com/cloudfront/pricing/",
-    "note": "Data transfer out to viewers in Europe and Israel. Volume tiers count the account's transfer to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB. Always free: 1 TB (1,024 GB) a month over every price zone together (https://aws.amazon.com/free/, Always free: Amazon CloudFront; the price list's Global-DataTransfer-Out-Bytes grant, 0 to 1,024 GB at $0)",
+    "note": "Data transfer out to viewers in Europe and Israel. Volume tiers count the account's transfer to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB",
     "sync": {
       "service": "AmazonCloudFront",
       "offerRegion": "aws-other",
@@ -255,15 +237,13 @@
     "verified": true,
     "checkedAt": "2026-09-25",
     "pool": "account",
-    "free": 1024,
-    "freeGroup": "aws.cloudfront.free_transfer_out",
     "tiered": true
   },
   "aws.cloudfront.in.https_requests": {
     "unit": "request",
     "per": 10000,
     "source": "https://aws.amazon.com/cloudfront/pricing/",
-    "note": "HTTPS requests served from edges in India. Always free: 10,000,000 HTTP or HTTPS requests a month over every price zone together (https://aws.amazon.com/free/, Always free: Amazon CloudFront; the price list's Global-Requests-Tier1 grant, 0 to 10 million at $0); CloudFront is global, so the pool is the account",
+    "note": "HTTPS requests served from edges in India",
     "sync": {
       "service": "AmazonCloudFront",
       "offerRegion": "aws-other",
@@ -277,15 +257,12 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       }
-    },
-    "pool": "account",
-    "free": 10000000,
-    "freeGroup": "aws.cloudfront.free_requests"
+    }
   },
   "aws.cloudfront.in.transfer_out": {
     "unit": "GB",
     "source": "https://aws.amazon.com/cloudfront/pricing/",
-    "note": "Data transfer out to viewers in India. Volume tiers count the account's transfer to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB. Always free: 1 TB (1,024 GB) a month over every price zone together (https://aws.amazon.com/free/, Always free: Amazon CloudFront; the price list's Global-DataTransfer-Out-Bytes grant, 0 to 1,024 GB at $0)",
+    "note": "Data transfer out to viewers in India. Volume tiers count the account's transfer to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB",
     "sync": {
       "service": "AmazonCloudFront",
       "offerRegion": "aws-other",
@@ -320,15 +297,13 @@
     "verified": true,
     "checkedAt": "2026-09-25",
     "pool": "account",
-    "free": 1024,
-    "freeGroup": "aws.cloudfront.free_transfer_out",
     "tiered": true
   },
   "aws.cloudfront.jp.https_requests": {
     "unit": "request",
     "per": 10000,
     "source": "https://aws.amazon.com/cloudfront/pricing/",
-    "note": "HTTPS requests served from edges in Japan. Always free: 10,000,000 HTTP or HTTPS requests a month over every price zone together (https://aws.amazon.com/free/, Always free: Amazon CloudFront; the price list's Global-Requests-Tier1 grant, 0 to 10 million at $0); CloudFront is global, so the pool is the account",
+    "note": "HTTPS requests served from edges in Japan",
     "sync": {
       "service": "AmazonCloudFront",
       "offerRegion": "aws-other",
@@ -342,15 +317,12 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       }
-    },
-    "pool": "account",
-    "free": 10000000,
-    "freeGroup": "aws.cloudfront.free_requests"
+    }
   },
   "aws.cloudfront.jp.transfer_out": {
     "unit": "GB",
     "source": "https://aws.amazon.com/cloudfront/pricing/",
-    "note": "Data transfer out to viewers in Japan. Volume tiers count the account's transfer to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB. Always free: 1 TB (1,024 GB) a month over every price zone together (https://aws.amazon.com/free/, Always free: Amazon CloudFront; the price list's Global-DataTransfer-Out-Bytes grant, 0 to 1,024 GB at $0)",
+    "note": "Data transfer out to viewers in Japan. Volume tiers count the account's transfer to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB",
     "sync": {
       "service": "AmazonCloudFront",
       "offerRegion": "aws-other",
@@ -385,15 +357,13 @@
     "verified": true,
     "checkedAt": "2026-09-25",
     "pool": "account",
-    "free": 1024,
-    "freeGroup": "aws.cloudfront.free_transfer_out",
     "tiered": true
   },
   "aws.cloudfront.me.https_requests": {
     "unit": "request",
     "per": 10000,
     "source": "https://aws.amazon.com/cloudfront/pricing/",
-    "note": "HTTPS requests served from edges in Middle East. Always free: 10,000,000 HTTP or HTTPS requests a month over every price zone together (https://aws.amazon.com/free/, Always free: Amazon CloudFront; the price list's Global-Requests-Tier1 grant, 0 to 10 million at $0); CloudFront is global, so the pool is the account",
+    "note": "HTTPS requests served from edges in Middle East",
     "sync": {
       "service": "AmazonCloudFront",
       "offerRegion": "aws-other",
@@ -407,15 +377,12 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       }
-    },
-    "pool": "account",
-    "free": 10000000,
-    "freeGroup": "aws.cloudfront.free_requests"
+    }
   },
   "aws.cloudfront.me.transfer_out": {
     "unit": "GB",
     "source": "https://aws.amazon.com/cloudfront/pricing/",
-    "note": "Data transfer out to viewers in Middle East. Volume tiers count the account's transfer to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB. Always free: 1 TB (1,024 GB) a month over every price zone together (https://aws.amazon.com/free/, Always free: Amazon CloudFront; the price list's Global-DataTransfer-Out-Bytes grant, 0 to 1,024 GB at $0)",
+    "note": "Data transfer out to viewers in Middle East. Volume tiers count the account's transfer to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB",
     "sync": {
       "service": "AmazonCloudFront",
       "offerRegion": "aws-other",
@@ -450,15 +417,13 @@
     "verified": true,
     "checkedAt": "2026-09-25",
     "pool": "account",
-    "free": 1024,
-    "freeGroup": "aws.cloudfront.free_transfer_out",
     "tiered": true
   },
   "aws.cloudfront.sa.https_requests": {
     "unit": "request",
     "per": 10000,
     "source": "https://aws.amazon.com/cloudfront/pricing/",
-    "note": "HTTPS requests served from edges in South America. Always free: 10,000,000 HTTP or HTTPS requests a month over every price zone together (https://aws.amazon.com/free/, Always free: Amazon CloudFront; the price list's Global-Requests-Tier1 grant, 0 to 10 million at $0); CloudFront is global, so the pool is the account",
+    "note": "HTTPS requests served from edges in South America",
     "sync": {
       "service": "AmazonCloudFront",
       "offerRegion": "aws-other",
@@ -472,15 +437,12 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       }
-    },
-    "pool": "account",
-    "free": 10000000,
-    "freeGroup": "aws.cloudfront.free_requests"
+    }
   },
   "aws.cloudfront.sa.transfer_out": {
     "unit": "GB",
     "source": "https://aws.amazon.com/cloudfront/pricing/",
-    "note": "Data transfer out to viewers in South America. Volume tiers count the account's transfer to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB. Always free: 1 TB (1,024 GB) a month over every price zone together (https://aws.amazon.com/free/, Always free: Amazon CloudFront; the price list's Global-DataTransfer-Out-Bytes grant, 0 to 1,024 GB at $0)",
+    "note": "Data transfer out to viewers in South America. Volume tiers count the account's transfer to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB",
     "sync": {
       "service": "AmazonCloudFront",
       "offerRegion": "aws-other",
@@ -515,15 +477,13 @@
     "verified": true,
     "checkedAt": "2026-09-25",
     "pool": "account",
-    "free": 1024,
-    "freeGroup": "aws.cloudfront.free_transfer_out",
     "tiered": true
   },
   "aws.cloudfront.us.https_requests": {
     "unit": "request",
     "per": 10000,
     "source": "https://aws.amazon.com/cloudfront/pricing/",
-    "note": "HTTPS requests served from edges in United States, Mexico. Always free: 10,000,000 HTTP or HTTPS requests a month over every price zone together (https://aws.amazon.com/free/, Always free: Amazon CloudFront; the price list's Global-Requests-Tier1 grant, 0 to 10 million at $0); CloudFront is global, so the pool is the account",
+    "note": "HTTPS requests served from edges in United States, Mexico",
     "sync": {
       "service": "AmazonCloudFront",
       "offerRegion": "aws-other",
@@ -537,15 +497,12 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       }
-    },
-    "pool": "account",
-    "free": 10000000,
-    "freeGroup": "aws.cloudfront.free_requests"
+    }
   },
   "aws.cloudfront.us.transfer_out": {
     "unit": "GB",
     "source": "https://aws.amazon.com/cloudfront/pricing/",
-    "note": "Data transfer out to viewers in United States, Mexico. Volume tiers count the account's transfer to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB. Always free: 1 TB (1,024 GB) a month over every price zone together (https://aws.amazon.com/free/, Always free: Amazon CloudFront; the price list's Global-DataTransfer-Out-Bytes grant, 0 to 1,024 GB at $0)",
+    "note": "Data transfer out to viewers in United States, Mexico. Volume tiers count the account's transfer to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB",
     "sync": {
       "service": "AmazonCloudFront",
       "offerRegion": "aws-other",
@@ -580,15 +537,13 @@
     "verified": true,
     "checkedAt": "2026-09-25",
     "pool": "account",
-    "free": 1024,
-    "freeGroup": "aws.cloudfront.free_transfer_out",
     "tiered": true
   },
   "aws.cloudfront.za.https_requests": {
     "unit": "request",
     "per": 10000,
     "source": "https://aws.amazon.com/cloudfront/pricing/",
-    "note": "HTTPS requests served from edges in South Africa. Always free: 10,000,000 HTTP or HTTPS requests a month over every price zone together (https://aws.amazon.com/free/, Always free: Amazon CloudFront; the price list's Global-Requests-Tier1 grant, 0 to 10 million at $0); CloudFront is global, so the pool is the account",
+    "note": "HTTPS requests served from edges in South Africa",
     "sync": {
       "service": "AmazonCloudFront",
       "offerRegion": "aws-other",
@@ -602,15 +557,12 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       }
-    },
-    "pool": "account",
-    "free": 10000000,
-    "freeGroup": "aws.cloudfront.free_requests"
+    }
   },
   "aws.cloudfront.za.transfer_out": {
     "unit": "GB",
     "source": "https://aws.amazon.com/cloudfront/pricing/",
-    "note": "Data transfer out to viewers in South Africa. Volume tiers count the account's transfer to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB. Always free: 1 TB (1,024 GB) a month over every price zone together (https://aws.amazon.com/free/, Always free: Amazon CloudFront; the price list's Global-DataTransfer-Out-Bytes grant, 0 to 1,024 GB at $0)",
+    "note": "Data transfer out to viewers in South Africa. Volume tiers count the account's transfer to the zone in a month: from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB",
     "sync": {
       "service": "AmazonCloudFront",
       "offerRegion": "aws-other",
@@ -645,8 +597,6 @@
     "verified": true,
     "checkedAt": "2026-09-25",
     "pool": "account",
-    "free": 1024,
-    "freeGroup": "aws.cloudfront.free_transfer_out",
     "tiered": true
   }
 }

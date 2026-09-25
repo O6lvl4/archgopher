@@ -2,7 +2,7 @@ type: aws_api_gateway_rest_api
 label: API Gateway (REST)
 category: Edge
 icon: api-gateway
-description: "Requests in volume tiers from 333 million, 1 billion and 20 billion a month, counted over every REST API of the account in the region. The 12-month free tier is not given. Headroom is the account throttle shared by every API in the region."
+description: "Requests in volume tiers from 333 million, 1 billion and 20 billion a month, counted over every REST API of the account in the region. Headroom is the account throttle shared by every API in the region."
 kinds: [request]
 sla: aws.apigateway
 readings:

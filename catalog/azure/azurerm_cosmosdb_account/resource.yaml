@@ -2,7 +2,7 @@ type: azurerm_cosmosdb_account
 label: Cosmos DB
 category: Database
 icon: cosmos-db
-description: "Request units of a serverless account, from the calls it receives, and the throughput and storage of databases and containers that are not declared as their own nodes. A declared database, container, collection, keyspace, table or graph bills its own throughput, storage and backup, so leave provisionedRus and storageGb unset for what they declare. The free tier is ignored, as every free tier."
+description: "Request units of a serverless account, from the calls it receives, and the throughput and storage of databases and containers that are not declared as their own nodes. A declared database, container, collection, keyspace, table or graph bills its own throughput, storage and backup, so leave provisionedRus and storageGb unset for what they declare. Free tiers are not counted."
 kinds: [read, write]
 sla: azure.cosmosdb
 attributes:

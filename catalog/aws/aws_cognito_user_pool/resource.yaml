@@ -2,7 +2,7 @@ type: aws_cognito_user_pool
 label: Cognito user pool
 category: Security
 icon: cognito
-description: "Monthly active users priced by feature plan: Lite in volume tiers from 100,000, 1 million and 10 million MAU, Essentials and Plus flat. The always-free 10,000 MAU a month of Lite and Essentials is given once over every user pool of the account on either plan, and the Lite tiers are counted over the account too. Headroom is the sign-in and sign-up request rates, shared by every user pool in the account and region."
+description: "Monthly active users priced by feature plan: Lite in volume tiers from 100,000, 1 million and 10 million MAU, Essentials and Plus flat. The Lite tiers are counted over every user pool of the account. Headroom is the sign-in and sign-up request rates, shared by every user pool in the account and region."
 kinds: [sign_in]
 sla: aws.cognito
 attributes:

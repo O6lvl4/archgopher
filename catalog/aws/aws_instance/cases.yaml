@@ -23,7 +23,7 @@
   # 500 GB x 0.142; 32,000 IOPS x 0.074 + 8,000 x 0.0518; 730 h x 0.005
   costs:
     Instance (linux, m5.large): 90.52
-    Detailed monitoring: 0  # 7 metrics, within the account's 10 always-free metrics
+    Detailed monitoring: 2.1  # 7 metrics × 0.30
     Root volume (gp3): 2.88
     Root volume IOPS (gp3, over 3,000): 6
     Root volume throughput (gp3, over 125 MiB/s): 6

@@ -120,7 +120,7 @@
     "unit": "state transition",
     "per": 1000,
     "source": "https://aws.amazon.com/step-functions/pricing/",
-    "note": "Standard workflow state transitions. Always free: 4,000 a month, which does not expire (https://aws.amazon.com/step-functions/pricing/; https://aws.amazon.com/free/, Always free: AWS Step Functions), counted over every region of the account (https://aws.amazon.com/free/free-tier-faqs/)",
+    "note": "Standard workflow state transitions",
     "sync": {
       "service": "AmazonStates",
       "filters": {
@@ -178,8 +178,6 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       }
-    },
-    "pool": "account",
-    "free": 4000
+    }
   }
 }

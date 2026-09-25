@@ -8,7 +8,7 @@
         peak: 20
   costs:
     Key: 1
-    Requests: 2.94  # (1,000,000 − 20,000 always free) / 10,000 × 0.03
+    Requests: 3  # 1,000,000 / 10,000 × 0.03
   limits:
     Symmetric request rate: 20
 - name: idle imported key

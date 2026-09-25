@@ -2,7 +2,7 @@
   "azure.automation.watcher": {
     "unit": "hour",
     "source": "https://azure.microsoft.com/pricing/details/automation/",
-    "note": "Watcher task hours. The first 744 hours a month are free (https://azure.microsoft.com/pricing/details/automation/: 744 hours free), given in the price list as the zero-priced first tier. The page does not say whether the free units are counted per region; billing aggregates usage over every Automation account of the subscription and the meter is regional, so they are counted per region here",
+    "note": "Watcher task hours (https://azure.microsoft.com/pricing/details/automation/). The price list's first tier is a free grant, billed here at the first paid tier's price",
     "sync": {
       "source": "azure",
       "service": "Automation",

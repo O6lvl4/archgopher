@@ -2,7 +2,7 @@
   "azure.containerapps.memory_active": {
     "unit": "GiB-second",
     "source": "https://azure.microsoft.com/pricing/details/container-apps/",
-    "note": "Consumption profile, replicas serving requests. The first 360,000 GiB-seconds a month, active and idle together, are free per subscription each month (https://learn.microsoft.com/azure/container-apps/billing: the following resources are free during each calendar month, per subscription), so they are given once over every Consumption container app of the account. The price list does not show them, so they are given by hand",
+    "note": "Consumption profile, replicas serving requests (https://learn.microsoft.com/azure/container-apps/billing)",
     "sync": {
       "source": "azure",
       "service": "Azure Container Apps",
@@ -63,15 +63,12 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       }
-    },
-    "pool": "account",
-    "free": 360000,
-    "freeGroup": "azure.containerapps.memory"
+    }
   },
   "azure.containerapps.memory_idle": {
     "unit": "GiB-second",
     "source": "https://azure.microsoft.com/pricing/details/container-apps/",
-    "note": "Consumption profile, minimum replicas while idle. The first 360,000 GiB-seconds a month, active and idle together, are free per subscription each month (https://learn.microsoft.com/azure/container-apps/billing: the following resources are free during each calendar month, per subscription), so they are given once over every Consumption container app of the account. The price list does not show them, so they are given by hand",
+    "note": "Consumption profile, minimum replicas while idle (https://learn.microsoft.com/azure/container-apps/billing)",
     "sync": {
       "source": "azure",
       "service": "Azure Container Apps",
@@ -132,16 +129,13 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       }
-    },
-    "pool": "account",
-    "free": 360000,
-    "freeGroup": "azure.containerapps.memory"
+    }
   },
   "azure.containerapps.requests": {
     "unit": "request",
     "per": 1000000,
     "source": "https://azure.microsoft.com/pricing/details/container-apps/",
-    "note": "Consumption profile requests from outside the environment. The first 2 million a month are free per subscription each month (https://learn.microsoft.com/azure/container-apps/billing: the following resources are free during each calendar month, per subscription), so they are given once over every Consumption container app of the account. The price list does not show them, so they are given by hand",
+    "note": "Consumption profile requests from outside the environment (https://learn.microsoft.com/azure/container-apps/billing)",
     "sync": {
       "source": "azure",
       "service": "Azure Container Apps",
@@ -203,14 +197,12 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       }
-    },
-    "pool": "account",
-    "free": 2000000
+    }
   },
   "azure.containerapps.vcpu_active": {
     "unit": "vCPU-second",
     "source": "https://azure.microsoft.com/pricing/details/container-apps/",
-    "note": "Consumption profile, replicas serving requests. The first 180,000 vCPU-seconds a month, active and idle together, are free per subscription each month (https://learn.microsoft.com/azure/container-apps/billing: the following resources are free during each calendar month, per subscription), so they are given once over every Consumption container app of the account. The price list does not show them, so they are given by hand",
+    "note": "Consumption profile, replicas serving requests (https://learn.microsoft.com/azure/container-apps/billing)",
     "sync": {
       "source": "azure",
       "service": "Azure Container Apps",
@@ -271,15 +263,12 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       }
-    },
-    "pool": "account",
-    "free": 180000,
-    "freeGroup": "azure.containerapps.vcpu"
+    }
   },
   "azure.containerapps.vcpu_idle": {
     "unit": "vCPU-second",
     "source": "https://azure.microsoft.com/pricing/details/container-apps/",
-    "note": "Consumption profile, minimum replicas while idle. The first 180,000 vCPU-seconds a month, active and idle together, are free per subscription each month (https://learn.microsoft.com/azure/container-apps/billing: the following resources are free during each calendar month, per subscription), so they are given once over every Consumption container app of the account. The price list does not show them, so they are given by hand",
+    "note": "Consumption profile, minimum replicas while idle (https://learn.microsoft.com/azure/container-apps/billing)",
     "sync": {
       "source": "azure",
       "service": "Azure Container Apps",
@@ -340,9 +329,6 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       }
-    },
-    "pool": "account",
-    "free": 180000,
-    "freeGroup": "azure.containerapps.vcpu"
+    }
   }
 }

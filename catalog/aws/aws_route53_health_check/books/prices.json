@@ -2,7 +2,7 @@
   "aws.route53.health_check.AWS": {
     "unit": "check-month",
     "source": "https://aws.amazon.com/route53/pricing/",
-    "note": "Health check of an AWS endpoint (and calculated, CloudWatch metric and recovery control checks). Always free: the first 50 a month (https://aws.amazon.com/free/, Always free: Amazon Route 53, \"Up to 50 AWS endpoints for health checks\"), given by the Price List as a $0 first tier and counted over the account",
+    "note": "Health check of an AWS endpoint (and calculated, CloudWatch metric and recovery control checks). The price list's first tier is a free grant, billed here at the first paid tier's price",
     "sync": {
       "service": "AmazonRoute53",
       "offerRegion": "aws-other",
@@ -27,7 +27,7 @@
   "aws.route53.health_check.Non-AWS": {
     "unit": "check-month",
     "source": "https://aws.amazon.com/route53/pricing/",
-    "note": "Health check of an endpoint outside AWS; no free checks",
+    "note": "Health check of an endpoint outside AWS",
     "sync": {
       "service": "AmazonRoute53",
       "offerRegion": "aws-other",

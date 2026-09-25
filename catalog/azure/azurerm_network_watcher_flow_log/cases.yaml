@@ -11,9 +11,9 @@
     collect:
       monthly: 0
       peak: 0
-  # (100 − 5 free) GB × $0.50 = 47.5; 100 GB × $3.50
+  # 100 GB × $0.50; 100 GB × $3.50
   costs:
-    Logs collected: 47.5
+    Logs collected: 50
     Traffic analytics (10-minute interval): 350
 - name: 100 GB with traffic analytics every hour (eastus)
   region: eastus
@@ -25,9 +25,9 @@
     collect:
       monthly: 0
       peak: 0
-  # (100 − 5 free) GB × $0.50 = 47.5; 100 GB × $2.30
+  # 100 GB × $0.50; 100 GB × $2.30
   costs:
-    Logs collected: 47.5
+    Logs collected: 50
     Traffic analytics (60-minute interval): 230
 - name: disabled flow log (eastus)
   region: eastus

@@ -56,8 +56,9 @@ and a feature never imports another feature.
 
 - Latency and availability are only as good as your per-hop assumptions and
   the published SLAs. Path p99 is the sum of hop p99s, an upper bound.
-- Free tiers are ignored. Tiered prices use one tier per row (the first,
-  unless the row says otherwise).
+- Free tiers are not counted: the reading is what the architecture costs
+  month after month. Volume tiers and fees paid once are counted over the
+  whole declaration, which is one account.
 - Auto scaling, caching behaviour and retries are not modelled. Express them
   through `perUnit` and assumptions.
 - One region per declaration. A declaration that mixes AWS, Azure and Google

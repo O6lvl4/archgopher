@@ -10,7 +10,7 @@ attributes:
   - { key: tenancy, label: Tenancy, type: choice, options: [default, dedicated, host], default: default, path: tenancy, hint: "dedicated has its own price table and pays the region's Dedicated per region fee, shared with every dedicated instance of the region; on a Dedicated Host the host is billed instead" }
   - { key: on_host, label: On a Dedicated Host, type: boolean, default: false, path: host_id, hint: "host_id is set: the aws_ec2_host carries the instance-hours" }
   - { key: ebs_optimized, label: EBS-optimized, type: boolean, default: false, hint: "Only previous-generation types charge for it" }
-  - { key: monitoring, label: Detailed monitoring, type: boolean, default: false, hint: "About 7 CloudWatch metrics per instance; CloudWatch bills them in volume tiers from 10,000 metrics, and the first 10 are always free, both counted over the account" }
+  - { key: monitoring, label: Detailed monitoring, type: boolean, default: false, hint: "About 7 CloudWatch metrics per instance; CloudWatch bills them in volume tiers from 10,000 metrics, counted over the account" }
   - { key: cpu_credits, label: CPU credits, type: choice, options: [standard, unlimited], optional: true, path: credit_specification.cpu_credits, hint: "Burstable types; t2 defaults to standard, the others to unlimited" }
   - { key: associate_public_ip_address, label: Public IPv4 address, type: boolean, default: false, hint: "Every public IPv4 address is billed per hour" }
   - { key: root_volume_type, label: Root volume type, type: choice, options: [standard, gp2, gp3, io1, io2, sc1, st1], optional: true, path: root_block_device.volume_type, hint: "Empty takes the AMI's type (amiVolumeType)" }

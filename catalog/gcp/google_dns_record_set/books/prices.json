@@ -3,7 +3,7 @@
     "unit": "query",
     "per": 1000000,
     "source": "https://cloud.google.com/dns/pricing",
-    "note": "Regular queries, $0.40 per million to a billion a month and $0.20 above, counted over the billing account (\"All queries are aggregated as well, regardless of zone type\", priced \"per 1 month / account\", https://cloud.google.com/dns/pricing). No free tier. Synced from the Billing Catalog.",
+    "note": "Regular queries, $0.40 per million to a billion a month and $0.20 above, counted over the billing account (\"All queries are aggregated as well, regardless of zone type\", priced \"per 1 month / account\", https://cloud.google.com/dns/pricing). Synced from the Billing Catalog.",
     "sync": {
       "filters": {
         "description": "DNS Query \\(port 53\\)",

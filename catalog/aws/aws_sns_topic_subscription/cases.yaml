@@ -12,8 +12,8 @@
       monthly: 2e+06
       peak: 40
   costs:
-    # 2e6 × 2 chunks × 0.5 = 2e6 deliveries; the first 100,000 are free: 1.9e6 × 0.6 / 1e6 = 1.14.
-    HTTP/S deliveries: 1.14
+    # 2e6 × 2 chunks × 0.5 = 2e6 deliveries × 0.6 / 1e6 = 1.2.
+    HTTP/S deliveries: 1.2
 - name: email
   region: ap-northeast-1
   attributes:
@@ -23,8 +23,8 @@
       monthly: 50000
       peak: 1
   costs:
-    # 50,000 deliveries; the first 1,000 are free: 49,000 × 2 / 100,000 = 0.98.
-    Email deliveries: 0.98
+    # 50,000 deliveries × 2 / 100,000 = 1.
+    Email deliveries: 1
 - name: sqs behind a fifo topic
   region: ap-northeast-1
   attributes:

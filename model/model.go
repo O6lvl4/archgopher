@@ -119,20 +119,7 @@ type Spec struct {
 	// Groups are boundaries drawn around nodes, such as a VPC. The engine
 	// reads nothing from them.
 	Groups []Group `yaml:"groups,omitempty" json:"groups,omitempty"`
-	// Billing is how the account is billed. The declaration is one account.
-	Billing Billing `yaml:"billing,omitempty" json:"billing,omitempty"`
 }
-
-// Billing holds what the declaration cannot see about its account.
-type Billing struct {
-	// Free false bills the free units of every price (an always-free
-	// allowance) like any other: the account or its organization uses them
-	// up elsewhere. Unset gives them.
-	Free *bool `yaml:"free,omitempty" json:"free,omitempty"`
-}
-
-// FreeUnits says whether free units are given.
-func (b Billing) FreeUnits() bool { return b.Free == nil || *b.Free }
 
 // Group is a boundary nodes sit in: a VPC, a virtual network.
 type Group struct {

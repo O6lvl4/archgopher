@@ -9,9 +9,9 @@
     execution:
         monthly: 2e+06
         peak: 40
-  # 2e6 × 12 = 24e6 transitions, 4,000 always free: (24e6 − 4,000) / 1,000 × 0.025 = 599.9.
+  # 2e6 × 12 = 24e6 transitions / 1,000 × 0.025 = 600.
   costs:
-    State transitions: 599.9
+    State transitions: 600
   limits:
     StartExecution rate: 40
 - name: express (us-east-1)
@@ -52,9 +52,9 @@
     execution:
         monthly: 2e+06
         peak: 40
-  # 2e6 × 12 = 24e6 transitions, 4,000 always free: (24e6 − 4,000) / 1,000 × 0.025 = 599.9.
+  # 2e6 × 12 = 24e6 transitions / 1,000 × 0.025 = 600.
   costs:
-    State transitions: 599.9
+    State transitions: 600
   limits:
     StartExecution rate: 40
 - name: express (ap-northeast-1)

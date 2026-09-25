@@ -31,7 +31,7 @@
   # 730 h x 0.4 x 0.125; 7 x 0.30; 8 GB x 0.10
   costs:
     Spot instance (rhel, m5.large): 36.5
-    Detailed monitoring: 0  # 7 metrics, within the account's 10 always-free metrics
+    Detailed monitoring: 2.1  # 7 metrics × 0.30
     Root volume (gp2): 0.8
 - name: no spot price share (us-east-1)
   region: us-east-1

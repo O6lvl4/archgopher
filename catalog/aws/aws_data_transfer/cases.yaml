@@ -9,9 +9,9 @@
   costs:
     # 1000 GB x 2 x 0.01
     Within the region: 20
-    # The free 100 GB first, then (10,240 - 100) = 10,140 x 0.114 = 1155.96; 40,960 x 0.089 = 3645.44;
-    # (60,000 - 51,200) = 8,800 x 0.086 = 756.8; together 5558.2
-    Out to the internet: 5558.2
+    # 10,240 x 0.114 = 1167.36; 40,960 x 0.089 = 3645.44;
+    # (60,000 - 51,200) = 8,800 x 0.086 = 756.8; together 5569.6
+    Out to the internet: 5569.6
     # 500 x 0.09
     To other regions: 45
 - name: US East to US East and over 150 TB out (us-east-1)
@@ -20,9 +20,9 @@
     internetGb: 200000
     usEastGb: 1000
   costs:
-    # The free 100 GB first, then 10,140 x 0.09 = 912.6; 40,960 x 0.085 = 3481.6; 102,400 x 0.07 = 7168;
-    # 46,400 x 0.05 = 2320; together 13882.2
-    Out to the internet: 13882.2
+    # 10,240 x 0.09 = 921.6; 40,960 x 0.085 = 3481.6; 102,400 x 0.07 = 7168;
+    # 46,400 x 0.05 = 2320; together 13891.2
+    Out to the internet: 13891.2
     # 1000 x 0.01
     To the other US East region: 10
 - name: US East transfer written outside US East (eu-west-1)

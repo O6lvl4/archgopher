@@ -12,7 +12,7 @@
       }
     },
     "pool": "account",
-    "free": 25000000000
+    "included": 25000000000
   },
   "cloudflare.d1.rows_written": {
     "unit": "row",
@@ -27,7 +27,7 @@
       }
     },
     "pool": "account",
-    "free": 50000000
+    "included": 50000000
   },
   "cloudflare.d1.storage": {
     "unit": "GB-month",
@@ -42,6 +42,6 @@
       }
     },
     "pool": "account",
-    "free": 5
+    "included": 5
   }
 }

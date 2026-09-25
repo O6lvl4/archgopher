@@ -69,7 +69,7 @@
     "unit": "request",
     "per": 1000000,
     "source": "https://azure.microsoft.com/pricing/details/functions/",
-    "note": "Flex Consumption on-demand executions. The first 250,000 a month are free per subscription, counted over every Flex Consumption app (https://azure.microsoft.com/pricing/details/functions/: a monthly free grant of 250,000 executions and 100,000 GB-s per month per subscription, on the on-demand meters). The price list gives them as the zero-priced first tier",
+    "note": "Flex Consumption on-demand executions (https://azure.microsoft.com/pricing/details/functions/). The price list's first tier is a free grant, billed here at the first paid tier's price",
     "sync": {
       "source": "azure",
       "service": "Functions",
@@ -115,7 +115,7 @@
   "azure.functions.flex.gb_second": {
     "unit": "GB-second",
     "source": "https://azure.microsoft.com/pricing/details/functions/",
-    "note": "Flex Consumption on-demand execution time at the instance memory size. The first 100,000 GB-seconds a month are free per subscription, counted over every Flex Consumption app (https://azure.microsoft.com/pricing/details/functions/: a monthly free grant of 250,000 executions and 100,000 GB-s per month per subscription, on the on-demand meters). The price list gives them as the zero-priced first tier",
+    "note": "Flex Consumption on-demand execution time at the instance memory size (https://azure.microsoft.com/pricing/details/functions/). The price list's first tier is a free grant, billed here at the first paid tier's price",
     "sync": {
       "source": "azure",
       "service": "Functions",

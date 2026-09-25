@@ -12,11 +12,11 @@
       monthly: 2000000.0
       peak: 10
   costs:
-    # Reads: (100M - 10M free) x $0.50/M = 45
+    # Reads: (100M - 10M included) x $0.50/M = 45
     Reads: 45
-    # Writes: (2M - 1M free) x $5/M = 5
+    # Writes: (2M - 1M included) x $5/M = 5
     Writes: 5
-    # Stored data: (5 - 1 GB free) x $0.50 = 2
+    # Stored data: (5 - 1 GB included) x $0.50 = 2
     Stored data: 2
   limits:
     Writes to one key: 0
@@ -33,7 +33,7 @@
       monthly: 500000.0
       peak: 3
   costs:
-    # All within the free units: 1M of 10M reads, 0.5M of 1M writes, 0.2 of 1 GB
+    # All within the included units: 1M of 10M reads, 0.5M of 1M writes, 0.2 of 1 GB
     Reads: 0
     Writes: 0
     Stored data: 0

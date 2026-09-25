@@ -3,7 +3,7 @@
     "unit": "email",
     "per": 100000,
     "source": "https://azure.microsoft.com/pricing/details/monitor/",
-    "note": "Email to an email receiver. The first 1,000 a month are free (https://azure.microsoft.com/pricing/details/monitor/), given in the price list as the zero-priced first tier. Global meter: action groups are global, so the free units are counted over every action group of the account (the page does not say more)",
+    "note": "Email to an email receiver (https://azure.microsoft.com/pricing/details/monitor/). The price list's first tier is a free grant, billed here at the first paid tier's price. Global meter: action groups are global",
     "sync": {
       "source": "azure",
       "service": "Azure Monitor",
@@ -32,7 +32,7 @@
     "unit": "event",
     "per": 1000,
     "source": "https://azure.microsoft.com/pricing/details/monitor/",
-    "note": "ITSM connector create or update event. The first 1,000 a month are free (https://azure.microsoft.com/pricing/details/monitor/), given in the price list as the zero-priced first tier. Global meter: action groups are global, so the free units are counted over every action group of the account (the page does not say more)",
+    "note": "ITSM connector create or update event (https://azure.microsoft.com/pricing/details/monitor/). The price list's first tier is a free grant, billed here at the first paid tier's price. Global meter: action groups are global",
     "sync": {
       "source": "azure",
       "service": "Azure Monitor",
@@ -61,7 +61,7 @@
     "unit": "notification",
     "per": 100000,
     "source": "https://azure.microsoft.com/pricing/details/monitor/",
-    "note": "Azure app push notification. The first 1,000 a month are free (https://azure.microsoft.com/pricing/details/monitor/), given in the price list as the zero-priced first tier. Global meter: action groups are global, so the free units are counted over every action group of the account (the page does not say more)",
+    "note": "Azure app push notification (https://azure.microsoft.com/pricing/details/monitor/). The price list's first tier is a free grant, billed here at the first paid tier's price. Global meter: action groups are global",
     "sync": {
       "source": "azure",
       "service": "Azure Monitor",
@@ -90,7 +90,7 @@
     "unit": "notification",
     "per": 1000000,
     "source": "https://azure.microsoft.com/pricing/details/monitor/",
-    "note": "Secure webhook call (Microsoft Entra authentication). The first 1,000 a month are free (https://azure.microsoft.com/pricing/details/monitor/). The price list gives them as the zero-priced first tier. Global meter: action groups are global, so the free units are counted over every action group of the account (the page does not say more)",
+    "note": "Secure webhook call (Microsoft Entra authentication) (https://azure.microsoft.com/pricing/details/monitor/). The price list's first tier is a free grant, billed here at the first paid tier's price. Global meter: action groups are global",
     "sync": {
       "source": "azure",
       "service": "Azure Monitor",
@@ -119,7 +119,7 @@
   "azure.monitor.notifications.sms": {
     "unit": "message",
     "source": "https://azure.microsoft.com/pricing/details/monitor/",
-    "note": "SMS by the receiver's country calling code; the first 100 a month to country code 1 are free (ignored). Global meter: action groups are global",
+    "note": "SMS by the receiver's country calling code. Global meter: action groups are global",
     "sync": {
       "source": "azure",
       "service": "Azure Monitor",
@@ -287,7 +287,7 @@
   "azure.monitor.notifications.voice": {
     "unit": "call",
     "source": "https://azure.microsoft.com/pricing/details/monitor/",
-    "note": "Voice call by the receiver's country calling code other than 1; the first 10 a month are free (ignored). Global meter: action groups are global",
+    "note": "Voice call by the receiver's country calling code other than 1. Global meter: action groups are global",
     "sync": {
       "source": "azure",
       "service": "Azure Monitor",
@@ -447,7 +447,7 @@
   "azure.monitor.notifications.voice.1": {
     "unit": "call",
     "source": "https://azure.microsoft.com/pricing/details/monitor/",
-    "note": "Voice call to country code 1, a meter of its own beside the voice table. The first 10 a month are free (https://azure.microsoft.com/pricing/details/monitor/), given in the price list as the zero-priced first tier. Global meter: action groups are global, so the free units are counted over every action group of the account (the page does not say more)",
+    "note": "Voice call to country code 1, a meter of its own beside the voice table (https://azure.microsoft.com/pricing/details/monitor/). The price list's first tier is a free grant, billed here at the first paid tier's price. Global meter: action groups are global",
     "sync": {
       "source": "azure",
       "service": "Azure Monitor",
@@ -476,7 +476,7 @@
     "unit": "notification",
     "per": 1000000,
     "source": "https://azure.microsoft.com/pricing/details/monitor/",
-    "note": "Webhook call. The first 100,000 a month are free (https://azure.microsoft.com/pricing/details/monitor/). The price list gives them as the zero-priced first tier. Global meter: action groups are global, so the free units are counted over every action group of the account (the page does not say more)",
+    "note": "Webhook call (https://azure.microsoft.com/pricing/details/monitor/). The price list's first tier is a free grant, billed here at the first paid tier's price. Global meter: action groups are global",
     "sync": {
       "source": "azure",
       "service": "Azure Monitor",

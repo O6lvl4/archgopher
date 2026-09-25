@@ -67,7 +67,7 @@
   "azure.bastion.data_out": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/azure-bastion/",
-    "note": "Outbound data transfer through the host (Basic, Standard and Premium list the same prices; the Standard meter is read). The first 5 GB a month are free, then volume tiers from 10 TB, 50 TB and 150 TB (https://azure.microsoft.com/pricing/details/azure-bastion/), given in the price list as the zero-priced first tier and the tiers after it. The page does not say over what they are counted, so they are counted per region here, over every host of the account",
+    "note": "Outbound data transfer through the host (Basic, Standard and Premium list the same prices; the Standard meter is read), in volume tiers from 10 TB, 50 TB and 150 TB (https://azure.microsoft.com/pricing/details/azure-bastion/). The price list's first tier is a free grant, billed here at the first paid tier's price. The page does not say over what the tiers are counted, so they are counted per region here, over every host of the account",
     "sync": {
       "source": "azure",
       "service": "Azure Bastion",

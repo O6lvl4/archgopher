@@ -3,30 +3,26 @@
     "unit": "record-month",
     "per": 1000,
     "source": "https://aws.amazon.com/bedrock/agentcore/pricing/",
-    "note": "$0.40 per 1,000 records a month. Free: the first 5,000 records every month, not time-limited (https://aws.amazon.com/bedrock/agentcore/pricing/, Agent Registry: \"First 5,000 records free monthly\"); the page does not say the scope, so it is counted over the account like the AWS Free Tier (https://aws.amazon.com/free/free-tier-faqs/). Read by hand from the AgentCore pricing page (source); the AmazonBedrockAgentCore Price List has no usage type for it in any region, so sync cannot check it and regional prices are not published",
+    "note": "$0.40 per 1,000 records a month. Read by hand from the AgentCore pricing page (source); the AmazonBedrockAgentCore Price List has no usage type for it in any region, so sync cannot check it and regional prices are not published",
     "values": {
       "*": {
         "value": 0.4,
         "verified": false,
         "checkedAt": "2026-09-26"
       }
-    },
-    "pool": "account",
-    "free": 5000
+    }
   },
   "aws.agentcore.registry.search": {
     "unit": "request",
     "per": 1000,
     "source": "https://aws.amazon.com/bedrock/agentcore/pricing/",
-    "note": "$0.020 per 1,000 search calls. Free: the first 1,000,000 every month, not time-limited (https://aws.amazon.com/bedrock/agentcore/pricing/, Agent Registry: \"First 1,000,000 Search API invocations free monthly\"); the page does not say the scope, so it is counted over the account like the AWS Free Tier (https://aws.amazon.com/free/free-tier-faqs/). Read by hand from the AgentCore pricing page (source); the AmazonBedrockAgentCore Price List has no usage type for it in any region, so sync cannot check it and regional prices are not published",
+    "note": "$0.020 per 1,000 search calls. Read by hand from the AgentCore pricing page (source); the AmazonBedrockAgentCore Price List has no usage type for it in any region, so sync cannot check it and regional prices are not published",
     "values": {
       "*": {
         "value": 0.02,
         "verified": false,
         "checkedAt": "2026-09-26"
       }
-    },
-    "pool": "account",
-    "free": 1000000
+    }
   }
 }

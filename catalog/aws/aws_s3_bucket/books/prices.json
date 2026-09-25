@@ -128,7 +128,7 @@
   "aws.s3.standard.storage": {
     "unit": "GB-month",
     "source": "https://aws.amazon.com/s3/pricing/",
-    "note": "S3 Standard storage. Volume tiers from 50 TB and 500 TB a month, counted over the account's storage of the class in the region: the pricing page does not say the scope, and the price list lists the tiers in each region's offer. The 5 GB of the free tier last 12 months and are not given",
+    "note": "S3 Standard storage. Volume tiers from 50 TB and 500 TB a month, counted over the account's storage of the class in the region: the pricing page does not say the scope, and the price list lists the tiers in each region's offer",
     "sync": {
       "service": "AmazonS3",
       "filters": {

@@ -2,7 +2,7 @@ type: google_bigquery_dataset
 label: BigQuery dataset
 category: Analytics
 icon: bigquery
-description: "On-demand queries per TiB scanned, at least 10 MB a query, in the dataset's region or the US or EU multi-region; the first TiB a month is free, counted over the billing account. Storage is read on each table. Capacity (editions) pricing is not read."
+description: "On-demand queries per TiB scanned, at least 10 MB a query, in the dataset's region or the US or EU multi-region. Storage is read on each table. Capacity (editions) pricing is not read."
 kinds: [query]
 sla: gcp.bigquery
 attributes:

@@ -2,7 +2,7 @@ type: aws_cloudwatch_event_bus
 label: EventBridge event bus
 category: Messaging
 icon: eventbridge
-description: "Custom events published, or partner events received on a partner bus, in 64 KB chunks; archive processing and storage when the bus is archived; schema discovery in 8 KB chunks when a discoverer watches it, the first 5 million a month always free for the account. Delivery to targets is free. Headroom is the regional PutEvents rate. Targets that name the bus in event_bus_name receive what it carries."
+description: "Custom events published, or partner events received on a partner bus, in 64 KB chunks; archive processing and storage when the bus is archived; schema discovery in 8 KB chunks when a discoverer watches it. Delivery to targets is free. Headroom is the regional PutEvents rate. Targets that name the bus in event_bus_name receive what it carries."
 kinds: [put]
 sla: aws.eventbridge
 attributes:
@@ -12,7 +12,7 @@ assumptions:
   - { key: entriesPerPut, label: Events per PutEvents request, type: number, default: 1, hint: "A request carries up to 10 entries" }
   - { key: archived, label: Archived, type: boolean, default: false, hint: "An aws_cloudwatch_event_archive records the bus's events" }
   - { key: archiveRetentionDays, label: Archive retention, type: number, unit: days, default: 0, hint: "0 means kept indefinitely; storage is then shown after 12 months" }
-  - { key: schemaDiscovery, label: Schema discovery, type: boolean, default: false, hint: "An aws_schemas_discoverer ingests the bus's events; the first 5 million per month are free and ignored" }
+  - { key: schemaDiscovery, label: Schema discovery, type: boolean, default: false, hint: "An aws_schemas_discoverer ingests the bus's events" }
 let:
   - partner: event_source_name != nil && event_source_name != ""
   - archiveGb: 'total.monthly * eventKb / 1048576'

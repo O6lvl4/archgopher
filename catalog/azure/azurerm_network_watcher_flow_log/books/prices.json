@@ -2,7 +2,7 @@
   "azure.networkwatcher.logs_collected": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/network-watcher/",
-    "note": "Flow logs collected (NSG flow logs; VNet flow logs have the same price). The first 5 GB a month are free (https://azure.microsoft.com/pricing/details/network-watcher/: 5 GB per month), given in the price list as the zero-priced first tier. The page does not say over what they are counted; Network Watcher is regional, so they are counted per region here, over every flow log of the account. Storage for the logs is billed on the storage account",
+    "note": "Flow logs collected (NSG flow logs; VNet flow logs have the same price; https://azure.microsoft.com/pricing/details/network-watcher/). The price list's first tier is a free grant, billed here at the first paid tier's price. Storage for the logs is billed on the storage account",
     "sync": {
       "filters": {
         "meterName": "Standard Network Logs Collected",

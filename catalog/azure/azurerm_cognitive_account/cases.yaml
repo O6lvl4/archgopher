@@ -39,9 +39,9 @@
     # Tier by tier: 500,000 / 1,000 × $1 = 500; 2,000,000 / 1,000 × $0.75 = 1500;
     # 500,000 / 1,000 × $0.30 = 150; together 2150
     Text analytics: 2150
-    # The first 5,000 records are free; then 495,000 / 1,000 × $20 = 9900;
-    # 100,000 / 1,000 × $15 = 1500; together 11,400
-    Text analytics for health: 11400
+    # Tier by tier: 500,000 / 1,000 × $20 = 10000 (the first 5,000, a free grant in the
+    # price list, at the same price); 100,000 / 1,000 × $15 = 1500; together 11,500
+    Text analytics for health: 11500
     # Tier by tier: 2,500,000 / 1,000 × $1.50 = 3750; 500,000 / 1,000 × $1.00005 = 500.025;
     # together 4250.025
     Custom question answering: 4250.025

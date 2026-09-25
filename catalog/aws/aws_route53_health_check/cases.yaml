@@ -6,9 +6,9 @@
     check:
       monthly: 0
       peak: 0
-  # One of the account's 50 always-free AWS endpoint checks ($0.50 each beyond them)
+  # An AWS endpoint check: $0.50
   costs:
-    Health check: 0
+    Health check: 0.5
 - name: fast HTTPS string match with latency of an outside endpoint (us-east-1)
   region: us-east-1
   attributes:
@@ -35,6 +35,6 @@
     check:
       monthly: 0
       peak: 0
-  # Prices as an AWS endpoint: one of the account's 50 always-free checks
+  # Prices as an AWS endpoint: $0.50
   costs:
-    Health check: 0
+    Health check: 0.5

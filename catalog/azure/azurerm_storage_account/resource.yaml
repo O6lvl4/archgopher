@@ -2,7 +2,7 @@ type: azurerm_storage_account
 label: Storage account (Blob)
 category: Storage
 icon: storage-account
-description: "Blob Storage on the hot tier: data stored, in volume tiers from 50 TB and 500 TB counted over every storage account in the region with the same redundancy, write and read operations by redundancy, and direct transfer out to the internet, the first 100 GB a month free and the rest in volume tiers, counted over the account. Headroom is the account request rate."
+description: "Blob Storage on the hot tier: data stored, in volume tiers from 50 TB and 500 TB counted over every storage account in the region with the same redundancy, write and read operations by redundancy, and direct transfer out to the internet in volume tiers, counted over the account. Headroom is the account request rate."
 kinds: [read, write]
 sla: azure.storage
 attributes:

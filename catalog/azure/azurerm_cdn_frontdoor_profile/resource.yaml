@@ -2,7 +2,7 @@ type: azurerm_cdn_frontdoor_profile
 label: Front Door
 category: Edge
 icon: front-door
-description: "Standard or Premium profile: the monthly base fee, requests and data transfer to clients by volume tier, priced by the billing zone of the edge that serves the viewers (by default the zone of the region). Request tiers from 250 million, 1 billion and 5 billion and transfer tiers from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB a month are counted over every profile of the region that serves the same zone and tier. Transfer from the edge to the origin and the free tier are not read."
+description: "Standard or Premium profile: the monthly base fee, requests and data transfer to clients by volume tier, priced by the billing zone of the edge that serves the viewers (by default the zone of the region). Request tiers from 250 million, 1 billion and 5 billion and transfer tiers from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB a month are counted over every profile of the region that serves the same zone and tier. Transfer from the edge to the origin is not read; free tiers are not counted."
 kinds: [request]
 sla: azure.frontdoor
 attributes:

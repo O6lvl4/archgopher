@@ -15,11 +15,11 @@
       monthly: 0
       peak: 0
   costs:
-    # 2 x 1,000 emails, the first 1,000 free: 1,000 at 2 per 100,000 = 0.02
-    Emails: 0.02
-    # 1,000 plain webhooks, within the 100,000 free; 1,000 secure, within the 1,000 free
-    Webhooks: 0
-    Secure webhooks: 0
+    # 2 x 1,000 emails at 2 per 100,000
+    Emails: 0.04
+    # 1,000 at 0.60 per million and 1,000 at 6 per million
+    Webhooks: 0.0006
+    Secure webhooks: 0.006
     SMS (country code 81): 46
   limits:
     Emails per address: 0
@@ -35,35 +35,11 @@
       monthly: 500
       peak: 0.01
   costs:
-    # 500 calls, the first 10 free: 490 at 0.013 = 6.37
-    Voice calls (country code 1): 6.37
-    # 500 each, within the 1,000 free
-    Push notifications: 0
-    ITSM events: 0
+    Voice calls (country code 1): 6.5
+    Push notifications: 0.01
+    ITSM events: 2.5
   limits:
     Voice calls per phone number: 0.01
-- name: push, ITSM and webhooks past their free grants (East US)
-  region: eastus
-  attributes:
-    push_receivers: 1
-    itsm_receivers: 1
-    webhook_receivers: 2
-    secure_webhook_receivers: 1
-  assumptions:
-    firedPerMonth: 200000
-  demand:
-    notify:
-      monthly: 0
-      peak: 0
-  costs:
-    # (200,000 - 1,000) x 2 / 100,000 = 3.98
-    Push notifications: 3.98
-    # (200,000 - 1,000) x 5 / 1,000 = 995
-    ITSM events: 995
-    # (200,000 - 100,000) x 0.6 / 1e6 = 0.06
-    Webhooks: 0.06
-    # (200,000 - 1,000) x 6 / 1e6 = 1.194
-    Secure webhooks: 1.194
 - name: a disabled group notifies no one
   region: eastus
   attributes:

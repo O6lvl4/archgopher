@@ -1,6 +1,5 @@
 # Worked examples: given these values and this load, the resource reads this.
 # Expected values are computed by hand from the unit prices, not taken from the engine.
-# 1000 × 100 / 1024 = 97.65625 TiB; the first TiB free, (97.65625 − 1) × 6.25 = 604.1015625.
 - name: US multi-region (the Terraform default), 100 GiB a query
   region: asia-northeast1
   assumptions:
@@ -10,8 +9,7 @@
       monthly: 1000
       peak: 1
   costs:
-    Queries: 604.1015625
-# 3000 × 10 / 1024 = 29.296875 TiB; the first TiB free, (29.296875 − 1) × 7.5 = 212.2265625.
+    Queries: 610.3515625
 - name: Tokyo dataset, 10 GiB a query
   region: asia-northeast1
   attributes:
@@ -23,4 +21,4 @@
       monthly: 3000
       peak: 1
   costs:
-    Queries: 212.2265625
+    Queries: 219.7265625

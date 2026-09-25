@@ -2,7 +2,7 @@ type: google_logging_folder_sink
 label: Log sink (folder)
 category: Monitoring
 icon: cloud-logging
-description: "Routes a folder's (and with include_children its projects') logs that match its filter. Routing is free. A destination written out as logging.googleapis.com/... is a log bucket outside the graph: the sink reads the Logging storage it bills per GiB (30 days included). A destination that names a resource in the graph is an edge, and that resource bills what it receives: a log bucket its storage and retention, Cloud Storage, BigQuery or Pub/Sub their own (exports to Cloud Storage are batched and pay no Class A operations, so give that edge a small perUnit). Draw log entries to the sink as load, or set a monthly volume. Headroom is the project's log write rate. The first 50 GiB a month are free: the allowance is per project, so a sink that bills storage is given it as its destination project's."
+description: "Routes a folder's (and with include_children its projects') logs that match its filter. Routing is free. A destination written out as logging.googleapis.com/... is a log bucket outside the graph: the sink reads the Logging storage it bills per GiB (30 days included). A destination that names a resource in the graph is an edge, and that resource bills what it receives: a log bucket its storage and retention, Cloud Storage, BigQuery or Pub/Sub their own (exports to Cloud Storage are batched and pay no Class A operations, so give that edge a small perUnit). Draw log entries to the sink as load, or set a monthly volume. Headroom is the project's log write rate. The free 50 GiB of each project is not counted."
 kinds: [route]
 sla: gcp.observability
 attributes:

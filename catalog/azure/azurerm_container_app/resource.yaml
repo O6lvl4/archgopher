@@ -2,7 +2,7 @@ type: azurerm_container_app
 label: Container app
 category: Compute
 icon: container-apps
-description: "Consumption profile: requests, active vCPU and memory seconds while replicas serve requests, and idle rates for the minimum replicas the rest of the time. Memory is twice the vCPUs, as the Consumption profile pairs them. The monthly free grant (2 million requests, 180,000 vCPU-seconds and 360,000 GiB-seconds, active and idle together) is given once over every container app of the account. Headroom is replicas against max_replicas."
+description: "Consumption profile: requests, active vCPU and memory seconds while replicas serve requests, and idle rates for the minimum replicas the rest of the time. Memory is twice the vCPUs, as the Consumption profile pairs them. Headroom is replicas against max_replicas."
 kinds: [request]
 sla: azure.containerapps
 attributes:

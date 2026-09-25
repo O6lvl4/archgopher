@@ -2,7 +2,7 @@
   "gcp.dns.zone": {
     "unit": "zone-month",
     "source": "https://cloud.google.com/dns/pricing",
-    "note": "Managed zones, public, private and forwarding alike, each a month. Volume tiers count the billing account's zones (\"All zone types are aggregated for purposes of pricing\"; \"the total billable units are summed across the billing account\", https://cloud.google.com/dns/pricing): $0.20 each for the first 25, $0.10 from 25 and $0.03 from 10,000. No free tier. Synced from the Billing Catalog (Cloud DNS, ManagedZone, priced by the month).",
+    "note": "Managed zones, public, private and forwarding alike, each a month. Volume tiers count the billing account's zones (\"All zone types are aggregated for purposes of pricing\"; \"the total billable units are summed across the billing account\", https://cloud.google.com/dns/pricing): $0.20 each for the first 25, $0.10 from 25 and $0.03 from 10,000. Synced from the Billing Catalog (Cloud DNS, ManagedZone, priced by the month).",
     "sync": {
       "filters": {
         "description": "ManagedZone",

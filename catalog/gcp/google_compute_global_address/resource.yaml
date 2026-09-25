@@ -2,7 +2,7 @@ type: google_compute_global_address
 label: Global static IP address
 category: Network
 icon: external-ip
-description: "A reserved global external IPv4 address, free on a global load balancer's forwarding rule (the usual case) and billed per hour at the region's unused rate when it is not assigned (the first hour a month free, counted over the billing account). Internal ranges (purpose VPC_PEERING or PRIVATE_SERVICE_CONNECT) are free."
+description: "A reserved global external IPv4 address, free on a global load balancer's forwarding rule (the usual case) and billed per hour at the region's unused rate when it is not assigned. Internal ranges (purpose VPC_PEERING or PRIVATE_SERVICE_CONNECT) are free."
 kinds: [traffic]
 attributes:
   - { key: address_type, label: Address type, type: choice, options: [EXTERNAL, INTERNAL], default: EXTERNAL, hint: "Internal addresses are free" }

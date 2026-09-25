@@ -2,7 +2,7 @@
   "aws.transfer.internet_out": {
     "unit": "GB",
     "source": "https://aws.amazon.com/ec2/pricing/on-demand/#Data_Transfer",
-    "note": "Data transfer out to the internet. The first 100 GB a month are free, always, aggregated over every service and region of the account (the price list's Global-DataTransfer-Out-Bytes row: \"$0 for 100GB of data transfer out to the internet, aggregated globally, each month\"; the EC2 pricing page lists them as \"Up to 100 GB / Month $0.00\" inside the first 10 TB). Volume tiers from 10 TB, 50 TB and 150 TB a month, counted over the account with the free units: the price list lists the tiers in each region's offer, and the pricing page does not say whether they are counted per region. Transfer to CloudFront and within the region is free",
+    "note": "Data transfer out to the internet. Volume tiers from 10 TB, 50 TB and 150 TB a month, counted over the account: the price list lists the tiers in each region's offer, and the pricing page does not say whether they are counted per region. Transfer to CloudFront and within the region is free",
     "sync": {
       "service": "AWSDataTransfer",
       "filters": {
@@ -63,7 +63,6 @@
     "verified": true,
     "checkedAt": "2026-09-25",
     "pool": "account",
-    "free": 100,
     "tiered": true
   }
 }

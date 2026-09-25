@@ -3,7 +3,7 @@
     "unit": "request",
     "per": 1000000,
     "source": "https://aws.amazon.com/glue/pricing/",
-    "note": "Data Catalog requests. Always free: 1 million a month per account (https://aws.amazon.com/free/, Always free: AWS Glue; https://aws.amazon.com/glue/pricing/)",
+    "note": "Data Catalog requests",
     "sync": {
       "filters": {
         "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Catalog-Request"
@@ -61,15 +61,13 @@
         "verified": true,
         "checkedAt": "2026-09-25"
       }
-    },
-    "pool": "account",
-    "free": 1000000
+    }
   },
   "aws.glue.catalog.storage": {
     "unit": "object-month",
     "per": 100000,
     "source": "https://aws.amazon.com/glue/pricing/",
-    "note": "Tables, partitions, table versions and indexes stored. Always free: 1 million objects a month per account (https://aws.amazon.com/free/, Always free: AWS Glue; https://aws.amazon.com/glue/pricing/)",
+    "note": "Tables, partitions, table versions and indexes stored",
     "sync": {
       "filters": {
         "usagetype": "((?:[A-Z]+[0-9]|EU)-)?Catalog-Storage"
@@ -127,8 +125,6 @@
         "verified": true,
         "checkedAt": "2026-09-25"
       }
-    },
-    "pool": "account",
-    "free": 1000000
+    }
   }
 }

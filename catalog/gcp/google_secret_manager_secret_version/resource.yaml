@@ -2,7 +2,7 @@ type: google_secret_manager_secret_version
 label: Secret Manager secret version
 category: Security
 icon: secret-manager
-description: "One active version per replica location, billed by the hour, and the access operations that reach this version, per 10,000; a reference to the secret that also names the version reads the secret. Six active versions and 10,000 access operations a month are free, counted over the billing account. Headroom is the project's access requests per minute."
+description: "One active version per replica location, billed by the hour, and the access operations that reach this version, per 10,000; a reference to the secret that also names the version reads the secret. Free versions and operations are not counted. Headroom is the project's access requests per minute."
 kinds: [read]
 sla: gcp.secretmanager
 assumptions:

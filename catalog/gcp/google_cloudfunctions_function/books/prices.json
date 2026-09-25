@@ -66,7 +66,7 @@
   "gcp.functions.v1.egress": {
     "unit": "GiB",
     "source": "https://cloud.google.com/functions/pricing-1stgen",
-    "note": "Outbound data from a 1st gen function, one SKU per region at the same price. The first 5 GiB a month are free (\"5GB of Internet data transfer out per month\", https://cloud.google.com/functions/pricing-1stgen), part of the billing account's free tier, so counted over the account. Synced from the Billing Catalog, which lists them as a $0 first tier on each region's SKU. us-east5 does not run 1st gen functions.",
+    "note": "Outbound data from a 1st gen function, one SKU per region at the same price (https://cloud.google.com/functions/pricing-1stgen). Synced from the Billing Catalog. us-east5 does not run 1st gen functions. The price list's first tier is a free grant, billed here at the first paid tier's price.",
     "sync": {
       "source": "gcp",
       "service": "29E7-DA93-CA13",
@@ -174,7 +174,7 @@
     "unit": "invocation",
     "per": 1000000,
     "source": "https://cloud.google.com/functions/pricing-1stgen",
-    "note": "Invocations, the same in every region. The first 2 million a month are free, counted over the billing account (\"based on the total number of function invocations across all functions associated with a particular Google Cloud Platform billing account\", https://cloud.google.com/functions/pricing-1stgen). Synced from the Billing Catalog, which lists them as a $0 first tier.",
+    "note": "Invocations, the same in every region (https://cloud.google.com/functions/pricing-1stgen). Synced from the Billing Catalog. The price list's first tier is a free grant, billed here at the first paid tier's price.",
     "sync": {
       "source": "gcp",
       "service": "29E7-DA93-CA13",

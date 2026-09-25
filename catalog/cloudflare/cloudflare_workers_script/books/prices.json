@@ -12,7 +12,7 @@
       }
     },
     "pool": "account",
-    "free": 30000000
+    "included": 30000000
   },
   "cloudflare.workers.requests": {
     "unit": "request",
@@ -27,6 +27,6 @@
       }
     },
     "pool": "account",
-    "free": 10000000
+    "included": 10000000
   }
 }

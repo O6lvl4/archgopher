@@ -26,7 +26,7 @@
     Custom events published: 4
     Archive processing: 24.795532227
     Archive storage: 4.705629851
-    Schema discovery: 2.1  # 2e6 × 13 chunks of 8 KB = 26e6, 5e6 always free: 21e6 / 1e6 × 0.10
+    Schema discovery: 2.6  # 2e6 × 13 chunks of 8 KB = 26e6 / 1e6 × 0.10
   limits:
     PutEvents rate: 4
 - name: partner bus

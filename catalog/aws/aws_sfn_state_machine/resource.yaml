@@ -2,7 +2,7 @@ type: aws_sfn_state_machine
 label: Step Functions
 category: Compute
 icon: step-functions
-description: "Standard bills state transitions, the first 4,000 a month always free for the account; express bills requests and GB-seconds, the duration rounded up to 100 ms and the memory to 64 MB, in volume tiers from 1,000 and 5,000 GB-hours counted over every express workflow in the region. Headroom is the StartExecution rate."
+description: "Standard bills state transitions; express bills requests and GB-seconds, the duration rounded up to 100 ms and the memory to 64 MB, in volume tiers from 1,000 and 5,000 GB-hours counted over every express workflow in the region. Headroom is the StartExecution rate."
 kinds: [execution]
 sla: aws.sfn
 attributes:

@@ -269,7 +269,7 @@
     "unit": "request",
     "per": 10000,
     "source": "https://azure.microsoft.com/pricing/details/api-management/",
-    "note": "Consumption tier calls. The first million a month are free per subscription, counted over every Consumption instance (https://azure.microsoft.com/pricing/details/api-management/: 0-1 million API operations per subscription included). The price list gives them as the zero-priced first tier",
+    "note": "Consumption tier calls (https://azure.microsoft.com/pricing/details/api-management/). The price list's first tier is a free grant, billed here at the first paid tier's price",
     "sync": {
       "source": "azure",
       "service": "API Management",

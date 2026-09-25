@@ -2,7 +2,7 @@ type: azurerm_automation_watcher
 label: Automation watcher
 category: Scheduling
 icon: automation-accounts
-description: "Watcher task hours, all month. The free 744 hours a month are counted over every watcher of the account in the region, so one watcher alone costs nothing."
+description: "Watcher task hours, all month."
 kinds: [watch]
 sla: azure.automation
 readings:

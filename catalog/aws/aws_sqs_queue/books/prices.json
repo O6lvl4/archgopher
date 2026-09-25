@@ -3,7 +3,7 @@
     "unit": "request",
     "per": 1000000,
     "source": "https://aws.amazon.com/sqs/pricing/",
-    "note": "FIFO queue requests. Volume tiers from 100 billion and 200 billion requests a month. Always free: 1,000,000 requests a month over standard and FIFO queues together (https://aws.amazon.com/free/, Always free: Amazon SQS; https://aws.amazon.com/sqs/pricing/: \"All customers can make 1 million Amazon SQS requests for free each month\"), counted over every region of the account (https://aws.amazon.com/free/free-tier-faqs/). The pricing page does not say whether the tiers count per region or over the account; the pool follows the free requests and counts both over the account",
+    "note": "FIFO queue requests. Volume tiers from 100 billion and 200 billion requests a month. The pricing page does not say whether the tiers count per region or over the account; they are counted over the account",
     "sync": {
       "service": "AWSQueueService",
       "filters": {
@@ -52,15 +52,13 @@
     "verified": true,
     "checkedAt": "2026-09-25",
     "pool": "account",
-    "free": 1000000,
-    "freeGroup": "aws.sqs.free_requests",
     "tiered": true
   },
   "aws.sqs.standard.requests": {
     "unit": "request",
     "per": 1000000,
     "source": "https://aws.amazon.com/sqs/pricing/",
-    "note": "Standard queue requests. Volume tiers from 100 billion and 200 billion requests a month. Always free: 1,000,000 requests a month over standard and FIFO queues together (https://aws.amazon.com/free/, Always free: Amazon SQS; https://aws.amazon.com/sqs/pricing/: \"All customers can make 1 million Amazon SQS requests for free each month\"), counted over every region of the account (https://aws.amazon.com/free/free-tier-faqs/). The pricing page does not say whether the tiers count per region or over the account; the pool follows the free requests and counts both over the account",
+    "note": "Standard queue requests. Volume tiers from 100 billion and 200 billion requests a month. The pricing page does not say whether the tiers count per region or over the account; they are counted over the account",
     "sync": {
       "service": "AWSQueueService",
       "filters": {
@@ -109,8 +107,6 @@
     "verified": true,
     "checkedAt": "2026-09-25",
     "pool": "account",
-    "free": 1000000,
-    "freeGroup": "aws.sqs.free_requests",
     "tiered": true
   }
 }

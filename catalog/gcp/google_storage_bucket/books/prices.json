@@ -44,7 +44,7 @@
   "gcp.storage.standard.storage": {
     "unit": "GB-month",
     "source": "https://cloud.google.com/storage/pricing",
-    "note": "Standard storage in a regional bucket (GiB-month). The first 5 GB-months a month are free in us-east1, us-west1 and us-central1 only, combined across them for the billing account (\"5 GB-months of regional storage (US regions only) per month ... Usage calculations are combined across these regions\", https://cloud.google.com/free/docs/free-cloud-features). Of this catalog's regions only us-west1 shares the \"US Regional\" SKU that lists the free 5 GiB as a $0 first tier; elsewhere both rows carry the one rate. Synced from the Billing Catalog.",
+    "note": "Standard storage in a regional bucket, GiB-month (https://cloud.google.com/storage/pricing). Synced from the Billing Catalog. Where the first tier is a free grant (us-west1), it is billed at the first paid tier's price.",
     "sync": {
       "filters": {
         "description": "Standard Storage .+",

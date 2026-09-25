@@ -64,7 +64,7 @@ func Markdown(w io.Writer, r engine.Result) error {
 	}
 
 	if len(r.Pools) > 0 {
-		b.WriteString("\n## Shared across the account\n\nThe provider bills these prices on what the whole account uses: volume tiers and free units count once, and each line above pays the average price of its pool.\n\n| Price | Quantity | Unit | Bands | Monthly | Lines |\n| --- | ---: | --- | --- | ---: | --- |\n")
+		b.WriteString("\n## Shared across the account\n\nThe provider bills these prices on what the whole account uses: volume tiers and included units count once, and each line above pays the average price of its pool.\n\n| Price | Quantity | Unit | Bands | Monthly | Lines |\n| --- | ---: | --- | --- | ---: | --- |\n")
 		for _, p := range r.Pools {
 			fmt.Fprintf(b, "| %s | %s | %s | %s | %s | %s |\n", p.PriceID, num(p.Quantity), p.Unit, bands(p.Bands), usdPtr(p.MonthlyUSD), poolLines(p))
 		}
@@ -120,8 +120,8 @@ func Markdown(w io.Writer, r engine.Result) error {
 func bands(list []meter.Band) string {
 	parts := make([]string, 0, len(list))
 	for _, x := range list {
-		if x.Free {
-			parts = append(parts, num(x.Quantity)+" free")
+		if x.Included {
+			parts = append(parts, num(x.Quantity)+" included")
 			continue
 		}
 		parts = append(parts, num(x.Quantity)+" at "+price(x.UnitPrice))

@@ -80,20 +80,9 @@ func (c Catalog) EveryRegionIsComplete(t *testing.T) {
 	}
 }
 
-// BooksAreWellFormed: every row has a unit, an https source and values, and
-// the prices of one free group agree on its free units and pool.
+// BooksAreWellFormed: every row has a unit, an https source and values.
 func (c Catalog) BooksAreWellFormed(t *testing.T) {
 	t.Helper()
-	groups := map[string]book.Entry{}
-	for id, e := range c.Books.Prices {
-		if e.FreeGroup == "" {
-			continue
-		}
-		if g, ok := groups[e.FreeGroup]; ok && (g.Free != e.Free || g.Pool != e.Pool) {
-			t.Errorf("prices %s: free group %s gives %v free per %s elsewhere, not %v per %s", id, e.FreeGroup, g.Free, g.Pool, e.Free, e.Pool)
-		}
-		groups[e.FreeGroup] = e
-	}
 	for _, name := range []book.Name{book.Prices, book.Quotas, book.SLAs} {
 		for id, e := range c.Books.Book(name) {
 			if e.Unit == "" || !strings.HasPrefix(e.Source, "https://") || (len(e.Values) == 0 && !e.Tiered) {

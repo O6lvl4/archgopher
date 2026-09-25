@@ -2,7 +2,7 @@
   "azure.networkwatcher.connection_monitor": {
     "unit": "test-month",
     "source": "https://azure.microsoft.com/pricing/details/network-watcher/",
-    "note": "Connection monitor tests a month. The first 10 are free, then volume tiers from 10, 240,010, 750,010 and 1,000,010 tests (https://azure.microsoft.com/pricing/details/network-watcher/: 0-10 tests included), given in the price list as the zero-priced first tier and the tiers after it. The page does not say over what the free tests and tiers are counted; Network Watcher is regional, so they are counted per region here, over every connection monitor of the account",
+    "note": "Connection monitor tests a month, in volume tiers from 10, 240,010, 750,010 and 1,000,010 tests (https://azure.microsoft.com/pricing/details/network-watcher/). The price list's first tier is a free grant, billed here at the first paid tier's price. The page does not say over what the tiers are counted; Network Watcher is regional, so they are counted per region here, over every connection monitor of the account",
     "sync": {
       "filters": {
         "meterName": "Standard Connection Monitor Test",

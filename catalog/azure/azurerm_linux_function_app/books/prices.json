@@ -3,7 +3,7 @@
     "unit": "request",
     "per": 1000000,
     "source": "https://azure.microsoft.com/pricing/details/functions/",
-    "note": "Consumption plan executions. The first million a month are free per subscription, counted over every function app on the Consumption plan (https://azure.microsoft.com/pricing/details/functions/: a monthly free grant of 1 million requests and 400,000 GB-s per month per subscription). The price list gives them as the zero-priced first tier",
+    "note": "Consumption plan executions (https://azure.microsoft.com/pricing/details/functions/). The price list's first tier is a free grant, billed here at the first paid tier's price",
     "sync": {
       "source": "azure",
       "service": "Functions",
@@ -49,7 +49,7 @@
   "azure.functions.consumption.gb_second": {
     "unit": "GB-second",
     "source": "https://azure.microsoft.com/pricing/details/functions/",
-    "note": "Consumption plan execution time. The first 400,000 GB-seconds a month are free per subscription, counted over every function app on the Consumption plan (https://azure.microsoft.com/pricing/details/functions/: a monthly free grant of 1 million requests and 400,000 GB-s per month per subscription; free grants apply to paid subscriptions only). The price list gives them as the zero-priced first tier",
+    "note": "Consumption plan execution time (https://azure.microsoft.com/pricing/details/functions/). The price list's first tier is a free grant, billed here at the first paid tier's price",
     "sync": {
       "source": "azure",
       "service": "Functions",

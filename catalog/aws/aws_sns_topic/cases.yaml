@@ -9,9 +9,9 @@
     publish:
         monthly: 2e+06
         peak: 40
-  # 2 chunks of 64 KB × 2e6 = 4e6 publishes; the first 1e6 are free: 3e6 × 0.5 / 1e6 = 1.5.
+  # 2 chunks of 64 KB × 2e6 = 4e6 publishes × 0.5 / 1e6 = 2.
   costs:
-    Publishes: 1.5
+    Publishes: 2
   limits:
     Publish rate: 40
 - name: publishes (ap-northeast-1)
@@ -22,9 +22,9 @@
     publish:
         monthly: 2e+06
         peak: 40
-  # 2 chunks of 64 KB × 2e6 = 4e6 publishes; the first 1e6 are free: 3e6 × 0.5 / 1e6 = 1.5.
+  # 2 chunks of 64 KB × 2e6 = 4e6 publishes × 0.5 / 1e6 = 2.
   costs:
-    Publishes: 1.5
+    Publishes: 2
   limits:
     Publish rate: 40
 - name: FIFO topic publishes (ap-northeast-1)

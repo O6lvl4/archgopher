@@ -2,7 +2,7 @@
   "azure.networkwatcher.diagnostic_check": {
     "unit": "check",
     "source": "https://azure.microsoft.com/pricing/details/network-watcher/",
-    "note": "Network diagnostic tool calls (IP flow verify, next hop, VPN troubleshoot, packet capture...). The first 1,000 a month are free (https://azure.microsoft.com/pricing/details/network-watcher/: 1,000 checks per month), given in the price list as the zero-priced first tier. The page does not say over what they are counted; Network Watcher is regional, so they are counted per region here",
+    "note": "Network diagnostic tool calls (IP flow verify, next hop, VPN troubleshoot, packet capture...; https://azure.microsoft.com/pricing/details/network-watcher/). The price list's first tier is a free grant, billed here at the first paid tier's price",
     "sync": {
       "filters": {
         "meterName": "Standard Diagnostic Tool API",

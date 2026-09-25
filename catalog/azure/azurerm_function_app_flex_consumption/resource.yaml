@@ -2,7 +2,7 @@ type: azurerm_function_app_flex_consumption
 label: Function app (Flex Consumption)
 category: Compute
 icon: function-apps
-description: "On-demand executions and GB-seconds at the instance memory size, less the monthly free grant of 250,000 executions and 100,000 GB-seconds counted over every Flex Consumption app of the account, plus the baseline of always-ready instances. Executions on always-ready instances are counted at on-demand rates, a small overestimate. Headroom is on-demand instances per function group."
+description: "On-demand executions and GB-seconds at the instance memory size, plus the baseline of always-ready instances. Executions on always-ready instances are counted at on-demand rates, a small overestimate. Headroom is on-demand instances per function group."
 kinds: [invoke]
 sla: azure.functions
 attributes:

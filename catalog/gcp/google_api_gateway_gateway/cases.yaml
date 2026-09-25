@@ -1,6 +1,6 @@
 # Worked examples: given these values and this load, the resource reads this.
 # Expected values are computed by hand from the unit prices, not taken from the engine.
-# Within the billing account's free 2M calls.
+# The first tier: 1e6 / 1e6 × 3 = 3.
 - name: Tokyo, one million calls
   region: asia-northeast1
   demand:
@@ -8,10 +8,10 @@
       monthly: 1.0e+06
       peak: 10
   costs:
-    Calls: 0
+    Calls: 3
   limits:
     Service Control quota: 10
-# The first 2M free, (5e8 − 2e6) / 1e6 × 3 = 1494.
+# 5e8 / 1e6 × 3 = 1500.
 - name: Northern Virginia, 500 million calls
   region: us-east4
   demand:
@@ -19,10 +19,10 @@
       monthly: 5.0e+08
       peak: 2000
   costs:
-    Calls: 1494
+    Calls: 1500
   limits:
     Service Control quota: 2000
-# Past 1B: 2M free, (1e9 − 2e6) / 1e6 × 3 = 2994, (2e9 − 1e9) / 1e6 × 1.5 = 1500; together 4494.
+# Past 1B: 1e9 / 1e6 × 3 = 3000, (2e9 − 1e9) / 1e6 × 1.5 = 1500; together 4500.
 - name: Iowa, two billion calls
   region: us-central1
   demand:
@@ -30,6 +30,6 @@
       monthly: 2.0e+09
       peak: 5000
   costs:
-    Calls: 4494
+    Calls: 4500
   limits:
     Service Control quota: 5000

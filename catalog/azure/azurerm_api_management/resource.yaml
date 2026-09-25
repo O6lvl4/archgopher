@@ -2,7 +2,7 @@ type: azurerm_api_management
 label: API Management
 category: Edge
 icon: api-management
-description: "Consumption: calls, the first million a month free, counted over every Consumption instance of the account. Classic tiers (Developer, Basic, Standard, Premium): unit-hours times capacity. v2 tiers: unit-hours, extra units at the secondary rate, and calls beyond the included volume. Headroom is the published throughput per unit, where Microsoft publishes one; it is for information only."
+description: "Consumption: calls. Classic tiers (Developer, Basic, Standard, Premium): unit-hours times capacity. v2 tiers: unit-hours, extra units at the secondary rate, and calls beyond the included volume. Headroom is the published throughput per unit, where Microsoft publishes one; it is for information only."
 kinds: [request]
 sla: azure.apim
 attributes:

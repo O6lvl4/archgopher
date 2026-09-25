@@ -2,7 +2,7 @@ type: azurerm_monitor_metric_alert
 label: Metric alert
 category: Monitoring
 icon: alerts
-description: "A monthly cost per time series the rule monitors: each resource in scope times each criterion, or each dimension value a criterion splits by. Dynamic thresholds cost again per time series. The first 10 time series a month are free, counted over every metric alert of the account. Load does not flow through an alert."
+description: "A monthly cost per time series the rule monitors: each resource in scope times each criterion, or each dimension value a criterion splits by. Dynamic thresholds cost again per time series. Load does not flow through an alert."
 kinds: [alarm]
 sla: azure.monitor
 attributes:

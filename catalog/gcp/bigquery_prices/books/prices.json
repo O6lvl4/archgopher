@@ -2,7 +2,7 @@
   "gcp.bigquery.multi.query.eu": {
     "unit": "TiB",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "On-demand analysis per TiB scanned in the EU multi-region. The first TiB of query data processed a month is free (\"The first 1 TiB of query data processed per month is free\", https://cloud.google.com/bigquery/pricing), counted over the billing account. The Billing Catalog lists the free tier as a $0 first tier on each location's SKU; the page gives it once per billing account, so a declaration that reads two locations is given it twice.",
+    "note": "On-demand analysis per TiB scanned in the EU multi-region (https://cloud.google.com/bigquery/pricing). The price list's first tier is a free grant, billed here at the first paid tier's price.",
     "sync": {
       "filters": {
         "description": "Analysis"
@@ -28,7 +28,7 @@
   "gcp.bigquery.multi.query.us": {
     "unit": "TiB",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "On-demand analysis per TiB scanned in the US multi-region. The first TiB of query data processed a month is free (\"The first 1 TiB of query data processed per month is free\", https://cloud.google.com/bigquery/pricing), counted over the billing account. The Billing Catalog lists the free tier as a $0 first tier on each location's SKU; the page gives it once per billing account, so a declaration that reads two locations is given it twice.",
+    "note": "On-demand analysis per TiB scanned in the US multi-region (https://cloud.google.com/bigquery/pricing). The price list's first tier is a free grant, billed here at the first paid tier's price.",
     "sync": {
       "filters": {
         "description": "Analysis"
@@ -54,7 +54,7 @@
   "gcp.bigquery.query": {
     "unit": "TiB",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "On-demand analysis per TiB scanned in a region. The first TiB of query data processed a month is free (\"The first 1 TiB of query data processed per month is free\", https://cloud.google.com/bigquery/pricing), counted over the billing account. The Billing Catalog lists the free tier as a $0 first tier on each location's SKU; the page gives it once per billing account, so a declaration that reads two locations is given it twice.",
+    "note": "On-demand analysis per TiB scanned in a region (https://cloud.google.com/bigquery/pricing). The price list's first tier is a free grant, billed here at the first paid tier's price.",
     "sync": {
       "filters": {
         "description": "Analysis \\(.+\\)"

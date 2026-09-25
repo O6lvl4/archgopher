@@ -12,6 +12,6 @@
       }
     },
     "pool": "account",
-    "free": 1000000
+    "included": 1000000
   }
 }

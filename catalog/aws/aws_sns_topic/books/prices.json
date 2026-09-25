@@ -132,7 +132,7 @@
     "unit": "request",
     "per": 1000000,
     "source": "https://aws.amazon.com/sns/pricing/",
-    "note": "Standard topic publish API requests; each 64 KB chunk of a message is one request. The first 1,000,000 a month are free. The Price List gives the always-free part as a $0 first tier (https://aws.amazon.com/free/, Always free: Amazon SNS); SNS counts free usage each month across all regions (https://aws.amazon.com/sns/pricing/), so the pool is the account",
+    "note": "Standard topic publish API requests; each 64 KB chunk of a message is one request. The price list's first tier is a free grant, billed here at the first paid tier's price",
     "sync": {
       "service": "AmazonSNS",
       "filters": {

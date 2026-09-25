@@ -2,7 +2,7 @@
   "azure.bandwidth.internet_out": {
     "unit": "GB",
     "source": "https://azure.microsoft.com/pricing/details/bandwidth/",
-    "note": "Data transfer out to the internet over the Microsoft network (routing preference). Row 0 is the free grant the price list shows as a zero-priced first tier: the first 100 GB a month are free \"to all customers in all Azure regions\" (https://azure.microsoft.com/pricing/details/bandwidth/), so the table is pooled over the account and the grant is given once. Volume tiers from 100 GB, about 10 TB, 50 TB, 150 TB and 500 TB a month, at the starts the price list gives; the page does not say whether the tiers count per region or per subscription. Transfer within a region is free",
+    "note": "Data transfer out to the internet over the Microsoft network (routing preference; https://azure.microsoft.com/pricing/details/bandwidth/). Volume tiers from 100 GB, about 10 TB, 50 TB, 150 TB and 500 TB a month, at the starts the price list gives, counted over the account; the page does not say whether the tiers count per region or per subscription. The price list's first tier is a free grant, billed here at the first paid tier's price. Transfer within a region is free",
     "sync": {
       "source": "azure",
       "service": "Bandwidth",

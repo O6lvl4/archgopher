@@ -12,7 +12,7 @@
       }
     },
     "pool": "account",
-    "free": 10000000
+    "included": 10000000
   },
   "cloudflare.kv.storage": {
     "unit": "GB-month",
@@ -27,7 +27,7 @@
       }
     },
     "pool": "account",
-    "free": 1
+    "included": 1
   },
   "cloudflare.kv.writes": {
     "unit": "request",
@@ -42,6 +42,6 @@
       }
     },
     "pool": "account",
-    "free": 1000000
+    "included": 1000000
   }
 }

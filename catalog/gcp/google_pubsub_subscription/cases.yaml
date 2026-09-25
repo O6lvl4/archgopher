@@ -1,6 +1,5 @@
 # Worked examples: given these values and this load, the resource reads this.
 # Expected values are computed by hand from the unit prices, not taken from the engine.
-# Delivery: 0.3637978807091713 / 40 = 0.0091 TiB, within the billing account's free 10 GiB.
 - name: Tokyo, pull delivery of 1 kB messages
   region: asia-northeast1
   demand:
@@ -8,10 +7,9 @@
       monthly: 1.0e+07
       peak: 100
   costs:
-    Delivery throughput: 0
+    Delivery throughput: 0.3637978807091713
   limits:
     Delivery throughput: 6000
-# Delivery: the billing account's first 10 GiB free, 7.275957614183426 − 0.009765625 × 40 = 6.885332614183426.
 - name: Tokyo, push delivery of 4 kB messages, acknowledged messages retained for 7 days
   region: asia-northeast1
   attributes:
@@ -24,7 +22,7 @@
       monthly: 5.0e+07
       peak: 200
   costs:
-    Delivery throughput: 6.885332614183426
+    Delivery throughput: 7.275957614183426
     Retained acknowledged messages: 11.573915612207701
   limits:
     Delivery throughput: 48000

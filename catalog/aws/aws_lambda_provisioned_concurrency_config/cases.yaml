@@ -20,10 +20,10 @@
     invoke:
       monthly: 2e+06
       peak: 40
-  # Requests share the account's always-free million: (2e6 − 1e6) × 0.2 / 1e6 = 0.2.
+  # Requests: 2e6 × 0.2 / 1e6 = 0.4.
   costs:
     Provisioned concurrency (512 MB, arm64): 28.295676
-    Requests: 0.2
+    Requests: 0.4
     Duration (provisioned, arm64): 1.00492
   limits:
     Provisioned concurrency used: 4

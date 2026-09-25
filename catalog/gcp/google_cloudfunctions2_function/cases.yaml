@@ -1,6 +1,5 @@
 # Worked examples: given these values and this load, the resource reads this.
 # Expected values are computed by hand from the unit prices, not taken from the engine.
-# Invocations within the billing account's free 2 million.
 - name: Tokyo (Tier 1), 256 MB with the CPU it comes with, one invocation per instance
   region: asia-northeast1
   assumptions:
@@ -12,10 +11,9 @@
   costs:
     vCPU: 0.8016
     Memory: 0.11920929
-    Invocations: 0
+    Invocations: 0.4
   limits:
     Instances: 2
-# Invocations within the billing account's free 2 million.
 - name: Frankfurt (Tier 2), 1 vCPU and 1 GiB, 10 per instance
   region: europe-west3
   attributes:
@@ -31,22 +29,6 @@
   costs:
     vCPU: 1.68
     Memory: 0.175
-    Invocations: 0
+    Invocations: 0.4
   limits:
     Instances: 1
-# Ten times the first case: vCPU 8.016, memory 2e6 s × 256e6 / 2^30 GiB × 0.0000025 = 1.192092896; invocations past the free 2 million,
-# (1e7 − 2e6) / 1e6 × 0.4 = 3.2.
-- name: Tokyo (Tier 1), 256 MB, ten million invocations
-  region: asia-northeast1
-  assumptions:
-    durationMs: 200
-  demand:
-    invoke:
-      monthly: 1.0e+07
-      peak: 10
-  costs:
-    vCPU: 8.016
-    Memory: 1.192092896
-    Invocations: 3.2
-  limits:
-    Instances: 2

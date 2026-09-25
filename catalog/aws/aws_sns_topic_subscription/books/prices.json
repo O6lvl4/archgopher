@@ -3,7 +3,7 @@
     "unit": "notification",
     "per": 100000,
     "source": "https://aws.amazon.com/sns/pricing/",
-    "note": "Email and Email-JSON deliveries. The first 1,000 a month are free. The Price List gives the always-free part as a $0 first tier (https://aws.amazon.com/free/, Always free: Amazon SNS); SNS counts free usage each month across all regions (https://aws.amazon.com/sns/pricing/), so the pool is the account",
+    "note": "Email and Email-JSON deliveries. The price list's first tier is a free grant, billed here at the first paid tier's price",
     "sync": {
       "service": "AmazonSNS",
       "filters": {
@@ -110,7 +110,7 @@
     "unit": "notification",
     "per": 1000000,
     "source": "https://aws.amazon.com/sns/pricing/",
-    "note": "HTTP/HTTPS deliveries. The first 100,000 a month are free. The Price List gives the always-free part as a $0 first tier (https://aws.amazon.com/free/, Always free: Amazon SNS); SNS counts free usage each month across all regions (https://aws.amazon.com/sns/pricing/), so the pool is the account",
+    "note": "HTTP/HTTPS deliveries. The price list's first tier is a free grant, billed here at the first paid tier's price",
     "sync": {
       "service": "AmazonSNS",
       "filters": {

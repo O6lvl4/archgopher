@@ -2,7 +2,7 @@ type: aws_cloudformation_stack_set
 label: CloudFormation StackSet
 category: Management
 icon: cloudformation
-description: "Resources of AWS, Alexa and Custom types are free to provision. Third-party and private registry types are billed per handler operation (the first 1,000 a month always free for the account), and for every second a handler runs beyond 30. Load is StackSet operations; each runs in every stack instance, priced in the declaration's region. A template body naming no registry type reads nothing; a template read from a URL is assumed to name none unless thirdPartyResources is set."
+description: "Resources of AWS, Alexa and Custom types are free to provision. Third-party and private registry types are billed per handler operation, and for every second a handler runs beyond 30. Load is StackSet operations; each runs in every stack instance, priced in the declaration's region. A template body naming no registry type reads nothing; a template read from a URL is assumed to name none unless thirdPartyResources is set."
 kinds: [deploy]
 attributes:
   - { key: template_body, label: Template body, type: string, optional: true }

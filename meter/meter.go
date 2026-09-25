@@ -19,11 +19,11 @@ type Cost struct {
 	Unit     string  `json:"unit"`
 	PriceID  string  `json:"priceId"`
 	// UnitPrice and MonthlyUSD are nil when the price is not known. When the
-	// price has tiers or free units, UnitPrice is what the line pays per unit
-	// on average.
+	// price has tiers or included units, UnitPrice is what the line pays per
+	// unit on average.
 	UnitPrice  *float64 `json:"unitPrice"`
 	MonthlyUSD *float64 `json:"monthlyUsd"`
-	// Bands break a line priced by tiers or free units down by price. A
+	// Bands break a line priced by tiers or included units down by price. A
 	// pooled line has none: its pool carries them.
 	Bands []Band `json:"bands,omitempty"`
 	// Pool is set when the price is billed on a whole account's usage: the
@@ -59,9 +59,6 @@ type RefUse struct {
 // Recorder collects readings while a scouter runs.
 type Recorder struct {
 	Region string
-	// NoFree bills free units like any other: the account's free allowances
-	// are used up elsewhere.
-	NoFree bool
 	books  book.Books
 	costs  []Cost
 	limits []Limit
@@ -124,7 +121,7 @@ func (r *Recorder) Cost(name string, quantity float64, unit, priceID string) {
 	r.costs = append(r.costs, c)
 }
 
-// billed records a line whose price has tiers, free units or a pool. A
+// billed records a line whose price has tiers, included units or a pool. A
 // pooled line is billed with the recorder's other lines of its pool when
 // they are read out: as if the node were the account's only user.
 func (r *Recorder) billed(name string, quantity float64, unit, priceID string, e book.Entry) {
@@ -132,11 +129,11 @@ func (r *Recorder) billed(name string, quantity float64, unit, priceID string, e
 		r.errs = append(r.errs, fmt.Errorf("prices %q is per %q but the reading counts %q", priceID, e.Unit, unit))
 		return
 	}
-	allowance := 0.0
-	if !r.NoFree && e.Pool == "" {
-		allowance = e.Free
+	included := 0.0
+	if e.Pool == "" {
+		included = e.Included // a pool gives its units once, when shared
 	}
-	bill, err := Bill(r.books.Prices, priceID, r.Region, quantity, allowance, !r.NoFree)
+	bill, err := Bill(r.books.Prices, priceID, r.Region, quantity, included)
 	if err != nil {
 		var no *NotOfferedError
 		if errors.As(err, &no) {
@@ -243,7 +240,7 @@ func (r *Recorder) Costs() []Cost {
 	for i := range out {
 		lines[i] = Owned{Cost: &out[i]}
 	}
-	Share(lines, r.books.Prices, r.Region, !r.NoFree)
+	Share(lines, r.books.Prices, r.Region)
 	return out
 }
 

@@ -2,7 +2,7 @@ type: aws_data_transfer
 label: Data transfer
 category: Network
 icon: vpc
-description: "Data transfer written by hand for a region, as Terraform has no such resource: within the region (charged out of one zone and into the other), out to the internet in volume tiers from 10 TB, 50 TB and 150 TB a month, counted over the account, to the other US East region, and to other regions. The always-free 100 GB a month out to the internet is given once over the account, shared with every other line that sends to the internet. Transfer that a node reads itself (S3 downloads, a VPC's zones) should not be written here again."
+description: "Data transfer written by hand for a region, as Terraform has no such resource: within the region (charged out of one zone and into the other), out to the internet in volume tiers from 10 TB, 50 TB and 150 TB a month, counted over the account and shared with every other line that sends to the internet, to the other US East region, and to other regions. Transfer that a node reads itself (S3 downloads, a VPC's zones) should not be written here again."
 kinds: [transfer]
 assumptions:
   - { key: intraRegionGb, label: Within the region, type: number, unit: GB, default: 0, hint: "Between Availability Zones or over public or Elastic IP addresses" }

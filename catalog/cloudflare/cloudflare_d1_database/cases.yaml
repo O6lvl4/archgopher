@@ -14,7 +14,7 @@
       monthly: 3000000.0
       peak: 10
   costs:
-    # All within the free units: 600M of 25B rows read, 6M of 50M rows written, 3 of 5 GB
+    # All within the included units: 600M of 25B rows read, 6M of 50M rows written, 3 of 5 GB
     Rows read: 0
     Rows written: 0
     Storage: 0
@@ -34,10 +34,10 @@
       monthly: 100000.0
       peak: 5
   costs:
-    # Rows within the free units (1M of 25B read, 100k of 50M written)
+    # Rows within the included units (1M of 25B read, 100k of 50M written)
     Rows read: 0
     Rows written: 0
-    # Storage: (12 - 5 GB free) x $0.75 = 5.25
+    # Storage: (12 - 5 GB included) x $0.75 = 5.25
     Storage: 5.25
   limits:
     Database size: 12
@@ -56,11 +56,11 @@
       monthly: 30000000.0
       peak: 12
   costs:
-    # Rows read: 2B x 20 = 40B; (40B - 25B free) x $0.001/M = 15
+    # Rows read: 2B x 20 = 40B; (40B - 25B included) x $0.001/M = 15
     Rows read: 15
-    # Rows written: 30M x 2 = 60M; (60M - 50M free) x $1/M = 10
+    # Rows written: 30M x 2 = 60M; (60M - 50M included) x $1/M = 10
     Rows written: 10
-    # Storage: 4 of 5 GB free
+    # Storage: 4 of 5 GB included
     Storage: 0
   limits:
     Database size: 4

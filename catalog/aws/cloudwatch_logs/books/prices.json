@@ -2,7 +2,7 @@
   "aws.logs.ingest": {
     "unit": "GB",
     "source": "https://aws.amazon.com/cloudwatch/pricing/",
-    "note": "Standard log class. The first 5 GB ingested each month are free over the account, always (the price list's Global-DataProcessing-Bytes grant, \"Monthly free usage of data ingestion\", 0 to 5 GB at $0; the AWS Free Tier page: \"5GB of Log Data Ingestion\")",
+    "note": "Standard log class",
     "sync": {
       "service": "AmazonCloudWatch",
       "filters": {
@@ -61,14 +61,12 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       }
-    },
-    "pool": "account",
-    "free": 5
+    }
   },
   "aws.logs.storage": {
     "unit": "GB-month",
     "source": "https://aws.amazon.com/cloudwatch/pricing/",
-    "note": "Log storage (archive). The first 5 GB-months each month are free over the account, always (the price list's Global-TimedStorage-ByteHrs grant, \"Monthly free usage of archived storage\", 0 to 5 GB-Mo at $0; the AWS Free Tier page: \"5GB of Log Data Archive\")",
+    "note": "Log storage (archive)",
     "sync": {
       "service": "AmazonCloudWatch",
       "filters": {
@@ -127,8 +125,6 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       }
-    },
-    "pool": "account",
-    "free": 5
+    }
   }
 }

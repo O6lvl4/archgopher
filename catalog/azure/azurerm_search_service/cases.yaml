@@ -1,7 +1,6 @@
 # Worked examples: given these values and this load, the resource reads this.
 # Expected values are computed by hand from the unit prices, not taken from the engine.
-# 2 replicas x 1 partition x 730 x 0.444; 200,000 semantic queries, the first 1,000 free:
-# (200,000 − 1,000) / 1,000 × $1 = 199
+# 2 replicas x 1 partition x 730 x 0.444; 200,000 semantic queries at 1 per 1,000
 - name: S1 with two replicas and semantic ranking in Japan East
   region: japaneast
   attributes: { sku: standard, replica_count: 2, semantic_search_sku: standard }
@@ -11,7 +10,7 @@
     index: { monthly: 1e+05, peak: 5 }
   costs:
     Search units (S1): 648.24
-    Semantic ranker queries: 199.0
+    Semantic ranker queries: 200.0
   limits:
     Index storage: 100
 # 3 partitions x 730 x 0.101; images tier by tier per 1,000: 1M at 1 = 1000, 4M at 0.8 = 3200,

@@ -59,12 +59,12 @@ func TestFlattenKeepsTheTiersOfATieredTable(t *testing.T) {
 func TestFlattenRefusesBadRules(t *testing.T) {
 	one := 1.0
 	for name, e := range map[string]Entry{
-		"no zero tier":     {Tiered: true, Rows: map[string]map[string]*float64{"5": {"r": &one}}},
-		"a named tier":     {Tiered: true, Rows: map[string]map[string]*float64{"0": {"r": &one}, "big": {"r": &one}}},
-		"tiers, no rows":   {Tiered: true},
-		"an unknown pool":  {Pool: "org"},
-		"max with no pool": {Combine: CombineMax},
-		"negative free":    {Free: -1},
+		"no zero tier":      {Tiered: true, Rows: map[string]map[string]*float64{"5": {"r": &one}}},
+		"a named tier":      {Tiered: true, Rows: map[string]map[string]*float64{"0": {"r": &one}, "big": {"r": &one}}},
+		"tiers, no rows":    {Tiered: true},
+		"an unknown pool":   {Pool: "org"},
+		"max with no pool":  {Combine: CombineMax},
+		"negative included": {Included: -1},
 	} {
 		if _, err := (Book{"x": e}).Flatten(); err == nil {
 			t.Errorf("%s: accepted", name)
@@ -74,11 +74,11 @@ func TestFlattenRefusesBadRules(t *testing.T) {
 
 func TestFlattenGivesEveryRowOfAPlainTableItsRules(t *testing.T) {
 	one := 1.0
-	b, err := Book{"x": {Unit: "SMS", Pool: PoolAccount, Free: 100, Rows: map[string]map[string]*float64{"1": {"*": &one}, "44": {"*": &one}}}}.Flatten()
+	b, err := Book{"x": {Unit: "SMS", Pool: PoolAccount, Included: 100, Rows: map[string]map[string]*float64{"1": {"*": &one}, "44": {"*": &one}}}}.Flatten()
 	if err != nil {
 		t.Fatal(err)
 	}
-	if e := b["x.44"]; e.Pool != PoolAccount || e.Free != 100 {
+	if e := b["x.44"]; e.Pool != PoolAccount || e.Included != 100 {
 		t.Fatalf("x.44 = %+v", e)
 	}
 }

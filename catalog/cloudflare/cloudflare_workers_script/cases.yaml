@@ -9,9 +9,9 @@
       monthly: 15000000.0
       peak: 20
   costs:
-    # Requests: (15M - 10M free) x $0.30/M = 1.5
+    # Requests: (15M - 10M included) x $0.30/M = 1.5
     Requests: 1.5
-    # CPU time: 15M x 7 = 105M ms; (105M - 30M free) x $0.02/M = 1.5
+    # CPU time: 15M x 7 = 105M ms; (105M - 30M included) x $0.02/M = 1.5
     CPU time: 1.5
   limits:
     CPU time per request: 7
@@ -26,9 +26,9 @@
       monthly: 1000000.0
       peak: 2
   costs:
-    # Requests: 1M, all within the 10M free
+    # Requests: 1M, all within the 10M included
     Requests: 0
-    # CPU time: 1M x 80 = 80M ms; (80M - 30M free) x $0.02/M = 1
+    # CPU time: 1M x 80 = 80M ms; (80M - 30M included) x $0.02/M = 1
     CPU time: 1
   limits:
     CPU time per request: 80

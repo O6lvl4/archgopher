@@ -2,7 +2,7 @@ type: aws_kms_external_key
 label: KMS external key
 category: Security
 icon: kms
-description: "A customer managed key with imported key material: one key-month and requests per 10,000, like any symmetric key (the first 20,000 a month free for the account). Imported material cannot rotate automatically, so there are no extra key versions. Headroom is the account's shared symmetric request rate. References to a key are mentions, not load: add an edge with a per-unit rate when you know how often a caller reaches KMS."
+description: "A customer managed key with imported key material: one key-month and requests per 10,000, like any symmetric key. Imported material cannot rotate automatically, so there are no extra key versions. Headroom is the account's shared symmetric request rate. References to a key are mentions, not load: add an edge with a per-unit rate when you know how often a caller reaches KMS."
 kinds: [crypt]
 sla: aws.kms
 readings:

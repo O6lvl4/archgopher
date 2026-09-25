@@ -2,7 +2,7 @@ type: google_compute_snapshot
 label: Disk snapshot
 category: Storage
 icon: persistent-disk
-description: "Standard or archive snapshot storage, GiB-months, in the multi-region nearest the region (the default) or in the one region storage_locations names. The source disk's size stands in for the stored size (the first snapshot holds the disk's used blocks, compressed) unless storedGb says it. The price list gives the first 5 GiB of regional standard storage free in us-east5, counted per region."
+description: "Standard or archive snapshot storage, GiB-months, in the multi-region nearest the region (the default) or in the one region storage_locations names. The source disk's size stands in for the stored size (the first snapshot holds the disk's used blocks, compressed) unless storedGb says it."
 kinds: [read]
 attributes:
   - { key: snapshot_type, label: Snapshot type, type: choice, options: [STANDARD, ARCHIVE], default: STANDARD }

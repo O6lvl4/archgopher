@@ -9,11 +9,11 @@
     invoke:
         monthly: 2e+06
         peak: 40
-  # Within the always-free 400,000 GB-seconds: 2e6 × 0.2 s × 0.125 GB = 50,000.
-  # Requests: (2e6 − 1e6 free) × 0.2 / 1e6 = 0.2.
+  # 2e6 × 0.2 s × 0.125 GB = 50,000 GB-seconds × 0.0000166667 = 0.833335.
+  # Requests: 2e6 × 0.2 / 1e6 = 0.4.
   costs:
-    Duration (128 MB, x86_64): 0
-    Requests: 0.2
+    Duration (128 MB, x86_64): 0.833335
+    Requests: 0.4
   limits:
     Concurrency: 8
 - name: arm64 with reserved concurrency and logs (us-east-1)
@@ -31,13 +31,13 @@
     invoke:
         monthly: 2e+06
         peak: 40
-  # 2e6 × 0.8 s × 1 GB = 1.6e6 GB-seconds, 400,000 free: 1.2e6 × 0.0000133334 = 16.00008.
-  # Requests: (2e6 − 1e6 free) × 0.2 / 1e6 = 0.2.
+  # 2e6 × 0.8 s × 1 GB = 1.6e6 GB-seconds × 0.0000133334 = 21.33344.
+  # Requests: 2e6 × 0.2 / 1e6 = 0.4.
   costs:
-    Duration (1024 MB, arm64): 16.00008
-    Log ingestion: 0  # 2e6 × 2 KB = 3.81 GB, within the account's always-free 5 GB
-    Log storage: 0  # 1.76 GB-months, within the always-free 5
-    Requests: 0.2
+    Duration (1024 MB, arm64): 21.33344
+    Log ingestion: 1.907348633  # 2e6 × 2 KB = 3.814697266 GB × 0.50
+    Log storage: 0.052703054  # 3.814697266 × 14 / 30.4 = 1.756768477 GB-months × 0.03
+    Requests: 0.4
   limits:
     Concurrency: 32
 - name: logs that never expire (us-east-1)
@@ -52,13 +52,13 @@
     invoke:
         monthly: 2e+06
         peak: 40
-  # Within the always-free 400,000 GB-seconds: 2e6 × 0.1 s × 0.5 GB = 100,000.
-  # Requests: (2e6 − 1e6 free) × 0.2 / 1e6 = 0.2.
+  # 2e6 × 0.1 s × 0.5 GB = 100,000 GB-seconds × 0.0000166667 = 1.66667.
+  # Requests: 2e6 × 0.2 / 1e6 = 0.4.
   costs:
-    Duration (512 MB, x86_64): 0
-    Log ingestion: 0  # 2e6 × 1 KB = 1.91 GB, within the account's always-free 5 GB
-    Log storage (after 12 months, never expires): 0.536645508  # (22.888183594 − 5 always free) GB-months × 0.03
-    Requests: 0.2
+    Duration (512 MB, x86_64): 1.66667
+    Log ingestion: 0.953674316  # 2e6 × 1 KB = 1.907348633 GB × 0.50
+    Log storage (after 12 months, never expires): 0.686645508  # 1.907348633 × 12 = 22.888183594 GB-months × 0.03
+    Requests: 0.4
   limits:
     Concurrency: 4
 - name: missing duration (us-east-1)
@@ -76,11 +76,11 @@
     invoke:
         monthly: 2e+06
         peak: 40
-  # Within the always-free 400,000 GB-seconds: 2e6 × 0.2 s × 0.125 GB = 50,000.
-  # Requests: (2e6 − 1e6 free) × 0.2 / 1e6 = 0.2.
+  # 2e6 × 0.2 s × 0.125 GB = 50,000 GB-seconds × 0.0000166667 = 0.833335.
+  # Requests: 2e6 × 0.2 / 1e6 = 0.4.
   costs:
-    Duration (128 MB, x86_64): 0
-    Requests: 0.2
+    Duration (128 MB, x86_64): 0.833335
+    Requests: 0.4
   limits:
     Concurrency: 8
 - name: arm64 with reserved concurrency and logs (ap-northeast-1)
@@ -98,13 +98,13 @@
     invoke:
         monthly: 2e+06
         peak: 40
-  # 2e6 × 0.8 s × 1 GB = 1.6e6 GB-seconds, 400,000 free: 1.2e6 × 0.0000133334 = 16.00008.
-  # Requests: (2e6 − 1e6 free) × 0.2 / 1e6 = 0.2.
+  # 2e6 × 0.8 s × 1 GB = 1.6e6 GB-seconds × 0.0000133334 = 21.33344.
+  # Requests: 2e6 × 0.2 / 1e6 = 0.4.
   costs:
-    Duration (1024 MB, arm64): 16.00008
-    Log ingestion: 0  # 2e6 × 2 KB = 3.81 GB, within the account's always-free 5 GB
-    Log storage: 0  # 1.76 GB-months, within the always-free 5
-    Requests: 0.2
+    Duration (1024 MB, arm64): 21.33344
+    Log ingestion: 2.899169922  # 2e6 × 2 KB = 3.814697266 GB × 0.76
+    Log storage: 0.05797336  # 1.756768477 GB-months × 0.033
+    Requests: 0.4
   limits:
     Concurrency: 32
 - name: logs that never expire (ap-northeast-1)
@@ -119,13 +119,13 @@
     invoke:
         monthly: 2e+06
         peak: 40
-  # Within the always-free 400,000 GB-seconds: 2e6 × 0.1 s × 0.5 GB = 100,000.
-  # Requests: (2e6 − 1e6 free) × 0.2 / 1e6 = 0.2.
+  # 2e6 × 0.1 s × 0.5 GB = 100,000 GB-seconds × 0.0000166667 = 1.66667.
+  # Requests: 2e6 × 0.2 / 1e6 = 0.4.
   costs:
-    Duration (512 MB, x86_64): 0
-    Log ingestion: 0  # 2e6 × 1 KB = 1.91 GB, within the account's always-free 5 GB
-    Log storage (after 12 months, never expires): 0.590310059  # (22.888183594 − 5 always free) GB-months × 0.033
-    Requests: 0.2
+    Duration (512 MB, x86_64): 1.66667
+    Log ingestion: 1.449584961  # 2e6 × 1 KB = 1.907348633 GB × 0.76
+    Log storage (after 12 months, never expires): 0.755310059  # 22.888183594 GB-months × 0.033
+    Requests: 0.4
   limits:
     Concurrency: 4
 - name: missing duration (ap-northeast-1)
@@ -136,8 +136,8 @@
         peak: 40
   error: missing assumption "durationMs"
 # Past the first duration tier: 1e9 × 10 s × 1 GB = 1e10 GB-seconds.
-# (6e9 − 400,000 free) × 0.0000166667 = 99993.53332; (1e10 − 6e9) × 0.000015 = 60000;
-# together 159993.53332. Requests: (1e9 − 1e6 free) × 0.2 / 1e6 = 199.8.
+# 6e9 × 0.0000166667 = 100000.2; (1e10 − 6e9) × 0.000015 = 60000;
+# together 160000.2. Requests: 1e9 × 0.2 / 1e6 = 200.
 - name: x86_64 past the first duration tier (us-east-1)
   region: us-east-1
   attributes:
@@ -149,14 +149,14 @@
         monthly: 1e+09
         peak: 400
   costs:
-    Duration (1024 MB, x86_64): 159993.53332
-    Requests: 199.8
+    Duration (1024 MB, x86_64): 160000.2
+    Requests: 200
   limits:
     Concurrency: 4000
 # Past both Arm duration tiers: 1e9 × 20 s × 1 GB = 2e10 GB-seconds.
-# (7.5e9 − 400,000 free) × 0.0000133334 = 99995.16664;
+# 7.5e9 × 0.0000133334 = 100000.5;
 # (1.875e10 − 7.5e9) × 0.0000120001 = 135001.125; (2e10 − 1.875e10) × 0.0000106667 = 13333.375;
-# together 248329.66664. Requests: (1e9 − 1e6 free) × 0.2 / 1e6 = 199.8.
+# together 248335. Requests: 1e9 × 0.2 / 1e6 = 200.
 - name: arm64 past both duration tiers (ap-northeast-1)
   region: ap-northeast-1
   attributes:
@@ -170,7 +170,7 @@
         monthly: 1e+09
         peak: 400
   costs:
-    Duration (1024 MB, arm64): 248329.66664
-    Requests: 199.8
+    Duration (1024 MB, arm64): 248335
+    Requests: 200
   limits:
     Concurrency: 8000

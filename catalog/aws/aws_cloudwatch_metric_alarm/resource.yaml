@@ -2,7 +2,7 @@ type: aws_cloudwatch_metric_alarm
 label: CloudWatch alarm
 category: Monitoring
 icon: cloudwatch
-description: "A fixed monthly cost per metric the alarm evaluates: standard resolution for periods of 60 s or more, high resolution below. Anomaly detection alarms count 3 metrics each. The first 10 standard-resolution alarm metrics of the account are always free. Load does not flow through an alarm."
+description: "A fixed monthly cost per metric the alarm evaluates: standard resolution for periods of 60 s or more, high resolution below. Anomaly detection alarms count 3 metrics each. Load does not flow through an alarm."
 kinds: [alarm]
 sla: aws.cloudwatch
 attributes:

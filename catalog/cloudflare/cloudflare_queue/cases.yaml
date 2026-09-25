@@ -7,7 +7,7 @@
       monthly: 30000000.0
       peak: 100
   costs:
-    # Operations: 30M x 1 chunk x 3 = 90M; (90M - 1M free) x $0.40/M = 35.6
+    # Operations: 30M x 1 chunk x 3 = 90M; (90M - 1M included) x $0.40/M = 35.6
     Operations: 35.6
   limits:
     Message throughput: 100
@@ -21,7 +21,7 @@
       monthly: 10000000.0
       peak: 20
   costs:
-    # Operations: 10M x 2 chunks x 3 = 60M; (60M - 1M free) x $0.40/M = 23.6
+    # Operations: 10M x 2 chunks x 3 = 60M; (60M - 1M included) x $0.40/M = 23.6
     Operations: 23.6
   limits:
     Message throughput: 20

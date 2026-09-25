@@ -2,7 +2,7 @@ type: azurerm_function_app
 label: Function app (legacy)
 category: Compute
 icon: function-apps
-description: "The azurerm_function_app resource (superseded by the Linux and Windows function apps). On the Consumption plan: executions and GB-seconds (memory rounded up to 128 MB, at least 100 ms), less the monthly free grant of a million executions and 400,000 GB-seconds, counted over every Consumption function app of the account. On an Elastic Premium or App Service plan the app costs nothing itself: the plan node (azurerm_app_service_plan or azurerm_service_plan) carries the vCPU, memory or instance hours. Headroom is scale-out instances and the 10-minute timeout."
+description: "The azurerm_function_app resource (superseded by the Linux and Windows function apps). On the Consumption plan: executions and GB-seconds (memory rounded up to 128 MB, at least 100 ms). On an Elastic Premium or App Service plan the app costs nothing itself: the plan node (azurerm_app_service_plan or azurerm_service_plan) carries the vCPU, memory or instance hours. Headroom is scale-out instances and the 10-minute timeout."
 kinds: [invoke]
 sla: azure.functions
 attributes:

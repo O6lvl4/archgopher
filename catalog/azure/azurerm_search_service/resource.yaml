@@ -2,7 +2,7 @@ type: azurerm_search_service
 label: Azure AI Search
 category: Analytics
 icon: search
-description: "Search units (replicas × partitions) by tier, semantic ranker queries on the Standard plan, and image extraction during document cracking in volume tiers from 1M and 5M images a month, counted over every search service of the region. The free tier costs nothing. The semantic ranker's 1,000 free requests a month are given once, over every search service of the region. Headroom is the size of the indexes against the storage of the partitions."
+description: "Search units (replicas × partitions) by tier, semantic ranker queries on the Standard plan, and image extraction during document cracking in volume tiers from 1M and 5M images a month, counted over every search service of the region. The free tier costs nothing. Headroom is the size of the indexes against the storage of the partitions."
 kinds: [query, index]
 sla: azure.search
 attributes:

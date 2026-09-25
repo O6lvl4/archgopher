@@ -2,7 +2,7 @@ type: google_storage_bucket
 label: Cloud Storage bucket
 category: Storage
 icon: cloud-storage
-description: "Standard storage in a regional bucket: Class B reads, Class A writes, storage (the first 5 GiB a month free in the US free-tier regions, counted over the billing account) and direct transfer out to the internet, in volume tiers counted over the billing account. Headroom is the bucket's initial IO capacity, which autoscales when the rate ramps up gradually."
+description: "Standard storage in a regional bucket: Class B reads, Class A writes, storage and direct transfer out to the internet, in volume tiers counted over the billing account. Headroom is the bucket's initial IO capacity, which autoscales when the rate ramps up gradually."
 kinds: [read, write]
 sla: gcp.storage
 attributes:

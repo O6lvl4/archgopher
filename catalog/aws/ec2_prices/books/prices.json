@@ -430,7 +430,7 @@
   "aws.ec2.monitoring.metric": {
     "unit": "metric-month",
     "source": "https://aws.amazon.com/cloudwatch/pricing/",
-    "note": "CloudWatch metric (custom or detailed monitoring); EC2 detailed monitoring sends about 7 per instance. Volume tiers from 10,000, 250,000 and 1 million metrics a month. Always free: 10 metrics a month (https://aws.amazon.com/cloudwatch/pricing/, Free tier; https://aws.amazon.com/free/, Always free: Amazon CloudWatch; the price list's Global-CW:MetricMonitorUsage grant, 0 to 10 at $0), counted over the account. The pricing page does not say whether the tiers count per region; the pool follows the free metrics and counts both over the account",
+    "note": "CloudWatch metric (custom or detailed monitoring); EC2 detailed monitoring sends about 7 per instance. Volume tiers from 10,000, 250,000 and 1 million metrics a month. The pricing page does not say whether the tiers count per region; they are counted over the account",
     "sync": {
       "service": "AmazonCloudWatch",
       "filters": {
@@ -492,7 +492,6 @@
     "verified": true,
     "checkedAt": "2026-09-25",
     "pool": "account",
-    "free": 10,
     "tiered": true
   },
   "aws.ec2.public_ipv4": {

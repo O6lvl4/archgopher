@@ -2,7 +2,7 @@ type: azurerm_eventgrid_topic
 label: Event Grid topic
 category: Messaging
 icon: event-grid
-description: "Custom topic (Basic tier): operations, each 64 KB of an event counted once when published and once per delivery to a subscription. The first 100,000 operations a month are free, counted over every topic of the account in the region. Headroom is the publish rate per topic."
+description: "Custom topic (Basic tier): operations, each 64 KB of an event counted once when published and once per delivery to a subscription. Headroom is the publish rate per topic."
 kinds: [publish]
 sla: azure.eventgrid
 assumptions:

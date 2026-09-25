@@ -2,7 +2,7 @@ type: azurerm_bastion_host
 label: Bastion
 category: Network
 icon: bastion
-description: "Host-hours by SKU with two instances included, each further instance (scale unit) on Standard and Premium, and data sent out through the host: the first 5 GB a month free, then volume tiers from 10 TB, 50 TB and 150 TB, counted over every host of the account in the region. The Developer SKU is free. Headroom is concurrent sessions against the instances: about 20 RDP or 40 SSH sessions each for medium workloads."
+description: "Host-hours by SKU with two instances included, each further instance (scale unit) on Standard and Premium, and data sent out through the host in volume tiers from 10 TB, 50 TB and 150 TB, counted over every host of the account in the region. The Developer SKU is free. Headroom is concurrent sessions against the instances: about 20 RDP or 40 SSH sessions each for medium workloads."
 kinds: [traffic]
 sla: azure.bastion
 attributes:

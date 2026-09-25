@@ -13,9 +13,8 @@
       monthly: 10000000.0
       peak: 200
   costs:
-    # 10M x 2 KB = 19.0735 GB, half sampled = 9.5367431640625 GB; the first 5 GB of the
-    # account's Log Analytics ingestion are free: (9.5367431640625 - 5) x 3.34 = 15.152722168
-    Data ingested: 15.152722168
+    # 10M x 2 KB = 19.0735 GB, half sampled = 9.5367431640625 GB x 3.34 = 31.852722168
+    Data ingested: 31.852722168
     # 9.5367 GB x 30 / 30.4 days beyond 90, at the workspace's 0.15
     Retention beyond 90 days: 1.411688955
   limits:

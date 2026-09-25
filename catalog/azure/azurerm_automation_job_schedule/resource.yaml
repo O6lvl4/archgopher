@@ -2,7 +2,7 @@ type: azurerm_automation_job_schedule
 label: Automation job schedule
 category: Scheduling
 icon: automation-accounts
-description: "Job minutes of the runbook each time its schedule fires. The free 500 minutes a month are counted over every job of the account in the region."
+description: "Job minutes of the runbook each time its schedule fires."
 kinds: [run]
 sla: azure.automation
 assumptions:

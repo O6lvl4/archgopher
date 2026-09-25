@@ -10,7 +10,7 @@
         monthly: 10
         peak: 0.001
   costs:
-    Handler operations: 0  # 10 × 2 × 6 = 120, within the account's always-free 1,000
+    Handler operations: 0.108  # 10 × 2 × 6 × 0.0009
     Handler time beyond 30 s: 0
 - name: JSON template with intrinsic functions and AWS types only
   region: us-east-1

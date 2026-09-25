@@ -10,9 +10,9 @@
     test:
       monthly: 0
       peak: 0
-  # 2 × 3 × 1 = 6 tests, within the 10 free
+  # 2 × 3 × 1 = 6 tests × $0.30
   costs:
-    Tests: 0
+    Tests: 1.8
 - name: 300,000 tests across other groups (eastus)
   region: eastus
   assumptions:
@@ -21,10 +21,10 @@
     test:
       monthly: 0
       peak: 0
-  # Tier by tier: the first 10 free; (240,010 − 10) × $0.30 = 72000;
-  # (300,000 − 240,010) × $0.09999 = 5998.4001; together 77998.4001
+  # Tier by tier: 240,010 × $0.30 = 72003 (the first 10, a free grant in the price list,
+  # at the same price); (300,000 − 240,010) × $0.09999 = 5998.4001; together 78001.4001
   costs:
-    Tests: 77998.4001
+    Tests: 78001.4001
 - name: disabled first group (eastus)
   region: eastus
   attributes:

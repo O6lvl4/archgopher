@@ -24,7 +24,7 @@ assumptions:
   - { key: backupGb, label: Backup storage beyond the free allowance, type: number, unit: GB, default: 0, hint: "Automated backups and snapshots up to the allocated storage are free" }
   - { key: cpuCreditVcpuHours, label: Surplus CPU credits, type: number, unit: vCPU-hours, default: 0, hint: "db.t3 and db.t4g run unlimited: vCPU-hours above the baseline that earned credits do not cover" }
   - { key: extendedSupport, label: Extended Support, type: choice, options: [none, year1_2, year3], default: none, hint: "A major version past the end of standard support (MySQL 5.7, PostgreSQL 11 and 12) is billed per vCPU-hour" }
-  - { key: insightsApiCalls, label: Database Insights API calls, type: number, default: 0, hint: "Calls a month; the free 1 million are given once over the account" }
+  - { key: insightsApiCalls, label: Database Insights API calls, type: number, default: 0, hint: "Calls a month" }
 let:
   - eng: 'engine ?? ""'
   - byol: '(license_model ?? "") == "bring-your-own-license"'

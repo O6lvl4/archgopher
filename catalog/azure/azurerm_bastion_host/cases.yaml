@@ -3,31 +3,32 @@
 - name: Basic host with 50 GB out and 10 RDP sessions (japaneast)
   region: japaneast
   assumptions: { gbOutPerMonth: 50, peakSessions: 10 }
-  # 730 × $0.19; (50 − 5 free) GB × $0.12 = 5.4
+  # 730 × $0.19; 50 GB × $0.12
   costs:
     Host hours: 138.7
-    Data out: 5.4
+    Data out: 6
   limits:
     Concurrent sessions: 10
 - name: Standard host with 4 instances and 100 SSH sessions (eastus)
   region: eastus
   attributes: { sku: Standard, scale_units: 4 }
   assumptions: { gbOutPerMonth: 100, peakSessions: 100, protocol: SSH }
-  # 730 × $0.29; 730 × 2 extra × $0.14; (100 − 5 free) GB × $0.087 = 8.265; capacity 4 × 40 sessions
+  # 730 × $0.29; 730 × 2 extra × $0.14; 100 GB × $0.087; capacity 4 × 40 sessions
   costs:
     Host hours: 211.7
     Additional instances: 204.4
-    Data out: 8.265
+    Data out: 8.7
   limits:
     Concurrent sessions: 100
 - name: Basic host sending 60,000 GB out, past two volume tiers (eastus)
   region: eastus
   assumptions: { gbOutPerMonth: 60000, peakSessions: 10 }
-  # 730 × $0.19; data out tier by tier: the first 5 GB free; (10240 − 5) × 0.087 = 890.445;
-  # 40960 × 0.082998 = 3399.59808; (60000 − 51200) × 0.07 = 616; together 4906.04308
+  # 730 × $0.19; data out tier by tier: 10240 × 0.087 = 890.88 (the first 5 GB, a free
+  # grant in the price list, at the same price); 40960 × 0.082998 = 3399.59808;
+  # (60000 − 51200) × 0.07 = 616; together 4906.47808
   costs:
     Host hours: 138.7
-    Data out: 4906.04308
+    Data out: 4906.47808
   limits:
     Concurrent sessions: 10
 - name: Developer SKU is free (japaneast)

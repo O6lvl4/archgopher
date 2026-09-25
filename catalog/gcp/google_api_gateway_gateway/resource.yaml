@@ -2,7 +2,7 @@ type: google_api_gateway_gateway
 label: API Gateway
 category: Networking
 icon: api-gateway
-description: "Calls per million in volume tiers counted over the billing account: the first 2M a month free, then $3 per million to 1B and $1.50 above. Headroom is Service Control quota units, at most one per call."
+description: "Calls per million in volume tiers counted over the billing account: $3 per million to 1B and $1.50 above. Headroom is Service Control quota units, at most one per call."
 kinds: [request]
 sla: gcp.apigateway
 readings:

@@ -22,7 +22,7 @@ assumptions:
   - { key: monthlyHours, label: Hours running a month, type: number, unit: hours, default: 730 }
   - { key: spotShare, label: Spot price share, type: number, unit: fraction, optional: true, hint: "Spot price as a share of on-demand, from the Spot price history of the type (often 0.3 to 0.7). The Price List has no spot prices" }
   - { key: ebsOptimizedSet, label: EBS-optimized, type: boolean, default: false, hint: "Only previous-generation types charge for it" }
-  - { key: detailedMonitoring, label: Detailed monitoring, type: boolean, default: false, hint: "Launch configurations enable it by default, launch templates do not. About 7 CloudWatch metrics per instance; CloudWatch bills them in volume tiers from 10,000 metrics, and the first 10 are always free, both counted over the account" }
+  - { key: detailedMonitoring, label: Detailed monitoring, type: boolean, default: false, hint: "Launch configurations enable it by default, launch templates do not. About 7 CloudWatch metrics per instance; CloudWatch bills them in volume tiers from 10,000 metrics, counted over the account" }
   - { key: cpuCredits, label: CPU credits, type: choice, options: [standard, unlimited], optional: true, hint: "Burstable types; t2 defaults to standard, the others to unlimited" }
   - { key: surplusCreditVcpuHours, label: Surplus CPU credits per instance, type: number, unit: vCPU-hours, default: 0, hint: "Unlimited burstable instances only: vCPU-hours a month above the baseline that the earned credits do not cover" }
   - { key: rootVolumeType, label: Root volume type, type: choice, options: [standard, gp2, gp3, io1, io2, sc1, st1], default: gp2, hint: "From the launch template's block device mapping or the AMI" }

@@ -132,7 +132,7 @@
   "aws.logs.insights.scanned": {
     "unit": "GB",
     "source": "https://aws.amazon.com/cloudwatch/pricing/",
-    "note": "Logs Insights queries, per GB scanned. The first 5 GB scanned each month are free over the account, always (the price list's Global-DataScanned-Bytes grant, \"Monthly free usage of data scanned by CloudWatch Logs Insights queries\", 0 to 5 GB at $0; the CloudWatch pricing page's free tier: \"5 GB Data (ingestion, archive storage, and data scanned by Logs Insights queries)\")",
+    "note": "Logs Insights queries, per GB scanned",
     "sync": {
       "service": "AmazonCloudWatch",
       "filters": {
@@ -191,8 +191,6 @@
         "verified": true,
         "checkedAt": "2026-09-25"
       }
-    },
-    "pool": "account",
-    "free": 5
+    }
   }
 }

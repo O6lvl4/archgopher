@@ -1512,7 +1512,7 @@
   "gcp.compute.ip.unused": {
     "unit": "address-hour",
     "source": "https://cloud.google.com/vpc/network-pricing",
-    "note": "Static external IPv4 address reserved but not assigned to a resource. The first hour a month is free, counted over the billing account across regions (\"Free Tier: For 0 hour to 1 hour, per 1 month per account ... Usage calculations are combined across those regions\", https://cloud.google.com/vpc/network-pricing). Synced from the Billing Catalog, which lists the free hour as a $0 first tier on each region's SKU.",
+    "note": "Static external IPv4 address reserved but not assigned to a resource (https://cloud.google.com/vpc/network-pricing). Synced from the Billing Catalog. The price list's first tier is a free grant, billed here at the first paid tier's price.",
     "sync": {
       "filters": {
         "description": "Static Ip Charge( in .+)?"

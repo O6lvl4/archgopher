@@ -1,6 +1,5 @@
 # Worked examples: given these values and this load, the resource reads this.
 # Expected values are computed by hand from the unit prices, not taken from the engine.
-# The billing account's first 10 GiB free: 0.7275957614183426 − 0.009765625 × 40 = 0.3369707614183426.
 - name: Tokyo, 1 kB messages to one subscription
   region: asia-northeast1
   assumptions:
@@ -10,10 +9,9 @@
       monthly: 1.0e+07
       peak: 100
   costs:
-    Throughput: 0.3369707614183426
+    Throughput: 0.7275957614183426
   limits:
     Publish throughput: 6000
-# The billing account's first 10 GiB free: 29.103830456733704 − 0.009765625 × 40 = 28.713205456733704.
 - name: Northern Virginia, 4 kB messages fanned out to three subscriptions
   region: us-east4
   assumptions:
@@ -24,10 +22,9 @@
       monthly: 5.0e+07
       peak: 200
   costs:
-    Throughput: 28.713205456733704
+    Throughput: 29.103830456733704
   limits:
     Publish throughput: 48000
-# 0.03637978807091713 / 40 = 0.00091 TiB, within the billing account's free 10 GiB.
 - name: Mumbai, small messages bill 1,000 bytes and no subscription
   region: asia-south1
   assumptions:
@@ -38,6 +35,6 @@
       monthly: 1.0e+06
       peak: 5
   costs:
-    Throughput: 0
+    Throughput: 0.03637978807091713
   limits:
     Publish throughput: 300

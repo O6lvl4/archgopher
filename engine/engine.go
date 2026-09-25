@@ -112,12 +112,11 @@ func Run(spec model.Spec, reg scouter.Registry, books book.Books) (Result, error
 		return Result{}, err
 	}
 	res := Result{Name: spec.Name, Region: spec.Region}
-	free := spec.Billing.FreeUnits()
 	demand := g.propagate()
 	unverified := map[meter.RefUse]bool{}
 	for _, id := range g.order {
 		n := g.nodes[id]
-		nr := readNode(n, demand[id], reg, books, spec.Region, free, unverified)
+		nr := readNode(n, demand[id], reg, books, spec.Region, unverified)
 		nr.Load, nr.LoadBasis = n.Load, arrivals[id].basis
 		if e := arrivals[id].err; e != "" {
 			nr.Error = strings.TrimPrefix(nr.Error+"; "+e, "; ")
@@ -130,7 +129,7 @@ func Run(spec model.Spec, reg scouter.Registry, books book.Books) (Result, error
 			continue
 		}
 		n := model.Node{ID: gr.ID, Type: gr.Type, Assumptions: gr.Assumptions}
-		res.Groups = append(res.Groups, readNode(n, model.Demand{GroupKind: {Monthly: gb}}, reg, books, spec.Region, free, unverified))
+		res.Groups = append(res.Groups, readNode(n, model.Demand{GroupKind: {Monthly: gb}}, reg, books, spec.Region, unverified))
 	}
 	var all []*NodeResult
 	for i := range res.Nodes {
@@ -139,7 +138,7 @@ func Run(spec model.Spec, reg scouter.Registry, books book.Books) (Result, error
 	for i := range res.Groups {
 		all = append(all, &res.Groups[i])
 	}
-	res.Pools = sharePools(all, books.Prices, spec.Region, free)
+	res.Pools = sharePools(all, books.Prices, spec.Region)
 	for _, nr := range all {
 		nr.MonthlyUSD = 0
 		for _, c := range nr.Costs {
@@ -161,7 +160,7 @@ func Run(spec model.Spec, reg scouter.Registry, books book.Books) (Result, error
 
 // sharePools bills every pool of the declaration once, over all its nodes'
 // lines. A pool that cannot be billed puts its error on each node sharing it.
-func sharePools(nodes []*NodeResult, prices book.Book, region string, free bool) []meter.Pool {
+func sharePools(nodes []*NodeResult, prices book.Book, region string) []meter.Pool {
 	var lines []meter.Owned
 	byID := map[string]*NodeResult{}
 	for _, n := range nodes {
@@ -170,7 +169,7 @@ func sharePools(nodes []*NodeResult, prices book.Book, region string, free bool)
 			lines = append(lines, meter.Owned{Node: n.ID, Cost: &n.Costs[i]})
 		}
 	}
-	pools := meter.Share(lines, prices, region, free)
+	pools := meter.Share(lines, prices, region)
 	for _, p := range pools {
 		if p.Error == "" {
 			continue
@@ -208,7 +207,7 @@ func (g *graph) crossing(group string, demand map[string]model.Demand) float64 {
 	return gb
 }
 
-func readNode(n model.Node, d model.Demand, reg scouter.Registry, books book.Books, region string, free bool, unverified map[meter.RefUse]bool) NodeResult {
+func readNode(n model.Node, d model.Demand, reg scouter.Registry, books book.Books, region string, unverified map[meter.RefUse]bool) NodeResult {
 	nr := NodeResult{ID: n.ID, Type: n.Type, Label: n.Type, Address: n.Address, Note: n.Note, Stale: n.Stale, Demand: d}
 	s, ok := reg[n.Type]
 	if !ok {
@@ -218,7 +217,6 @@ func readNode(n model.Node, d model.Demand, reg scouter.Registry, books book.Boo
 	m := s.Meta()
 	nr.Label = m.Label
 	r := meter.NewRecorder(region, books)
-	r.NoFree = !free
 	if m.SLA != "" {
 		e, v, err := books.SLAs.Lookup(m.SLA, region)
 		if err == nil {

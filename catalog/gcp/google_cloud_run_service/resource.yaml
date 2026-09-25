@@ -2,7 +2,7 @@ type: google_cloud_run_service
 label: Cloud Run service (v1 API)
 category: Compute
 icon: cloud-run
-description: "Request-based billing by default: vCPU- and GiB-seconds while instances serve requests, requests (the first 2 million a month free, counted over the billing account), and idle minimum instances. The vCPU and memory free tier, a spending discount at Tier 1 prices, is not given. With CPU always allocated, instance-based billing: vCPU- and GiB-seconds for the instances' whole lifetime and no request fee. Billing mode and minimum and maximum instances are read from the revision template's annotations. Headroom is instances needed against max instances."
+description: "Request-based billing by default: vCPU- and GiB-seconds while instances serve requests, requests, and idle minimum instances. Free tiers are not counted. With CPU always allocated, instance-based billing: vCPU- and GiB-seconds for the instances' whole lifetime and no request fee. Billing mode and minimum and maximum instances are read from the revision template's annotations. Headroom is instances needed against max instances."
 kinds: [request]
 sla: gcp.cloudrun
 attributes:

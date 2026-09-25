@@ -3,7 +3,7 @@
     "unit": "operation",
     "per": 1000000,
     "source": "https://cloud.google.com/tasks/pricing",
-    "note": "Billable operations in 32 KB chunks. The first million a month are free, counted over the billing account (\"0 count to 1,000,000 count $0.00 (Free) ... per 1 month / account\", https://cloud.google.com/tasks/pricing). Synced from the Billing Catalog, which lists them as a $0 first tier.",
+    "note": "Billable operations in 32 KB chunks (https://cloud.google.com/tasks/pricing). Synced from the Billing Catalog. The price list's first tier is a free grant, billed here at the first paid tier's price.",
     "sync": {
       "source": "gcp",
       "service": "F3A6-D7B7-9BDA",

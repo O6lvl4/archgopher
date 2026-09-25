@@ -56,7 +56,7 @@ const costColumns: Column<CostRow>[] = [
   { label: "Monthly", cell: (r) => usd(r.monthlyUsd), numeric: true },
 ];
 
-const bandText = (b: Band) => (b.free ? `${num(b.quantity)} free` : `${num(b.quantity)} at ${unitPrice(b.unitPrice)}`);
+const bandText = (b: Band) => (b.included ? `${num(b.quantity)} included` : `${num(b.quantity)} at ${unitPrice(b.unitPrice)}`);
 
 const poolColumns: Column<Pool>[] = [
   { label: "Price", cell: (p) => p.priceId },

@@ -2,7 +2,7 @@ type: aws_cloudfront_distribution
 label: CloudFront
 category: Edge
 icon: cloudfront
-description: "HTTPS requests and transfer out, priced by where viewers are: by default the CloudFront price zone of the region. Transfer out is in volume tiers from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB a month, counted over every distribution of the account that serves the same price zone. The always-free 1 TB of transfer out and 10 million requests a month are given once for the account, shared by every zone."
+description: "HTTPS requests and transfer out, priced by where viewers are: by default the CloudFront price zone of the region. Transfer out is in volume tiers from 10 TB, 50 TB, 150 TB, 500 TB, 1 PB and 5 PB a month, counted over every distribution of the account that serves the same price zone."
 kinds: [request]
 sla: aws.cloudfront
 assumptions:

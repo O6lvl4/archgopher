@@ -79,8 +79,6 @@ export interface Spec {
   nodes: SpecNode[];
   edges: SpecEdge[];
   groups?: SpecGroup[];
-  /** How the account is billed; free false bills every free allowance. */
-  billing?: { free?: boolean };
 }
 
 export type FieldType = "number" | "string" | "boolean" | "list" | "choice";
@@ -121,20 +119,20 @@ export interface Cost {
   quantity: number;
   unit: string;
   priceId: string;
-  /** With tiers or free units, what the line pays per unit on average. */
+  /** With tiers or included units, what the line pays per unit on average. */
   unitPrice: number | null;
   monthlyUsd: number | null;
   /** Set when the price is billed on the whole account's usage: the key of its pool. */
   pool?: string;
 }
 
-/** The part of a quantity one price applies to: the free units, or one volume tier. */
+/** The part of a quantity one price applies to: the units a plan includes, or one volume tier. */
 export interface Band {
   from: number;
   to?: number;
   quantity: number;
   unitPrice: number | null;
-  free?: boolean;
+  included?: boolean;
 }
 
 /** A price billed on the whole account's usage, and the lines that share it. */

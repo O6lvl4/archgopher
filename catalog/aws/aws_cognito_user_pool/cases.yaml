@@ -8,9 +8,9 @@
     sign_in:
       monthly: 400000
       peak: 10
-  # The free 10,000 MAU of Lite and Essentials first: (50,000 − 10,000) × $0.015 = 600
+  # 50,000 × $0.015 = 750
   costs:
-    Monthly active users: 600.0
+    Monthly active users: 750.0
   limits:
     Sign-in requests: 20
 - name: Lite across three volume tiers, with sign-ups
@@ -24,10 +24,10 @@
     sign_in:
       monthly: 5000000
       peak: 10
-  # 10,000 free; tiers count all MAU: (100,000 − 10,000) × $0.0055 = 495;
-  # 900,000 × $0.0046 = 4140; (1,200,000 − 1,000,000) × $0.00325 = 650; together 5285
+  # Tiers count all MAU: 100,000 × $0.0055 = 550;
+  # 900,000 × $0.0046 = 4140; (1,200,000 − 1,000,000) × $0.00325 = 650; together 5340
   costs:
-    Monthly active users: 5285.0
+    Monthly active users: 5340.0
   limits:
     Sign-in requests: 20
     Sign-up requests: 2

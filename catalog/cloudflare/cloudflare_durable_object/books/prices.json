@@ -12,7 +12,7 @@
       }
     },
     "pool": "account",
-    "free": 400000
+    "included": 400000
   },
   "cloudflare.durable_objects.requests": {
     "unit": "request",
@@ -27,7 +27,7 @@
       }
     },
     "pool": "account",
-    "free": 1000000
+    "included": 1000000
   },
   "cloudflare.durable_objects.rows_read": {
     "unit": "row",
@@ -42,7 +42,7 @@
       }
     },
     "pool": "account",
-    "free": 25000000000
+    "included": 25000000000
   },
   "cloudflare.durable_objects.rows_written": {
     "unit": "row",
@@ -57,7 +57,7 @@
       }
     },
     "pool": "account",
-    "free": 50000000
+    "included": 50000000
   },
   "cloudflare.durable_objects.storage": {
     "unit": "GB-month",
@@ -71,6 +71,6 @@
       }
     },
     "pool": "account",
-    "free": 5
+    "included": 5
   }
 }

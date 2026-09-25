@@ -2,7 +2,7 @@
   "azure.containerregistry.build.Basic": {
     "unit": "vCPU-second",
     "source": "https://azure.microsoft.com/pricing/details/container-registry/",
-    "note": "ACR Tasks build vCPU time on a Basic registry. The first 6,000 seconds a month are free: the price list gives them as the zero-priced first tier of the Basic meter (the pricing page does not mention them). It does not say over what they are counted, so they are counted per region here, over every Basic registry of the account",
+    "note": "ACR Tasks build vCPU time on a Basic registry. The price list's first tier is a free grant, billed here at the first paid tier's price",
     "sync": {
       "filters": {
         "meterName": "Task vCPU Duration",
@@ -47,7 +47,7 @@
   "azure.containerregistry.build.Premium": {
     "unit": "vCPU-second",
     "source": "https://azure.microsoft.com/pricing/details/container-registry/",
-    "note": "ACR Tasks build vCPU time on a Premium registry. The first 6,000 seconds a month are free: the price list gives them as the zero-priced first tier of the Premium meter (the pricing page does not mention them). It does not say over what they are counted, so they are counted per region here, over every Premium registry of the account",
+    "note": "ACR Tasks build vCPU time on a Premium registry. The price list's first tier is a free grant, billed here at the first paid tier's price",
     "sync": {
       "filters": {
         "meterName": "Task vCPU Duration",
@@ -92,7 +92,7 @@
   "azure.containerregistry.build.Standard": {
     "unit": "vCPU-second",
     "source": "https://azure.microsoft.com/pricing/details/container-registry/",
-    "note": "ACR Tasks build vCPU time on a Standard registry. The first 6,000 seconds a month are free: the price list gives them as the zero-priced first tier of the Standard meter (the pricing page does not mention them). It does not say over what they are counted, so they are counted per region here, over every Standard registry of the account",
+    "note": "ACR Tasks build vCPU time on a Standard registry. The price list's first tier is a free grant, billed here at the first paid tier's price",
     "sync": {
       "filters": {
         "meterName": "Task vCPU Duration",

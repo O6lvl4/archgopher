@@ -38,8 +38,8 @@
   costs:
     Active CPU: 10.633333333
     Memory: 7.041666667
-    Log ingestion: 0  # 0.04 GB, within the account's always-free 5 GB
-    Log storage: 0  # within the account's always-free 5 GB-months
+    Log ingestion: 0.028991699  # 10,000 × 4 KB = 0.038146973 GB × 0.76
+    Log storage: 0.001242286  # 0.038146973 GB × 30 / 30.4 = 0.037645039 GB-months × 0.033
   limits:
     Concurrent sessions: 240
     Session creation: 0.2

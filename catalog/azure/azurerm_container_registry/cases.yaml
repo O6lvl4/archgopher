@@ -1,7 +1,7 @@
 # Worked examples: given these values and this load, the resource reads this.
 # Expected values are computed by hand from the unit prices, not taken from the engine.
 # Standard in Japan East, 150 GB, 10 build hours:
-#   registry 730 / 24 days x 0.6666 = 20.27575; storage (150 - 100) x 0.1 = 5; build (36000 - 6000 free) s x 0.0001 = 3
+#   registry 730 / 24 days x 0.6666 = 20.27575; storage (150 - 100) x 0.1 = 5; build 36000 s x 0.0001 = 3.6
 #   reads 5 pulls/s x 2 x 60 = 600/min; writes 1 push/s x 2 x 60 = 120/min
 - name: Standard registry with builds
   region: japaneast
@@ -20,7 +20,7 @@
   costs:
     Registry (Standard): 20.27575
     Storage above 100 GB: 5
-    Build vCPU: 3
+    Build vCPU: 3.6
   limits:
     Read requests: 600
     Write requests: 120

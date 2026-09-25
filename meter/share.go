@@ -7,7 +7,7 @@ import (
 )
 
 // Pool is a price the provider bills on what the whole account uses: its
-// tiers are counted and its free units given once, over every line that
+// tiers are counted and its included units given once, over every line that
 // reads it.
 type Pool struct {
 	Key     string `json:"key"`
@@ -16,10 +16,7 @@ type Pool struct {
 	Unit    string `json:"unit"`
 	// Quantity is what the pool is billed on: the sum of its lines, or the
 	// largest of them for a fee paid once.
-	Quantity float64 `json:"quantity"`
-	// Free is the part of the free units this pool was given; a free group
-	// shares its units among its pools by quantity.
-	Free       float64  `json:"free,omitempty"`
+	Quantity   float64  `json:"quantity"`
 	Bands      []Band   `json:"bands"`
 	MonthlyUSD *float64 `json:"monthlyUsd"`
 	// Error says why the pool could not be billed; its lines are unpriced.
@@ -41,10 +38,8 @@ type Owned struct {
 }
 
 // Share bills every pool among lines once and shares its cost out over its
-// lines by quantity, so each pays the pool's average price. Pools of one
-// free group split the group's free units by quantity. With free false no
-// free units are given.
-func Share(lines []Owned, prices book.Book, region string, free bool) []Pool {
+// lines by quantity, so each pays the pool's average price.
+func Share(lines []Owned, prices book.Book, region string) []Pool {
 	byKey := map[string][]Owned{}
 	var keys []string
 	for _, l := range lines {
@@ -59,7 +54,6 @@ func Share(lines []Owned, prices book.Book, region string, free bool) []Pool {
 	sort.Strings(keys)
 	pools := make([]Pool, len(keys))
 	sums := make([]float64, len(keys))
-	group := map[string]float64{} // quantity of each free group
 	for i, key := range keys {
 		first := byKey[key][0].Cost
 		e := prices[first.PriceID]
@@ -74,24 +68,11 @@ func Share(lines []Owned, prices book.Book, region string, free bool) []Pool {
 			}
 			p.Members = append(p.Members, PoolMember{Node: l.Node, Line: l.Cost.Name, Quantity: q})
 		}
-		if free {
-			p.Free = e.Free
-			if e.FreeGroup != "" {
-				group[e.FreeGroup] += p.Quantity
-			}
-		}
 		pools[i] = p
 	}
 	for i := range pools {
 		p := &pools[i]
-		e := prices[p.PriceID]
-		if g := group[e.FreeGroup]; e.FreeGroup != "" && free {
-			p.Free = 0
-			if g > 0 {
-				p.Free = e.Free * p.Quantity / g
-			}
-		}
-		bill, err := Bill(prices, p.PriceID, region, p.Quantity, p.Free, free)
+		bill, err := Bill(prices, p.PriceID, region, p.Quantity, prices[p.PriceID].Included)
 		if err != nil {
 			p.Error = err.Error()
 		}

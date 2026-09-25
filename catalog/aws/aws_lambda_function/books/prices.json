@@ -2,7 +2,7 @@
   "aws.lambda.arm64.gb_second": {
     "unit": "GB-second",
     "source": "https://aws.amazon.com/lambda/pricing/",
-    "note": "Arm (Graviton) duration. Volume tiers count the GB-seconds of every Arm function in the region: from 7.5 billion and 18.75 billion a month (the pricing page applies them per architecture, per region, per account). Always free: 400,000 GB-seconds a month, shared with x86 (https://aws.amazon.com/free/, Always free: AWS Lambda); the Free Tier counts it over every region, the tiers per region, so the pool is the region",
+    "note": "Arm (Graviton) duration. Volume tiers count the GB-seconds of every Arm function in the region: from 7.5 billion and 18.75 billion a month (the pricing page applies them per architecture, per region, per account)",
     "sync": {
       "service": "AWSLambda",
       "filters": {
@@ -52,15 +52,12 @@
     "verified": true,
     "checkedAt": "2026-09-25",
     "pool": "region",
-    "free": 400000,
-    "freeGroup": "aws.lambda.free_gb_seconds",
     "tiered": true
   },
   "aws.lambda.requests": {
     "unit": "request",
     "per": 1000000,
     "source": "https://aws.amazon.com/lambda/pricing/",
-    "note": "Always free: 1,000,000 requests a month (https://aws.amazon.com/free/, Always free: AWS Lambda), counted over every region of the account (https://aws.amazon.com/free/free-tier-faqs/)",
     "sync": {
       "service": "AWSLambda",
       "filters": {
@@ -119,14 +116,12 @@
         "verified": true,
         "checkedAt": "2026-09-24"
       }
-    },
-    "pool": "account",
-    "free": 1000000
+    }
   },
   "aws.lambda.x86_64.gb_second": {
     "unit": "GB-second",
     "source": "https://aws.amazon.com/lambda/pricing/",
-    "note": "x86 duration. Volume tiers count the GB-seconds of every x86 function in the region: from 6 billion and 15 billion a month (the pricing page applies them per architecture, per region, per account). Always free: 400,000 GB-seconds a month, shared with Arm (https://aws.amazon.com/free/, Always free: AWS Lambda); the Free Tier counts it over every region, the tiers per region, so the pool is the region",
+    "note": "x86 duration. Volume tiers count the GB-seconds of every x86 function in the region: from 6 billion and 15 billion a month (the pricing page applies them per architecture, per region, per account)",
     "sync": {
       "service": "AWSLambda",
       "filters": {
@@ -176,8 +171,6 @@
     "verified": true,
     "checkedAt": "2026-09-25",
     "pool": "region",
-    "free": 400000,
-    "freeGroup": "aws.lambda.free_gb_seconds",
     "tiered": true
   }
 }

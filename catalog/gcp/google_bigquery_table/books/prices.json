@@ -2,7 +2,7 @@
   "gcp.bigquery.active_storage": {
     "unit": "GB-month",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "Active logical storage per GiB-month in a region. The first 10 GiB a month are free (\"The first 10 GiB is free each month\", https://cloud.google.com/bigquery/pricing), counted over the billing account. The page gives one storage free tier; the catalog lists 10 GiB on the active and on the long-term SKU of each location, and the table follows the catalog. The Billing Catalog lists the free tier as a $0 first tier on each location's SKU; the page gives it once per billing account, so a declaration that reads two locations is given it twice.",
+    "note": "Active logical storage per GiB-month in a region (https://cloud.google.com/bigquery/pricing). The price list's first tier is a free grant, billed here at the first paid tier's price.",
     "sync": {
       "filters": {
         "description": "Active Logical Storage \\(.+\\)"
@@ -45,7 +45,7 @@
   "gcp.bigquery.long_term_storage": {
     "unit": "GB-month",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "Long-term logical storage (tables or partitions unmodified for 90 days) per GiB-month in a region. The first 10 GiB a month are free (\"The first 10 GiB is free each month\", https://cloud.google.com/bigquery/pricing), counted over the billing account. The page gives one storage free tier; the catalog lists 10 GiB on the active and on the long-term SKU of each location, and the table follows the catalog. The Billing Catalog lists the free tier as a $0 first tier on each location's SKU; the page gives it once per billing account, so a declaration that reads two locations is given it twice.",
+    "note": "Long-term logical storage (tables or partitions unmodified for 90 days) per GiB-month in a region (https://cloud.google.com/bigquery/pricing). The price list's first tier is a free grant, billed here at the first paid tier's price.",
     "sync": {
       "filters": {
         "description": "Long Term Logical Storage \\(.+\\)"
@@ -88,7 +88,7 @@
   "gcp.bigquery.multi.active_storage.eu": {
     "unit": "GB-month",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "Active logical storage per GiB-month in the EU multi-region. The first 10 GiB a month are free (\"The first 10 GiB is free each month\", https://cloud.google.com/bigquery/pricing), counted over the billing account. The page gives one storage free tier; the catalog lists 10 GiB on the active and on the long-term SKU of each location, and the table follows the catalog. The Billing Catalog lists the free tier as a $0 first tier on each location's SKU; the page gives it once per billing account, so a declaration that reads two locations is given it twice.",
+    "note": "Active logical storage per GiB-month in the EU multi-region (https://cloud.google.com/bigquery/pricing). The price list's first tier is a free grant, billed here at the first paid tier's price.",
     "sync": {
       "filters": {
         "description": "Active Logical Storage"
@@ -114,7 +114,7 @@
   "gcp.bigquery.multi.active_storage.us": {
     "unit": "GB-month",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "Active logical storage per GiB-month in the US multi-region. The first 10 GiB a month are free (\"The first 10 GiB is free each month\", https://cloud.google.com/bigquery/pricing), counted over the billing account. The page gives one storage free tier; the catalog lists 10 GiB on the active and on the long-term SKU of each location, and the table follows the catalog. The Billing Catalog lists the free tier as a $0 first tier on each location's SKU; the page gives it once per billing account, so a declaration that reads two locations is given it twice.",
+    "note": "Active logical storage per GiB-month in the US multi-region (https://cloud.google.com/bigquery/pricing). The price list's first tier is a free grant, billed here at the first paid tier's price.",
     "sync": {
       "filters": {
         "description": "Active Logical Storage"
@@ -140,7 +140,7 @@
   "gcp.bigquery.multi.long_term_storage.eu": {
     "unit": "GB-month",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "Long-term logical storage per GiB-month in the EU multi-region. The first 10 GiB a month are free (\"The first 10 GiB is free each month\", https://cloud.google.com/bigquery/pricing), counted over the billing account. The page gives one storage free tier; the catalog lists 10 GiB on the active and on the long-term SKU of each location, and the table follows the catalog. The Billing Catalog lists the free tier as a $0 first tier on each location's SKU; the page gives it once per billing account, so a declaration that reads two locations is given it twice.",
+    "note": "Long-term logical storage per GiB-month in the EU multi-region (https://cloud.google.com/bigquery/pricing). The price list's first tier is a free grant, billed here at the first paid tier's price.",
     "sync": {
       "filters": {
         "description": "Long Term Logical Storage"
@@ -166,7 +166,7 @@
   "gcp.bigquery.multi.long_term_storage.us": {
     "unit": "GB-month",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "Long-term logical storage per GiB-month in the US multi-region. The first 10 GiB a month are free (\"The first 10 GiB is free each month\", https://cloud.google.com/bigquery/pricing), counted over the billing account. The page gives one storage free tier; the catalog lists 10 GiB on the active and on the long-term SKU of each location, and the table follows the catalog. The Billing Catalog lists the free tier as a $0 first tier on each location's SKU; the page gives it once per billing account, so a declaration that reads two locations is given it twice.",
+    "note": "Long-term logical storage per GiB-month in the US multi-region (https://cloud.google.com/bigquery/pricing). The price list's first tier is a free grant, billed here at the first paid tier's price.",
     "sync": {
       "filters": {
         "description": "Long Term Logical Storage"
@@ -192,7 +192,7 @@
   "gcp.bigquery.multi.read_api.eu": {
     "unit": "TiB",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "BigQuery Storage Read API per TiB read in the EU multi-region. The first 300 TiB a month are free (\"a bytes read free tier of 300 TiB per month for each billing account\", https://cloud.google.com/bigquery/pricing). The Billing Catalog lists the free tier as a $0 first tier on each location's SKU; the page gives it once per billing account, so a declaration that reads two locations is given it twice.",
+    "note": "BigQuery Storage Read API per TiB read in the EU multi-region (https://cloud.google.com/bigquery/pricing). The price list's first tier is a free grant, billed here at the first paid tier's price.",
     "sync": {
       "filters": {
         "description": "BigQuery Storage API - Read Bytes Scanned \\(.+\\)"
@@ -218,7 +218,7 @@
   "gcp.bigquery.multi.read_api.us": {
     "unit": "TiB",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "BigQuery Storage Read API per TiB read in the US multi-region. The first 300 TiB a month are free (\"a bytes read free tier of 300 TiB per month for each billing account\", https://cloud.google.com/bigquery/pricing). The Billing Catalog lists the free tier as a $0 first tier on each location's SKU; the page gives it once per billing account, so a declaration that reads two locations is given it twice.",
+    "note": "BigQuery Storage Read API per TiB read in the US multi-region (https://cloud.google.com/bigquery/pricing). The price list's first tier is a free grant, billed here at the first paid tier's price.",
     "sync": {
       "filters": {
         "description": "BigQuery Storage API - Read Bytes Scanned \\(.+\\)"
@@ -286,7 +286,7 @@
   "gcp.bigquery.multi.write_api.eu": {
     "unit": "GiB",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "BigQuery Storage Write API (gRPC) per GiB in the EU multi-region. The first 2 TiB (2048 GiB) a month are free (\"The first 2 TiB per month are free\", priced \"per 1 month / account\", https://cloud.google.com/bigquery/pricing), counted over the billing account. The Billing Catalog lists the free tier as a $0 first tier on each location's SKU; the page gives it once per billing account, so a declaration that reads two locations is given it twice.",
+    "note": "BigQuery Storage Write API (gRPC) per GiB in the EU multi-region (https://cloud.google.com/bigquery/pricing). The price list's first tier is a free grant, billed here at the first paid tier's price.",
     "sync": {
       "filters": {
         "description": "BigQuery Storage API - Write \\(.+\\)"
@@ -312,7 +312,7 @@
   "gcp.bigquery.multi.write_api.us": {
     "unit": "GiB",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "BigQuery Storage Write API (gRPC) per GiB in the US multi-region. The first 2 TiB (2048 GiB) a month are free (\"The first 2 TiB per month are free\", priced \"per 1 month / account\", https://cloud.google.com/bigquery/pricing), counted over the billing account. The Billing Catalog lists the free tier as a $0 first tier on each location's SKU; the page gives it once per billing account, so a declaration that reads two locations is given it twice.",
+    "note": "BigQuery Storage Write API (gRPC) per GiB in the US multi-region (https://cloud.google.com/bigquery/pricing). The price list's first tier is a free grant, billed here at the first paid tier's price.",
     "sync": {
       "filters": {
         "description": "BigQuery Storage API - Write \\(.+\\)"
@@ -338,7 +338,7 @@
   "gcp.bigquery.read_api": {
     "unit": "TiB",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "BigQuery Storage Read API per TiB read in a region. The first 300 TiB a month are free (\"a bytes read free tier of 300 TiB per month for each billing account\", https://cloud.google.com/bigquery/pricing). The Billing Catalog lists the free tier as a $0 first tier on each location's SKU; the page gives it once per billing account, so a declaration that reads two locations is given it twice.",
+    "note": "BigQuery Storage Read API per TiB read in a region (https://cloud.google.com/bigquery/pricing). The price list's first tier is a free grant, billed here at the first paid tier's price.",
     "sync": {
       "filters": {
         "description": "BigQuery Storage API - Read Bytes Scanned \\(.+\\)"
@@ -446,7 +446,7 @@
   "gcp.bigquery.write_api": {
     "unit": "GiB",
     "source": "https://cloud.google.com/bigquery/pricing",
-    "note": "BigQuery Storage Write API (gRPC) ingestion per GiB in a region. The first 2 TiB (2048 GiB) a month are free (\"The first 2 TiB per month are free\", priced \"per 1 month / account\", https://cloud.google.com/bigquery/pricing), counted over the billing account. The Billing Catalog lists the free tier as a $0 first tier on each location's SKU; the page gives it once per billing account, so a declaration that reads two locations is given it twice.",
+    "note": "BigQuery Storage Write API (gRPC) ingestion per GiB in a region (https://cloud.google.com/bigquery/pricing). The price list's first tier is a free grant, billed here at the first paid tier's price.",
     "sync": {
       "filters": {
         "description": "BigQuery Storage API - Write \\(.+\\)"

@@ -2,7 +2,7 @@ type: aws_codebuild_project
 label: CodeBuild project
 category: Developer tools
 icon: codebuild
-description: "On-demand build minutes by environment and compute type (Lambda compute by the second), and the remote Docker server's seconds when one is set. The always-free 100 build minutes (general1.small and arm1.small) and 6,000 Lambda seconds (1 GB) a month are given once for the account. Load is builds started. Headroom is concurrent builds, a quota per environment and compute type shared by every project in the account, and the build time against the project's timeout. Projects on a reserved-capacity fleet are billed by the fleet, not here."
+description: "On-demand build minutes by environment and compute type (Lambda compute by the second), and the remote Docker server's seconds when one is set. Load is builds started. Headroom is concurrent builds, a quota per environment and compute type shared by every project in the account, and the build time against the project's timeout. Projects on a reserved-capacity fleet are billed by the fleet, not here."
 kinds: [build]
 sla: aws.codebuild
 attributes:

@@ -126,7 +126,7 @@
   "gcp.compute.snapshot.standard": {
     "unit": "GB-month",
     "source": "https://cloud.google.com/compute/disks-image-pricing",
-    "note": "Regional standard snapshot storage (storage_locations names the region), GiB-month. us-east5's SKU lists the first 5 GiB a month as a $0 first tier; the other regions' SKUs have no free tier, so both rows carry their one rate. https://cloud.google.com/compute/disks-image-pricing does not say how the free 5 GiB are counted, so they are counted per region. Synced from the Billing Catalog.",
+    "note": "Regional standard snapshot storage (storage_locations names the region), GiB-month (https://cloud.google.com/compute/disks-image-pricing). Synced from the Billing Catalog. Where the first tier is a free grant (us-east5), it is billed at the first paid tier's price.",
     "sync": {
       "filters": {
         "description": "Storage PD Snapshot( in .+)?"

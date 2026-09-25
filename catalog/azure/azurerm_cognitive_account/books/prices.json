@@ -826,7 +826,7 @@
     "unit": "record",
     "per": 1000,
     "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-service/",
-    "note": "Text analytics for health, per 1,000 text records. Row 0 is the free grant the price list shows as a zero-priced first tier: 5,000 text records free per month (https://azure.microsoft.com/pricing/details/cognitive-services/language-service/). Volume tiers count the text records of every Language resource in a month: from 5K, 500K, 2.5M and 10M; the pricing page does not say whether the tiers count per resource or per subscription, so they are pooled per region",
+    "note": "Text analytics for health, per 1,000 text records (https://azure.microsoft.com/pricing/details/cognitive-services/language-service/). The price list's first tier is a free grant, billed here at the first paid tier's price. Volume tiers count the text records of every Language resource in a month: from 5K, 500K, 2.5M and 10M; the pricing page does not say whether the tiers count per resource or per subscription, so they are pooled per region",
     "sync": {
       "filters": {
         "meterName": "Standard Health Text Records",

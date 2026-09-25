@@ -7,16 +7,16 @@ import (
 	"github.com/O6lvl4/archgopher/book"
 )
 
-// Band is the part of a quantity one price applies to: the free units, or
-// one volume tier.
+// Band is the part of a quantity one price applies to: the units a plan
+// includes, or one volume tier.
 type Band struct {
 	From     float64 `json:"from"`
 	To       float64 `json:"to,omitempty"` // 0 means no upper bound
 	Quantity float64 `json:"quantity"`
 	// UnitPrice is per single unit; nil when the tier's price is not known.
 	UnitPrice *float64 `json:"unitPrice"`
-	// Free marks units that cost nothing: free units, or a zero-priced tier.
-	Free bool `json:"free,omitempty"`
+	// Included marks units the plan includes.
+	Included bool `json:"included,omitempty"`
 }
 
 // Billing is a quantity priced by an entry's rules.
@@ -28,12 +28,13 @@ type Billing struct {
 	Verified bool
 }
 
-// Bill prices quantity by the rules of the price id in region: allowance
-// units free first, then each tier on the part of the quantity that falls in
-// it. Tiers count from zero over the whole quantity, free units included.
-// With free false, zero-priced tiers at the start (a free grant the provider
-// lists as a tier) are billed at the first paid tier's price.
-func Bill(prices book.Book, id, region string, quantity, allowance float64, free bool) (Billing, error) {
+// Bill prices quantity by the rules of the price id in region: the included
+// units first, then each tier on the part of the quantity that falls in it.
+// Tiers count from zero over the whole quantity, included units too. A
+// zero-priced tier at the start is a free grant, which is not what the
+// architecture costs month after month: it is billed at the first paid
+// tier's price.
+func Bill(prices book.Book, id, region string, quantity, included float64) (Billing, error) {
 	e, ok := prices[id]
 	if !ok {
 		return Billing{}, fmt.Errorf("no reference entry %q", id)
@@ -43,40 +44,28 @@ func Bill(prices book.Book, id, region string, quantity, allowance float64, free
 		tiers = []book.Tier{{From: 0, ID: id}}
 	}
 	out := Billing{Verified: true}
-	if allowance > 0 && quantity > 0 {
-		out.Bands = append(out.Bands, Band{From: 0, To: allowance, Quantity: math.Min(quantity, allowance), UnitPrice: new(float64), Free: true})
+	if included > 0 && quantity > 0 {
+		out.Bands = append(out.Bands, Band{From: 0, To: included, Quantity: math.Min(quantity, included), UnitPrice: new(float64), Included: true})
 	}
-	total := 0.0
-	known := true
-	var paid *float64 // the first paid tier's value, for free grants billed
-	if !free {
-		for _, t := range tiers {
-			if _, v, err := prices.Lookup(t.ID, region); err == nil && v.Value != nil && *v.Value > 0 {
-				paid = v.Value
-				break
-			}
-		}
-	}
-	granting := true // still in the zero-priced tiers at the start
+	grant := firstPaid(prices, tiers, region)
+	total, known := 0.0, true
 	for i, t := range tiers {
 		to := math.Inf(1)
 		if i+1 < len(tiers) {
 			to = tiers[i+1].From
 		}
-		lo := math.Max(t.From, allowance)
+		lo := math.Max(t.From, included)
 		q := math.Max(0, math.Min(quantity, to)-lo)
 		te, v, err := prices.Lookup(t.ID, region)
 		if err != nil {
 			return Billing{}, err
 		}
-		if granting && v.Value != nil && *v.Value == 0 && paid != nil {
-			v.Value = paid
-		} else {
-			granting = false
-		}
 		out.Verified = out.Verified && v.Verified
 		if v.Value == nil && v.Verified && q > 0 {
 			return Billing{}, &NotOfferedError{Region: region, PriceID: t.ID}
+		}
+		if i < grant.index {
+			te, v.Value = grant.entry, grant.value
 		}
 		b := Band{From: lo, Quantity: q}
 		if !math.IsInf(to, 1) {
@@ -84,7 +73,7 @@ func Bill(prices book.Book, id, region string, quantity, allowance float64, free
 		}
 		if v.Value != nil {
 			p := te.PerUnit(*v.Value)
-			b.UnitPrice, b.Free = &p, p == 0
+			b.UnitPrice = &p
 			total += q * p
 		} else if q > 0 {
 			known = false
@@ -97,4 +86,25 @@ func Bill(prices book.Book, id, region string, quantity, allowance float64, free
 		out.USD = &total
 	}
 	return out, nil
+}
+
+// paid is the first tier with a price above zero, and its index; index 0
+// when the first tier is paid or none is.
+type paid struct {
+	index int
+	entry book.Entry
+	value *float64
+}
+
+func firstPaid(prices book.Book, tiers []book.Tier, region string) paid {
+	for i, t := range tiers {
+		e, v, err := prices.Lookup(t.ID, region)
+		if err != nil || v.Value == nil || *v.Value != 0 {
+			if err == nil && v.Value != nil {
+				return paid{index: i, entry: e, value: v.Value}
+			}
+			return paid{}
+		}
+	}
+	return paid{}
 }

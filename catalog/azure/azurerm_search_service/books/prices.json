@@ -62,7 +62,7 @@
     "unit": "query",
     "per": 1000,
     "source": "https://azure.microsoft.com/pricing/details/search/",
-    "note": "Semantic ranker queries on the Standard plan, per 1,000. The first 1,000 requests a month are free (\"First 1k requests free per month\", https://azure.microsoft.com/pricing/details/search/); the price list does not show them and the page does not say whether they are given per service or per subscription, so they are given once per region",
+    "note": "Semantic ranker queries on the Standard plan, per 1,000 (https://azure.microsoft.com/pricing/details/search/)",
     "sync": {
       "filters": {
         "meterName": "Semantic Ranker queries",
@@ -123,9 +123,7 @@
         "verified": true,
         "checkedAt": "2026-09-25"
       }
-    },
-    "pool": "region",
-    "free": 1000
+    }
   },
   "azure.search.unit": {
     "unit": "search unit-hour",

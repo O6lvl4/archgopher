@@ -15,10 +15,10 @@
     write:
         monthly: 2.5e+06
         peak: 50
-  # 20 GB, within the account's always-free 25 GB.
+  # Storage: 20 GB × 0.25.
   costs:
     Read request units: 0.25
-    Storage: 0
+    Storage: 5
     Write request units: 9.375
   limits:
     Table reads: 40
@@ -39,10 +39,10 @@
     write:
         monthly: 2.5e+06
         peak: 50
-  # 1 GB, within the account's always-free 25 GB.
+  # Storage: 1 GB × 0.25.
   costs:
     Read request units: 0.5
-    Storage: 0
+    Storage: 0.25
     Write request units: 6.25
   limits:
     Table reads: 80
@@ -62,12 +62,11 @@
     write:
         monthly: 2.5e+06
         peak: 50
-  # Always free: 18,600 RCU-hours, 18,600 WCU-hours and 25 GB.
-  # Reads: (100 × 730 − 18,600) × 0.00013 = 7.072. Writes: 20 × 730 = 14,600, all free. Storage: 5 GB, free.
+  # Reads: 100 × 730 × 0.00013 = 9.49. Writes: 20 × 730 × 0.00065 = 9.49. Storage: 5 GB × 0.25 = 1.25.
   costs:
-    Provisioned reads: 7.072
-    Provisioned writes: 0
-    Storage: 0
+    Provisioned reads: 9.49
+    Provisioned writes: 9.49
+    Storage: 1.25
   limits:
     Provisioned reads: 20
     Provisioned writes: 150
@@ -84,7 +83,7 @@
         monthly: 2.5e+06
         peak: 50
   costs:
-    Storage: 0  # 1 GB, within the always-free 25 GB
+    Storage: 0.25  # 1 GB × 0.25
   error: provisioned tables need read_capacity and write_capacity
 - name: on demand, eventual reads (ap-northeast-1)
   region: ap-northeast-1
@@ -100,10 +99,10 @@
     write:
         monthly: 2.5e+06
         peak: 50
-  # 20 GB, within the account's always-free 25 GB.
+  # Storage: 20 GB × 0.285.
   costs:
     Read request units: 0.285
-    Storage: 0
+    Storage: 5.7
     Write request units: 10.725
   limits:
     Table reads: 40
@@ -124,10 +123,10 @@
     write:
         monthly: 2.5e+06
         peak: 50
-  # 1 GB, within the account's always-free 25 GB.
+  # Storage: 1 GB × 0.285.
   costs:
     Read request units: 0.57
-    Storage: 0
+    Storage: 0.285
     Write request units: 7.15
   limits:
     Table reads: 80
@@ -147,12 +146,11 @@
     write:
         monthly: 2.5e+06
         peak: 50
-  # Always free: 18,600 RCU-hours, 18,600 WCU-hours and 25 GB.
-  # Reads: (100 × 730 − 18,600) × 0.0001484 = 8.07296. Writes: 20 × 730 = 14,600, all free. Storage: 5 GB, free.
+  # Reads: 100 × 730 × 0.0001484 = 10.8332. Writes: 20 × 730 × 0.000742 = 10.8332. Storage: 5 GB × 0.285 = 1.425.
   costs:
-    Provisioned reads: 8.07296
-    Provisioned writes: 0
-    Storage: 0
+    Provisioned reads: 10.8332
+    Provisioned writes: 10.8332
+    Storage: 1.425
   limits:
     Provisioned reads: 20
     Provisioned writes: 150
@@ -169,7 +167,7 @@
         monthly: 2.5e+06
         peak: 50
   costs:
-    Storage: 0  # 1 GB, within the always-free 25 GB
+    Storage: 0.285  # 1 GB × 0.285
   error: provisioned tables need read_capacity and write_capacity
 - name: on demand, Standard-IA table class (us-east-1)
   region: us-east-1
@@ -216,27 +214,3 @@
   limits:
     Provisioned reads: 20
     Provisioned writes: 150
-# Past the free tiers: reads 10 × 730 = 7,300 RCU-hours, all free;
-# writes (40 × 730 − 18,600) × 0.00065 = 10,600 × 0.00065 = 6.89; storage (100 − 25) × 0.25 = 18.75.
-- name: provisioned past the always-free capacity and storage (us-east-1)
-  region: us-east-1
-  attributes:
-    read_capacity: 10
-    write_capacity: 40
-  assumptions:
-    itemSizeKb: 1
-    storageGb: 100
-  demand:
-    read:
-        monthly: 2e+06
-        peak: 5
-    write:
-        monthly: 2.5e+06
-        peak: 10
-  costs:
-    Provisioned reads: 0
-    Provisioned writes: 6.89
-    Storage: 18.75
-  limits:
-    Provisioned reads: 2.5
-    Provisioned writes: 10
