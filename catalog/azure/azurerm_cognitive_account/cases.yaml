@@ -1,0 +1,66 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Speech to text and neural voices per call in Japan East
+  region: japaneast
+  assumptions: { audioSecondsPerCall: 60, charactersPerCall: 200 }
+  demand: { call: { monthly: 10000, peak: 2 } }
+  costs:
+    Speech to text: 166.666666667
+    Neural text to speech: 30
+  limits:
+    Concurrent real-time transcriptions: 120
+    Text to speech transactions: 2
+- name: A 2K-hour speech to text commitment with overage and batch in East US
+  region: eastus
+  assumptions: { audioSecondsPerCall: 45, sttCommitment: 2K, batchAudioHours: 100 }
+  demand: { call: { monthly: 200000, peak: 5 } }
+  costs:
+    Speech to text commitment (2K): 1600
+    Speech to text overage: 400
+    Batch transcription: 18
+    Neural text to speech: 0
+  limits:
+    Concurrent real-time transcriptions: 225
+- name: Language text analytics in Japan East
+  region: japaneast
+  attributes: { kind: TextAnalytics, sku_name: S }
+  assumptions: { recordsPerCall: 2 }
+  demand: { call: { monthly: 100000, peak: 3 } }
+  costs:
+    Text analytics: 200
+  limits:
+    Language requests per minute: 180
+- name: Language on a connected container commitment in East US
+  region: eastus
+  attributes: { kind: TextAnalytics, sku_name: S }
+  assumptions: { recordsPerCall: 2, textAnalyticsCommitment: 1M, commitmentHosting: connected, summarizationRecords: 10000 }
+  demand: { call: { monthly: 600000, peak: 10 } }
+  costs:
+    Text analytics commitment (1M): 560
+    Text analytics overage: 112
+    Summarization: 20
+  limits:
+    Language requests per minute: 600
+- name: LUIS text and speech requests in East US
+  region: eastus
+  attributes: { kind: LUIS }
+  assumptions: { luisSpeechShare: 0.2 }
+  demand: { call: { monthly: 100000, peak: 4 } }
+  costs:
+    LUIS text requests: 120
+    LUIS speech requests: 30
+    LUIS speech transcription: 80
+  limits:
+    LUIS transactions: 4
+- name: The free tier costs nothing
+  region: japaneast
+  attributes: { sku_name: F0 }
+  assumptions: { audioSecondsPerCall: 10 }
+  demand: { call: { monthly: 1000, peak: 1 } }
+  limits:
+    Concurrent real-time transcriptions: 10
+- name: Kinds not priced yet are reported
+  region: japaneast
+  attributes: { kind: ComputerVision }
+  demand: { call: { monthly: 1000, peak: 1 } }
+  error: kind ComputerVision is not priced yet

@@ -1,0 +1,12 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: One D8 v3 node, Standard, license included, all month in Japan East
+  region: japaneast
+  costs:
+    Nodes (Standard_D8_v3, Standard): 1414.74
+- name: Two E16 v3 nodes, Enterprise with Azure Hybrid Benefit, 200 hours in East US
+  region: eastus
+  attributes: { node_size: Standard_E16_v3, number_of_nodes: 2, edition: Enterprise, license_type: BasePrice }
+  assumptions: { monthlyHours: 200 }
+  costs:
+    Nodes (Standard_E16_v3, Enterprise): 1270.4

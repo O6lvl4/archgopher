@@ -1,0 +1,25 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: General purpose data flows and copies in Japan East
+  region: japaneast
+  assumptions: { dataFlowHours: 100, copyDiuHours: 40, pipelineActivityHours: 10, externalActivityHours: 5, activitySeconds: 30 }
+  demand: { run: { monthly: 20000, peak: 5 } }
+  costs:
+    Orchestration: 20
+    Data movement: 10
+    Pipeline activities: 0.05
+    External activities: 0.00125
+    Data flow (General, 8 vCores): 241.8
+  limits:
+    Concurrent pipeline activities: 150
+- name: Managed VNet runtime that only orchestrates in East US
+  region: eastus
+  attributes: { virtual_network_enabled: true, compute_type: MemoryOptimized, core_count: 16 }
+  assumptions: { dataFlowHours: 0, pipelineActivityHours: 2, externalActivityHours: 1 }
+  demand: { run: { monthly: 1000, peak: 1 } }
+  costs:
+    Orchestration: 1
+    Data movement: 0
+    Pipeline activities: 2
+    External activities: 1
+    Data flow (MemoryOptimized, 16 vCores): 0

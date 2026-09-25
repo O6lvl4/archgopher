@@ -1,0 +1,37 @@
+type: azurerm_synapse_workspace
+label: Synapse workspace
+category: Analytics
+icon: synapse-analytics
+description: "Serverless SQL per TB processed, data flows per vCore-hour (Basic, Standard), and pipelines on the Azure-hosted runtime (the managed VNet one when managed_virtual_network_enabled) and on self-hosted runtimes: activity runs per 1,000, copy per DIU-hour or hour, pipeline and external activities per hour. Dedicated SQL and Spark pools are their own nodes."
+kinds: [query, run]
+sla: azure.synapse
+attributes:
+  - { key: managed_virtual_network_enabled, label: Managed virtual network, type: boolean, default: false }
+assumptions:
+  - { key: gbProcessedPerQuery, label: Data processed per serverless query, type: number, unit: GB, default: 0, hint: "Data scanned per query; each query bills at least 10 MB" }
+  - { key: dataFlowBasicVcoreHours, label: Basic data flow, type: number, unit: vCore-hours, default: 0 }
+  - { key: dataFlowStandardVcoreHours, label: Standard data flow, type: number, unit: vCore-hours, default: 0 }
+  - { key: copyDiuHours, label: Copy DIU-hours (Azure-hosted), type: number, unit: DIU-hours, default: 0 }
+  - { key: pipelineActivityHours, label: Pipeline activity hours (Azure-hosted), type: number, unit: hours, default: 0 }
+  - { key: externalActivityHours, label: External activity hours (Azure-hosted), type: number, unit: hours, default: 0 }
+  - { key: selfHostedActivityRuns, label: Activity runs on self-hosted runtimes, type: number, default: 0 }
+  - { key: selfHostedCopyHours, label: Copy hours (self-hosted), type: number, unit: hours, default: 0 }
+  - { key: selfHostedPipelineActivityHours, label: Pipeline activity hours (self-hosted), type: number, unit: hours, default: 0 }
+  - { key: selfHostedExternalActivityHours, label: External activity hours (self-hosted), type: number, unit: hours, default: 0 }
+let:
+  - rt: 'managed_virtual_network_enabled ? "managed_vnet_ir" : "azure_ir"'
+  - billedGb: 'gbProcessedPerQuery > 0 ? max(gbProcessedPerQuery, 0.01) : 0.0'
+readings:
+  - cost: { name: Serverless SQL, quantity: demand.query.monthly * billedGb / 1024, unit: TB, price: azure.synapse.serverless_sql.processed }
+  - cost: { when: dataFlowBasicVcoreHours > 0, name: Data flow (basic), quantity: dataFlowBasicVcoreHours, unit: vCore-hour, price: azure.synapse.dataflow.basic }
+  - cost: { when: dataFlowStandardVcoreHours > 0, name: Data flow (standard), quantity: dataFlowStandardVcoreHours, unit: vCore-hour, price: azure.synapse.dataflow.standard }
+  - cost: { name: Pipeline activity runs, quantity: demand.run.monthly, unit: activity run, price: "azure.synapse.{rt}.orchestration" }
+  - cost: { when: copyDiuHours > 0, name: Pipeline data movement, quantity: copyDiuHours, unit: DIU-hour, price: "azure.synapse.{rt}.data_movement" }
+  - cost: { when: pipelineActivityHours > 0, name: Pipeline activities, quantity: pipelineActivityHours, unit: hour, price: "azure.synapse.{rt}.pipeline_activity" }
+  - cost: { when: externalActivityHours > 0, name: External activities, quantity: externalActivityHours, unit: hour, price: "azure.synapse.{rt}.external_activity" }
+  - cost: { when: selfHostedActivityRuns > 0, name: Self-hosted activity runs, quantity: selfHostedActivityRuns, unit: activity run, price: azure.synapse.self_hosted_ir.orchestration }
+  - cost: { when: selfHostedCopyHours > 0, name: Self-hosted data movement, quantity: selfHostedCopyHours, unit: hour, price: azure.synapse.self_hosted_ir.data_movement }
+  - cost: { when: selfHostedPipelineActivityHours > 0, name: Self-hosted pipeline activities, quantity: selfHostedPipelineActivityHours, unit: hour, price: azure.synapse.self_hosted_ir.pipeline_activity }
+  - cost: { when: selfHostedExternalActivityHours > 0, name: Self-hosted external activities, quantity: selfHostedExternalActivityHours, unit: hour, price: azure.synapse.self_hosted_ir.external_activity }
+terraform:
+  ignoreRefs: [sql_identity_control_enabled, customer_managed_key, identity, aad_admin, sql_aad_admin, azure_devops_repo, github_repo, managed_resource_group_name, compute_subnet_id, purview_id, linking_allowed_for_aad_tenant_ids]

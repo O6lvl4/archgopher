@@ -1,0 +1,530 @@
+{
+  "azure.databricks.premium.all_purpose": {
+    "unit": "DBU-hour",
+    "source": "https://azure.microsoft.com/pricing/details/databricks/",
+    "note": "Premium tier, All-purpose Compute workload, per DBU-hour (the VMs under it are billed separately)",
+    "sync": {
+      "filters": {
+        "meterName": "Premium All-purpose Compute DBU",
+        "productName": "Azure Databricks",
+        "skuName": "Premium All-purpose Compute"
+      },
+      "service": "Azure Databricks",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.55,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.55,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.55,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.55,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.55,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.55,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.55,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.55,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.55,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.55,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.databricks.premium.jobs": {
+    "unit": "DBU-hour",
+    "source": "https://azure.microsoft.com/pricing/details/databricks/",
+    "note": "Premium tier, Jobs Compute workload, per DBU-hour (the VMs under it are billed separately)",
+    "sync": {
+      "filters": {
+        "meterName": "Premium Jobs Compute DBU",
+        "productName": "Azure Databricks",
+        "skuName": "Premium Jobs Compute"
+      },
+      "service": "Azure Databricks",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.databricks.premium.jobs_light": {
+    "unit": "DBU-hour",
+    "source": "https://azure.microsoft.com/pricing/details/databricks/",
+    "note": "Premium tier, Jobs Light Compute workload, per DBU-hour (the VMs under it are billed separately)",
+    "sync": {
+      "filters": {
+        "meterName": "Premium Jobs Light Compute DBU",
+        "productName": "Azure Databricks",
+        "skuName": "Premium Jobs Light Compute"
+      },
+      "service": "Azure Databricks",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.databricks.premium.sql": {
+    "unit": "DBU-hour",
+    "source": "https://azure.microsoft.com/pricing/details/databricks/",
+    "note": "Premium tier, SQL Analytics workload, per DBU-hour (the VMs under it are billed separately)",
+    "sync": {
+      "filters": {
+        "meterName": "Premium SQL Analytics DBU",
+        "productName": "Azure Databricks",
+        "skuName": "Premium SQL Analytics"
+      },
+      "service": "Azure Databricks",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.databricks.standard.all_purpose": {
+    "unit": "DBU-hour",
+    "source": "https://azure.microsoft.com/pricing/details/databricks/",
+    "note": "Standard tier, All-purpose Compute workload, per DBU-hour (the VMs under it are billed separately)",
+    "sync": {
+      "filters": {
+        "meterName": "Standard All-purpose Compute DBU",
+        "productName": "Azure Databricks",
+        "skuName": "Standard All-purpose Compute"
+      },
+      "service": "Azure Databricks",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.databricks.standard.jobs": {
+    "unit": "DBU-hour",
+    "source": "https://azure.microsoft.com/pricing/details/databricks/",
+    "note": "Standard tier, Jobs Compute workload, per DBU-hour (the VMs under it are billed separately)",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Jobs Compute DBU",
+        "productName": "Azure Databricks",
+        "skuName": "Standard Jobs Compute"
+      },
+      "service": "Azure Databricks",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.databricks.standard.jobs_light": {
+    "unit": "DBU-hour",
+    "source": "https://azure.microsoft.com/pricing/details/databricks/",
+    "note": "Standard tier, Jobs Light Compute workload, per DBU-hour (the VMs under it are billed separately)",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Jobs Light Compute DBU",
+        "productName": "Azure Databricks",
+        "skuName": "Standard Jobs Light Compute"
+      },
+      "service": "Azure Databricks",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.07,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.07,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.07,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.07,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.07,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.07,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.07,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.07,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.07,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.07,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.databricks.standard.sql": {
+    "unit": "DBU-hour",
+    "source": "https://azure.microsoft.com/pricing/details/databricks/",
+    "note": "Standard tier, SQL Analytics workload, per DBU-hour (the VMs under it are billed separately)",
+    "sync": {
+      "filters": {
+        "meterName": "Standard SQL Analytics DBU",
+        "productName": "Azure Databricks",
+        "skuName": "Standard SQL Analytics"
+      },
+      "service": "Azure Databricks",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

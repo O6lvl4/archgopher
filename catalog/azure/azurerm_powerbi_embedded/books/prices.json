@@ -1,0 +1,116 @@
+{
+  "azure.powerbi.embedded": {
+    "unit": "node-hour",
+    "source": "https://azure.microsoft.com/pricing/details/power-bi-embedded/",
+    "note": "Power BI Embedded capacity node by SKU, per hour it runs (paused capacity is not billed)",
+    "sync": {
+      "filters": {
+        "meterName": "{row} Node",
+        "productName": "Power BI Embedded",
+        "skuName": "{row}"
+      },
+      "service": "Power BI Embedded",
+      "source": "azure"
+    },
+    "rows": {
+      "A1": {
+        "australiaeast": 1.0081,
+        "centralindia": 1.0081,
+        "eastus": 1.0081,
+        "eastus2": 1.0081,
+        "germanywestcentral": 1.0081,
+        "japaneast": 1.0081,
+        "koreacentral": 1.0081,
+        "northeurope": 1.0081,
+        "southeastasia": 1.0081,
+        "westus2": 1.0081
+      },
+      "A2": {
+        "australiaeast": 2.0081,
+        "centralindia": 2.0081,
+        "eastus": 2.0081,
+        "eastus2": 2.0081,
+        "germanywestcentral": 2.0081,
+        "japaneast": 2.0081,
+        "koreacentral": 2.0081,
+        "northeurope": 2.0081,
+        "southeastasia": 2.0081,
+        "westus2": 2.0081
+      },
+      "A3": {
+        "australiaeast": 4.0242,
+        "centralindia": 4.0242,
+        "eastus": 4.0242,
+        "eastus2": 4.0242,
+        "germanywestcentral": 4.0242,
+        "japaneast": 4.0242,
+        "koreacentral": 4.0242,
+        "northeurope": 4.0242,
+        "southeastasia": 4.0242,
+        "westus2": 4.0242
+      },
+      "A4": {
+        "australiaeast": 8.0565,
+        "centralindia": 8.0565,
+        "eastus": 8.0565,
+        "eastus2": 8.0565,
+        "germanywestcentral": 8.0565,
+        "japaneast": 8.0565,
+        "koreacentral": 8.0565,
+        "northeurope": 8.0565,
+        "southeastasia": 8.0565,
+        "westus2": 8.0565
+      },
+      "A5": {
+        "australiaeast": 16.121,
+        "centralindia": 16.121,
+        "eastus": 16.121,
+        "eastus2": 16.121,
+        "germanywestcentral": 16.121,
+        "japaneast": 16.121,
+        "koreacentral": 16.121,
+        "northeurope": 16.121,
+        "southeastasia": 16.121,
+        "westus2": 16.121
+      },
+      "A6": {
+        "australiaeast": 32.2506,
+        "centralindia": 32.2506,
+        "eastus": 32.2506,
+        "eastus2": 32.2506,
+        "germanywestcentral": 32.2506,
+        "japaneast": 32.2506,
+        "koreacentral": null,
+        "northeurope": 32.2506,
+        "southeastasia": 32.2506,
+        "westus2": 32.2506
+      },
+      "A7": {
+        "australiaeast": null,
+        "centralindia": null,
+        "eastus": null,
+        "eastus2": null,
+        "germanywestcentral": 80.627,
+        "japaneast": null,
+        "koreacentral": null,
+        "northeurope": null,
+        "southeastasia": null,
+        "westus2": null
+      },
+      "A8": {
+        "australiaeast": null,
+        "centralindia": null,
+        "eastus": null,
+        "eastus2": null,
+        "germanywestcentral": 161.25,
+        "japaneast": null,
+        "koreacentral": null,
+        "northeurope": null,
+        "southeastasia": null,
+        "westus2": null
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

@@ -1,0 +1,12 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: DS3 v2 all month in Japan East
+  region: japaneast
+  costs:
+    Instance (STANDARD_DS3_V2): 298.57
+- name: D4s v5 on a work-hours schedule in East US
+  region: eastus
+  attributes: { virtual_machine_size: Standard_D4s_v5 }
+  assumptions: { monthlyHours: 160 }
+  costs:
+    Instance (Standard_D4s_v5): 30.72

@@ -1,0 +1,23 @@
+type: azurerm_databricks_workspace
+label: Databricks workspace
+category: Analytics
+icon: databricks
+description: "Databricks units (DBU-hours) by workload (all-purpose, jobs, jobs light, classic SQL) at the workspace tier's rate. The VMs, disks and IPs the clusters run on land in the managed resource group and are not read here. A trial workspace costs nothing."
+kinds: [query]
+sla: azure.databricks
+attributes:
+  - { key: sku, label: Tier, type: choice, options: [standard, premium, trial], default: standard }
+assumptions:
+  - { key: allPurposeDbuHours, label: All-purpose compute, type: number, unit: DBU-hours, hint: "Per month: interactive clusters' DBUs per hour × hours running" }
+  - { key: jobsDbuHours, label: Jobs compute, type: number, unit: DBU-hours, hint: "Per month: job clusters' DBUs per hour × hours running" }
+  - { key: jobsLightDbuHours, label: Jobs light compute, type: number, unit: DBU-hours, default: 0 }
+  - { key: sqlDbuHours, label: Classic SQL warehouses, type: number, unit: DBU-hours, default: 0 }
+let:
+  - paid: 'sku != "trial"'
+readings:
+  - cost: { when: paid, name: All-purpose compute, quantity: allPurposeDbuHours, unit: DBU-hour, price: "azure.databricks.{sku}.all_purpose" }
+  - cost: { when: paid, name: Jobs compute, quantity: jobsDbuHours, unit: DBU-hour, price: "azure.databricks.{sku}.jobs" }
+  - cost: { when: paid, name: Jobs light compute, quantity: jobsLightDbuHours, unit: DBU-hour, price: "azure.databricks.{sku}.jobs_light" }
+  - cost: { when: paid && sqlDbuHours > 0, name: Classic SQL, quantity: sqlDbuHours, unit: DBU-hour, price: "azure.databricks.{sku}.sql" }
+terraform:
+  ignoreRefs: [custom_parameters, managed_disk_cmk_key_vault_key_id, managed_services_cmk_key_vault_key_id, managed_disk_cmk_key_vault_id, managed_services_cmk_key_vault_id, access_connector_id, load_balancer_backend_address_pool_id, enhanced_security_compliance]

@@ -1,0 +1,21 @@
+type: azurerm_data_factory_integration_runtime_azure_ssis
+label: Data Factory Azure-SSIS integration runtime
+category: Integration
+icon: ssis-integration-runtime
+description: "Node-hours by node size, SSIS edition and license (license included, or Azure Hybrid Benefit when license_type is BasePrice), times the node count, while the runtime is started."
+kinds: [run]
+sla: azure.datafactory
+attributes:
+  - { key: node_size, label: Node size, type: string, default: Standard_D8_v3, hint: "Such as Standard_D4_v3 or Standard_E8_v3" }
+  - { key: number_of_nodes, label: Nodes, type: number, default: 1 }
+  - { key: edition, label: Edition, type: choice, options: [Standard, Enterprise], default: Standard }
+  - { key: license_type, label: License, type: choice, options: [LicenseIncluded, BasePrice], default: LicenseIncluded }
+assumptions:
+  - { key: monthlyHours, label: Hours started, type: number, unit: hours, default: 730, hint: "A stopped runtime is not billed" }
+let:
+  - size: 'replace(replace(replace(node_size, "Standard_", ""), "_V", " v"), "_", " ")'
+  - lic: 'license_type == "BasePrice" ? "ahb" : "license_included"'
+readings:
+  - cost: { name: "Nodes ({node_size}, {edition})", quantity: number_of_nodes * monthlyHours, unit: node-hour, price: "azure.datafactory.ssis.{lower(edition)}.{lic}.{size}" }
+terraform:
+  ignoreRefs: [data_factory_id, catalog_info, custom_setup_script, express_custom_setup, express_vnet_integration, vnet_integration, package_store, proxy, credential_name]

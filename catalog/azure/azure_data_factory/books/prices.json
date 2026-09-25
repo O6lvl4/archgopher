@@ -1,0 +1,1396 @@
+{
+  "azure.datafactory.managed_vnet_ir.data_movement": {
+    "unit": "DIU-hour",
+    "source": "https://azure.microsoft.com/pricing/details/data-factory/data-pipeline/",
+    "note": "Azure Managed VNET integration runtime: copy activity, per DIU-hour",
+    "sync": {
+      "filters": {
+        "meterName": "Azure Managed VNET Data Movement",
+        "productName": "Azure Data Factory v2",
+        "skuName": "Azure Managed VNET"
+      },
+      "service": "Azure Data Factory v2",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.datafactory.managed_vnet_ir.external_activity": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/data-factory/data-pipeline/",
+    "note": "Azure Managed VNET integration runtime: external activities (Databricks, stored procedure, HDInsight...) while they run",
+    "sync": {
+      "filters": {
+        "meterName": "Azure Managed VNET External Pipeline Activity",
+        "productName": "Azure Data Factory v2",
+        "skuName": "Azure Managed VNET"
+      },
+      "service": "Azure Data Factory v2",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.datafactory.managed_vnet_ir.orchestration": {
+    "unit": "activity run",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/data-factory/data-pipeline/",
+    "note": "Azure Managed VNET integration runtime: activity, trigger and debug runs, per 1,000",
+    "sync": {
+      "filters": {
+        "meterName": "Azure Managed VNET Orchestration Activity Run",
+        "productName": "Azure Data Factory v2",
+        "skuName": "Azure Managed VNET"
+      },
+      "listPer": 1000,
+      "service": "Azure Data Factory v2",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.datafactory.managed_vnet_ir.pipeline_activity": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/data-factory/data-pipeline/",
+    "note": "Azure Managed VNET integration runtime: pipeline activities (Lookup, Get Metadata, Delete...) while they run",
+    "sync": {
+      "filters": {
+        "meterName": "Azure Managed VNET Pipeline Activity",
+        "productName": "Azure Data Factory v2",
+        "skuName": "Azure Managed VNET"
+      },
+      "service": "Azure Data Factory v2",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.datafactory.ssis.enterprise.ahb": {
+    "unit": "node-hour",
+    "source": "https://azure.microsoft.com/pricing/details/data-factory/ssis/",
+    "note": "Azure-SSIS integration runtime node, Enterprise edition, Azure Hybrid Benefit (license_type BasePrice). Rows are the node size without Standard_ and underscores",
+    "sync": {
+      "filters": {
+        "meterName": "{row} AHB",
+        "productName": "SSIS Enterprise .*",
+        "skuName": "{row}"
+      },
+      "service": "Azure Data Factory v2",
+      "source": "azure"
+    },
+    "rows": {
+      "A1 v2": {
+        "australiaeast": 0.102034,
+        "centralindia": 0.102034,
+        "eastus": 0.102034,
+        "eastus2": 0.102034,
+        "germanywestcentral": 0.102034,
+        "japaneast": 0.102034,
+        "koreacentral": 0.102034,
+        "northeurope": 0.102034,
+        "southeastasia": 0.102034,
+        "westus2": 0.102034
+      },
+      "A2 v2": {
+        "australiaeast": 0.214148,
+        "centralindia": 0.214148,
+        "eastus": 0.214148,
+        "eastus2": 0.214148,
+        "germanywestcentral": 0.214148,
+        "japaneast": 0.214148,
+        "koreacentral": 0.214148,
+        "northeurope": 0.214148,
+        "southeastasia": 0.214148,
+        "westus2": 0.214148
+      },
+      "A4 v2": {
+        "australiaeast": 0.449712,
+        "centralindia": 0.449712,
+        "eastus": 0.449712,
+        "eastus2": 0.449712,
+        "germanywestcentral": 0.449712,
+        "japaneast": 0.449712,
+        "koreacentral": 0.449712,
+        "northeurope": 0.449712,
+        "southeastasia": 0.449712,
+        "westus2": 0.449712
+      },
+      "A8 v2": {
+        "australiaeast": 0.944774,
+        "centralindia": 0.944774,
+        "eastus": 0.944774,
+        "eastus2": 0.944774,
+        "germanywestcentral": 0.944774,
+        "japaneast": 0.944774,
+        "koreacentral": 0.944774,
+        "northeurope": 0.944774,
+        "southeastasia": 0.944774,
+        "westus2": 0.944774
+      },
+      "D1 v2": {
+        "australiaeast": 0.201552,
+        "centralindia": 0.201552,
+        "eastus": 0.201552,
+        "eastus2": 0.201552,
+        "germanywestcentral": 0.201552,
+        "japaneast": 0.201552,
+        "koreacentral": 0.201552,
+        "northeurope": 0.201552,
+        "southeastasia": 0.201552,
+        "westus2": 0.201552
+      },
+      "D16 v3": {
+        "australiaeast": 2.315,
+        "centralindia": 2.315,
+        "eastus": 2.315,
+        "eastus2": 2.315,
+        "germanywestcentral": 2.315,
+        "japaneast": 2.315,
+        "koreacentral": 2.315,
+        "northeurope": 2.315,
+        "southeastasia": 2.315,
+        "westus2": 2.315
+      },
+      "D2 v2": {
+        "australiaeast": 0.404362,
+        "centralindia": 0.404362,
+        "eastus": 0.404362,
+        "eastus2": 0.404362,
+        "germanywestcentral": 0.404362,
+        "japaneast": 0.404362,
+        "koreacentral": 0.404362,
+        "northeurope": 0.404362,
+        "southeastasia": 0.404362,
+        "westus2": 0.404362
+      },
+      "D2 v3": {
+        "australiaeast": 0.29,
+        "centralindia": 0.29,
+        "eastus": 0.29,
+        "eastus2": 0.29,
+        "germanywestcentral": 0.29,
+        "japaneast": 0.29,
+        "koreacentral": 0.29,
+        "northeurope": 0.29,
+        "southeastasia": 0.29,
+        "westus2": 0.29
+      },
+      "D3 v2": {
+        "australiaeast": 0.808726,
+        "centralindia": 0.808726,
+        "eastus": 0.808726,
+        "eastus2": 0.808726,
+        "germanywestcentral": 0.808726,
+        "japaneast": 0.808726,
+        "koreacentral": 0.808726,
+        "northeurope": 0.808726,
+        "southeastasia": 0.808726,
+        "westus2": 0.808726
+      },
+      "D32 v3": {
+        "australiaeast": 4.631,
+        "centralindia": 4.631,
+        "eastus": 4.631,
+        "eastus2": 4.631,
+        "germanywestcentral": 4.631,
+        "japaneast": 4.631,
+        "koreacentral": 4.631,
+        "northeurope": 4.631,
+        "southeastasia": 4.631,
+        "westus2": 4.631
+      },
+      "D4 v2": {
+        "australiaeast": 1.617454,
+        "centralindia": 1.617454,
+        "eastus": 1.617454,
+        "eastus2": 1.617454,
+        "germanywestcentral": 1.617454,
+        "japaneast": 1.617454,
+        "koreacentral": 1.617454,
+        "northeurope": 1.617454,
+        "southeastasia": 1.617454,
+        "westus2": 1.617454
+      },
+      "D4 v3": {
+        "australiaeast": 0.579,
+        "centralindia": 0.579,
+        "eastus": 0.579,
+        "eastus2": 0.579,
+        "germanywestcentral": 0.579,
+        "japaneast": 0.579,
+        "koreacentral": 0.579,
+        "northeurope": 0.579,
+        "southeastasia": 0.579,
+        "westus2": 0.579
+      },
+      "D64 v3": {
+        "australiaeast": 9.262,
+        "centralindia": 9.262,
+        "eastus": 9.262,
+        "eastus2": 9.262,
+        "germanywestcentral": 9.262,
+        "japaneast": 9.262,
+        "koreacentral": 9.262,
+        "northeurope": 9.262,
+        "southeastasia": 9.262,
+        "westus2": 9.262
+      },
+      "D8 v3": {
+        "australiaeast": 1.158,
+        "centralindia": 1.158,
+        "eastus": 1.158,
+        "eastus2": 1.158,
+        "germanywestcentral": 1.158,
+        "japaneast": 1.158,
+        "koreacentral": 1.158,
+        "northeurope": 1.158,
+        "southeastasia": 1.158,
+        "westus2": 1.158
+      },
+      "E16 v3": {
+        "australiaeast": 3.176,
+        "centralindia": 3.176,
+        "eastus": 3.176,
+        "eastus2": 3.176,
+        "germanywestcentral": 3.176,
+        "japaneast": 3.176,
+        "koreacentral": 3.176,
+        "northeurope": 3.176,
+        "southeastasia": 3.176,
+        "westus2": 3.176
+      },
+      "E2 v3": {
+        "australiaeast": 0.397,
+        "centralindia": 0.397,
+        "eastus": 0.397,
+        "eastus2": 0.397,
+        "germanywestcentral": 0.397,
+        "japaneast": 0.397,
+        "koreacentral": 0.397,
+        "northeurope": 0.397,
+        "southeastasia": 0.397,
+        "westus2": 0.397
+      },
+      "E32 v3": {
+        "australiaeast": 6.351,
+        "centralindia": 6.351,
+        "eastus": 6.351,
+        "eastus2": 6.351,
+        "germanywestcentral": 6.351,
+        "japaneast": 6.351,
+        "koreacentral": 6.351,
+        "northeurope": 6.351,
+        "southeastasia": 6.351,
+        "westus2": 6.351
+      },
+      "E4 v3": {
+        "australiaeast": 0.794,
+        "centralindia": 0.794,
+        "eastus": 0.794,
+        "eastus2": 0.794,
+        "germanywestcentral": 0.794,
+        "japaneast": 0.794,
+        "koreacentral": 0.794,
+        "northeurope": 0.794,
+        "southeastasia": 0.794,
+        "westus2": 0.794
+      },
+      "E64 v3": {
+        "australiaeast": 11.972,
+        "centralindia": 11.972,
+        "eastus": 11.972,
+        "eastus2": 11.972,
+        "germanywestcentral": 11.972,
+        "japaneast": 11.972,
+        "koreacentral": 11.972,
+        "northeurope": 11.972,
+        "southeastasia": 11.972,
+        "westus2": 11.972
+      },
+      "E64i v3": {
+        "australiaeast": 11.972,
+        "centralindia": 11.972,
+        "eastus": 11.972,
+        "eastus2": 11.972,
+        "germanywestcentral": 11.972,
+        "japaneast": 11.972,
+        "koreacentral": 11.972,
+        "northeurope": 11.972,
+        "southeastasia": 11.972,
+        "westus2": 11.972
+      },
+      "E8 v3": {
+        "australiaeast": 1.588,
+        "centralindia": 1.588,
+        "eastus": 1.588,
+        "eastus2": 1.588,
+        "germanywestcentral": 1.588,
+        "japaneast": 1.588,
+        "koreacentral": 1.588,
+        "northeurope": 1.588,
+        "southeastasia": 1.588,
+        "westus2": 1.588
+      },
+      "E80ids v4": {
+        "australiaeast": 13.68,
+        "centralindia": 13.68,
+        "eastus": 13.68,
+        "eastus2": 13.68,
+        "germanywestcentral": 13.68,
+        "japaneast": 13.68,
+        "koreacentral": 13.68,
+        "northeurope": 13.68,
+        "southeastasia": 13.68,
+        "westus2": 13.68
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.datafactory.ssis.enterprise.license_included": {
+    "unit": "node-hour",
+    "source": "https://azure.microsoft.com/pricing/details/data-factory/ssis/",
+    "note": "Azure-SSIS integration runtime node, Enterprise edition, SQL Server license included. Rows are the node size without Standard_ and underscores",
+    "sync": {
+      "filters": {
+        "meterName": "{row} License Included",
+        "productName": "SSIS Enterprise .*",
+        "skuName": "{row}"
+      },
+      "service": "Azure Data Factory v2",
+      "source": "azure"
+    },
+    "rows": {
+      "A1 v2": {
+        "australiaeast": 1.564535,
+        "centralindia": 1.564535,
+        "eastus": 1.564535,
+        "eastus2": 1.564535,
+        "germanywestcentral": 1.564535,
+        "japaneast": 1.564535,
+        "koreacentral": 1.564535,
+        "northeurope": 1.564535,
+        "southeastasia": 1.564535,
+        "westus2": 1.564535
+      },
+      "A2 v2": {
+        "australiaeast": 1.676649,
+        "centralindia": 1.676649,
+        "eastus": 1.676649,
+        "eastus2": 1.676649,
+        "germanywestcentral": 1.676649,
+        "japaneast": 1.676649,
+        "koreacentral": 1.676649,
+        "northeurope": 1.676649,
+        "southeastasia": 1.676649,
+        "westus2": 1.676649
+      },
+      "A4 v2": {
+        "australiaeast": 1.912212,
+        "centralindia": 1.912212,
+        "eastus": 1.912212,
+        "eastus2": 1.912212,
+        "germanywestcentral": 1.912212,
+        "japaneast": 1.912212,
+        "koreacentral": 1.912212,
+        "northeurope": 1.912212,
+        "southeastasia": 1.912212,
+        "westus2": 1.912212
+      },
+      "A8 v2": {
+        "australiaeast": 3.869775,
+        "centralindia": 3.869775,
+        "eastus": 3.869775,
+        "eastus2": 3.869775,
+        "germanywestcentral": 3.869775,
+        "japaneast": 3.869775,
+        "koreacentral": 3.869775,
+        "northeurope": 3.869775,
+        "southeastasia": 3.869775,
+        "westus2": 3.869775
+      },
+      "D1 v2": {
+        "australiaeast": 1.664052,
+        "centralindia": 1.664052,
+        "eastus": 1.664052,
+        "eastus2": 1.664052,
+        "germanywestcentral": 1.664052,
+        "japaneast": 1.664052,
+        "koreacentral": 1.664052,
+        "northeurope": 1.664052,
+        "southeastasia": 1.664052,
+        "westus2": 1.664052
+      },
+      "D16 v3": {
+        "australiaeast": 8.165,
+        "centralindia": 8.165,
+        "eastus": 8.165,
+        "eastus2": 8.165,
+        "germanywestcentral": 8.165,
+        "japaneast": 8.165,
+        "koreacentral": 8.165,
+        "northeurope": 8.165,
+        "southeastasia": 8.165,
+        "westus2": 8.165
+      },
+      "D2 v2": {
+        "australiaeast": 1.866863,
+        "centralindia": 1.866863,
+        "eastus": 1.866863,
+        "eastus2": 1.866863,
+        "germanywestcentral": 1.866863,
+        "japaneast": 1.866863,
+        "koreacentral": 1.866863,
+        "northeurope": 1.866863,
+        "southeastasia": 1.866863,
+        "westus2": 1.866863
+      },
+      "D2 v3": {
+        "australiaeast": 1.753,
+        "centralindia": 1.753,
+        "eastus": 1.753,
+        "eastus2": 1.753,
+        "germanywestcentral": 1.753,
+        "japaneast": 1.753,
+        "koreacentral": 1.753,
+        "northeurope": 1.753,
+        "southeastasia": 1.753,
+        "westus2": 1.753
+      },
+      "D3 v2": {
+        "australiaeast": 2.271227,
+        "centralindia": 2.271227,
+        "eastus": 2.271227,
+        "eastus2": 2.271227,
+        "germanywestcentral": 2.271227,
+        "japaneast": 2.271227,
+        "koreacentral": 2.271227,
+        "northeurope": 2.271227,
+        "southeastasia": 2.271227,
+        "westus2": 2.271227
+      },
+      "D32 v3": {
+        "australiaeast": 16.331,
+        "centralindia": 16.331,
+        "eastus": 16.331,
+        "eastus2": 16.331,
+        "germanywestcentral": 16.331,
+        "japaneast": 16.331,
+        "koreacentral": 16.331,
+        "northeurope": 16.331,
+        "southeastasia": 16.331,
+        "westus2": 16.331
+      },
+      "D4 v2": {
+        "australiaeast": 4.542454,
+        "centralindia": 4.542454,
+        "eastus": 4.542454,
+        "eastus2": 4.542454,
+        "germanywestcentral": 4.542454,
+        "japaneast": 4.542454,
+        "koreacentral": 4.542454,
+        "northeurope": 4.542454,
+        "southeastasia": 4.542454,
+        "westus2": 4.542454
+      },
+      "D4 v3": {
+        "australiaeast": 2.042,
+        "centralindia": 2.042,
+        "eastus": 2.042,
+        "eastus2": 2.042,
+        "germanywestcentral": 2.042,
+        "japaneast": 2.042,
+        "koreacentral": 2.042,
+        "northeurope": 2.042,
+        "southeastasia": 2.042,
+        "westus2": 2.042
+      },
+      "D64 v3": {
+        "australiaeast": 32.662,
+        "centralindia": 32.662,
+        "eastus": 32.662,
+        "eastus2": 32.662,
+        "germanywestcentral": 32.662,
+        "japaneast": 32.662,
+        "koreacentral": 32.662,
+        "northeurope": 32.662,
+        "southeastasia": 32.662,
+        "westus2": 32.662
+      },
+      "D8 v3": {
+        "australiaeast": 4.083,
+        "centralindia": 4.083,
+        "eastus": 4.083,
+        "eastus2": 4.083,
+        "germanywestcentral": 4.083,
+        "japaneast": 4.083,
+        "koreacentral": 4.083,
+        "northeurope": 4.083,
+        "southeastasia": 4.083,
+        "westus2": 4.083
+      },
+      "E16 v3": {
+        "australiaeast": 9.026,
+        "centralindia": 9.026,
+        "eastus": 9.026,
+        "eastus2": 9.026,
+        "germanywestcentral": 9.026,
+        "japaneast": 9.026,
+        "koreacentral": 9.026,
+        "northeurope": 9.026,
+        "southeastasia": 9.026,
+        "westus2": 9.026
+      },
+      "E2 v3": {
+        "australiaeast": 1.859,
+        "centralindia": 1.859,
+        "eastus": 1.859,
+        "eastus2": 1.859,
+        "germanywestcentral": 1.859,
+        "japaneast": 1.859,
+        "koreacentral": 1.859,
+        "northeurope": 1.859,
+        "southeastasia": 1.859,
+        "westus2": 1.859
+      },
+      "E32 v3": {
+        "australiaeast": 18.059,
+        "centralindia": 18.059,
+        "eastus": 18.059,
+        "eastus2": 18.059,
+        "germanywestcentral": 18.059,
+        "japaneast": 18.059,
+        "koreacentral": 18.059,
+        "northeurope": 18.059,
+        "southeastasia": 18.059,
+        "westus2": 18.059
+      },
+      "E4 v3": {
+        "australiaeast": 2.256,
+        "centralindia": 2.256,
+        "eastus": 2.256,
+        "eastus2": 2.256,
+        "germanywestcentral": 2.256,
+        "japaneast": 2.256,
+        "koreacentral": 2.256,
+        "northeurope": 2.256,
+        "southeastasia": 2.256,
+        "westus2": 2.256
+      },
+      "E64 v3": {
+        "australiaeast": 35.372,
+        "centralindia": 35.372,
+        "eastus": 35.372,
+        "eastus2": 35.372,
+        "germanywestcentral": 35.372,
+        "japaneast": 35.372,
+        "koreacentral": 35.372,
+        "northeurope": 35.372,
+        "southeastasia": 35.372,
+        "westus2": 35.372
+      },
+      "E64i v3": {
+        "australiaeast": 35.372,
+        "centralindia": 35.372,
+        "eastus": 35.372,
+        "eastus2": 35.372,
+        "germanywestcentral": 35.372,
+        "japaneast": 35.372,
+        "koreacentral": 35.372,
+        "northeurope": 35.372,
+        "southeastasia": 35.372,
+        "westus2": 35.372
+      },
+      "E8 v3": {
+        "australiaeast": 4.513,
+        "centralindia": 4.513,
+        "eastus": 4.513,
+        "eastus2": 4.513,
+        "germanywestcentral": 4.513,
+        "japaneast": 4.513,
+        "koreacentral": 4.513,
+        "northeurope": 4.513,
+        "southeastasia": 4.513,
+        "westus2": 4.513
+      },
+      "E80ids v4": {
+        "australiaeast": 42.93,
+        "centralindia": 42.93,
+        "eastus": 42.93,
+        "eastus2": 42.93,
+        "germanywestcentral": 42.93,
+        "japaneast": 42.93,
+        "koreacentral": 42.93,
+        "northeurope": 42.93,
+        "southeastasia": 42.93,
+        "westus2": 42.93
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.datafactory.ssis.standard.ahb": {
+    "unit": "node-hour",
+    "source": "https://azure.microsoft.com/pricing/details/data-factory/ssis/",
+    "note": "Azure-SSIS integration runtime node, Standard edition, Azure Hybrid Benefit (license_type BasePrice). Rows are the node size without Standard_ and underscores",
+    "sync": {
+      "filters": {
+        "meterName": "{row} AHB",
+        "productName": "SSIS Standard .*",
+        "skuName": "{row}"
+      },
+      "service": "Azure Data Factory v2",
+      "source": "azure"
+    },
+    "rows": {
+      "A1 v2": {
+        "australiaeast": 0.102034,
+        "centralindia": 0.102034,
+        "eastus": 0.102034,
+        "eastus2": 0.102034,
+        "germanywestcentral": 0.102034,
+        "japaneast": 0.102034,
+        "koreacentral": 0.102034,
+        "northeurope": 0.102034,
+        "southeastasia": 0.102034,
+        "westus2": 0.102034
+      },
+      "A2 v2": {
+        "australiaeast": 0.214148,
+        "centralindia": 0.214148,
+        "eastus": 0.214148,
+        "eastus2": 0.214148,
+        "germanywestcentral": 0.214148,
+        "japaneast": 0.214148,
+        "koreacentral": 0.214148,
+        "northeurope": 0.214148,
+        "southeastasia": 0.214148,
+        "westus2": 0.214148
+      },
+      "A4 v2": {
+        "australiaeast": 0.449712,
+        "centralindia": 0.449712,
+        "eastus": 0.449712,
+        "eastus2": 0.449712,
+        "germanywestcentral": 0.449712,
+        "japaneast": 0.449712,
+        "koreacentral": 0.449712,
+        "northeurope": 0.449712,
+        "southeastasia": 0.449712,
+        "westus2": 0.449712
+      },
+      "A8 v2": {
+        "australiaeast": 0.944774,
+        "centralindia": 0.944774,
+        "eastus": 0.944774,
+        "eastus2": 0.944774,
+        "germanywestcentral": 0.944774,
+        "japaneast": 0.944774,
+        "koreacentral": 0.944774,
+        "northeurope": 0.944774,
+        "southeastasia": 0.944774,
+        "westus2": 0.944774
+      },
+      "D1 v2": {
+        "australiaeast": 0.201552,
+        "centralindia": 0.201552,
+        "eastus": 0.201552,
+        "eastus2": 0.201552,
+        "germanywestcentral": 0.201552,
+        "japaneast": 0.201552,
+        "koreacentral": 0.201552,
+        "northeurope": 0.201552,
+        "southeastasia": 0.201552,
+        "westus2": 0.201552
+      },
+      "D16 v3": {
+        "australiaeast": 2.315,
+        "centralindia": 2.315,
+        "eastus": 2.315,
+        "eastus2": 2.315,
+        "germanywestcentral": 2.315,
+        "japaneast": 2.315,
+        "koreacentral": 2.315,
+        "northeurope": 2.315,
+        "southeastasia": 2.315,
+        "westus2": 2.315
+      },
+      "D2 v2": {
+        "australiaeast": 0.404362,
+        "centralindia": 0.404362,
+        "eastus": 0.404362,
+        "eastus2": 0.404362,
+        "germanywestcentral": 0.404362,
+        "japaneast": 0.404362,
+        "koreacentral": 0.404362,
+        "northeurope": 0.404362,
+        "southeastasia": 0.404362,
+        "westus2": 0.404362
+      },
+      "D2 v3": {
+        "australiaeast": 0.29,
+        "centralindia": 0.29,
+        "eastus": 0.29,
+        "eastus2": 0.29,
+        "germanywestcentral": 0.29,
+        "japaneast": 0.29,
+        "koreacentral": 0.29,
+        "northeurope": 0.29,
+        "southeastasia": 0.29,
+        "westus2": 0.29
+      },
+      "D3 v2": {
+        "australiaeast": 0.808726,
+        "centralindia": 0.808726,
+        "eastus": 0.808726,
+        "eastus2": 0.808726,
+        "germanywestcentral": 0.808726,
+        "japaneast": 0.808726,
+        "koreacentral": 0.808726,
+        "northeurope": 0.808726,
+        "southeastasia": 0.808726,
+        "westus2": 0.808726
+      },
+      "D32 v3": {
+        "australiaeast": 4.631,
+        "centralindia": 4.631,
+        "eastus": 4.631,
+        "eastus2": 4.631,
+        "germanywestcentral": 4.631,
+        "japaneast": 4.631,
+        "koreacentral": 4.631,
+        "northeurope": 4.631,
+        "southeastasia": 4.631,
+        "westus2": 4.631
+      },
+      "D4 v2": {
+        "australiaeast": 1.617454,
+        "centralindia": 1.617454,
+        "eastus": 1.617454,
+        "eastus2": 1.617454,
+        "germanywestcentral": 1.617454,
+        "japaneast": 1.617454,
+        "koreacentral": 1.617454,
+        "northeurope": 1.617454,
+        "southeastasia": 1.617454,
+        "westus2": 1.617454
+      },
+      "D4 v3": {
+        "australiaeast": 0.579,
+        "centralindia": 0.579,
+        "eastus": 0.579,
+        "eastus2": 0.579,
+        "germanywestcentral": 0.579,
+        "japaneast": 0.579,
+        "koreacentral": 0.579,
+        "northeurope": 0.579,
+        "southeastasia": 0.579,
+        "westus2": 0.579
+      },
+      "D64 v3": {
+        "australiaeast": 9.262,
+        "centralindia": 9.262,
+        "eastus": 9.262,
+        "eastus2": 9.262,
+        "germanywestcentral": 9.262,
+        "japaneast": 9.262,
+        "koreacentral": 9.262,
+        "northeurope": 9.262,
+        "southeastasia": 9.262,
+        "westus2": 9.262
+      },
+      "D8 v3": {
+        "australiaeast": 1.158,
+        "centralindia": 1.158,
+        "eastus": 1.158,
+        "eastus2": 1.158,
+        "germanywestcentral": 1.158,
+        "japaneast": 1.158,
+        "koreacentral": 1.158,
+        "northeurope": 1.158,
+        "southeastasia": 1.158,
+        "westus2": 1.158
+      },
+      "E16 v3": {
+        "australiaeast": 3.176,
+        "centralindia": 3.176,
+        "eastus": 3.176,
+        "eastus2": 3.176,
+        "germanywestcentral": 3.176,
+        "japaneast": 3.176,
+        "koreacentral": 3.176,
+        "northeurope": 3.176,
+        "southeastasia": 3.176,
+        "westus2": 3.176
+      },
+      "E2 v3": {
+        "australiaeast": 0.397,
+        "centralindia": 0.397,
+        "eastus": 0.397,
+        "eastus2": 0.397,
+        "germanywestcentral": 0.397,
+        "japaneast": 0.397,
+        "koreacentral": 0.397,
+        "northeurope": 0.397,
+        "southeastasia": 0.397,
+        "westus2": 0.397
+      },
+      "E32 v3": {
+        "australiaeast": 6.351,
+        "centralindia": 6.351,
+        "eastus": 6.351,
+        "eastus2": 6.351,
+        "germanywestcentral": 6.351,
+        "japaneast": 6.351,
+        "koreacentral": 6.351,
+        "northeurope": 6.351,
+        "southeastasia": 6.351,
+        "westus2": 6.351
+      },
+      "E4 v3": {
+        "australiaeast": 0.794,
+        "centralindia": 0.794,
+        "eastus": 0.794,
+        "eastus2": 0.794,
+        "germanywestcentral": 0.794,
+        "japaneast": 0.794,
+        "koreacentral": 0.794,
+        "northeurope": 0.794,
+        "southeastasia": 0.794,
+        "westus2": 0.794
+      },
+      "E64 v3": {
+        "australiaeast": 11.972,
+        "centralindia": 11.972,
+        "eastus": 11.972,
+        "eastus2": 11.972,
+        "germanywestcentral": 11.972,
+        "japaneast": 11.972,
+        "koreacentral": 11.972,
+        "northeurope": 11.972,
+        "southeastasia": 11.972,
+        "westus2": 11.972
+      },
+      "E64i v3": {
+        "australiaeast": 11.972,
+        "centralindia": 11.972,
+        "eastus": 11.972,
+        "eastus2": 11.972,
+        "germanywestcentral": 11.972,
+        "japaneast": 11.972,
+        "koreacentral": 11.972,
+        "northeurope": 11.972,
+        "southeastasia": 11.972,
+        "westus2": 11.972
+      },
+      "E8 v3": {
+        "australiaeast": 1.588,
+        "centralindia": 1.588,
+        "eastus": 1.588,
+        "eastus2": 1.588,
+        "germanywestcentral": 1.588,
+        "japaneast": 1.588,
+        "koreacentral": 1.588,
+        "northeurope": 1.588,
+        "southeastasia": 1.588,
+        "westus2": 1.588
+      },
+      "E80ids v4": {
+        "australiaeast": 13.68,
+        "centralindia": 13.68,
+        "eastus": 13.68,
+        "eastus2": 13.68,
+        "germanywestcentral": 13.68,
+        "japaneast": 13.68,
+        "koreacentral": 13.68,
+        "northeurope": 13.68,
+        "southeastasia": 13.68,
+        "westus2": 13.68
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.datafactory.ssis.standard.license_included": {
+    "unit": "node-hour",
+    "source": "https://azure.microsoft.com/pricing/details/data-factory/ssis/",
+    "note": "Azure-SSIS integration runtime node, Standard edition, SQL Server license included. Rows are the node size without Standard_ and underscores",
+    "sync": {
+      "filters": {
+        "meterName": "{row} License Included",
+        "productName": "SSIS Standard .*",
+        "skuName": "{row}"
+      },
+      "service": "Azure Data Factory v2",
+      "source": "azure"
+    },
+    "rows": {
+      "A1 v2": {
+        "australiaeast": 0.492035,
+        "centralindia": 0.492035,
+        "eastus": 0.492035,
+        "eastus2": 0.492035,
+        "germanywestcentral": 0.492035,
+        "japaneast": 0.492035,
+        "koreacentral": 0.492035,
+        "northeurope": 0.492035,
+        "southeastasia": 0.492035,
+        "westus2": 0.492035
+      },
+      "A2 v2": {
+        "australiaeast": 0.604149,
+        "centralindia": 0.604149,
+        "eastus": 0.604149,
+        "eastus2": 0.604149,
+        "germanywestcentral": 0.604149,
+        "japaneast": 0.604149,
+        "koreacentral": 0.604149,
+        "northeurope": 0.604149,
+        "southeastasia": 0.604149,
+        "westus2": 0.604149
+      },
+      "A4 v2": {
+        "australiaeast": 0.839712,
+        "centralindia": 0.839712,
+        "eastus": 0.839712,
+        "eastus2": 0.839712,
+        "germanywestcentral": 0.839712,
+        "japaneast": 0.839712,
+        "koreacentral": 0.839712,
+        "northeurope": 0.839712,
+        "southeastasia": 0.839712,
+        "westus2": 0.839712
+      },
+      "A8 v2": {
+        "australiaeast": 1.724775,
+        "centralindia": 1.724775,
+        "eastus": 1.724775,
+        "eastus2": 1.724775,
+        "germanywestcentral": 1.724775,
+        "japaneast": 1.724775,
+        "koreacentral": 1.724775,
+        "northeurope": 1.724775,
+        "southeastasia": 1.724775,
+        "westus2": 1.724775
+      },
+      "D1 v2": {
+        "australiaeast": 0.591552,
+        "centralindia": 0.591552,
+        "eastus": 0.591552,
+        "eastus2": 0.591552,
+        "germanywestcentral": 0.591552,
+        "japaneast": 0.591552,
+        "koreacentral": 0.591552,
+        "northeurope": 0.591552,
+        "southeastasia": 0.591552,
+        "westus2": 0.591552
+      },
+      "D16 v3": {
+        "australiaeast": 3.875,
+        "centralindia": 3.875,
+        "eastus": 3.875,
+        "eastus2": 3.875,
+        "germanywestcentral": 3.875,
+        "japaneast": 3.875,
+        "koreacentral": 3.875,
+        "northeurope": 3.875,
+        "southeastasia": 3.875,
+        "westus2": 3.875
+      },
+      "D2 v2": {
+        "australiaeast": 0.794363,
+        "centralindia": 0.794363,
+        "eastus": 0.794363,
+        "eastus2": 0.794363,
+        "germanywestcentral": 0.794363,
+        "japaneast": 0.794363,
+        "koreacentral": 0.794363,
+        "northeurope": 0.794363,
+        "southeastasia": 0.794363,
+        "westus2": 0.794363
+      },
+      "D2 v3": {
+        "australiaeast": 0.68,
+        "centralindia": 0.68,
+        "eastus": 0.68,
+        "eastus2": 0.68,
+        "germanywestcentral": 0.68,
+        "japaneast": 0.68,
+        "koreacentral": 0.68,
+        "northeurope": 0.68,
+        "southeastasia": 0.68,
+        "westus2": 0.68
+      },
+      "D3 v2": {
+        "australiaeast": 1.198727,
+        "centralindia": 1.198727,
+        "eastus": 1.198727,
+        "eastus2": 1.198727,
+        "germanywestcentral": 1.198727,
+        "japaneast": 1.198727,
+        "koreacentral": 1.198727,
+        "northeurope": 1.198727,
+        "southeastasia": 1.198727,
+        "westus2": 1.198727
+      },
+      "D32 v3": {
+        "australiaeast": 7.751,
+        "centralindia": 7.751,
+        "eastus": 7.751,
+        "eastus2": 7.751,
+        "germanywestcentral": 7.751,
+        "japaneast": 7.751,
+        "koreacentral": 7.751,
+        "northeurope": 7.751,
+        "southeastasia": 7.751,
+        "westus2": 7.751
+      },
+      "D4 v2": {
+        "australiaeast": 2.397454,
+        "centralindia": 2.397454,
+        "eastus": 2.397454,
+        "eastus2": 2.397454,
+        "germanywestcentral": 2.397454,
+        "japaneast": 2.397454,
+        "koreacentral": 2.397454,
+        "northeurope": 2.397454,
+        "southeastasia": 2.397454,
+        "westus2": 2.397454
+      },
+      "D4 v3": {
+        "australiaeast": 0.969,
+        "centralindia": 0.969,
+        "eastus": 0.969,
+        "eastus2": 0.969,
+        "germanywestcentral": 0.969,
+        "japaneast": 0.969,
+        "koreacentral": 0.969,
+        "northeurope": 0.969,
+        "southeastasia": 0.969,
+        "westus2": 0.969
+      },
+      "D64 v3": {
+        "australiaeast": 15.502,
+        "centralindia": 15.502,
+        "eastus": 15.502,
+        "eastus2": 15.502,
+        "germanywestcentral": 15.502,
+        "japaneast": 15.502,
+        "koreacentral": 15.502,
+        "northeurope": 15.502,
+        "southeastasia": 15.502,
+        "westus2": 15.502
+      },
+      "D8 v3": {
+        "australiaeast": 1.938,
+        "centralindia": 1.938,
+        "eastus": 1.938,
+        "eastus2": 1.938,
+        "germanywestcentral": 1.938,
+        "japaneast": 1.938,
+        "koreacentral": 1.938,
+        "northeurope": 1.938,
+        "southeastasia": 1.938,
+        "westus2": 1.938
+      },
+      "E16 v3": {
+        "australiaeast": 4.736,
+        "centralindia": 4.736,
+        "eastus": 4.736,
+        "eastus2": 4.736,
+        "germanywestcentral": 4.736,
+        "japaneast": 4.736,
+        "koreacentral": 4.736,
+        "northeurope": 4.736,
+        "southeastasia": 4.736,
+        "westus2": 4.736
+      },
+      "E2 v3": {
+        "australiaeast": 0.787,
+        "centralindia": 0.787,
+        "eastus": 0.787,
+        "eastus2": 0.787,
+        "germanywestcentral": 0.787,
+        "japaneast": 0.787,
+        "koreacentral": 0.787,
+        "northeurope": 0.787,
+        "southeastasia": 0.787,
+        "westus2": 0.787
+      },
+      "E32 v3": {
+        "australiaeast": 9.471,
+        "centralindia": 9.471,
+        "eastus": 9.471,
+        "eastus2": 9.471,
+        "germanywestcentral": 9.471,
+        "japaneast": 9.471,
+        "koreacentral": 9.471,
+        "northeurope": 9.471,
+        "southeastasia": 9.471,
+        "westus2": 9.471
+      },
+      "E4 v3": {
+        "australiaeast": 1.184,
+        "centralindia": 1.184,
+        "eastus": 1.184,
+        "eastus2": 1.184,
+        "germanywestcentral": 1.184,
+        "japaneast": 1.184,
+        "koreacentral": 1.184,
+        "northeurope": 1.184,
+        "southeastasia": 1.184,
+        "westus2": 1.184
+      },
+      "E64 v3": {
+        "australiaeast": 18.212,
+        "centralindia": 18.212,
+        "eastus": 18.212,
+        "eastus2": 18.212,
+        "germanywestcentral": 18.212,
+        "japaneast": 18.212,
+        "koreacentral": 18.212,
+        "northeurope": 18.212,
+        "southeastasia": 18.212,
+        "westus2": 18.212
+      },
+      "E64i v3": {
+        "australiaeast": 18.212,
+        "centralindia": 18.212,
+        "eastus": 18.212,
+        "eastus2": 18.212,
+        "germanywestcentral": 18.212,
+        "japaneast": 18.212,
+        "koreacentral": 18.212,
+        "northeurope": 18.212,
+        "southeastasia": 18.212,
+        "westus2": 18.212
+      },
+      "E8 v3": {
+        "australiaeast": 2.368,
+        "centralindia": 2.368,
+        "eastus": 2.368,
+        "eastus2": 2.368,
+        "germanywestcentral": 2.368,
+        "japaneast": 2.368,
+        "koreacentral": 2.368,
+        "northeurope": 2.368,
+        "southeastasia": 2.368,
+        "westus2": 2.368
+      },
+      "E80ids v4": {
+        "australiaeast": 21.47,
+        "centralindia": 21.47,
+        "eastus": 21.47,
+        "eastus2": 21.47,
+        "germanywestcentral": 21.47,
+        "japaneast": 21.47,
+        "koreacentral": 21.47,
+        "northeurope": 21.47,
+        "southeastasia": 21.47,
+        "westus2": 21.47
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

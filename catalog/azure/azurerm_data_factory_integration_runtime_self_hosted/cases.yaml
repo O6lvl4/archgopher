@@ -1,0 +1,19 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Copies from on premises in Japan East
+  region: japaneast
+  assumptions: { copyHours: 100, pipelineActivityHours: 50, externalActivityHours: 20 }
+  demand: { run: { monthly: 10000, peak: 1 } }
+  costs:
+    Orchestration: 15
+    Data movement: 10
+    Pipeline activities: 0.1
+    External activities: 0.002
+- name: Runs not drawn as edges in East US
+  region: eastus
+  assumptions: { activityRunsPerMonth: 2000 }
+  costs:
+    Orchestration: 3
+    Data movement: 0
+    Pipeline activities: 0
+    External activities: 0

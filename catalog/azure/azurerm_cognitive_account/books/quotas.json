@@ -1,0 +1,50 @@
+{
+  "azure.language.rpm": {
+    "unit": "requests/minute",
+    "source": "https://learn.microsoft.com/en-us/azure/ai-services/language-service/concepts/data-limits",
+    "note": "S tier: requests per minute, per feature",
+    "values": {
+      "*": {
+        "value": 1000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.luis.tps": {
+    "unit": "transactions/second",
+    "source": "https://learn.microsoft.com/en-us/previous-versions/azure/ai-services/luis/luis-limits",
+    "note": "S0 query prediction resource: transactions per second",
+    "values": {
+      "*": {
+        "value": 50,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.speech.stt.concurrent": {
+    "unit": "requests",
+    "source": "https://learn.microsoft.com/en-us/azure/ai-services/speech-service/speech-services-quotas-and-limits",
+    "note": "Standard (S0): concurrent real-time speech to text and translation requests on the base model, default (adjustable)",
+    "values": {
+      "*": {
+        "value": 100,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.speech.tts.tps": {
+    "unit": "transactions/second",
+    "source": "https://learn.microsoft.com/en-us/azure/ai-services/speech-service/speech-services-quotas-and-limits",
+    "note": "Standard (S0): real-time text to speech transactions per second for standard and custom voices, default (adjustable to 1,000)",
+    "values": {
+      "*": {
+        "value": 30,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

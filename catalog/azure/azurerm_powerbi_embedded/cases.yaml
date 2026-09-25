@@ -1,0 +1,12 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: A1 all month in Japan East
+  region: japaneast
+  costs:
+    Capacity (A1): 735.913
+- name: A3 running 200 hours in East US
+  region: eastus
+  attributes: { sku_name: A3 }
+  assumptions: { monthlyHours: 200 }
+  costs:
+    Capacity (A3): 804.84

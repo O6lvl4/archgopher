@@ -1,0 +1,132 @@
+{
+  "azure.synapse.spark.gpu": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/synapse-analytics/",
+    "note": "Apache Spark pool, GPU (hardware accelerated) nodes, per vCore-hour while the pool runs",
+    "sync": {
+      "filters": {
+        "productName": "Azure Synapse Analytics Serverless Apache Spark Pool - GPU",
+        "skuName": "vCore"
+      },
+      "service": "Azure Synapse Analytics",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.172813,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.15775,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.169,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.176563,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.167563,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.159,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.180375,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.spark.memory_optimized": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/synapse-analytics/",
+    "note": "Apache Spark pool, memory optimized nodes, per vCore-hour while the pool runs",
+    "sync": {
+      "filters": {
+        "productName": "Azure Synapse Analytics Serverless Apache Spark Pool - Memory Optimized",
+        "skuName": "vCore"
+      },
+      "service": "Azure Synapse Analytics",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.15456,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.14352,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.138,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.14214,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.15042,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.15456,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.15456,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.1449,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.15456,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.138,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

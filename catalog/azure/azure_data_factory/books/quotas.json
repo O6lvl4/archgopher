@@ -1,0 +1,26 @@
+{
+  "azure.datafactory.concurrent_pipeline_activities": {
+    "unit": "activity runs",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits",
+    "note": "Concurrent pipeline activity runs (Lookup, Get Metadata, Delete...) per subscription per Azure integration runtime region; not adjustable",
+    "values": {
+      "*": {
+        "value": 1000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.datafactory.concurrent_pipeline_runs": {
+    "unit": "runs",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits",
+    "note": "Concurrent pipeline runs per data factory, shared among all its pipelines; not adjustable",
+    "values": {
+      "*": {
+        "value": 10000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

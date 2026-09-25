@@ -1,0 +1,268 @@
+{
+  "azure.datafactory.self_hosted_ir.data_movement": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/data-factory/data-pipeline/",
+    "note": "Self Hosted integration runtime: copy activity, per hour",
+    "sync": {
+      "filters": {
+        "meterName": "Self Hosted Data Movement",
+        "productName": "Azure Data Factory v2",
+        "skuName": "Self Hosted"
+      },
+      "service": "Azure Data Factory v2",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.datafactory.self_hosted_ir.external_activity": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/data-factory/data-pipeline/",
+    "note": "Self Hosted integration runtime: external activities (Databricks, stored procedure, HDInsight...) while they run",
+    "sync": {
+      "filters": {
+        "meterName": "Self Hosted External Pipeline Activity",
+        "productName": "Azure Data Factory v2",
+        "skuName": "Self Hosted"
+      },
+      "service": "Azure Data Factory v2",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.0001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.0001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.0001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.0001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.0001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.0001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.0001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.0001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.0001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.0001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.datafactory.self_hosted_ir.orchestration": {
+    "unit": "activity run",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/data-factory/data-pipeline/",
+    "note": "Self Hosted integration runtime: activity, trigger and debug runs, per 1,000",
+    "sync": {
+      "filters": {
+        "meterName": "Self Hosted Orchestration Activity Run",
+        "productName": "Azure Data Factory v2",
+        "skuName": "Self Hosted"
+      },
+      "listPer": 1000,
+      "service": "Azure Data Factory v2",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.datafactory.self_hosted_ir.pipeline_activity": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/data-factory/data-pipeline/",
+    "note": "Self Hosted integration runtime: pipeline activities (Lookup, Get Metadata, Delete...) while they run",
+    "sync": {
+      "filters": {
+        "meterName": "Self Hosted Pipeline Activity",
+        "productName": "Azure Data Factory v2",
+        "skuName": "Self Hosted"
+      },
+      "service": "Azure Data Factory v2",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

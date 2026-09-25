@@ -1,0 +1,21 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Serverless SQL, pipelines and a basic data flow in Japan East
+  region: japaneast
+  assumptions: { gbProcessedPerQuery: 1, dataFlowBasicVcoreHours: 100 }
+  demand: { query: { monthly: 10000, peak: 1 }, run: { monthly: 5000, peak: 1 } }
+  costs:
+    Serverless SQL: 58.59375
+    Data flow (basic): 30.1949
+    Pipeline activity runs: 5
+- name: Managed VNet pipelines and a self-hosted runtime in East US
+  region: eastus
+  attributes: { managed_virtual_network_enabled: true }
+  assumptions: { copyDiuHours: 4, pipelineActivityHours: 2, selfHostedActivityRuns: 3000 }
+  demand: { run: { monthly: 1000, peak: 1 } }
+  costs:
+    Serverless SQL: 0
+    Pipeline activity runs: 1
+    Pipeline data movement: 1
+    Pipeline activities: 2
+    Self-hosted activity runs: 4.5

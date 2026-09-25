@@ -1,0 +1,270 @@
+{
+  "azure.hdinsight.disk.P30": {
+    "unit": "disk-month",
+    "source": "https://azure.microsoft.com/pricing/details/hdinsight/",
+    "note": "Kafka broker managed disk, P30 (1 TiB)",
+    "sync": {
+      "filters": {
+        "meterName": "P30 Disk",
+        "productName": "HDInsight Storage",
+        "skuName": "P30"
+      },
+      "service": "HDInsight",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 135.17,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 135.17,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 135.17,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 122.88,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 148.68,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 155.44,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 135.17,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 135.17,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 135.17,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 122.88,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.hdinsight.disk.P30.operations": {
+    "unit": "operation",
+    "per": 10000,
+    "source": "https://azure.microsoft.com/pricing/details/hdinsight/",
+    "note": "Kafka broker managed disk transactions, P30, per 10,000",
+    "sync": {
+      "filters": {
+        "meterName": "Operations",
+        "productName": "HDInsight Storage",
+        "skuName": "P30"
+      },
+      "listPer": 10000,
+      "service": "HDInsight",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.00036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.00036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.00036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.00036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.00036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.00036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.00036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.00036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.00036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.00036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.hdinsight.disk.S30": {
+    "unit": "disk-month",
+    "source": "https://azure.microsoft.com/pricing/details/hdinsight/",
+    "note": "Kafka broker managed disk, S30 (1 TiB)",
+    "sync": {
+      "filters": {
+        "meterName": "S30 Disk",
+        "productName": "HDInsight Storage",
+        "skuName": "S30"
+      },
+      "service": "HDInsight",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 65.536,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 45.056,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 40.96,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 40.96,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 40.96,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 40.96,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 40.96,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 40.96,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 40.96,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 40.96,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.hdinsight.disk.S30.operations": {
+    "unit": "operation",
+    "per": 10000,
+    "source": "https://azure.microsoft.com/pricing/details/hdinsight/",
+    "note": "Kafka broker managed disk transactions, S30, per 10,000",
+    "sync": {
+      "filters": {
+        "meterName": "Operations",
+        "productName": "HDInsight Storage",
+        "skuName": "S30"
+      },
+      "listPer": 10000,
+      "service": "HDInsight",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.00036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.00036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.00036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.00036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.00036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.00036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.00036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.00036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.00036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.00036,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

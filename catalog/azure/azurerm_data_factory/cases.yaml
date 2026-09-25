@@ -1,0 +1,19 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: A busy factory in Japan East
+  region: japaneast
+  assumptions: { readWriteEntitiesPerMonth: 1000000, monitoringEntitiesPerRun: 5, inactivePipelines: 3, pipelineRunSeconds: 600 }
+  demand: { run: { monthly: 100000, peak: 2 } }
+  costs:
+    Read/write operations: 10
+    Monitoring operations: 2.5
+    Inactive pipelines: 2.4
+  limits:
+    Concurrent pipeline runs: 1200
+- name: Deployments only in East US
+  region: eastus
+  assumptions: { readWriteEntitiesPerMonth: 50000 }
+  demand: { run: { monthly: 1000, peak: 1 } }
+  costs:
+    Read/write operations: 0.5
+    Monitoring operations: 0

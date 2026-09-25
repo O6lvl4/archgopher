@@ -1,0 +1,19 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: DW100c with 1 TB and geo-backup in Japan East
+  region: japaneast
+  assumptions: { storageTb: 1, querySeconds: 10 }
+  demand: { query: { monthly: 100000, peak: 0.2 } }
+  costs:
+    Compute (DW100c): 1321.3
+    Storage: 23.552
+    Geo-redundant backup: 58.88
+  limits:
+    Concurrent queries: 2
+- name: DW1000c online 300 hours without geo-backup in East US
+  region: eastus
+  attributes: { sku_name: DW1000c, geo_backup_policy_enabled: false }
+  assumptions: { storageTb: 2, monthlyHours: 300 }
+  costs:
+    Compute (DW1000c): 4530
+    Storage: 46

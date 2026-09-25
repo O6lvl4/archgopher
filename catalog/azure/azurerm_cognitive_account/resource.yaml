@@ -1,0 +1,130 @@
+type: azurerm_cognitive_account
+label: Cognitive Services account
+category: AI
+icon: cognitive-services
+description: "Pay-as-you-go usage of Speech (SpeechServices), Language (TextAnalytics) and LUIS accounts on a paid SKU: audio hours, characters, text records and transactions per meter, or a commitment tier's monthly fee plus its overage when you pick one (Azure or connected container). The F0 tier is free. OpenAI and AIServices accounts bill through their azurerm_cognitive_deployment nodes. Headroom is real-time speech to text concurrency and text to speech transactions per second (Speech), requests per minute (Language) and transactions per second (LUIS) against their default quotas."
+kinds: [call]
+sla: azure.cognitiveservices
+attributes:
+  - { key: kind, label: Kind, type: string, default: SpeechServices, hint: "SpeechServices, TextAnalytics and LUIS are priced here; OpenAI and AIServices through their deployments" }
+  - { key: sku_name, label: SKU, type: string, default: S0, hint: "F0 is free; S0, S1 and S are pay-as-you-go" }
+assumptions:
+  - { key: commitmentHosting, label: Commitment tiers bought for, type: choice, options: [azure, connected], default: azure, hint: "connected: connected containers" }
+  - { key: audioSecondsPerCall, label: "Speech: real-time audio per call", type: number, unit: s, default: 0, hint: "Speech to text with the standard model" }
+  - { key: charactersPerCall, label: "Speech: characters synthesized per call", type: number, default: 0, hint: "Text to speech with prebuilt neural voices" }
+  - { key: sttCommitment, label: "Speech: speech to text commitment", type: choice, options: [none, 2K, 10K, 50K, 100K], default: none, hint: "Audio hours a month" }
+  - { key: batchAudioHours, label: "Speech: batch transcription", type: number, unit: hours, default: 0 }
+  - { key: customAudioHours, label: "Speech: custom model audio", type: number, unit: hours, default: 0 }
+  - { key: customSttCommitment, label: "Speech: custom speech to text commitment", type: choice, options: [none, 2K, 10K, 50K, 100K], default: none }
+  - { key: customBatchAudioHours, label: "Speech: custom model batch audio", type: number, unit: hours, default: 0 }
+  - { key: customSpeechEndpoints, label: "Speech: custom speech endpoints", type: number, default: 0, hint: "Hosted all month" }
+  - { key: customSpeechTrainingHours, label: "Speech: custom speech training", type: number, unit: hours, default: 0 }
+  - { key: enhancedAudioHours, label: "Speech: enhanced add-on audio", type: number, unit: hours, default: 0 }
+  - { key: sttAddOnCommitment, label: "Speech: enhanced add-on commitment", type: choice, options: [none, 2K, 10K, 50K, 100K], default: none }
+  - { key: multichannelAudioHours, label: "Speech: multichannel conversation transcription", type: number, unit: hours, default: 0 }
+  - { key: ttsCommitment, label: "Speech: neural text to speech commitment", type: choice, options: [none, 80M, 400M, 2000M, 4000M], default: none, hint: "Characters a month" }
+  - { key: customVoiceTrainingHours, label: "Speech: custom neural voice training", type: number, unit: hours, default: 0 }
+  - { key: customVoiceCharacters, label: "Speech: custom neural voice characters", type: number, default: 0 }
+  - { key: customVoiceEndpoints, label: "Speech: custom neural voice endpoints", type: number, default: 0, hint: "Hosted all month" }
+  - { key: longAudioCharacters, label: "Speech: long audio characters", type: number, default: 0 }
+  - { key: personalVoiceProfiles, label: "Speech: personal voice profiles", type: number, default: 0 }
+  - { key: personalVoiceCharacters, label: "Speech: personal voice characters", type: number, default: 0 }
+  - { key: translationAudioHours, label: "Speech: speech translation", type: number, unit: hours, default: 0 }
+  - { key: speakerVerifications, label: "Speech: speaker verification transactions", type: number, default: 0 }
+  - { key: speakerIdentifications, label: "Speech: speaker identification transactions", type: number, default: 0 }
+  - { key: voiceProfiles, label: "Speech: speaker recognition voice profiles", type: number, default: 0 }
+  - { key: recordsPerCall, label: "Language: text records per call", type: number, default: 1, hint: "A text record is up to 1,000 characters of one document" }
+  - { key: textAnalyticsCommitment, label: "Language: text analytics commitment", type: choice, options: [none, 1M, 3M, 10M, 25M], default: none, hint: "Text records a month" }
+  - { key: summarizationRecords, label: "Language: summarization records", type: number, default: 0 }
+  - { key: summarizationCommitment, label: "Language: summarization commitment", type: choice, options: [none, 3M, 10M], default: none }
+  - { key: cluRecords, label: "Language: conversational language understanding records", type: number, default: 0 }
+  - { key: cluAdvancedTrainingHours, label: "Language: CLU advanced training", type: number, unit: hours, default: 0 }
+  - { key: customClassificationRecords, label: "Language: custom classification and NER records", type: number, default: 0 }
+  - { key: customSummarizationRecords, label: "Language: custom summarization records", type: number, default: 0 }
+  - { key: customQaRecords, label: "Language: custom question answering records", type: number, default: 0 }
+  - { key: customTrainingHours, label: "Language: custom training", type: number, unit: hours, default: 0 }
+  - { key: healthRecords, label: "Language: text analytics for health records", type: number, default: 0 }
+  - { key: luisSpeechShare, label: "LUIS: share of calls that are speech", type: number, default: 0, hint: "Speech requests also pay the speech transcription" }
+  - { key: luisCommitment, label: "LUIS: text request commitment", type: choice, options: [none, 1M, 5M, 25M], default: none, hint: "Transactions a month" }
+let:
+  - k: lower(kind)
+  - speech: 'k == "speechservices"'
+  - lang: 'k == "textanalytics"'
+  - luis: 'k == "luis"'
+  - paid: 'upper(sku_name) != "F0"'
+  - dep: commitmentHosting
+  - s: speech && paid
+  - l: lang && paid
+  - u: luis && paid
+  - sttHours: total.monthly * audioSecondsPerCall / 3600
+  - ttsChars: total.monthly * charactersPerCall
+  - textRecords: total.monthly * recordsPerCall
+  - luisSpeech: total.monthly * luisSpeechShare
+  - luisText: total.monthly - luisSpeech
+  - sttAmt: 'sttCommitment endsWith "K" ? float(trimSuffix(sttCommitment, "K")) * 1000 : 0.0'
+  - customAmt: 'customSttCommitment endsWith "K" ? float(trimSuffix(customSttCommitment, "K")) * 1000 : 0.0'
+  - addOnAmt: 'sttAddOnCommitment endsWith "K" ? float(trimSuffix(sttAddOnCommitment, "K")) * 1000 : 0.0'
+  - ttsAmt: 'ttsCommitment endsWith "M" ? float(trimSuffix(ttsCommitment, "M")) * 1000000 : 0.0'
+  - taAmt: 'textAnalyticsCommitment endsWith "M" ? float(trimSuffix(textAnalyticsCommitment, "M")) * 1000000 : 0.0'
+  - sumAmt: 'summarizationCommitment endsWith "M" ? float(trimSuffix(summarizationCommitment, "M")) * 1000000 : 0.0'
+  - luisAmt: 'luisCommitment endsWith "M" ? float(trimSuffix(luisCommitment, "M")) * 1000000 : 0.0'
+readings:
+  - fail: { when: '!speech && !lang && !luis && !(k in ["openai", "aiservices"])', message: "kind {kind} is not priced yet" }
+  - fail: { when: '(speech || lang || luis) && !(upper(sku_name) in ["F0", "S0", "S1", "S"])', message: "SKU {sku_name} is not priced" }
+  - fail: { when: luisSpeechShare < 0 || luisSpeechShare > 1, message: "the share of speech calls must be between 0 and 1" }
+  # Speech
+  - cost: { when: s && sttAmt == 0, name: Speech to text, quantity: sttHours, unit: audio hour, price: azure.speech.stt }
+  - cost: { when: s && sttAmt > 0, name: "Speech to text commitment ({sttCommitment})", quantity: 1, unit: month, price: "azure.speech.commit.stt.{dep}.unit.{sttCommitment}" }
+  - cost: { when: s && sttAmt > 0, name: Speech to text overage, quantity: "max(sttHours - sttAmt, 0)", unit: audio hour, price: "azure.speech.commit.stt.{dep}.overage.{sttCommitment}" }
+  - cost: { when: s && batchAudioHours > 0, name: Batch transcription, quantity: batchAudioHours, unit: audio hour, price: azure.speech.stt_batch }
+  - cost: { when: s && customAmt == 0 && customAudioHours > 0, name: Custom speech to text, quantity: customAudioHours, unit: audio hour, price: azure.speech.custom_stt }
+  - cost: { when: s && customAmt > 0, name: "Custom speech to text commitment ({customSttCommitment})", quantity: 1, unit: month, price: "azure.speech.commit.custom_stt.{dep}.unit.{customSttCommitment}" }
+  - cost: { when: s && customAmt > 0, name: Custom speech to text overage, quantity: "max(customAudioHours - customAmt, 0)", unit: audio hour, price: "azure.speech.commit.custom_stt.{dep}.overage.{customSttCommitment}" }
+  - cost: { when: s && customBatchAudioHours > 0, name: Custom batch transcription, quantity: customBatchAudioHours, unit: audio hour, price: azure.speech.custom_stt_batch }
+  - cost: { when: s && customSpeechEndpoints > 0, name: Custom speech endpoints, quantity: customSpeechEndpoints * 730, unit: endpoint-hour, price: azure.speech.custom_stt_hosting }
+  - cost: { when: s && customSpeechTrainingHours > 0, name: Custom speech training, quantity: customSpeechTrainingHours, unit: training hour, price: azure.speech.custom_stt_training }
+  - cost: { when: s && addOnAmt == 0 && enhancedAudioHours > 0, name: Enhanced add-ons, quantity: enhancedAudioHours, unit: audio hour, price: azure.speech.stt_enhanced }
+  - cost: { when: s && addOnAmt > 0, name: "Enhanced add-ons commitment ({sttAddOnCommitment})", quantity: 1, unit: month, price: "azure.speech.commit.stt_addon.{dep}.unit.{sttAddOnCommitment}" }
+  - cost: { when: s && addOnAmt > 0, name: Enhanced add-ons overage, quantity: "max(enhancedAudioHours - addOnAmt, 0)", unit: audio hour, price: "azure.speech.commit.stt_addon.{dep}.overage.{sttAddOnCommitment}" }
+  - cost: { when: s && multichannelAudioHours > 0, name: Multichannel conversation transcription, quantity: multichannelAudioHours, unit: audio hour, price: azure.speech.multichannel }
+  - cost: { when: s && ttsAmt == 0, name: Neural text to speech, quantity: ttsChars, unit: character, price: azure.speech.tts_neural }
+  - cost: { when: s && ttsAmt > 0, name: "Neural text to speech commitment ({ttsCommitment})", quantity: 1, unit: month, price: "azure.speech.commit.tts.{dep}.unit.{ttsCommitment}" }
+  - cost: { when: s && ttsAmt > 0, name: Neural text to speech overage, quantity: "max(ttsChars - ttsAmt, 0)", unit: character, price: "azure.speech.commit.tts.{dep}.overage.{ttsCommitment}" }
+  - cost: { when: s && customVoiceTrainingHours > 0, name: Custom neural voice training, quantity: customVoiceTrainingHours, unit: training hour, price: azure.speech.custom_neural_training }
+  - cost: { when: s && customVoiceCharacters > 0, name: Custom neural voice, quantity: customVoiceCharacters, unit: character, price: azure.speech.custom_neural }
+  - cost: { when: s && customVoiceEndpoints > 0, name: Custom neural voice endpoints, quantity: customVoiceEndpoints * 730, unit: endpoint-hour, price: azure.speech.custom_neural_hosting }
+  - cost: { when: s && longAudioCharacters > 0, name: Long audio, quantity: longAudioCharacters, unit: character, price: azure.speech.long_audio }
+  - cost: { when: s && personalVoiceProfiles > 0, name: Personal voice profiles, quantity: personalVoiceProfiles, unit: profile-month, price: azure.speech.personal_voice.profiles }
+  - cost: { when: s && personalVoiceCharacters > 0, name: Personal voice, quantity: personalVoiceCharacters, unit: character, price: azure.speech.personal_voice.characters }
+  - cost: { when: s && translationAudioHours > 0, name: Speech translation, quantity: translationAudioHours, unit: audio hour, price: azure.speech.translation }
+  - cost: { when: s && speakerVerifications > 0, name: Speaker verification, quantity: speakerVerifications, unit: transaction, price: azure.speech.speaker_verification }
+  - cost: { when: s && speakerIdentifications > 0, name: Speaker identification, quantity: speakerIdentifications, unit: transaction, price: azure.speech.speaker_identification }
+  - cost: { when: s && voiceProfiles > 0, name: Voice profiles, quantity: voiceProfiles, unit: profile-month, price: azure.speech.voice_profiles }
+  - concurrency: { when: speech && audioSecondsPerCall > 0, name: Concurrent real-time transcriptions, peak: total.peak, seconds: audioSecondsPerCall, unit: requests, quota: azure.speech.stt.concurrent }
+  - rate: { when: speech && charactersPerCall > 0, name: Text to speech transactions, peak: total.peak, unit: transactions/second, quota: azure.speech.tts.tps }
+  # Language
+  - cost: { when: l && taAmt == 0, name: Text analytics, quantity: textRecords, unit: record, price: azure.language.text_analytics }
+  - cost: { when: l && taAmt > 0, name: "Text analytics commitment ({textAnalyticsCommitment})", quantity: 1, unit: month, price: "azure.language.commit.text_analytics.{dep}.unit.{textAnalyticsCommitment}" }
+  - cost: { when: l && taAmt > 0, name: Text analytics overage, quantity: "max(textRecords - taAmt, 0)", unit: record, price: "azure.language.commit.text_analytics.{dep}.overage.{textAnalyticsCommitment}" }
+  - cost: { when: l && sumAmt == 0 && summarizationRecords > 0, name: Summarization, quantity: summarizationRecords, unit: record, price: azure.language.summarization }
+  - cost: { when: l && sumAmt > 0, name: "Summarization commitment ({summarizationCommitment})", quantity: 1, unit: month, price: "azure.language.commit.summarization.{dep}.unit.{summarizationCommitment}" }
+  - cost: { when: l && sumAmt > 0, name: Summarization overage, quantity: "max(summarizationRecords - sumAmt, 0)", unit: record, price: "azure.language.commit.summarization.{dep}.overage.{summarizationCommitment}" }
+  - cost: { when: l && cluRecords > 0, name: Conversational language understanding, quantity: cluRecords, unit: record, price: azure.language.clu }
+  - cost: { when: l && cluAdvancedTrainingHours > 0, name: CLU advanced training, quantity: cluAdvancedTrainingHours, unit: training hour, price: azure.language.clu_advanced_training }
+  - cost: { when: l && customClassificationRecords > 0, name: Custom classification and NER, quantity: customClassificationRecords, unit: record, price: azure.language.custom_classification }
+  - cost: { when: l && customSummarizationRecords > 0, name: Custom summarization, quantity: customSummarizationRecords, unit: record, price: azure.language.custom_summarization }
+  - cost: { when: l && customQaRecords > 0, name: Custom question answering, quantity: customQaRecords, unit: record, price: azure.language.custom_qa }
+  - cost: { when: l && customTrainingHours > 0, name: Custom training, quantity: customTrainingHours, unit: training hour, price: azure.language.custom_training }
+  - cost: { when: l && healthRecords > 0, name: Text analytics for health, quantity: healthRecords, unit: record, price: azure.language.health }
+  - limit: { when: lang, name: Language requests per minute, demand: total.peak * 60, unit: requests/minute, quota: azure.language.rpm }
+  # LUIS
+  - cost: { when: u && luisAmt == 0, name: LUIS text requests, quantity: luisText, unit: transaction, price: azure.luis.text }
+  - cost: { when: u && luisAmt > 0, name: "LUIS commitment ({luisCommitment})", quantity: 1, unit: month, price: "azure.luis.commit.{dep}.unit.{luisCommitment}" }
+  - cost: { when: u && luisAmt > 0, name: LUIS text overage, quantity: "max(luisText - luisAmt, 0)", unit: transaction, price: "azure.luis.commit.{dep}.overage.{luisCommitment}" }
+  - cost: { when: u && luisSpeech > 0, name: LUIS speech requests, quantity: luisSpeech, unit: transaction, price: azure.luis.speech }
+  - cost: { when: u && luisSpeech > 0, name: LUIS speech transcription, quantity: luisSpeech, unit: transaction, price: azure.speech.intent_transcription }
+  - rate: { when: luis, name: LUIS transactions, peak: total.peak, unit: transactions/second, quota: azure.luis.tps }
+terraform:
+  ignoreRefs: [customer_managed_key, identity, network_acls, storage, network_injection, qna_runtime_endpoint]
+iam:
+  call: ["Cognitive Services User", "Cognitive Services Speech User", "Cognitive Services Language Reader"]

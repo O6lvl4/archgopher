@@ -1,0 +1,26 @@
+type: azurerm_synapse_spark_pool
+label: Synapse Spark pool
+category: Analytics
+icon: synapse-analytics
+description: "vCore-hours while the pool runs: node size's vCores × nodes × hours, memory optimized or GPU. Nodes are node_count, or the average you give for an autoscaled pool (its minimum by default). Headroom is those nodes against the autoscale maximum."
+kinds: [job]
+sla: azure.synapse
+attributes:
+  - { key: node_size, label: Node size, type: choice, options: [Small, Medium, Large, XLarge, XXLarge, XXXLarge], default: Small }
+  - { key: node_size_family, label: Node family, type: choice, options: [MemoryOptimized, HardwareAcceleratedGPU, HardwareAcceleratedFPGA, None], default: MemoryOptimized }
+  - { key: node_count, label: Nodes, type: number, optional: true, hint: "Unset when the pool autoscales" }
+  - { key: min_node_count, label: Autoscale minimum, type: number, optional: true, path: auto_scale.min_node_count }
+  - { key: max_node_count, label: Autoscale maximum, type: number, optional: true, path: auto_scale.max_node_count }
+assumptions:
+  - { key: monthlyHours, label: Hours running, type: number, unit: hours, hint: "Hours a month the pool has a session; it pauses after its idle time" }
+  - { key: averageNodes, label: Average nodes, type: number, optional: true, hint: "For an autoscaled pool; its minimum when unset" }
+let:
+  - vcores: 'node_size == "Small" ? 4.0 : node_size == "Medium" ? 8.0 : node_size == "Large" ? 16.0 : node_size == "XLarge" ? 32.0 : node_size == "XXLarge" ? 64.0 : 80.0'
+  - nodes: 'averageNodes ?? node_count ?? min_node_count ?? 3.0'
+  - family: 'node_size_family == "HardwareAcceleratedGPU" ? "gpu" : "memory_optimized"'
+readings:
+  - fail: { when: 'node_size_family == "HardwareAcceleratedFPGA"', message: "FPGA Spark pools are not priced" }
+  - cost: { name: "vCore hours ({node_size}, {nodes} nodes)", quantity: vcores * nodes * monthlyHours, unit: vCore-hour, price: "azure.synapse.spark.{family}" }
+  - limit: { when: max_node_count != nil, name: Nodes, demand: nodes, unit: nodes, capacity: max_node_count }
+terraform:
+  ignoreRefs: [synapse_workspace_id, library_requirement, spark_config]

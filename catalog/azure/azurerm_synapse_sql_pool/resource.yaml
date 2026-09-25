@@ -1,0 +1,21 @@
+type: azurerm_synapse_sql_pool
+label: Synapse dedicated SQL pool
+category: Analytics
+icon: synapse-analytics
+description: "Hours online at the performance level's rate, data storage per TB-month, and the geo-redundant backup of that data per GB-month while geo_backup_policy_enabled. Headroom is concurrent queries against the level's maximum; more queue."
+kinds: [query]
+sla: azure.synapse
+attributes:
+  - { key: sku_name, label: Performance level, type: choice, options: [DW100c, DW200c, DW300c, DW400c, DW500c, DW1000c, DW1500c, DW2000c, DW2500c, DW3000c, DW5000c, DW6000c, DW7500c, DW10000c, DW15000c, DW30000c], default: DW100c }
+  - { key: geo_backup_policy_enabled, label: Geo-backup, type: boolean, default: true }
+assumptions:
+  - { key: storageTb, label: Data stored, type: number, unit: TB, hint: "Compressed data and snapshots" }
+  - { key: monthlyHours, label: Hours online, type: number, unit: hours, default: 730, hint: "A paused pool pays only for storage" }
+  - { key: querySeconds, label: Query duration, type: number, unit: s, optional: true, hint: "Compared with the concurrent queries the level runs" }
+readings:
+  - cost: { name: "Compute ({sku_name})", quantity: monthlyHours, unit: pool-hour, price: "azure.synapse.sql.dwu.{sku_name}" }
+  - cost: { name: Storage, quantity: storageTb, unit: TB-month, price: azure.synapse.sql.storage }
+  - storage: { when: geo_backup_policy_enabled, name: Geo-redundant backup, gb: storageTb * 1024, price: azure.synapse.sql.dr_storage }
+  - concurrency: { when: querySeconds != nil, name: Concurrent queries, peak: total.peak, seconds: "querySeconds ?? 0", unit: queries, quota: "azure.synapse.sql.concurrency.{sku_name}" }
+terraform:
+  ignoreRefs: [synapse_workspace_id, recovery_database_id, restore]
