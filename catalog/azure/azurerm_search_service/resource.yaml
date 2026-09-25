@@ -1,0 +1,34 @@
+type: azurerm_search_service
+label: Azure AI Search
+category: Analytics
+icon: search
+description: "Search units (replicas × partitions) by tier, semantic ranker queries on the Standard plan, and image extraction during document cracking in its three volume tiers. The free tier costs nothing, and free allowances are ignored. Headroom is the size of the indexes against the storage of the partitions."
+kinds: [query, index]
+sla: azure.search
+attributes:
+  - { key: sku, label: Tier, type: choice, options: [free, basic, standard, standard2, standard3, storage_optimized_l1, storage_optimized_l2] }
+  - { key: partition_count, label: Partitions, type: number, default: 1 }
+  - { key: replica_count, label: Replicas, type: number, default: 1, hint: "Two or more for the query SLA" }
+  - { key: semantic_search_sku, label: Semantic ranker plan, type: string, optional: true, hint: "free or standard; standard bills every semantic query" }
+assumptions:
+  - { key: semanticShare, label: Queries with semantic ranking, type: number, default: 1, hint: "Share of queries that ask for semantic ranking, between 0 and 1, on the standard plan" }
+  - { key: imagesMonthly, label: Images extracted, type: number, unit: images/month, default: 0, hint: "Images that indexers extract from documents (imageAction)" }
+  - { key: indexGb, label: Index size, type: number, unit: GB, optional: true, hint: "All indexes together, against the storage of every partition" }
+let:
+  - free: sku == "free"
+  - row: 'sku == "basic" ? "Basic" : sku == "standard" ? "S1" : sku == "standard2" ? "S2" : sku == "standard3" ? "S3" : sku == "storage_optimized_l1" ? "L1" : "L2"'
+  - semantic: 'semantic_search_sku == "standard" ? demand.query.monthly * semanticShare : 0.0'
+readings:
+  - cost: { when: '!free', name: "Search units ({row})", quantity: partition_count * replica_count * 730, unit: search unit-hour, price: "azure.search.unit.{row}" }
+  - cost: { when: semantic > 0, name: Semantic ranker queries, quantity: semantic, unit: query, price: azure.search.semantic_ranker }
+  - cost: { when: imagesMonthly > 0, name: Image extraction (first 1M), quantity: 'min(imagesMonthly, 1000000)', unit: image, price: azure.search.image_extraction.first }
+  - cost: { when: imagesMonthly > 1000000, name: Image extraction (next 4M), quantity: 'min(imagesMonthly - 1000000, 4000000)', unit: image, price: azure.search.image_extraction.next }
+  - cost: { when: imagesMonthly > 5000000, name: Image extraction (over 5M), quantity: imagesMonthly - 5000000, unit: image, price: azure.search.image_extraction.over }
+  - rate: { when: '!free && indexGb != nil', name: Index storage, unit: GB, peak: 'indexGb ?? 0', quota: "azure.search.partition_gb.{row}", scale: partition_count }
+terraform:
+  # A search service names its identity and network rules; indexers pull from
+  # data sources configured outside Terraform.
+  passive: true
+iam:
+  query: ["Search Index Data Reader", "Search Index Data Contributor"]
+  index: ["Search Index Data Contributor"]

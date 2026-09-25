@@ -1,0 +1,47 @@
+type: azurerm_cosmosdb_table
+label: Cosmos DB table
+category: Database
+icon: cosmos-db
+description: "Provisioned or autoscale throughput set on the table (manual or autoscale, single- or multi-region writes, zone redundancy), storage (the Table API has no analytical store), periodic backup copies beyond the two free ones or 30-day continuous backup, each in every region of the account, and point-in-time restores. Without throughput of its own the table runs on a serverless account. Calls reach its account, which bills serverless request units. The account's settings (regions, multi-region writes, zones, backup policy) are assumptions here."
+kinds: [read, write]
+sla: azure.cosmosdb
+attributes:
+  - { key: throughput, label: Manual throughput, type: number, unit: RU/s, optional: true }
+  - { key: max_throughput, label: Autoscale maximum, type: number, unit: RU/s, optional: true, path: autoscale_settings.max_throughput }
+assumptions:
+  - { key: storageGb, label: Data and index stored, type: number, unit: GB }
+  - { key: regions, label: Regions, type: number, default: 1, hint: "Entries in the account's geo_location: throughput, storage and backup are billed in each" }
+  - { key: multiRegionWrites, label: Multi-region writes, type: boolean, default: false, hint: "The account's multiple_write_locations_enabled: throughput bills the multi-region write rate, autoscale included" }
+  - { key: zoneRedundant, label: Zone redundant, type: boolean, default: false, hint: "zone_redundant in the account's geo_location: throughput of a single-region-write account costs 25% more" }
+  - { key: autoscaleUtilization, label: Autoscale level, type: number, unit: "%", default: 100, hint: "The highest RU/s reached each hour as a share of the maximum, averaged over the month; autoscale bills at least 10%" }
+  - { key: backup, label: Backup, type: choice, options: [periodic, continuous7, continuous30], default: periodic, hint: "The account's backup type, and tier for Continuous: the 7-day tier is free" }
+  - { key: backupRedundancy, label: Backup storage redundancy, type: choice, options: [geo, zone, local], default: geo, hint: "storage_redundancy in the account's periodic backup block" }
+  - { key: backupCopies, label: Periodic backup copies, type: number, default: 2, hint: "retention_in_hours ÷ (interval_in_minutes ÷ 60) of the account's backup block, rounded down; two copies are free" }
+  - { key: restoredGb, label: Restored data, type: number, unit: GB/month, default: 0, hint: "Data restored from continuous backup each month" }
+  - { key: ruPerRead, label: Request units per read, type: number, default: 1, hint: "A 1 KB point read costs 1 RU" }
+  - { key: ruPerWrite, label: Request units per write, type: number, default: 5, hint: "A 1 KB write with default indexing costs about 5 RU" }
+let:
+  - manual: throughput != nil
+  - auto: '!manual && max_throughput != nil'
+  - zone: 'zoneRedundant && !multiRegionWrites ? 1.25 : 1.0'
+  - rate: 'multiRegionWrites ? "mru100_hour" : "ru100_hour"'
+  - level: 'min(max(autoscaleUtilization, 10), 100) / 100'
+  - extraCopies: 'max(floor(backupCopies) - 2, 0)'
+  - peakRus: 'demand.read.peak * ruPerRead + demand.write.peak * ruPerWrite'
+readings:
+  - cost: { when: manual, name: Provisioned throughput, quantity: '(throughput ?? 0) / 100 * 730 * regions * zone', unit: 100 RU/s-hour, price: 'azure.cosmosdb.provisioned.{rate}' }
+  - cost: { when: auto, name: Autoscale throughput, quantity: '(max_throughput ?? 0) * level / 100 * 730 * regions * (multiRegionWrites ? 1.0 : 1.5 * zone)', unit: 100 RU/s-hour, price: 'azure.cosmosdb.provisioned.{rate}' }
+  - storage: { when: storageGb > 0, name: Storage, gb: storageGb * regions, price: azure.cosmosdb.storage }
+  - storage: { when: 'backup == "periodic" && extraCopies > 0 && storageGb > 0', name: Periodic backup, gb: storageGb * extraCopies * regions, price: 'azure.cosmosdb.backup.periodic.{backupRedundancy}' }
+  - storage: { when: 'backup == "continuous30" && storageGb > 0', name: Continuous backup (30 days), gb: storageGb * regions, price: azure.cosmosdb.backup.continuous30 }
+  - cost: { when: 'backup != "periodic" && restoredGb > 0', name: Point-in-time restore, quantity: restoredGb, unit: GB, price: azure.cosmosdb.restore }
+  - limit: { when: 'manual || auto', name: Request units per second, demand: peakRus, unit: RU/s, capacity: 'throughput ?? max_throughput' }
+terraform:
+  # It names its account and calls nothing; a call to it goes through its account.
+  passive: true
+  forward: account_name
+# Cosmos DB data-plane access is Cosmos DB's own RBAC (built-in SQL role
+# definitions), not Azure RBAC.
+iam:
+  read: ["Cosmos DB Built-in Data Reader", "Cosmos DB Built-in Data Contributor"]
+  write: ["Cosmos DB Built-in Data Contributor"]

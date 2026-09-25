@@ -1,0 +1,58 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 400 RU/s on the table in Japan East
+  region: japaneast
+  attributes:
+    throughput: 400
+  assumptions:
+    storageGb: 10
+  demand:
+    read:
+      monthly: 1000000.0
+      peak: 100
+    write:
+      monthly: 200000.0
+      peak: 20
+  costs:
+    Provisioned throughput: 26.28
+    Storage: 2.825
+  limits:
+    Request units per second: 200
+- name: autoscale table in two zone-redundant regions with 30-day continuous backup
+  region: eastus
+  attributes:
+    max_throughput: 4000
+  assumptions:
+    storageGb: 50
+    autoscaleUtilization: 50
+    regions: 2
+    zoneRedundant: True
+    backup: continuous30
+    restoredGb: 5
+  demand:
+    read:
+      monthly: 1000000.0
+      peak: 100
+    write:
+      monthly: 200000.0
+      peak: 20
+  costs:
+    Autoscale throughput: 438.0
+    Storage: 25.0
+    Continuous backup (30 days): 20.0
+    Point-in-time restore: 0.75
+  limits:
+    Request units per second: 200
+- name: a table on a serverless account bills its storage
+  region: eastus
+  assumptions:
+    storageGb: 3
+  demand:
+    read:
+      monthly: 1000000.0
+      peak: 100
+    write:
+      monthly: 200000.0
+      peak: 20
+  costs:
+    Storage: 0.75

@@ -1,0 +1,92 @@
+{
+  "azure.redis.connections": {
+    "unit": "connections",
+    "source": "https://azure.microsoft.com/pricing/details/cache/",
+    "note": "Maximum client connections by size; per shard in Premium",
+    "rows": {
+      "C0": {
+        "*": 256
+      },
+      "C1": {
+        "*": 1000
+      },
+      "C2": {
+        "*": 2000
+      },
+      "C3": {
+        "*": 5000
+      },
+      "C4": {
+        "*": 10000
+      },
+      "C5": {
+        "*": 15000
+      },
+      "C6": {
+        "*": 20000
+      },
+      "P1": {
+        "*": 7500
+      },
+      "P2": {
+        "*": 15000
+      },
+      "P3": {
+        "*": 30000
+      },
+      "P4": {
+        "*": 40000
+      },
+      "P5": {
+        "*": 40000
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.redis.memory": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/cache/",
+    "note": "Cache size by size, the same in Basic and Standard; per shard in Premium",
+    "rows": {
+      "C0": {
+        "*": 0.25
+      },
+      "C1": {
+        "*": 1
+      },
+      "C2": {
+        "*": 2.5
+      },
+      "C3": {
+        "*": 6
+      },
+      "C4": {
+        "*": 13
+      },
+      "C5": {
+        "*": 26
+      },
+      "C6": {
+        "*": 53
+      },
+      "P1": {
+        "*": 6
+      },
+      "P2": {
+        "*": 13
+      },
+      "P3": {
+        "*": 26
+      },
+      "P4": {
+        "*": 53
+      },
+      "P5": {
+        "*": 120
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

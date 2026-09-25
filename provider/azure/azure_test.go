@@ -3,6 +3,8 @@ package azure
 import (
 	"flag"
 	"path/filepath"
+	"sort"
+	"strings"
 	"testing"
 
 	"github.com/O6lvl4/archgopher/internal/catalogtest"
@@ -39,6 +41,9 @@ var (
 		"azurerm_monitor_metric_alert":                   {"dynamic_criteria": 1.0},
 		"azurerm_monitor_scheduled_query_rules_alert_v2": {"scopes": 2.0},
 		"azurerm_log_analytics_solution":                 {"solution_name": "SecurityInsights"},
+		"azurerm_redis_cache":                            {"sku_name": "Premium", "family": "P", "capacity": 1.0, "shard_count": 2.0},
+		"azurerm_managed_redis":                          {"sku_name": "Balanced_B5"},
+		"azurerm_search_service":                         {"sku": "standard", "semantic_search_sku": "standard"},
 	}
 	assume = map[string]map[string]any{
 		"azurerm_cosmosdb_account": {"provisionedRus": 400.0},
@@ -59,6 +64,9 @@ var (
 		"azurerm_virtual_network_peering":   {"kbPerUnit": 4.0},
 		"azurerm_storage_share":             {"storageGb": 1.0},
 		"azurerm_storage_management_policy": {"blobsAged": 1.0},
+		"azurerm_redis_cache":               {"datasetGb": 4.0, "peakConnections": 500.0},
+		"azurerm_managed_redis":             {"datasetGb": 4.0, "peakConnections": 500.0},
+		"azurerm_search_service":            {"imagesMonthly": 6e6, "indexGb": 10.0},
 	}
 )
 
@@ -154,5 +162,26 @@ func TestAReferenceSetsABooleanThatPointsAtIt(t *testing.T) {
 	}
 	if len(spec.Edges) != 0 {
 		t.Errorf("databases call nothing: %v", spec.Edges)
+	}
+}
+
+func TestCallsToCosmosDBContainersReachTheAccount(t *testing.T) {
+	ev, err := eval.Evaluate(filepath.Join("testdata", "cosmos"), eval.Options{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	spec, _ := infer.Build(ev, TerraformRules(), "cosmos")
+	var got []string
+	for _, e := range spec.Edges {
+		got = append(got, e.From+">"+e.To)
+	}
+	sort.Strings(got)
+	// The API names a container and a Cassandra table: each is a node with its
+	// own throughput, and the calls also reach the account (through the
+	// keyspace for the table). A database read as a data source is no node but
+	// still reaches its account. Containers and keyspaces call nothing themselves.
+	want := "api>archive api>events api>log api>orders api>plan api>shop api>store users>api"
+	if strings.Join(got, " ") != want {
+		t.Errorf("edges: want %s, got %s", want, strings.Join(got, " "))
 	}
 }

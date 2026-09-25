@@ -26,6 +26,10 @@ type Rules struct {
 	Links []Link
 	// Aliases are helper resources that stand for a node (a Lambda alias, an API stage).
 	Aliases map[string]string // type -> attribute path pointing at the node
+	// Forward maps a node type to the attribute pointing at a node that every
+	// call to it also reaches: a Cosmos DB container is called through its
+	// account, which bills the request units.
+	Forward map[string]string
 	// Mentioned types are outermost front doors: nothing inside the system calls
 	// them, so references to them (callback URLs, links in emails, CORS origins)
 	// are mentions, not edges.
@@ -94,13 +98,14 @@ func (g *Graph) Targets(ref string) []string { return g.b.targets(ref) }
 // non-nil function wins.
 func Combine(parts ...Rules) Rules {
 	out := Rules{
-		NodeTypes: map[string]bool{}, Aliases: map[string]string{}, Mentioned: map[string]bool{}, Passive: map[string]bool{},
+		NodeTypes: map[string]bool{}, Aliases: map[string]string{}, Forward: map[string]string{}, Mentioned: map[string]bool{}, Passive: map[string]bool{},
 		FrontDoors: map[string]bool{}, FrontDoorAliases: map[string]string{}, Schedules: map[string]string{},
 		Scouters: scouter.Registry{}, Boundaries: map[string]string{}, Free: map[string]bool{},
 	}
 	for _, p := range parts {
 		copyMap(out.NodeTypes, p.NodeTypes)
 		copyMap(out.Aliases, p.Aliases)
+		copyMap(out.Forward, p.Forward)
 		copyMap(out.Mentioned, p.Mentioned)
 		copyMap(out.Passive, p.Passive)
 		copyMap(out.FrontDoors, p.FrontDoors)
@@ -344,14 +349,23 @@ func (b *builder) ignored(path string) bool {
 	return false
 }
 
-// targets resolves a reference to node addresses, looking through aliases.
+// targets resolves a reference to node addresses, looking through aliases
+// and on to the nodes a node forwards its calls to.
 func (b *builder) targets(ref string) []string {
-	if b.isNode(ref) {
-		return []string{ref}
-	}
 	r, ok := b.byAddr[ref]
 	if !ok {
 		return nil
+	}
+	if b.isNode(ref) {
+		if path, ok := b.rules.Forward[r.Type]; ok {
+			return append([]string{ref}, b.targetsAt(r, path)...)
+		}
+		return []string{ref}
+	}
+	// A data source of a forwarding type is not a node, but a call to it
+	// still reaches the node it names.
+	if path, ok := b.rules.Forward[r.Type]; ok {
+		return b.targetsAt(r, path)
 	}
 	if path, ok := b.rules.Aliases[r.Type]; ok {
 		return b.targetsAt(r, path)

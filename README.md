@@ -212,6 +212,10 @@ without state and without cloud credentials, so it also works on a pull request.
   calls a database is not placed in the database's VPC. Modules that each look
   up the same VPC share one frame. Subnets and Availability Zones are not
   frames: resources usually span several.
+- **Forwarding.** A call to some nodes also reaches the node they name
+  (`forward:` in `resource.yaml`): an app that names a Cosmos DB container
+  calls the container, which checks its own throughput, and the account,
+  which bills serverless request units.
 - **Mentions.** A reference to a CloudFront distribution (a callback URL, a
   link in an invitation email) is a mention, not a call, and makes no edge.
 - **Resources that are off.** Resources and modules whose `count` or
@@ -433,7 +437,11 @@ not zero.
 | `azurerm_logic_app_integration_account` / `azurerm_integration_service_environment` | Account fee by SKU / base and scale unit-hours | - |
 | `azurerm_container_app` | Consumption vCPU- and GiB-seconds, active and idle, requests | Replicas |
 | `azurerm_storage_account` | Hot tier storage, write and read operations by redundancy, transfer out to the internet | Account request rate (varies by region) |
-| `azurerm_cosmosdb_account` | Serverless request units or provisioned RU/s-hours, storage, per region | Provisioned RU/s |
+| `azurerm_cosmosdb_account` | Serverless request units (1.25× with zones); RU/s-hours and storage of databases and containers not declared | Provisioned RU/s |
+| `azurerm_cosmosdb_sql_database` / `_sql_container`, `_mongo_database` / `_mongo_collection`, `_cassandra_keyspace` / `_cassandra_table`, `_gremlin_database` / `_gremlin_graph`, `azurerm_cosmosdb_table` | Manual or autoscale RU/s-hours (multi-region writes, zone redundancy), storage and analytical store per region, periodic or continuous backup, restores | RU/s against their throughput |
+| `azurerm_redis_cache` | Node-hours by tier and size, shards × (1 + replicas) in Premium | Memory and client connections by size, per shard |
+| `azurerm_managed_redis` | Instance-hours by SKU, doubled with high availability | Memory and client connections by SKU |
+| `azurerm_search_service` | Search units (replicas × partitions) by tier, semantic ranker queries, image extraction tiers | Index size against partition storage |
 | `azurerm_postgresql_flexible_server` | Compute by SKU (doubled with high availability), storage | Connections by SKU |
 | `azurerm_mssql_database` / `azurerm_sql_database` | vCore hours (serverless: vCore-hours used), SQL license, zone redundancy, Hyperscale replicas, storage; or DTU objective per day and extra storage; backups. In a pool, backups only | Concurrent workers |
 | `azurerm_mssql_elasticpool` / `azurerm_sql_elasticpool` | eDTUs per day and extra storage, or vCore hours, SQL license, zone redundancy, storage | - |

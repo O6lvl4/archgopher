@@ -1,0 +1,32 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+# High availability runs two instances: 2 x 730 x 0.2
+- name: Balanced B5 with high availability in Japan East
+  region: japaneast
+  attributes: { sku_name: Balanced_B5 }
+  assumptions: { datasetGb: 5, peakConnections: 12000 }
+  demand: { query: { monthly: 1e+08, peak: 5000 } }
+  costs:
+    Instances (Balanced_B5): 292.0
+  limits:
+    Memory: 5
+    Client connections: 12000
+# One instance without high availability: 730 x 0.216
+- name: Memory Optimized M10 without high availability in East US
+  region: eastus
+  attributes: { sku_name: MemoryOptimized_M10, high_availability_enabled: false }
+  demand: { query: { monthly: 1e+07, peak: 100 } }
+  costs:
+    Instances (MemoryOptimized_M10): 157.68
+# 2 x 730 x 1.997
+- name: Flash Optimized A250 in Japan East
+  region: japaneast
+  attributes: { sku_name: FlashOptimized_A250 }
+  demand: { query: { monthly: 1e+07, peak: 100 } }
+  costs:
+    Instances (FlashOptimized_A250): 2915.62
+- name: an Enterprise SKU is not Azure Managed Redis
+  region: japaneast
+  attributes: { sku_name: Enterprise_E10 }
+  demand: { query: { monthly: 1, peak: 1 } }
+  error: is not an Azure Managed Redis SKU

@@ -15,6 +15,7 @@ func (r *Resource) Rules() infer.Rules {
 		Mentioned:        map[string]bool{},
 		Passive:          map[string]bool{},
 		Aliases:          t.Aliases,
+		Forward:          map[string]string{},
 		FrontDoorAliases: t.FrontDoorAliases,
 		Schedules:        map[string]string{},
 		IgnoreRefs:       t.IgnoreRefs,
@@ -34,6 +35,9 @@ func (r *Resource) Rules() infer.Rules {
 	}
 	if t.Passive {
 		rules.Passive[f.Type] = true
+	}
+	if t.Forward != "" {
+		rules.Forward[f.Type] = t.Forward
 	}
 	if t.Schedule != "" {
 		rules.Schedules[f.Type] = t.Schedule

@@ -1,0 +1,33 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+# 2 replicas x 1 partition x 730 x 0.444; 200,000 semantic queries at 1 per 1,000
+- name: S1 with two replicas and semantic ranking in Japan East
+  region: japaneast
+  attributes: { sku: standard, replica_count: 2, semantic_search_sku: standard }
+  assumptions: { semanticShare: 0.2, indexGb: 100 }
+  demand:
+    query: { monthly: 1e+06, peak: 20 }
+    index: { monthly: 1e+05, peak: 5 }
+  costs:
+    Search units (S1): 648.24
+    Semantic ranker queries: 200.0
+  limits:
+    Index storage: 100
+# 3 partitions x 730 x 0.101; images 1M at 1, 4M at 0.8, 1M at 0.65 per 1,000
+- name: Basic with three partitions extracting six million images in East US
+  region: eastus
+  attributes: { sku: basic, partition_count: 3 }
+  assumptions: { imagesMonthly: 6000000 }
+  demand:
+    query: { monthly: 1e+05, peak: 2 }
+    index: { monthly: 1e+04, peak: 1 }
+  costs:
+    Search units (Basic): 221.19
+    Image extraction (first 1M): 1000.0
+    Image extraction (next 4M): 3200.0
+    Image extraction (over 5M): 650.0
+- name: the free tier costs nothing
+  region: japaneast
+  attributes: { sku: free }
+  demand:
+    query: { monthly: 1000, peak: 1 }

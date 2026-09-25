@@ -1,0 +1,26 @@
+type: azurerm_managed_redis
+label: Azure Managed Redis
+category: Database
+icon: managed-redis
+description: "Instance-hours by SKU (Balanced, Compute Optimized, Memory Optimized, Flash Optimized); high availability, on unless disabled, runs two instances. Headroom is the data set against the SKU's size and client connections against its limit. On-demand prices."
+kinds: [query]
+sla: azure.redis
+attributes:
+  - { key: sku_name, label: SKU, type: string, hint: "Tier and size, such as Balanced_B5, MemoryOptimized_M10, ComputeOptimized_X5 or FlashOptimized_A250" }
+  - { key: high_availability_enabled, label: High availability, type: boolean, default: true }
+assumptions:
+  - { key: datasetGb, label: Data set, type: number, unit: GB, optional: true, hint: "Compared with the size of the SKU" }
+  - { key: peakConnections, label: Peak client connections, type: number, optional: true, hint: "Open connections at the busiest moment, across every client instance" }
+let:
+  - named: 'sku_name contains "_"'
+  - family: 'named ? lower(split(sku_name, "_")[0]) : ""'
+  - size: 'named ? split(sku_name, "_")[1] : ""'
+  - instances: 'high_availability_enabled ? 2 : 1'
+readings:
+  - fail: { when: '!(family in ["balanced", "computeoptimized", "memoryoptimized", "flashoptimized"])', message: "SKU {sku_name} is not an Azure Managed Redis SKU: write Balanced_B5, MemoryOptimized_M10, ComputeOptimized_X5 or FlashOptimized_A250" }
+  - cost: { name: "Instances ({sku_name})", quantity: instances * 730, unit: instance-hour, price: "azure.redis.managed.{family}.{size}" }
+  - rate: { when: datasetGb != nil, name: Memory, unit: GB, peak: 'datasetGb ?? 0', quota: "azure.redis.managed.memory.{size}" }
+  - rate: { when: peakConnections != nil, name: Client connections, unit: connections, peak: 'peakConnections ?? 0', quota: "azure.redis.managed.connections.{size}" }
+terraform:
+  # It names its identity and customer-managed key; it calls nothing.
+  passive: true

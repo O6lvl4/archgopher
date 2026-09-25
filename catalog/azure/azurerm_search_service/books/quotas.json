@@ -1,0 +1,29 @@
+{
+  "azure.search.partition_gb": {
+    "unit": "GB",
+    "source": "https://learn.microsoft.com/en-us/azure/search/search-limits-quotas-capacity",
+    "note": "Storage per partition of a service created after May 2024 in a region with the higher limits (all ten here)",
+    "rows": {
+      "Basic": {
+        "*": 15
+      },
+      "L1": {
+        "*": 2048
+      },
+      "L2": {
+        "*": 4096
+      },
+      "S1": {
+        "*": 160
+      },
+      "S2": {
+        "*": 512
+      },
+      "S3": {
+        "*": 1024
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

@@ -1,0 +1,88 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 400 RU/s on the collection in Japan East
+  region: japaneast
+  attributes:
+    throughput: 400
+  assumptions:
+    storageGb: 10
+  demand:
+    read:
+      monthly: 1000000.0
+      peak: 100
+    write:
+      monthly: 200000.0
+      peak: 20
+  costs:
+    Provisioned throughput: 26.28
+    Storage: 2.825
+  limits:
+    Request units per second: 200
+- name: autoscale collection in two zone-redundant regions with 30-day continuous backup
+  region: eastus
+  attributes:
+    max_throughput: 4000
+  assumptions:
+    storageGb: 50
+    autoscaleUtilization: 50
+    regions: 2
+    zoneRedundant: True
+    backup: continuous30
+    restoredGb: 5
+  demand:
+    read:
+      monthly: 1000000.0
+      peak: 100
+    write:
+      monthly: 200000.0
+      peak: 20
+  costs:
+    Autoscale throughput: 438.0
+    Storage: 25.0
+    Continuous backup (30 days): 20.0
+    Point-in-time restore: 0.75
+  limits:
+    Request units per second: 200
+- name: multi-region writes with an analytical store and six periodic backup copies
+  region: eastus
+  attributes:
+    throughput: 1000
+    analytical_storage_ttl: -1
+  assumptions:
+    storageGb: 20
+    regions: 2
+    multiRegionWrites: True
+    zoneRedundant: True
+    analyticalWrites: 1000000
+    analyticalReads: 2000000
+    backupCopies: 6
+    backupRedundancy: local
+  demand:
+    read:
+      monthly: 1000000.0
+      peak: 100
+    write:
+      monthly: 200000.0
+      peak: 20
+  costs:
+    Provisioned throughput: 233.6
+    Storage: 10.0
+    Analytical storage: 1.2
+    Analytical store writes: 5.0
+    Analytical store reads: 1.0
+    Periodic backup: 16.0
+  limits:
+    Request units per second: 200
+- name: a collection on a serverless account bills its storage
+  region: eastus
+  assumptions:
+    storageGb: 3
+  demand:
+    read:
+      monthly: 1000000.0
+      peak: 100
+    write:
+      monthly: 200000.0
+      peak: 20
+  costs:
+    Storage: 0.75
