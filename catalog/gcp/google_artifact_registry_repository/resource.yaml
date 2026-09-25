@@ -1,0 +1,33 @@
+type: google_artifact_registry_repository
+label: Artifact Registry repository
+category: Containers
+icon: artifact-registry
+description: "Storage, the same in every location (virtual repositories store nothing), transfer to Google Cloud in other locations by continent, and transfer out to the internet. Pulls in the same location are free. Headroom is the project's requests and write requests per minute in the location."
+kinds: [pull, push]
+attributes:
+  - { key: mode, label: Mode, type: choice, options: [STANDARD_REPOSITORY, REMOTE_REPOSITORY, VIRTUAL_REPOSITORY], default: STANDARD_REPOSITORY, path: mode }
+  - { key: format, label: Format, type: string, default: DOCKER, path: format }
+assumptions:
+  - { key: storageGb, label: Artifacts stored, type: number, unit: GB }
+  - { key: pullMb, label: Pulled per pull, type: number, unit: MB, default: 100, hint: "Layers a client does not have yet" }
+  - { key: requestsPerPull, label: Requests per pull, type: number, default: 10, hint: "A Docker pull requests the manifest and each layer" }
+  - { key: requestsPerPush, label: Requests per push, type: number, default: 10 }
+  - { key: remoteShare, label: Pulls from other locations, type: number, default: 0, hint: "Share of pulled data that leaves the repository's location for Google Cloud elsewhere" }
+  - { key: remoteRoute, label: Other locations are, type: choice, options: [same continent, other continents], default: same continent, hint: "Oceania is always billed at its own price" }
+  - { key: internetShare, label: Pulls to the internet, type: number, default: 0, hint: "Share of pulled data that leaves Google Cloud" }
+let:
+  - pulledGb: 'demand.pull.monthly * pullMb / 1000'
+  - route: 'region startsWith "australia" ? "oceania" : remoteRoute == "other continents" ? "intercontinental" : region startsWith "asia" ? "asia" : region startsWith "europe" ? "europe" : (region startsWith "us" || region startsWith "northamerica") ? "north_america" : "intercontinental"'
+readings:
+  - storage: { when: 'mode != "VIRTUAL_REPOSITORY"', name: Storage, gb: storageGb, price: gcp.artifactregistry.storage }
+  - cost: { when: remoteShare > 0, name: Transfer to other locations, quantity: pulledGb * remoteShare, unit: GB, price: 'gcp.artifactregistry.transfer.{route}' }
+  - cost: { when: internetShare > 0, name: Transfer out to the internet, quantity: pulledGb * internetShare, unit: GB, price: gcp.network.internet_out }
+  - rate: { name: Requests, unit: requests/minute, quota: gcp.artifactregistry.requests, peak: '(demand.pull.peak * requestsPerPull + demand.push.peak * requestsPerPush) * 60' }
+  - rate: { name: Write requests, unit: requests/minute, quota: gcp.artifactregistry.writes, peak: demand.push.peak * requestsPerPush * 60 }
+terraform:
+  # A virtual repository reads through its upstream repositories; credentials
+  # and cleanup policies are not calls.
+  ignoreRefs: [remote_repository_config.upstream_credentials, cleanup_policies]
+iam:
+  pull: ["roles/artifactregistry.reader"]
+  push: ["roles/artifactregistry.writer", "roles/artifactregistry.repoAdmin"]

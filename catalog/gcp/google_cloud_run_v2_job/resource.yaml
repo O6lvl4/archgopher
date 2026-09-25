@@ -1,0 +1,28 @@
+type: google_cloud_run_v2_job
+label: Cloud Run job
+category: Compute
+icon: cloud-run
+description: "Instance-based billing: vCPU- and GiB-seconds for every task's instance lifetime, at least a minute each, for every execution. Headroom is job runs per minute and running executions against the region's quotas."
+kinds: [run]
+sla: gcp.cloudrun.jobs
+attributes:
+  - { key: task_count, label: Tasks per execution, type: number, default: 1, path: template.task_count }
+  - { key: parallelism, label: Tasks in parallel, type: number, default: 0, path: template.parallelism, hint: "0 runs every task at once" }
+  - { key: cpu, label: CPU limit, type: string, default: "1", path: template.template.containers.resources.limits.cpu, hint: "1, 2 or 1000m" }
+  - { key: memory, label: Memory limit, type: string, default: "512Mi", path: template.template.containers.resources.limits.memory, hint: "512Mi or 1Gi" }
+assumptions:
+  - { key: taskSeconds, label: Task run time, type: number, unit: s, hint: "Instance lifetime per task, billed for at least 60 seconds" }
+let:
+  - vcpu: 'cpu endsWith "m" ? float(trimSuffix(cpu, "m")) / 1000 : float(cpu)'
+  - gib: 'memory endsWith "Gi" ? float(trimSuffix(memory, "Gi")) : memory endsWith "Mi" ? float(trimSuffix(memory, "Mi")) / 1024 : memory endsWith "G" ? float(trimSuffix(memory, "G")) * 1e9 / 1073741824 : float(trimSuffix(memory, "M")) * 1e6 / 1073741824'
+  - instanceSeconds: 'total.monthly * task_count * max(taskSeconds, 60)'
+  - waves: 'ceilDiv(task_count, parallelism > 0 ? parallelism : task_count)'
+readings:
+  - cost: { name: vCPU, quantity: instanceSeconds * vcpu, unit: vCPU-second, price: gcp.cloudrun.instance.cpu }
+  - cost: { name: Memory, quantity: instanceSeconds * gib, unit: GiB-second, price: gcp.cloudrun.instance.memory }
+  - rate: { name: Job runs, unit: runs/minute, quota: gcp.cloudrun.jobs.runs_per_minute, peak: total.peak * 60 }
+  - concurrency: { name: Running executions, unit: executions, quota: gcp.cloudrun.jobs.running_executions, peak: total.peak, seconds: taskSeconds * waves }
+terraform:
+  ignoreRefs: [template.template.service_account, template.template.vpc_access, template.template.volumes]
+iam:
+  run: ["roles/run.invoker", "roles/run.jobsExecutor", "roles/run.jobsExecutorWithOverrides"]

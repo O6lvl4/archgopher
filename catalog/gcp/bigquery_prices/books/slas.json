@@ -1,0 +1,14 @@
+{
+  "gcp.bigquery": {
+    "unit": "fraction",
+    "source": "https://cloud.google.com/bigquery/sla",
+    "note": "BigQuery except the Standard edition (99.9%); on-demand queries are covered at 99.99%",
+    "values": {
+      "*": {
+        "value": 0.9999,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

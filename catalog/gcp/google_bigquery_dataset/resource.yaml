@@ -1,0 +1,23 @@
+type: google_bigquery_dataset
+label: BigQuery dataset
+category: Analytics
+icon: bigquery
+description: "On-demand queries per TiB scanned, at least 10 MB a query, in the dataset's region or the US or EU multi-region. Storage is read on each table. Capacity (editions) pricing is not read."
+kinds: [query]
+sla: gcp.bigquery
+attributes:
+  - { key: location, label: Location, type: string, default: US, path: location, hint: "US or EU for a multi-region, or a region such as asia-northeast1" }
+assumptions:
+  - { key: scannedGb, label: Scanned per query, type: number, unit: GiB, hint: "Bytes of the columns a query reads; at least 10 MB is billed" }
+let:
+  - loc: 'lower(location)'
+  - multi: 'loc == "us" || loc == "eu"'
+  - book: 'multi ? "gcp.bigquery.multi." : "gcp.bigquery."'
+  - suffix: 'multi ? "." + loc : ""'
+readings:
+  - fail: { when: '!multi && loc != region', message: "the dataset is in {loc} but the prices are read for {region}", continue: true }
+  - cost: { name: Queries, quantity: 'total.monthly * max(scannedGb, 10.0 / 1024) / 1024', unit: TiB, price: '{book}query{suffix}' }
+terraform:
+  passive: true
+iam:
+  query: ["roles/bigquery.dataViewer", "roles/bigquery.dataEditor", "roles/bigquery.dataOwner"]

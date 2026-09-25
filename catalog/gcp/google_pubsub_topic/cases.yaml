@@ -2,6 +2,8 @@
 # Expected values are computed by hand from the unit prices, not taken from the engine.
 - name: Tokyo, 1 kB messages to one subscription
   region: asia-northeast1
+  assumptions:
+    subscriptions: 1
   demand:
     publish:
       monthly: 1.0e+07

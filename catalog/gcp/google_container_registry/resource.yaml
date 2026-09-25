@@ -1,0 +1,25 @@
+type: google_container_registry
+label: Container Registry
+category: Containers
+icon: container-registry
+description: "Container Registry keeps images in a multi-region Cloud Storage bucket (US, EU or ASIA): Standard storage, Class B operations for pulls, Class A operations for pushes, and transfer out to the internet. Replication writes are not counted. Headroom is the bucket's initial read and write rates."
+kinds: [pull, push]
+attributes:
+  - { key: location, label: Location, type: choice, options: [US, EU, ASIA], default: US, path: location }
+assumptions:
+  - { key: storageGb, label: Images stored, type: number, unit: GB }
+  - { key: requestsPerPull, label: Requests per pull, type: number, default: 10, hint: "The manifest and each layer are one Class B read each" }
+  - { key: requestsPerPush, label: Requests per push, type: number, default: 10, hint: "Each layer and the manifest written is one Class A operation" }
+  - { key: internetGbPerMonth, label: Pulled to the internet, type: number, unit: GB, default: 0, hint: "Pulls to clients outside Google Cloud" }
+readings:
+  - storage: { name: Storage, gb: storageGb, price: 'gcp.storage.multi.standard.{lower(location)}' }
+  - requests: { name: Class B operations, price: gcp.storage.multi.class_b, unit: operation, count: demand.pull.monthly * requestsPerPull }
+  - requests: { name: Class A operations, price: gcp.storage.multi.class_a, unit: operation, count: demand.push.monthly * requestsPerPush }
+  - cost: { when: internetGbPerMonth > 0, name: Transfer out to the internet, quantity: internetGbPerMonth, unit: GB, price: gcp.network.internet_out }
+  - rate: { name: Read rate, unit: reads/second, quota: gcp.storage.bucket_read_rps, peak: demand.pull.peak * requestsPerPull }
+  - rate: { name: Write rate, unit: writes/second, quota: gcp.storage.bucket_write_rps, peak: demand.push.peak * requestsPerPush }
+terraform:
+  passive: true
+iam:
+  pull: ["roles/storage.objectViewer"]
+  push: ["roles/storage.legacyBucketWriter", "roles/storage.admin"]

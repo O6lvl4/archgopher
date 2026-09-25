@@ -1,0 +1,53 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo, Basic Tier 1 GiB (M1)
+  region: asia-northeast1
+  demand:
+    command:
+      monthly: 1.0e+08
+      peak: 1000
+  costs:
+    Capacity (Basic M1): 47.45
+  limits:
+    Network throughput: 0.008
+- name: Northern Virginia, Standard Tier 50 GiB (M4) with two read replicas, three nodes billed
+  region: us-east4
+  attributes:
+    tier: STANDARD_HA
+    memory_size_gb: 50
+    read_replicas_mode: READ_REPLICAS_ENABLED
+    replica_count: 2
+  assumptions:
+    valueKb: 10
+  demand:
+    command:
+      monthly: 1.0e+09
+      peak: 50000
+  costs:
+    Capacity (Standard M4): 2080.5
+  limits:
+    Network throughput: 4
+- name: Belgium, Standard Tier 8 GiB (M2)
+  region: europe-west1
+  attributes:
+    tier: STANDARD_HA
+    memory_size_gb: 8
+  demand:
+    command:
+      monthly: 1.0e+07
+      peak: 100
+  costs:
+    Capacity (Standard M2): 356.24
+  limits:
+    Network throughput: 0.0008
+- name: Read replicas need M2 or larger
+  region: asia-northeast1
+  attributes:
+    tier: STANDARD_HA
+    memory_size_gb: 4
+    read_replicas_mode: READ_REPLICAS_ENABLED
+  demand:
+    command:
+      monthly: 0
+      peak: 0
+  error: read replicas need a capacity of 5 GiB or more

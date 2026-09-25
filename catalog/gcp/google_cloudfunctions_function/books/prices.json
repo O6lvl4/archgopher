@@ -1,0 +1,204 @@
+{
+  "gcp.functions.v1.cpu": {
+    "unit": "GHz-second",
+    "source": "https://cloud.google.com/functions/pricing-1stgen",
+    "note": "1st gen compute time per GHz-second of CPU, in 100 ms increments (1 vCPU is 2.4 GHz). Tier 1 or Tier 2 by region as listed for Cloud Run; the free tier is ignored. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "29E7-DA93-CA13",
+      "filters": {
+        "description": "CPU Time( \\(tier 2\\))?"
+      }
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.00001,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.000014,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.00001,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.000014,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.000014,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.00001,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.000014,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.00001,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.00001,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.00001,
+        "verified": false
+      }
+    }
+  },
+  "gcp.functions.v1.egress": {
+    "unit": "GB",
+    "source": "https://cloud.google.com/functions/pricing-1stgen",
+    "note": "Outbound data from a 1st gen function, flat in every region; the free 5 GB a month is ignored. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "29E7-DA93-CA13",
+      "filters": {
+        "description": "Network Egress from .+"
+      },
+      "region": "global"
+    },
+    "values": {
+      "*": {
+        "value": 0.12,
+        "verified": false
+      }
+    }
+  },
+  "gcp.functions.v1.idle_cpu": {
+    "unit": "GHz-second",
+    "source": "https://cloud.google.com/functions/pricing-1stgen",
+    "note": "1st gen idle time of minimum instances per GHz-second. Tier 1 or Tier 2 by region as listed for Cloud Run; the free tier is ignored. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "29E7-DA93-CA13",
+      "filters": {
+        "description": "Idle Min-Instance CPU Time( \\(tier 2\\))?"
+      }
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.000001042,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.00000146,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.000001042,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.00000146,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.00000146,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.000001042,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.00000146,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.000001042,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.000001042,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.000001042,
+        "verified": false
+      }
+    }
+  },
+  "gcp.functions.v1.invocations": {
+    "unit": "invocation",
+    "per": 1000000,
+    "source": "https://cloud.google.com/functions/pricing-1stgen",
+    "note": "Invocations beyond the free 2 million a month, the same in every region. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "29E7-DA93-CA13",
+      "filters": {
+        "description": "Invocations"
+      },
+      "region": "global",
+      "listPer": 1
+    },
+    "values": {
+      "*": {
+        "value": 0.4,
+        "verified": false
+      }
+    }
+  },
+  "gcp.functions.v1.memory": {
+    "unit": "GB-second",
+    "source": "https://cloud.google.com/functions/pricing-1stgen",
+    "note": "1st gen compute time per GB-second of memory, in 100 ms increments; also the idle price of minimum instances. Tier 1 or Tier 2 by region as listed for Cloud Run; the free tier is ignored. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "29E7-DA93-CA13",
+      "filters": {
+        "description": "Memory Time( \\(tier 2\\))?"
+      }
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.0000025,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.0000035,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.0000025,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.0000035,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.0000035,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.0000025,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.0000035,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.0000025,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.0000025,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.0000025,
+        "verified": false
+      }
+    }
+  }
+}

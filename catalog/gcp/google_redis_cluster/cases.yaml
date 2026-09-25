@@ -1,0 +1,30 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo, three highmem-medium shards without replicas
+  region: asia-northeast1
+  demand:
+    command:
+      monthly: 1.0e+08
+      peak: 1000
+  costs:
+    Nodes: 540.93
+- name: Northern Virginia, two standard-small shards with a replica each, AOF and 20 GB of backups
+  region: us-east4
+  attributes:
+    node_type: REDIS_STANDARD_SMALL
+    shard_count: 2
+    replica_count: 1
+    persistence_mode: AOF
+  assumptions:
+    backupGb: 20
+    clients: 10000
+  demand:
+    command:
+      monthly: 1.0e+08
+      peak: 1000
+  costs:
+    Nodes: 416.1
+    AOF persistence: 5.2000455
+    Backups: 1.865588
+  limits:
+    Client connections: 10000

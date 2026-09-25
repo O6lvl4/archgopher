@@ -1,0 +1,42 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo, images in the US multi-region bucket
+  region: asia-northeast1
+  assumptions:
+    storageGb: 50
+  demand:
+    pull:
+      monthly: 10000
+      peak: 2
+    push:
+      monthly: 100
+      peak: 0.1
+  costs:
+    Storage: 1.3
+    Class B operations: 0.04
+    Class A operations: 0.01
+  limits:
+    Read rate: 20
+    Write rate: 1
+- name: Tokyo, ASIA bucket with 100 GB pulled to the internet
+  region: asia-northeast1
+  attributes:
+    location: ASIA
+  assumptions:
+    storageGb: 200
+    internetGbPerMonth: 100
+  demand:
+    pull:
+      monthly: 0
+      peak: 0
+    push:
+      monthly: 0
+      peak: 0
+  costs:
+    Storage: 5.2
+    Class B operations: 0
+    Class A operations: 0
+    Transfer out to the internet: 12
+  limits:
+    Read rate: 0
+    Write rate: 0

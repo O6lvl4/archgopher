@@ -1,0 +1,26 @@
+{
+  "gcp.cloudrun.jobs.running_executions": {
+    "unit": "executions",
+    "source": "https://cloud.google.com/run/quotas",
+    "note": "Running job executions per project and region",
+    "values": {
+      "*": {
+        "value": 1000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "gcp.cloudrun.jobs.runs_per_minute": {
+    "unit": "runs/minute",
+    "source": "https://cloud.google.com/run/quotas",
+    "note": "Job runs per 60 seconds per project and region",
+    "values": {
+      "*": {
+        "value": 180,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

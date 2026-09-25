@@ -1,0 +1,70 @@
+{
+  "gcp.bigquery.multi.query": {
+    "unit": "TiB",
+    "source": "https://cloud.google.com/bigquery/pricing",
+    "note": "On-demand analysis per TiB scanned in the US or EU multi-region; the free TiB a month is ignored. Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
+    "rows": {
+      "eu": {
+        "*": 6.25
+      },
+      "us": {
+        "*": 6.25
+      }
+    }
+  },
+  "gcp.bigquery.query": {
+    "unit": "TiB",
+    "source": "https://cloud.google.com/bigquery/pricing",
+    "note": "On-demand analysis per TiB scanned in a region; the free TiB a month is ignored. Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "24E6-581D-38E5",
+      "filters": {
+        "description": "Analysis \\(.+\\)"
+      },
+      "tier": "last"
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 7.5,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 7.5,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 7.5,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 8.4375,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 8.125,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 7.5,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 8.125,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 6.25,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 6.25,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 6.25,
+        "verified": false
+      }
+    }
+  }
+}

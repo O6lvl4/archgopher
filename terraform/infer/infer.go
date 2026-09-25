@@ -58,6 +58,8 @@ type Rules struct {
 }
 
 // Link connects the node(s) referenced by From to the node(s) referenced by To.
+// When the link's own type is a node, it sits in between: From calls it, and
+// its references (To among them) are its own calls.
 type Link struct {
 	Type string
 	From string
@@ -312,6 +314,14 @@ func (b *builder) edges() []edgeKey {
 				continue
 			}
 			froms := b.targetsAt(r, l.From)
+			if b.isNode(r.Address) {
+				// A helper with a cost of its own (a Pub/Sub subscription) is a
+				// node on the path: from → it, and its own references carry on.
+				for _, from := range froms {
+					add(from, r.Address, "")
+				}
+				continue
+			}
 			for _, p := range l.To {
 				for _, to := range b.targetsAt(r, p) {
 					for _, from := range froms {

@@ -1,0 +1,26 @@
+{
+  "gcp.artifactregistry.requests": {
+    "unit": "requests/minute",
+    "source": "https://cloud.google.com/artifact-registry/quotas",
+    "note": "Requests per minute per project in each region or multi-region; a Docker pull or push makes several",
+    "values": {
+      "*": {
+        "value": 60000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "gcp.artifactregistry.writes": {
+    "unit": "requests/minute",
+    "source": "https://cloud.google.com/artifact-registry/quotas",
+    "note": "Write requests per minute per project in each region or multi-region",
+    "values": {
+      "*": {
+        "value": 18000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

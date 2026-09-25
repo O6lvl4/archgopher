@@ -1,0 +1,52 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo (Tier 1), request-based, 1 vCPU and 512 MiB, 80 concurrent
+  region: asia-northeast1
+  assumptions:
+    durationMs: 200
+  demand:
+    request:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    vCPU: 0.06
+    Memory: 0.003125
+    Requests: 0.4
+  limits:
+    Instances: 1
+- name: Tokyo (Tier 1), request-based with one idle minimum instance
+  region: asia-northeast1
+  assumptions:
+    durationMs: 200
+    minInstances: 1
+  demand:
+    request:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    vCPU: 0.06
+    Memory: 0.003125
+    Requests: 0.4
+    Idle minimum instances vCPU: 6.56375
+    Idle minimum instances memory: 3.281875
+  limits:
+    Instances: 1
+- name: Frankfurt (Tier 2), CPU always allocated, one instance all month, 2 vCPU and 1 GiB
+  region: europe-west3
+  attributes:
+    cpu: '2'
+    memory: 1Gi
+  assumptions:
+    durationMs: 200
+    cpuAlwaysAllocated: true
+    minInstances: 1
+    maxInstances: 5
+  demand:
+    request:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    vCPU (instance-based): 113.5296
+    Memory (instance-based): 6.3072
+  limits:
+    Instances: 1

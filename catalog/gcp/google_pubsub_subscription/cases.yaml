@@ -1,0 +1,44 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo, pull delivery of 1 kB messages
+  region: asia-northeast1
+  demand:
+    deliver:
+      monthly: 1.0e+07
+      peak: 100
+  costs:
+    Delivery throughput: 0.3637978807091713
+  limits:
+    Delivery throughput: 6000
+- name: Tokyo, push delivery of 4 kB messages, acknowledged messages retained for 7 days
+  region: asia-northeast1
+  attributes:
+    push: true
+    retain_acked_messages: true
+  assumptions:
+    messageKb: 4
+  demand:
+    deliver:
+      monthly: 5.0e+07
+      peak: 200
+  costs:
+    Delivery throughput: 7.275957614183426
+    Retained acknowledged messages: 11.573915612207701
+  limits:
+    Delivery throughput: 48000
+- name: Belgium, BigQuery subscription with a 10 GiB snapshot
+  region: europe-west1
+  attributes:
+    bigquery: true
+  assumptions:
+    messageKb: 2
+    snapshotGb: 10
+  demand:
+    deliver:
+      monthly: 1.0e+08
+      peak: 1000
+  costs:
+    Export throughput: 9.094947017729282
+    Snapshot storage: 2.7
+  limits:
+    Delivery throughput: 120000

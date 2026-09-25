@@ -1,0 +1,33 @@
+type: google_pubsub_subscription
+label: Pub/Sub subscription
+category: Messaging
+icon: pubsub
+description: "Delivery throughput per TiB at 1,000 bytes a message at least, or the export price for BigQuery and Cloud Storage subscriptions, and message storage for retained acknowledged messages, snapshots and backlog older than a day. The topic calls it; it calls its push endpoint, table or bucket. Headroom is the region's pull, push or export throughput."
+kinds: [deliver]
+sla: gcp.pubsub
+attributes:
+  - { key: push, label: Push delivery, type: boolean, default: false, path: push_config }
+  - { key: bigquery, label: BigQuery subscription, type: boolean, default: false, path: bigquery_config }
+  - { key: cloud_storage, label: Cloud Storage subscription, type: boolean, default: false, path: cloud_storage_config }
+  - { key: retain_acked_messages, label: Retain acknowledged messages, type: boolean, default: false, path: retain_acked_messages }
+  - { key: message_retention_duration, label: Retention, type: string, default: 604800s, path: message_retention_duration }
+assumptions:
+  - { key: messageKb, label: Message size, type: number, unit: kB, default: 1, hint: "1 kB is 1,000 bytes; each delivery bills at least 1,000 bytes" }
+  - { key: backlogGb, label: Backlog older than a day, type: number, unit: GiB, default: 0, hint: "Unacknowledged messages retained beyond a day and not already retained by the topic" }
+  - { key: snapshotGb, label: Snapshots, type: number, unit: GiB, default: 0 }
+let:
+  - billedKb: 'max(messageKb, 1)'
+  - export: 'bigquery || cloud_storage'
+  - retentionDays: 'float(trimSuffix(message_retention_duration, "s")) / 86400'
+  - retainedGib: 'retain_acked_messages ? total.monthly * billedKb * 1000 / 1073741824 * retentionDays * 24 / 730 : 0.0'
+readings:
+  - cost: { when: '!export', name: Delivery throughput, quantity: 'total.monthly * billedKb * 1000 / 1099511627776', unit: TiB, price: gcp.pubsub.throughput }
+  - cost: { when: export, name: Export throughput, quantity: 'total.monthly * billedKb * 1000 / 1099511627776', unit: TiB, price: gcp.pubsub.export }
+  - cost: { when: retain_acked_messages, name: Retained acknowledged messages, quantity: retainedGib, unit: GiB-month, price: gcp.pubsub.storage }
+  - cost: { when: backlogGb > 0, name: Backlog storage, quantity: backlogGb, unit: GiB-month, price: gcp.pubsub.storage }
+  - cost: { when: snapshotGb > 0, name: Snapshot storage, quantity: snapshotGb, unit: GiB-month, price: gcp.pubsub.storage }
+  - limit: { name: Delivery throughput, demand: 'total.peak * billedKb * 60', unit: kB/minute, quota: 'gcp.pubsub.{export ? "export" : push ? "push" : "pull"}_throughput' }
+terraform:
+  # The topic calls the subscription through the topic's link; the reference
+  # back to it, the dead-letter topic and the identities are not calls.
+  ignoreRefs: [topic, dead_letter_policy, push_config.oidc_token, bigquery_config.service_account_email, cloud_storage_config.service_account_email]

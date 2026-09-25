@@ -1,0 +1,40 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo, a software symmetric key with one version
+  region: asia-northeast1
+  demand:
+    encrypt:
+      monthly: 500000
+      peak: 5
+    decrypt:
+      monthly: 500000
+      peak: 5
+  costs:
+    Key versions: 0.06000016
+    Cryptographic operations: 3
+  limits:
+    Cryptographic requests: 600
+- name: Frankfurt, an HSM P-256 signing key rotated every 90 days keeps five versions a year
+  region: europe-west3
+  attributes:
+    protection_level: HSM
+    algorithm: EC_SIGN_P256_SHA256
+    rotation_period: 7776000s
+  demand:
+    sign:
+      monthly: 200000
+      peak: 5
+  costs:
+    Key versions: 12.5000017
+    Cryptographic operations: 3
+  limits:
+    Cryptographic requests: 300
+- name: Single-tenant HSM is not priced per version
+  region: asia-northeast1
+  attributes:
+    protection_level: HSM_SINGLE_TENANT
+  demand:
+    sign:
+      monthly: 0
+      peak: 0
+  error: single-tenant Cloud HSM

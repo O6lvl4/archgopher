@@ -1,0 +1,212 @@
+{
+  "gcp.redis.basic": {
+    "unit": "GiB-hour",
+    "source": "https://cloud.google.com/memorystore/docs/redis/pricing",
+    "note": "Basic Tier per provisioned GiB-hour, by capacity tier: M1 1-4 GiB, M2 5-10, M3 11-35, M4 36-100, M5 over 100. Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "5AF5-2C11-D467",
+      "filters": {
+        "description": "(?i)Redis Capacity Basic {row}( .*)?"
+      }
+    },
+    "rows": {
+      "m1": {
+        "asia-northeast1": 0.065,
+        "asia-northeast3": 0.065,
+        "asia-south1": 0.063,
+        "asia-southeast1": 0.065,
+        "australia-southeast1": 0.065,
+        "europe-west1": 0.051,
+        "europe-west3": 0.053,
+        "us-east4": 0.049,
+        "us-east5": 0.049,
+        "us-west1": 0.049
+      },
+      "m2": {
+        "asia-northeast1": 0.04,
+        "asia-northeast3": 0.04,
+        "asia-south1": 0.037,
+        "asia-southeast1": 0.04,
+        "australia-southeast1": 0.04,
+        "europe-west1": 0.032,
+        "europe-west3": 0.034,
+        "us-east4": 0.027,
+        "us-east5": 0.027,
+        "us-west1": 0.027
+      },
+      "m3": {
+        "asia-northeast1": 0.032,
+        "asia-northeast3": 0.032,
+        "asia-south1": 0.03,
+        "asia-southeast1": 0.032,
+        "australia-southeast1": 0.032,
+        "europe-west1": 0.026,
+        "europe-west3": 0.027,
+        "us-east4": 0.023,
+        "us-east5": 0.023,
+        "us-west1": 0.023
+      },
+      "m4": {
+        "asia-northeast1": 0.024,
+        "asia-northeast3": 0.024,
+        "asia-south1": 0.022,
+        "asia-southeast1": 0.024,
+        "australia-southeast1": 0.024,
+        "europe-west1": 0.022,
+        "europe-west3": 0.023,
+        "us-east4": 0.019,
+        "us-east5": 0.019,
+        "us-west1": 0.019
+      },
+      "m5": {
+        "asia-northeast1": 0.019,
+        "asia-northeast3": 0.019,
+        "asia-south1": 0.017,
+        "asia-southeast1": 0.019,
+        "australia-southeast1": 0.019,
+        "europe-west1": 0.017,
+        "europe-west3": 0.018,
+        "us-east4": 0.016,
+        "us-east5": 0.016,
+        "us-west1": 0.016
+      }
+    }
+  },
+  "gcp.redis.replica_node": {
+    "unit": "GiB-hour",
+    "source": "https://cloud.google.com/memorystore/docs/redis/pricing",
+    "note": "Standard Tier with read replicas, per provisioned GiB-hour per node (the primary and each replica), M2 and larger. Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "5AF5-2C11-D467",
+      "filters": {
+        "description": "(?i)Redis Capacity Standard Node {row}( .*)?"
+      }
+    },
+    "rows": {
+      "m2": {
+        "asia-northeast1": 0.04,
+        "asia-northeast3": 0.04,
+        "asia-south1": 0.037,
+        "asia-southeast1": 0.04,
+        "australia-southeast1": 0.04,
+        "europe-west1": 0.032,
+        "europe-west3": 0.034,
+        "us-east4": 0.027,
+        "us-east5": 0.027,
+        "us-west1": 0.027
+      },
+      "m3": {
+        "asia-northeast1": 0.032,
+        "asia-northeast3": 0.032,
+        "asia-south1": 0.03,
+        "asia-southeast1": 0.032,
+        "australia-southeast1": 0.032,
+        "europe-west1": 0.026,
+        "europe-west3": 0.027,
+        "us-east4": 0.023,
+        "us-east5": 0.023,
+        "us-west1": 0.023
+      },
+      "m4": {
+        "asia-northeast1": 0.024,
+        "asia-northeast3": 0.024,
+        "asia-south1": 0.022,
+        "asia-southeast1": 0.024,
+        "australia-southeast1": 0.024,
+        "europe-west1": 0.022,
+        "europe-west3": 0.023,
+        "us-east4": 0.019,
+        "us-east5": 0.019,
+        "us-west1": 0.019
+      },
+      "m5": {
+        "asia-northeast1": 0.019,
+        "asia-northeast3": 0.019,
+        "asia-south1": 0.017,
+        "asia-southeast1": 0.019,
+        "australia-southeast1": 0.019,
+        "europe-west1": 0.017,
+        "europe-west3": 0.018,
+        "us-east4": 0.016,
+        "us-east5": 0.016,
+        "us-west1": 0.016
+      }
+    }
+  },
+  "gcp.redis.standard": {
+    "unit": "GiB-hour",
+    "source": "https://cloud.google.com/memorystore/docs/redis/pricing",
+    "note": "Standard Tier (read replicas disabled) per provisioned GiB-hour, by capacity tier. Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "5AF5-2C11-D467",
+      "filters": {
+        "description": "(?i)Redis Capacity Standard {row}( .*)?"
+      }
+    },
+    "rows": {
+      "m1": {
+        "asia-northeast1": 0.114,
+        "asia-northeast3": 0.114,
+        "asia-south1": 0.11,
+        "asia-southeast1": 0.114,
+        "australia-southeast1": 0.114,
+        "europe-west1": 0.086,
+        "europe-west3": 0.09,
+        "us-east4": 0.064,
+        "us-east5": 0.064,
+        "us-west1": 0.064
+      },
+      "m2": {
+        "asia-northeast1": 0.075,
+        "asia-northeast3": 0.075,
+        "asia-south1": 0.07,
+        "asia-southeast1": 0.075,
+        "australia-southeast1": 0.075,
+        "europe-west1": 0.061,
+        "europe-west3": 0.064,
+        "us-east4": 0.054,
+        "us-east5": 0.054,
+        "us-west1": 0.054
+      },
+      "m3": {
+        "asia-northeast1": 0.063,
+        "asia-northeast3": 0.063,
+        "asia-south1": 0.058,
+        "asia-southeast1": 0.063,
+        "australia-southeast1": 0.063,
+        "europe-west1": 0.05,
+        "europe-west3": 0.052,
+        "us-east4": 0.046,
+        "us-east5": 0.046,
+        "us-west1": 0.046
+      },
+      "m4": {
+        "asia-northeast1": 0.047,
+        "asia-northeast3": 0.047,
+        "asia-south1": 0.043,
+        "asia-southeast1": 0.047,
+        "australia-southeast1": 0.047,
+        "europe-west1": 0.043,
+        "europe-west3": 0.045,
+        "us-east4": 0.035,
+        "us-east5": 0.035,
+        "us-west1": 0.035
+      },
+      "m5": {
+        "asia-northeast1": 0.037,
+        "asia-northeast3": 0.037,
+        "asia-south1": 0.034,
+        "asia-southeast1": 0.037,
+        "australia-southeast1": 0.037,
+        "europe-west1": 0.035,
+        "europe-west3": 0.036,
+        "us-east4": 0.03,
+        "us-east5": 0.03,
+        "us-west1": 0.03
+      }
+    }
+  }
+}

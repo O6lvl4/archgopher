@@ -1,0 +1,201 @@
+{
+  "gcp.redis_cluster.aof": {
+    "unit": "GB-hour",
+    "source": "https://cloud.google.com/memorystore/docs/cluster/pricing",
+    "note": "AOF persistence per GB-hour of the instance's total size. Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "5AF5-2C11-D467",
+      "filters": {
+        "description": "Memorystore for Redis Cluster: AOF Storage.*"
+      }
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.00070367,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.00070367,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.00056986,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.000676,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.00068493,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.00060334,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.00064658,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.00054795,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.00054795,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.00054795,
+        "verified": false
+      }
+    }
+  },
+  "gcp.redis_cluster.backup": {
+    "unit": "GB-hour",
+    "source": "https://cloud.google.com/memorystore/docs/cluster/pricing",
+    "note": "Backup storage per GB-hour, at least 24 hours for each backup. Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "5AF5-2C11-D467",
+      "filters": {
+        "description": "Memorystore for Redis Cluster: Backups.*"
+      }
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.00012778,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.00012778,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.00012778,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.00011111,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.00012778,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.00011111,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.00012778,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.00012778,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.00011111,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.00011111,
+        "verified": false
+      }
+    }
+  },
+  "gcp.redis_cluster.node": {
+    "unit": "node-hour",
+    "source": "https://cloud.google.com/memorystore/docs/cluster/pricing",
+    "note": "Price per node (shard primaries and replicas) per hour, by node type. Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
+    "rows": {
+      "REDIS_HIGHCPU_MEDIUM": {
+        "asia-northeast1": 0.638208,
+        "asia-northeast3": 0.638208,
+        "asia-south1": 0.518544,
+        "asia-southeast1": 0.613278,
+        "australia-southeast1": 0.62325,
+        "europe-west1": 0.54846,
+        "europe-west3": 0.588348,
+        "us-east4": 0.4986,
+        "us-east5": 0.4986,
+        "us-west1": 0.4986
+      },
+      "REDIS_HIGHMEM_2XLARGE": {
+        "asia-northeast1": 2.083072,
+        "asia-northeast3": 2.083072,
+        "asia-south1": 1.692496,
+        "asia-southeast1": 2.001702,
+        "australia-southeast1": 2.03425,
+        "europe-west1": 1.79014,
+        "europe-west3": 1.920332,
+        "us-east4": 1.6274,
+        "us-east5": 1.6274,
+        "us-west1": 1.6274
+      },
+      "REDIS_HIGHMEM_MEDIUM": {
+        "asia-northeast1": 0.247,
+        "asia-northeast3": 0.247,
+        "asia-south1": 0.2,
+        "asia-southeast1": 0.2372,
+        "australia-southeast1": 0.2404,
+        "europe-west1": 0.2117,
+        "europe-west3": 0.2269,
+        "us-east4": 0.1923,
+        "us-east5": 0.1923,
+        "us-west1": 0.1923
+      },
+      "REDIS_HIGHMEM_XLARGE": {
+        "asia-northeast1": 1.102,
+        "asia-northeast3": 1.102,
+        "asia-south1": 0.8924,
+        "asia-southeast1": 1.0586,
+        "australia-southeast1": 1.0726,
+        "europe-west1": 0.9449,
+        "europe-west3": 1.0126,
+        "us-east4": 0.8581,
+        "us-east5": 0.8581,
+        "us-west1": 0.8581
+      },
+      "REDIS_SHARED_CORE_NANO": {
+        "asia-northeast1": 0.0408,
+        "asia-northeast3": 0.0408,
+        "asia-south1": 0.0331,
+        "asia-southeast1": 0.0392,
+        "australia-southeast1": 0.0398,
+        "europe-west1": 0.035,
+        "europe-west3": 0.0375,
+        "us-east4": 0.0318,
+        "us-east5": 0.0318,
+        "us-west1": 0.0318
+      },
+      "REDIS_STANDARD_LARGE": {
+        "asia-northeast1": 0.729344,
+        "asia-northeast3": 0.729344,
+        "asia-south1": 0.592592,
+        "asia-southeast1": 0.700854,
+        "australia-southeast1": 0.71225,
+        "europe-west1": 0.62678,
+        "europe-west3": 0.672364,
+        "us-east4": 0.5698,
+        "us-east5": 0.5698,
+        "us-west1": 0.5698
+      },
+      "REDIS_STANDARD_SMALL": {
+        "asia-northeast1": 0.183,
+        "asia-northeast3": 0.183,
+        "asia-south1": 0.1482,
+        "asia-southeast1": 0.1758,
+        "australia-southeast1": 0.1781,
+        "europe-west1": 0.1569,
+        "europe-west3": 0.1682,
+        "us-east4": 0.1425,
+        "us-east5": 0.1425,
+        "us-west1": 0.1425
+      }
+    }
+  }
+}

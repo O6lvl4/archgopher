@@ -1,0 +1,17 @@
+{
+  "gcp.bigquery.streaming_throughput": {
+    "unit": "MB/second",
+    "source": "https://cloud.google.com/bigquery/quotas",
+    "note": "Streaming inserts (Storage Write API over REST) per project: 1 GB a second in the US and EU multi-regions, 300 MB a second in every other location",
+    "rows": {
+      "multi": {
+        "*": 1000
+      },
+      "region": {
+        "*": 300
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

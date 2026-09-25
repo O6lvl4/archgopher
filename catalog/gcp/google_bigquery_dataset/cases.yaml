@@ -1,0 +1,24 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: US multi-region (the Terraform default), 100 GiB a query
+  region: asia-northeast1
+  assumptions:
+    scannedGb: 100
+  demand:
+    query:
+      monthly: 1000
+      peak: 1
+  costs:
+    Queries: 610.3515625
+- name: Tokyo dataset, 10 GiB a query
+  region: asia-northeast1
+  attributes:
+    location: asia-northeast1
+  assumptions:
+    scannedGb: 10
+  demand:
+    query:
+      monthly: 3000
+      peak: 1
+  costs:
+    Queries: 219.7265625

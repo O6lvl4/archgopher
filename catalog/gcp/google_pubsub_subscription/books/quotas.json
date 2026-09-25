@@ -1,0 +1,218 @@
+{
+  "gcp.pubsub.export_throughput": {
+    "unit": "kB/minute",
+    "source": "https://cloud.google.com/pubsub/quotas",
+    "note": "BigQuery and Cloud Storage subscriptions throughput per project per region: large regions 240,000,000, medium 48,000,000, all others 12,000,000 kB a minute",
+    "values": {
+      "*": {
+        "value": 12000000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-east1": {
+        "value": 48000000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-northeast1": {
+        "value": 48000000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-southeast1": {
+        "value": 48000000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west1": {
+        "value": 240000000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west2": {
+        "value": 48000000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west3": {
+        "value": 48000000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west4": {
+        "value": 240000000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-central1": {
+        "value": 240000000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east1": {
+        "value": 240000000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east4": {
+        "value": 240000000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west1": {
+        "value": 240000000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west2": {
+        "value": 240000000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "gcp.pubsub.pull_throughput": {
+    "unit": "kB/minute",
+    "source": "https://cloud.google.com/pubsub/quotas",
+    "note": "StreamingPull subscriber throughput per project per region: large regions 240,000,000, medium 48,000,000, all others 24,000,000 kB a minute",
+    "values": {
+      "*": {
+        "value": 24000000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-east1": {
+        "value": 48000000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-northeast1": {
+        "value": 48000000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-southeast1": {
+        "value": 48000000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west1": {
+        "value": 240000000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west2": {
+        "value": 48000000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west3": {
+        "value": 48000000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west4": {
+        "value": 240000000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-central1": {
+        "value": 240000000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east1": {
+        "value": 240000000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east4": {
+        "value": 240000000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west1": {
+        "value": 240000000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west2": {
+        "value": 240000000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "gcp.pubsub.push_throughput": {
+    "unit": "kB/minute",
+    "source": "https://cloud.google.com/pubsub/quotas",
+    "note": "Push subscriptions throughput per project per region: large regions 26,400,000, medium 8,400,000, all others 2,400,000 kB a minute",
+    "values": {
+      "*": {
+        "value": 2400000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-east1": {
+        "value": 8400000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-northeast1": {
+        "value": 8400000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "asia-southeast1": {
+        "value": 8400000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west1": {
+        "value": 26400000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west2": {
+        "value": 8400000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west3": {
+        "value": 8400000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-west4": {
+        "value": 26400000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-central1": {
+        "value": 26400000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east1": {
+        "value": 26400000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east4": {
+        "value": 26400000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west1": {
+        "value": 26400000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west2": {
+        "value": 26400000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+type: google_bigquery_table
+label: BigQuery table
+category: Analytics
+icon: bigquery
+description: "Active and long-term logical storage, writes as streaming inserts (at least 1 KB a row) or through the Storage Write API (batch loads are free), on-demand queries per TiB scanned and Storage Read API reads per TiB. Headroom is the project's streaming throughput in the location."
+kinds: [write, query, read]
+sla: gcp.bigquery
+assumptions:
+  - { key: location, label: Dataset location, type: string, optional: true, hint: "US or EU for a multi-region; unset reads the declaration's region" }
+  - { key: activeGb, label: Active storage, type: number, unit: GiB, hint: "Data modified in the last 90 days" }
+  - { key: longTermGb, label: Long-term storage, type: number, unit: GiB, default: 0, hint: "Tables or partitions unmodified for 90 days" }
+  - { key: writeApi, label: Writes arrive by, type: choice, options: [streaming inserts, Storage Write API, batch loads], default: streaming inserts, hint: "Streaming inserts are insertAll and the Storage Write API over REST; batch loads are free" }
+  - { key: rowKb, label: Row size, type: number, unit: KB, default: 1 }
+  - { key: scannedGb, label: Scanned per query, type: number, unit: GiB, default: 1, hint: "At least 10 MB is billed" }
+  - { key: readGb, label: Read per Storage Read API session, type: number, unit: GiB, default: 1 }
+let:
+  - loc: 'lower(location ?? region)'
+  - multi: 'loc == "us" || loc == "eu"'
+  - book: 'multi ? "gcp.bigquery.multi." : "gcp.bigquery."'
+  - suffix: 'multi ? "." + loc : ""'
+  - writtenKb: 'demand.write.monthly * max(rowKb, 1)'
+readings:
+  - fail: { when: '!multi && loc != region', message: "the table is in {loc} but the prices are read for {region}", continue: true }
+  - storage: { name: Active storage, gb: activeGb, price: '{book}active_storage{suffix}' }
+  - storage: { when: longTermGb > 0, name: Long-term storage, gb: longTermGb, price: '{book}long_term_storage{suffix}' }
+  - cost: { when: 'writeApi == "streaming inserts"', name: Streaming inserts, quantity: writtenKb / 1024, unit: MiB, price: '{book}streaming{suffix}' }
+  - cost: { when: 'writeApi == "Storage Write API"', name: Storage Write API, quantity: writtenKb / 1048576, unit: GiB, price: '{book}write_api{suffix}' }
+  - cost: { name: Queries, quantity: 'demand.query.monthly * max(scannedGb, 10.0 / 1024) / 1024', unit: TiB, price: '{book}query{suffix}' }
+  - cost: { when: demand.read.monthly > 0, name: Storage Read API, quantity: demand.read.monthly * readGb / 1024, unit: TiB, price: '{book}read_api{suffix}' }
+  - limit: { when: 'writeApi != "batch loads"', name: Streaming throughput, demand: 'demand.write.peak * max(rowKb, 1) / 1000', unit: MB/second, quota: 'gcp.bigquery.streaming_throughput.{multi ? "multi" : "region"}' }
+terraform:
+  passive: true
+iam:
+  write: ["roles/bigquery.dataEditor", "roles/bigquery.dataOwner"]
+  query: ["roles/bigquery.dataViewer"]
+  read: ["roles/bigquery.readSessionUser"]

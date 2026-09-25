@@ -2,28 +2,25 @@
 # Expected values are computed by hand from the unit prices, not taken from the engine.
 - name: Tokyo, one version with automatic replication
   region: asia-northeast1
-  assumptions:
-    versions: 1
   demand:
     read:
       monthly: 1.0e+06
       peak: 10
   costs:
-    Versions: 0.06000016
+    Version: 0.06000016
     Access operations: 3
   limits:
     Access requests: 600
-- name: Northern Virginia, three versions in two replica locations
+- name: Northern Virginia, one version in three replica locations
   region: us-east4
   assumptions:
-    versions: 3
-    locations: 2
+    locations: 3
   demand:
     read:
       monthly: 5.0e+06
       peak: 2000
   costs:
-    Versions: 0.36000096
+    Version: 0.18000048
     Access operations: 15
   limits:
     Access requests: 120000
