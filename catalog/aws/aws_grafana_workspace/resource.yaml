@@ -1,0 +1,18 @@
+type: aws_grafana_workspace
+label: Managed Grafana workspace
+category: Monitoring
+icon: managed-grafana
+description: "Licenses per user active in the month: editors and administrators, viewers, and with an Enterprise license association the Enterprise plugins license for every active user. People sign in through IAM Identity Center or SAML, so nothing in Terraform calls a workspace and its cost does not grow with load."
+kinds: [view]
+sla: aws.grafana
+assumptions:
+  - { key: editors, label: Editors and administrators, type: number, default: 1, hint: "Users with the Editor or Admin role active in the month" }
+  - { key: viewers, label: Viewers, type: number, default: 0, hint: "Users with the Viewer role active in the month" }
+  - { key: enterprisePlugins, label: Enterprise plugins, type: boolean, default: false, hint: "An aws_grafana_license_association with license_type ENTERPRISE" }
+readings:
+  - cost: { name: Editor and administrator licenses, quantity: editors, unit: user-month, price: aws.grafana.editor }
+  - cost: { name: Viewer licenses, quantity: viewers, unit: user-month, price: aws.grafana.viewer }
+  - cost: { when: enterprisePlugins, name: Enterprise plugins licenses, quantity: editors + viewers, unit: user-month, price: aws.grafana.enterprise_plugins }
+terraform:
+  # A workspace names its role and data sources; it reads them through its role, not through references.
+  passive: true

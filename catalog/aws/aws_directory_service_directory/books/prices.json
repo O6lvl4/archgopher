@@ -1,0 +1,143 @@
+{
+  "aws.directoryservice.directory": {
+    "unit": "directory-hour",
+    "source": "https://aws.amazon.com/directoryservice/other-directories-pricing/",
+    "note": "Simple AD and AD Connector per directory-hour, two domain controllers included (row: usage type: Small-SimpleAD, Large-SimpleAD, Small-Directory for a small AD Connector, Large-ADConnector)",
+    "sync": {
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?{row}-Usage"
+      },
+      "service": "AWSDirectoryService"
+    },
+    "rows": {
+      "Large-ADConnector": {
+        "ap-northeast-1": 0.24,
+        "ap-northeast-2": 0.1845,
+        "ap-south-1": 0.1575,
+        "ap-southeast-1": 0.24,
+        "ap-southeast-2": 0.24,
+        "eu-central-1": 0.18,
+        "eu-west-1": 0.17,
+        "us-east-1": 0.15,
+        "us-east-2": 0.15,
+        "us-west-2": 0.15
+      },
+      "Large-SimpleAD": {
+        "ap-northeast-1": 0.24,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": 0.24,
+        "ap-southeast-2": 0.24,
+        "eu-central-1": null,
+        "eu-west-1": 0.17,
+        "us-east-1": 0.15,
+        "us-east-2": null,
+        "us-west-2": 0.15
+      },
+      "Small-Directory": {
+        "ap-northeast-1": 0.08,
+        "ap-northeast-2": 0.0626,
+        "ap-south-1": 0.0539,
+        "ap-southeast-1": 0.08,
+        "ap-southeast-2": 0.08,
+        "eu-central-1": 0.06,
+        "eu-west-1": 0.055,
+        "us-east-1": 0.05,
+        "us-east-2": 0.05,
+        "us-west-2": 0.05
+      },
+      "Small-SimpleAD": {
+        "ap-northeast-1": 0.08,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": 0.08,
+        "ap-southeast-2": 0.08,
+        "eu-central-1": null,
+        "eu-west-1": 0.055,
+        "us-east-1": 0.05,
+        "us-east-2": null,
+        "us-west-2": 0.05
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "aws.directoryservice.domain_controller": {
+    "unit": "controller-hour",
+    "source": "https://aws.amazon.com/directoryservice/pricing/",
+    "note": "AWS Managed Microsoft AD per domain controller-hour (row: Std-MicrosoftAD-DC for Standard, MicrosoftAD-DC for Enterprise)",
+    "sync": {
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?{row}-Usage"
+      },
+      "service": "AWSDirectoryService"
+    },
+    "rows": {
+      "MicrosoftAD-DC": {
+        "ap-northeast-1": 0.2225,
+        "ap-northeast-2": 0.209,
+        "ap-south-1": 0.224,
+        "ap-southeast-1": 0.248,
+        "ap-southeast-2": 0.24,
+        "eu-central-1": 0.222,
+        "eu-west-1": 0.2,
+        "us-east-1": 0.2,
+        "us-east-2": 0.2,
+        "us-west-2": 0.2
+      },
+      "Std-MicrosoftAD-DC": {
+        "ap-northeast-1": 0.073,
+        "ap-northeast-2": 0.07,
+        "ap-south-1": 0.07,
+        "ap-southeast-1": 0.071,
+        "ap-southeast-2": 0.071,
+        "eu-central-1": 0.067,
+        "eu-west-1": 0.063,
+        "us-east-1": 0.06,
+        "us-east-2": 0.06,
+        "us-west-2": 0.06
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "aws.directoryservice.sharing": {
+    "unit": "account-hour",
+    "source": "https://aws.amazon.com/directoryservice/pricing/",
+    "note": "AWS Managed Microsoft AD, per account or VPC the directory is shared with, per hour (row: Std-SharedMsftAD for Standard, SharedMsftAD for Enterprise)",
+    "sync": {
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?{row}-Usage"
+      },
+      "service": "AWSDirectoryService"
+    },
+    "rows": {
+      "SharedMsftAD": {
+        "ap-northeast-1": 0.06675,
+        "ap-northeast-2": 0.0627,
+        "ap-south-1": 0.0672,
+        "ap-southeast-1": 0.0744,
+        "ap-southeast-2": 0.072,
+        "eu-central-1": 0.0666,
+        "eu-west-1": 0.06,
+        "us-east-1": 0.06,
+        "us-east-2": 0.06,
+        "us-west-2": 0.06
+      },
+      "Std-SharedMsftAD": {
+        "ap-northeast-1": 0.0219,
+        "ap-northeast-2": 0.021,
+        "ap-south-1": 0.021,
+        "ap-southeast-1": 0.0213,
+        "ap-southeast-2": 0.0213,
+        "eu-central-1": 0.0201,
+        "eu-west-1": 0.0189,
+        "us-east-1": 0.018,
+        "us-east-2": 0.018,
+        "us-west-2": 0.018
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "aws.cloudhsm.hsm1.hour": {
+    "unit": "hour",
+    "source": "https://aws.amazon.com/cloudhsm/pricing/",
+    "note": "hsm1.medium HSM, per hour it runs",
+    "sync": {
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-CloudHSMv2Usage"
+      },
+      "service": "CloudHSM"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 1.81,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 1.54,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 2.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 1.86,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 1.99,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 1.92,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 1.47,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 1.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 1.45,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 1.45,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.cloudhsm.hsm2m.hour": {
+    "unit": "hour",
+    "source": "https://aws.amazon.com/cloudhsm/pricing/",
+    "note": "hsm2m.medium HSM, per hour it runs",
+    "sync": {
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-CloudHSMv2Usage-hsm2m\\.m"
+      },
+      "service": "CloudHSM"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 1.81,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 1.54,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 2.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 1.86,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 1.99,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 1.92,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 1.47,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 1.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 1.45,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 1.45,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+type: aws_cloudhsm_v2_hsm
+label: CloudHSM HSM
+category: Security
+icon: cloudhsm
+description: "One HSM in a CloudHSM cluster, billed per hour it runs; the cluster itself is free. Applications reach it through the CloudHSM client, not IAM, so draw their edges by hand. Headroom is the published RSA 2048 signing throughput per HSM; add HSMs to the cluster to raise it."
+kinds: [crypt]
+sla: aws.cloudhsm
+assumptions:
+  - { key: hsmType, label: HSM type, type: choice, options: [hsm1.medium, hsm2m.medium], default: hsm2m.medium, hint: "hsm_type of the aws_cloudhsm_v2_cluster this HSM belongs to" }
+  - { key: hours, label: Hours a month, type: number, unit: hour, default: 730 }
+let:
+  - family: 'hsmType == "hsm1.medium" ? "hsm1" : "hsm2m"'
+readings:
+  - cost: { name: "HSM hours ({hsmType})", quantity: hours, unit: hour, price: "aws.cloudhsm.{family}.hour" }
+  - rate: { name: RSA 2048 sign rate, unit: operations/second, quota: aws.cloudhsm.rsa2048_sign_ops, peak: total.peak }
+terraform:
+  # An HSM names its cluster and subnet; it calls nothing.
+  passive: true

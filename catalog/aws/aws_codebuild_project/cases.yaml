@@ -1,0 +1,62 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Linux small, 4.5-minute builds billed as 5 minutes
+  region: ap-northeast-1
+  assumptions:
+    buildMinutes: 4.5
+  demand:
+    build:
+        monthly: 600
+        peak: 0.001
+  costs:
+    Build minutes (Linux:g1.small): 15  # 600 builds × 5 billed min × 0.005
+  limits:
+    Build time against timeout: 4.5
+    Concurrent builds: 0.27  # 0.001 builds/s × 270 s
+- name: Lambda compute on arm, billed by the second
+  region: us-east-1
+  attributes:
+    compute_type: BUILD_LAMBDA_2GB
+    environment_type: ARM_LAMBDA_CONTAINER
+  assumptions:
+    buildMinutes: 2
+  demand:
+    build:
+        monthly: 1000
+        peak: 0.01
+  costs:
+    Build seconds (Lambda arm.2GB): 2.4  # 1000 × 120 s × 0.00002
+  limits:
+    Build time against timeout: 2
+    Concurrent builds: 1.2
+- name: ARM large with a medium remote Docker server
+  region: us-east-1
+  attributes:
+    build_timeout: 30
+    compute_type: BUILD_GENERAL1_LARGE
+    docker_server_compute_type: BUILD_GENERAL1_MEDIUM
+    environment_type: ARM_CONTAINER
+  assumptions:
+    buildMinutes: 10
+    concurrentBuilds: 5
+  demand:
+    build:
+        monthly: 100
+        peak: 0.0005
+  costs:
+    Build minutes (ARM:g1.large): 15  # 100 × 10 min × 0.015
+    Docker server seconds (ARM:g1.medium): 3.6  # 100 × 600 s × 0.00006
+  limits:
+    Build time against timeout: 10
+    Concurrent builds: 0.3
+- name: custom instance types run on fleets
+  region: us-east-1
+  attributes:
+    compute_type: CUSTOM_INSTANCE_TYPE
+  assumptions:
+    buildMinutes: 5
+  demand:
+    build:
+        monthly: 10
+        peak: 0.001
+  error: 'only on-demand general compute is priced: CUSTOM_INSTANCE_TYPE runs on a reserved-capacity fleet or custom instance type'

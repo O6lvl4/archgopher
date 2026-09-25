@@ -1,0 +1,13 @@
+{
+  "aws.grafana": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/grafana/sla/",
+    "values": {
+      "*": {
+        "value": 0.999,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

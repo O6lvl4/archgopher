@@ -1,0 +1,44 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: AWS resource types are free
+  region: ap-northeast-1
+  attributes:
+    template_body: |
+        Resources:
+          Bucket:
+            Type: AWS::S3::Bucket
+            Properties:
+              BucketName: !Sub '${AWS::StackName}-data'
+  demand:
+    deploy:
+        monthly: 30
+        peak: 0.001
+  costs:
+    Handler operations: 0
+    Handler time beyond 30 s: 0
+- name: registry types need a count
+  region: us-east-1
+  attributes:
+    template_body: |
+        Resources:
+          Widget:
+            Type: Acme::Widget::Thing
+          Bucket:
+            Type: AWS::S3::Bucket
+  demand:
+    deploy:
+        monthly: 10
+        peak: 0.001
+  error: 'the template names third-party or private registry types: set thirdPartyResources, how many resources use them'
+- name: four registry resources with 45-second handlers
+  region: ap-northeast-1
+  assumptions:
+    handlerSeconds: 45
+    thirdPartyResources: 4
+  demand:
+    deploy:
+        monthly: 50
+        peak: 0.001
+  costs:
+    Handler operations: 0.18  # 50 × 4 × 0.0009
+    Handler time beyond 30 s: 0.24  # 200 × 15 s × 0.00008

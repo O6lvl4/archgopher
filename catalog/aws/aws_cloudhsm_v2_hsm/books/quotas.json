@@ -1,0 +1,14 @@
+{
+  "aws.cloudhsm.rsa2048_sign_ops": {
+    "unit": "operations/second",
+    "source": "https://docs.aws.amazon.com/cloudhsm/latest/userguide/performance.html",
+    "note": "Approximate RSA 2048-bit signatures per second per HSM, half of the published two-HSM cluster figure (2,000 ops/sec for hsm1.medium and hsm2m.medium). Published guidance, not a hard quota; EC P256 is lower on hsm1.medium",
+    "values": {
+      "*": {
+        "value": 1000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

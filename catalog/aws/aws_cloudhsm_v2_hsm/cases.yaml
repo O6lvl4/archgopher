@@ -1,0 +1,25 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: hsm2m.medium all month
+  region: ap-northeast-1
+  demand:
+    crypt:
+        monthly: 1e+06
+        peak: 200
+  costs:
+    HSM hours (hsm2m.medium): 1321.3  # 730 × 1.81
+  limits:
+    RSA 2048 sign rate: 200
+- name: hsm1.medium for half a year's hours
+  region: us-east-1
+  assumptions:
+    hours: 365
+    hsmType: hsm1.medium
+  demand:
+    crypt:
+        monthly: 10000
+        peak: 50
+  costs:
+    HSM hours (hsm1.medium): 584  # 365 × 1.6
+  limits:
+    RSA 2048 sign rate: 50

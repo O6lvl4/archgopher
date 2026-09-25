@@ -1,0 +1,191 @@
+{
+  "aws.grafana.editor": {
+    "unit": "user-month",
+    "source": "https://aws.amazon.com/grafana/pricing/",
+    "note": "Editor or administrator user active in the workspace in the month",
+    "sync": {
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-Grafana:EditorUser"
+      },
+      "service": "AmazonGrafana"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 9,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 9,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 9,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 9,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 9,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 9,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 9,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 9,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 9,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.grafana.enterprise_plugins": {
+    "unit": "user-month",
+    "source": "https://aws.amazon.com/grafana/pricing/",
+    "note": "Enterprise plugins license per active user, editors and viewers alike",
+    "sync": {
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-Grafana:EnterprisePluginsUser"
+      },
+      "service": "AmazonGrafana"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 45,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 45,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 45,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 45,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 45,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 45,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 45,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 45,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 45,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.grafana.viewer": {
+    "unit": "user-month",
+    "source": "https://aws.amazon.com/grafana/pricing/",
+    "note": "Viewer user active in the workspace in the month",
+    "sync": {
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-Grafana:ViewerUser"
+      },
+      "service": "AmazonGrafana"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}
