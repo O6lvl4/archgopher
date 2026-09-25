@@ -1,0 +1,38 @@
+{
+  "aws.ebs.direct_api.get_rps": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/general/latest/gr/ebs-service.html",
+    "note": "GetSnapshotBlock requests per snapshot; not adjustable (the account allows 1,000 to 5,000 a second by region)",
+    "values": {
+      "*": {
+        "value": 1000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.ebs.direct_api.list_rps": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/general/latest/gr/ebs-service.html",
+    "note": "ListSnapshotBlocks and ListChangedBlocks requests per account, each; not adjustable",
+    "values": {
+      "*": {
+        "value": 50,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.ebs.direct_api.put_rps": {
+    "unit": "requests/second",
+    "source": "https://docs.aws.amazon.com/general/latest/gr/ebs-service.html",
+    "note": "PutSnapshotBlock requests per snapshot; not adjustable (the account allows 1,000 to 5,000 a second by region)",
+    "values": {
+      "*": {
+        "value": 1000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: three m5.large from a launch template, headroom at max size (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    min_size: 2
+    max_size: 6
+    desired_capacity: 3
+  assumptions:
+    instanceType: m5.large
+    rootVolumeType: gp3
+    rootVolumeGb: 20
+    requestsPerInstance: 100
+  demand:
+    request:
+      monthly: 1e+07
+      peak: 250
+  # 3 x 730 h x 0.124; 3 x 20 GB x 0.096
+  costs:
+    Instance (linux, m5.large): 271.56
+    Root volumes (gp3): 5.76
+  limits:
+    Requests per second: 250
+- name: mixed instances, 2 on-demand base and 25% above it (us-east-1)
+  region: us-east-1
+  attributes:
+    min_size: 2
+    max_size: 20
+    desired_capacity: 10
+    override_instance_type: m5.large
+    on_demand_base_capacity: 2
+    on_demand_percentage: 25
+  assumptions:
+    spotShare: 0.4
+    detailedMonitoring: true
+  demand:
+    request:
+      monthly: 0
+      peak: 0
+  # on-demand 2 + 8 x 25% = 4, spot 6; 4 x 730 x 0.096; 6 x 730 x 0.4 x 0.096;
+  # 10 x 7 metrics x 0.30; 10 x 8 GB x 0.10
+  costs:
+    Instance (linux, m5.large): 280.32
+    Spot instance (linux, m5.large): 168.192
+    Detailed monitoring: 21
+    Root volumes (gp2): 8
+- name: no instance type (us-east-1)
+  region: us-east-1
+  attributes:
+    min_size: 1
+    max_size: 2
+  demand:
+    request:
+      monthly: 0
+      peak: 0
+  error: "no instance type: set instanceType"

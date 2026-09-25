@@ -1,0 +1,38 @@
+type: aws_ebs_volume
+label: EBS volume
+category: Storage
+icon: ebs
+description: "Provisioned GB-months by volume type, provisioned IOPS (io1, io2 in its three tiers, gp3 above 3,000) and gp3 throughput above 125 MiB/s, and the I/O requests of magnetic volumes. Load is I/O operations: headroom is the peak against the volume's IOPS."
+kinds: [io]
+sla: aws.ebs.volume
+attributes:
+  - { key: type, label: Volume type, type: choice, options: [standard, gp2, gp3, io1, io2, sc1, st1], default: gp2 }
+  - { key: size, label: Size, type: number, unit: GiB, optional: true, hint: "Empty when the volume takes the size of snapshot_id" }
+  - { key: iops, label: Provisioned IOPS, type: number, optional: true, hint: "io1 and io2 need it; gp3 defaults to 3,000" }
+  - { key: throughput, label: Throughput, type: number, unit: MiB/s, optional: true, hint: "gp3 only; defaults to 125" }
+assumptions:
+  - { key: snapshotSizeGb, label: Size from the snapshot, type: number, unit: GiB, optional: true, hint: "Only when size is empty: the size of the snapshot the volume is created from" }
+let:
+  - volType: type
+  - gb: 'size ?? snapshotSizeGb ?? 0.0'
+  - provisioned: 'iops ?? 0.0'
+  - thr: 'throughput ?? 0.0'
+  - baseline: 'volType == "gp2" ? min(max(3 * gb, 100), 16000) : volType == "gp3" ? max(provisioned, 3000) : volType in ["io1", "io2"] ? provisioned : volType == "st1" ? 500.0 : volType == "sc1" ? 250.0 : 200.0'
+readings:
+  - fail: { when: 'size == nil && snapshotSizeGb == nil', message: "size is empty: set snapshotSizeGb, the size of the snapshot the volume is created from" }
+  - storage: { name: "Storage ({volType})", gb: gb, price: "aws.ebs.storage.{volType}" }
+  - fail: { when: 'volType in ["io1", "io2"] && provisioned <= 0', message: "{volType} needs provisioned iops", continue: true }
+  - cost: { when: 'volType == "io1"', name: "Provisioned IOPS (io1)", quantity: provisioned, unit: IOPS-month, price: aws.ebs.io1.iops }
+  - cost: { when: 'volType == "io2"', name: "Provisioned IOPS (io2, up to 32,000)", quantity: 'min(provisioned, 32000)', unit: IOPS-month, price: aws.ebs.io2.iops }
+  - cost: { when: 'volType == "io2" && provisioned > 32000', name: "Provisioned IOPS (io2, 32,001 to 64,000)", quantity: 'min(provisioned, 64000) - 32000', unit: IOPS-month, price: aws.ebs.io2.iops_tier2 }
+  - cost: { when: 'volType == "io2" && provisioned > 64000', name: "Provisioned IOPS (io2, over 64,000)", quantity: 'provisioned - 64000', unit: IOPS-month, price: aws.ebs.io2.iops_tier3 }
+  - cost: { when: 'volType == "gp3" && provisioned > 3000', name: "Provisioned IOPS (gp3, over 3,000)", quantity: 'provisioned - 3000', unit: IOPS-month, price: aws.ebs.gp3.iops }
+  - cost: { when: 'volType == "gp3" && thr > 125', name: "Provisioned throughput (gp3, over 125 MiB/s)", quantity: 'thr - 125', unit: MiBps-month, price: aws.ebs.gp3.throughput }
+  - cost: { when: 'volType == "standard"', name: I/O requests, quantity: total.monthly, unit: I/O request, price: aws.ebs.standard.io }
+  - limit: { name: IOPS, demand: total.peak, unit: IOPS, capacity: baseline }
+terraform:
+  # A volume calls nothing; an attachment connects the instance that does I/O on it.
+  passive: true
+  links:
+    - { type: aws_volume_attachment, from: instance_id, to: [volume_id] }
+  ignoreRefs: [snapshot_id, outpost_arn]

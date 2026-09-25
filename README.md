@@ -437,6 +437,13 @@ the demand and says the capacity is unknown.
 | `aws_grafana_workspace` | Editor, viewer and Enterprise plugins licenses | - |
 | `aws_kms_external_key` | Key-months, requests | Cryptographic requests per second (varies by region) |
 | `aws_ssm_activation` | Session Manager sessions and Run Command invocations on hybrid nodes | - |
+| `aws_instance` / `aws_spot_instance_request` | Instance-hours by OS (Linux, Windows, RHEL, SUSE) and tenancy, spot as a share of on-demand, root and first data volume, EBS-optimized surcharge, detailed monitoring, unlimited CPU credits, public IPv4 | Peak against what one instance serves |
+| `aws_autoscaling_group` | Instance-hours split on-demand/spot by the mixed instances policy, root volumes, monitoring, credits, public IPv4 | Peak against max_size instances |
+| `aws_eks_node_group` | Node-hours (on-demand or spot, OS from ami_type), node disks | Peak against max_size nodes |
+| `aws_elastic_beanstalk_environment` | From its settings: instance-hours (on-demand/spot), root volumes, the Application, Network or Classic load balancer, streamed logs | Peak against MaxSize instances |
+| `aws_ec2_host` / `aws_lightsail_instance` / `aws_eip` | Dedicated Host-hours by family / bundle-hours / public IPv4 address-hours | - / peak against the instance / - |
+| `aws_ebs_volume` | GB-months by type, provisioned IOPS (io2 in three tiers) and gp3 throughput, magnetic I/O | Peak I/O against the volume's IOPS |
+| `aws_ebs_snapshot` / `aws_ebs_snapshot_copy` | Standard or archive storage, archive restores, fast snapshot restore, EBS direct API calls | Direct API rates per snapshot and account |
 | `entry` | Nothing; checks that load is set | - |
 
 Zone crossings are read by the VPC, not by a node. Set `kb` on an edge between
@@ -662,6 +669,11 @@ iam:
 | `session` | Session compute: active vCPU-hours, peak-memory GB-hours, concurrent sessions |
 | `cost` / `limit` | Any quantity × price / any demand against a quota or capacity |
 | `fail` | A problem with the declaration; stops the node unless `continue: true` |
+
+An attribute's `path` is where Terraform holds it: `root_block_device.volume_size`
+reads the first block, and `setting[name=InstanceType].value` the first block
+whose `name` is `InstanceType`. A boolean whose path holds a block, a reference
+or an id reads whether it is written.
 
 Expressions see every attribute and assumption by key (optional ones are nil
 when unset), `total.monthly` and `total.peak`, `demand.<kind>.monthly` and

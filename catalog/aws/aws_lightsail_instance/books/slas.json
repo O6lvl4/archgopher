@@ -1,0 +1,14 @@
+{
+  "aws.lightsail.instance": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/lightsail/sla-lightsail-instances-and-block-storage/",
+    "note": "Instance-level, per instance; instances across two or more Availability Zones are 99.99% at region level",
+    "values": {
+      "*": {
+        "value": 0.995,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

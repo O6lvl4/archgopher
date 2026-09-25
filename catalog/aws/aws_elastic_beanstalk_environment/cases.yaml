@@ -1,0 +1,95 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: two t3.medium behind an Application Load Balancer, logs streamed (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    instance_types: t3.medium,t3.large
+    min_size: 2
+    max_size: 4
+    load_balancer_type: application
+    stream_logs: true
+  assumptions:
+    averageLcu: 2
+    logKbPerCall: 1
+    logRetentionDays: 30
+    requestsPerInstance: 40
+  demand:
+    request:
+      monthly: 1e+06
+      peak: 30
+  # 2 x 730 h x 0.0544; 2 x 8 GB x 0.12; 730 h x 0.0243; 730 h x 2 LCU x 0.008;
+  # 1e6 x 1 KB = 0.95367431640625 GB x 0.76; kept 30/30.4 months = 0.94112597 GB-month x 0.033
+  costs:
+    Instance (linux, t3.medium): 79.424
+    Root volumes (gp2): 1.92
+    Load balancer (application): 17.739
+    Load balancer capacity units: 11.68
+    Log ingestion: 0.72479248046875
+    Log storage: 0.03105715701
+  limits:
+    Requests per second: 30
+- name: a single Windows instance with an RDS instance in the environment (us-east-1)
+  region: us-east-1
+  attributes:
+    solution_stack_name: 64bit Windows Server 2022 v2.15.0 running IIS 10.0
+    instance_type: m5.large
+    environment_type: SingleInstance
+    db_instance_class: db.t3.micro
+  demand:
+    request:
+      monthly: 0
+      peak: 0
+  # 730 h x 0.188; 8 GB x 0.10; no load balancer in a single-instance environment
+  costs:
+    Instance (windows, m5.large): 137.24
+    Root volumes (gp2): 0.8
+  error: "the environment runs an RDS DB instance (db.t3.micro)"
+- name: four default t3.micro, 70% on-demand, behind the default Classic Load Balancer (us-east-1)
+  region: us-east-1
+  attributes:
+    min_size: 4
+    enable_spot: true
+  assumptions:
+    spotShare: 0.3
+    kbPerRequest: 10
+  demand:
+    request:
+      monthly: 2e+06
+      peak: 10
+  # on-demand 4 x 70% = 2.8, spot 1.2; 2.8 x 730 x 0.0104; 1.2 x 730 x 0.3 x 0.0104; 4 x 8 GB x 0.10;
+  # 730 h x 0.025; 2e6 x 10 KB = 19.073486328125 GB x 0.008
+  costs:
+    Instance (linux, t3.micro): 21.2576
+    Spot instance (linux, t3.micro): 2.73312
+    Root volumes (gp2): 3.2
+    Load balancer (classic): 18.25
+    Load balancer data processed: 0.152587890625
+- name: an Application Load Balancer without capacity units (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    instance_type: t3.medium
+    load_balancer_type: application
+  demand:
+    request:
+      monthly: 0
+      peak: 0
+  costs:
+    Instance (linux, t3.medium): 39.712
+    Root volumes (gp2): 0.96
+    Load balancer (application): 17.739
+  error: "bills capacity units: set averageLcu"
+- name: two t3.small on a shared Application Load Balancer (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    instance_type: t3.small
+    min_size: 2
+    load_balancer_type: application
+    load_balancer_shared: true
+  demand:
+    request:
+      monthly: 0
+      peak: 0
+  # 2 x 730 h x 0.0272; 2 x 8 GB x 0.12; the shared load balancer is billed on the aws_lb
+  costs:
+    Instance (linux, t3.small): 39.712
+    Root volumes (gp2): 1.92

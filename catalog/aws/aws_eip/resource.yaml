@@ -1,0 +1,19 @@
+type: aws_eip
+label: Elastic IP address
+category: Network
+icon: ec2
+description: "The public IPv4 address, billed per hour whether it is attached or idle. An address from your own pool (BYOIP) or a customer-owned pool is not billed."
+kinds: [traffic]
+sla: aws.ec2.region
+attributes:
+  - { key: public_ipv4_pool, label: Public IPv4 pool, type: string, default: amazon, hint: "amazon, or the id of a pool you brought (BYOIP)" }
+  - { key: customer_owned_ipv4_pool, label: Customer-owned pool, type: string, optional: true, hint: "Outposts addresses" }
+let:
+  - billed: 'public_ipv4_pool == "amazon" && customer_owned_ipv4_pool == nil'
+readings:
+  - cost: { when: billed, name: Public IPv4 address, quantity: 730, unit: address-hour, price: aws.ec2.public_ipv4 }
+terraform:
+  # The address names the instance or interface it is attached to; it calls nothing, and nothing calls it.
+  passive: true
+  mentioned: true
+  ignoreRefs: [instance, network_interface, associate_with_private_ip]

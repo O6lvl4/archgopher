@@ -1,0 +1,59 @@
+type: aws_eks_node_group
+label: EKS managed node group
+category: Compute
+icon: eks
+description: 'Instance-hours of the nodes (on-demand or spot by capacity_type), each node''s disk, detailed monitoring and unlimited CPU credits. The OS follows ami_type. The cluster itself is priced on aws_eks_cluster. Headroom is the peak against max_size nodes.'
+kinds: [request]
+sla: aws.ec2.region
+attributes:
+  - { key: instance_types, label: Instance types, type: list, optional: true, hint: "The first is read; empty is t3.medium unless a launch template sets the type" }
+  - { key: capacity_type, label: Capacity type, type: choice, options: [ON_DEMAND, SPOT], default: ON_DEMAND }
+  - { key: ami_type, label: AMI type, type: string, optional: true, hint: "WINDOWS_* runs Windows; the others Linux" }
+  - { key: disk_size, label: Disk size, type: number, unit: GiB, default: 20 }
+  - { key: desired_size, label: Desired nodes, type: number, path: scaling_config.desired_size }
+  - { key: max_size, label: Max nodes, type: number, path: scaling_config.max_size }
+assumptions:
+  - { key: instanceType, label: Instance type from a launch template, type: string, optional: true, hint: "Only when instance_types is empty and the launch template sets the type" }
+  - { key: averageNodes, label: Average nodes, type: number, optional: true, hint: "Instances running on average over the month when scaling moves the count; empty uses the desired count" }
+  - { key: monthlyHours, label: Hours running a month, type: number, unit: hours, default: 730 }
+  - { key: spotShare, label: Spot price share, type: number, unit: fraction, optional: true, hint: "Spot price as a share of on-demand, from the Spot price history of the type (often 0.3 to 0.7). The Price List has no spot prices" }
+  - { key: diskVolumeType, label: Disk volume type, type: choice, options: [gp2, gp3], default: gp2, hint: "The node disk EKS creates; a launch template can choose gp3" }
+  - { key: detailedMonitoring, label: Detailed monitoring, type: boolean, default: false, hint: "Set by a launch template" }
+  - { key: surplusCreditVcpuHours, label: Surplus CPU credits per instance, type: number, unit: vCPU-hours, default: 0, hint: "Unlimited burstable instances only: vCPU-hours a month above the baseline that the earned credits do not cover" }
+  - { key: requestsPerInstance, label: Capacity per instance, type: number, unit: requests/second, optional: true, hint: "What one instance serves at the peak, from a load test; compared with the peak load" }
+let:
+  - itype: 'len(instance_types) > 0 ? instance_types[0] : string(instanceType ?? "t3.medium")'
+  - os: '(ami_type ?? "") startsWith "WINDOWS" ? "windows" : "linux"'
+  - tenancyPrefix: '""'
+  - running: 'averageNodes ?? desired_size'
+  - od: 'capacity_type == "SPOT" ? 0.0 : running'
+  - sp: 'running - od'
+  - ebsOptimized: 'false'
+  - creditMode: '""'
+  - missingType: '"no instance type"'
+  - family: 'itype == "" ? "" : split(itype, ".")[0]'
+  - unlimited: 'family in ["t2", "t3", "t3a", "t4g", "t8i"] && (creditMode != "" ? creditMode : family == "t2" ? "standard" : "unlimited") == "unlimited"'
+  - rootType: diskVolumeType
+  - rootGb: disk_size
+  - rootIops: '0.0'
+  - rootThr: '0.0'
+readings:
+  - fail: { when: 'itype == ""', message: "{missingType}" }
+  - cost: { when: 'od > 0', name: "Instance ({os}, {itype})", quantity: 'od * monthlyHours', unit: instance-hour, price: "aws.ec2.{tenancyPrefix}{os}.{itype}" }
+  - fail: { when: 'sp > 0 && spotShare == nil', message: "spot instances run here: set spotShare, the share of the on-demand price the spot price comes to", continue: true }
+  - cost: { when: 'sp > 0 && spotShare != nil', name: "Spot instance ({os}, {itype})", quantity: 'sp * monthlyHours * (spotShare ?? 0)', unit: instance-hour, price: "aws.ec2.{tenancyPrefix}{os}.{itype}" }
+  - cost: { when: 'ebsOptimized && itype in ["c1.xlarge", "c3.2xlarge", "c3.4xlarge", "c3.xlarge", "g2.2xlarge", "i2.2xlarge", "i2.4xlarge", "i2.xlarge", "m1.large", "m1.xlarge", "m2.2xlarge", "m2.4xlarge", "m3.2xlarge", "m3.xlarge", "r3.2xlarge", "r3.4xlarge", "r3.xlarge"]', name: EBS-optimized surcharge, quantity: '(od + sp) * monthlyHours', unit: instance-hour, price: "aws.ec2.ebs_optimized.{itype}" }
+  - cost: { when: detailedMonitoring, name: Detailed monitoring, quantity: '(od + sp) * 7', unit: metric-month, price: aws.ec2.monitoring.metric }
+  - cost: { when: 'unlimited && surplusCreditVcpuHours > 0', name: "CPU credits ({family})", quantity: '(od + sp) * surplusCreditVcpuHours', unit: vCPU-hour, price: 'aws.ec2.cpu_credits.{os == "windows" ? "windows" : "linux"}.{family}' }
+  - storage: { name: "Node disks ({rootType})", gb: 'running * rootGb', price: "aws.ebs.storage.{rootType}" }
+  - fail: { when: 'rootType in ["io1", "io2"] && rootIops <= 0', message: "Node disks: {rootType} needs provisioned iops", continue: true }
+  - cost: { when: 'rootType == "io1"', name: "Node disks IOPS (io1)", quantity: 'running * rootIops', unit: IOPS-month, price: aws.ebs.io1.iops }
+  - cost: { when: 'rootType == "io2"', name: "Node disks IOPS (io2, up to 32,000)", quantity: 'running * min(rootIops, 32000)', unit: IOPS-month, price: aws.ebs.io2.iops }
+  - cost: { when: 'rootType == "io2" && rootIops > 32000', name: "Node disks IOPS (io2, 32,001 to 64,000)", quantity: 'running * (min(rootIops, 64000) - 32000)', unit: IOPS-month, price: aws.ebs.io2.iops_tier2 }
+  - cost: { when: 'rootType == "io2" && rootIops > 64000', name: "Node disks IOPS (io2, over 64,000)", quantity: 'running * (rootIops - 64000)', unit: IOPS-month, price: aws.ebs.io2.iops_tier3 }
+  - cost: { when: 'rootType == "gp3" && rootIops > 3000', name: "Node disks IOPS (gp3, over 3,000)", quantity: 'running * (rootIops - 3000)', unit: IOPS-month, price: aws.ebs.gp3.iops }
+  - cost: { when: 'rootType == "gp3" && rootThr > 125', name: "Node disks throughput (gp3, over 125 MiB/s)", quantity: 'running * (rootThr - 125)', unit: MiBps-month, price: aws.ebs.gp3.throughput }
+  - limit: { when: requestsPerInstance != nil, name: Requests per second, demand: total.peak, unit: requests/second, capacity: 'max_size * (requestsPerInstance ?? 0)' }
+terraform:
+  # The cluster, role, subnets and launch template are placement; pods call what they call.
+  ignoreRefs: [cluster_name, node_role_arn, launch_template, remote_access, subnet_ids]

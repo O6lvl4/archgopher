@@ -1,0 +1,19 @@
+type: aws_ec2_host
+label: EC2 Dedicated Host
+category: Compute
+icon: ec2
+description: "Host-hours of an On-Demand Dedicated Host by instance family. Instances placed on the host (host_id) carry no instance-hours of their own."
+kinds: [host]
+attributes:
+  - { key: instance_type, label: Instance type, type: string, optional: true, hint: "The host supports this type only" }
+  - { key: instance_family, label: Instance family, type: string, optional: true, hint: "The host supports several sizes of the family" }
+let:
+  - family: 'string(instance_family ?? split(string(instance_type ?? ""), ".")[0])'
+readings:
+  - fail: { when: 'family == ""', message: "set instance_type or instance_family" }
+  - cost: { name: "Dedicated Host ({family})", quantity: 730, unit: host-hour, price: "aws.ec2.host.{family}" }
+terraform:
+  # The instances name the host; the host calls nothing.
+  passive: true
+  mentioned: true
+  ignoreRefs: [outpost_arn]

@@ -1,0 +1,86 @@
+type: aws_instance
+label: EC2 instance
+category: Compute
+icon: ec2
+description: 'Instance-hours by operating system and tenancy (on-demand, or spot as a share of on-demand), the root volume and the first EBS block device, EBS-optimized surcharges of previous-generation types, detailed monitoring, unlimited CPU credits and a public IPv4 address. Headroom is the peak against what the instance serves.'
+kinds: [request]
+sla: aws.ec2.instance
+attributes:
+  - { key: instance_type, label: Instance type, type: string, optional: true, hint: "Empty when a launch template sets it" }
+  - { key: tenancy, label: Tenancy, type: choice, options: [default, dedicated, host], default: default, path: tenancy, hint: "dedicated has its own price table; on a Dedicated Host the host is billed instead" }
+  - { key: on_host, label: On a Dedicated Host, type: boolean, default: false, path: host_id, hint: "host_id is set: the aws_ec2_host carries the instance-hours" }
+  - { key: ebs_optimized, label: EBS-optimized, type: boolean, default: false, hint: "Only previous-generation types charge for it" }
+  - { key: monitoring, label: Detailed monitoring, type: boolean, default: false, hint: "About 7 CloudWatch metrics per instance" }
+  - { key: cpu_credits, label: CPU credits, type: choice, options: [standard, unlimited], optional: true, path: credit_specification.cpu_credits, hint: "Burstable types; t2 defaults to standard, the others to unlimited" }
+  - { key: associate_public_ip_address, label: Public IPv4 address, type: boolean, default: false, hint: "Every public IPv4 address is billed per hour" }
+  - { key: market_type, label: Market, type: string, optional: true, path: instance_market_options.market_type, hint: "spot runs the instance on spot capacity" }
+  - { key: root_volume_type, label: Root volume type, type: choice, options: [standard, gp2, gp3, io1, io2, sc1, st1], optional: true, path: root_block_device.volume_type, hint: "Empty takes the AMI's type (amiVolumeType)" }
+  - { key: root_volume_size, label: Root volume size, type: number, unit: GiB, default: 8, path: root_block_device.volume_size, hint: "8 GiB when unset, the size of most AMIs" }
+  - { key: root_iops, label: Root volume IOPS, type: number, optional: true, path: root_block_device.iops }
+  - { key: root_throughput, label: Root volume throughput, type: number, unit: MiB/s, optional: true, path: root_block_device.throughput }
+  - { key: ebs_volume_type, label: Data volume type, type: choice, options: [standard, gp2, gp3, io1, io2, sc1, st1], default: gp2, path: ebs_block_device.volume_type, hint: "The first ebs_block_device; further ones are not read" }
+  - { key: ebs_volume_size, label: Data volume size, type: number, unit: GiB, optional: true, path: ebs_block_device.volume_size, hint: "Empty when there is no ebs_block_device" }
+  - { key: ebs_iops, label: Data volume IOPS, type: number, optional: true, path: ebs_block_device.iops }
+  - { key: ebs_throughput, label: Data volume throughput, type: number, unit: MiB/s, optional: true, path: ebs_block_device.throughput }
+assumptions:
+  - { key: instanceType, label: Instance type from a launch template, type: string, optional: true, hint: "Only when instance_type is empty" }
+  - { key: operatingSystem, label: Operating system, type: choice, options: [linux, windows, rhel, suse], default: linux, hint: "From the AMI. windows includes the Windows license; rhel and suse include theirs" }
+  - { key: amiVolumeType, label: AMI root volume type, type: choice, options: [standard, gp2, gp3, io1, io2, sc1, st1], default: gp2, hint: "The root volume type when root_block_device sets none; Amazon Linux 2023 AMIs use gp3" }
+  - { key: monthlyHours, label: Hours running a month, type: number, unit: hours, default: 730 }
+  - { key: spotShare, label: Spot price share, type: number, unit: fraction, optional: true, hint: "Spot price as a share of on-demand, from the Spot price history of the type (often 0.3 to 0.7). The Price List has no spot prices" }
+  - { key: surplusCreditVcpuHours, label: Surplus CPU credits per instance, type: number, unit: vCPU-hours, default: 0, hint: "Unlimited burstable instances only: vCPU-hours a month above the baseline that the earned credits do not cover" }
+  - { key: magneticIoPerMonth, label: Magnetic volume I/O per instance, type: number, unit: I/O requests, default: 0, hint: "Only for standard (magnetic) volumes, which bill each I/O request" }
+  - { key: requestsPerInstance, label: Capacity per instance, type: number, unit: requests/second, optional: true, hint: "What one instance serves at the peak, from a load test; compared with the peak load" }
+let:
+  - itype: 'string(instance_type ?? instanceType ?? "")'
+  - os: operatingSystem
+  - onHost: 'tenancy == "host" || on_host'
+  - tenancyPrefix: 'tenancy == "dedicated" ? "dedicated." : ""'
+  - spot: '(market_type ?? "") == "spot"'
+  - od: 'onHost || spot ? 0.0 : 1.0'
+  - sp: 'spot && !onHost ? 1.0 : 0.0'
+  - creditMode: 'string(cpu_credits ?? "")'
+  - ebsOptimized: ebs_optimized
+  - detailedMonitoring: monitoring
+  - missingType: '"instance_type is empty: set instanceType, the type the launch template gives"'
+  - family: 'itype == "" ? "" : split(itype, ".")[0]'
+  - unlimited: 'family in ["t2", "t3", "t3a", "t4g", "t8i"] && (creditMode != "" ? creditMode : family == "t2" ? "standard" : "unlimited") == "unlimited"'
+  - rootType: 'root_volume_type ?? amiVolumeType'
+  - rootGb: root_volume_size
+  - rootIops: 'root_iops ?? 0.0'
+  - rootThr: 'root_throughput ?? 0.0'
+  - dataType: ebs_volume_type
+  - dataGb: 'ebs_volume_size ?? 0.0'
+  - dataIops: 'ebs_iops ?? 0.0'
+  - dataThr: 'ebs_throughput ?? 0.0'
+  - hasData: ebs_volume_size != nil
+readings:
+  - fail: { when: 'itype == ""', message: "{missingType}" }
+  - cost: { when: 'od > 0', name: "Instance ({os}, {itype})", quantity: 'od * monthlyHours', unit: instance-hour, price: "aws.ec2.{tenancyPrefix}{os}.{itype}" }
+  - fail: { when: 'sp > 0 && spotShare == nil', message: "spot instances run here: set spotShare, the share of the on-demand price the spot price comes to", continue: true }
+  - cost: { when: 'sp > 0 && spotShare != nil', name: "Spot instance ({os}, {itype})", quantity: 'sp * monthlyHours * (spotShare ?? 0)', unit: instance-hour, price: "aws.ec2.{tenancyPrefix}{os}.{itype}" }
+  - cost: { when: 'ebsOptimized && itype in ["c1.xlarge", "c3.2xlarge", "c3.4xlarge", "c3.xlarge", "g2.2xlarge", "i2.2xlarge", "i2.4xlarge", "i2.xlarge", "m1.large", "m1.xlarge", "m2.2xlarge", "m2.4xlarge", "m3.2xlarge", "m3.xlarge", "r3.2xlarge", "r3.4xlarge", "r3.xlarge"]', name: EBS-optimized surcharge, quantity: '(od + sp) * monthlyHours', unit: instance-hour, price: "aws.ec2.ebs_optimized.{itype}" }
+  - cost: { when: detailedMonitoring, name: Detailed monitoring, quantity: '(od + sp) * 7', unit: metric-month, price: aws.ec2.monitoring.metric }
+  - cost: { when: 'unlimited && surplusCreditVcpuHours > 0', name: "CPU credits ({family})", quantity: '(od + sp) * surplusCreditVcpuHours', unit: vCPU-hour, price: 'aws.ec2.cpu_credits.{os == "windows" ? "windows" : "linux"}.{family}' }
+  - storage: { name: "Root volume ({rootType})", gb: 'rootGb', price: "aws.ebs.storage.{rootType}" }
+  - fail: { when: 'rootType in ["io1", "io2"] && rootIops <= 0', message: "Root volume: {rootType} needs provisioned iops", continue: true }
+  - cost: { when: 'rootType == "io1"', name: "Root volume IOPS (io1)", quantity: 'rootIops', unit: IOPS-month, price: aws.ebs.io1.iops }
+  - cost: { when: 'rootType == "io2"', name: "Root volume IOPS (io2, up to 32,000)", quantity: 'min(rootIops, 32000)', unit: IOPS-month, price: aws.ebs.io2.iops }
+  - cost: { when: 'rootType == "io2" && rootIops > 32000', name: "Root volume IOPS (io2, 32,001 to 64,000)", quantity: '(min(rootIops, 64000) - 32000)', unit: IOPS-month, price: aws.ebs.io2.iops_tier2 }
+  - cost: { when: 'rootType == "io2" && rootIops > 64000', name: "Root volume IOPS (io2, over 64,000)", quantity: '(rootIops - 64000)', unit: IOPS-month, price: aws.ebs.io2.iops_tier3 }
+  - cost: { when: 'rootType == "gp3" && rootIops > 3000', name: "Root volume IOPS (gp3, over 3,000)", quantity: '(rootIops - 3000)', unit: IOPS-month, price: aws.ebs.gp3.iops }
+  - cost: { when: 'rootType == "gp3" && rootThr > 125', name: "Root volume throughput (gp3, over 125 MiB/s)", quantity: '(rootThr - 125)', unit: MiBps-month, price: aws.ebs.gp3.throughput }
+  - storage: { when: 'hasData', name: "Data volume ({dataType})", gb: 'dataGb', price: "aws.ebs.storage.{dataType}" }
+  - fail: { when: '(hasData) && dataType in ["io1", "io2"] && dataIops <= 0', message: "Data volume: {dataType} needs provisioned iops", continue: true }
+  - cost: { when: '(hasData) && dataType == "io1"', name: "Data volume IOPS (io1)", quantity: 'dataIops', unit: IOPS-month, price: aws.ebs.io1.iops }
+  - cost: { when: '(hasData) && dataType == "io2"', name: "Data volume IOPS (io2, up to 32,000)", quantity: 'min(dataIops, 32000)', unit: IOPS-month, price: aws.ebs.io2.iops }
+  - cost: { when: '(hasData) && dataType == "io2" && dataIops > 32000', name: "Data volume IOPS (io2, 32,001 to 64,000)", quantity: '(min(dataIops, 64000) - 32000)', unit: IOPS-month, price: aws.ebs.io2.iops_tier2 }
+  - cost: { when: '(hasData) && dataType == "io2" && dataIops > 64000', name: "Data volume IOPS (io2, over 64,000)", quantity: '(dataIops - 64000)', unit: IOPS-month, price: aws.ebs.io2.iops_tier3 }
+  - cost: { when: '(hasData) && dataType == "gp3" && dataIops > 3000', name: "Data volume IOPS (gp3, over 3,000)", quantity: '(dataIops - 3000)', unit: IOPS-month, price: aws.ebs.gp3.iops }
+  - cost: { when: '(hasData) && dataType == "gp3" && dataThr > 125', name: "Data volume throughput (gp3, over 125 MiB/s)", quantity: '(dataThr - 125)', unit: MiBps-month, price: aws.ebs.gp3.throughput }
+  - cost: { when: '(rootType == "standard" || (hasData && dataType == "standard")) && magneticIoPerMonth > 0', name: Magnetic volume I/O, quantity: '1 * magneticIoPerMonth', unit: I/O request, price: aws.ebs.standard.io }
+  - cost: { when: associate_public_ip_address, name: Public IPv4 address, quantity: monthlyHours, unit: address-hour, price: aws.ec2.public_ipv4 }
+  - limit: { when: requestsPerInstance != nil, name: Requests per second, demand: total.peak, unit: requests/second, capacity: 'requestsPerInstance ?? 0' }
+terraform:
+  # The host and launch template are placement, not calls; user_data and tags may name what the instance calls.
+  ignoreRefs: [host_id, launch_template, placement_group, capacity_reservation_specification, ami, iam_instance_profile, network_interface]

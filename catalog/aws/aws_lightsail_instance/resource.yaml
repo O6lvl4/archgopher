@@ -1,0 +1,21 @@
+type: aws_lightsail_instance
+label: Lightsail instance
+category: Compute
+icon: lightsail
+description: "Bundle-hours of a general-purpose Lightsail bundle (nano to 4xlarge), Linux or Windows, with or without a public IPv4 address. The bundle includes its disk and a data transfer allowance. Headroom is the peak against what the instance serves."
+kinds: [request]
+sla: aws.lightsail.instance
+attributes:
+  - { key: bundle_id, label: Bundle, type: string, hint: "nano_3_0, small_win_3_0, medium_ipv6_3_0..." }
+assumptions:
+  - { key: requestsPerInstance, label: Capacity per instance, type: number, unit: requests/second, optional: true, hint: "What the instance serves at the peak, from a load test; compared with the peak load" }
+let:
+  - size: 'split(lower(bundle_id), "_")[0]'
+  - memory: 'string({"nano": "0.5GB", "micro": "1GB", "small": "2GB", "medium": "4GB", "large": "8GB", "xlarge": "16GB", "2xlarge": "32GB", "4xlarge": "64GB"}[size] ?? "")'
+  - windows: 'lower(bundle_id) contains "_win_"'
+  - ipv6: 'lower(bundle_id) contains "_ipv6_"'
+  - bundle: 'memory + (windows ? "_win" : "") + (ipv6 ? "_IPv6" : "")'
+readings:
+  - fail: { when: 'memory == ""', message: "bundle {bundle_id} is not a general-purpose bundle from nano to 4xlarge" }
+  - cost: { name: "Bundle ({bundle})", quantity: 730, unit: instance-hour, price: "aws.lightsail.bundle.{bundle}" }
+  - limit: { when: requestsPerInstance != nil, name: Requests per second, demand: total.peak, unit: requests/second, capacity: 'requestsPerInstance ?? 0' }

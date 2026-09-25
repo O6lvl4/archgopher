@@ -1,0 +1,14 @@
+{
+  "aws.ebs.volume": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/ebs/sla/",
+    "note": "Volume-level, per volume; volumes across two or more Availability Zones are 99.99% at region level",
+    "values": {
+      "*": {
+        "value": 0.999,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

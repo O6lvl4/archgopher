@@ -620,7 +620,10 @@ func countPath(m map[string]any, path string) int {
 // run of the following parts that is one is taken. A last step "#" counts
 // the blocks or list elements written ("scratch_disk.#"), and a step "*" reads
 // the rest of the path in every block, one text per block in order and ""
-// where a block leaves it unset ("disk.*.disk_size_gb").
+// where a block leaves it unset ("disk.*.disk_size_gb"). A part written
+// "block[key=value]" takes the first block whose key is value:
+// "setting[name=InstanceType].value" reads one option out of a list of
+// name/value blocks.
 func lookupPath(m map[string]any, path string) any {
 	var cur any = m
 	parts := strings.Split(path, ".")
@@ -643,6 +646,11 @@ func lookupPath(m map[string]any, path string) any {
 		obj, ok := cur.(map[string]any)
 		if !ok {
 			return nil
+		}
+		if name, key, want, selects := selector(parts[i]); selects {
+			cur = pick(obj[name], key, want)
+			i++
+			continue
 		}
 		var next any
 		found := false
@@ -689,6 +697,27 @@ func eachBlock(list any, rest string) any {
 		}
 	}
 	return out
+}
+
+// selector splits "block[key=value]" into its parts.
+func selector(part string) (name, key, value string, ok bool) {
+	open := strings.IndexByte(part, '[')
+	if open < 0 || !strings.HasSuffix(part, "]") {
+		return part, "", "", false
+	}
+	key, value, ok = strings.Cut(part[open+1:len(part)-1], "=")
+	return part[:open], key, value, ok
+}
+
+// pick returns the first block of a list whose key holds value, or nil.
+func pick(v any, key, value string) any {
+	list, _ := v.([]any)
+	for _, el := range list {
+		if b, ok := el.(map[string]any); ok && fmt.Sprint(b[key]) == value {
+			return b
+		}
+	}
+	return nil
 }
 
 // blocks counts the blocks written at "a.b", empty ones included; the parent

@@ -34,6 +34,13 @@ var attrs = map[string]map[string]any{
 	"aws_dx_connection":                          {"bandwidth": "1Gbps", "location": "EqTY2"},
 	"aws_ec2_transit_gateway_peering_attachment": {"peer_region": "us-east-1"},
 	"aws_ecs_service":                            {"cpu": 256.0, "memory": 512.0, "desired_count": 2.0},
+	"aws_instance":                               {"instance_type": "m5.large"},
+	"aws_spot_instance_request":                  {"instance_type": "m5.large"},
+	"aws_autoscaling_group":                      {"min_size": 1.0, "max_size": 4.0},
+	"aws_eks_node_group":                         {"desired_size": 2.0, "max_size": 4.0},
+	"aws_ec2_host":                               {"instance_family": "m5"},
+	"aws_lightsail_instance":                     {"bundle_id": "small_3_0"},
+	"aws_ebs_volume":                             {"size": 100.0},
 }
 
 var assume = map[string]map[string]any{
@@ -68,6 +75,11 @@ var assume = map[string]map[string]any{
 	"aws_alb":                                    {"kbPerUnit": 4.0},
 	"aws_elb":                                    {"kbPerUnit": 4.0},
 	"aws_globalaccelerator_endpoint_group":       {"kbPerUnit": 4.0},
+	// Instance types that come from a launch template, and spot prices.
+	"aws_autoscaling_group":     {"instanceType": "m5.large"},
+	"aws_spot_instance_request": {"spotShare": 0.4},
+	// A classic load balancer bills the data it processes.
+	"aws_elastic_beanstalk_environment": {"kbPerRequest": 4.0},
 }
 
 // TestRegionalQuotas pins quotas that differ by region, read from each

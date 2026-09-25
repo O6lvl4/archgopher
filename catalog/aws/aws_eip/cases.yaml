@@ -1,0 +1,30 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: an address from Amazon's pool (ap-northeast-1)
+  region: ap-northeast-1
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # 730 h x 0.005
+  costs:
+    Public IPv4 address: 3.65
+- name: an address attached to an instance (us-east-1)
+  region: us-east-1
+  attributes:
+    public_ipv4_pool: amazon
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  costs:
+    Public IPv4 address: 3.65
+- name: an address you brought (BYOIP) is not billed (us-east-1)
+  region: us-east-1
+  attributes:
+    public_ipv4_pool: ipv4pool-ec2-0123456789abcdef0
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  costs: {}

@@ -1,0 +1,73 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: gp3 with 6,000 IOPS and 500 MiB/s (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    type: gp3
+    size: 500
+    iops: 6000
+    throughput: 500
+  demand:
+    io:
+      monthly: 1e+09
+      peak: 5000
+  # 500 GB x 0.096; 3,000 IOPS x 0.006; 375 MiB/s x 0.048
+  costs:
+    Storage (gp3): 48
+    Provisioned IOPS (gp3, over 3,000): 18
+    Provisioned throughput (gp3, over 125 MiB/s): 18
+  limits:
+    IOPS: 5000
+- name: io2 with 70,000 IOPS across all three tiers (us-east-1)
+  region: us-east-1
+  attributes:
+    type: io2
+    size: 100
+    iops: 70000
+  demand:
+    io:
+      monthly: 1e+09
+      peak: 1000
+  # 100 GB x 0.125; 32,000 x 0.065; 32,000 x 0.0455; 6,000 x 0.03185
+  costs:
+    Storage (io2): 12.5
+    Provisioned IOPS (io2, up to 32,000): 2080
+    Provisioned IOPS (io2, 32,001 to 64,000): 1456
+    Provisioned IOPS (io2, over 64,000): 191.1
+  limits:
+    IOPS: 1000
+- name: magnetic volume billed per I/O (us-east-1)
+  region: us-east-1
+  attributes:
+    type: standard
+    size: 50
+  demand:
+    io:
+      monthly: 1e+08
+      peak: 100
+  # 50 GB x 0.05; 100 million I/O x 0.05 per million
+  costs:
+    Storage (standard): 2.5
+    I/O requests: 5
+  limits:
+    IOPS: 100
+- name: gp2 created from a snapshot of 200 GiB (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    snapshotSizeGb: 200
+  demand:
+    io:
+      monthly: 0
+      peak: 0
+  # 200 GB x 0.12
+  costs:
+    Storage (gp2): 24
+  limits:
+    IOPS: 0
+- name: size unknown (ap-northeast-1)
+  region: ap-northeast-1
+  demand:
+    io:
+      monthly: 0
+      peak: 0
+  error: "size is empty: set snapshotSizeGb"

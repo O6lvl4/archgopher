@@ -1,0 +1,26 @@
+{
+  "aws.ec2.instance": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/compute/sla/",
+    "note": "Instance-level: each EC2 instance on its own",
+    "values": {
+      "*": {
+        "value": 0.995,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.ec2.region": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/compute/sla/",
+    "note": "Region-level: instances running across two or more Availability Zones; also covers Elastic IP addresses; a single instance is 99.5%",
+    "values": {
+      "*": {
+        "value": 0.9999,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

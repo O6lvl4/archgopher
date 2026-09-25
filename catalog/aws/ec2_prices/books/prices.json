@@ -1,0 +1,490 @@
+{
+  "aws.ec2.cpu_credits.linux": {
+    "unit": "vCPU-hour",
+    "source": "https://aws.amazon.com/ec2/pricing/on-demand/",
+    "note": "Surplus CPU credits of burstable instances in unlimited mode, Linux, per instance family",
+    "sync": {
+      "service": "AmazonEC2",
+      "filters": {
+        "productFamily": "CPU Credits",
+        "operatingSystem": "Linux",
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?CPUCredits:{row}"
+      }
+    },
+    "rows": {
+      "t2": {
+        "ap-northeast-1": 0.05,
+        "ap-northeast-2": 0.05,
+        "ap-south-1": 0.05,
+        "ap-southeast-1": 0.05,
+        "ap-southeast-2": 0.05,
+        "eu-central-1": 0.05,
+        "eu-west-1": 0.05,
+        "us-east-1": 0.05,
+        "us-east-2": 0.05,
+        "us-west-2": 0.05
+      },
+      "t3": {
+        "ap-northeast-1": 0.05,
+        "ap-northeast-2": 0.05,
+        "ap-south-1": 0.05,
+        "ap-southeast-1": 0.05,
+        "ap-southeast-2": 0.05,
+        "eu-central-1": 0.05,
+        "eu-west-1": 0.05,
+        "us-east-1": 0.05,
+        "us-east-2": 0.05,
+        "us-west-2": 0.05
+      },
+      "t3a": {
+        "ap-northeast-1": 0.05,
+        "ap-northeast-2": 0.05,
+        "ap-south-1": 0.05,
+        "ap-southeast-1": 0.05,
+        "ap-southeast-2": 0.05,
+        "eu-central-1": 0.05,
+        "eu-west-1": 0.05,
+        "us-east-1": 0.05,
+        "us-east-2": 0.05,
+        "us-west-2": 0.05
+      },
+      "t4g": {
+        "ap-northeast-1": 0.04,
+        "ap-northeast-2": 0.04,
+        "ap-south-1": 0.04,
+        "ap-southeast-1": 0.04,
+        "ap-southeast-2": 0.04,
+        "eu-central-1": 0.04,
+        "eu-west-1": 0.04,
+        "us-east-1": 0.04,
+        "us-east-2": 0.04,
+        "us-west-2": 0.04
+      },
+      "t8i": {
+        "ap-northeast-1": 0.06,
+        "ap-northeast-2": 0.06,
+        "ap-south-1": 0.06,
+        "ap-southeast-1": 0.06,
+        "ap-southeast-2": 0.06,
+        "eu-central-1": 0.06,
+        "eu-west-1": 0.06,
+        "us-east-1": 0.06,
+        "us-east-2": 0.06,
+        "us-west-2": 0.06
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "aws.ec2.cpu_credits.windows": {
+    "unit": "vCPU-hour",
+    "source": "https://aws.amazon.com/ec2/pricing/on-demand/",
+    "note": "Surplus CPU credits of burstable instances in unlimited mode, Windows, per instance family",
+    "sync": {
+      "service": "AmazonEC2",
+      "filters": {
+        "productFamily": "CPU Credits",
+        "operatingSystem": "Windows",
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?CPUCredits:{row}"
+      }
+    },
+    "rows": {
+      "t2": {
+        "ap-northeast-1": 0.096,
+        "ap-northeast-2": 0.096,
+        "ap-south-1": 0.096,
+        "ap-southeast-1": 0.096,
+        "ap-southeast-2": 0.096,
+        "eu-central-1": 0.096,
+        "eu-west-1": 0.096,
+        "us-east-1": 0.096,
+        "us-east-2": 0.096,
+        "us-west-2": 0.096
+      },
+      "t3": {
+        "ap-northeast-1": 0.096,
+        "ap-northeast-2": 0.096,
+        "ap-south-1": 0.096,
+        "ap-southeast-1": 0.096,
+        "ap-southeast-2": 0.096,
+        "eu-central-1": 0.096,
+        "eu-west-1": 0.096,
+        "us-east-1": 0.096,
+        "us-east-2": 0.096,
+        "us-west-2": 0.096
+      },
+      "t3a": {
+        "ap-northeast-1": 0.096,
+        "ap-northeast-2": 0.096,
+        "ap-south-1": 0.096,
+        "ap-southeast-1": 0.096,
+        "ap-southeast-2": 0.096,
+        "eu-central-1": 0.096,
+        "eu-west-1": 0.096,
+        "us-east-1": null,
+        "us-east-2": 0.096,
+        "us-west-2": 0.096
+      },
+      "t8i": {
+        "ap-northeast-1": 0.115,
+        "ap-northeast-2": 0.115,
+        "ap-south-1": 0.115,
+        "ap-southeast-1": 0.115,
+        "ap-southeast-2": 0.115,
+        "eu-central-1": 0.115,
+        "eu-west-1": 0.115,
+        "us-east-1": 0.115,
+        "us-east-2": 0.115,
+        "us-west-2": 0.115
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "aws.ec2.ebs_optimized": {
+    "unit": "instance-hour",
+    "source": "https://aws.amazon.com/ec2/previous-generation/",
+    "note": "EBS-optimized surcharge of previous-generation instance types; current types include it at no charge",
+    "sync": {
+      "service": "AmazonEC2",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?EBSOptimized:{row}"
+      }
+    },
+    "rows": {
+      "c1.xlarge": {
+        "ap-northeast-1": 0.05,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": 0.05,
+        "ap-southeast-2": 0.05,
+        "eu-central-1": null,
+        "eu-west-1": 0.05,
+        "us-east-1": 0.05,
+        "us-east-2": null,
+        "us-west-2": 0.05
+      },
+      "c3.2xlarge": {
+        "ap-northeast-1": 0.05,
+        "ap-northeast-2": 0.05,
+        "ap-south-1": null,
+        "ap-southeast-1": 0.05,
+        "ap-southeast-2": 0.05,
+        "eu-central-1": 0.05,
+        "eu-west-1": 0.05,
+        "us-east-1": 0.05,
+        "us-east-2": null,
+        "us-west-2": 0.05
+      },
+      "c3.4xlarge": {
+        "ap-northeast-1": 0.1,
+        "ap-northeast-2": 0.1,
+        "ap-south-1": null,
+        "ap-southeast-1": 0.1,
+        "ap-southeast-2": 0.1,
+        "eu-central-1": 0.1,
+        "eu-west-1": 0.1,
+        "us-east-1": 0.1,
+        "us-east-2": null,
+        "us-west-2": 0.1
+      },
+      "c3.xlarge": {
+        "ap-northeast-1": 0.02,
+        "ap-northeast-2": 0.02,
+        "ap-south-1": null,
+        "ap-southeast-1": 0.02,
+        "ap-southeast-2": 0.02,
+        "eu-central-1": 0.02,
+        "eu-west-1": 0.02,
+        "us-east-1": 0.02,
+        "us-east-2": null,
+        "us-west-2": 0.02
+      },
+      "g2.2xlarge": {
+        "ap-northeast-1": 0.05,
+        "ap-northeast-2": 0.05,
+        "ap-south-1": null,
+        "ap-southeast-1": 0.05,
+        "ap-southeast-2": 0.05,
+        "eu-central-1": 0.05,
+        "eu-west-1": 0.05,
+        "us-east-1": 0.05,
+        "us-east-2": null,
+        "us-west-2": 0.05
+      },
+      "i2.2xlarge": {
+        "ap-northeast-1": 0.05,
+        "ap-northeast-2": 0.05,
+        "ap-south-1": 0.05,
+        "ap-southeast-1": 0.05,
+        "ap-southeast-2": 0.05,
+        "eu-central-1": 0.05,
+        "eu-west-1": 0.05,
+        "us-east-1": 0.05,
+        "us-east-2": 0.05,
+        "us-west-2": 0.05
+      },
+      "i2.4xlarge": {
+        "ap-northeast-1": 0.1,
+        "ap-northeast-2": 0.1,
+        "ap-south-1": 0.1,
+        "ap-southeast-1": 0.1,
+        "ap-southeast-2": 0.1,
+        "eu-central-1": 0.1,
+        "eu-west-1": 0.1,
+        "us-east-1": 0.1,
+        "us-east-2": 0.1,
+        "us-west-2": 0.1
+      },
+      "i2.xlarge": {
+        "ap-northeast-1": 0.02,
+        "ap-northeast-2": 0.02,
+        "ap-south-1": 0.02,
+        "ap-southeast-1": 0.02,
+        "ap-southeast-2": 0.02,
+        "eu-central-1": 0.02,
+        "eu-west-1": 0.02,
+        "us-east-1": 0.02,
+        "us-east-2": 0.02,
+        "us-west-2": 0.02
+      },
+      "m1.large": {
+        "ap-northeast-1": 0.025,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": 0.025,
+        "ap-southeast-2": 0.025,
+        "eu-central-1": null,
+        "eu-west-1": 0.025,
+        "us-east-1": 0.025,
+        "us-east-2": null,
+        "us-west-2": 0.025
+      },
+      "m1.xlarge": {
+        "ap-northeast-1": 0.05,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": 0.05,
+        "ap-southeast-2": 0.05,
+        "eu-central-1": null,
+        "eu-west-1": 0.05,
+        "us-east-1": 0.05,
+        "us-east-2": null,
+        "us-west-2": 0.05
+      },
+      "m2.2xlarge": {
+        "ap-northeast-1": 0.025,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": 0.025,
+        "ap-southeast-2": 0.025,
+        "eu-central-1": null,
+        "eu-west-1": 0.025,
+        "us-east-1": 0.025,
+        "us-east-2": null,
+        "us-west-2": 0.025
+      },
+      "m2.4xlarge": {
+        "ap-northeast-1": 0.05,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": 0.05,
+        "ap-southeast-2": 0.05,
+        "eu-central-1": null,
+        "eu-west-1": 0.05,
+        "us-east-1": 0.05,
+        "us-east-2": null,
+        "us-west-2": 0.05
+      },
+      "m3.2xlarge": {
+        "ap-northeast-1": 0.05,
+        "ap-northeast-2": 0.05,
+        "ap-south-1": null,
+        "ap-southeast-1": 0.05,
+        "ap-southeast-2": 0.05,
+        "eu-central-1": 0.05,
+        "eu-west-1": 0.05,
+        "us-east-1": 0.05,
+        "us-east-2": null,
+        "us-west-2": 0.05
+      },
+      "m3.xlarge": {
+        "ap-northeast-1": 0.025,
+        "ap-northeast-2": 0.025,
+        "ap-south-1": null,
+        "ap-southeast-1": 0.025,
+        "ap-southeast-2": 0.025,
+        "eu-central-1": 0.025,
+        "eu-west-1": 0.025,
+        "us-east-1": 0.025,
+        "us-east-2": null,
+        "us-west-2": 0.025
+      },
+      "r3.2xlarge": {
+        "ap-northeast-1": 0.05,
+        "ap-northeast-2": 0.05,
+        "ap-south-1": 0.05,
+        "ap-southeast-1": 0.05,
+        "ap-southeast-2": 0.05,
+        "eu-central-1": 0.05,
+        "eu-west-1": 0.05,
+        "us-east-1": 0.05,
+        "us-east-2": 0.05,
+        "us-west-2": 0.05
+      },
+      "r3.4xlarge": {
+        "ap-northeast-1": 0.1,
+        "ap-northeast-2": 0.1,
+        "ap-south-1": 0.1,
+        "ap-southeast-1": 0.1,
+        "ap-southeast-2": 0.1,
+        "eu-central-1": 0.1,
+        "eu-west-1": 0.1,
+        "us-east-1": 0.1,
+        "us-east-2": 0.1,
+        "us-west-2": 0.1
+      },
+      "r3.xlarge": {
+        "ap-northeast-1": 0.02,
+        "ap-northeast-2": 0.02,
+        "ap-south-1": 0.02,
+        "ap-southeast-1": 0.02,
+        "ap-southeast-2": 0.02,
+        "eu-central-1": 0.02,
+        "eu-west-1": 0.02,
+        "us-east-1": 0.02,
+        "us-east-2": 0.02,
+        "us-west-2": 0.02
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "aws.ec2.monitoring.metric": {
+    "unit": "metric-month",
+    "source": "https://aws.amazon.com/cloudwatch/pricing/",
+    "note": "CloudWatch metric, first tier (10,000 metrics); EC2 detailed monitoring sends about 7 per instance",
+    "sync": {
+      "service": "AmazonCloudWatch",
+      "filters": {
+        "productFamily": "Metric",
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?CW:MetricMonitorUsage"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.ec2.public_ipv4": {
+    "unit": "address-hour",
+    "source": "https://aws.amazon.com/vpc/pricing/",
+    "note": "Public IPv4 address in use; an idle address costs the same",
+    "sync": {
+      "service": "AmazonVPC",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?PublicIPv4:InUseAddress"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}
