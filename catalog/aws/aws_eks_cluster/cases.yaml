@@ -1,0 +1,44 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: a cluster on a version in standard support
+  region: ap-northeast-1
+  attributes:
+    version: "1.35"
+  costs:
+    Cluster hours: 73
+- name: 1.31 in extended support on the XL tier with Auto Mode and control plane logs
+  region: us-east-1
+  attributes:
+    version: "1.31"
+    tier: tier-xl
+    auto_mode: true
+    enabled_cluster_log_types: [api, audit]
+  assumptions:
+    autoInstanceType: m5.large
+    autoInstances: 3
+    controlPlaneLogGb: 10
+  costs:
+    Cluster hours: 73
+    Extended support (Kubernetes 1.31): 365
+    Provisioned control plane (XL): 1204.5
+    Auto Mode management (m5.large): 25.2288
+    Log ingestion: 5
+    Log storage: 0.296052632
+- name: an old version under the STANDARD policy is upgraded, not charged for extended support
+  region: ap-northeast-1
+  attributes:
+    version: "1.30"
+    support_type: STANDARD
+    tier: tier-8xl
+  costs:
+    Cluster hours: 73
+    Provisioned control plane (8XL): 10147
+- name: Auto Mode instances without a type
+  region: ap-northeast-1
+  attributes:
+    auto_mode: true
+  assumptions:
+    autoInstances: 2
+  costs:
+    Cluster hours: 73
+  error: "set autoInstanceType"

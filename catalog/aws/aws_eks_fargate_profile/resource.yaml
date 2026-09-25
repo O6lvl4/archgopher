@@ -1,0 +1,20 @@
+type: aws_eks_fargate_profile
+label: EKS Fargate profile
+category: Compute
+icon: fargate
+description: "Pods the profile schedules on Fargate: vCPU and memory billed per second for the pod size Fargate rounds up to, at x86_64 Linux prices (EKS on Fargate has no Arm or Windows). Ephemeral storage above the 20 GiB each pod gets is billed per GB-hour. Headroom is vCPUs running against the account's Fargate quota, which ECS tasks share."
+kinds: [host]
+sla: aws.ecs
+assumptions:
+  - { key: pods, label: Pods running, type: number, hint: "Average pods the profile's selectors place on Fargate over the month" }
+  - { key: podVcpu, label: vCPU per pod, type: number, unit: vCPU, hint: "The size Fargate bills: the largest container requests plus 256 MB memory for Kubernetes, rounded up to a Fargate CPU and memory combination (see the fargate.amazonaws.com/capacity annotation)" }
+  - { key: podMemoryGb, label: Memory per pod, type: number, unit: GB, hint: "Billed memory after rounding, 0.5 GB to 120 GB" }
+  - { key: podEphemeralGb, label: Ephemeral storage per pod, type: number, unit: GB, default: 20, hint: "What Fargate provisions from the pod's ephemeral-storage requests, up to 175 GiB; it adds room for the system, so a 100 GiB request provisions 115 GiB. The first 20 GiB are included" }
+readings:
+  - cost: { name: vCPU (x86_64), quantity: pods * podVcpu * 730, unit: vCPU-hour, price: aws.fargate.x86_64.vcpu_hour }
+  - cost: { name: Memory (x86_64), quantity: pods * podMemoryGb * 730, unit: GB-hour, price: aws.fargate.x86_64.gb_hour }
+  - cost: { when: podEphemeralGb > 20, name: Ephemeral storage over 20 GB, quantity: pods * (podEphemeralGb - 20) * 730, unit: GB-hour, price: aws.fargate.ephemeral_gb_hour }
+  - limit: { name: vCPUs running, demand: pods * podVcpu, unit: vCPUs, quota: aws.fargate.ondemand_vcpu }
+terraform:
+  # A profile tells the cluster where to place pods; it sends nothing to the cluster or its subnets.
+  passive: true

@@ -1,0 +1,35 @@
+type: aws_eks_cluster
+label: EKS cluster
+category: Compute
+icon: eks
+description: "Cluster-hours all month, plus extended support while the Kubernetes version is past standard support, a Provisioned Control Plane tier, the Auto Mode management fee per instance and control plane logs. The instances, Fargate pods and node groups that run the workloads are their own nodes. Load does not flow through the cluster."
+kinds: [host]
+sla: aws.eks
+attributes:
+  - { key: version, label: Kubernetes version, type: string, optional: true, hint: "Unset means the latest version when the cluster was created" }
+  - { key: support_type, label: Upgrade policy, type: choice, options: [EXTENDED, STANDARD], default: EXTENDED, path: upgrade_policy.support_type, hint: "STANDARD upgrades the cluster at the end of standard support instead of charging for extended support" }
+  - { key: tier, label: Control plane tier, type: choice, options: [standard, tier-xl, tier-2xl, tier-4xl, tier-8xl], default: standard, path: control_plane_scaling_config.tier }
+  - { key: auto_mode, label: Auto Mode compute, type: boolean, default: false, path: compute_config.enabled }
+  - { key: enabled_cluster_log_types, label: Control plane logs, type: list, optional: true }
+assumptions:
+  - { key: extendedSupport, label: In extended support, type: boolean, optional: true, hint: "Read from the version when unset: 1.33 and older were past standard support on the EKS calendar of 2026-09" }
+  - { key: autoInstanceType, label: Auto Mode instance type, type: string, optional: true, hint: "The type Auto Mode launches most, such as m5.large" }
+  - { key: autoInstances, label: Auto Mode instances, type: number, default: 0, hint: "Average instances Auto Mode runs over the month" }
+  - { key: controlPlaneLogGb, label: Control plane logs per month, type: number, unit: GB, default: 0, hint: "Counted when enabled_cluster_log_types is set" }
+  - { key: logRetentionDays, label: Log retention, type: number, unit: days, default: 30, hint: "0 means never expire" }
+let:
+  - minor: 'version != nil && version contains "." ? int(split(version, ".")[1]) : 99'
+  - extended: 'support_type == "STANDARD" ? false : (extendedSupport != nil ? extendedSupport : minor <= 33)'
+  - tierKey: 'upper(trimPrefix(tier, "tier-"))'
+  - logged: 'enabled_cluster_log_types != nil && len(enabled_cluster_log_types) > 0'
+readings:
+  - cost: { name: Cluster hours, quantity: 730, unit: hour, price: aws.eks.cluster_hour }
+  - cost: { when: extended, name: 'Extended support (Kubernetes {version ?? "unset"})', quantity: 730, unit: hour, price: aws.eks.extended_support_hour }
+  - cost: { when: 'tier != "standard"', name: 'Provisioned control plane ({tierKey})', quantity: 730, unit: hour, price: 'aws.eks.provisioned.{tierKey}' }
+  - fail: { when: 'auto_mode && autoInstances > 0 && autoInstanceType == nil', message: "Auto Mode runs instances: set autoInstanceType to price its management fee" }
+  - cost: { when: 'auto_mode && autoInstances > 0 && autoInstanceType != nil', name: 'Auto Mode management ({autoInstanceType ?? ""})', quantity: autoInstances * 730, unit: instance-hour, price: 'aws.eks.auto.{autoInstanceType ?? ""}' }
+  - logs: { when: logged, count: 1, kb: controlPlaneLogGb * 1024 * 1024, retentionDays: logRetentionDays, ingest: aws.logs.ingest, storage: aws.logs.storage }
+terraform:
+  # Node groups, Fargate profiles and add-ons name the cluster; none of them sends it load.
+  mentioned: true
+  ignoreRefs: [vpc_config, access_config, kubernetes_network_config, remote_network_config, storage_config, compute_config]

@@ -531,7 +531,7 @@ func (b *builder) readAttribute(r *eval.Resource, f field.Field) any {
 const maxReferenceHops = 4
 
 func (b *builder) readPath(r *eval.Resource, f field.Field, path string, depth int) any {
-	if ref, rest, through := strings.Cut(path, "->"); through {
+	if ref, rest, through := strings.Cut(path, field.RefStep); through {
 		if depth >= maxReferenceHops {
 			return nil
 		}

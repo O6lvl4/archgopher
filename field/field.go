@@ -46,6 +46,10 @@ type Field struct {
 	index []int
 }
 
+// RefStep in a path follows a reference: "task_definition->cpu" is the cpu
+// of the resource that the task_definition attribute references.
+const RefStep = "->"
+
 // TerraformPath is the dotted location of the value in a Terraform resource.
 // "ref->path" reads path on the resource the attribute ref references, and a
 // last step "#" counts blocks ("scratch_disk.#"); a step "*" reads the rest

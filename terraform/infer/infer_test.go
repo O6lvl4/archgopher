@@ -310,3 +310,20 @@ func TestFanOutThroughSubscriptionsAndBuses(t *testing.T) {
 		t.Errorf("the subscription should read its protocol: %+v", n.Attributes)
 	}
 }
+
+func TestContainers(t *testing.T) {
+	spec, _ := build(t, "testdata/containers", eval.Options{})
+	want := []string{"app-ecs>orders:-", "users>app:-"}
+	if got := edges(spec); strings.Join(got, " ") != strings.Join(want, " ") {
+		t.Errorf("edges: %v, want %v", got, want)
+	}
+	s := nodeByID(spec, "app")
+	if s.Type != "aws_ecs_service" {
+		t.Fatalf("app is %q", s.Type)
+	}
+	for k, want := range map[string]any{"cpu": 512, "memory": 1024, "cpu_architecture": "ARM64", "capacity_provider": "FARGATE", "desired_count": 2} {
+		if got := s.Attributes[k]; got != want {
+			t.Errorf("service %s: got %v (%T), want %v", k, got, got, want)
+		}
+	}
+}

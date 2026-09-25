@@ -33,6 +33,7 @@ var attrs = map[string]map[string]any{
 	// A Direct Connect location is priced in its home region only.
 	"aws_dx_connection":                          {"bandwidth": "1Gbps", "location": "EqTY2"},
 	"aws_ec2_transit_gateway_peering_attachment": {"peer_region": "us-east-1"},
+	"aws_ecs_service":                            {"cpu": 256.0, "memory": 512.0, "desired_count": 2.0},
 }
 
 var assume = map[string]map[string]any{
