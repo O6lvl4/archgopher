@@ -123,7 +123,7 @@ module "api_handler" {
 module "exporter" {
   source      = "./modules/function"
   name        = "${local.prefix}-exporter"
-  memory_size = 1024
+  memory_size = 3008
   environment = {
     BUCKET = aws_s3_bucket.exports.bucket
   }
