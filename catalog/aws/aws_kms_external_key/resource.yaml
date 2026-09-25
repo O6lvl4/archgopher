@@ -1,0 +1,16 @@
+type: aws_kms_external_key
+label: KMS external key
+category: Security
+icon: kms
+description: "A customer managed key with imported key material: one key-month and requests per 10,000, like any symmetric key. Imported material cannot rotate automatically, so there are no extra key versions. Headroom is the account's shared symmetric request rate. References to a key are mentions, not load: add an edge with a per-unit rate when you know how often a caller reaches KMS."
+kinds: [crypt]
+sla: aws.kms
+readings:
+  - cost: { name: Key, quantity: 1, unit: key-month, price: aws.kms.key }
+  - requests: { name: Requests, price: aws.kms.requests, count: total.monthly }
+  - rate: { name: Symmetric request rate, unit: requests/second, quota: aws.kms.symmetric_rps, peak: total.peak }
+terraform:
+  # Services cache data keys, so a reference says nothing about the call rate.
+  mentioned: true
+iam:
+  crypt: ["kms:Decrypt", "kms:GenerateDataKey", "kms:Encrypt"]

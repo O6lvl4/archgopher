@@ -1,0 +1,89 @@
+{
+  "aws.codebuild.concurrent_builds": {
+    "unit": "concurrent builds",
+    "source": "https://docs.aws.amazon.com/codebuild/latest/userguide/limits.html",
+    "note": "Concurrently running builds per environment and compute type (row: <environment>:<compute>, Lambda:<arch>.<memory>), shared by every project in the account and region. New-account defaults; AWS raises them from internal metrics and on request (0 means none until requested). Windows rows hold for Windows Server 2019 and 2022",
+    "rows": {
+      "ARM:g1.2xlarge": {
+        "*": 1
+      },
+      "ARM:g1.large": {
+        "*": 1
+      },
+      "ARM:g1.medium": {
+        "*": 1
+      },
+      "ARM:g1.small": {
+        "*": 1
+      },
+      "ARM:g1.xlarge": {
+        "*": 1
+      },
+      "Lambda:arm.10GB": {
+        "*": 1
+      },
+      "Lambda:arm.1GB": {
+        "*": 1
+      },
+      "Lambda:arm.2GB": {
+        "*": 1
+      },
+      "Lambda:arm.4GB": {
+        "*": 1
+      },
+      "Lambda:arm.8GB": {
+        "*": 1
+      },
+      "Lambda:x86-64.10GB": {
+        "*": 1
+      },
+      "Lambda:x86-64.1GB": {
+        "*": 1
+      },
+      "Lambda:x86-64.2GB": {
+        "*": 1
+      },
+      "Lambda:x86-64.4GB": {
+        "*": 1
+      },
+      "Lambda:x86-64.8GB": {
+        "*": 1
+      },
+      "Linux:g1.2xlarge": {
+        "*": 0
+      },
+      "Linux:g1.large": {
+        "*": 1
+      },
+      "Linux:g1.medium": {
+        "*": 1
+      },
+      "Linux:g1.small": {
+        "*": 1
+      },
+      "Linux:g1.xlarge": {
+        "*": 1
+      },
+      "LinuxGPU:g1.large": {
+        "*": 0
+      },
+      "LinuxGPU:g1.small": {
+        "*": 0
+      },
+      "Windows:g1.2xlarge": {
+        "*": 1
+      },
+      "Windows:g1.large": {
+        "*": 1
+      },
+      "Windows:g1.medium": {
+        "*": 1
+      },
+      "Windows:g1.xlarge": {
+        "*": 1
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

@@ -392,6 +392,13 @@ the demand and says the capacity is unknown.
 | `aws_bedrockagentcore_workload_identity` | Credential requests, free through Runtime or Gateway | Token requests per second |
 | `aws_bedrockagentcore_evaluator` / `aws_bedrockagentcore_online_evaluation_config` | Custom evaluations / sampled built-in evaluator tokens (on demand or batch) | Evaluation tokens and evaluations per minute |
 | `agentcore_web_search` / `agentcore_knowledge_base` | Queries / retrievals and storage (external, placed by hand) | Query rate |
+| `aws_codebuild_project` | Build minutes by environment and compute type, Lambda compute seconds, remote Docker server seconds | Concurrent builds per environment and compute type, build time against the timeout |
+| `aws_cloudformation_stack` / `aws_cloudformation_stack_set` | Handler operations and handler time beyond 30 s for third-party and private registry types, per stack instance | - |
+| `aws_cloudhsm_v2_hsm` | HSM-hours (hsm1.medium or hsm2m.medium) | RSA 2048 signatures per second per HSM (published guidance) |
+| `aws_directory_service_directory` | Directory-hours (Simple AD, AD Connector), domain controller-hours and sharing (Microsoft AD) | - |
+| `aws_grafana_workspace` | Editor, viewer and Enterprise plugins licenses | - |
+| `aws_kms_external_key` | Key-months, requests | Cryptographic requests per second (varies by region) |
+| `aws_ssm_activation` | Session Manager sessions and Run Command invocations on hybrid nodes | - |
 | `entry` | Nothing; checks that load is set | - |
 
 Zone crossings are read by the VPC, not by a node. Set `kb` on an edge between

@@ -1,0 +1,26 @@
+{
+  "aws.ssm.hybrid.run_command": {
+    "unit": "invocation",
+    "source": "https://aws.amazon.com/systems-manager/pricing/",
+    "note": "Run Command invocation on a hybrid or multicloud node, billed from 2026-09-30 (free on EC2). Not in the AWS Price List yet, so entered from the pricing page",
+    "values": {
+      "*": {
+        "value": 0.002,
+        "verified": false,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.ssm.hybrid.session": {
+    "unit": "session",
+    "source": "https://aws.amazon.com/systems-manager/pricing/",
+    "note": "Session Manager session on a hybrid or multicloud node, billed from 2026-09-30 (free on EC2). Not in the AWS Price List yet, so entered from the pricing page",
+    "values": {
+      "*": {
+        "value": 0.05,
+        "verified": false,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

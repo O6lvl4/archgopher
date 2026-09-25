@@ -1,0 +1,16 @@
+type: aws_ssm_activation
+label: SSM hybrid activation
+category: Management
+icon: systems-manager
+description: "Registers on-premises and multicloud servers with Systems Manager. Registration and per-node charges ended on 2026-06-30 together with the advanced-instances tier, so the node-hours Infracost reads now cost nothing; from 2026-09-30 Session Manager sessions and Run Command invocations on hybrid nodes are billed instead. Load is sessions and commands sent to the nodes this activation registers."
+kinds: [session, command]
+sla: aws.ssm
+readings:
+  - cost: { name: Session Manager sessions, quantity: demand.session.monthly, unit: session, price: aws.ssm.hybrid.session }
+  - cost: { name: Run Command invocations, quantity: demand.command.monthly, unit: invocation, price: aws.ssm.hybrid.run_command }
+terraform:
+  # An activation names the role its nodes assume; it calls nothing.
+  passive: true
+iam:
+  session: ["ssm:StartSession"]
+  command: ["ssm:SendCommand"]

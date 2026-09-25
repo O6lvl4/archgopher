@@ -1,0 +1,17 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: one editor
+  region: ap-northeast-1
+  costs:
+    Editor and administrator licenses: 9
+    Viewer licenses: 0
+- name: Enterprise plugins for every active user
+  region: us-east-1
+  assumptions:
+    editors: 3
+    enterprisePlugins: true
+    viewers: 20
+  costs:
+    Editor and administrator licenses: 27  # 3 × 9
+    Enterprise plugins licenses: 1035  # 23 × 45
+    Viewer licenses: 100  # 20 × 5

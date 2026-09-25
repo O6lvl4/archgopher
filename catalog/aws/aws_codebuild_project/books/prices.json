@@ -1,0 +1,479 @@
+{
+  "aws.codebuild.build_minute": {
+    "unit": "minute",
+    "source": "https://aws.amazon.com/codebuild/pricing/",
+    "note": "On-demand build minutes by environment and compute type (row: <environment>:<compute>), rounded up to the minute",
+    "sync": {
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-Build-Min:{row}"
+      },
+      "service": "CodeBuild"
+    },
+    "rows": {
+      "ARM:g1.2xlarge": {
+        "ap-northeast-1": 0.12,
+        "ap-northeast-2": 0.09,
+        "ap-south-1": 0.09,
+        "ap-southeast-1": 0.09,
+        "ap-southeast-2": 0.12,
+        "eu-central-1": 0.105,
+        "eu-west-1": 0.09,
+        "us-east-1": 0.09,
+        "us-east-2": 0.09,
+        "us-west-2": 0.09
+      },
+      "ARM:g1.large": {
+        "ap-northeast-1": 0.02,
+        "ap-northeast-2": 0.015,
+        "ap-south-1": 0.015,
+        "ap-southeast-1": 0.015,
+        "ap-southeast-2": 0.02,
+        "eu-central-1": 0.0175,
+        "eu-west-1": 0.015,
+        "us-east-1": 0.015,
+        "us-east-2": 0.015,
+        "us-west-2": 0.015
+      },
+      "ARM:g1.medium": {
+        "ap-northeast-1": 0.009,
+        "ap-northeast-2": 0.008,
+        "ap-south-1": 0.004,
+        "ap-southeast-1": 0.008,
+        "ap-southeast-2": 0.009,
+        "eu-central-1": 0.008,
+        "eu-west-1": 0.008,
+        "us-east-1": 0.007,
+        "us-east-2": 0.007,
+        "us-west-2": 0.007
+      },
+      "ARM:g1.small": {
+        "ap-northeast-1": 0.00425,
+        "ap-northeast-2": 0.00385,
+        "ap-south-1": 0.002,
+        "ap-southeast-1": 0.004,
+        "ap-southeast-2": 0.0045,
+        "eu-central-1": 0.00385,
+        "eu-west-1": 0.00385,
+        "us-east-1": 0.0034,
+        "us-east-2": 0.0034,
+        "us-west-2": 0.0034
+      },
+      "ARM:g1.xlarge": {
+        "ap-northeast-1": 0.08,
+        "ap-northeast-2": 0.06,
+        "ap-south-1": 0.06,
+        "ap-southeast-1": 0.06,
+        "ap-southeast-2": 0.08,
+        "eu-central-1": 0.07,
+        "eu-west-1": 0.06,
+        "us-east-1": 0.06,
+        "us-east-2": 0.06,
+        "us-west-2": 0.06
+      },
+      "Linux:g1.2xlarge": {
+        "ap-northeast-1": 0.25,
+        "ap-northeast-2": 0.25,
+        "ap-south-1": 0.2,
+        "ap-southeast-1": 0.25,
+        "ap-southeast-2": 0.25,
+        "eu-central-1": 0.25,
+        "eu-west-1": 0.2,
+        "us-east-1": 0.2,
+        "us-east-2": 0.2,
+        "us-west-2": 0.2
+      },
+      "Linux:g1.large": {
+        "ap-northeast-1": 0.02,
+        "ap-northeast-2": 0.02,
+        "ap-south-1": 0.02,
+        "ap-southeast-1": 0.02,
+        "ap-southeast-2": 0.02,
+        "eu-central-1": 0.02,
+        "eu-west-1": 0.02,
+        "us-east-1": 0.02,
+        "us-east-2": 0.02,
+        "us-west-2": 0.02
+      },
+      "Linux:g1.medium": {
+        "ap-northeast-1": 0.01,
+        "ap-northeast-2": 0.01,
+        "ap-south-1": 0.01,
+        "ap-southeast-1": 0.01,
+        "ap-southeast-2": 0.01,
+        "eu-central-1": 0.01,
+        "eu-west-1": 0.01,
+        "us-east-1": 0.01,
+        "us-east-2": 0.01,
+        "us-west-2": 0.01
+      },
+      "Linux:g1.small": {
+        "ap-northeast-1": 0.005,
+        "ap-northeast-2": 0.005,
+        "ap-south-1": 0.005,
+        "ap-southeast-1": 0.005,
+        "ap-southeast-2": 0.005,
+        "eu-central-1": 0.005,
+        "eu-west-1": 0.005,
+        "us-east-1": 0.005,
+        "us-east-2": 0.005,
+        "us-west-2": 0.005
+      },
+      "Linux:g1.xlarge": {
+        "ap-northeast-1": 0.1002,
+        "ap-northeast-2": 0.0901,
+        "ap-south-1": 0.0802,
+        "ap-southeast-1": 0.0921,
+        "ap-southeast-2": 0.1038,
+        "eu-central-1": 0.0912,
+        "eu-west-1": 0.09,
+        "us-east-1": 0.0798,
+        "us-east-2": 0.0798,
+        "us-west-2": 0.0798
+      },
+      "LinuxGPU:g1.large": {
+        "ap-northeast-1": 0.4,
+        "ap-northeast-2": 0.35,
+        "ap-south-1": null,
+        "ap-southeast-1": 0.9,
+        "ap-southeast-2": 0.35,
+        "eu-central-1": 0.36,
+        "eu-west-1": 0.32,
+        "us-east-1": 0.3,
+        "us-east-2": 0.3,
+        "us-west-2": 0.3
+      },
+      "LinuxGPU:g1.small": {
+        "ap-northeast-1": 0.07,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": null,
+        "eu-central-1": 0.06,
+        "eu-west-1": 0.06,
+        "us-east-1": 0.05,
+        "us-east-2": null,
+        "us-west-2": 0.05
+      },
+      "Windows:g1.2xlarge": {
+        "ap-northeast-1": 0.36,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": 0.37,
+        "eu-central-1": 0.34,
+        "eu-west-1": 0.34,
+        "us-east-1": 0.32,
+        "us-east-2": 0.32,
+        "us-west-2": 0.32
+      },
+      "Windows:g1.large": {
+        "ap-northeast-1": 0.04,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": 0.04,
+        "eu-central-1": 0.038,
+        "eu-west-1": 0.036,
+        "us-east-1": 0.036,
+        "us-east-2": 0.036,
+        "us-west-2": 0.036
+      },
+      "Windows:g1.medium": {
+        "ap-northeast-1": 0.02,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": 0.02,
+        "eu-central-1": 0.019,
+        "eu-west-1": 0.018,
+        "us-east-1": 0.018,
+        "us-east-2": 0.018,
+        "us-west-2": 0.018
+      },
+      "Windows:g1.xlarge": {
+        "ap-northeast-1": 0.18,
+        "ap-northeast-2": null,
+        "ap-south-1": null,
+        "ap-southeast-1": null,
+        "ap-southeast-2": 0.185,
+        "eu-central-1": 0.17,
+        "eu-west-1": 0.17,
+        "us-east-1": 0.16,
+        "us-east-2": 0.16,
+        "us-west-2": 0.16
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "aws.codebuild.docker_second": {
+    "unit": "second",
+    "source": "https://aws.amazon.com/codebuild/pricing/",
+    "note": "Remote Docker server seconds by environment and compute type (row: <environment>:<compute>)",
+    "sync": {
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-Docker-Sec:{row}"
+      },
+      "service": "CodeBuild"
+    },
+    "rows": {
+      "ARM:g1.2xlarge": {
+        "ap-northeast-1": 0.00118,
+        "ap-northeast-2": 0.00096,
+        "ap-south-1": 0.00064,
+        "ap-southeast-1": 0.00098,
+        "ap-southeast-2": 0.00122,
+        "eu-central-1": 0.00107,
+        "eu-west-1": 0.00101,
+        "us-east-1": 0.00094,
+        "us-east-2": 0.00094,
+        "us-west-2": 0.00094
+      },
+      "ARM:g1.large": {
+        "ap-northeast-1": 0.00015,
+        "ap-northeast-2": 0.00012,
+        "ap-south-1": 0.00008,
+        "ap-southeast-1": 0.00012,
+        "ap-southeast-2": 0.00015,
+        "eu-central-1": 0.00013,
+        "eu-west-1": 0.00013,
+        "us-east-1": 0.00012,
+        "us-east-2": 0.00012,
+        "us-west-2": 0.00012
+      },
+      "ARM:g1.medium": {
+        "ap-northeast-1": 0.00007,
+        "ap-northeast-2": 0.00006,
+        "ap-south-1": 0.00004,
+        "ap-southeast-1": 0.00006,
+        "ap-southeast-2": 0.00008,
+        "eu-central-1": 0.00007,
+        "eu-west-1": 0.00006,
+        "us-east-1": 0.00006,
+        "us-east-2": 0.00006,
+        "us-west-2": 0.00006
+      },
+      "ARM:g1.small": {
+        "ap-northeast-1": 0.00004,
+        "ap-northeast-2": 0.00003,
+        "ap-south-1": 0.00002,
+        "ap-southeast-1": 0.00003,
+        "ap-southeast-2": 0.00004,
+        "eu-central-1": 0.00003,
+        "eu-west-1": 0.00003,
+        "us-east-1": 0.00003,
+        "us-east-2": 0.00003,
+        "us-west-2": 0.00003
+      },
+      "ARM:g1.xlarge": {
+        "ap-northeast-1": 0.00059,
+        "ap-northeast-2": 0.00048,
+        "ap-south-1": 0.00032,
+        "ap-southeast-1": 0.00049,
+        "ap-southeast-2": 0.00061,
+        "eu-central-1": 0.00053,
+        "eu-west-1": 0.0005,
+        "us-east-1": 0.00047,
+        "us-east-2": 0.00047,
+        "us-west-2": 0.00047
+      },
+      "Linux:g1.2xlarge": {
+        "ap-northeast-1": 0.00126,
+        "ap-northeast-2": 0.00113,
+        "ap-south-1": 0.001,
+        "ap-southeast-1": 0.00115,
+        "ap-southeast-2": 0.0013,
+        "eu-central-1": 0.00114,
+        "eu-west-1": 0.00107,
+        "us-east-1": 0.001,
+        "us-east-2": 0.001,
+        "us-west-2": 0.001
+      },
+      "Linux:g1.large": {
+        "ap-northeast-1": 0.00016,
+        "ap-northeast-2": 0.00014,
+        "ap-south-1": 0.00012,
+        "ap-southeast-1": 0.00014,
+        "ap-southeast-2": 0.00016,
+        "eu-central-1": 0.00014,
+        "eu-west-1": 0.00013,
+        "us-east-1": 0.00012,
+        "us-east-2": 0.00012,
+        "us-west-2": 0.00012
+      },
+      "Linux:g1.medium": {
+        "ap-northeast-1": 0.00008,
+        "ap-northeast-2": 0.00007,
+        "ap-south-1": 0.00006,
+        "ap-southeast-1": 0.00007,
+        "ap-southeast-2": 0.00008,
+        "eu-central-1": 0.00007,
+        "eu-west-1": 0.00007,
+        "us-east-1": 0.00006,
+        "us-east-2": 0.00006,
+        "us-west-2": 0.00006
+      },
+      "Linux:g1.small": {
+        "ap-northeast-1": 0.00004,
+        "ap-northeast-2": 0.00004,
+        "ap-south-1": 0.00003,
+        "ap-southeast-1": 0.00004,
+        "ap-southeast-2": 0.00004,
+        "eu-central-1": 0.00004,
+        "eu-west-1": 0.00003,
+        "us-east-1": 0.00003,
+        "us-east-2": 0.00003,
+        "us-west-2": 0.00003
+      },
+      "Linux:g1.xlarge": {
+        "ap-northeast-1": 0.00063,
+        "ap-northeast-2": 0.00056,
+        "ap-south-1": 0.0005,
+        "ap-southeast-1": 0.00057,
+        "ap-southeast-2": 0.00065,
+        "eu-central-1": 0.00057,
+        "eu-west-1": 0.00054,
+        "us-east-1": 0.0005,
+        "us-east-2": 0.0005,
+        "us-west-2": 0.0005
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "aws.codebuild.lambda_second": {
+    "unit": "second",
+    "source": "https://aws.amazon.com/codebuild/pricing/",
+    "note": "On-demand Lambda compute build seconds by architecture and memory (row: <arch>.<memory>)",
+    "sync": {
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-Build-Sec:Linux:Lambda:{row}"
+      },
+      "service": "CodeBuild"
+    },
+    "rows": {
+      "arm.10GB": {
+        "ap-northeast-1": 0.0001,
+        "ap-northeast-2": null,
+        "ap-south-1": 0.0001,
+        "ap-southeast-1": 0.0001,
+        "ap-southeast-2": 0.0001,
+        "eu-central-1": 0.0001,
+        "eu-west-1": 0.0001,
+        "us-east-1": 0.0001,
+        "us-east-2": 0.0001,
+        "us-west-2": 0.0001
+      },
+      "arm.1GB": {
+        "ap-northeast-1": 0.00001,
+        "ap-northeast-2": null,
+        "ap-south-1": 0.00001,
+        "ap-southeast-1": 0.00001,
+        "ap-southeast-2": 0.00001,
+        "eu-central-1": 0.00001,
+        "eu-west-1": 0.00001,
+        "us-east-1": 0.00001,
+        "us-east-2": 0.00001,
+        "us-west-2": 0.00001
+      },
+      "arm.2GB": {
+        "ap-northeast-1": 0.00002,
+        "ap-northeast-2": null,
+        "ap-south-1": 0.00002,
+        "ap-southeast-1": 0.00002,
+        "ap-southeast-2": 0.00002,
+        "eu-central-1": 0.00002,
+        "eu-west-1": 0.00002,
+        "us-east-1": 0.00002,
+        "us-east-2": 0.00002,
+        "us-west-2": 0.00002
+      },
+      "arm.4GB": {
+        "ap-northeast-1": 0.00004,
+        "ap-northeast-2": null,
+        "ap-south-1": 0.00004,
+        "ap-southeast-1": 0.00004,
+        "ap-southeast-2": 0.00004,
+        "eu-central-1": 0.00004,
+        "eu-west-1": 0.00004,
+        "us-east-1": 0.00004,
+        "us-east-2": 0.00004,
+        "us-west-2": 0.00004
+      },
+      "arm.8GB": {
+        "ap-northeast-1": 0.00008,
+        "ap-northeast-2": null,
+        "ap-south-1": 0.00008,
+        "ap-southeast-1": 0.00008,
+        "ap-southeast-2": 0.00008,
+        "eu-central-1": 0.00008,
+        "eu-west-1": 0.00008,
+        "us-east-1": 0.00008,
+        "us-east-2": 0.00008,
+        "us-west-2": 0.00008
+      },
+      "x86-64.10GB": {
+        "ap-northeast-1": 0.0002,
+        "ap-northeast-2": null,
+        "ap-south-1": 0.0002,
+        "ap-southeast-1": 0.0002,
+        "ap-southeast-2": 0.0002,
+        "eu-central-1": 0.0002,
+        "eu-west-1": 0.0002,
+        "us-east-1": 0.0002,
+        "us-east-2": 0.0002,
+        "us-west-2": 0.0002
+      },
+      "x86-64.1GB": {
+        "ap-northeast-1": 0.00002,
+        "ap-northeast-2": null,
+        "ap-south-1": 0.00002,
+        "ap-southeast-1": 0.00002,
+        "ap-southeast-2": 0.00002,
+        "eu-central-1": 0.00002,
+        "eu-west-1": 0.00002,
+        "us-east-1": 0.00002,
+        "us-east-2": 0.00002,
+        "us-west-2": 0.00002
+      },
+      "x86-64.2GB": {
+        "ap-northeast-1": 0.00004,
+        "ap-northeast-2": null,
+        "ap-south-1": 0.00004,
+        "ap-southeast-1": 0.00004,
+        "ap-southeast-2": 0.00004,
+        "eu-central-1": 0.00004,
+        "eu-west-1": 0.00004,
+        "us-east-1": 0.00004,
+        "us-east-2": 0.00004,
+        "us-west-2": 0.00004
+      },
+      "x86-64.4GB": {
+        "ap-northeast-1": 0.00008,
+        "ap-northeast-2": null,
+        "ap-south-1": 0.00008,
+        "ap-southeast-1": 0.00008,
+        "ap-southeast-2": 0.00008,
+        "eu-central-1": 0.00008,
+        "eu-west-1": 0.00008,
+        "us-east-1": 0.00008,
+        "us-east-2": 0.00008,
+        "us-west-2": 0.00008
+      },
+      "x86-64.8GB": {
+        "ap-northeast-1": 0.00016,
+        "ap-northeast-2": null,
+        "ap-south-1": 0.00016,
+        "ap-southeast-1": 0.00016,
+        "ap-southeast-2": 0.00016,
+        "eu-central-1": 0.00016,
+        "eu-west-1": 0.00016,
+        "us-east-1": 0.00016,
+        "us-east-2": 0.00016,
+        "us-west-2": 0.00016
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

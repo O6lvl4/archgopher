@@ -1,0 +1,37 @@
+type: aws_codebuild_project
+label: CodeBuild project
+category: Developer tools
+icon: codebuild
+description: "On-demand build minutes by environment and compute type (Lambda compute by the second), and the remote Docker server's seconds when one is set. Load is builds started. Headroom is concurrent builds, a quota per environment and compute type shared by every project in the account, and the build time against the project's timeout. Projects on a reserved-capacity fleet are billed by the fleet, not here."
+kinds: [build]
+sla: aws.codebuild
+attributes:
+  - { key: compute_type, label: Compute type, type: string, default: BUILD_GENERAL1_SMALL, path: environment.compute_type, hint: "BUILD_GENERAL1_* or BUILD_LAMBDA_*" }
+  - { key: environment_type, label: Environment, type: string, default: LINUX_CONTAINER, path: environment.type, hint: "LINUX_CONTAINER, ARM_CONTAINER, LINUX_GPU_CONTAINER, WINDOWS_SERVER_2019_CONTAINER, WINDOWS_SERVER_2022_CONTAINER, LINUX_LAMBDA_CONTAINER or ARM_LAMBDA_CONTAINER" }
+  - { key: docker_server_compute_type, label: Docker server compute type, type: string, optional: true, path: environment.docker_server.compute_type, hint: "Set when builds use a remote Docker server" }
+  - { key: build_timeout, label: Build timeout, type: number, unit: min, default: 60 }
+  - { key: fleet, label: Reserved-capacity fleet, type: boolean, default: false, path: environment.fleet, hint: "Builds run on an aws_codebuild_fleet, billed by the fleet" }
+assumptions:
+  - { key: buildMinutes, label: Build duration, type: number, unit: min, hint: "Average from start to end of a build; EC2 compute is billed per started minute, Lambda compute per second" }
+  - { key: concurrentBuilds, label: Concurrent build quota, type: number, optional: true, hint: "The account's quota for this environment and compute type when raised above the new-account default" }
+let:
+  - lambda: 'environment_type in ["LINUX_LAMBDA_CONTAINER", "ARM_LAMBDA_CONTAINER"]'
+  - onDemand: 'lambda || environment_type in ["LINUX_CONTAINER", "ARM_CONTAINER", "LINUX_GPU_CONTAINER", "WINDOWS_SERVER_2019_CONTAINER", "WINDOWS_SERVER_2022_CONTAINER"]'
+  - general: 'compute_type startsWith "BUILD_GENERAL1_"'
+  - platform: 'environment_type == "ARM_CONTAINER" ? "ARM" : environment_type == "LINUX_GPU_CONTAINER" ? "LinuxGPU" : environment_type startsWith "WINDOWS" ? "Windows" : "Linux"'
+  - key: 'lambda ? (environment_type == "ARM_LAMBDA_CONTAINER" ? "arm." : "x86-64.") + trimPrefix(compute_type, "BUILD_LAMBDA_") : platform + ":g1." + lower(trimPrefix(compute_type, "BUILD_GENERAL1_"))'
+  - dockerKey: '(environment_type == "ARM_CONTAINER" ? "ARM" : "Linux") + ":g1." + lower(trimPrefix(docker_server_compute_type ?? "", "BUILD_GENERAL1_"))'
+readings:
+  - fail: { when: fleet, message: "builds run on a reserved-capacity fleet, billed by the fleet: on-demand compute is not read" }
+  - fail: { when: '!fleet && !onDemand', message: "{environment_type} runs only on a reserved-capacity fleet: on-demand compute is not read" }
+  - fail: { when: '!fleet && onDemand && !lambda && !general', message: "only on-demand general compute is priced: {compute_type} runs on a reserved-capacity fleet or custom instance type" }
+  - fail: { when: '!fleet && lambda && !(compute_type startsWith "BUILD_LAMBDA_")', message: "{environment_type} takes a BUILD_LAMBDA_* compute type, not {compute_type}" }
+  - cost: { when: '!lambda', name: "Build minutes ({key})", quantity: 'total.monthly * ceil(buildMinutes)', unit: minute, price: "aws.codebuild.build_minute.{key}" }
+  - cost: { when: lambda, name: "Build seconds (Lambda {key})", quantity: 'total.monthly * ceil(buildMinutes * 60)', unit: second, price: "aws.codebuild.lambda_second.{key}" }
+  - cost: { when: 'docker_server_compute_type != nil', name: "Docker server seconds ({dockerKey})", quantity: 'total.monthly * buildMinutes * 60', unit: second, price: "aws.codebuild.docker_second.{dockerKey}" }
+  - concurrency: { name: Concurrent builds, unit: concurrent builds, quota: 'aws.codebuild.concurrent_builds.{lambda ? "Lambda:" : ""}{key}', peak: total.peak, seconds: buildMinutes * 60, capacity: concurrentBuilds }
+  - limit: { name: Build time against timeout, demand: buildMinutes, unit: min, capacity: build_timeout }
+terraform:
+  ignoreRefs: [encryption_key, vpc_config, service_role]
+iam:
+  build: ["codebuild:StartBuild", "codebuild:StartBuildBatch"]

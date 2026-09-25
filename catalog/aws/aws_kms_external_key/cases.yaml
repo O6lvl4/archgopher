@@ -1,0 +1,20 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: imported key under load
+  region: ap-northeast-1
+  demand:
+    crypt:
+        monthly: 1e+06
+        peak: 20
+  costs:
+    Key: 1
+    Requests: 3  # 1,000,000 / 10,000 × 0.03
+  limits:
+    Symmetric request rate: 20
+- name: idle imported key
+  region: us-east-1
+  costs:
+    Key: 1
+    Requests: 0
+  limits:
+    Symmetric request rate: 0

@@ -1,0 +1,128 @@
+{
+  "aws.cloudformation.handler_operation": {
+    "unit": "operation",
+    "source": "https://aws.amazon.com/cloudformation/pricing/",
+    "note": "Handler operations on third-party and private registry resource types (not AWS::, Alexa:: or Custom::); the first 1,000 a month per account are free (ignored)",
+    "sync": {
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-Resource-Invocation-Count"
+      },
+      "service": "AWSCloudFormation"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.0009,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.0009,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.0009,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.0009,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.0009,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.0009,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.0009,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.0009,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.0009,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.0009,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.cloudformation.handler_second": {
+    "unit": "second",
+    "source": "https://aws.amazon.com/cloudformation/pricing/",
+    "note": "Handler duration beyond 30 seconds per operation on third-party and private registry resource types",
+    "sync": {
+      "filters": {
+        "usagetype": "(?:[A-Z]+[0-9]|EU)-Resource-Processing-Time"
+      },
+      "service": "AWSCloudFormation"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.00008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.00008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.00008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.00008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.00008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.00008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.00008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.00008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.00008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.00008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

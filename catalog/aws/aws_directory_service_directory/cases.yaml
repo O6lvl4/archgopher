@@ -1,0 +1,30 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: small Simple AD
+  region: ap-northeast-1
+  costs:
+    Directory hours (SimpleAD, Small): 58.4  # 730 × 0.08
+- name: Microsoft AD Standard with three controllers, shared twice
+  region: ap-northeast-1
+  attributes:
+    desired_number_of_domain_controllers: 3
+    edition: Standard
+    type: MicrosoftAD
+  assumptions:
+    sharedAccounts: 2
+  costs:
+    Directory sharing: 31.974  # 2 × 730 × 0.0219
+    Domain controllers (Microsoft AD Standard): 159.87  # 3 × 730 × 0.073
+- name: Microsoft AD Enterprise keeps its two controllers
+  region: us-east-1
+  attributes:
+    type: MicrosoftAD
+  costs:
+    Domain controllers (Microsoft AD Enterprise): 292  # 2 × 730 × 0.2
+- name: large AD Connector
+  region: us-east-1
+  attributes:
+    size: Large
+    type: ADConnector
+  costs:
+    Directory hours (ADConnector, Large): 109.5  # 730 × 0.15

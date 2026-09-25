@@ -1,0 +1,26 @@
+type: aws_cloudformation_stack_set
+label: CloudFormation StackSet
+category: Management
+icon: cloudformation
+description: "Resources of AWS, Alexa and Custom types are free to provision. Third-party and private registry types are billed per handler operation, and for every second a handler runs beyond 30. Load is StackSet operations; each runs in every stack instance, priced in the declaration's region. A template body naming no registry type reads nothing; a template read from a URL is assumed to name none unless thirdPartyResources is set."
+kinds: [deploy]
+attributes:
+  - { key: template_body, label: Template body, type: string, optional: true }
+assumptions:
+  - { key: thirdPartyResources, label: Registry-type resources, type: number, optional: true, hint: "Resources in the template whose type is not AWS::, Alexa:: or Custom::" }
+  - { key: handlerSeconds, label: Handler duration, type: number, unit: s, default: 30, hint: "Average per handler operation; seconds beyond 30 are billed" }
+  - { key: stackInstances, label: Stack instances, type: number, default: 1, hint: "Accounts × regions the StackSet deploys to (aws_cloudformation_stack_set_instance); each runs every operation" }
+  # Every "X::" in the template whose X ends a word names a type's vendor (or an intrinsic function); X must be AWS, Alexa, Custom or Fn.
+let:
+  - registry: 'any(split(template_body ?? "", "::")[:-1], {# matches "^(?s:.*[^A-Za-z0-9])?[A-Za-z][A-Za-z0-9]*$" && !(# matches "^(?s:.*[^A-Za-z0-9])?(AWS|Alexa|Custom|Fn)$") && !(# matches "^[A-Za-z0-9]+$")})'
+  - resources: 'thirdPartyResources ?? 0.0'
+  - operations: 'total.monthly * resources * stackInstances'
+readings:
+  - fail: { when: 'registry && thirdPartyResources == nil', message: "the template names third-party or private registry types: set thirdPartyResources, how many resources use them" }
+  - cost: { name: Handler operations, quantity: operations, unit: operation, price: aws.cloudformation.handler_operation }
+  - cost: { name: Handler time beyond 30 s, quantity: 'operations * max(handlerSeconds - 30, 0)', unit: second, price: aws.cloudformation.handler_second }
+terraform:
+  # A stack passes references to its template as parameters; it calls nothing itself.
+  passive: true
+iam:
+  deploy: ["cloudformation:CreateStackInstances", "cloudformation:UpdateStackSet", "cloudformation:DeleteStackInstances"]

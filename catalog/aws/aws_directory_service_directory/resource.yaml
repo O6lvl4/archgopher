@@ -1,0 +1,26 @@
+type: aws_directory_service_directory
+label: Directory Service directory
+category: Security
+icon: directory-service
+description: "Simple AD and AD Connector are billed per directory-hour by size, two domain controllers included. AWS Managed Microsoft AD is billed per domain controller-hour by edition, at least two, plus an hourly charge for each account or VPC the directory is shared with. Clients speak LDAP and Kerberos, not IAM, so draw their edges by hand; data transfer out is not read here."
+kinds: [auth]
+sla: aws.directoryservice
+attributes:
+  - { key: type, label: Directory type, type: choice, options: [SimpleAD, ADConnector, MicrosoftAD], default: SimpleAD }
+  - { key: edition, label: Edition, type: choice, options: [Standard, Enterprise], default: Enterprise, hint: "Microsoft AD only" }
+  - { key: size, label: Size, type: choice, options: [Small, Large], default: Small, hint: "Simple AD and AD Connector only" }
+  - { key: desired_number_of_domain_controllers, label: Domain controllers, type: number, optional: true, hint: "Microsoft AD only; at least 2" }
+assumptions:
+  - { key: sharedAccounts, label: Shared with, type: number, default: 0, hint: "Accounts or VPCs a Microsoft AD directory is shared with (aws_directory_service_shared_directory)" }
+let:
+  - msad: 'type == "MicrosoftAD"'
+  - directoryKey: 'type == "SimpleAD" ? size + "-SimpleAD" : (size == "Small" ? "Small-Directory" : "Large-ADConnector")'
+  - editionKey: 'edition == "Standard" ? "Std-" : ""'
+  - controllers: 'max(desired_number_of_domain_controllers ?? 2, 2)'
+readings:
+  - cost: { when: '!msad', name: "Directory hours ({type}, {size})", quantity: 730, unit: directory-hour, price: "aws.directoryservice.directory.{directoryKey}" }
+  - cost: { when: msad, name: "Domain controllers (Microsoft AD {edition})", quantity: controllers * 730, unit: controller-hour, price: "aws.directoryservice.domain_controller.{editionKey}MicrosoftAD-DC" }
+  - cost: { when: 'msad && sharedAccounts > 0', name: Directory sharing, quantity: sharedAccounts * 730, unit: account-hour, price: "aws.directoryservice.sharing.{editionKey}SharedMsftAD" }
+terraform:
+  # A directory names its VPC, subnets and on-premises DNS; it calls nothing.
+  passive: true

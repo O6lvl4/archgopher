@@ -1,0 +1,23 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: sessions and commands on hybrid nodes
+  region: ap-northeast-1
+  demand:
+    command:
+        monthly: 5000
+        peak: 0.1
+    session:
+        monthly: 200
+        peak: 0.001
+  costs:
+    Run Command invocations: 10  # 5000 × 0.002
+    Session Manager sessions: 10  # 200 × 0.05
+- name: Run Command only
+  region: us-east-1
+  demand:
+    command:
+        monthly: 1000
+        peak: 0.01
+  costs:
+    Run Command invocations: 2
+    Session Manager sessions: 0
