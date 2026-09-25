@@ -206,10 +206,18 @@ func (b *builder) node(r *eval.Resource) model.Node {
 		for _, f := range s.Attributes() {
 			path := f.TerraformPath()
 			v := lookupPath(r.Attrs, path)
-			if _, isBool := v.(bool); f.Type == field.Flag && !isBool && (v != nil || hasBlock(r.Attrs, path) || len(r.Refs[path]) > 0) {
-				// A boolean that points at a block or a value reads whether it is
-				// written, even when the value exists only after apply (an ID).
-				v = true
+			if _, isBool := v.(bool); f.Type == field.Flag && !isBool {
+				switch {
+				case f.Path != "":
+					// A boolean that points at a block or another attribute reads whether
+					// it is written, even when the value exists only after apply (an ID).
+					v = nil
+					if written(r, path) {
+						v = true
+					}
+				case hasBlock(r.Attrs, path):
+					v = true
+				}
 			}
 			if v != nil {
 				n.Attributes[f.Key] = v
@@ -495,6 +503,21 @@ func lookupPath(m map[string]any, path string) any {
 		}
 	}
 	return cur
+}
+
+// written reports whether "a.b" is set: a block (even empty), a non-empty
+// value, or a reference to another resource whose value is known after apply.
+func written(r *eval.Resource, path string) bool {
+	switch v := lookupPath(r.Attrs, path).(type) {
+	case nil:
+	case string:
+		if v != "" {
+			return true
+		}
+	default:
+		return true
+	}
+	return hasBlock(r.Attrs, path) || len(r.Refs[path]) > 0
 }
 
 // hasBlock reports whether "a.b" names a block that is written, even empty.

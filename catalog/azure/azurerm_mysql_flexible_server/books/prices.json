@@ -310,6 +310,138 @@
       }
     }
   },
+  "azure.mysql.flex.dadsv6.vcore": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/mysql/flexible-server/",
+    "note": "General Purpose Dadsv6, per vCore-hour",
+    "sync": {
+      "filters": {
+        "meterName": "vCore",
+        "productName": "Azure Database for MySQL Flexible Server General Purpose Dadsv6 Series Compute",
+        "skuName": "vCore"
+      },
+      "service": "Azure Database for MySQL",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.162,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.157,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.112,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.112,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.146,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.162,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.151,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.134,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.146,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.112,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.mysql.flex.dasv6.vcore": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/mysql/flexible-server/",
+    "note": "General Purpose Dasv6, per vCore-hour",
+    "sync": {
+      "filters": {
+        "meterName": "vCore",
+        "productName": "Azure Database for MySQL Flexible Server General Purpose Dasv6 Series Compute",
+        "skuName": "vCore"
+      },
+      "service": "Azure Database for MySQL",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.129,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.089,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.089,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.116,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.129,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.107,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.116,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.089,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
   "azure.mysql.flex.ddsv4.vcore": {
     "unit": "vCore-hour",
     "source": "https://azure.microsoft.com/pricing/details/mysql/flexible-server/",
@@ -376,6 +508,204 @@
       }
     }
   },
+  "azure.mysql.flex.ddsv5.vcore": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/mysql/flexible-server/",
+    "note": "General Purpose Ddsv5, per vCore-hour",
+    "sync": {
+      "filters": {
+        "meterName": "vCore",
+        "productName": "Azure Database for MySQL Flexible Server General Purpose Ddsv5 Series Compute",
+        "skuName": "vCore"
+      },
+      "service": "Azure Database for MySQL",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.1175,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.1205,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.0855,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.0855,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.1015,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.1175,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.118,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.0945,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.1175,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.0855,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.mysql.flex.ddsv6.vcore": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/mysql/flexible-server/",
+    "note": "General Purpose Ddsv6, per vCore-hour",
+    "sync": {
+      "filters": {
+        "meterName": "vCore",
+        "productName": "Azure Database for MySQL Flexible Server General Purpose Ddsv6 Series Compute",
+        "skuName": "vCore"
+      },
+      "service": "Azure Database for MySQL",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.162,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.157,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.112,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.112,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.146,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.162,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.151,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.134,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.146,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.112,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.mysql.flex.dsv6.vcore": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/mysql/flexible-server/",
+    "note": "General Purpose Dsv6, per vCore-hour",
+    "sync": {
+      "filters": {
+        "meterName": "vCore",
+        "productName": "Azure Database for MySQL Flexible Server General Purpose Dsv6 Series Compute",
+        "skuName": "vCore"
+      },
+      "service": "Azure Database for MySQL",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.129,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.089,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.089,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.116,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.129,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.107,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.116,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.089,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
   "azure.mysql.flex.eadsv5.vcore": {
     "unit": "vCore-hour",
     "source": "https://azure.microsoft.com/pricing/details/mysql/flexible-server/",
@@ -437,6 +767,138 @@
       },
       "westus2": {
         "value": 0.1181,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.mysql.flex.eadsv6.vcore": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/mysql/flexible-server/",
+    "note": "Memory Optimized (Business Critical) Eadsv6, per vCore-hour",
+    "sync": {
+      "filters": {
+        "meterName": "vCore",
+        "productName": "Azure Database for MySQL Flexible Server Memory Optimized Eadsv6 Series Compute",
+        "skuName": "vCore"
+      },
+      "service": "Azure Database for MySQL",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.216,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.209,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.149,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.149,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.194,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.216,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.201,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.179,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.194,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.149,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.mysql.flex.easv6.vcore": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/mysql/flexible-server/",
+    "note": "Memory Optimized (Business Critical) Easv6, per vCore-hour",
+    "sync": {
+      "filters": {
+        "meterName": "vCore",
+        "productName": "Azure Database for MySQL Flexible Server Memory Optimized Easv6 Series Compute",
+        "skuName": "vCore"
+      },
+      "service": "Azure Database for MySQL",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.181,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.175,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.163,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.181,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.169,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.163,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.125,
         "verified": true,
         "checkedAt": "2026-09-25"
       }
@@ -632,6 +1094,138 @@
     },
     "verified": true,
     "checkedAt": "2026-09-25"
+  },
+  "azure.mysql.flex.edsv6.vcore": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/mysql/flexible-server/",
+    "note": "Memory Optimized (Business Critical) Edsv6, per vCore-hour",
+    "sync": {
+      "filters": {
+        "meterName": "vCore",
+        "productName": "Azure Database for MySQL Flexible Server Memory Optimized Edsv6 Series Compute",
+        "skuName": "vCore"
+      },
+      "service": "Azure Database for MySQL",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.216,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.209,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.149,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.149,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.194,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.216,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.201,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.179,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.194,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.149,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.mysql.flex.esv6.vcore": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/mysql/flexible-server/",
+    "note": "Memory Optimized (Business Critical) Esv6, per vCore-hour",
+    "sync": {
+      "filters": {
+        "meterName": "vCore",
+        "productName": "Azure Database for MySQL Flexible Server Memory Optimized Esv6 Series Compute",
+        "skuName": "vCore"
+      },
+      "service": "Azure Database for MySQL",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.181,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.175,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.163,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.181,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.169,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.163,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
   },
   "azure.mysql.flex.iops": {
     "unit": "IOPS-month",

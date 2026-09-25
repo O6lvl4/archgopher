@@ -41,3 +41,11 @@ resource "azurerm_mssql_database" "single" {
   server_id = azurerm_mssql_server.sql.id
   sku_name  = "S0"
 }
+
+# An empty ID is not a pool.
+resource "azurerm_mssql_database" "empty" {
+  name            = "empty"
+  server_id       = azurerm_mssql_server.sql.id
+  sku_name        = "S0"
+  elastic_pool_id = ""
+}

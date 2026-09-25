@@ -50,3 +50,18 @@
     Long-term retention storage: 0
   limits:
     Concurrent workers: 0.2
+- name: Hyperscale with read scale-out runs one HA replica in Japan East
+  region: japaneast
+  attributes:
+    requested_service_objective_name: HS_Gen5_2
+    read_scale: true
+  demand:
+    query:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Compute: 301.35276
+    HA replicas: 301.35276
+    Storage: 9.655168
+  limits:
+    Concurrent workers: 0.2

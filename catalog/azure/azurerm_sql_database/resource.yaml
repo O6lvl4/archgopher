@@ -2,7 +2,7 @@ type: azurerm_sql_database
 label: SQL database (legacy)
 category: Database
 icon: sql-database
-description: "The azurerm 2.x resource, priced like azurerm_mssql_database with the license included and geo-redundant backups. vCore: compute hours per vCore, the SQL license on General Purpose and Business Critical, zone redundancy on General Purpose, storage on the maximum size. DTU: the service objective per day and storage above what it includes. Backup storage beyond the free amount. A database in an elastic pool bills only its backups. Headroom is concurrent workers."
+description: "The azurerm 2.x resource, priced like azurerm_mssql_database with the license included and geo-redundant backups. vCore: compute hours per vCore, the SQL license on General Purpose and Business Critical, zone redundancy on General Purpose, a Hyperscale HA replica with read_scale, storage on the maximum size. DTU: the service objective per day and storage above what it includes. Backup storage beyond the free amount. A database in an elastic pool bills only its backups. Headroom is concurrent workers."
 kinds: [query]
 sla: azure.sql.database
 attributes:
@@ -11,6 +11,7 @@ attributes:
   - { key: elastic_pool, label: In an elastic pool, type: boolean, default: false, path: elastic_pool_name, hint: "Set when elastic_pool_name is written: the pool bills compute and storage" }
   - { key: max_size_bytes, label: Max size, type: number, unit: bytes, optional: true, hint: "Storage is billed on the maximum size. Unset: 32 GB on vCore, what the DTU objective includes on DTU" }
   - { key: zone_redundant, label: Zone redundant, type: boolean, default: false, hint: "Extra on General Purpose; included on Business Critical and Premium" }
+  - { key: read_scale, label: Read scale-out, type: boolean, default: false, hint: "Free on Premium and Business Critical; on Hyperscale it is one HA replica billed like the primary" }
 assumptions:
   - { key: queryMs, label: Query duration, type: number, unit: ms, default: 20, hint: "Average time a query holds a worker; peak queries per second times this is the workers in use" }
   - { key: backupGb, label: Backup storage beyond the free amount, type: number, unit: GB, default: 0, hint: "Point-in-time backups are free up to the maximum data size" }
@@ -38,6 +39,7 @@ readings:
   - cost: { when: '!elastic_pool && vcoreModel', name: Compute, quantity: 730 * vcores, unit: vCore-hour, price: "azure.sql.vcore.{vkey}" }
   - cost: { when: '!elastic_pool && vkey == "gp_gen5" && zone_redundant', name: Zone redundancy, quantity: 730 * vcores, unit: vCore-hour, price: azure.sql.vcore.gp_gen5_zr }
   - cost: { when: '!elastic_pool && tier in ["GP", "BC"]', name: SQL license, quantity: 730 * vcores, unit: vCore-hour, price: "azure.sql.license.{lower(tier)}" }
+  - cost: { when: '!elastic_pool && hyperscale && read_scale', name: HA replicas, quantity: 730 * vcores, unit: vCore-hour, price: "azure.sql.vcore.{vkey}" }
   - storage: { when: '!elastic_pool && vcoreModel', name: Storage, gb: sizeGb, price: "azure.sql.storage.{storageKey}" }
   - cost: { when: '!elastic_pool && !vcoreModel', name: Compute, quantity: 730.0 / 24, unit: day, price: "azure.sql.dtu.{dtu}" }
   - storage: { when: '!elastic_pool && !vcoreModel && dtu != "B" && sizeGb > included', name: Extra storage, gb: sizeGb - included, price: "azure.sql.storage.{dtuTier}" }

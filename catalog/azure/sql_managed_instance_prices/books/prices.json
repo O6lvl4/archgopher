@@ -843,19 +843,19 @@
       "filters": {
         "meterName": "vCore",
         "productName": "SQL Managed Instance Business Critical - Premium Series Memory Optimized Compute",
-        "skuName": "vCore"
+        "skuName": "1 vCore"
       },
       "service": "SQL Managed Instance",
       "source": "azure"
     },
     "values": {
       "australiaeast": {
-        "value": 0.493,
+        "value": 0.714,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "centralindia": {
-        "value": 0.493,
+        "value": 0.69,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
@@ -870,27 +870,27 @@
         "checkedAt": "2026-09-25"
       },
       "germanywestcentral": {
-        "value": 0.493,
+        "value": 0.64,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "japaneast": {
-        "value": 0.493,
+        "value": 0.714,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "koreacentral": {
-        "value": 0.493,
+        "value": 0.665,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "northeurope": {
-        "value": 0.493,
+        "value": 0.70499,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "southeastasia": {
-        "value": 0.493,
+        "value": 0.6902,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
@@ -975,19 +975,19 @@
       "filters": {
         "meterName": "vCore",
         "productName": "SQL Managed Instance Business Critical - Premium Series Compute",
-        "skuName": "vCore"
+        "skuName": "1 vCore"
       },
       "service": "SQL Managed Instance",
       "source": "azure"
     },
     "values": {
       "australiaeast": {
-        "value": 0.352,
+        "value": 0.51,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "centralindia": {
-        "value": 0.352,
+        "value": 0.493,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
@@ -1002,27 +1002,27 @@
         "checkedAt": "2026-09-25"
       },
       "germanywestcentral": {
-        "value": 0.352,
+        "value": 0.457,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "japaneast": {
-        "value": 0.352,
+        "value": 0.51,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "koreacentral": {
-        "value": 0.352,
+        "value": 0.475,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "northeurope": {
-        "value": 0.352,
+        "value": 0.422,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "southeastasia": {
-        "value": 0.352,
+        "value": 0.457,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
@@ -1239,19 +1239,19 @@
       "filters": {
         "meterName": "vCore",
         "productName": "SQL Managed Instance General Purpose - Premium Series Memory Optimized Compute",
-        "skuName": "vCore"
+        "skuName": "1 vCore"
       },
       "service": "SQL Managed Instance",
       "source": "azure"
     },
     "values": {
       "australiaeast": {
-        "value": 0.246,
+        "value": 0.357,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "centralindia": {
-        "value": 0.246,
+        "value": 0.345,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
@@ -1266,27 +1266,27 @@
         "checkedAt": "2026-09-25"
       },
       "germanywestcentral": {
-        "value": 0.246,
+        "value": 0.32,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "japaneast": {
-        "value": 0.246,
+        "value": 0.357,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "koreacentral": {
-        "value": 0.246,
+        "value": 0.333,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "northeurope": {
-        "value": 0.246,
+        "value": 0.296,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "southeastasia": {
-        "value": 0.246,
+        "value": 0.32,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
@@ -1371,19 +1371,19 @@
       "filters": {
         "meterName": "vCore",
         "productName": "SQL Managed Instance General Purpose - Premium Series Compute",
-        "skuName": "vCore"
+        "skuName": "1 vCore"
       },
       "service": "SQL Managed Instance",
       "source": "azure"
     },
     "values": {
       "australiaeast": {
-        "value": 0.176,
+        "value": 0.255,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "centralindia": {
-        "value": 0.176,
+        "value": 0.246,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
@@ -1398,27 +1398,27 @@
         "checkedAt": "2026-09-25"
       },
       "germanywestcentral": {
-        "value": 0.176,
+        "value": 0.229,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "japaneast": {
-        "value": 0.176,
+        "value": 0.255,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "koreacentral": {
-        "value": 0.176,
+        "value": 0.238,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "northeurope": {
-        "value": 0.176,
+        "value": 0.211,
         "verified": true,
         "checkedAt": "2026-09-25"
       },
       "southeastasia": {
-        "value": 0.176,
+        "value": 0.229,
         "verified": true,
         "checkedAt": "2026-09-25"
       },

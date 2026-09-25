@@ -52,3 +52,17 @@
     Backup storage: 0
   limits:
     Connections: 500
+- name: General Purpose D4ds_v5 prices per vCore without a published connection limit
+  region: japaneast
+  attributes:
+    sku_name: GP_Standard_D4ds_v5
+  assumptions:
+    peakConnections: 100
+  demand:
+    query:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Compute: 343.1
+    Storage: 2.76
+    Backup storage: 0
