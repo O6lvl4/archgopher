@@ -1,0 +1,128 @@
+{
+  "azure.vnetgateway.expressroute_gbps": {
+    "unit": "Gbps",
+    "source": "https://learn.microsoft.com/en-us/azure/expressroute/expressroute-about-virtual-network-gateways",
+    "note": "Throughput per ExpressRoute gateway SKU; ErGwScale per scale unit. Not adjustable",
+    "rows": {
+      "ErGw1AZ": {
+        "*": 1
+      },
+      "ErGw2AZ": {
+        "*": 2
+      },
+      "ErGw3AZ": {
+        "*": 10
+      },
+      "ErGwScale": {
+        "*": 1
+      },
+      "HighPerformance": {
+        "*": 2
+      },
+      "Standard": {
+        "*": 1
+      },
+      "UltraPerformance": {
+        "*": 10
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.vnetgateway.p2s_connections": {
+    "unit": "connections",
+    "source": "https://learn.microsoft.com/en-us/azure/vpn-gateway/about-gateway-skus",
+    "note": "Point-to-site IKEv2/OpenVPN connections per gateway (SSTP on Basic, which has no IKEv2). Not adjustable",
+    "rows": {
+      "Basic": {
+        "*": 128
+      },
+      "VpnGw1": {
+        "*": 250
+      },
+      "VpnGw1AZ": {
+        "*": 250
+      },
+      "VpnGw2": {
+        "*": 500
+      },
+      "VpnGw2AZ": {
+        "*": 500
+      },
+      "VpnGw3": {
+        "*": 1000
+      },
+      "VpnGw3AZ": {
+        "*": 1000
+      },
+      "VpnGw4": {
+        "*": 5000
+      },
+      "VpnGw4AZ": {
+        "*": 5000
+      },
+      "VpnGw5": {
+        "*": 10000
+      },
+      "VpnGw5AZ": {
+        "*": 10000
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.vnetgateway.vpn_gbps": {
+    "unit": "Gbps",
+    "source": "https://learn.microsoft.com/en-us/azure/vpn-gateway/about-gateway-skus",
+    "note": "Aggregate throughput benchmark by generation and SKU, over all tunnels and connections; a single tunnel reaches less. Not adjustable",
+    "rows": {
+      "Generation1.Basic": {
+        "*": 0.1
+      },
+      "Generation1.VpnGw1": {
+        "*": 0.65
+      },
+      "Generation1.VpnGw1AZ": {
+        "*": 0.65
+      },
+      "Generation1.VpnGw2": {
+        "*": 1
+      },
+      "Generation1.VpnGw2AZ": {
+        "*": 1
+      },
+      "Generation1.VpnGw3": {
+        "*": 1.25
+      },
+      "Generation1.VpnGw3AZ": {
+        "*": 1.25
+      },
+      "Generation2.VpnGw2": {
+        "*": 1.25
+      },
+      "Generation2.VpnGw2AZ": {
+        "*": 1.25
+      },
+      "Generation2.VpnGw3": {
+        "*": 2.5
+      },
+      "Generation2.VpnGw3AZ": {
+        "*": 2.5
+      },
+      "Generation2.VpnGw4": {
+        "*": 5
+      },
+      "Generation2.VpnGw4AZ": {
+        "*": 5
+      },
+      "Generation2.VpnGw5": {
+        "*": 10
+      },
+      "Generation2.VpnGw5AZ": {
+        "*": 10
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

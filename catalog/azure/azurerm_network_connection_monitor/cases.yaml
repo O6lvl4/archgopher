@@ -1,0 +1,40 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: two sources, three destinations, one configuration (japaneast)
+  region: japaneast
+  attributes:
+    sources: [vm-a, vm-b]
+    destinations: [web, api, db]
+    configurations: [tcp]
+  demand:
+    test:
+      monthly: 0
+      peak: 0
+  # 2 × 3 × 1 = 6 tests × $0.30
+  costs:
+    Tests: 1.8
+- name: 300,000 tests across other groups (eastus)
+  region: eastus
+  assumptions:
+    otherTests: 300000
+  demand:
+    test:
+      monthly: 0
+      peak: 0
+  # 240,010 × $0.30; (300,000 − 240,010) × $0.09999
+  costs:
+    Tests: 72003
+    Tests beyond 240010: 5998.4001
+- name: disabled first group (eastus)
+  region: eastus
+  attributes:
+    group_enabled: false
+    sources: [vm-a]
+    destinations: [web]
+    configurations: [tcp]
+  demand:
+    test:
+      monthly: 0
+      peak: 0
+  costs:
+    Tests: 0

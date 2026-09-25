@@ -1,0 +1,103 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: VpnGw1 to on-premises, 10 million requests of 4 KB (japaneast)
+  region: japaneast
+  attributes:
+    sku: VpnGw1
+  assumptions:
+    kbPerUnit: 4
+  demand:
+    traffic:
+      monthly: 1e+07
+      peak: 100
+  # 730 h × $0.19; 1e7 × 4 KB = 38.14697265625 GB × $0.12 internet out; 100/s × 4 KB × 8 bit
+  costs:
+    Gateway hours (VpnGw1): 138.7
+    Data sent out: 4.57763671875
+  limits:
+    Throughput: 0.0030517578125
+    Point-to-site connections: 0
+- name: VpnGw2AZ Generation2 to another VNet with 200 users (eastus)
+  region: eastus
+  attributes:
+    sku: VpnGw2AZ
+    generation: Generation2
+  assumptions:
+    peer: vnet
+    gbPerMonth: 100
+    p2sConnections: 200
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # 730 h × $0.54; (200 − 128) × 730 h × $0.01; 100 GB × $0.035 zone 1 inter-VNet
+  costs:
+    Gateway hours (VpnGw2AZ): 394.2
+    Point-to-site connections beyond 128: 525.6
+    Data sent out: 3.5
+  limits:
+    Throughput: 0
+    Point-to-site connections: 200
+- name: ExpressRoute ErGw1AZ (japaneast)
+  region: japaneast
+  attributes:
+    gateway_type: ExpressRoute
+    sku: ErGw1AZ
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # 730 h × $0.361
+  costs:
+    Gateway hours (ErGw1AZ): 263.53
+  limits:
+    Throughput: 0
+- name: ExpressRoute HighPerformance (eastus)
+  region: eastus
+  attributes:
+    gateway_type: ExpressRoute
+    sku: HighPerformance
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # 730 h × $0.49 (High Performance Gateway)
+  costs:
+    Gateway hours (HighPerformance): 357.7
+  limits:
+    Throughput: 0
+- name: ExpressRoute ErGwScale at 2 scale units (eastus)
+  region: eastus
+  attributes:
+    gateway_type: ExpressRoute
+    sku: ErGwScale
+  assumptions:
+    scaleUnits: 2
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # 2 × 730 h × $0.21
+  costs:
+    Gateway hours (ErGwScale): 306.6
+  limits:
+    Throughput: 0
+- name: a VPN SKU on an ExpressRoute gateway (eastus)
+  region: eastus
+  attributes:
+    gateway_type: ExpressRoute
+    sku: VpnGw1
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  error: "VpnGw1 is not a SKU of ExpressRoute gateways"
+- name: load passes through without a size (eastus)
+  region: eastus
+  attributes:
+    sku: VpnGw1
+  demand:
+    traffic:
+      monthly: 1000
+      peak: 1
+  error: "load passes through this gateway: set kbPerUnit, the data each unit sends"

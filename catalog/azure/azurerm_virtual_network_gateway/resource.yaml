@@ -1,0 +1,42 @@
+type: azurerm_virtual_network_gateway
+label: Virtual network gateway
+category: Network
+icon: virtual-network-gateway
+description: "A VPN or ExpressRoute gateway in a VNet. VPN: gateway-hours by SKU, point-to-site connections beyond the 128 included, and data sent out through it (VNet-to-VNet at the inter-VNet rate of the region's billing zone, to on-premises at the internet transfer-out rate). ExpressRoute: gateway-hours by SKU; its data is billed on the circuit. Place it on the path: load that passes through carries kbPerUnit each and flows on. Tunnels beyond the 10 included are read on the connections. Headroom is the SKU's aggregate throughput benchmark and its point-to-site connection limit."
+kinds: [traffic]
+sla: azure.vnetgateway
+attributes:
+  - { key: gateway_type, label: Type, type: choice, options: [Vpn, ExpressRoute], default: Vpn, path: type }
+  - { key: sku, label: SKU, type: choice, options: [Basic, VpnGw1, VpnGw2, VpnGw3, VpnGw4, VpnGw5, VpnGw1AZ, VpnGw2AZ, VpnGw3AZ, VpnGw4AZ, VpnGw5AZ, Standard, HighPerformance, UltraPerformance, ErGw1AZ, ErGw2AZ, ErGw3AZ, ErGwScale], default: Basic }
+  - { key: generation, label: Generation, type: choice, options: [Generation1, Generation2, None], default: Generation1, hint: "VpnGw2 and VpnGw3 are faster on Generation2; VpnGw4 and VpnGw5 exist only there" }
+assumptions:
+  - { key: kbPerUnit, label: Data sent per unit, type: number, unit: KB, optional: true, hint: "Per request or message passing through, what Azure sends to the other side; data coming in is free" }
+  - { key: gbPerMonth, label: Other data sent per month, type: number, unit: GB, default: 0, hint: "Traffic not drawn as load, such as backups to on-premises" }
+  - { key: peer, label: Other side, type: choice, options: [onpremises, vnet], default: onpremises, hint: "vnet for VNet-to-VNet connections, billed at the inter-VNet rate; onpremises for site-to-site and point-to-site, billed as transfer out to the internet" }
+  - { key: p2sConnections, label: Point-to-site connections, type: number, default: 0, hint: "Users connected at the same time, on average over the month; 128 are included" }
+  - { key: scaleUnits, label: ErGwScale scale units, type: number, default: 1, hint: "Only for the ErGwScale SKU: the scale units it runs at, 1 Gbps each" }
+let:
+  - vpn: 'gateway_type == "Vpn"'
+  - known: 'vpn ? sku in ["Basic", "VpnGw1", "VpnGw2", "VpnGw3", "VpnGw4", "VpnGw5", "VpnGw1AZ", "VpnGw2AZ", "VpnGw3AZ", "VpnGw4AZ", "VpnGw5AZ"] : sku in ["Standard", "HighPerformance", "UltraPerformance", "ErGw1AZ", "ErGw2AZ", "ErGw3AZ", "ErGwScale"]'
+  - gen: 'sku in ["VpnGw4", "VpnGw5", "VpnGw4AZ", "VpnGw5AZ"] ? "Generation2" : sku in ["Basic", "VpnGw1", "VpnGw1AZ"] ? "Generation1" : generation == "Generation2" ? "Generation2" : "Generation1"'
+  - erRow: 'sku == "HighPerformance" ? "High Performance" : sku == "UltraPerformance" ? "Ultra High Performance" : sku'
+  - units: 'sku == "ErGwScale" ? scaleUnits : 1.0'
+  - perUnit: 'kbPerUnit != nil ? kbPerUnit : 0.0'
+  - gb: 'gbPerMonth + total.monthly * perUnit / 1024 / 1024'
+  - zone: >-
+      region in ["japaneast", "japanwest", "koreacentral", "koreasouth", "southeastasia", "eastasia", "australiaeast", "australiasoutheast", "australiacentral", "centralindia", "southindia", "westindia"] ? "zone2" :
+      region in ["brazilsouth", "southafricanorth", "uaenorth"] ? "zone3" : "zone1"
+readings:
+  - fail: { when: "!known", message: "{sku} is not a SKU of {gateway_type} gateways" }
+  - fail: { when: 'total.monthly > 0 && kbPerUnit == nil', message: "load passes through this gateway: set kbPerUnit, the data each unit sends" }
+  - cost: { when: vpn, name: "Gateway hours ({sku})", quantity: 730, unit: hour, price: "azure.vnetgateway.vpn.{sku}" }
+  - cost: { when: "!vpn", name: "Gateway hours ({sku})", quantity: 730 * units, unit: hour, price: "azure.vnetgateway.expressroute.{erRow}" }
+  - cost: { when: vpn && p2sConnections > 128, name: Point-to-site connections beyond 128, quantity: (p2sConnections - 128) * 730, unit: connection-hour, price: azure.vnetgateway.p2s_connection }
+  - cost: { when: vpn, name: Data sent out, quantity: gb, unit: GB, price: '{peer == "vnet" ? "azure.vnetgateway.inter_vnet_out." + zone : "azure.bandwidth.internet_out"}' }
+  - rate: { name: Throughput, unit: Gbps, quota: '{vpn ? "azure.vnetgateway.vpn_gbps." + gen + "." + sku : "azure.vnetgateway.expressroute_gbps." + sku}', peak: 'total.peak * perUnit * 8 / 1024 / 1024', scale: units }
+  - limit: { when: vpn, name: Point-to-site connections, demand: p2sConnections, unit: connections, quota: "azure.vnetgateway.p2s_connections.{sku}" }
+terraform:
+  # Connections and routes name the gateway; nothing calls it. Draw the
+  # traffic through it by hand, toward the other side.
+  mentioned: true
+  passive: true

@@ -1,0 +1,21 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 5,000 diagnostic checks (japaneast)
+  region: japaneast
+  assumptions:
+    checks: 5000
+  demand:
+    diagnose:
+      monthly: 0
+      peak: 0
+  # 5000 × $0.001
+  costs:
+    Diagnostic checks: 5
+- name: no checks (eastus)
+  region: eastus
+  demand:
+    diagnose:
+      monthly: 0
+      peak: 0
+  costs:
+    Diagnostic checks: 0

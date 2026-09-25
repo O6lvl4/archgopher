@@ -1,0 +1,22 @@
+type: azurerm_express_route_gateway
+label: ExpressRoute gateway (Virtual WAN)
+category: Network
+icon: expressroute
+description: "An ExpressRoute gateway in a Virtual WAN hub: scale unit-hours, with scale units 6 to 10 at the additional scale unit rate. Circuit connections are read on their connections and the circuit is billed apart. Place it on the path: headroom is 2 Gbps per scale unit."
+kinds: [traffic]
+sla: azure.virtualwan
+attributes:
+  - { key: scale_units, label: Scale units, type: number, default: 1 }
+assumptions:
+  - { key: kbPerUnit, label: Data per unit, type: number, unit: KB, optional: true, hint: "Per request passing through, for the throughput headroom" }
+let:
+  - perUnit: 'kbPerUnit != nil ? kbPerUnit : 0.0'
+readings:
+  - fail: { when: 'total.monthly > 0 && kbPerUnit == nil', message: "load passes through this gateway: set kbPerUnit, the data each unit carries" }
+  - cost: { name: Scale unit hours, quantity: '730 * min(scale_units, 5)', unit: scale unit-hour, price: azure.virtualwan.expressroute.scale_unit }
+  - cost: { when: scale_units > 5, name: Additional scale unit hours, quantity: 730 * (scale_units - 5), unit: scale unit-hour, price: azure.virtualwan.expressroute.additional_scale_unit }
+  - rate: { name: Throughput, unit: Gbps, quota: azure.virtualwan.expressroute.scale_unit_gbps, peak: 'total.peak * perUnit * 8 / 1024 / 1024', scale: scale_units }
+terraform:
+  # Connections name the gateway; nothing calls it. Draw the traffic through it by hand.
+  mentioned: true
+  passive: true

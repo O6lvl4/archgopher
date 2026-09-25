@@ -1,0 +1,41 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Standard hub, 10 million requests of 4 KB (japaneast)
+  region: japaneast
+  assumptions:
+    kbPerUnit: 4
+  demand:
+    traffic:
+      monthly: 1e+07
+      peak: 100
+  # 730 h × $0.25; 1e7 × 4 KB = 38.14697265625 GB × $0.02; 100/s × 4 KB × 8 bit
+  costs:
+    Hub hours: 182.5
+    Data processed: 0.762939453125
+  limits:
+    Router throughput: 0.0030517578125
+- name: five routing units and 1 TB of other traffic (eastus)
+  region: eastus
+  attributes:
+    virtual_router_auto_scale_min_capacity: 5
+  assumptions:
+    gbPerMonth: 1000
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # 730 h × $0.25; 3 × 730 h × $0.10; 1000 GB × $0.02
+  costs:
+    Hub hours: 182.5
+    Routing infrastructure units beyond 2: 219
+    Data processed: 20
+  limits:
+    Router throughput: 0
+- name: Basic hub is free (eastus)
+  region: eastus
+  attributes:
+    sku: Basic
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0

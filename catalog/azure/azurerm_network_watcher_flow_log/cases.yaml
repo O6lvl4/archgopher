@@ -1,0 +1,41 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 100 GB with traffic analytics every 10 minutes (japaneast)
+  region: japaneast
+  attributes:
+    traffic_analytics: true
+    interval_in_minutes: 10
+  assumptions:
+    gbPerMonth: 100
+  demand:
+    collect:
+      monthly: 0
+      peak: 0
+  # 100 GB × $0.50; 100 GB × $3.50
+  costs:
+    Logs collected: 50
+    Traffic analytics (10-minute interval): 350
+- name: 100 GB with traffic analytics every hour (eastus)
+  region: eastus
+  attributes:
+    traffic_analytics: true
+  assumptions:
+    gbPerMonth: 100
+  demand:
+    collect:
+      monthly: 0
+      peak: 0
+  # 100 GB × $0.50; 100 GB × $2.30
+  costs:
+    Logs collected: 50
+    Traffic analytics (60-minute interval): 230
+- name: disabled flow log (eastus)
+  region: eastus
+  attributes:
+    enabled: false
+  assumptions:
+    gbPerMonth: 100
+  demand:
+    collect:
+      monthly: 0
+      peak: 0

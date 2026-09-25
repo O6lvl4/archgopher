@@ -1,0 +1,134 @@
+{
+  "azure.ddos.network.plan": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/ddos-protection/",
+    "note": "DDoS Network Protection plan, per plan-hour; covers 100 public IP resources",
+    "sync": {
+      "filters": {
+        "meterName": "Network Protection Plan",
+        "productName": "Azure DDOS Protection",
+        "skuName": "Network Protection"
+      },
+      "service": "Azure DDOS Protection",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 4.032258,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 4.032258,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 4.032258,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 4.032258,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 4.032258,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 4.032258,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 4.032258,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 4.032258,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 4.032258,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 4.032258,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.ddos.network.resource": {
+    "unit": "resource-hour",
+    "source": "https://azure.microsoft.com/pricing/details/ddos-protection/",
+    "note": "Public IP resources protected beyond the 100 a plan covers",
+    "sync": {
+      "filters": {
+        "meterName": "Network Protection Resource",
+        "productName": "Azure DDOS Protection",
+        "skuName": "Network Protection"
+      },
+      "service": "Azure DDOS Protection",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.040322,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.040322,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.040322,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.040322,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.040322,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.040322,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.040322,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.040322,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.040322,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.040322,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

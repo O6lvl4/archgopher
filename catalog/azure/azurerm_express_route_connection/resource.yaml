@@ -1,0 +1,11 @@
+type: azurerm_express_route_connection
+label: ExpressRoute connection (Virtual WAN)
+category: Network
+icon: connections
+description: "A connection from a Virtual WAN ExpressRoute gateway to a circuit's private peering: connection unit-hours."
+kinds: [traffic]
+readings:
+  - cost: { name: Connection unit hours, quantity: 730, unit: connection-hour, price: azure.virtualwan.expressroute.connection_unit }
+terraform:
+  # A connection names its gateway and circuit peering; it calls nothing.
+  passive: true

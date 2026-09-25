@@ -1,0 +1,11 @@
+type: azurerm_vpn_gateway_connection
+label: VPN connection (Virtual WAN)
+category: Network
+icon: connections
+description: "A site-to-site connection from a Virtual WAN VPN gateway to a VPN site: connection unit-hours. Data through it is read on the hub."
+kinds: [traffic]
+readings:
+  - cost: { name: Connection unit hours, quantity: 730, unit: connection-hour, price: azure.virtualwan.vpn_s2s.connection_unit }
+terraform:
+  # A connection names its gateway and site; it calls nothing.
+  passive: true

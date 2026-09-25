@@ -1,0 +1,19 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: one circuit connection (japaneast)
+  region: japaneast
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # 730 h × $0.05
+  costs:
+    Connection unit hours: 36.5
+- name: one circuit connection (eastus)
+  region: eastus
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  costs:
+    Connection unit hours: 36.5
