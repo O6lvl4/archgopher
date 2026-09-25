@@ -9,5 +9,8 @@ assumptions:
 readings:
   - requests: { name: DNS queries, unit: query, price: azure.dns.private.queries, count: total.monthly + queriesPerMonth }
 terraform:
-  # A record set names its zone and its targets; it calls neither.
+  # A record set names its zone and its targets; it calls neither. An app that
+  # reads its fqdn calls the target behind the name and resolves it once per TTL,
+  # not once per request, so references to it are mentions, not query load.
+  mentioned: true
   passive: true
