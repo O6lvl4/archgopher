@@ -2,7 +2,7 @@ type: aws_elastic_beanstalk_environment
 label: Elastic Beanstalk environment
 category: Compute
 icon: elastic-beanstalk
-description: 'What the environment runs: instance-hours (on-demand and spot), root volumes, detailed monitoring and CPU credits, its load balancer (Application, Network or Classic) and streamed logs, read from the environment''s settings. Beanstalk itself costs nothing. An RDS instance in the environment is not read. Headroom is the peak against MaxSize instances.'
+description: 'What the environment runs: instance-hours (on-demand and spot), root volumes, detailed monitoring and CPU credits, its own load balancer (Application, Network or Classic; a shared one is billed on the aws_lb) and streamed logs, read from the environment''s settings. Beanstalk itself costs nothing. An RDS instance in the environment is not read. Headroom is the peak against MaxSize instances.'
 kinds: [request]
 sla: aws.ec2.region
 attributes:
@@ -18,6 +18,7 @@ attributes:
   - { key: spot_on_demand_base, label: On-demand base, type: number, default: 0, path: 'setting[name=SpotFleetOnDemandBase].value' }
   - { key: spot_on_demand_percentage, label: On-demand above base, type: number, unit: "%", default: 70, path: 'setting[name=SpotFleetOnDemandAboveBasePercentage].value' }
   - { key: load_balancer_type, label: Load balancer, type: choice, options: [classic, application, network], default: classic, path: 'setting[name=LoadBalancerType].value' }
+  - { key: load_balancer_shared, label: Shared load balancer, type: boolean, default: false, path: 'setting[name=LoadBalancerIsShared].value', hint: "The environment uses an Application Load Balancer it does not own; the aws_lb carries its cost" }
   - { key: root_volume_type, label: Root volume type, type: choice, options: [standard, gp2, gp3, io1, io2, sc1, st1], optional: true, path: 'setting[name=RootVolumeType].value' }
   - { key: root_volume_size, label: Root volume size, type: number, unit: GiB, default: 8, path: 'setting[name=RootVolumeSize].value' }
   - { key: root_iops, label: Root volume IOPS, type: number, optional: true, path: 'setting[name=RootVolumeIOPS].value' }
@@ -56,7 +57,7 @@ let:
   - rootGb: root_volume_size
   - rootIops: 'root_iops ?? 0.0'
   - rootThr: 'root_throughput ?? 0.0'
-  - lb: 'tier == "WebServer" && !single'
+  - lb: 'tier == "WebServer" && !single && !load_balancer_shared'
   - lbKind: 'load_balancer_type == "application" ? "alb" : load_balancer_type == "network" ? "nlb" : "clb"'
 readings:
   - fail: { when: 'itype == ""', message: "{missingType}" }
