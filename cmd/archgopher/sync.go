@@ -9,6 +9,7 @@ import (
 	"math"
 	"os"
 	"path/filepath"
+	"regexp"
 	"sort"
 	"strconv"
 	"strings"
@@ -88,6 +89,13 @@ func (s *syncer) file(w io.Writer, path string, check bool) error {
 		if len(e.Sync) == 0 {
 			continue
 		}
+		if len(e.Rows) > 0 {
+			if err := s.table(w, id, &e); err != nil {
+				return err
+			}
+			prices[id] = e
+			continue
+		}
 		spec, err := s.sources.of(e.Sync)
 		if err != nil {
 			return fmt.Errorf("%s: sync: %w", id, err)
@@ -121,6 +129,68 @@ func (s *syncer) file(w io.Writer, path string, check bool) error {
 		return err
 	}
 	return os.WriteFile(path, out, 0o644)
+}
+
+// table verifies every row of a table: "{row}" in its sync spec becomes the
+// row key, quoted for the price list's regular expressions. Rows are checked
+// in the regions they already have, or the one asked for; the table is
+// verified when every value was resolved, and dated when one changed.
+func (s *syncer) table(w io.Writer, id string, e *book.Entry) error {
+	keys := make([]string, 0, len(e.Rows))
+	for k := range e.Rows {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	resolved, changed := true, false
+	for _, key := range keys {
+		raw := strings.ReplaceAll(string(e.Sync), "{row}", jsonQuoteMeta(key))
+		spec, err := s.sources.of(json.RawMessage(raw))
+		if err != nil {
+			return fmt.Errorf("%s: sync: %w", id, err)
+		}
+		row := e.Rows[key]
+		regions := make([]string, 0, len(row)+len(s.add))
+		for r := range row {
+			if s.regions == "" || strings.Contains(","+s.regions+",", ","+r+",") {
+				regions = append(regions, r)
+			}
+		}
+		for _, r := range s.add {
+			if _, has := row[r]; !has {
+				regions = append(regions, r)
+			}
+		}
+		sort.Strings(regions)
+		for _, region := range regions {
+			old := book.Value{Value: row[region], Verified: e.Verified}
+			entry := book.Entry{Unit: e.Unit, Per: e.Per, Values: map[string]book.Value{}}
+			if _, had := row[region]; had {
+				entry.Values[region] = old
+			}
+			v, ok := s.value(w, id+"."+key, region, entry, spec)
+			if !ok {
+				resolved = false
+				continue
+			}
+			if (v.Value == nil) != (old.Value == nil) || (v.Value != nil && !close(*v.Value, *old.Value)) {
+				changed = true
+			}
+			row[region] = v.Value
+		}
+	}
+	if resolved {
+		e.Verified = true
+	}
+	if changed || e.CheckedAt == "" {
+		e.CheckedAt = s.today
+	}
+	return nil
+}
+
+// jsonQuoteMeta quotes a row key for a regular expression inside a JSON string.
+func jsonQuoteMeta(key string) string {
+	b, _ := json.Marshal(regexp.QuoteMeta(key))
+	return string(b[1 : len(b)-1])
 }
 
 // value resolves one row. It reports false when the row should stay as it is

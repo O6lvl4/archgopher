@@ -33,8 +33,18 @@ type Entry struct {
 	Source string  `json:"source"`
 	Note   string  `json:"note,omitempty"`
 	// Sync tells the sync command how to fetch the value. The engine ignores it.
+	// In a table, "{row}" in it stands for the row key.
 	Sync   json.RawMessage  `json:"sync,omitempty"`
-	Values map[string]Value `json:"values"`
+	Values map[string]Value `json:"values,omitempty"`
+	// Rows make the entry a table: one row per key (an instance type), one
+	// number per region, null where the row is not offered. Row "k" of
+	// "aws.ec2.linux" is looked up as "aws.ec2.linux.k". A table keeps
+	// thousands of prices that differ only by one attribute compact, with
+	// one sync spec for all of them.
+	Rows map[string]map[string]*float64 `json:"rows,omitempty"`
+	// Verified and CheckedAt hold for every value of a table.
+	Verified  bool   `json:"verified,omitempty"`
+	CheckedAt string `json:"checkedAt,omitempty"`
 }
 
 // Value is the number for one region. A nil Value means "not known".
@@ -129,9 +139,39 @@ func Load(fsys fs.FS, dir string) (Books, error) {
 		if err := json.Unmarshal(data, &book); err != nil {
 			return b, fmt.Errorf("%s/%s.json: %w", dir, name, err)
 		}
-		*b.ref(name) = book
+		flat, err := book.Flatten()
+		if err != nil {
+			return b, fmt.Errorf("%s/%s.json: %w", dir, name, err)
+		}
+		*b.ref(name) = flat
 	}
 	return b, nil
+}
+
+// Flatten turns every table into one entry per row, keyed "<id>.<row>".
+func (b Book) Flatten() (Book, error) {
+	out := Book{}
+	for id, e := range b {
+		if len(e.Rows) == 0 {
+			out[id] = e
+			continue
+		}
+		if len(e.Values) > 0 {
+			return nil, fmt.Errorf("%q has both values and rows", id)
+		}
+		for key, row := range e.Rows {
+			full := id + "." + key
+			if _, dup := b[full]; dup {
+				return nil, fmt.Errorf("%q is both an entry and a row of %q", full, id)
+			}
+			values := map[string]Value{}
+			for region, v := range row {
+				values[region] = Value{Value: v, Verified: e.Verified, CheckedAt: e.CheckedAt}
+			}
+			out[full] = Entry{Unit: e.Unit, Per: e.Per, Source: e.Source, Note: e.Note, Values: values}
+		}
+	}
+	return out, nil
 }
 
 func (b *Books) ref(name Name) *Book {

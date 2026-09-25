@@ -1,0 +1,12 @@
+{
+  "products": {
+    "A": {"sku": "A", "productFamily": "Compute Instance", "attributes": {"instanceType": "t3.micro", "operatingSystem": "Linux", "usagetype": "APN1-BoxUsage:t3.micro"}},
+    "B": {"sku": "B", "productFamily": "Compute Instance", "attributes": {"instanceType": "t3.small", "operatingSystem": "Linux", "usagetype": "APN1-BoxUsage:t3.small"}},
+    "C": {"sku": "C", "productFamily": "Compute Instance", "attributes": {"instanceType": "t3xmicro", "operatingSystem": "Linux", "usagetype": "APN1-BoxUsage:t3xmicro"}}
+  },
+  "terms": {"OnDemand": {
+    "A": {"A.t": {"priceDimensions": {"A.t.1": {"unit": "Hrs", "beginRange": "0", "endRange": "Inf", "pricePerUnit": {"USD": "0.0136"}}}}},
+    "B": {"B.t": {"priceDimensions": {"B.t.1": {"unit": "Hrs", "beginRange": "0", "endRange": "Inf", "pricePerUnit": {"USD": "0.0272"}}}}},
+    "C": {"C.t": {"priceDimensions": {"C.t.1": {"unit": "Hrs", "beginRange": "0", "endRange": "Inf", "pricePerUnit": {"USD": "9"}}}}}
+  }}
+}

@@ -480,6 +480,22 @@ when unset), `total.monthly` and `total.peak`, `demand.<kind>.monthly` and
 facet's own assumption fields. A directory without `resource.yaml` holds rows
 several resources share, such as log prices.
 
+Prices that differ by one attribute only (an instance type, a database
+class) are a table: one entry with `rows` instead of `values`, one number per
+region, `null` where the row is not offered. Row `t3.micro` of
+`aws.ec2.linux` is priced as `aws.ec2.linux.t3.micro`, so a reading names it
+with `'aws.ec2.linux.{instance_type}'`. `{row}` in the sync filters stands for
+the row key, so one spec verifies every row.
+
+```json
+"aws.ec2.linux": {
+  "unit": "instance-hour", "source": "https://aws.amazon.com/ec2/pricing/on-demand/",
+  "sync": {"service": "AmazonEC2", "filters": {"instanceType": "{row}", "operatingSystem": "Linux", "tenancy": "Shared", "preInstalledSw": "NA", "capacitystatus": "Used"}},
+  "rows": {"t3.micro": {"us-east-1": 0.0104, "ap-northeast-1": 0.0136}},
+  "verified": true, "checkedAt": "2026-09-25"
+}
+```
+
 `go test ./provider/aws` loads the catalog, runs every resource's cases and
 checks that every row belongs to one directory.
 
