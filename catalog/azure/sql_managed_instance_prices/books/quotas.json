@@ -1,0 +1,59 @@
+{
+  "azure.sqlmi.workers": {
+    "unit": "workers",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-sql/managed-instance/resource-limits",
+    "note": "Max concurrent workers: 105 per vCore plus 800, General Purpose and Business Critical, by vCores. The same in every region",
+    "rows": {
+      "10": {
+        "*": 1850
+      },
+      "12": {
+        "*": 2060
+      },
+      "128": {
+        "*": 14240
+      },
+      "16": {
+        "*": 2480
+      },
+      "20": {
+        "*": 2900
+      },
+      "24": {
+        "*": 3320
+      },
+      "32": {
+        "*": 4160
+      },
+      "4": {
+        "*": 1220
+      },
+      "40": {
+        "*": 5000
+      },
+      "48": {
+        "*": 5840
+      },
+      "56": {
+        "*": 6680
+      },
+      "6": {
+        "*": 1430
+      },
+      "64": {
+        "*": 7520
+      },
+      "8": {
+        "*": 1640
+      },
+      "80": {
+        "*": 9200
+      },
+      "96": {
+        "*": 10880
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

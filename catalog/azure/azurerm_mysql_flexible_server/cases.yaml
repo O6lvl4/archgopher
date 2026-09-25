@@ -1,0 +1,68 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: D2ds_v4 with zone-redundant HA, 100 GB and 1000 IOPS in Japan East
+  region: japaneast
+  attributes:
+    storage_gb: 100
+    iops: 1000
+    high_availability_mode: ZoneRedundant
+  assumptions:
+    peakConnections: 200
+  demand:
+    query:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Compute: 343.1
+    Storage: 27.6
+    Additional IOPS: 38.4
+    Backup storage: 0
+  limits:
+    Connections: 200
+- name: Burstable B1ms in East US
+  region: eastus
+  attributes:
+    sku_name: B_Standard_B1ms
+  assumptions:
+    peakConnections: 20
+    backupGb: 10
+  demand:
+    query:
+      monthly: 100000.0
+      peak: 1
+  costs:
+    Compute: 12.41
+    Storage: 2.3
+    Backup storage: 0.95
+  limits:
+    Connections: 20
+- name: Business Critical E4ds_v5 in Japan East
+  region: japaneast
+  attributes:
+    sku_name: MO_Standard_E4ds_v5
+  assumptions:
+    peakConnections: 500
+  demand:
+    query:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Compute: 413.91
+    Storage: 2.76
+    Backup storage: 0
+  limits:
+    Connections: 500
+- name: General Purpose D4ds_v5 prices per vCore without a published connection limit
+  region: japaneast
+  attributes:
+    sku_name: GP_Standard_D4ds_v5
+  assumptions:
+    peakConnections: 100
+  demand:
+    query:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Compute: 343.1
+    Storage: 2.76
+    Backup storage: 0

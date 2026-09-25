@@ -1,0 +1,51 @@
+type: azurerm_sql_database
+label: SQL database (legacy)
+category: Database
+icon: sql-database
+description: "The azurerm 2.x resource, priced like azurerm_mssql_database with the license included and geo-redundant backups. vCore: compute hours per vCore, the SQL license on General Purpose and Business Critical, zone redundancy on General Purpose, a Hyperscale HA replica with read_scale, storage on the maximum size. DTU: the service objective per day and storage above what it includes. Backup storage beyond the free amount. A database in an elastic pool bills only its backups. Headroom is concurrent workers."
+kinds: [query]
+sla: azure.sql.database
+attributes:
+  - { key: edition, label: Edition, type: string, default: GeneralPurpose, hint: "Basic, Standard, Premium, GeneralPurpose, BusinessCritical or Hyperscale; the service objective, when written, says more" }
+  - { key: requested_service_objective_name, label: Service objective, type: string, optional: true, hint: "GP_Gen5_2, BC_Gen5_4, HS_Gen5_2, S0, P1, ...; unset: the edition's smallest" }
+  - { key: elastic_pool, label: In an elastic pool, type: boolean, default: false, path: elastic_pool_name, hint: "Set when elastic_pool_name is written: the pool bills compute and storage" }
+  - { key: max_size_bytes, label: Max size, type: number, unit: bytes, optional: true, hint: "Storage is billed on the maximum size. Unset: 32 GB on vCore, what the DTU objective includes on DTU" }
+  - { key: zone_redundant, label: Zone redundant, type: boolean, default: false, hint: "Extra on General Purpose; included on Business Critical and Premium" }
+  - { key: read_scale, label: Read scale-out, type: boolean, default: false, hint: "Free on Premium and Business Critical; on Hyperscale it is one HA replica billed like the primary" }
+assumptions:
+  - { key: queryMs, label: Query duration, type: number, unit: ms, default: 20, hint: "Average time a query holds a worker; peak queries per second times this is the workers in use" }
+  - { key: backupGb, label: Backup storage beyond the free amount, type: number, unit: GB, default: 0, hint: "Point-in-time backups are free up to the maximum data size" }
+  - { key: ltrGb, label: Long-term retention backups, type: number, unit: GB, default: 0 }
+let:
+  - editionSku: 'edition == "Basic" ? "Basic" : edition == "Standard" ? "S0" : edition == "Premium" ? "P1" : edition == "BusinessCritical" ? "BC_Gen5_2" : edition == "Hyperscale" ? "HS_Gen5_2" : edition == "GeneralPurpose" ? "GP_Gen5_2" : edition'
+  - sku: 'requested_service_objective_name ?? editionSku'
+  - parts: 'split(sku, "_")'
+  - vcoreModel: 'len(parts) >= 3'
+  - tier: 'vcoreModel ? join(parts[0:len(parts)-2], "_") : ""'
+  - family: 'vcoreModel ? parts[len(parts)-2] : ""'
+  - vcores: 'vcoreModel ? float(parts[len(parts)-1]) : 0.0'
+  - vkey: 'tier == "GP" && family == "Gen5" ? "gp_gen5" : tier == "GP" && family == "Fsv2" ? "gp_fsv2" : tier == "BC" && family == "Gen5" ? "bc_gen5" : tier == "HS" && family == "Gen5" ? "hs_gen5" : tier == "HS" && family == "PRMS" ? "hs_prms" : tier == "HS" && family == "MOPRMS" ? "hs_moprms" : ""'
+  - hyperscale: 'tier == "HS"'
+  - dtu: 'sku == "Basic" ? "B" : sku'
+  - dtuKnown: 'dtu in ["B", "S0", "S1", "S2", "S3", "S4", "S6", "S7", "S9", "S12", "P1", "P2", "P4", "P6", "P11", "P15"]'
+  - dtuTier: 'hasPrefix(dtu, "P") ? "premium" : hasPrefix(dtu, "S") ? "standard" : "basic"'
+  - included: 'dtu == "B" ? 2.0 : dtuTier == "standard" ? 250.0 : dtu in ["P11", "P15"] ? 4096.0 : 500.0'
+  - sizeGb: 'max_size_bytes != nil ? (max_size_bytes ?? 0.0) / 1073741824 : vcoreModel ? 32.0 : included'
+  - storageKey: 'hyperscale ? "hs" : tier == "BC" ? "bc" : zone_redundant ? "gp_zr" : "gp"'
+  - workersPerVcore: 'family == "Fsv2" ? "fsv2" : "provisioned"'
+readings:
+  - fail: { when: '!elastic_pool && vcoreModel && vkey == ""', message: "{sku} is not read yet: General Purpose (Gen5, Fsv2), Business Critical Gen5 and Hyperscale (Gen5, PRMS, MOPRMS) are" }
+  - fail: { when: '!elastic_pool && !vcoreModel && !dtuKnown', message: "{sku} is not read yet: Basic, S0-S12 and P1-P15 are" }
+  - cost: { when: '!elastic_pool && vcoreModel', name: Compute, quantity: 730 * vcores, unit: vCore-hour, price: "azure.sql.vcore.{vkey}" }
+  - cost: { when: '!elastic_pool && vkey == "gp_gen5" && zone_redundant', name: Zone redundancy, quantity: 730 * vcores, unit: vCore-hour, price: azure.sql.vcore.gp_gen5_zr }
+  - cost: { when: '!elastic_pool && tier in ["GP", "BC"]', name: SQL license, quantity: 730 * vcores, unit: vCore-hour, price: "azure.sql.license.{lower(tier)}" }
+  - cost: { when: '!elastic_pool && hyperscale && read_scale', name: HA replicas, quantity: 730 * vcores, unit: vCore-hour, price: "azure.sql.vcore.{vkey}" }
+  - storage: { when: '!elastic_pool && vcoreModel', name: Storage, gb: sizeGb, price: "azure.sql.storage.{storageKey}" }
+  - cost: { when: '!elastic_pool && !vcoreModel', name: Compute, quantity: 730.0 / 24, unit: day, price: "azure.sql.dtu.{dtu}" }
+  - storage: { when: '!elastic_pool && !vcoreModel && dtu != "B" && sizeGb > included', name: Extra storage, gb: sizeGb - included, price: "azure.sql.storage.{dtuTier}" }
+  - storage: { when: '!hyperscale', name: Point-in-time backup storage, gb: backupGb, price: azure.sql.backup.pitr.ragrs }
+  - storage: { when: '!hyperscale', name: Long-term retention storage, gb: ltrGb, price: azure.sql.backup.ltr.ragrs }
+  - rate: { when: '!elastic_pool && !vcoreModel', name: Concurrent workers, unit: workers, quota: "azure.sql.workers.dtu.{dtu}", peak: total.peak * queryMs / 1000 }
+  - rate: { when: '!elastic_pool && vcoreModel', name: Concurrent workers, unit: workers, quota: "azure.sql.workers_per_vcore.{workersPerVcore}", peak: total.peak * queryMs / 1000, scale: vcores }
+terraform:
+  passive: true

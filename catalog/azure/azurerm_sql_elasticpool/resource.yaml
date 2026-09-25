@@ -1,0 +1,20 @@
+type: azurerm_sql_elasticpool
+label: SQL elastic pool (legacy)
+category: Database
+icon: sql-elastic-pools
+description: "The azurerm 2.x DTU pool, priced like azurerm_mssql_elasticpool: eDTUs per day and storage above what the eDTUs include. The databases in it bill only their backups."
+kinds: [query]
+sla: azure.sql.database
+attributes:
+  - { key: edition, label: Edition, type: choice, options: [Basic, Standard, Premium], default: Standard }
+  - { key: dtu, label: eDTUs, type: number, default: 50, hint: "Basic 50-1600, Standard 50-3000, Premium 125-4000" }
+  - { key: pool_size, label: Max size, type: number, unit: MB, optional: true, hint: "Unset: what the eDTUs include" }
+let:
+  - tier: 'lower(edition)'
+  - included: 'tier == "standard" ? dtu : dtu == 125 ? 250.0 : dtu == 250 ? 500.0 : dtu == 500 ? 750.0 : dtu * 1.024'
+  - sizeGb: 'pool_size != nil ? (pool_size ?? 0.0) / 1024 : included'
+readings:
+  - cost: { name: Compute, quantity: dtu * 730 / 24, unit: eDTU-day, price: "azure.sql.pool.edtu.{tier}" }
+  - storage: { when: 'tier != "basic" && sizeGb > included', name: Extra storage, gb: sizeGb - included, price: "azure.sql.storage.{tier}" }
+terraform:
+  passive: true

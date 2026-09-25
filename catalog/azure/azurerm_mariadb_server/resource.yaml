@@ -1,0 +1,30 @@
+type: azurerm_mariadb_server
+label: MariaDB server
+category: Database
+icon: mariadb
+description: "Retired in September 2025; still read for existing declarations. Compute hours per vCore by tier (Basic, General Purpose, Memory Optimized; Gen5), provisioned storage (Memory Optimized uses General Purpose storage), and backup storage beyond the free amount, locally or geo-redundant. Headroom is connections against the SKU's limit."
+kinds: [query]
+sla: azure.mariadb.single
+attributes:
+  - { key: sku_name, label: SKU, type: string, default: GP_Gen5_2, hint: "B_Gen5_1, B_Gen5_2, GP_Gen5_2-GP_Gen5_64, MO_Gen5_2-MO_Gen5_32" }
+  - { key: storage_mb, label: Storage, type: number, unit: MB, default: 5120, hint: "5120 to 4194304 (4 TB), in 1024 steps" }
+  - { key: geo_redundant_backup_enabled, label: Geo-redundant backups, type: boolean, default: false }
+assumptions:
+  - { key: peakConnections, label: Peak connections, type: number, hint: "Open connections at the busiest moment, pooled or not" }
+  - { key: backupGb, label: Backup storage beyond the free amount, type: number, unit: GB, default: 0, hint: "Backups are free up to the provisioned storage" }
+let:
+  - parts: 'split(lower(sku_name), "_")'
+  - tier: 'len(parts) == 3 ? parts[0] : ""'
+  - known: 'tier in ["b", "gp", "mo"] && parts[1] == "gen5"'
+  - cores: 'known ? float(parts[2]) : 0.0'
+  - tierKey: 'tier == "b" ? "basic" : tier'
+  - storageKey: 'tier == "b" ? "basic" : "gp"'
+readings:
+  - fail: { when: '!known', message: "{sku_name} is not read yet: Basic, General Purpose and Memory Optimized Gen5 are" }
+  - cost: { name: Compute, quantity: 730 * cores, unit: vCore-hour, price: "azure.mariadb.single.{tierKey}.vcore" }
+  - storage: { name: Storage, gb: storage_mb / 1024, price: "azure.mariadb.single.storage.{storageKey}" }
+  - storage: { name: Backup storage, gb: backupGb, price: 'azure.mariadb.single.backup.{geo_redundant_backup_enabled ? "grs" : "lrs"}' }
+  - limit: { name: Connections, demand: peakConnections, unit: connections, quota: "azure.mariadb.single.max_connections.{lower(sku_name)}" }
+terraform:
+  passive: true
+  aliases: { azurerm_mariadb_database: server_name, azurerm_mariadb_configuration: server_name, azurerm_mariadb_firewall_rule: server_name }

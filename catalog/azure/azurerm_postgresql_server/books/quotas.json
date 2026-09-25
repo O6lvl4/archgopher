@@ -1,0 +1,50 @@
+{
+  "azure.postgresql.single.max_connections": {
+    "unit": "connections",
+    "source": "https://web.archive.org/web/20230905133229/https://learn.microsoft.com/en-us/azure/postgresql/single-server/concepts-limits",
+    "note": "Max connections by SKU; 5 are reserved for superusers (the retired service's documentation, archived). The same in every region",
+    "rows": {
+      "b_gen5_1": {
+        "*": 55
+      },
+      "b_gen5_2": {
+        "*": 105
+      },
+      "gp_gen5_16": {
+        "*": 950
+      },
+      "gp_gen5_2": {
+        "*": 150
+      },
+      "gp_gen5_32": {
+        "*": 1500
+      },
+      "gp_gen5_4": {
+        "*": 250
+      },
+      "gp_gen5_64": {
+        "*": 1900
+      },
+      "gp_gen5_8": {
+        "*": 480
+      },
+      "mo_gen5_16": {
+        "*": 1900
+      },
+      "mo_gen5_2": {
+        "*": 300
+      },
+      "mo_gen5_32": {
+        "*": 1987
+      },
+      "mo_gen5_4": {
+        "*": 500
+      },
+      "mo_gen5_8": {
+        "*": 960
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

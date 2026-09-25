@@ -1,0 +1,464 @@
+{
+  "azure.postgresql.single.backup.grs": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/postgresql/server/",
+    "note": "Backup storage beyond the free amount (100% of provisioned storage), geo-redundant, per GB-month",
+    "sync": {
+      "filters": {
+        "meterName": "Backup GRS Data Stored",
+        "productName": "Azure Database for PostgreSQL Single Server - Backup Storage",
+        "skuName": "Backup GRS"
+      },
+      "service": "Azure Database for PostgreSQL",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.228,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.238,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.228,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.postgresql.single.backup.lrs": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/postgresql/server/",
+    "note": "Backup storage beyond the free amount (100% of provisioned storage), locally redundant, per GB-month",
+    "sync": {
+      "filters": {
+        "meterName": "Backup LRS Data Stored",
+        "productName": "Azure Database for PostgreSQL Single Server - Backup Storage",
+        "skuName": "Backup LRS"
+      },
+      "service": "Azure Database for PostgreSQL",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.114,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.119,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.114,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.postgresql.single.basic.vcore": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/postgresql/server/",
+    "note": "Basic tier Gen5, per vCore-hour (the 1 vCore price; 2 vCores cost twice)",
+    "sync": {
+      "filters": {
+        "meterName": "vCore",
+        "productName": "Azure Database for PostgreSQL Single Server Basic - Compute Gen5",
+        "skuName": "1 vCore"
+      },
+      "service": "Azure Database for PostgreSQL",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.052,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.049,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.034,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.0408,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.0398,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.052,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.052,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.0364,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.052,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.034,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.postgresql.single.gp.vcore": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/postgresql/server/",
+    "note": "General Purpose Gen5, per vCore-hour",
+    "sync": {
+      "filters": {
+        "meterName": "vCore",
+        "productName": "Azure Database for PostgreSQL Single Server General Purpose - Compute Gen5",
+        "skuName": "vCore"
+      },
+      "service": "Azure Database for PostgreSQL",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.1234,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.1234,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.0876,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.1051,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.1042,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.1269,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.1208,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.0963,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.1296,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.0876,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.postgresql.single.mo.vcore": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/postgresql/server/",
+    "note": "Memory Optimized Gen5, per vCore-hour",
+    "sync": {
+      "filters": {
+        "meterName": "vCore",
+        "productName": "Azure Database for PostgreSQL Single Server Memory Optimized - Compute Gen5",
+        "skuName": "vCore"
+      },
+      "service": "Azure Database for PostgreSQL",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.1418,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.1347,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.1181,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.1418,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.1429,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.1418,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.1418,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.1311,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.1418,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.1181,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.postgresql.single.storage.basic": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/postgresql/server/",
+    "note": "Basic tier storage, per GB-month provisioned",
+    "sync": {
+      "filters": {
+        "meterName": "Basic Data Stored",
+        "productName": "Azure Database for PostgreSQL Single Server Basic - Storage",
+        "skuName": "Basic"
+      },
+      "service": "Azure Database for PostgreSQL",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.119,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.postgresql.single.storage.gp": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/postgresql/server/",
+    "note": "General Purpose and Memory Optimized storage, per GB-month provisioned",
+    "sync": {
+      "filters": {
+        "meterName": "General Purpose Data Stored",
+        "productName": "Azure Database for PostgreSQL Single Server General Purpose - Storage",
+        "skuName": "General Purpose"
+      },
+      "service": "Azure Database for PostgreSQL",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.138,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.1311,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.115,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.138,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.137,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.138,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.1311,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.1265,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.138,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.115,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

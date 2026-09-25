@@ -500,7 +500,7 @@ func readAttribute(r *eval.Resource, f field.Field) any {
 			return x == "true"
 		}
 		if x == "" {
-			return false
+			return nil // written empty: as good as not written
 		}
 	}
 	return true

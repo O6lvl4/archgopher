@@ -1,0 +1,13 @@
+{
+  "azure.sql.managedinstance": {
+    "unit": "fraction",
+    "source": "https://www.microsoft.com/licensing/docs/view/Service-Level-Agreements-SLA-for-Online-Services",
+    "note": "General Purpose and Business Critical instances. From the consolidated SLA document, not machine-checked",
+    "values": {
+      "*": {
+        "value": 0.9999,
+        "verified": false
+      }
+    }
+  }
+}

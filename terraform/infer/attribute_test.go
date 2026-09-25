@@ -52,7 +52,7 @@ func TestReadAttributeFlagReadsWhetherWritten(t *testing.T) {
 		"partner_solution_id": true,
 		"aad_auth":            true,
 		// An empty string is not written.
-		"storage_account_id": false,
+		"storage_account_id": nil,
 		// An id known only after apply is still written.
 		"log_analytics_workspace_id":     true,
 		"eventhub_authorization_rule_id": nil,

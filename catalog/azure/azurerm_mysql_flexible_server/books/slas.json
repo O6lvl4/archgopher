@@ -1,0 +1,13 @@
+{
+  "azure.mysql.flexible": {
+    "unit": "fraction",
+    "source": "https://www.microsoft.com/licensing/docs/view/Service-Level-Agreements-SLA-for-Online-Services",
+    "note": "Without high availability; same-zone HA is 99.95% and zone-redundant HA 99.99%. From the consolidated SLA document, not machine-checked",
+    "values": {
+      "*": {
+        "value": 0.999,
+        "verified": false
+      }
+    }
+  }
+}

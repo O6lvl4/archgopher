@@ -1,0 +1,37 @@
+type: azurerm_mssql_managed_instance
+label: SQL managed instance
+category: Database
+icon: sql-managed-instance
+description: "Compute hours per vCore, the SQL license unless Azure Hybrid Benefit, zone redundancy when enabled, reserved storage above the 32 GB included, and backup storage beyond the free amount, point-in-time and long-term. Headroom is concurrent workers (105 per vCore plus 800): peak queries times their duration."
+kinds: [query]
+sla: azure.sql.managedinstance
+attributes:
+  - { key: sku_name, label: SKU, type: string, default: GP_Gen5, hint: "GP_Gen5, BC_Gen5, GP_G8IM, BC_G8IM (premium-series), GP_G8IH, BC_G8IH (memory optimized premium-series)" }
+  - { key: vcores, label: vCores, type: number, default: 4 }
+  - { key: storage_size_in_gb, label: Reserved storage, type: number, unit: GB, default: 32, hint: "In steps of 32 GB; the first 32 GB are included" }
+  - { key: license_type, label: License, type: choice, options: [LicenseIncluded, BasePrice], default: LicenseIncluded, hint: "BasePrice is Azure Hybrid Benefit: no SQL license charge" }
+  - { key: storage_account_type, label: Backup redundancy, type: choice, options: [GRS, GZRS, LRS, ZRS], default: GRS }
+  - { key: zone_redundant_enabled, label: Zone redundant, type: boolean, default: false }
+assumptions:
+  - { key: queryMs, label: Query duration, type: number, unit: ms, default: 20, hint: "Average time a query holds a worker; peak queries per second times this is the workers in use" }
+  - { key: backupGb, label: Backup storage beyond the free amount, type: number, unit: GB, default: 0, hint: "Point-in-time backups are free up to the reserved storage" }
+  - { key: ltrGb, label: Long-term retention backups, type: number, unit: GB, default: 0 }
+let:
+  - parts: 'split(lower(sku_name), "_")'
+  - tier: 'len(parts) == 2 ? parts[0] : ""'
+  - key: 'len(parts) == 2 ? parts[0] + "_" + parts[1] : ""'
+  - known: 'key in ["gp_gen5", "bc_gen5", "gp_g8im", "bc_g8im", "gp_g8ih", "bc_g8ih"]'
+  - zr: 'zone_redundant_enabled ? "_zr" : ""'
+  - redundancy: 'storage_account_type == "LRS" ? "lrs" : storage_account_type == "ZRS" ? "zrs" : storage_account_type == "GZRS" ? "ragzrs" : "ragrs"'
+readings:
+  - fail: { when: '!known', message: "{sku_name} is not read yet: GP_Gen5, BC_Gen5, GP_G8IM, BC_G8IM, GP_G8IH and BC_G8IH are" }
+  - cost: { name: Compute, quantity: 730 * vcores, unit: vCore-hour, price: "azure.sqlmi.vcore.{key}" }
+  - cost: { when: zone_redundant_enabled, name: Zone redundancy, quantity: 730 * vcores, unit: vCore-hour, price: "azure.sqlmi.vcore.{key}_zr" }
+  - cost: { when: 'license_type == "LicenseIncluded"', name: SQL license, quantity: 730 * vcores, unit: vCore-hour, price: "azure.sqlmi.license.{tier}" }
+  - storage: { name: Storage, gb: 'max(storage_size_in_gb - 32, 0.0)', price: "azure.sqlmi.storage.{tier}{zr}" }
+  - storage: { name: Point-in-time backup storage, gb: backupGb, price: "azure.sqlmi.backup.pitr.{redundancy}" }
+  - storage: { name: Long-term retention storage, gb: ltrGb, price: "azure.sqlmi.backup.ltr.{redundancy}" }
+  - rate: { name: Concurrent workers, unit: workers, quota: "azure.sqlmi.workers.{vcores}", peak: total.peak * queryMs / 1000 }
+terraform:
+  passive: true
+  aliases: { azurerm_mssql_managed_database: managed_instance_id }

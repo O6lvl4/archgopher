@@ -125,3 +125,34 @@ func TestRoleAssignmentsBecomeEdges(t *testing.T) {
 		}
 	}
 }
+
+func TestAReferenceSetsABooleanThatPointsAtIt(t *testing.T) {
+	ev, err := eval.Evaluate(filepath.Join("testdata", "sql"), eval.Options{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	spec, _ := infer.Build(ev, TerraformRules(), "sql")
+	pooled, single, empty := map[string]any(nil), map[string]any(nil), map[string]any(nil)
+	for _, n := range spec.Nodes {
+		switch n.ID {
+		case "pooled":
+			pooled = n.Attributes
+		case "single":
+			single = n.Attributes
+		case "empty":
+			empty = n.Attributes
+		}
+	}
+	if pooled["elastic_pool"] != true {
+		t.Errorf("elastic_pool_id refers to the pool, so the database is in it: %v", pooled)
+	}
+	if _, set := single["elastic_pool"]; set || single["sku_name"] != "S0" {
+		t.Errorf("a database without elastic_pool_id is not in a pool: %v", single)
+	}
+	if _, set := empty["elastic_pool"]; set {
+		t.Errorf("an empty elastic_pool_id is not a pool: %v", empty)
+	}
+	if len(spec.Edges) != 0 {
+		t.Errorf("databases call nothing: %v", spec.Edges)
+	}
+}

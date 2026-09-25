@@ -1,0 +1,95 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: General Purpose Gen5 2 vCores with 100 GB in Japan East
+  region: japaneast
+  attributes:
+    max_size_gb: 100
+  assumptions:
+    backupGb: 50
+  demand:
+    query:
+      monthly: 10000000.0
+      peak: 50
+  costs:
+    Compute: 251.1273
+    SQL license: 145.95036
+    Storage: 13.8
+    Point-in-time backup storage: 12
+    Long-term retention storage: 0
+  limits:
+    Concurrent workers: 1
+- name: S0 with 500 GB in East US
+  region: eastus
+  attributes:
+    sku_name: S0
+    max_size_gb: 500
+  demand:
+    query:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Compute: 14.718625
+    Extra storage: 42.5
+    Point-in-time backup storage: 0
+    Long-term retention storage: 0
+  limits:
+    Concurrent workers: 0.2
+- name: Serverless zone-redundant with locally redundant backups in Japan East
+  region: japaneast
+  attributes:
+    sku_name: GP_S_Gen5_2
+    zone_redundant: true
+    storage_account_type: Local
+  assumptions:
+    serverlessVcoreHours: 200
+    backupGb: 10
+  demand:
+    query:
+      monthly: 1000000.0
+      peak: 5
+  costs:
+    Compute: 117.9174
+    Zone redundancy: 70.7504
+    Storage: 8.832
+    Point-in-time backup storage: 1.2
+    Long-term retention storage: 0
+  limits:
+    Concurrent workers: 0.1
+- name: Hyperscale Gen5 4 vCores with one HA replica in East US
+  region: eastus
+  attributes:
+    sku_name: HS_Gen5_4
+    read_replica_count: 1
+  demand:
+    query:
+      monthly: 1000000.0
+      peak: 100
+  costs:
+    Compute: 533.3672
+    HA replicas: 533.3672
+    Storage: 8
+  limits:
+    Concurrent workers: 2
+- name: A database in an elastic pool bills only its backups
+  region: japaneast
+  attributes:
+    elastic_pool: true
+  assumptions:
+    ltrGb: 100
+  demand:
+    query:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Point-in-time backup storage: 0
+    Long-term retention storage: 6
+- name: DC-series is not read yet
+  region: eastus
+  attributes:
+    sku_name: GP_DC_2
+  error: GP_DC_2 is not read yet
+- name: Serverless needs its vCore-hours
+  region: eastus
+  attributes:
+    sku_name: GP_S_Gen5_2
+  error: set serverlessVcoreHours
