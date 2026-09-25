@@ -227,6 +227,43 @@ Resource types that should be nodes but have no scouter yet (ECS services,
 Kinesis streams, load balancers...) still become nodes: they pass load through
 and appear in the report as skipped.
 
+## Pull requests
+
+`archgopher diff <before> <after>` reads two declarations, or two Terraform
+directories folded into `--spec`, and writes what changed: monthly cost per
+node and per cost line, tightest headroom, path p99 and availability, with
+alerts for a node that goes over or under 20% of its capacity at peak or stops
+reading. `--json` gives the same for machines.
+
+```sh
+archgopher diff --spec app.scouter.yaml ../main/infra ./infra
+```
+
+The repository is also a GitHub Action that posts the diff on a pull request
+and keeps one comment up to date:
+
+```yaml
+on: pull_request
+permissions:
+  contents: read
+  pull-requests: write
+jobs:
+  archgopher:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: O6lvl4/archgopher@main
+        with:
+          terraform-dir: infra
+          declaration: infra/app.scouter.yaml   # each side uses its own version
+```
+
+It builds archgopher from the action's source, checks out the base commit
+next to the head, builds a declaration on each side (`tf --merge`), and writes
+the diff to the comment and the job summary. Outputs `before-usd`,
+`after-usd` and `delta-usd` let a later step fail a pull request over a
+budget. No cloud credentials are needed.
+
 ## Filling the gaps
 
 Terraform says what exists and what may call what, not how much is called or

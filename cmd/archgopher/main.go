@@ -22,6 +22,7 @@ Usage:
   archgopher scout <spec.yaml> [--json]     Read a declaration
   archgopher gaps <spec.yaml> [--json]      List what the declaration does not know yet
   archgopher tf <dir> [flags]               Build a declaration from Terraform
+  archgopher diff <before> <after> [flags]  What changed: declarations or Terraform directories
   archgopher catalog                        List scouters and their fields as JSON
   archgopher sync [--check]                 Verify the price book against the AWS Price List
   archgopher explore <service> <region> [attr=regex...]
@@ -49,6 +50,8 @@ func run(args []string, out io.Writer) error {
 		return cmdScout(args[1:], out)
 	case "gaps":
 		return cmdGaps(args[1:], out)
+	case "diff":
+		return cmdDiff(args[1:], out)
 	case "tf":
 		return cmdTerraform(args[1:], out)
 	case "catalog":

@@ -1,0 +1,104 @@
+name: archgopher diff
+description: Comment on a pull request with what it changes in monthly cost, headroom, latency and availability, read from Terraform.
+branding:
+  icon: bar-chart-2
+  color: blue
+inputs:
+  terraform-dir:
+    description: Terraform root module, relative to the repository root.
+    required: true
+  declaration:
+    description: archgopher declaration (load, assumptions, edges) that Terraform is folded into, relative to the repository root. Each side uses its own version when it exists.
+    required: false
+    default: ""
+  var-files:
+    description: Extra .tfvars files, one per line, relative to the repository root.
+    required: false
+    default: ""
+  region:
+    description: Region when the aws provider does not set one.
+    required: false
+    default: ""
+  comment:
+    description: "Post or update one comment on the pull request: true or false."
+    required: false
+    default: "true"
+  github-token:
+    description: Token that may comment on pull requests.
+    required: false
+    default: ${{ github.token }}
+outputs:
+  before-usd:
+    description: Monthly cost before the pull request.
+    value: ${{ steps.diff.outputs.before }}
+  after-usd:
+    description: Monthly cost after the pull request.
+    value: ${{ steps.diff.outputs.after }}
+  delta-usd:
+    description: Monthly change.
+    value: ${{ steps.diff.outputs.delta }}
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-go@v5
+      with:
+        go-version-file: ${{ github.action_path }}/go.mod
+        cache: false
+    - name: Build archgopher
+      shell: bash
+      run: cd "$GITHUB_ACTION_PATH" && go build -o "$RUNNER_TEMP/archgopher" ./cmd/archgopher
+    - name: Check out the base
+      shell: bash
+      env:
+        BASE: ${{ github.event.pull_request.base.sha }}
+      run: |
+        test -n "$BASE" || { echo "::error::archgopher diff runs on pull_request events"; exit 1; }
+        git fetch --no-tags --depth=1 origin "$BASE"
+        git worktree add --detach "$RUNNER_TEMP/base" "$BASE"
+    - name: Read both sides
+      id: diff
+      shell: bash
+      env:
+        DIR: ${{ inputs.terraform-dir }}
+        DECL: ${{ inputs.declaration }}
+        VAR_FILES: ${{ inputs.var-files }}
+        REGION: ${{ inputs.region }}
+      run: |
+        set -euo pipefail
+        bin="$RUNNER_TEMP/archgopher"
+        side() { # side <root> <out>
+          local root="$1" args=()
+          [ -n "$REGION" ] && args+=(--region "$REGION")
+          while IFS= read -r f; do [ -n "$f" ] && args+=(--var-file "$root/$f"); done <<< "$VAR_FILES"
+          if [ -n "$DECL" ] && [ -f "$root/$DECL" ]; then args+=(--merge "$root/$DECL")
+          elif [ -n "$DECL" ] && [ -f "$GITHUB_WORKSPACE/$DECL" ]; then args+=(--merge "$GITHUB_WORKSPACE/$DECL"); fi
+          if [ -d "$root/$DIR" ]; then "$bin" tf "$root/$DIR" "${args[@]}" -o "$2"
+          else printf 'name: empty\nregion: us-east-1\nnodes: []\n' > "$2"; fi
+        }
+        side "$RUNNER_TEMP/base" "$RUNNER_TEMP/before.yaml"
+        side "$GITHUB_WORKSPACE" "$RUNNER_TEMP/after.yaml"
+        "$bin" diff "$RUNNER_TEMP/before.yaml" "$RUNNER_TEMP/after.yaml" > "$RUNNER_TEMP/diff.md"
+        "$bin" diff --json "$RUNNER_TEMP/before.yaml" "$RUNNER_TEMP/after.yaml" > "$RUNNER_TEMP/diff.json"
+        {
+          echo "before=$(jq .beforeUsd "$RUNNER_TEMP/diff.json")"
+          echo "after=$(jq .afterUsd "$RUNNER_TEMP/diff.json")"
+          echo "delta=$(jq '.afterUsd - .beforeUsd' "$RUNNER_TEMP/diff.json")"
+        } >> "$GITHUB_OUTPUT"
+        cat "$RUNNER_TEMP/diff.md" >> "$GITHUB_STEP_SUMMARY"
+    - name: Comment
+      if: inputs.comment == 'true'
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.github-token }}
+        PR: ${{ github.event.pull_request.number }}
+        REPO: ${{ github.repository }}
+      run: |
+        set -euo pipefail
+        body="$RUNNER_TEMP/diff.md"
+        id=$(gh api "repos/$REPO/issues/$PR/comments" --paginate \
+          --jq '.[] | select(.body | startswith("<!-- archgopher diff -->")) | .id' | head -n1)
+        if [ -n "$id" ]; then
+          gh api -X PATCH "repos/$REPO/issues/comments/$id" -F body=@"$body" > /dev/null
+        else
+          gh api -X POST "repos/$REPO/issues/$PR/comments" -F body=@"$body" > /dev/null
+        fi

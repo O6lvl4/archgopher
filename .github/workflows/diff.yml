@@ -1,0 +1,18 @@
+# Runs the action in this repository on the example, so every pull request
+# shows what the diff comment looks like and proves the action still works.
+name: diff
+on:
+  pull_request:
+    paths: ["examples/serverless-api/**", "catalog/**", "action.yml", "report/**", "cmd/**"]
+permissions:
+  contents: read
+  pull-requests: write
+jobs:
+  diff:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./
+        with:
+          terraform-dir: examples/serverless-api
+          declaration: examples/serverless-api/notes.scouter.yaml

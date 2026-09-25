@@ -28,6 +28,7 @@ go install github.com/O6lvl4/archgopher/cmd/archgopher@latest
 
 archgopher tf ./infra -o app.scouter.yaml                    # Terraform から宣言を作る。init・plan・認証は不要
 archgopher gaps app.scouter.yaml                              # Terraform から分からないものを並べる（--json で AI の作業リスト）
+archgopher diff --spec app.scouter.yaml ../main/infra ./infra  # 変更前後の差分（コスト・余裕・経路）
 $EDITOR app.scouter.yaml                                        # 入口の負荷・Terraform 外の呼び出し・呼び出しの比率・null の前提を埋める
 archgopher scout app.scouter.yaml                             # Markdown の表で読む（--json で機械可読）
 archgopher tf ./infra --merge app.scouter.yaml -o app.scouter.yaml   # Terraform の変更を合流させる
@@ -40,6 +41,25 @@ ID・前提・負荷・メモ・座標・辺は人が書いたものが残りま
 例は [`examples/serverless-api`](examples/serverless-api) にあります。架空のメモアプリで、CloudFront・
 API Gateway・ローカル module の Lambda・DynamoDB・SQS・S3・1時間ごとの掃除ジョブと、手で足した
 Bedrock のモデルを持ちます。
+
+### プルリクエスト
+
+`archgopher diff <前> <後>` は2つの宣言、または `--spec` の宣言に合流させた2つの Terraform ディレクトリを読み、
+変わったものを出す。ノードとコスト行ごとの月額、最も余裕の少ない上限、経路の p99 と可用性で、
+ピーク時に上限を超える・余裕が 20% を切る・読めなくなるノードは警告にする。`--json` で機械向けにも出す。
+
+リポジトリ自体が GitHub Action で、プルリクエストに差分を1件のコメントとして書き、更新し続ける。
+認証は要らない。
+
+```yaml
+      - uses: O6lvl4/archgopher@main
+        with:
+          terraform-dir: infra
+          declaration: infra/app.scouter.yaml   # 前後それぞれの版を使う
+```
+
+ベースのコミットを横に取り出し、両側で `tf --merge` して宣言を作り、差分をコメントとジョブの要約に書く。
+出力の `before-usd` `after-usd` `delta-usd` で、予算を超えるプルリクエストを後続の手順で落とせる。
 
 ### 分からないものを埋める
 
