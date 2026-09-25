@@ -438,6 +438,30 @@ func (b *builder) breakCycles(nodes []model.Node, edges []edgeKey) []model.Edge 
 		adj[from] = append(adj[from], to)
 		out = append(out, model.Edge{From: from, To: to, Kind: e.kind})
 	}
+	return oneEdgePerPair(out)
+}
+
+// oneEdgePerPair folds edges between the same two nodes into one whose
+// operations are their kinds: a role that reads and writes a table is one
+// edge that does both.
+func oneEdgePerPair(edges []model.Edge) []model.Edge {
+	var out []model.Edge
+	at := map[[2]string]int{}
+	for _, e := range edges {
+		k := [2]string{e.From, e.To}
+		i, seen := at[k]
+		if !seen {
+			at[k] = len(out)
+			out = append(out, e)
+			continue
+		}
+		first := &out[i]
+		if len(first.Ops) == 0 {
+			first.Ops = []model.Op{{Kind: first.Kind}}
+			first.Kind = ""
+		}
+		first.Ops = append(first.Ops, model.Op{Kind: e.Kind})
+	}
 	return out
 }
 

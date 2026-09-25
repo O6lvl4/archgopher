@@ -107,6 +107,8 @@ func TestStructuralErrors(t *testing.T) {
 		"kind":       {Region: "r1", Nodes: []model.Node{node("a", 1), node("b", 1)}, Edges: []model.Edge{{From: "a", To: "b", Kind: "delete"}}},
 		"no group":   {Region: "r1", Nodes: []model.Node{grouped("a", "vpc")}},
 		"two groups": {Region: "r1", Groups: []model.Group{{ID: "vpc", Kind: "VPC"}, {ID: "vpc", Kind: "VPC"}}},
+		"ops and a kind": {Region: "r1", Nodes: []model.Node{node("a", 1), node("b", 1)},
+			Edges: []model.Edge{{From: "a", To: "b", Kind: "read", Ops: []model.Op{{Kind: "write"}}}}},
 		"load and traffic": {Region: "r1", Nodes: []model.Node{{ID: "a", Type: "entry", Load: &model.Load{Monthly: 1},
 			Traffic: &model.Traffic{Schedule: "rate(1 hour)"}}}},
 	}

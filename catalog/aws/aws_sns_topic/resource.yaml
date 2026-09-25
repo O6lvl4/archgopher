@@ -6,9 +6,9 @@ description: Publishes in 64 KB chunks; delivery to Lambda and SQS is free. Head
 kinds: [publish]
 sla: aws.sns
 assumptions:
-  - { key: messageKb, label: Message size, type: number, unit: KB, default: 1, hint: "Billed in 64 KB chunks" }
+  - { key: messageKb, label: Message size, type: number, unit: KB, default: 1, hint: "Billed in 64 KB chunks; for messages whose edges give no kb" }
 readings:
-  - requests: { name: Publishes, price: aws.sns.publish, count: total.monthly, chunkKb: 64, sizeKb: messageKb }
+  - requests: { name: Publishes, price: aws.sns.publish, count: 'units(total, 64, messageKb)' }
   - rate: { name: Publish rate, unit: requests/second, quota: aws.sns.publish_rps, peak: total.peak }
 terraform:
   links:

@@ -14,13 +14,44 @@ import (
 	"github.com/O6lvl4/archgopher/model"
 )
 
-// Flow is how expressions see a load: demand.read.monthly, total.peak.
+// Flow is how expressions see a load: demand.read.monthly, total.peak. It
+// keeps the load so units() can count its operations by size.
 type Flow struct {
 	Monthly float64 `expr:"monthly"`
 	Peak    float64 `expr:"peak"`
+	load    model.Load
 }
 
-func flowOf(l model.Load) Flow { return Flow{Monthly: l.Monthly, Peak: l.PeakPerSecond} }
+func flowOf(l model.Load) Flow { return Flow{Monthly: l.Monthly, Peak: l.PeakPerSecond, load: l} }
+
+// sizeOf reads the fallback size: a number, or an optional one that may be unset.
+func sizeOf(v any) *float64 {
+	switch x := v.(type) {
+	case nil:
+		return nil
+	case *float64:
+		return x
+	}
+	f := toFloat(v)
+	return &f
+}
+
+// unitsOf counts a flow in billing units of step KB: each operation whose size
+// an edge gave is rounded up on its own, the rest is taken as the node's size.
+func unitsOf(params []any, peak bool) (any, error) {
+	flow, ok := params[0].(Flow)
+	if !ok {
+		return nil, fmt.Errorf("units: the first argument must be a demand, such as demand.read")
+	}
+	monthly, p, known := flow.load.Units(toFloat(params[1]), sizeOf(params[2]))
+	if !known {
+		return nil, fmt.Errorf("the size of some operations is unknown: set it on this node or kb on the edges that bring them")
+	}
+	if peak {
+		return p, nil
+	}
+	return monthly, nil
+}
 
 // declare builds the typed environment expressions compile against, so an
 // unknown name or a type mismatch fails when the definition loads.
@@ -64,6 +95,13 @@ func runtimeEnv(region string, attrs, assume []field.Field, a, p map[string]any,
 }
 
 var functions = []expr.Option{
+	// units(demand.read, 4, itemSizeKb) is the monthly volume in 4 KB units;
+	// peakUnits the same at the peak. The last argument is the size of
+	// operations no edge gave a size for.
+	expr.Function("units", func(params ...any) (any, error) { return unitsOf(params, false) },
+		new(func(Flow, float64, any) float64)),
+	expr.Function("peakUnits", func(params ...any) (any, error) { return unitsOf(params, true) },
+		new(func(Flow, float64, any) float64)),
 	// ceilDiv rounds a/b up; billing units (4 KB reads, 64 KB messages) use it. At least 1.
 	expr.Function("ceilDiv", func(params ...any) (any, error) {
 		a, b := toFloat(params[0]), toFloat(params[1])

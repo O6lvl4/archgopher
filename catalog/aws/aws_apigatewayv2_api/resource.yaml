@@ -8,10 +8,10 @@ sla: aws.apigateway
 attributes:
   - { key: protocol_type, label: Protocol, type: choice, options: [HTTP, WEBSOCKET], default: HTTP }
 assumptions:
-  - { key: payloadKb, label: Request size, type: number, unit: KB, default: 1, hint: "Billed in 512 KB steps" }
+  - { key: payloadKb, label: Request size, type: number, unit: KB, default: 1, hint: "Billed in 512 KB steps; for requests whose edges give no kb" }
 readings:
   - fail: { when: 'protocol_type != "HTTP"', message: "{protocol_type} APIs are not supported yet" }
-  - requests: { name: Requests, price: aws.apigateway.http.requests, count: total.monthly, chunkKb: 512, sizeKb: payloadKb }
+  - requests: { name: Requests, price: aws.apigateway.http.requests, count: 'units(total, 512, payloadKb)' }
   - rate: { name: Account throttle, unit: requests/second, quota: aws.apigateway.account_rps, peak: total.peak }
 terraform:
   frontDoor: true

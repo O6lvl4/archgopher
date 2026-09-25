@@ -1,6 +1,7 @@
 import type { Edge, Node } from "@xyflow/react";
 import { num } from "./format";
 import { frameRect, type Rect } from "./frames";
+import { operations, opsLabel } from "./ops";
 import type { CatalogEntry, NodeResult, Result, Spec, SpecGroup, SpecNode } from "./types";
 
 export interface CardData extends Record<string, unknown> {
@@ -83,8 +84,10 @@ export function edgeId(index: number): string {
 export function toFlowEdges(spec: Spec, result: Result | undefined, selected: number | undefined): Edge[] {
   const readings = readingsById(result);
   return spec.edges.map((e, i) => {
-    const volume = throughput(readings.get(e.from)) * (e.perUnit ?? 1);
-    const parts = [e.kind, result ? `${num(volume)}/mo` : undefined].filter(Boolean);
+    // The label counts what goes over the edge: the upstream volume, times perUnit for a one-operation edge.
+    const ops = operations(e);
+    const volume = throughput(readings.get(e.from)) * (ops.length === 1 ? (ops[0]?.perUnit ?? 1) : 1);
+    const parts = [opsLabel(e), result ? `${num(volume)}/mo` : undefined].filter(Boolean);
     return {
       id: edgeId(i),
       source: e.from,

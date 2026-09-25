@@ -21,14 +21,17 @@ func build(t *testing.T, dir string, opt eval.Options) (model.Spec, []string) {
 	return infer.Build(ev, aws.TerraformRules(), "test")
 }
 
+// edges lists each operation of each edge as from>to:kind.
 func edges(s model.Spec) []string {
 	var out []string
 	for _, e := range s.Edges {
-		k := e.Kind
-		if k == "" {
-			k = "-"
+		for _, op := range e.Operations() {
+			k := op.Kind
+			if k == "" {
+				k = "-"
+			}
+			out = append(out, e.From+">"+e.To+":"+k)
 		}
-		out = append(out, e.From+">"+e.To+":"+k)
 	}
 	sort.Strings(out)
 	return out

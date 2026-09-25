@@ -118,7 +118,8 @@ edges:
 | `kind` | The work the downstream node receives (`read` / `write` for DynamoDB). Defaults to the node's first kind. |
 | `perUnit` | Downstream units per upstream unit. Defaults to 1. |
 | `groups` / `group` | Boundaries drawn around nodes, such as a VPC (`{ id, kind, label, type, assumptions }`), and the one a node sits in. A node reads the same inside a group as outside; the group reads the traffic between its nodes. |
-| `kb` | Data one unit moves over the edge, both ways. Between two nodes of one group, the group's `type` reads it: `aws_vpc` charges the share that crosses Availability Zones, `(zones - 1) / zones`, out of one zone and into the other; a Google Cloud network charges the sender; an Azure VNet charges nothing. |
+| `kb` | The size of one operation, the data it moves both ways. The target counts its billing units by it: a 25 KB DynamoDB read is seven 4 KB units, a 100 KB SQS message two 64 KB chunks. Between two nodes of one group, the group reads it too: `aws_vpc` charges the share that crosses Availability Zones, `(zones - 1) / zones`, out of one zone and into the other; a Google Cloud network charges the sender; an Azure VNet charges nothing. |
+| `ops` | Several kinds of work per upstream unit, each with its own `kind`, `perUnit` and `kb`. `kind`, `perUnit` and `kb` on the edge are the one-operation short form. |
 
 ### Saying how much load
 
@@ -151,6 +152,25 @@ concurrent users, unless `peakPerSecond` sets it.
 # 8,000 users × 30 a day × 21.7 weekdays = 5,214,286 a month; 7.41/s on
 # average over 9 h a day on weekdays, ×2 for peaks = 14.8/s
 ```
+
+### One call, several operations
+
+A call often does more than one thing to the same resource, each of its own
+size. `ops` lists them, and the target counts each operation's billing units
+by its size: operations with no `kb` take the size the target assumes (a
+table's `itemSizeKb`, a queue's `messageKb`).
+
+```yaml
+- from: api
+  to: notes
+  ops:
+    - { kind: read, kb: 25 }                 # a Query returning 25 KB: 7 read units
+    - { kind: read, perUnit: 2, kb: 1 }      # two GetItems of 1 KB
+    - { kind: write, perUnit: 0.1, kb: 2 }   # one call in ten writes 2 KB
+```
+
+Terraform import folds the kinds a role's permissions allow between two
+nodes (DynamoDB reads and writes) into one edge with an operation for each.
 
 Load flows in topological order: a node's total throughput times `perUnit`
 lands on the downstream node under `kind`. Cycles are errors.

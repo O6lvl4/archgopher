@@ -4,6 +4,7 @@ import (
 	"math"
 
 	"encoding/json"
+	"github.com/O6lvl4/archgopher/engine"
 	"github.com/O6lvl4/archgopher/model"
 	"os"
 	"path/filepath"
@@ -117,7 +118,8 @@ func TestZoneCrossingsAreReadByTheVPC(t *testing.T) {
 			{ID: "u", Type: "entry", Load: &model.Load{Monthly: 1e7, PeakPerSecond: 10}},
 			{ID: "fn", Type: "aws_lambda_function", Group: "main", Assumptions: map[string]any{"durationMs": 50}},
 			{ID: "db", Type: "aws_rds_cluster", Group: "main", Assumptions: map[string]any{"averageAcu": 1, "storageGb": 1}},
-			{ID: "table", Type: "aws_dynamodb_table", Assumptions: map[string]any{"itemSizeKb": 1, "storageGb": 1}},
+			{ID: "table", Type: "aws_dynamodb_table", Attributes: map[string]any{"billing_mode": "PAY_PER_REQUEST"},
+				Assumptions: map[string]any{"itemSizeKb": 1, "storageGb": 1}},
 		},
 		Edges: []model.Edge{{From: "u", To: "fn"}, {From: "fn", To: "db", KB: &kb}, {From: "fn", To: "table", Kind: "read", KB: &kb}},
 	}
@@ -132,7 +134,69 @@ func TestZoneCrossingsAreReadByTheVPC(t *testing.T) {
 	if got, want := res.Groups[0].MonthlyUSD, crossing*0.01*2; math.Abs(got-want) > 1e-9 {
 		t.Errorf("VPC reads $%v, want $%v", got, want)
 	}
-	if len(res.Warnings) == 0 || !strings.Contains(strings.Join(res.Warnings, " "), "fn -> table") {
-		t.Errorf("kb on an edge leaving the group is reported: %v", res.Warnings)
+	// The same kb sizes the table's reads: 30 KB is eight 4 KB units, half
+	// each when eventually consistent.
+	if got, want := readUnits(t, res, "table"), 1e7*8*0.5; math.Abs(got-want) > 1e-6 {
+		t.Errorf("table reads %v units, want %v", got, want)
+	}
+}
+
+func readUnits(t *testing.T, res engine.Result, id string) float64 {
+	t.Helper()
+	for _, n := range res.Nodes {
+		if n.ID != id {
+			continue
+		}
+		if n.Error != "" {
+			t.Fatalf("%s: %s", id, n.Error)
+		}
+		for _, c := range n.Costs {
+			if c.Name == "Read request units" {
+				return c.Quantity
+			}
+		}
+	}
+	t.Fatalf("%s has no read units", id)
+	return 0
+}
+
+// One call can do several kinds of work, each of its own size: per call, a
+// 25 KB Query (7 units), two 1 KB GetItems (1 unit each) and, one call in
+// ten, a 2 KB write (2 units). The table's item size is never used.
+func TestOperationsOfOneEdge(t *testing.T) {
+	f := func(v float64) *float64 { return &v }
+	spec := model.Spec{Region: "us-east-1",
+		Nodes: []model.Node{
+			{ID: "u", Type: "entry", Load: &model.Load{Monthly: 1e6, PeakPerSecond: 10}},
+			{ID: "table", Type: "aws_dynamodb_table", Attributes: map[string]any{"billing_mode": "PAY_PER_REQUEST"},
+				Assumptions: map[string]any{"storageGb": 1, "consistentRead": "strong"}},
+		},
+		Edges: []model.Edge{{From: "u", To: "table", Ops: []model.Op{
+			{Kind: "read", KB: f(25)},
+			{Kind: "read", PerUnit: f(2), KB: f(1)},
+			{Kind: "write", PerUnit: f(0.1), KB: f(2)},
+		}}},
+	}
+	res, err := Scout(spec)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got, want := readUnits(t, res, "table"), 1e6*(7+2); math.Abs(got-want) > 1e-6 {
+		t.Errorf("reads: %v units, want %v", got, want)
+	}
+	for _, n := range res.Nodes {
+		for _, c := range n.Costs {
+			if n.ID == "table" && c.Name == "Write request units" && math.Abs(c.Quantity-1e6*0.1*2) > 1e-6 {
+				t.Errorf("writes: %v units, want %v", c.Quantity, 1e6*0.1*2)
+			}
+		}
+	}
+	// An operation of no size needs the table's item size.
+	spec.Edges[0].Ops[0].KB = nil
+	res, _ = Scout(spec)
+	for _, n := range res.Nodes {
+		if n.ID == "table" && !strings.Contains(n.Error, "size of some operations is unknown") {
+			t.Errorf("an unsized read with no item size is an error: %q", n.Error)
+		}
 	}
 }

@@ -6,13 +6,14 @@ description: "Custom topic (Basic tier): operations, each 64 KB of an event coun
 kinds: [publish]
 sla: azure.eventgrid
 assumptions:
-  - { key: eventKb, label: Event size, type: number, unit: KB, default: 1, hint: "Counted per 64 KB" }
+  - { key: eventKb, label: Event size, type: number, unit: KB, default: 1, hint: "Counted per 64 KB; for events whose edges give no kb" }
   - { key: subscriptionsPerEvent, label: Deliveries per event, type: number, default: 1, hint: "Event subscriptions that match each event" }
 let:
-  - chunks: ceilDiv(eventKb, 64)
+  - events: units(total, 64, eventKb)
+  - eventsPeak: peakUnits(total, 64, eventKb)
 readings:
-  - requests: { name: Operations, unit: operation, price: azure.eventgrid.basic.operations, count: total.monthly * chunks * (1 + subscriptionsPerEvent) }
-  - rate: { name: Publish rate, unit: events/second, quota: azure.eventgrid.topic_publish_rate, peak: total.peak * chunks }
+  - requests: { name: Operations, unit: operation, price: azure.eventgrid.basic.operations, count: events * (1 + subscriptionsPerEvent) }
+  - rate: { name: Publish rate, unit: events/second, quota: azure.eventgrid.topic_publish_rate, peak: eventsPeak }
 terraform:
   links:
     - type: azurerm_eventgrid_event_subscription

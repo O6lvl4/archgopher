@@ -11,7 +11,7 @@ assumptions:
   - { key: operationsPerTask, label: Billable operations per task, type: number, default: 2, hint: "Creating the task and one delivery attempt; retries and list calls add more" }
   - { key: taskKb, label: Task size, type: number, unit: KB, default: 1, hint: "Billed in 32 KB chunks" }
 readings:
-  - requests: { name: Operations, price: gcp.tasks.operations, unit: operation, count: total.monthly * operationsPerTask, chunkKb: 32, sizeKb: taskKb }
+  - requests: { name: Operations, price: gcp.tasks.operations, unit: operation, count: 'units(total, 32, taskKb) * operationsPerTask' }
   - limit: { name: Dispatch rate, demand: total.peak, unit: tasks/second, quota: gcp.tasks.dispatch_rps, capacity: max_dispatches_per_second }
 terraform:
   ignoreRefs: [retry_config, stackdriver_logging_config]

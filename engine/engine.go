@@ -142,11 +142,6 @@ func Run(spec model.Spec, reg scouter.Registry, books book.Books) (Result, error
 		}
 		res.Groups = append(res.Groups, nr)
 	}
-	for _, e := range spec.Edges {
-		if e.KB != nil && (g.nodes[e.From].Group == "" || g.nodes[e.From].Group != g.nodes[e.To].Group) {
-			warnings = append(warnings, fmt.Sprintf("edge %s -> %s: kb is read only between nodes of one group", e.From, e.To))
-		}
-	}
 	res.Unverified = sortedRefs(unverified)
 	var pathWarnings []string
 	res.Paths, pathWarnings = g.paths(res.Nodes)
@@ -163,10 +158,14 @@ func (g *graph) crossing(group string, demand map[string]model.Demand) float64 {
 	var gb float64
 	for _, id := range g.order {
 		for _, e := range g.outgoing[id] {
-			if e.KB == nil || g.nodes[e.From].Group != group || g.nodes[e.To].Group != group {
+			if g.nodes[e.From].Group != group || g.nodes[e.To].Group != group {
 				continue
 			}
-			gb += demand[e.From].Total().Monthly * e.Factor() * *e.KB / 1024 / 1024
+			for _, op := range e.Operations() {
+				if op.KB != nil {
+					gb += demand[e.From].Total().Monthly * op.Factor() * *op.KB / 1024 / 1024
+				}
+			}
 		}
 	}
 	return gb
@@ -292,14 +291,8 @@ func buildGraph(spec model.Spec, reg scouter.Registry) (*graph, error) {
 		if !ok {
 			return nil, fmt.Errorf("%s: no node %q", label, e.To)
 		}
-		if e.Factor() < 0 {
-			return nil, fmt.Errorf("%s: perUnit must not be negative", label)
-		}
-		if e.KB != nil && *e.KB < 0 {
-			return nil, fmt.Errorf("%s: kb must not be negative", label)
-		}
-		if s, ok := reg[to.Type]; ok && e.Kind != "" && !contains(s.Meta().Kinds, e.Kind) {
-			return nil, fmt.Errorf("%s: %s accepts %s, not %q", label, to.Type, strings.Join(s.Meta().Kinds, ", "), e.Kind)
+		if err := checkOps(e, label, reg[to.Type]); err != nil {
+			return nil, err
 		}
 		g.outgoing[e.From] = append(g.outgoing[e.From], e)
 		indegree[e.To]++
@@ -345,16 +338,23 @@ func (g *graph) propagate() map[string]model.Demand {
 			k := g.kinds[id]
 			d[k] = d[k].Add(*l)
 		}
-		out := d.Total()
+		// A node passes on its own work; the sizes of what it received stay with it.
+		out := d.Total().Plain()
 		for _, e := range g.outgoing[id] {
-			k := e.Kind
-			if k == "" {
-				k = g.kinds[e.To]
-			}
 			if demand[e.To] == nil {
 				demand[e.To] = model.Demand{}
 			}
-			demand[e.To][k] = demand[e.To][k].Add(out.Scale(e.Factor()))
+			for _, op := range e.Operations() {
+				k := op.Kind
+				if k == "" {
+					k = g.kinds[e.To]
+				}
+				l := out.Scale(op.Factor())
+				if op.KB != nil {
+					l = l.Sized(*op.KB)
+				}
+				demand[e.To][k] = demand[e.To][k].Add(l)
+			}
 		}
 	}
 	return demand
@@ -463,4 +463,23 @@ func resolveTraffic(spec model.Spec) (model.Spec, map[string]arrival, error) {
 	}
 	spec.Nodes = nodes
 	return spec, out, nil
+}
+
+// checkOps validates an edge's operations against what the target accepts.
+func checkOps(e model.Edge, label string, target scouter.Scouter) error {
+	if len(e.Ops) > 0 && (e.Kind != "" || e.PerUnit != nil || e.KB != nil) {
+		return fmt.Errorf("%s: give ops or kind, perUnit and kb, not both", label)
+	}
+	for _, op := range e.Operations() {
+		if op.Factor() < 0 {
+			return fmt.Errorf("%s: perUnit must not be negative", label)
+		}
+		if op.KB != nil && *op.KB < 0 {
+			return fmt.Errorf("%s: kb must not be negative", label)
+		}
+		if target != nil && op.Kind != "" && !contains(target.Meta().Kinds, op.Kind) {
+			return fmt.Errorf("%s: %s accepts %s, not %q", label, target.Meta().Type, strings.Join(target.Meta().Kinds, ", "), op.Kind)
+		}
+	}
+	return nil
 }

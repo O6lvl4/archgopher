@@ -59,9 +59,18 @@ export interface SpecEdge {
   to: string;
   kind?: string;
   perUnit?: number;
-  /** Data one unit moves over the edge, both ways; read between nodes of one group. */
+  /** Size of one operation, both ways: the target counts its billing units by it, and a group its zone crossings. */
   kb?: number;
+  /** Several kinds of work per upstream unit; kind, perUnit and kb are the one-operation short form. */
+  ops?: EdgeOp[];
   note?: string;
+}
+
+/** One kind of work an edge does per upstream unit. */
+export interface EdgeOp {
+  kind?: string;
+  perUnit?: number;
+  kb?: number;
 }
 
 export interface Spec {

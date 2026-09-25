@@ -27,7 +27,7 @@ function edgeIndex(id: string): number {
 /** Why a connection is refused, or undefined when it is fine. */
 function refusal(spec: Spec, c: Connection): string | undefined {
   if (!c.source || !c.target || c.source === c.target) return "An edge needs two different nodes.";
-  if (spec.edges.some((e) => e.from === c.source && e.to === c.target && !e.kind)) return "These nodes are already connected.";
+  if (spec.edges.some((e) => e.from === c.source && e.to === c.target)) return "These nodes are already connected: add an operation to that edge instead.";
   if (closesCycle(spec, c.source, c.target)) return "That edge would close a cycle; load has to flow one way.";
   return undefined;
 }
