@@ -1,0 +1,26 @@
+{
+  "azure.automation.concurrent_jobs": {
+    "unit": "jobs",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits#automation-limits",
+    "note": "Jobs running at once per Automation account on pay-as-you-go subscriptions in public regions; Enterprise and CSP subscriptions get 50",
+    "values": {
+      "*": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.automation.job_submissions": {
+    "unit": "jobs/second",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits#automation-limits",
+    "note": "No more than 100 new jobs every 30 seconds per Automation account",
+    "values": {
+      "*": {
+        "value": 3.333333333,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

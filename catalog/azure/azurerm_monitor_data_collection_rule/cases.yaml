@@ -1,0 +1,21 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 500 million custom metric samples (Japan East)
+  region: japaneast
+  attributes:
+    metrics_destination: true
+  assumptions:
+    metricSamplesMillions: 500
+  demand:
+    ingest:
+      monthly: 0
+      peak: 0
+  costs:
+    # 50 x 10 million samples at 0.16
+    Metrics ingestion: 8
+- name: logs only, billed on the workspace (East US)
+  region: eastus
+  demand:
+    ingest:
+      monthly: 1000000.0
+      peak: 5

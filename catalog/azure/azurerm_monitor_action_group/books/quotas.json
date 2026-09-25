@@ -1,0 +1,38 @@
+{
+  "azure.monitor.action_group.email_rate": {
+    "unit": "emails/second",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/fundamentals/service-limits#action-groups",
+    "note": "No more than 100 emails an hour to one email address, per region",
+    "values": {
+      "*": {
+        "value": 0.027777778,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.monitor.action_group.sms_rate": {
+    "unit": "messages/second",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/fundamentals/service-limits#action-groups",
+    "note": "No more than one SMS every 5 minutes to one phone number",
+    "values": {
+      "*": {
+        "value": 0.003333333,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.monitor.action_group.voice_rate": {
+    "unit": "calls/second",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/fundamentals/service-limits#action-groups",
+    "note": "No more than one voice call every 5 minutes to one phone number",
+    "values": {
+      "*": {
+        "value": 0.003333333,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

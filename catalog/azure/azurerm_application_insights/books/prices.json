@@ -1,0 +1,134 @@
+{
+  "azure.appinsights.ingestion": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/monitor/",
+    "note": "Classic Application Insights (no workspace) data ingested; workspace-based components are billed at their workspace's Log Analytics price",
+    "sync": {
+      "source": "azure",
+      "service": "Application Insights",
+      "filters": {
+        "productName": "Application Insights",
+        "skuName": "Enterprise",
+        "meterName": "Enterprise Overage Data"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 2.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 2.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 2.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 2.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 2.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 2.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 2.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 2.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 2.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.appinsights.retention": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/monitor/",
+    "note": "Classic Application Insights data retained beyond the 90 days included",
+    "sync": {
+      "source": "azure",
+      "service": "Application Insights",
+      "filters": {
+        "productName": "Application Insights",
+        "skuName": "Enterprise",
+        "meterName": "Data Retention"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: one watcher all month (Japan East)
+  region: japaneast
+  demand:
+    watch:
+      monthly: 0
+      peak: 0
+  costs:
+    Watcher hours: 1.46
+- name: one watcher all month (West US 2)
+  region: westus2
+  demand:
+    watch:
+      monthly: 0
+      peak: 0
+  costs:
+    Watcher hours: 1.46

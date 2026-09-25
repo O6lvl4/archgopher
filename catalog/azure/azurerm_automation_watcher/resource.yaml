@@ -1,0 +1,12 @@
+type: azurerm_automation_watcher
+label: Automation watcher
+category: Scheduling
+icon: automation-accounts
+description: "Watcher task hours, all month. The free monthly hours are not read."
+kinds: [watch]
+sla: azure.automation
+readings:
+  - cost: { name: Watcher hours, quantity: 730, unit: hour, price: azure.automation.watcher }
+terraform:
+  # A watcher runs a script on its account's hybrid workers; it calls nothing drawn.
+  passive: true

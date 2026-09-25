@@ -1,0 +1,49 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: three resources split by two dimension values (Japan East)
+  region: japaneast
+  attributes:
+    scopes: 3
+    criteria: 1
+    criteria_values: 2
+  demand:
+    alarm:
+      monthly: 0
+      peak: 0
+  costs:
+    # 3 resources x 2 time series at 0.10
+    Time series monitored: 0.6
+- name: dynamic threshold on the subscription (East US)
+  region: eastus
+  attributes:
+    dynamic_criteria: 1
+  demand:
+    alarm:
+      monthly: 0
+      peak: 0
+  costs:
+    Time series monitored: 0.1
+    Dynamic thresholds: 0.1
+- name: time series given by hand for a wildcard dimension
+  region: eastus
+  attributes:
+    scopes: 2
+    criteria: 1
+    criteria_values: 1
+  assumptions:
+    timeSeries: 25
+  demand:
+    alarm:
+      monthly: 0
+      peak: 0
+  costs:
+    Time series monitored: 5
+- name: a disabled alert costs nothing
+  region: eastus
+  attributes:
+    enabled: false
+    criteria: 1
+  demand:
+    alarm:
+      monthly: 0
+      peak: 0

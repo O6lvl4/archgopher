@@ -1,0 +1,22 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: a daily one-minute job (Japan East)
+  region: japaneast
+  demand:
+    run:
+      monthly: 0
+      peak: 0
+  costs:
+    # 30 runs x 1 minute at 0.002
+    Job run time: 0.06
+- name: an hourly five-minute job (East US)
+  region: eastus
+  assumptions:
+    runsPerMonth: 730
+    minutesPerRun: 5
+  demand:
+    run:
+      monthly: 0
+      peak: 0
+  costs:
+    Job run time: 7.3

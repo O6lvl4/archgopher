@@ -1,0 +1,68 @@
+{
+  "azure.sentinel.analysis": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/microsoft-sentinel/",
+    "note": "Microsoft Sentinel pay-as-you-go analysis per GB; on the simplified pricing tier it includes the Log Analytics ingestion of the same data",
+    "sync": {
+      "source": "azure",
+      "service": "Sentinel",
+      "filters": {
+        "productName": "Sentinel",
+        "skuName": "Pay-as-you-go",
+        "meterName": "Pay-as-you-go Analysis"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 6.24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 6.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 4.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 4.76,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 5.59,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 6.24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 5.81,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 5.16,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 5.59,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 4.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

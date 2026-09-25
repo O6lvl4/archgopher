@@ -1,0 +1,13 @@
+{
+  "azure.automation": {
+    "unit": "fraction",
+    "source": "https://www.microsoft.com/licensing/docs/view/Service-Level-Agreements-SLA-for-Online-Services",
+    "note": "Azure Automation jobs start within 30 minutes of their planned time. From the consolidated SLA document, not machine-checked",
+    "values": {
+      "*": {
+        "value": 0.999,
+        "verified": false
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+type: azurerm_automation_job_schedule
+label: Automation job schedule
+category: Scheduling
+icon: automation-accounts
+description: "Job minutes of the runbook each time its schedule fires. The free monthly minutes are not read."
+kinds: [run]
+sla: azure.automation
+assumptions:
+  - { key: runsPerMonth, label: Runs, type: number, default: 30, hint: "Times the linked schedule fires a month: 30 daily, 730 hourly, 4 weekly" }
+  - { key: minutesPerRun, label: Run time per run, type: number, unit: minutes, default: 1, hint: "Billed per minute the job runs" }
+readings:
+  - cost: { name: Job run time, quantity: runsPerMonth * minutesPerRun, unit: minute, price: azure.automation.job_runtime }
+terraform:
+  # The schedule starts a runbook in its account; its minutes are read here, not there.
+  passive: true

@@ -1,0 +1,57 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: on-call group fired 1,000 times, SMS to Japan (Japan East)
+  region: japaneast
+  attributes:
+    email_receivers: 2
+    webhook_receivers: 2
+    secure_webhook_receivers: 1
+    sms_receivers: 1
+    sms_country_code: "81"
+  assumptions:
+    firedPerMonth: 1000
+  demand:
+    notify:
+      monthly: 0
+      peak: 0
+  costs:
+    # 2 x 1,000 emails at 2 per 100,000
+    Emails: 0.04
+    # 1,000 at 0.60 per million and 1,000 at 6 per million
+    Webhooks: 0.0006
+    Secure webhooks: 0.006
+    SMS (country code 81): 46
+  limits:
+    Emails per address: 0
+    SMS per phone number: 0
+- name: US voice, push and ITSM fired by drawn alerts (East US)
+  region: eastus
+  attributes:
+    voice_receivers: 1
+    push_receivers: 1
+    itsm_receivers: 1
+  demand:
+    notify:
+      monthly: 500
+      peak: 0.01
+  costs:
+    Voice calls (country code 1): 6.5
+    Push notifications: 0.01
+    ITSM events: 2.5
+  limits:
+    Voice calls per phone number: 0.01
+- name: a disabled group notifies no one
+  region: eastus
+  attributes:
+    enabled: false
+    email_receivers: 3
+  assumptions:
+    firedPerMonth: 1000
+  demand:
+    notify:
+      monthly: 100
+      peak: 1
+  costs:
+    Emails: 0
+  limits:
+    Emails per address: 0

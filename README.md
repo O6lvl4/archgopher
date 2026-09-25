@@ -528,6 +528,12 @@ when unset), `total.monthly` and `total.peak`, `demand.<kind>.monthly` and
 facet's own assumption fields. A directory without `resource.yaml` holds rows
 several resources share, such as log prices.
 
+An attribute's `path` says where it sits in the resource block (`sku.name`
+reads the first `sku` block). A path ending in `.#` counts what it names across
+every block, such as `criteria.dimension.values.#` for every value of every
+dimension of every criterion. A boolean read from a block or an id reads
+whether it is written, even when the id is known only after apply.
+
 Prices that differ by one attribute only (an instance type, a database
 class) are a table: one entry with `rows` instead of `values`, one number per
 region, `null` where the row is not offered. Row `t3.micro` of

@@ -2,7 +2,7 @@ type: azurerm_log_analytics_workspace
 label: Log Analytics workspace
 category: Monitoring
 icon: log-analytics
-description: "Analytics logs on the pay-as-you-go tier: data ingested per GB, and interactive retention beyond the 31 days included. Workspace-based Application Insights folds into its workspace, so apps that send telemetry there send it here. Ingestion rate limits are not read."
+description: "Analytics logs on the pay-as-you-go tier: data ingested per GB, and interactive retention beyond the 31 days included. Workspace-based Application Insights telemetry is read on the Application Insights node, at this workspace's prices. Ingestion rate limits are not read."
 kinds: [ingest]
 sla: azure.loganalytics
 attributes:
@@ -10,7 +10,7 @@ attributes:
   - { key: retention_in_days, label: Retention, type: number, unit: days, default: 30 }
 assumptions:
   - { key: gbPerMonth, label: Data ingested directly, type: number, unit: GB, default: 0, hint: "Diagnostic settings, agents and anything not drawn as an edge" }
-  - { key: kbPerEvent, label: Telemetry per event from connected apps, type: number, unit: KB, default: 0, hint: "Each unit of load an edge brings, such as a request an app traces through Application Insights" }
+  - { key: kbPerEvent, label: Telemetry per event from connected apps, type: number, unit: KB, default: 0, hint: "Each unit of load an edge brings, such as what a data collection rule collects" }
 let:
   - ingestedGb: gbPerMonth + demand.ingest.monthly * kbPerEvent / 1024 / 1024
   - retainedGb: ingestedGb * max(retention_in_days - 31, 0) / 30.4
@@ -18,9 +18,5 @@ readings:
   - fail: { when: 'sku != "PerGB2018"', message: "only the pay-as-you-go tier (PerGB2018) is read yet, not {sku}" }
   - cost: { name: Data ingested, quantity: ingestedGb, unit: GB, price: azure.loganalytics.ingestion }
   - cost: { when: retainedGb > 0, name: Retention beyond 31 days, quantity: retainedGb, unit: GB-month, price: azure.loganalytics.retention }
-terraform:
-  # Workspace-based Application Insights bills ingestion to its workspace:
-  # telemetry sent to it (its connection string in an app's settings) lands here.
-  aliases: { azurerm_application_insights: workspace_id }
 iam:
   ingest: ["Monitoring Metrics Publisher"]

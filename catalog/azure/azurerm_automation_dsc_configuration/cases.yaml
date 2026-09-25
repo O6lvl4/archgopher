@@ -1,0 +1,20 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: three on-premises servers (Japan East)
+  region: japaneast
+  assumptions:
+    nonAzureNodes: 3
+  demand:
+    configure:
+      monthly: 0
+      peak: 0
+  costs:
+    Non-Azure configuration nodes: 18
+- name: Azure machines only (East US)
+  region: eastus
+  demand:
+    configure:
+      monthly: 0
+      peak: 0
+  costs:
+    Non-Azure configuration nodes: 0

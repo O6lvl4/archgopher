@@ -1,0 +1,28 @@
+type: azurerm_monitor_metric_alert
+label: Metric alert
+category: Monitoring
+icon: alerts
+description: "A monthly cost per time series the rule monitors: each resource in scope times each criterion, or each dimension value a criterion splits by. Dynamic thresholds cost again per time series. The first 10 time series a month are free and not read. Load does not flow through an alert."
+kinds: [alarm]
+sla: azure.monitor
+attributes:
+  - { key: enabled, label: Enabled, type: boolean, default: true }
+  - { key: scopes, label: Resources in scope, type: number, default: 0, path: "scopes.#", hint: "None written means the subscription: one" }
+  - { key: criteria, label: Static criteria, type: number, default: 0, path: "criteria.#" }
+  - { key: criteria_values, label: Dimension values in static criteria, type: number, default: 0, path: "criteria.dimension.values.#" }
+  - { key: dynamic_criteria, label: Dynamic criteria, type: number, default: 0, path: "dynamic_criteria.#" }
+  - { key: dynamic_values, label: Dimension values in dynamic criteria, type: number, default: 0, path: "dynamic_criteria.dimension.values.#" }
+  - { key: availability_criteria, label: Web test availability criterion, type: boolean, default: false, path: application_insights_web_test_location_availability_criteria }
+assumptions:
+  - { key: timeSeries, label: Time series per resource, type: number, optional: true, hint: "Set when a dimension splits by * or excludes values: the combinations the rule sees on each resource" }
+let:
+  - resources: max(scopes, 1)
+  - static: 'criteria > 0 ? max(criteria_values, criteria) : 0.0'
+  - dynamic: 'dynamic_criteria > 0 ? max(dynamic_values, dynamic_criteria) : 0.0'
+  - perResource: 'timeSeries != nil ? timeSeries : static + dynamic + (availability_criteria ? 1 : 0)'
+readings:
+  - cost: { when: enabled, name: Time series monitored, quantity: resources * perResource, unit: time-series-month, price: azure.monitor.alerts.metric_series }
+  - cost: { when: enabled && dynamic > 0, name: Dynamic thresholds, quantity: resources * dynamic, unit: time-series-month, price: azure.monitor.alerts.dynamic_threshold }
+terraform:
+  # An alert names what it watches and the action groups it fires; it calls nothing.
+  passive: true

@@ -1,0 +1,64 @@
+{
+  "azure.monitor.alerts.log_rule": {
+    "unit": "rule-month",
+    "source": "https://azure.microsoft.com/pricing/details/monitor/",
+    "note": "Log alert rule by evaluation frequency in minutes (1, 5, 10, 15; slower rules bill as 15). Global meter: every region pays the same",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Monitor",
+      "filters": {
+        "productName": "Azure Monitor",
+        "skuName": "Alerts",
+        "meterName": "Alerts System Log Monitored at {row} Minute Frequency"
+      },
+      "region": "Global"
+    },
+    "rows": {
+      "1": {
+        "*": 3
+      },
+      "10": {
+        "*": 1
+      },
+      "15": {
+        "*": 0.5
+      },
+      "5": {
+        "*": 1.5
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.monitor.alerts.log_series": {
+    "unit": "time-series-month",
+    "source": "https://azure.microsoft.com/pricing/details/monitor/",
+    "note": "Each time series a log alert rule monitors beyond its first (dimensions, several resources), by evaluation frequency in minutes. Global meter",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Monitor",
+      "filters": {
+        "productName": "Azure Monitor",
+        "skuName": "Alerts",
+        "meterName": "Alerts Resource Monitored at {row} Minute Frequency"
+      },
+      "region": "Global"
+    },
+    "rows": {
+      "1": {
+        "*": 0.3
+      },
+      "10": {
+        "*": 0.1
+      },
+      "15": {
+        "*": 0.05
+      },
+      "5": {
+        "*": 0.15
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

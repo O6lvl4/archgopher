@@ -1,0 +1,32 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: every 5 minutes (Japan East)
+  region: japaneast
+  attributes:
+    frequency: 5
+  demand:
+    alarm:
+      monthly: 0
+      peak: 0
+  costs:
+    Log alert rule (5-minute frequency): 1.5
+- name: hourly is priced as 15 minutes (East US)
+  region: eastus
+  attributes:
+    frequency: 60
+  demand:
+    alarm:
+      monthly: 0
+      peak: 0
+  costs:
+    Log alert rule (15-minute frequency): 0.5
+- name: between steps is priced at the faster one
+  region: eastus
+  attributes:
+    frequency: 12
+  demand:
+    alarm:
+      monthly: 0
+      peak: 0
+  costs:
+    Log alert rule (10-minute frequency): 1

@@ -1,0 +1,35 @@
+type: azurerm_monitor_action_group
+label: Action group
+category: Monitoring
+icon: monitor
+description: "Every receiver is notified each time the group fires: emails, app push notifications, ITSM events, webhooks (secure with Microsoft Entra authentication) and SMS and voice calls priced by the first such receiver's country code. Monthly free grants are not read. Functions, logic apps, runbooks and event hubs it calls are free here and drawn as edges. Headroom is the rate limit per email address and phone number."
+kinds: [notify]
+sla: azure.monitor
+attributes:
+  - { key: enabled, label: Enabled, type: boolean, default: true }
+  - { key: email_receivers, label: Email receivers, type: number, default: 0, path: "email_receiver.#" }
+  - { key: push_receivers, label: App push receivers, type: number, default: 0, path: "azure_app_push_receiver.#" }
+  - { key: itsm_receivers, label: ITSM receivers, type: number, default: 0, path: "itsm_receiver.#" }
+  - { key: webhook_receivers, label: Webhook receivers, type: number, default: 0, path: "webhook_receiver.#" }
+  - { key: secure_webhook_receivers, label: Webhooks with Entra authentication, type: number, default: 0, path: "webhook_receiver.aad_auth.#" }
+  - { key: sms_receivers, label: SMS receivers, type: number, default: 0, path: "sms_receiver.#" }
+  - { key: sms_country_code, label: SMS country code, type: string, default: "1", path: sms_receiver.country_code, hint: "The first SMS receiver's; every SMS is priced at it" }
+  - { key: voice_receivers, label: Voice receivers, type: number, default: 0, path: "voice_receiver.#" }
+  - { key: voice_country_code, label: Voice country code, type: string, default: "1", path: voice_receiver.country_code, hint: "The first voice receiver's; every call is priced at it" }
+assumptions:
+  - { key: firedPerMonth, label: Times fired, type: number, default: 0, hint: "Alerts that trigger the group a month, besides load drawn as edges" }
+let:
+  - fired: 'enabled ? firedPerMonth + demand.notify.monthly : 0.0'
+  - peak: 'enabled ? demand.notify.peak : 0.0'
+  - plainWebhooks: max(webhook_receivers - secure_webhook_receivers, 0)
+readings:
+  - cost: { when: email_receivers > 0, name: Emails, quantity: email_receivers * fired, unit: email, price: azure.monitor.notifications.email }
+  - cost: { when: push_receivers > 0, name: Push notifications, quantity: push_receivers * fired, unit: notification, price: azure.monitor.notifications.push }
+  - cost: { when: itsm_receivers > 0, name: ITSM events, quantity: itsm_receivers * fired, unit: event, price: azure.monitor.notifications.itsm }
+  - cost: { when: plainWebhooks > 0, name: Webhooks, quantity: plainWebhooks * fired, unit: notification, price: azure.monitor.notifications.webhook }
+  - cost: { when: secure_webhook_receivers > 0, name: Secure webhooks, quantity: secure_webhook_receivers * fired, unit: notification, price: azure.monitor.notifications.secure_webhook }
+  - cost: { when: sms_receivers > 0, name: "SMS (country code {sms_country_code})", quantity: sms_receivers * fired, unit: message, price: "azure.monitor.notifications.sms.{sms_country_code}" }
+  - cost: { when: voice_receivers > 0, name: "Voice calls (country code {voice_country_code})", quantity: voice_receivers * fired, unit: call, price: "azure.monitor.notifications.voice.{voice_country_code}" }
+  - rate: { when: email_receivers > 0, name: Emails per address, unit: emails/second, quota: azure.monitor.action_group.email_rate, peak: peak }
+  - rate: { when: sms_receivers > 0, name: SMS per phone number, unit: messages/second, quota: azure.monitor.action_group.sms_rate, peak: peak }
+  - rate: { when: voice_receivers > 0, name: Voice calls per phone number, unit: calls/second, quota: azure.monitor.action_group.voice_rate, peak: peak }
