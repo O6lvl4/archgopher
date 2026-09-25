@@ -1,0 +1,13 @@
+type: azurerm_app_service_certificate_binding
+label: App Service certificate binding
+category: Security
+icon: app-service-certificate
+description: "Binds a certificate to a custom hostname of an app. An IP-based SSL binding costs a monthly fee per binding; an SNI binding is free. Load does not flow through a binding."
+kinds: [tls]
+attributes:
+  - { key: ssl_state, label: SSL type, type: choice, options: [SniEnabled, IpBasedEnabled], default: SniEnabled }
+readings:
+  - cost: { when: 'ssl_state == "IpBasedEnabled"', name: IP SSL binding, quantity: 1, unit: month, price: azure.appservice.ip_ssl }
+terraform:
+  # A binding names the hostname and the certificate; it calls nothing.
+  passive: true

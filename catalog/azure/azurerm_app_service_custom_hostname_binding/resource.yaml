@@ -1,0 +1,13 @@
+type: azurerm_app_service_custom_hostname_binding
+label: App Service custom hostname
+category: Security
+icon: app-service-domain
+description: "A custom hostname on an app. With ssl_state IpBasedEnabled it carries an IP-based SSL binding, a monthly fee per binding; without SSL or with SNI it is free. Load does not flow through a binding."
+kinds: [tls]
+attributes:
+  - { key: ssl_state, label: SSL type, type: choice, options: ["", Disabled, SniEnabled, IpBasedEnabled], default: "", hint: "Unset when the certificate is bound by azurerm_app_service_certificate_binding" }
+readings:
+  - cost: { when: 'ssl_state == "IpBasedEnabled"', name: IP SSL binding, quantity: 1, unit: month, price: azure.appservice.ip_ssl }
+terraform:
+  # A hostname binding names the app it serves; it calls nothing.
+  passive: true

@@ -1,0 +1,1575 @@
+{
+  "azure.appservice.ip_ssl": {
+    "unit": "month",
+    "source": "https://azure.microsoft.com/pricing/details/app-service/",
+    "note": "IP-based SSL binding, per binding; SNI bindings are free",
+    "sync": {
+      "filters": {
+        "productName": "Azure App Service SSL Connections",
+        "skuName": "IP SSL"
+      },
+      "service": "Azure App Service",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 39,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 39,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 39,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 39,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 39,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 39,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 39,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 39,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 39,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 39,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.appservice.isolated.linux.stamp": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/app-service/",
+    "note": "App Service Environment v1 stamp fee, Linux",
+    "sync": {
+      "filters": {
+        "productName": "Azure App Service Isolated Plan - Linux",
+        "skuName": "Stamp"
+      },
+      "service": "Azure App Service",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1.698,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1.532,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1.358,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1.277,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 1.468,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1.724,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1.511,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1.468,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1.532,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1.267,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.appservice.isolated.windows.stamp": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/app-service/",
+    "note": "App Service Environment v1 stamp fee, Windows",
+    "sync": {
+      "filters": {
+        "productName": "Azure App Service Isolated Plan",
+        "skuName": "Stamp"
+      },
+      "service": "Azure App Service",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1.787348,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1.612903,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1.429877,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1.344086,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 1.545698,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1.814516,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1.612903,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1.545698,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1.612903,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1.333,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.appservice.plan.linux": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/app-service/",
+    "note": "Linux App Service plan instance, per instance; the row is the price list's SKU name (Terraform P1v3 is P1 v3)",
+    "sync": {
+      "filters": {
+        "productName": "Azure App Service (Basic|Standard|Premium|Premium v2|Premium v3|Premium v4|Premium Windows Container|Isolated|Isolated v2|Isolated v4|Shared) Plan - Linux",
+        "skuName": "{row}"
+      },
+      "service": "Azure App Service",
+      "source": "azure"
+    },
+    "rows": {
+      "B1": {
+        "australiaeast": 0.019,
+        "centralindia": 0.018,
+        "eastus": 0.017,
+        "eastus2": 0.017,
+        "germanywestcentral": 0.01802,
+        "japaneast": 0.019,
+        "koreacentral": 0.018,
+        "northeurope": 0.018,
+        "southeastasia": 0.018,
+        "westus2": 0.017
+      },
+      "B2": {
+        "australiaeast": 0.037,
+        "centralindia": 0.036,
+        "eastus": 0.034,
+        "eastus2": 0.034,
+        "germanywestcentral": 0.03604,
+        "japaneast": 0.037,
+        "koreacentral": 0.036,
+        "northeurope": 0.035,
+        "southeastasia": 0.036,
+        "westus2": 0.034
+      },
+      "B3": {
+        "australiaeast": 0.073,
+        "centralindia": 0.072,
+        "eastus": 0.067,
+        "eastus2": 0.067,
+        "germanywestcentral": 0.07208,
+        "japaneast": 0.073,
+        "koreacentral": 0.072,
+        "northeurope": 0.07,
+        "southeastasia": 0.071,
+        "westus2": 0.067
+      },
+      "I1": {
+        "australiaeast": 0.41,
+        "centralindia": 0.429,
+        "eastus": 0.285,
+        "eastus2": 0.333,
+        "germanywestcentral": 0.285,
+        "japaneast": 0.38,
+        "koreacentral": 0.311,
+        "northeurope": 0.285,
+        "southeastasia": 0.285,
+        "westus2": 0.285
+      },
+      "I1 v2": {
+        "australiaeast": 0.415,
+        "centralindia": 0.395,
+        "eastus": 0.386,
+        "eastus2": 0.386,
+        "germanywestcentral": 0.409,
+        "japaneast": 0.419,
+        "koreacentral": 0.412,
+        "northeurope": 0.399,
+        "southeastasia": 0.414,
+        "westus2": 0.386
+      },
+      "I1mv2": {
+        "australiaeast": 0.552,
+        "centralindia": 0.492,
+        "eastus": 0.465,
+        "eastus2": 0.465,
+        "germanywestcentral": 0.534,
+        "japaneast": 0.564,
+        "koreacentral": 0.543,
+        "northeurope": 0.504,
+        "southeastasia": 0.49,
+        "westus2": 0.465
+      },
+      "I1mv4": {
+        "australiaeast": 0.7417,
+        "centralindia": 0.7161,
+        "eastus": 0.5115,
+        "eastus2": 0.5115,
+        "germanywestcentral": 0.665,
+        "japaneast": 0.7417,
+        "koreacentral": 0.6905,
+        "northeurope": 0.7314,
+        "southeastasia": 0.7161,
+        "westus2": 0.5115
+      },
+      "I1v4": {
+        "australiaeast": 0.6157,
+        "centralindia": 0.5944,
+        "eastus": 0.4246,
+        "eastus2": 0.4246,
+        "germanywestcentral": 0.552,
+        "japaneast": 0.6157,
+        "koreacentral": 0.5732,
+        "northeurope": 0.6072,
+        "southeastasia": 0.5944,
+        "westus2": 0.4246
+      },
+      "I2": {
+        "australiaeast": 0.821,
+        "centralindia": 0.858,
+        "eastus": 0.57,
+        "eastus2": 0.666,
+        "germanywestcentral": 0.57,
+        "japaneast": 0.76,
+        "koreacentral": 0.621,
+        "northeurope": 0.57,
+        "southeastasia": 0.57,
+        "westus2": 0.57
+      },
+      "I2 v2": {
+        "australiaeast": 0.83,
+        "centralindia": 0.79,
+        "eastus": 0.772,
+        "eastus2": 0.772,
+        "germanywestcentral": 0.818,
+        "japaneast": 0.838,
+        "koreacentral": 0.824,
+        "northeurope": 0.798,
+        "southeastasia": 0.828,
+        "westus2": 0.772
+      },
+      "I2mv2": {
+        "australiaeast": 1.104,
+        "centralindia": 0.983,
+        "eastus": 0.929,
+        "eastus2": 0.929,
+        "germanywestcentral": 1.068,
+        "japaneast": 1.128,
+        "koreacentral": 1.086,
+        "northeurope": 1.007,
+        "southeastasia": 1.097,
+        "westus2": 0.929
+      },
+      "I2mv4": {
+        "australiaeast": 1.4818,
+        "centralindia": 1.4307,
+        "eastus": 1.0219,
+        "eastus2": 1.0219,
+        "germanywestcentral": 1.3285,
+        "japaneast": 1.4818,
+        "koreacentral": 1.3796,
+        "northeurope": 1.4613,
+        "southeastasia": 1.4307,
+        "westus2": 1.0219
+      },
+      "I2v4": {
+        "australiaeast": 1.2313,
+        "centralindia": 1.1889,
+        "eastus": 0.8492,
+        "eastus2": 0.8492,
+        "germanywestcentral": 1.104,
+        "japaneast": 1.2313,
+        "koreacentral": 1.1464,
+        "northeurope": 1.2144,
+        "southeastasia": 1.1889,
+        "westus2": 0.8492
+      },
+      "I3": {
+        "australiaeast": 1.642,
+        "centralindia": 1.716,
+        "eastus": 1.14,
+        "eastus2": 1.332,
+        "germanywestcentral": 1.14,
+        "japaneast": 1.52,
+        "koreacentral": 1.241,
+        "northeurope": 1.14,
+        "southeastasia": 1.14,
+        "westus2": 1.14
+      },
+      "I3 v2": {
+        "australiaeast": 1.66,
+        "centralindia": 1.58,
+        "eastus": 1.544,
+        "eastus2": 1.544,
+        "germanywestcentral": 1.636,
+        "japaneast": 1.676,
+        "koreacentral": 1.648,
+        "northeurope": 1.596,
+        "southeastasia": 1.656,
+        "westus2": 1.544
+      },
+      "I3mv2": {
+        "australiaeast": 2.208,
+        "centralindia": 1.966,
+        "eastus": 1.858,
+        "eastus2": 1.858,
+        "germanywestcentral": 2.136,
+        "japaneast": 2.256,
+        "koreacentral": 2.172,
+        "northeurope": 2.104,
+        "southeastasia": 2.194,
+        "westus2": 1.858
+      },
+      "I3mv4": {
+        "australiaeast": 2.9635,
+        "centralindia": 2.8613,
+        "eastus": 2.0438,
+        "eastus2": 2.0438,
+        "germanywestcentral": 2.6569,
+        "japaneast": 2.9635,
+        "koreacentral": 2.7591,
+        "northeurope": 2.9226,
+        "southeastasia": 2.8613,
+        "westus2": 2.0438
+      },
+      "I3v4": {
+        "australiaeast": 2.4627,
+        "centralindia": 2.3778,
+        "eastus": 1.6984,
+        "eastus2": 1.6984,
+        "germanywestcentral": 2.2079,
+        "japaneast": 2.4627,
+        "koreacentral": 2.2928,
+        "northeurope": 2.4287,
+        "southeastasia": 2.3778,
+        "westus2": 1.6984
+      },
+      "I4 v2": {
+        "australiaeast": 3.32,
+        "centralindia": 3.16,
+        "eastus": 3.088,
+        "eastus2": 3.088,
+        "germanywestcentral": 3.272,
+        "japaneast": 3.352,
+        "koreacentral": 3.296,
+        "northeurope": 3.192,
+        "southeastasia": 3.312,
+        "westus2": 3.088
+      },
+      "I4mv2": {
+        "australiaeast": 4.416,
+        "centralindia": 3.933,
+        "eastus": 3.717,
+        "eastus2": 3.717,
+        "germanywestcentral": 4.272,
+        "japaneast": 4.512,
+        "koreacentral": 4.344,
+        "northeurope": 4.029,
+        "southeastasia": 4.388,
+        "westus2": 3.717
+      },
+      "I4mv4": {
+        "australiaeast": 5.9286,
+        "centralindia": 5.7242,
+        "eastus": 4.0887,
+        "eastus2": 4.0887,
+        "germanywestcentral": 5.3153,
+        "japaneast": 5.9286,
+        "koreacentral": 5.5197,
+        "northeurope": 5.8468,
+        "southeastasia": 5.7242,
+        "westus2": 4.0887
+      },
+      "I4v4": {
+        "australiaeast": 4.9254,
+        "centralindia": 4.7555,
+        "eastus": 3.3968,
+        "eastus2": 3.3968,
+        "germanywestcentral": 4.4158,
+        "japaneast": 4.9254,
+        "koreacentral": 4.5857,
+        "northeurope": 4.8574,
+        "southeastasia": 4.7555,
+        "westus2": 3.3968
+      },
+      "I5 v2": {
+        "australiaeast": 6.64,
+        "centralindia": 6.32,
+        "eastus": 6.176,
+        "eastus2": 6.176,
+        "germanywestcentral": 6.544,
+        "japaneast": 6.704,
+        "koreacentral": 6.592,
+        "northeurope": 6.384,
+        "southeastasia": 6.624,
+        "westus2": 6.176
+      },
+      "I5mv2": {
+        "australiaeast": 8.832,
+        "centralindia": 7.865,
+        "eastus": 7.434,
+        "eastus2": 7.434,
+        "germanywestcentral": 8.544,
+        "japaneast": 9.024,
+        "koreacentral": 8.688,
+        "northeurope": 8.057,
+        "southeastasia": 8.776,
+        "westus2": 7.434
+      },
+      "I5mv4": {
+        "australiaeast": 11.8572,
+        "centralindia": 11.4484,
+        "eastus": 8.1774,
+        "eastus2": 8.1774,
+        "germanywestcentral": 10.6306,
+        "japaneast": 11.8572,
+        "koreacentral": 11.0395,
+        "northeurope": 11.6937,
+        "southeastasia": 11.4484,
+        "westus2": 8.1774
+      },
+      "I5v4": {
+        "australiaeast": 9.8507,
+        "centralindia": 9.511,
+        "eastus": 6.7936,
+        "eastus2": 6.7936,
+        "germanywestcentral": 8.8317,
+        "japaneast": 9.8507,
+        "koreacentral": 9.1714,
+        "northeurope": 9.7148,
+        "southeastasia": 9.511,
+        "westus2": 6.7936
+      },
+      "I6 v2": {
+        "australiaeast": 13.28,
+        "centralindia": 12.64,
+        "eastus": 12.352,
+        "eastus2": 12.352,
+        "germanywestcentral": 13.088,
+        "japaneast": 13.408,
+        "koreacentral": 13.184,
+        "northeurope": 12.768,
+        "southeastasia": 13.248,
+        "westus2": 12.352
+      },
+      "I6v4": {
+        "australiaeast": 19.7014,
+        "centralindia": 19.0221,
+        "eastus": 13.5872,
+        "eastus2": 13.5872,
+        "germanywestcentral": 17.6634,
+        "japaneast": 19.7014,
+        "koreacentral": 18.3427,
+        "northeurope": 19.4297,
+        "southeastasia": 19.0221,
+        "westus2": 13.5872
+      },
+      "P0v3": {
+        "australiaeast": 0.092,
+        "centralindia": 0.082,
+        "eastus": 0.0775,
+        "eastus2": 0.0775,
+        "germanywestcentral": 0.089,
+        "japaneast": 0.094,
+        "koreacentral": 0.0905,
+        "northeurope": 0.084,
+        "southeastasia": 0.0915,
+        "westus2": 0.0775
+      },
+      "P0v4": {
+        "australiaeast": 0.106,
+        "centralindia": 0.102,
+        "eastus": 0.073,
+        "eastus2": 0.073,
+        "germanywestcentral": 0.0949,
+        "japaneast": 0.106,
+        "koreacentral": 0.0986,
+        "northeurope": 0.0876,
+        "southeastasia": 0.0949,
+        "westus2": 0.073
+      },
+      "P1 v2": {
+        "australiaeast": 0.123,
+        "centralindia": 0.114,
+        "eastus": 0.101,
+        "eastus2": 0.101,
+        "germanywestcentral": 0.115,
+        "japaneast": 0.123,
+        "koreacentral": 0.118,
+        "northeurope": 0.111,
+        "southeastasia": 0.115,
+        "westus2": 0.101
+      },
+      "P1 v3": {
+        "australiaeast": 0.184,
+        "centralindia": 0.164,
+        "eastus": 0.155,
+        "eastus2": 0.155,
+        "germanywestcentral": 0.178,
+        "japaneast": 0.188,
+        "koreacentral": 0.181,
+        "northeurope": 0.168,
+        "southeastasia": 0.183,
+        "westus2": 0.155
+      },
+      "P1mv3": {
+        "australiaeast": 0.2208,
+        "centralindia": 0.1968,
+        "eastus": 0.186,
+        "eastus2": 0.186,
+        "germanywestcentral": 0.2136,
+        "japaneast": 0.2256,
+        "koreacentral": 0.2172,
+        "northeurope": 0.2016,
+        "southeastasia": 0.2196,
+        "westus2": 0.186
+      },
+      "P1mv4": {
+        "australiaeast": 0.269,
+        "centralindia": 0.26,
+        "eastus": 0.186,
+        "eastus2": 0.186,
+        "germanywestcentral": 0.241,
+        "japaneast": 0.269,
+        "koreacentral": 0.251,
+        "northeurope": 0.223,
+        "southeastasia": 0.241,
+        "westus2": 0.186
+      },
+      "P1v4": {
+        "australiaeast": 0.212,
+        "centralindia": 0.204,
+        "eastus": 0.146,
+        "eastus2": 0.146,
+        "germanywestcentral": 0.19,
+        "japaneast": 0.212,
+        "koreacentral": 0.197,
+        "northeurope": 0.175,
+        "southeastasia": 0.19,
+        "westus2": 0.146
+      },
+      "P2 v2": {
+        "australiaeast": 0.245,
+        "centralindia": 0.229,
+        "eastus": 0.202,
+        "eastus2": 0.202,
+        "germanywestcentral": 0.231,
+        "japaneast": 0.245,
+        "koreacentral": 0.236,
+        "northeurope": 0.221,
+        "southeastasia": 0.231,
+        "westus2": 0.202
+      },
+      "P2 v3": {
+        "australiaeast": 0.368,
+        "centralindia": 0.328,
+        "eastus": 0.31,
+        "eastus2": 0.31,
+        "germanywestcentral": 0.356,
+        "japaneast": 0.376,
+        "koreacentral": 0.362,
+        "northeurope": 0.336,
+        "southeastasia": 0.366,
+        "westus2": 0.31
+      },
+      "P2mv3": {
+        "australiaeast": 0.4416,
+        "centralindia": 0.3936,
+        "eastus": 0.372,
+        "eastus2": 0.372,
+        "germanywestcentral": 0.4272,
+        "japaneast": 0.4512,
+        "koreacentral": 0.4344,
+        "northeurope": 0.4032,
+        "southeastasia": 0.4392,
+        "westus2": 0.372
+      },
+      "P2mv4": {
+        "australiaeast": 0.539,
+        "centralindia": 0.52,
+        "eastus": 0.371,
+        "eastus2": 0.371,
+        "germanywestcentral": 0.483,
+        "japaneast": 0.539,
+        "koreacentral": 0.502,
+        "northeurope": 0.446,
+        "southeastasia": 0.483,
+        "westus2": 0.371
+      },
+      "P2v4": {
+        "australiaeast": 0.424,
+        "centralindia": 0.409,
+        "eastus": 0.292,
+        "eastus2": 0.292,
+        "germanywestcentral": 0.38,
+        "japaneast": 0.424,
+        "koreacentral": 0.394,
+        "northeurope": 0.35,
+        "southeastasia": 0.38,
+        "westus2": 0.292
+      },
+      "P3 v2": {
+        "australiaeast": 0.491,
+        "centralindia": 0.458,
+        "eastus": 0.403,
+        "eastus2": 0.403,
+        "germanywestcentral": 0.462,
+        "japaneast": 0.491,
+        "koreacentral": 0.471,
+        "northeurope": 0.442,
+        "southeastasia": 0.462,
+        "westus2": 0.403
+      },
+      "P3 v3": {
+        "australiaeast": 0.736,
+        "centralindia": 0.656,
+        "eastus": 0.62,
+        "eastus2": 0.62,
+        "germanywestcentral": 0.712,
+        "japaneast": 0.752,
+        "koreacentral": 0.724,
+        "northeurope": 0.672,
+        "southeastasia": 0.732,
+        "westus2": 0.62
+      },
+      "P3mv3": {
+        "australiaeast": 0.8832,
+        "centralindia": 0.7872,
+        "eastus": 0.744,
+        "eastus2": 0.744,
+        "germanywestcentral": 0.8544,
+        "japaneast": 0.9024,
+        "koreacentral": 0.8688,
+        "northeurope": 0.8064,
+        "southeastasia": 0.8784,
+        "westus2": 0.744
+      },
+      "P3mv4": {
+        "australiaeast": 1.078,
+        "centralindia": 1.04,
+        "eastus": 0.743,
+        "eastus2": 0.743,
+        "germanywestcentral": 0.966,
+        "japaneast": 1.078,
+        "koreacentral": 1.003,
+        "northeurope": 0.891,
+        "southeastasia": 0.966,
+        "westus2": 0.743
+      },
+      "P3v4": {
+        "australiaeast": 0.847,
+        "centralindia": 0.818,
+        "eastus": 0.584,
+        "eastus2": 0.584,
+        "germanywestcentral": 0.759,
+        "japaneast": 0.847,
+        "koreacentral": 0.789,
+        "northeurope": 0.701,
+        "southeastasia": 0.759,
+        "westus2": 0.584
+      },
+      "P4mv3": {
+        "australiaeast": 1.7664,
+        "centralindia": 1.5744,
+        "eastus": 1.488,
+        "eastus2": 1.488,
+        "germanywestcentral": 1.7088,
+        "japaneast": 1.8048,
+        "koreacentral": 1.7376,
+        "northeurope": 1.6128,
+        "southeastasia": 1.7568,
+        "westus2": 1.488
+      },
+      "P4mv4": {
+        "australiaeast": 2.155,
+        "centralindia": 2.08,
+        "eastus": 1.486,
+        "eastus2": 1.486,
+        "germanywestcentral": 1.931,
+        "japaneast": 2.155,
+        "koreacentral": 2.007,
+        "northeurope": 1.783,
+        "southeastasia": 1.931,
+        "westus2": 1.486
+      },
+      "P5mv3": {
+        "australiaeast": 3.5328,
+        "centralindia": 3.1488,
+        "eastus": 2.976,
+        "eastus2": 2.976,
+        "germanywestcentral": 3.4176,
+        "japaneast": 3.6096,
+        "koreacentral": 3.4752,
+        "northeurope": 3.2256,
+        "southeastasia": 3.5136,
+        "westus2": 2.976
+      },
+      "P5mv4": {
+        "australiaeast": 4.311,
+        "centralindia": 4.16,
+        "eastus": 2.971,
+        "eastus2": 2.971,
+        "germanywestcentral": 3.863,
+        "japaneast": 4.311,
+        "koreacentral": 4.013,
+        "northeurope": 3.566,
+        "southeastasia": 3.863,
+        "westus2": 2.971
+      },
+      "S1": {
+        "australiaeast": 0.12,
+        "centralindia": 0.088,
+        "eastus": 0.095,
+        "eastus2": 0.095,
+        "germanywestcentral": 0.095,
+        "japaneast": 0.112,
+        "koreacentral": 0.101,
+        "northeurope": 0.095,
+        "southeastasia": 0.095,
+        "westus2": 0.08
+      },
+      "S2": {
+        "australiaeast": 0.24,
+        "centralindia": 0.176,
+        "eastus": 0.19,
+        "eastus2": 0.19,
+        "germanywestcentral": 0.19,
+        "japaneast": 0.224,
+        "koreacentral": 0.202,
+        "northeurope": 0.19,
+        "southeastasia": 0.19,
+        "westus2": 0.16
+      },
+      "S3": {
+        "australiaeast": 0.48,
+        "centralindia": 0.352,
+        "eastus": 0.38,
+        "eastus2": 0.38,
+        "germanywestcentral": 0.38,
+        "japaneast": 0.448,
+        "koreacentral": 0.404,
+        "northeurope": 0.38,
+        "southeastasia": 0.38,
+        "westus2": 0.32
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.appservice.plan.windows": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/app-service/",
+    "note": "Windows App Service plan instance, per instance; the row is the price list's SKU name (Terraform P1v3 is P1 v3, D1 is Shared)",
+    "sync": {
+      "filters": {
+        "productName": "Azure App Service (Basic|Standard|Premium|Premium v2|Premium v3|Premium v4|Premium Windows Container|Isolated|Isolated v2|Isolated v4|Shared) Plan",
+        "skuName": "{row}"
+      },
+      "service": "Azure App Service",
+      "source": "azure"
+    },
+    "rows": {
+      "B1": {
+        "australiaeast": 0.094,
+        "centralindia": 0.083,
+        "eastus": 0.075,
+        "eastus2": 0.075,
+        "germanywestcentral": 0.075,
+        "japaneast": 0.0885,
+        "koreacentral": 0.085,
+        "northeurope": 0.075,
+        "southeastasia": 0.075,
+        "westus2": 0.075
+      },
+      "B2": {
+        "australiaeast": 0.188,
+        "centralindia": 0.165,
+        "eastus": 0.15,
+        "eastus2": 0.15,
+        "germanywestcentral": 0.15,
+        "japaneast": 0.177,
+        "koreacentral": 0.17,
+        "northeurope": 0.15,
+        "southeastasia": 0.15,
+        "westus2": 0.15
+      },
+      "B3": {
+        "australiaeast": 0.376,
+        "centralindia": 0.33,
+        "eastus": 0.3,
+        "eastus2": 0.3,
+        "germanywestcentral": 0.3,
+        "japaneast": 0.354,
+        "koreacentral": 0.34,
+        "northeurope": 0.3,
+        "southeastasia": 0.3,
+        "westus2": 0.3
+      },
+      "I1": {
+        "australiaeast": 0.432,
+        "centralindia": 0.4512,
+        "eastus": 0.3,
+        "eastus2": 0.35,
+        "germanywestcentral": 0.3,
+        "japaneast": 0.4,
+        "koreacentral": 0.4512,
+        "northeurope": 0.3,
+        "southeastasia": 0.3,
+        "westus2": 0.3
+      },
+      "I1 v2": {
+        "australiaeast": 0.576,
+        "centralindia": 0.556,
+        "eastus": 0.547,
+        "eastus2": 0.547,
+        "germanywestcentral": 0.57,
+        "japaneast": 0.58,
+        "koreacentral": 0.573,
+        "northeurope": 0.56,
+        "southeastasia": 0.575,
+        "westus2": 0.547
+      },
+      "I1mv2": {
+        "australiaeast": 0.713,
+        "centralindia": 0.653,
+        "eastus": 0.626,
+        "eastus2": 0.626,
+        "germanywestcentral": 0.695,
+        "japaneast": 0.725,
+        "koreacentral": 0.704,
+        "northeurope": 0.665,
+        "southeastasia": 0.71,
+        "westus2": 0.626
+      },
+      "I1mv4": {
+        "australiaeast": 0.9027,
+        "centralindia": 0.8771,
+        "eastus": 0.6725,
+        "eastus2": 0.6725,
+        "germanywestcentral": 0.826,
+        "japaneast": 0.9027,
+        "koreacentral": 0.8515,
+        "northeurope": 0.8924,
+        "southeastasia": 0.8771,
+        "westus2": 0.6725
+      },
+      "I1v4": {
+        "australiaeast": 0.7767,
+        "centralindia": 0.7554,
+        "eastus": 0.5856,
+        "eastus2": 0.5856,
+        "germanywestcentral": 0.713,
+        "japaneast": 0.7767,
+        "koreacentral": 0.7342,
+        "northeurope": 0.7682,
+        "southeastasia": 0.7554,
+        "westus2": 0.5856
+      },
+      "I2": {
+        "australiaeast": 0.864,
+        "centralindia": 0.9024,
+        "eastus": 0.6,
+        "eastus2": 0.7,
+        "germanywestcentral": 0.6,
+        "japaneast": 0.8,
+        "koreacentral": 0.9024,
+        "northeurope": 0.6,
+        "southeastasia": 0.6,
+        "westus2": 0.6
+      },
+      "I2 v2": {
+        "australiaeast": 1.152,
+        "centralindia": 1.112,
+        "eastus": 1.094,
+        "eastus2": 1.094,
+        "germanywestcentral": 1.14,
+        "japaneast": 1.16,
+        "koreacentral": 1.146,
+        "northeurope": 1.12,
+        "southeastasia": 1.15,
+        "westus2": 1.094
+      },
+      "I2mv2": {
+        "australiaeast": 1.426,
+        "centralindia": 1.305,
+        "eastus": 1.251,
+        "eastus2": 1.251,
+        "germanywestcentral": 1.39,
+        "japaneast": 1.45,
+        "koreacentral": 1.408,
+        "northeurope": 1.329,
+        "southeastasia": 1.419,
+        "westus2": 1.251
+      },
+      "I2mv4": {
+        "australiaeast": 1.8038,
+        "centralindia": 1.7527,
+        "eastus": 1.3439,
+        "eastus2": 1.3439,
+        "germanywestcentral": 1.6505,
+        "japaneast": 1.8038,
+        "koreacentral": 1.7016,
+        "northeurope": 1.7833,
+        "southeastasia": 1.7527,
+        "westus2": 1.3439
+      },
+      "I2v4": {
+        "australiaeast": 1.5533,
+        "centralindia": 1.5109,
+        "eastus": 1.1712,
+        "eastus2": 1.1712,
+        "germanywestcentral": 1.426,
+        "japaneast": 1.5533,
+        "koreacentral": 1.4684,
+        "northeurope": 1.5364,
+        "southeastasia": 1.5109,
+        "westus2": 1.1712
+      },
+      "I3": {
+        "australiaeast": 1.728,
+        "centralindia": 1.8048,
+        "eastus": 1.2,
+        "eastus2": 1.4,
+        "germanywestcentral": 1.2,
+        "japaneast": 1.6,
+        "koreacentral": 1.8048,
+        "northeurope": 1.2,
+        "southeastasia": 1.2,
+        "westus2": 1.2
+      },
+      "I3 v2": {
+        "australiaeast": 2.304,
+        "centralindia": 2.224,
+        "eastus": 2.188,
+        "eastus2": 2.188,
+        "germanywestcentral": 2.28,
+        "japaneast": 2.32,
+        "koreacentral": 2.292,
+        "northeurope": 2.24,
+        "southeastasia": 2.3,
+        "westus2": 2.188
+      },
+      "I3mv2": {
+        "australiaeast": 2.852,
+        "centralindia": 2.61,
+        "eastus": 2.502,
+        "eastus2": 2.502,
+        "germanywestcentral": 2.78,
+        "japaneast": 2.9,
+        "koreacentral": 2.816,
+        "northeurope": 2.658,
+        "southeastasia": 2.828,
+        "westus2": 2.502
+      },
+      "I3mv4": {
+        "australiaeast": 3.6075,
+        "centralindia": 3.5053,
+        "eastus": 2.6878,
+        "eastus2": 2.6878,
+        "germanywestcentral": 3.3009,
+        "japaneast": 3.6075,
+        "koreacentral": 3.4031,
+        "northeurope": 3.5666,
+        "southeastasia": 3.5053,
+        "westus2": 2.6878
+      },
+      "I3v4": {
+        "australiaeast": 3.1067,
+        "centralindia": 3.0218,
+        "eastus": 2.3424,
+        "eastus2": 2.3424,
+        "germanywestcentral": 2.8519,
+        "japaneast": 3.1067,
+        "koreacentral": 2.9368,
+        "northeurope": 3.0727,
+        "southeastasia": 3.0218,
+        "westus2": 2.3424
+      },
+      "I4 v2": {
+        "australiaeast": 4.608,
+        "centralindia": 4.448,
+        "eastus": 4.376,
+        "eastus2": 4.376,
+        "germanywestcentral": 4.56,
+        "japaneast": 4.64,
+        "koreacentral": 4.584,
+        "northeurope": 4.48,
+        "southeastasia": 4.6,
+        "westus2": 4.376
+      },
+      "I4mv2": {
+        "australiaeast": 5.704,
+        "centralindia": 5.221,
+        "eastus": 5.005,
+        "eastus2": 5.005,
+        "germanywestcentral": 5.56,
+        "japaneast": 5.8,
+        "koreacentral": 5.632,
+        "northeurope": 5.317,
+        "southeastasia": 5.676,
+        "westus2": 5.005
+      },
+      "I4mv4": {
+        "australiaeast": 7.2166,
+        "centralindia": 7.0122,
+        "eastus": 5.3767,
+        "eastus2": 5.3767,
+        "germanywestcentral": 6.6033,
+        "japaneast": 7.2166,
+        "koreacentral": 6.8077,
+        "northeurope": 7.1348,
+        "southeastasia": 7.0122,
+        "westus2": 5.3767
+      },
+      "I4v4": {
+        "australiaeast": 6.2134,
+        "centralindia": 6.0435,
+        "eastus": 4.6848,
+        "eastus2": 4.6848,
+        "germanywestcentral": 5.7038,
+        "japaneast": 6.2134,
+        "koreacentral": 5.8737,
+        "northeurope": 6.1454,
+        "southeastasia": 6.0435,
+        "westus2": 4.6848
+      },
+      "I5 v2": {
+        "australiaeast": 9.216,
+        "centralindia": 8.896,
+        "eastus": 8.752,
+        "eastus2": 8.752,
+        "germanywestcentral": 9.12,
+        "japaneast": 9.28,
+        "koreacentral": 9.168,
+        "northeurope": 8.96,
+        "southeastasia": 9.2,
+        "westus2": 8.752
+      },
+      "I5mv2": {
+        "australiaeast": 11.408,
+        "centralindia": 10.441,
+        "eastus": 10.01,
+        "eastus2": 10.01,
+        "germanywestcentral": 11.12,
+        "japaneast": 11.6,
+        "koreacentral": 11.264,
+        "northeurope": 10.633,
+        "southeastasia": 11.352,
+        "westus2": 10.101
+      },
+      "I5mv4": {
+        "australiaeast": 14.4332,
+        "centralindia": 14.0244,
+        "eastus": 10.7534,
+        "eastus2": 10.7534,
+        "germanywestcentral": 13.2066,
+        "japaneast": 14.4332,
+        "koreacentral": 13.6155,
+        "northeurope": 14.2697,
+        "southeastasia": 14.0244,
+        "westus2": 10.7534
+      },
+      "I5v4": {
+        "australiaeast": 12.4267,
+        "centralindia": 12.087,
+        "eastus": 9.3696,
+        "eastus2": 9.3696,
+        "germanywestcentral": 11.4077,
+        "japaneast": 12.4267,
+        "koreacentral": 11.7474,
+        "northeurope": 12.2908,
+        "southeastasia": 12.087,
+        "westus2": 9.3696
+      },
+      "I6 v2": {
+        "australiaeast": 18.432,
+        "centralindia": 17.792,
+        "eastus": 17.504,
+        "eastus2": 17.504,
+        "germanywestcentral": 18.24,
+        "japaneast": 18.56,
+        "koreacentral": 18.336,
+        "northeurope": 17.92,
+        "southeastasia": 18.4,
+        "westus2": 17.504
+      },
+      "I6v4": {
+        "australiaeast": 24.8534,
+        "centralindia": 24.1741,
+        "eastus": 18.7392,
+        "eastus2": 18.7392,
+        "germanywestcentral": 22.8154,
+        "japaneast": 24.8534,
+        "koreacentral": 23.4947,
+        "northeurope": 24.5817,
+        "southeastasia": 24.1741,
+        "westus2": 18.7392
+      },
+      "P0v3": {
+        "australiaeast": 0.172,
+        "centralindia": 0.162,
+        "eastus": 0.1575,
+        "eastus2": 0.1575,
+        "germanywestcentral": 0.169,
+        "japaneast": 0.174,
+        "koreacentral": 0.1705,
+        "northeurope": 0.164,
+        "southeastasia": 0.1715,
+        "westus2": 0.1575
+      },
+      "P0v4": {
+        "australiaeast": 0.152,
+        "centralindia": 0.149,
+        "eastus": 0.119,
+        "eastus2": 0.119,
+        "germanywestcentral": 0.141,
+        "japaneast": 0.152,
+        "koreacentral": 0.145,
+        "northeurope": 0.134,
+        "southeastasia": 0.141,
+        "westus2": 0.119
+      },
+      "P1": {
+        "australiaeast": 0.378,
+        "centralindia": 0.33,
+        "eastus": 0.3,
+        "eastus2": 0.3,
+        "germanywestcentral": 0.3,
+        "japaneast": 0.354,
+        "koreacentral": 0.318,
+        "northeurope": 0.3,
+        "southeastasia": 0.3,
+        "westus2": 0.3
+      },
+      "P1 v2": {
+        "australiaeast": 0.252,
+        "centralindia": 0.22,
+        "eastus": 0.2,
+        "eastus2": 0.2,
+        "germanywestcentral": 0.2,
+        "japaneast": 0.236,
+        "koreacentral": 0.212,
+        "northeurope": 0.2,
+        "southeastasia": 0.2,
+        "westus2": 0.2
+      },
+      "P1 v3": {
+        "australiaeast": 0.344,
+        "centralindia": 0.324,
+        "eastus": 0.315,
+        "eastus2": 0.315,
+        "germanywestcentral": 0.338,
+        "japaneast": 0.348,
+        "koreacentral": 0.341,
+        "northeurope": 0.328,
+        "southeastasia": 0.343,
+        "westus2": 0.315
+      },
+      "P1mv3": {
+        "australiaeast": 0.3808,
+        "centralindia": 0.3568,
+        "eastus": 0.346,
+        "eastus2": 0.346,
+        "germanywestcentral": 0.3736,
+        "japaneast": 0.3856,
+        "koreacentral": 0.3772,
+        "northeurope": 0.3616,
+        "southeastasia": 0.3796,
+        "westus2": 0.346
+      },
+      "P1mv4": {
+        "australiaeast": 0.362,
+        "centralindia": 0.352,
+        "eastus": 0.278,
+        "eastus2": 0.278,
+        "germanywestcentral": 0.334,
+        "japaneast": 0.362,
+        "koreacentral": 0.343,
+        "northeurope": 0.315,
+        "southeastasia": 0.334,
+        "westus2": 0.278
+      },
+      "P1v4": {
+        "australiaeast": 0.304,
+        "centralindia": 0.297,
+        "eastus": 0.238,
+        "eastus2": 0.238,
+        "germanywestcentral": 0.282,
+        "japaneast": 0.304,
+        "koreacentral": 0.29,
+        "northeurope": 0.268,
+        "southeastasia": 0.282,
+        "westus2": 0.238
+      },
+      "P2": {
+        "australiaeast": 0.756,
+        "centralindia": 0.66,
+        "eastus": 0.6,
+        "eastus2": 0.6,
+        "germanywestcentral": 0.6,
+        "japaneast": 0.708,
+        "koreacentral": 0.636,
+        "northeurope": 0.6,
+        "southeastasia": 0.6,
+        "westus2": 0.6
+      },
+      "P2 v2": {
+        "australiaeast": 0.504,
+        "centralindia": 0.44,
+        "eastus": 0.4,
+        "eastus2": 0.4,
+        "germanywestcentral": 0.4,
+        "japaneast": 0.472,
+        "koreacentral": 0.424,
+        "northeurope": 0.4,
+        "southeastasia": 0.4,
+        "westus2": 0.4
+      },
+      "P2 v3": {
+        "australiaeast": 0.688,
+        "centralindia": 0.649,
+        "eastus": 0.63,
+        "eastus2": 0.63,
+        "germanywestcentral": 0.677,
+        "japaneast": 0.696,
+        "koreacentral": 0.682,
+        "northeurope": 0.656,
+        "southeastasia": 0.686,
+        "westus2": 0.63
+      },
+      "P2mv3": {
+        "australiaeast": 0.7616,
+        "centralindia": 0.7136,
+        "eastus": 0.692,
+        "eastus2": 0.692,
+        "germanywestcentral": 0.7472,
+        "japaneast": 0.7712,
+        "koreacentral": 0.7544,
+        "northeurope": 0.7232,
+        "southeastasia": 0.7592,
+        "westus2": 0.692
+      },
+      "P2mv4": {
+        "australiaeast": 0.723,
+        "centralindia": 0.704,
+        "eastus": 0.556,
+        "eastus2": 0.556,
+        "germanywestcentral": 0.667,
+        "japaneast": 0.723,
+        "koreacentral": 0.686,
+        "northeurope": 0.63,
+        "southeastasia": 0.667,
+        "westus2": 0.556
+      },
+      "P2v4": {
+        "australiaeast": 0.608,
+        "centralindia": 0.593,
+        "eastus": 0.476,
+        "eastus2": 0.476,
+        "germanywestcentral": 0.564,
+        "japaneast": 0.608,
+        "koreacentral": 0.579,
+        "northeurope": 0.535,
+        "southeastasia": 0.564,
+        "westus2": 0.476
+      },
+      "P3": {
+        "australiaeast": 1.512,
+        "centralindia": 1.32,
+        "eastus": 1.2,
+        "eastus2": 1.2,
+        "germanywestcentral": 1.2,
+        "japaneast": 1.416,
+        "koreacentral": 1.272,
+        "northeurope": 1.2,
+        "southeastasia": 1.2,
+        "westus2": 1.2
+      },
+      "P3 v2": {
+        "australiaeast": 1.008,
+        "centralindia": 0.88,
+        "eastus": 0.8,
+        "eastus2": 0.8,
+        "germanywestcentral": 0.8,
+        "japaneast": 0.944,
+        "koreacentral": 0.848,
+        "northeurope": 0.8,
+        "southeastasia": 0.8,
+        "westus2": 0.8
+      },
+      "P3 v3": {
+        "australiaeast": 1.376,
+        "centralindia": 1.298,
+        "eastus": 1.26,
+        "eastus2": 1.26,
+        "germanywestcentral": 1.354,
+        "japaneast": 1.392,
+        "koreacentral": 1.364,
+        "northeurope": 1.312,
+        "southeastasia": 1.372,
+        "westus2": 1.26
+      },
+      "P3mv3": {
+        "australiaeast": 1.5232,
+        "centralindia": 1.4272,
+        "eastus": 1.384,
+        "eastus2": 1.384,
+        "germanywestcentral": 1.4944,
+        "japaneast": 1.5424,
+        "koreacentral": 1.5088,
+        "northeurope": 1.4464,
+        "southeastasia": 1.5184,
+        "westus2": 1.384
+      },
+      "P3mv4": {
+        "australiaeast": 1.446,
+        "centralindia": 1.408,
+        "eastus": 1.111,
+        "eastus2": 1.111,
+        "germanywestcentral": 1.334,
+        "japaneast": 1.446,
+        "koreacentral": 1.372,
+        "northeurope": 1.26,
+        "southeastasia": 1.334,
+        "westus2": 1.111
+      },
+      "P3v4": {
+        "australiaeast": 1.216,
+        "centralindia": 1.186,
+        "eastus": 0.952,
+        "eastus2": 0.952,
+        "germanywestcentral": 1.128,
+        "japaneast": 1.216,
+        "koreacentral": 1.157,
+        "northeurope": 1.069,
+        "southeastasia": 1.128,
+        "westus2": 0.952
+      },
+      "P4": {
+        "australiaeast": 3.024,
+        "centralindia": 2.64,
+        "eastus": 2.4,
+        "eastus2": 2.4,
+        "germanywestcentral": 2.4,
+        "japaneast": 2.832,
+        "koreacentral": 2.544,
+        "northeurope": 2.4,
+        "southeastasia": 2.4,
+        "westus2": 2.4
+      },
+      "P4mv3": {
+        "australiaeast": 3.0464,
+        "centralindia": 2.8544,
+        "eastus": 2.768,
+        "eastus2": 2.768,
+        "germanywestcentral": 2.9888,
+        "japaneast": 3.0848,
+        "koreacentral": 3.0176,
+        "northeurope": 2.8928,
+        "southeastasia": 3.0368,
+        "westus2": 2.768
+      },
+      "P4mv4": {
+        "australiaeast": 2.892,
+        "centralindia": 2.816,
+        "eastus": 2.222,
+        "eastus2": 2.222,
+        "germanywestcentral": 2.668,
+        "japaneast": 2.892,
+        "koreacentral": 2.743,
+        "northeurope": 2.519,
+        "southeastasia": 2.668,
+        "westus2": 2.222
+      },
+      "P5mv3": {
+        "australiaeast": 6.0928,
+        "centralindia": 5.7088,
+        "eastus": 5.536,
+        "eastus2": 5.536,
+        "germanywestcentral": 5.9776,
+        "japaneast": 6.1696,
+        "koreacentral": 6.0352,
+        "northeurope": 5.7856,
+        "southeastasia": 6.0736,
+        "westus2": 5.536
+      },
+      "P5mv4": {
+        "australiaeast": 5.783,
+        "centralindia": 5.632,
+        "eastus": 4.444,
+        "eastus2": 4.444,
+        "germanywestcentral": 5.335,
+        "japaneast": 5.783,
+        "koreacentral": 5.486,
+        "northeurope": 5.038,
+        "southeastasia": 5.335,
+        "westus2": 4.444
+      },
+      "PC2": {
+        "australiaeast": 0.204746,
+        "centralindia": 0.200046,
+        "eastus": 0.162446,
+        "eastus2": 0.181246,
+        "germanywestcentral": null,
+        "japaneast": 0.204746,
+        "koreacentral": 0.195346,
+        "northeurope": 0.181246,
+        "southeastasia": 0.190646,
+        "westus2": 0.162446
+      },
+      "PC3": {
+        "australiaeast": 0.409492,
+        "centralindia": 0.400092,
+        "eastus": 0.324892,
+        "eastus2": 0.362492,
+        "germanywestcentral": null,
+        "japaneast": 0.409492,
+        "koreacentral": 0.390692,
+        "northeurope": 0.362492,
+        "southeastasia": 0.381292,
+        "westus2": 0.324892
+      },
+      "PC4": {
+        "australiaeast": 0.818985,
+        "centralindia": 0.800185,
+        "eastus": 0.649785,
+        "eastus2": 0.724985,
+        "germanywestcentral": null,
+        "japaneast": 0.818985,
+        "koreacentral": 0.781385,
+        "northeurope": 0.724985,
+        "southeastasia": 0.762585,
+        "westus2": 0.649785
+      },
+      "S1": {
+        "australiaeast": 0.126,
+        "centralindia": 0.11,
+        "eastus": 0.1,
+        "eastus2": 0.1,
+        "germanywestcentral": 0.1,
+        "japaneast": 0.118,
+        "koreacentral": 0.106,
+        "northeurope": 0.1,
+        "southeastasia": 0.1,
+        "westus2": 0.1
+      },
+      "S2": {
+        "australiaeast": 0.252,
+        "centralindia": 0.22,
+        "eastus": 0.2,
+        "eastus2": 0.2,
+        "germanywestcentral": 0.2,
+        "japaneast": 0.236,
+        "koreacentral": 0.212,
+        "northeurope": 0.2,
+        "southeastasia": 0.2,
+        "westus2": 0.2
+      },
+      "S3": {
+        "australiaeast": 0.504,
+        "centralindia": 0.44,
+        "eastus": 0.4,
+        "eastus2": 0.4,
+        "germanywestcentral": 0.4,
+        "japaneast": 0.472,
+        "koreacentral": 0.424,
+        "northeurope": 0.4,
+        "southeastasia": 0.4,
+        "westus2": 0.4
+      },
+      "Shared": {
+        "australiaeast": 0.016,
+        "centralindia": 0.0151,
+        "eastus": 0.013,
+        "eastus2": 0.013,
+        "germanywestcentral": 0.013,
+        "japaneast": 0.0153,
+        "koreacentral": null,
+        "northeurope": 0.013,
+        "southeastasia": 0.013,
+        "westus2": 0.013
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

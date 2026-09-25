@@ -484,6 +484,14 @@ func readAttribute(r *eval.Resource, f field.Field) any {
 		return nil
 	}
 	v := lookupPath(r.Attrs, path)
+	if f.Type == field.Number && v == nil {
+		// A number that points at a block reads how many are written
+		// (replicas, rules).
+		if n := blocks(r.Attrs, path); n > 0 {
+			return float64(n)
+		}
+		return nil
+	}
 	if f.Type != field.Flag {
 		return v
 	}
@@ -491,7 +499,7 @@ func readAttribute(r *eval.Resource, f field.Field) any {
 	case bool:
 		return x
 	case nil:
-		if hasBlock(r.Attrs, path) || len(r.Refs[path]) > 0 {
+		if blocks(r.Attrs, path) > 0 || len(r.Refs[path]) > 0 {
 			return true
 		}
 		return nil
@@ -563,24 +571,31 @@ func lookupPath(m map[string]any, path string) any {
 	return cur
 }
 
-// hasBlock reports whether "a.b" names a block that is written, even empty.
-func hasBlock(m map[string]any, path string) bool {
+// blocks counts the blocks written at "a.b", empty ones included; the parent
+// path is walked through the first instance of each block.
+func blocks(m map[string]any, path string) int {
 	parts := strings.Split(path, ".")
 	parent, last := m, parts[len(parts)-1]
 	if len(parts) > 1 {
 		p, ok := lookupBlock(m, strings.Join(parts[:len(parts)-1], "."))
 		if !ok {
-			return false
+			return 0
 		}
 		parent = p
 	}
 	switch v := parent[last].(type) {
 	case []any:
-		return len(v) > 0
+		n := 0
+		for _, b := range v {
+			if _, ok := b.(map[string]any); ok {
+				n++
+			}
+		}
+		return n
 	case map[string]any:
-		return true
+		return 1
 	}
-	return false
+	return 0
 }
 
 // lookupBlock walks "a.b" through blocks and returns the first instance.

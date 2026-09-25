@@ -1,0 +1,44 @@
+{
+  "azure.appservice.certificate.standard": {
+    "unit": "certificate-year",
+    "source": "https://azure.microsoft.com/pricing/details/app-service/windows/",
+    "note": "App Service Certificate, Standard (one domain and www), one year; a global price",
+    "sync": {
+      "filters": {
+        "productName": "Azure App Service SSL Certificates",
+        "skuName": "Standard SSL - 1 Year"
+      },
+      "region": "Global",
+      "service": "Azure App Service",
+      "source": "azure"
+    },
+    "values": {
+      "*": {
+        "value": 69.99,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.appservice.certificate.wildcard": {
+    "unit": "certificate-year",
+    "source": "https://azure.microsoft.com/pricing/details/app-service/windows/",
+    "note": "App Service Certificate, Wildcard, one year; a global price",
+    "sync": {
+      "filters": {
+        "productName": "Azure App Service SSL Certificates",
+        "skuName": "Wildcard SSL - 1 Year"
+      },
+      "region": "Global",
+      "service": "Azure App Service",
+      "source": "azure"
+    },
+    "values": {
+      "*": {
+        "value": 299.99,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

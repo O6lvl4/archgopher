@@ -1,0 +1,15 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+# Developer in Japan East: 730 x 1.243 = 907.39
+- name: Developer environment
+  region: japaneast
+  costs:
+    Base unit: 907.39
+# Premium_2 in East US: base 730 x 6.64 = 4847.2; scale 730 x 2 x 3.32 = 4847.2
+- name: Premium with two scale units
+  region: eastus
+  attributes:
+    sku_name: Premium_2
+  costs:
+    Base unit: 4847.2
+    Scale units: 4847.2

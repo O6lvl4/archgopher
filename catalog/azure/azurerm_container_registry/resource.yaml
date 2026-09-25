@@ -1,0 +1,33 @@
+type: azurerm_container_registry
+label: Container Registry
+category: Compute
+icon: container-registry
+description: "The registry unit per day of its SKU, a Premium replica unit per georeplications block, storage above what the SKU includes (10, 100 or 500 GB) and ACR Tasks build time. Storage held in replicas and data transfer out of the region are not read. Headroom is the per-registry data-plane read and write request rates (best-effort, not backed by the SLA) and the storage limit."
+kinds: [pull, push]
+sla: azure.containerregistry
+attributes:
+  - { key: sku, label: SKU, type: choice, options: [Basic, Standard, Premium], default: Basic, hint: "Terraform requires sku; the default stands in only while it is unknown" }
+  - { key: replicas, label: Geo-replicas, type: number, path: georeplications, default: 0, hint: "Counted from the georeplications blocks; Premium only" }
+assumptions:
+  - { key: storageGb, label: Stored images, type: number, unit: GB, hint: "All images and artifacts kept after retention and purge tasks" }
+  - { key: buildVcpuHours, label: Build vCPU time, type: number, unit: vCPU-hours, default: 0, hint: "ACR Tasks runs (az acr build, task triggers) per month" }
+  - { key: readsPerPull, label: Reads per pull, type: number, default: 2, hint: "A pull reads the manifest and each layer the host has not cached: 1 + uncached layers" }
+  - { key: writesPerPush, label: Writes per push, type: number, default: 2, hint: "A push writes the manifest and each new layer: 1 + new layers" }
+let:
+  - tier: lower(sku)
+  - included: 'sku == "Premium" ? 500.0 : sku == "Standard" ? 100.0 : 10.0'
+  - days: 730.0 / 24
+readings:
+  - fail: { when: 'replicas > 0 && sku != "Premium"', message: "georeplications need the Premium SKU, not {sku}", continue: true }
+  - cost: { name: "Registry ({sku})", quantity: days, unit: day, price: "azure.containerregistry.registry.{sku}" }
+  - cost: { when: 'replicas > 0 && sku == "Premium"', name: Geo-replication, quantity: replicas * days, unit: day, price: azure.containerregistry.premium.replication }
+  - storage: { name: "Storage above {included} GB", gb: 'max(storageGb - included, 0)', price: "azure.containerregistry.storage.{sku}" }
+  - cost: { name: Build vCPU, quantity: buildVcpuHours * 3600, unit: vCPU-second, price: "azure.containerregistry.build.{sku}" }
+  - rate: { name: Read requests, unit: requests/minute, quota: "azure.containerregistry.{tier}.read_ops", peak: demand.pull.peak * readsPerPull * 60 }
+  - rate: { name: Write requests, unit: requests/minute, quota: "azure.containerregistry.{tier}.write_ops", peak: demand.push.peak * writesPerPush * 60 }
+  - limit: { name: Storage, demand: storageGb, unit: GB, quota: "azure.containerregistry.{tier}.storage_gb" }
+terraform:
+  ignoreRefs: [identity, encryption]
+iam:
+  pull: ["AcrPull", "AcrPush", "Container Registry Repository Reader", "Container Registry Repository Writer"]
+  push: ["AcrPush", "Container Registry Repository Writer"]

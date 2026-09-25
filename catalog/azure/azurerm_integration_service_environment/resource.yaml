@@ -1,0 +1,18 @@
+type: azurerm_integration_service_environment
+label: Integration service environment
+category: Integration
+icon: integration-service-environment
+description: "An integration service environment for Logic Apps: the base unit every hour, Developer or Premium, plus the Premium scale units in sku_name (Premium_2 is two). The Logic Apps it runs are included."
+kinds: [host]
+sla: azure.logicapps
+attributes:
+  - { key: sku_name, label: SKU, type: choice, default: Developer_0, options: [Developer_0, Premium_0, Premium_1, Premium_2, Premium_3, Premium_4, Premium_5, Premium_6, Premium_7, Premium_8, Premium_9, Premium_10] }
+let:
+  - premium: 'sku_name startsWith "Premium"'
+  - scale: 'float(split(sku_name, "_")[1])'
+readings:
+  - cost: { name: Base unit, quantity: 730, unit: hour, price: 'azure.logicapps.ise.{premium ? "premium" : "developer"}.base' }
+  - cost: { when: premium && scale > 0, name: Scale units, quantity: 730 * scale, unit: hour, price: azure.logicapps.ise.premium.scale }
+terraform:
+  # Logic Apps and integration accounts name the environment they run in; it calls nothing.
+  passive: true

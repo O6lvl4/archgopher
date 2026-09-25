@@ -1,0 +1,42 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+# Standard via sku_size only, in Japan East, 1M requests of 20 KB = 19.073486328 GB (under 100 GB):
+#   plan 9; bandwidth 0
+- name: Standard site within the included bandwidth
+  region: japaneast
+  attributes:
+    sku_size: Standard
+  assumptions:
+    responseKb: 20
+  demand:
+    request:
+      monthly: 1000000
+      peak: 10
+  costs:
+    Standard plan: 9
+    Bandwidth above 100 GB: 0
+# Standard in East US 2, 5M requests of 60 KB = 286.102294922 GB: (286.102294922 - 100) x 0.2 = 37.220458984
+- name: Standard site in East US 2
+  region: eastus2
+  attributes:
+    sku_tier: Standard
+  assumptions:
+    responseKb: 60
+  demand:
+    request:
+      monthly: 5000000
+      peak: 20
+  costs:
+    Standard plan: 9
+    Bandwidth above 100 GB: 37.220458984
+- name: Standard is not billed from Germany West Central
+  region: germanywestcentral
+  attributes:
+    sku_tier: Standard
+  assumptions:
+    responseKb: 20
+  demand:
+    request:
+      monthly: 1000
+      peak: 1
+  error: not offered in germanywestcentral

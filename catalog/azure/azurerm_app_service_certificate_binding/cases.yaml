@@ -1,0 +1,14 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+# IP SSL is 39 a month in every region.
+- name: IP-based binding
+  region: japaneast
+  attributes:
+    ssl_state: IpBasedEnabled
+  costs:
+    IP SSL binding: 39
+- name: an SNI binding is free
+  region: eastus
+  attributes:
+    ssl_state: SniEnabled
+  costs: {}

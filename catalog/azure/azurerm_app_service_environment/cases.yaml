@@ -1,0 +1,18 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+# Linux I1 in Japan East: stamp 730 x 1.724 = 1258.52; instance 730 x 0.38 = 277.4
+- name: Linux I1 environment
+  region: japaneast
+  costs:
+    Stamp fee: 1258.52
+    Instance hours (I1): 277.4
+# Windows I2 in East US: stamp 730 x 1.429877 = 1043.81021; instance 730 x 0.6 = 438
+- name: Windows I2 environment
+  region: eastus
+  attributes:
+    pricing_tier: I2
+  assumptions:
+    os: windows
+  costs:
+    Stamp fee: 1043.81021
+    Instance hours (I2): 438

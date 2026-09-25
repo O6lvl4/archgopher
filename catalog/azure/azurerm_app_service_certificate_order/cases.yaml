@@ -1,0 +1,14 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+# 69.99 / 12 = 5.8325
+- name: Standard certificate
+  region: japaneast
+  costs:
+    SSL certificate (Standard): 5.8325
+# 299.99 / 12 = 24.999166667 (rounded to 1e-9)
+- name: Wildcard certificate
+  region: eastus
+  attributes:
+    product_type: WildCard
+  costs:
+    SSL certificate (WildCard): 24.999166667

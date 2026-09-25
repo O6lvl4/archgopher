@@ -1,0 +1,12 @@
+type: azurerm_app_service_certificate_order
+label: App Service certificate
+category: Security
+icon: app-service-certificate
+description: "An App Service Certificate bought from Azure: the yearly price of a Standard or Wildcard certificate, spread over twelve months. The price is global; renewals cost the same each year."
+kinds: [tls]
+attributes:
+  - { key: product_type, label: Product, type: choice, options: [Standard, WildCard], default: Standard }
+readings:
+  - cost: { name: "SSL certificate ({product_type})", quantity: 1.0 / 12, unit: certificate-year, price: 'azure.appservice.certificate.{product_type == "WildCard" ? "wildcard" : "standard"}' }
+terraform:
+  passive: true

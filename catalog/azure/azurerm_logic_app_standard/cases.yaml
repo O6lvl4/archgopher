@@ -1,0 +1,35 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+# WS1, one instance in Japan East, 100k runs with 3 standard and 1 enterprise call each:
+#   vCPU 730 x 1 x 0.2136 = 155.928; memory 730 x 3.5 x 0.0153 = 39.0915
+#   standard 300000 x 0.00013 = 39; enterprise 100000 x 0.001 = 100
+- name: WS1 with connectors
+  region: japaneast
+  assumptions:
+    standardCallsPerRun: 3
+    enterpriseCallsPerRun: 1
+  demand:
+    invoke:
+      monthly: 100000
+      peak: 5
+  costs:
+    Workflow vCPU (WS1): 155.928
+    Workflow memory (WS1): 39.0915
+    Standard connector calls: 39
+    Enterprise connector calls: 100
+# WS2 on two instances in East US, built-in actions only:
+#   vCPU 730 x 2 x 2 x 0.1997 = 583.124; memory 730 x 2 x 7 x 0.0143 = 146.146
+- name: WS2 on two instances
+  region: eastus
+  assumptions:
+    sku: WS2
+    instances: 2
+  demand:
+    invoke:
+      monthly: 50000
+      peak: 2
+  costs:
+    Workflow vCPU (WS2): 583.124
+    Workflow memory (WS2): 146.146
+    Standard connector calls: 0
+    Enterprise connector calls: 0

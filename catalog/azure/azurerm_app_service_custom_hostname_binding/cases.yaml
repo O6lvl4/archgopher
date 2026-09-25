@@ -1,0 +1,12 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+# IP SSL is 39 a month in every region.
+- name: hostname with IP-based SSL
+  region: japaneast
+  attributes:
+    ssl_state: IpBasedEnabled
+  costs:
+    IP SSL binding: 39
+- name: hostname without SSL is free
+  region: westus2
+  costs: {}

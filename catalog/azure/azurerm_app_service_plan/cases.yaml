@@ -1,0 +1,48 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+# two P1v3 Linux instances in Japan East: 730 h x 2 x 0.188 = 274.48
+- name: two P1v3 Linux instances
+  region: japaneast
+  attributes:
+    size: P1v3
+    kind: Linux
+    reserved: true
+    capacity: 2
+  costs:
+    Instance hours: 274.48
+# S1 Windows, one instance: 730 x 0.118 = 86.14
+- name: S1 Windows by default kind
+  region: japaneast
+  attributes:
+    size: S1
+  costs:
+    Instance hours: 86.14
+# Shared D1 is the Shared Plan meter: 730 x 0.0153 = 11.169
+- name: D1 shared
+  region: japaneast
+  attributes:
+    size: D1
+  costs:
+    Instance hours: 11.169
+# EP2 with 3 instances in East US: vCPU 730 x 3 x 2 x 0.173 = 757.74; memory 730 x 3 x 7 x 0.0123 = 188.559
+- name: EP2 Elastic Premium
+  region: eastus
+  attributes:
+    size: EP2
+    kind: elastic
+    capacity: 3
+  costs:
+    vCPU hours: 757.74
+    Memory hours: 188.559
+- name: Consumption and Workflow Standard plans cost nothing here
+  region: japaneast
+  attributes:
+    size: WS1
+  costs: {}
+- name: Premium v1 is refused on Linux
+  region: japaneast
+  attributes:
+    size: P2
+    kind: Linux
+    reserved: true
+  error: P2 plans run on Windows only

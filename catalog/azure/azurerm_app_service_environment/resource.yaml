@@ -1,0 +1,17 @@
+type: azurerm_app_service_environment
+label: App Service Environment v1
+category: Compute
+icon: app-service-environment
+description: "An App Service Environment v1: the stamp fee and one instance-hour of its pricing_tier (I1 to I3) every hour, as Infracost reads it. The Isolated plans placed in it carry their own instances on their azurerm_app_service_plan nodes. The front-end scale factor is not read."
+kinds: [host]
+sla: azure.appservice
+attributes:
+  - { key: pricing_tier, label: Pricing tier, type: choice, options: [I1, I2, I3], default: I1 }
+assumptions:
+  - { key: os, label: Operating system, type: choice, options: [linux, windows], default: linux, hint: "The stamp fee and the Isolated rates differ for Linux and Windows; Terraform does not say which the environment runs" }
+readings:
+  - cost: { name: Stamp fee, quantity: 730, unit: hour, price: "azure.appservice.isolated.{os}.stamp" }
+  - cost: { name: "Instance hours ({pricing_tier})", quantity: 730, unit: hour, price: "azure.appservice.plan.{os}.{pricing_tier}" }
+terraform:
+  # Plans name the environment they run in; the environment calls nothing.
+  passive: true
