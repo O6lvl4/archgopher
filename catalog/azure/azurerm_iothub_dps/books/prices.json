@@ -1,0 +1,70 @@
+{
+  "azure.iothub_dps.operations": {
+    "unit": "operation",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/iot-hub/",
+    "note": "Device Provisioning Service S1 operations (device registrations and service API calls)",
+    "sync": {
+      "filters": {
+        "meterName": "S1 Operations",
+        "productName": "IoT Hub Device Provisioning",
+        "skuName": "S1"
+      },
+      "listPer": 1000,
+      "service": "IoT Hub",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.145,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.14,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.145,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.135,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+type: azurerm_notification_hub_namespace
+label: Notification Hubs namespace
+category: Messaging
+icon: notification-hubs
+description: "Basic and Standard: the namespace's monthly fee, which includes 10 million pushes, and pushes beyond them (Standard in two volume tiers). Free costs nothing and stops at 1 million pushes. Headroom is active devices per namespace."
+kinds: [push]
+sla: azure.notificationhubs
+attributes:
+  - { key: sku_name, label: Tier, type: choice, options: [Free, Basic, Standard], default: Basic }
+assumptions:
+  - { key: activeDevices, label: Active devices, type: number, hint: "Devices registered and not expired in the namespace" }
+let:
+  - tier: lower(sku_name)
+  - pushes: total.monthly
+readings:
+  - cost: { when: 'tier != "free"', name: Namespace, quantity: 1, unit: month, price: "azure.notificationhubs.{tier}.base" }
+  - requests: { when: 'tier == "basic"', name: Pushes beyond the included 10 million, unit: push, price: azure.notificationhubs.basic.pushes, count: 'max(pushes - 10000000, 0.0)' }
+  - requests: { when: 'tier == "standard"', name: Pushes from 10 to 100 million, unit: push, price: azure.notificationhubs.standard.pushes_10m, count: 'min(max(pushes - 10000000, 0.0), 90000000.0)' }
+  - requests: { when: 'tier == "standard"', name: Pushes beyond 100 million, unit: push, price: azure.notificationhubs.standard.pushes_100m, count: 'max(pushes - 100000000, 0.0)' }
+  - rate: { when: 'tier == "free"', name: Pushes per month, unit: pushes/month, quota: azure.notificationhubs.free_pushes, peak: pushes }
+  - rate: { name: Active devices, unit: devices, quota: "azure.notificationhubs.active_devices.{tier}", peak: activeDevices }
+terraform:
+  aliases:
+    azurerm_notification_hub: namespace_name
+    azurerm_notification_hub_authorization_rule: namespace_name

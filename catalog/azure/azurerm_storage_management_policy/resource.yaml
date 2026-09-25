@@ -1,0 +1,32 @@
+type: azurerm_storage_management_policy
+label: Blob lifecycle policy
+category: Storage
+icon: storage-account
+description: "The policy itself is free (Infracost prices nothing for it); what it costs is the tier changes it makes, billed as write operations of the destination tier (Set Blob Tier). Each blob the policy ages passes once through every tier its base_blob actions name; deletes are free. Only the first rule is read from Terraform. The lower storage price of the moved data is not read here: the account reads the hot tier."
+kinds: [manage]
+attributes:
+  - { key: coolAfterModification, label: To cool after days since modification, type: number, optional: true, path: rule.actions.base_blob.tier_to_cool_after_days_since_modification_greater_than }
+  - { key: coolAfterAccess, label: To cool after days since last access, type: number, optional: true, path: rule.actions.base_blob.tier_to_cool_after_days_since_last_access_time_greater_than }
+  - { key: coolAfterCreation, label: To cool after days since creation, type: number, optional: true, path: rule.actions.base_blob.tier_to_cool_after_days_since_creation_greater_than }
+  - { key: coldAfterModification, label: To cold after days since modification, type: number, optional: true, path: rule.actions.base_blob.tier_to_cold_after_days_since_modification_greater_than }
+  - { key: coldAfterAccess, label: To cold after days since last access, type: number, optional: true, path: rule.actions.base_blob.tier_to_cold_after_days_since_last_access_time_greater_than }
+  - { key: coldAfterCreation, label: To cold after days since creation, type: number, optional: true, path: rule.actions.base_blob.tier_to_cold_after_days_since_creation_greater_than }
+  - { key: archiveAfterModification, label: To archive after days since modification, type: number, optional: true, path: rule.actions.base_blob.tier_to_archive_after_days_since_modification_greater_than }
+  - { key: archiveAfterAccess, label: To archive after days since last access, type: number, optional: true, path: rule.actions.base_blob.tier_to_archive_after_days_since_last_access_time_greater_than }
+  - { key: archiveAfterCreation, label: To archive after days since creation, type: number, optional: true, path: rule.actions.base_blob.tier_to_archive_after_days_since_creation_greater_than }
+assumptions:
+  - { key: redundancy, label: Account redundancy, type: choice, options: [LRS, ZRS, GRS, RAGRS, GZRS, RAGZRS], default: LRS, hint: "account_replication_type of the storage account" }
+  - { key: blobsAged, label: Blobs aged a month, type: number, hint: "Blobs that reach the policy's thresholds each month; about the blobs written a month once the policy is steady" }
+let:
+  - r: 'redundancy == "RAGRS" ? "RA-GRS" : redundancy == "RAGZRS" ? "RA-GZRS" : redundancy'
+  - toCool: 'coolAfterModification != nil || coolAfterAccess != nil || coolAfterCreation != nil'
+  - toCold: 'coldAfterModification != nil || coldAfterAccess != nil || coldAfterCreation != nil'
+  - toArchive: 'archiveAfterModification != nil || archiveAfterAccess != nil || archiveAfterCreation != nil'
+readings:
+  - fail: { when: 'toArchive && r in ["ZRS", "GZRS", "RA-GZRS"]', message: "the archive tier is not offered on {r} accounts" }
+  - requests: { when: toCool, name: Moves to cool, unit: operation, price: 'azure.storage.blob.tier_write.Cool {r == "RA-GZRS" ? "GZRS" : r}', count: blobsAged }
+  - requests: { when: toCold, name: Moves to cold, unit: operation, price: "azure.storage.blob.tier_write.Cold {r}", count: blobsAged }
+  - requests: { when: toArchive, name: Moves to archive, unit: operation, price: "azure.storage.blob.tier_write.Archive {r}", count: blobsAged }
+terraform:
+  # A policy names the account it manages; it calls nothing and nothing calls it.
+  passive: true

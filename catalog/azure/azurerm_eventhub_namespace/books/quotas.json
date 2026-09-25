@@ -1,0 +1,14 @@
+{
+  "azure.eventhubs.ingress_per_tu": {
+    "unit": "events/second",
+    "source": "https://learn.microsoft.com/en-us/azure/event-hubs/event-hubs-quotas",
+    "note": "Basic and Standard ingress per throughput unit: 1,000 events or 1 MB a second, whichever comes first; an event over 1 KB counts per KB here",
+    "values": {
+      "*": {
+        "value": 1000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

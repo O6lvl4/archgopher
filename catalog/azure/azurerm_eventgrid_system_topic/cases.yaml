@@ -1,0 +1,21 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: storage events to one subscription in Japan East
+  region: japaneast
+  demand:
+    publish:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Operations: 1.2
+- name: 100 KB events to three subscriptions in East US
+  region: eastus
+  assumptions:
+    eventKb: 100
+    subscriptionsPerEvent: 3
+  demand:
+    publish:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Operations: 4.8

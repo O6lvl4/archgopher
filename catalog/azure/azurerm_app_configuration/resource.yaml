@@ -1,0 +1,32 @@
+type: azurerm_app_configuration
+label: App Configuration
+category: Integration
+icon: app-configuration
+description: "Store-days of the Developer, Standard or Premium tier, replica-days (Premium includes one replica), and requests beyond the daily allowance of each store and replica (3,000 on Developer, 200,000 on Standard, 800,000 on Premium). Free costs nothing and stops at 1,000 requests a day. Headroom is the tier's request quota and read run rate."
+kinds: [read]
+sla: azure.appconfig
+attributes:
+  - { key: sku, label: Tier, type: choice, options: [free, developer, standard, premium], default: free }
+  - { key: replicated, label: Replicas, type: boolean, default: false, path: replica, hint: "Replica blocks are written" }
+assumptions:
+  - { key: replicas, label: Replica count, type: number, default: 1, hint: "Replica blocks in the store; read only when replica blocks are written" }
+let:
+  - days: 730.0 / 24.0
+  - n: 'replicated ? max(replicas, 1.0) : 0.0'
+  - paidReplicas: 'sku == "premium" ? max(n - 1, 0.0) : n'
+  - included: 'sku == "developer" ? 3000.0 : sku == "standard" ? 200000.0 : 800000.0'
+readings:
+  - fail: { when: 'replicated && sku in ["free", "developer"]', message: "{sku} stores have no geo-replication" }
+  - cost: { when: 'sku != "free"', name: Store, quantity: days, unit: store-day, price: "azure.appconfig.{sku}.instance" }
+  - cost: { when: 'sku in ["standard", "premium"] && paidReplicas > 0', name: Replicas, quantity: paidReplicas * days, unit: store-day, price: "azure.appconfig.{sku}.replica" }
+  - requests: { when: 'sku != "free"', name: Requests beyond the daily allowance, unit: request, price: "azure.appconfig.{sku}.overage", count: 'max(total.monthly - included * days * (1 + n), 0.0)' }
+  - rate: { when: 'sku == "free"', name: Requests per day, unit: requests/day, quota: azure.appconfig.free.requests_per_day, peak: total.monthly / days }
+  - rate: { when: 'sku in ["developer", "standard"]', name: Requests per hour, unit: requests/hour, quota: "azure.appconfig.{sku}.requests_per_hour", peak: total.peak * 3600 }
+  - rate: { when: 'sku in ["standard", "premium"]', name: Read rate, unit: requests/second, quota: "azure.appconfig.read_rps.{sku}", peak: total.peak }
+terraform:
+  aliases:
+    azurerm_app_configuration_key: configuration_store_id
+    azurerm_app_configuration_feature: configuration_store_id
+  ignoreRefs: [identity, encryption]
+iam:
+  read: ["App Configuration Data Reader", "App Configuration Data Owner"]

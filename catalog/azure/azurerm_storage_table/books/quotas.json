@@ -1,0 +1,14 @@
+{
+  "azure.storage.table_entities_per_partition": {
+    "unit": "entities/second",
+    "source": "https://learn.microsoft.com/en-us/azure/storage/tables/scalability-targets",
+    "note": "Target throughput for a single table partition, 1 KB entities",
+    "values": {
+      "*": {
+        "value": 2000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

@@ -1,0 +1,318 @@
+{
+  "azure.storage.geo_replication": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/storage/queues/",
+    "note": "Geo-replication data transfer for GRS, RA-GRS, GZRS and RA-GZRS accounts (queues, tables and files)",
+    "sync": {
+      "filters": {
+        "meterName": "Geo-Replication v2 Data Transfer",
+        "productName": "Storage - Bandwidth",
+        "skuName": "Geo-Replication v2"
+      },
+      "service": "Storage",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.098,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.086,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.09,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.08,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.09,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.storage.queues.class1": {
+    "unit": "operation",
+    "per": 10000,
+    "source": "https://azure.microsoft.com/pricing/details/storage/queues/",
+    "note": "Class 1 operations (put, update, delete message and queue management), by redundancy. The price list has none for GZRS and RA-GZRS",
+    "sync": {
+      "filters": {
+        "meterName": "((LRS|ZRS|GRS) )?Class 1 Operations",
+        "productName": "Queues v2",
+        "skuName": "Standard {row}"
+      },
+      "listPer": 10000,
+      "service": "Storage",
+      "source": "azure"
+    },
+    "rows": {
+      "GRS": {
+        "australiaeast": 0.008,
+        "centralindia": 0.008,
+        "eastus": 0.008,
+        "eastus2": 0.008,
+        "germanywestcentral": 0.008,
+        "japaneast": 0.008,
+        "koreacentral": 0.008,
+        "northeurope": 0.008,
+        "southeastasia": 0.008,
+        "westus2": 0.008
+      },
+      "LRS": {
+        "australiaeast": 0.004,
+        "centralindia": 0.004,
+        "eastus": 0.004,
+        "eastus2": 0.004,
+        "germanywestcentral": 0.004,
+        "japaneast": 0.004,
+        "koreacentral": 0.004,
+        "northeurope": 0.004,
+        "southeastasia": 0.004,
+        "westus2": 0.004
+      },
+      "RA-GRS": {
+        "australiaeast": 0.008,
+        "centralindia": 0.008,
+        "eastus": 0.008,
+        "eastus2": 0.008,
+        "germanywestcentral": 0.008,
+        "japaneast": 0.008,
+        "koreacentral": 0.008,
+        "northeurope": 0.008,
+        "southeastasia": 0.008,
+        "westus2": 0.008
+      },
+      "ZRS": {
+        "australiaeast": 0.004,
+        "centralindia": 0.004,
+        "eastus": 0.004,
+        "eastus2": 0.004,
+        "germanywestcentral": 0.004,
+        "japaneast": 0.004,
+        "koreacentral": 0.004,
+        "northeurope": 0.004,
+        "southeastasia": 0.004,
+        "westus2": 0.004
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.storage.queues.class2": {
+    "unit": "operation",
+    "per": 10000,
+    "source": "https://azure.microsoft.com/pricing/details/storage/queues/",
+    "note": "Class 2 operations (get and peek messages, get metadata), by redundancy",
+    "sync": {
+      "filters": {
+        "meterName": "(ZRS )?Class 2 Operations",
+        "productName": "Queues v2",
+        "skuName": "Standard {row}"
+      },
+      "listPer": 10000,
+      "service": "Storage",
+      "source": "azure"
+    },
+    "rows": {
+      "GRS": {
+        "australiaeast": 0.004,
+        "centralindia": 0.004,
+        "eastus": 0.004,
+        "eastus2": 0.004,
+        "germanywestcentral": 0.004,
+        "japaneast": 0.004,
+        "koreacentral": 0.004,
+        "northeurope": 0.004,
+        "southeastasia": 0.004,
+        "westus2": 0.004
+      },
+      "GZRS": {
+        "australiaeast": 0.004,
+        "centralindia": 0.004,
+        "eastus": 0.004,
+        "eastus2": 0.004,
+        "germanywestcentral": 0.004,
+        "japaneast": 0.004,
+        "koreacentral": 0.004,
+        "northeurope": 0.004,
+        "southeastasia": 0.004,
+        "westus2": 0.004
+      },
+      "LRS": {
+        "australiaeast": 0.004,
+        "centralindia": 0.004,
+        "eastus": 0.004,
+        "eastus2": 0.004,
+        "germanywestcentral": 0.004,
+        "japaneast": 0.004,
+        "koreacentral": 0.004,
+        "northeurope": 0.004,
+        "southeastasia": 0.004,
+        "westus2": 0.004
+      },
+      "RA-GRS": {
+        "australiaeast": 0.004,
+        "centralindia": 0.004,
+        "eastus": 0.004,
+        "eastus2": 0.004,
+        "germanywestcentral": 0.004,
+        "japaneast": 0.004,
+        "koreacentral": 0.004,
+        "northeurope": 0.004,
+        "southeastasia": 0.004,
+        "westus2": 0.004
+      },
+      "RA-GZRS": {
+        "australiaeast": 0.004,
+        "centralindia": 0.004,
+        "eastus": 0.004,
+        "eastus2": 0.004,
+        "germanywestcentral": 0.004,
+        "japaneast": 0.004,
+        "koreacentral": 0.004,
+        "northeurope": 0.004,
+        "southeastasia": 0.004,
+        "westus2": 0.004
+      },
+      "ZRS": {
+        "australiaeast": 0.004,
+        "centralindia": 0.004,
+        "eastus": 0.004,
+        "eastus2": 0.004,
+        "germanywestcentral": 0.004,
+        "japaneast": 0.004,
+        "koreacentral": 0.004,
+        "northeurope": 0.004,
+        "southeastasia": 0.004,
+        "westus2": 0.004
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.storage.queues.stored": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/storage/queues/",
+    "note": "Queue data stored, by the account's redundancy",
+    "sync": {
+      "filters": {
+        "meterName": "{row} Data Stored",
+        "productName": "Queues v2",
+        "skuName": "Standard {row}"
+      },
+      "service": "Storage",
+      "source": "azure"
+    },
+    "rows": {
+      "GRS": {
+        "australiaeast": 0.0598,
+        "centralindia": 0.0598,
+        "eastus": 0.0598,
+        "eastus2": 0.0598,
+        "germanywestcentral": 0.0598,
+        "japaneast": 0.0598,
+        "koreacentral": 0.0598,
+        "northeurope": 0.0598,
+        "southeastasia": 0.0598,
+        "westus2": 0.0598
+      },
+      "GZRS": {
+        "australiaeast": 0.101,
+        "centralindia": 0.101,
+        "eastus": 0.101,
+        "eastus2": 0.101,
+        "germanywestcentral": 0.101,
+        "japaneast": 0.101,
+        "koreacentral": 0.101,
+        "northeurope": 0.101,
+        "southeastasia": 0.101,
+        "westus2": 0.101
+      },
+      "LRS": {
+        "australiaeast": 0.045,
+        "centralindia": 0.045,
+        "eastus": 0.045,
+        "eastus2": 0.045,
+        "germanywestcentral": 0.045,
+        "japaneast": 0.045,
+        "koreacentral": 0.045,
+        "northeurope": 0.045,
+        "southeastasia": 0.045,
+        "westus2": 0.045
+      },
+      "RA-GRS": {
+        "australiaeast": 0.0748,
+        "centralindia": 0.0748,
+        "eastus": 0.0748,
+        "eastus2": 0.0748,
+        "germanywestcentral": 0.0748,
+        "japaneast": 0.0748,
+        "koreacentral": 0.0748,
+        "northeurope": 0.0748,
+        "southeastasia": 0.0748,
+        "westus2": 0.0748
+      },
+      "RA-GZRS": {
+        "australiaeast": 0.127,
+        "centralindia": 0.127,
+        "eastus": 0.127,
+        "eastus2": 0.127,
+        "germanywestcentral": 0.127,
+        "japaneast": 0.127,
+        "koreacentral": 0.127,
+        "northeurope": 0.127,
+        "southeastasia": 0.127,
+        "westus2": 0.127
+      },
+      "ZRS": {
+        "australiaeast": 0.0562,
+        "centralindia": 0.0562,
+        "eastus": 0.0562,
+        "eastus2": 0.0562,
+        "germanywestcentral": 0.0562,
+        "japaneast": 0.0562,
+        "koreacentral": 0.0562,
+        "northeurope": 0.0562,
+        "southeastasia": 0.0562,
+        "westus2": 0.0562
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

@@ -1,0 +1,341 @@
+{
+  "azure.notificationhubs.basic.base": {
+    "unit": "month",
+    "source": "https://azure.microsoft.com/pricing/details/notification-hubs/",
+    "note": "Basic namespace, which includes 10 million pushes",
+    "sync": {
+      "filters": {
+        "meterName": "Basic Unit",
+        "productName": "Notification Hubs",
+        "skuName": "Basic"
+      },
+      "service": "Notification Hubs",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.notificationhubs.basic.pushes": {
+    "unit": "push",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/notification-hubs/",
+    "note": "Basic pushes beyond the included 10 million",
+    "sync": {
+      "filters": {
+        "meterName": "Basic Pushes",
+        "productName": "Notification Hubs",
+        "skuName": "Basic"
+      },
+      "listPer": 1000000,
+      "service": "Notification Hubs",
+      "source": "azure",
+      "tier": "10"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.notificationhubs.standard.base": {
+    "unit": "month",
+    "source": "https://azure.microsoft.com/pricing/details/notification-hubs/",
+    "note": "Standard namespace, which includes 10 million pushes",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Unit",
+        "productName": "Notification Hubs",
+        "skuName": "Standard"
+      },
+      "service": "Notification Hubs",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 200,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 200,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 200,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 200,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 200,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 200,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 200,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 200,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 200,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.notificationhubs.standard.pushes_100m": {
+    "unit": "push",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/notification-hubs/",
+    "note": "Standard pushes beyond 100 million",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Pushes",
+        "productName": "Notification Hubs",
+        "skuName": "Standard"
+      },
+      "listPer": 1000000,
+      "service": "Notification Hubs",
+      "source": "azure",
+      "tier": "100"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 2.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 2.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 2.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 2.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 2.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 2.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 2.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 2.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 2.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.notificationhubs.standard.pushes_10m": {
+    "unit": "push",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/notification-hubs/",
+    "note": "Standard pushes from 10 to 100 million",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Pushes",
+        "productName": "Notification Hubs",
+        "skuName": "Standard"
+      },
+      "listPer": 1000000,
+      "service": "Notification Hubs",
+      "source": "azure",
+      "tier": "10"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

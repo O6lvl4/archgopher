@@ -1,0 +1,28 @@
+type: azurerm_storage_queue
+label: Storage queue
+category: Messaging
+icon: storage-queue
+description: "Queue Storage in a general-purpose v2 account: data stored, Class 1 operations (put, and the delete that completes each receive) and Class 2 operations (get messages, including empty polls), by the account's redundancy, and geo-replication transfer of what is sent on geo-redundant accounts. Headroom is the throughput of one queue."
+kinds: [send, receive]
+sla: azure.storage
+assumptions:
+  - { key: redundancy, label: Account redundancy, type: choice, options: [LRS, ZRS, GRS, RAGRS, GZRS, RAGZRS], default: LRS, hint: "account_replication_type of the storage account" }
+  - { key: storedGb, label: Data stored, type: number, unit: GB, default: 0, hint: "Messages waiting in the queue on average" }
+  - { key: messageKb, label: Message size, type: number, unit: KB, default: 1, hint: "For geo-replication transfer" }
+  - { key: emptyPolls, label: Empty polls, type: number, default: 0, hint: "Get-message calls a month that find the queue empty; queue triggers poll with backoff" }
+let:
+  - r: 'redundancy == "RAGRS" ? "RA-GRS" : redundancy == "RAGZRS" ? "RA-GZRS" : redundancy'
+  - geo: 'redundancy in ["GRS", "RAGRS", "GZRS", "RAGZRS"]'
+readings:
+  - fail: { when: 'redundancy in ["GZRS", "RAGZRS"]', message: "the Azure price list has no Class 1 operation price for {r} queues" }
+  - storage: { name: Data stored, gb: storedGb, price: "azure.storage.queues.stored.{r}" }
+  - requests: { name: Class 1 operations, unit: operation, price: "azure.storage.queues.class1.{r}", count: demand.send.monthly + demand.receive.monthly }
+  - requests: { name: Class 2 operations, unit: operation, price: "azure.storage.queues.class2.{r}", count: demand.receive.monthly + emptyPolls }
+  - cost: { when: geo, name: Geo-replication transfer, quantity: demand.send.monthly * messageKb / 1024 / 1024, unit: GB, price: azure.storage.geo_replication }
+  - rate: { name: Messages per second, unit: messages/second, quota: azure.storage.queue_messages_per_second, peak: total.peak }
+terraform:
+  # The queue names its account; the account is where it lives, not what it calls.
+  ignoreRefs: [storage_account_name, storage_account_id]
+iam:
+  send: ["Storage Queue Data Message Sender", "Storage Queue Data Contributor"]
+  receive: ["Storage Queue Data Message Processor", "Storage Queue Data Contributor"]

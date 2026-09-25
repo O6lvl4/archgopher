@@ -1,0 +1,44 @@
+type: azurerm_storage_share
+label: File share
+category: Storage
+icon: azure-files
+description: "Azure Files. Transaction optimized, hot and cool shares: data and snapshots stored, metadata (hot and cool), write, read, list and other operations, and data retrieval from cool, by the account's redundancy. Premium shares (provisioned v1): the quota provisioned and snapshots. Headroom is the share's IOPS: 20,000 on standard shares, 3,000 plus one per GB of quota (up to 102,400) on premium."
+kinds: [read, write]
+sla: azure.storage
+attributes:
+  - { key: access_tier, label: Tier, type: choice, options: [TransactionOptimized, Hot, Cool, Premium], default: TransactionOptimized }
+  - { key: quota, label: Quota, type: number, unit: GB, optional: true, hint: "Provisioned size on premium shares" }
+assumptions:
+  - { key: redundancy, label: Account redundancy, type: choice, options: [LRS, ZRS, GRS, RAGRS, GZRS, RAGZRS], default: LRS, hint: "account_replication_type of the storage account; file shares have no read access, so RA- accounts bill as GRS or GZRS" }
+  - { key: storageGb, label: Data stored, type: number, unit: GB, hint: "Standard tiers; premium bills the quota" }
+  - { key: snapshotsGb, label: Snapshots, type: number, unit: GB, default: 0 }
+  - { key: metadataGb, label: Metadata, type: number, unit: GB, default: 0, hint: "Hot and cool tiers" }
+  - { key: listOperations, label: List operations, type: number, default: 0, hint: "Directory listings a month" }
+  - { key: otherOperations, label: Other operations, type: number, default: 0, hint: "Opens, closes and property calls a month (protocol operations on transaction optimized)" }
+  - { key: retrievalGb, label: Data retrieved, type: number, unit: GB, default: 0, hint: "Read from a cool share in a month" }
+let:
+  - premium: 'access_tier == "Premium"'
+  - tier: 'access_tier == "TransactionOptimized" ? "Standard" : access_tier'
+  - r: 'redundancy in ["GRS", "RAGRS"] ? "GRS" : redundancy in ["GZRS", "RAGZRS"] ? "GZRS" : redundancy'
+  - sku: 'tier + " " + r'
+  - provisioned: 'quota != nil ? quota : 0.0'
+readings:
+  - fail: { when: 'premium && r in ["GRS", "GZRS"]', message: "premium file shares are LRS or ZRS, not {r}" }
+  - fail: { when: 'premium && quota == nil', message: "a premium share needs its quota" }
+  - storage: { when: '!premium', name: Data stored, gb: storageGb, price: "azure.storage.files.stored.{sku}" }
+  - storage: { when: '!premium && snapshotsGb > 0', name: Snapshots, gb: snapshotsGb, price: "azure.storage.files.stored.{sku}" }
+  - storage: { when: 'tier in ["Hot", "Cool"] && metadataGb > 0', name: Metadata, gb: metadataGb, price: "azure.storage.files.metadata.{sku}" }
+  - requests: { when: '!premium', name: Write operations, unit: operation, price: "azure.storage.files.write.{sku}", count: demand.write.monthly }
+  - requests: { when: '!premium', name: Read operations, unit: operation, price: "azure.storage.files.read.{sku}", count: demand.read.monthly }
+  - requests: { when: '!premium && listOperations > 0', name: List operations, unit: operation, price: "azure.storage.files.list.{sku}", count: listOperations }
+  - requests: { when: '!premium && otherOperations > 0', name: Other operations, unit: operation, price: "azure.storage.files.other.{sku}", count: otherOperations }
+  - cost: { when: 'tier == "Cool" && retrievalGb > 0', name: Data retrieval, quantity: retrievalGb, unit: GB, price: "azure.storage.files.retrieval.{sku}" }
+  - storage: { when: premium, name: Provisioned capacity, gb: provisioned, price: "azure.storage.files.premium.provisioned.Premium {r}" }
+  - storage: { when: 'premium && snapshotsGb > 0', name: Snapshots, gb: snapshotsGb, price: "azure.storage.files.premium.snapshots.Premium {r}" }
+  - rate: { when: '!premium', name: Request rate, unit: requests/second, quota: azure.storage.files.share_iops, peak: total.peak }
+  - limit: { when: premium, name: IOPS, unit: requests/second, demand: total.peak, capacity: 'min(3000 + provisioned, 102400.0)' }
+terraform:
+  ignoreRefs: [storage_account_name, storage_account_id]
+iam:
+  read: ["Storage File Data SMB Share Reader", "Storage File Data SMB Share Contributor", "Storage File Data Privileged Reader"]
+  write: ["Storage File Data SMB Share Contributor", "Storage File Data SMB Share Elevated Contributor", "Storage File Data Privileged Contributor"]

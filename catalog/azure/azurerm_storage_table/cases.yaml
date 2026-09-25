@@ -1,0 +1,81 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: LRS table in Japan East
+  region: japaneast
+  assumptions:
+    storedGb: 10
+  demand:
+    read:
+      monthly: 10000000.0
+      peak: 100
+    write:
+      monthly: 1000000.0
+      peak: 10
+    query:
+      monthly: 100000.0
+      peak: 1
+    delete:
+      monthly: 100000.0
+      peak: 1
+  costs:
+    Data stored: 0.45
+    Write operations: 0.036
+    Read operations: 0.36
+    Scan operations: 0.0036
+    Delete operations: 0.0036
+  limits:
+    Entities per second per partition: 112
+- name: customer-managed key with batched writes over ten partitions, East US
+  region: eastus
+  assumptions:
+    storedGb: 10
+    customerManagedKey: true
+    entitiesPerBatch: 100
+    partitions: 10
+  demand:
+    read:
+      monthly: 1000000.0
+      peak: 50
+    write:
+      monthly: 1000000.0
+      peak: 50
+    query:
+      monthly: 0
+      peak: 0
+    delete:
+      monthly: 0
+      peak: 0
+  costs:
+    Data stored: 0.45
+    Batch write operations: 0.075
+    Read operations: 0.5
+    Scan operations: 0
+    Delete operations: 0
+  limits:
+    Entities per second per partition: 100
+- name: Standard RA-GZRS writes at the read price
+  region: japaneast
+  assumptions:
+    storedGb: 0
+    redundancy: RAGZRS
+  demand:
+    read:
+      monthly: 0
+      peak: 0
+    write:
+      monthly: 10000000.0
+      peak: 10
+    query:
+      monthly: 0
+      peak: 0
+    delete:
+      monthly: 0
+      peak: 0
+  costs:
+    Data stored: 0
+    Write operations: 0.36
+    Read operations: 0
+    Scan operations: 0
+    Delete operations: 0
+  limits:
+    Entities per second per partition: 10

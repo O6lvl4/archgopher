@@ -1,0 +1,14 @@
+{
+  "azure.storage.queue_messages_per_second": {
+    "unit": "messages/second",
+    "source": "https://learn.microsoft.com/en-us/azure/storage/queues/scalability-targets",
+    "note": "Target throughput for a single queue, 1 KB messages",
+    "values": {
+      "*": {
+        "value": 2000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+type: azurerm_eventhub_namespace
+label: Event Hubs namespace
+category: Messaging
+icon: event-hubs
+description: "Basic and Standard: throughput-unit hours and ingress events per 64 KB, with Capture per throughput unit when an event hub captures. Premium: processing-unit hours. On a Dedicated cluster (dedicated_cluster_id): capacity-unit hours, read on the namespace as Infracost does, so namespaces sharing a cluster each count it. Retention beyond the 1 TB per processing unit (10 TB per capacity unit) is read from the stored size. Headroom is ingress per throughput unit (auto-inflate raises it to maximum_throughput_units); Premium and Dedicated publish no fixed limit."
+kinds: [send]
+sla: azure.eventhubs
+attributes:
+  - { key: sku, label: Tier, type: choice, options: [Basic, Standard, Premium], default: Standard }
+  - { key: capacity, label: Throughput or processing units, type: number, default: 1 }
+  - { key: dedicated_cluster_id, label: Dedicated cluster, type: string, optional: true, hint: "Set when the namespace runs on an Event Hubs Dedicated cluster" }
+  - { key: auto_inflate_enabled, label: Auto-inflate, type: boolean, default: false }
+  - { key: maximum_throughput_units, label: Maximum throughput units, type: number, optional: true, hint: "Auto-inflate ceiling; headroom is read against it, cost against capacity" }
+assumptions:
+  - { key: eventKb, label: Event size, type: number, unit: KB, default: 1, hint: "Ingress is billed per 64 KB and throttled per KB; for events whose edges give no kb" }
+  - { key: captureEnabled, label: Capture, type: boolean, default: false, hint: "An event hub in a Standard namespace has capture_description enabled (billed per throughput unit)" }
+  - { key: retentionGb, label: Retained data, type: number, unit: GB, default: 0, hint: "Premium and Dedicated: event data kept by the retention period" }
+let:
+  - tier: 'dedicated_cluster_id != nil ? "dedicated" : lower(sku)'
+  - n: max(capacity, 1.0)
+  - metered: 'tier in ["basic", "standard"]'
+  - ceiling: 'auto_inflate_enabled && maximum_throughput_units != nil ? maximum_throughput_units : n'
+readings:
+  - cost: { when: metered, name: Throughput units, quantity: n * 730, unit: hour, price: "azure.eventhubs.{tier}.throughput_unit" }
+  - requests: { when: metered, name: Ingress events, unit: event, price: "azure.eventhubs.{tier}.ingress", count: 'units(total, 64, eventKb)' }
+  - cost: { when: 'tier == "standard" && captureEnabled', name: Capture, quantity: n * 730, unit: hour, price: azure.eventhubs.standard.capture }
+  - cost: { when: 'tier == "premium"', name: Processing units, quantity: n * 730, unit: hour, price: azure.eventhubs.premium.processing_unit }
+  - cost: { when: 'tier == "dedicated"', name: Capacity units, quantity: n * 730, unit: hour, price: azure.eventhubs.dedicated.capacity_unit }
+  - storage: { when: 'tier == "premium" && retentionGb > 1000 * n', name: Retention beyond the included 1 TB per unit, gb: retentionGb - 1000 * n, price: azure.eventhubs.premium.extended_retention }
+  - storage: { when: 'tier == "dedicated" && retentionGb > 10000 * n', name: Retention beyond the included 10 TB per unit, gb: retentionGb - 10000 * n, price: azure.eventhubs.dedicated.extended_retention }
+  - rate: { when: metered, name: Ingress rate, unit: events/second, quota: azure.eventhubs.ingress_per_tu, peak: 'peakUnits(total, 1, eventKb)', scale: ceiling }
+terraform:
+  aliases:
+    azurerm_eventhub: namespace_id
+    azurerm_eventhub_consumer_group: namespace_name
+    azurerm_eventhub_authorization_rule: namespace_name
+    azurerm_eventhub_namespace_authorization_rule: namespace_name
+  ignoreRefs: [identity, network_rulesets, dedicated_cluster_id]
+iam:
+  send: ["Azure Event Hubs Data Sender", "Azure Event Hubs Data Owner"]

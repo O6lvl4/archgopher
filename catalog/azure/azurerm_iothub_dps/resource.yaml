@@ -1,0 +1,19 @@
+type: azurerm_iothub_dps
+label: IoT Hub Device Provisioning Service
+category: IoT
+icon: device-provisioning
+description: "Operations: each device registration and each call to the service APIs (enrollments, registration state) is one; status lookups are free. Headroom is registrations per minute per service unit."
+kinds: [register]
+sla: azure.iothub_dps
+attributes:
+  - { key: capacity, label: Service units, type: number, default: 1, path: sku.capacity }
+assumptions:
+  - { key: operationsPerRegistration, label: Operations per registration, type: number, default: 1, hint: "Billable calls per device registration; add enrollment calls made by the back end" }
+readings:
+  - requests: { name: Operations, unit: operation, price: azure.iothub_dps.operations, count: total.monthly * operationsPerRegistration }
+  - rate: { name: Registrations, unit: registrations/minute, quota: azure.iothub_dps.registrations_per_unit, peak: total.peak * 60, scale: 'max(capacity, 1.0)' }
+terraform:
+  frontDoor: true
+  ignoreRefs: [identity, ip_filter_rule]
+iam:
+  register: ["Device Provisioning Service Data Contributor"]

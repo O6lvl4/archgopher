@@ -1,0 +1,47 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Standard with 150 million pushes in Japan East
+  region: japaneast
+  attributes:
+    sku_name: Standard
+  assumptions:
+    activeDevices: 1000000
+  demand:
+    push:
+      monthly: 150000000.0
+      peak: 1000
+  costs:
+    Namespace: 200.0
+    Pushes from 10 to 100 million: 900.0
+    Pushes beyond 100 million: 125.0
+  limits:
+    Active devices: 1000000
+- name: Basic within the included pushes in East US
+  region: eastus
+  attributes:
+    sku_name: Basic
+  assumptions:
+    activeDevices: 1000
+  demand:
+    push:
+      monthly: 5000000.0
+      peak: 10
+  costs:
+    Namespace: 10.0
+    Pushes beyond the included 10 million: 0
+  limits:
+    Active devices: 1000
+- name: Free stops at a million pushes
+  region: japaneast
+  attributes:
+    sku_name: Free
+  assumptions:
+    activeDevices: 100
+  demand:
+    push:
+      monthly: 500000.0
+      peak: 1
+  costs: {}
+  limits:
+    Pushes per month: 500000
+    Active devices: 100
