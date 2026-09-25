@@ -1,0 +1,50 @@
+{
+  "azure.mariadb.single.max_connections": {
+    "unit": "connections",
+    "source": "https://web.archive.org/web/20240611210033/https://learn.microsoft.com/en-us/azure/mariadb/concepts-server-parameters",
+    "note": "Default max_connections by SKU (the retired service's documentation, archived). The same in every region",
+    "rows": {
+      "b_gen5_1": {
+        "*": 50
+      },
+      "b_gen5_2": {
+        "*": 100
+      },
+      "gp_gen5_16": {
+        "*": 2500
+      },
+      "gp_gen5_2": {
+        "*": 300
+      },
+      "gp_gen5_32": {
+        "*": 5000
+      },
+      "gp_gen5_4": {
+        "*": 625
+      },
+      "gp_gen5_64": {
+        "*": 10000
+      },
+      "gp_gen5_8": {
+        "*": 1250
+      },
+      "mo_gen5_16": {
+        "*": 5000
+      },
+      "mo_gen5_2": {
+        "*": 625
+      },
+      "mo_gen5_32": {
+        "*": 10000
+      },
+      "mo_gen5_4": {
+        "*": 1250
+      },
+      "mo_gen5_8": {
+        "*": 2500
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

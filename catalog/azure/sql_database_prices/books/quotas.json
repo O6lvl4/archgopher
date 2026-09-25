@@ -1,0 +1,95 @@
+{
+  "azure.sql.workers.dtu": {
+    "unit": "workers",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-sql/database/resource-limits-dtu-single-databases",
+    "note": "Max concurrent workers of a single database in the DTU model, by service objective (B is Basic). The same in every region",
+    "rows": {
+      "B": {
+        "*": 30
+      },
+      "P1": {
+        "*": 200
+      },
+      "P11": {
+        "*": 2800
+      },
+      "P15": {
+        "*": 6400
+      },
+      "P2": {
+        "*": 400
+      },
+      "P4": {
+        "*": 800
+      },
+      "P6": {
+        "*": 1600
+      },
+      "S0": {
+        "*": 60
+      },
+      "S1": {
+        "*": 90
+      },
+      "S12": {
+        "*": 6000
+      },
+      "S2": {
+        "*": 120
+      },
+      "S3": {
+        "*": 200
+      },
+      "S4": {
+        "*": 400
+      },
+      "S6": {
+        "*": 800
+      },
+      "S7": {
+        "*": 1600
+      },
+      "S9": {
+        "*": 3200
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.sql.workers_per_vcore.fsv2": {
+    "unit": "workers",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-sql/database/resource-limits-vcore-single-databases",
+    "note": "Max concurrent workers per vCore of a General Purpose Fsv2-series database (8 vCores: 400). The same in every region",
+    "values": {
+      "*": {
+        "value": 50,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.workers_per_vcore.provisioned": {
+    "unit": "workers",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-sql/database/resource-limits-vcore-single-databases",
+    "note": "Max concurrent workers per vCore of a provisioned database on standard-series (Gen5) or premium-series hardware, General Purpose, Business Critical and Hyperscale (2 vCores: 200). The same in every region",
+    "values": {
+      "*": {
+        "value": 100,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.workers_per_vcore.serverless": {
+    "unit": "workers",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-sql/database/resource-limits-vcore-single-databases",
+    "note": "Max concurrent workers per max vCore of a General Purpose serverless database (2 max vCores: 300). The same in every region",
+    "values": {
+      "*": {
+        "value": 150,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

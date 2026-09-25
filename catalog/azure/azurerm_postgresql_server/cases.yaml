@@ -1,0 +1,37 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: General Purpose Gen5 4 vCores with 100 GB and geo-redundant backups in Japan East
+  region: japaneast
+  attributes:
+    sku_name: GP_Gen5_4
+    storage_mb: 102400
+    geo_redundant_backup_enabled: true
+  assumptions:
+    peakConnections: 100
+    backupGb: 50
+  demand:
+    query:
+      monthly: 1000000.0
+      peak: 10
+  costs:
+    Compute: 370.548
+    Storage: 13.8
+    Backup storage: 12
+  limits:
+    Connections: 100
+- name: Basic Gen5 1 vCore in East US
+  region: eastus
+  attributes:
+    sku_name: B_Gen5_1
+  assumptions:
+    peakConnections: 10
+  demand:
+    query:
+      monthly: 100000.0
+      peak: 1
+  costs:
+    Compute: 24.82
+    Storage: 0.5
+    Backup storage: 0
+  limits:
+    Connections: 10

@@ -1,0 +1,58 @@
+type: azurerm_mssql_database
+label: SQL database
+category: Database
+icon: sql-database
+description: "vCore: compute hours per vCore (serverless: the vCore-hours used), the SQL license unless Azure Hybrid Benefit, zone redundancy on General Purpose, Hyperscale HA replicas, and storage on the maximum size. DTU: the service objective per day and storage above what it includes. Backup storage beyond the free amount, point-in-time and long-term. A database in an elastic pool bills only its backups. Headroom is concurrent workers: peak queries times their duration against the service objective's limit."
+kinds: [query]
+sla: azure.sql.database
+attributes:
+  - { key: sku_name, label: SKU, type: string, default: GP_Gen5_2, hint: "As Terraform writes it: GP_Gen5_2, GP_S_Gen5_2 (serverless), BC_Gen5_4, HS_Gen5_2, HS_PRMS_4, GP_Fsv2_8, Basic, S0-S12, P1-P15, ElasticPool" }
+  - { key: elastic_pool, label: In an elastic pool, type: boolean, default: false, path: elastic_pool_id, hint: "Set when elastic_pool_id is written: the pool bills compute and storage" }
+  - { key: max_size_gb, label: Max size, type: number, unit: GB, optional: true, hint: "Storage is billed on the maximum size. Unset: 32 GB on vCore, what the DTU objective includes on DTU" }
+  - { key: license_type, label: License, type: choice, options: [LicenseIncluded, BasePrice], default: LicenseIncluded, hint: "BasePrice is Azure Hybrid Benefit: no SQL license charge" }
+  - { key: zone_redundant, label: Zone redundant, type: boolean, default: false, hint: "Extra on General Purpose; included on Business Critical and Premium" }
+  - { key: read_replica_count, label: Hyperscale HA replicas, type: number, default: 0, hint: "Each replica bills the compute again" }
+  - { key: storage_account_type, label: Backup redundancy, type: choice, options: [Geo, GeoZone, Local, Zone], default: Geo }
+assumptions:
+  - { key: queryMs, label: Query duration, type: number, unit: ms, default: 20, hint: "Average time a query holds a worker; peak queries per second times this is the workers in use" }
+  - { key: serverlessVcoreHours, label: Serverless vCore-hours, type: number, unit: vCore-hours, optional: true, hint: "vCore-hours a serverless database uses in a month: average vCores in use times hours online" }
+  - { key: backupGb, label: Backup storage beyond the free amount, type: number, unit: GB, default: 0, hint: "Point-in-time backups are free up to the maximum data size" }
+  - { key: ltrGb, label: Long-term retention backups, type: number, unit: GB, default: 0 }
+let:
+  - pool: 'elastic_pool || sku_name == "ElasticPool"'
+  - parts: 'split(sku_name, "_")'
+  - vcoreModel: 'len(parts) >= 3'
+  - tier: 'vcoreModel ? join(parts[0:len(parts)-2], "_") : ""'
+  - family: 'vcoreModel ? parts[len(parts)-2] : ""'
+  - vcores: 'vcoreModel ? float(parts[len(parts)-1]) : 0.0'
+  - vkey: 'tier == "GP" && family == "Gen5" ? "gp_gen5" : tier == "GP" && family == "Fsv2" ? "gp_fsv2" : tier == "BC" && family == "Gen5" ? "bc_gen5" : tier == "HS" && family == "Gen5" ? "hs_gen5" : tier == "HS" && family == "PRMS" ? "hs_prms" : tier == "HS" && family == "MOPRMS" ? "hs_moprms" : tier == "GP_S" && family == "Gen5" ? "gp_s_gen5" : ""'
+  - serverless: 'vkey == "gp_s_gen5"'
+  - hyperscale: 'tier == "HS"'
+  - dtu: 'sku_name == "Basic" ? "B" : sku_name'
+  - dtuKnown: 'dtu in ["B", "S0", "S1", "S2", "S3", "S4", "S6", "S7", "S9", "S12", "P1", "P2", "P4", "P6", "P11", "P15"]'
+  - dtuTier: 'hasPrefix(dtu, "P") ? "premium" : hasPrefix(dtu, "S") ? "standard" : "basic"'
+  - included: 'dtu == "B" ? 2.0 : dtuTier == "standard" ? 250.0 : dtu in ["P11", "P15"] ? 4096.0 : 500.0'
+  - sizeGb: 'max_size_gb ?? (vcoreModel ? 32.0 : included)'
+  - storageKey: 'hyperscale ? "hs" : tier == "BC" ? "bc" : zone_redundant ? "gp_zr" : "gp"'
+  - licensed: 'license_type == "LicenseIncluded" && tier in ["GP", "BC"]'
+  - redundancy: 'storage_account_type == "Local" ? "lrs" : storage_account_type == "Zone" ? "zrs" : storage_account_type == "GeoZone" ? "ragzrs" : "ragrs"'
+  - workersPerVcore: 'serverless ? "serverless" : family == "Fsv2" ? "fsv2" : "provisioned"'
+readings:
+  - fail: { when: '!pool && vcoreModel && vkey == ""', message: "{sku_name} is not read yet: General Purpose (Gen5, serverless Gen5, Fsv2), Business Critical Gen5 and Hyperscale (Gen5, PRMS, MOPRMS) are" }
+  - fail: { when: '!pool && !vcoreModel && !dtuKnown', message: "{sku_name} is not read yet: Basic, S0-S12 and P1-P15 are" }
+  - fail: { when: '!pool && serverless && serverlessVcoreHours == nil', message: "set serverlessVcoreHours: a serverless database bills the vCore-hours it uses" }
+  - cost: { when: '!pool && vcoreModel && !serverless', name: Compute, quantity: 730 * vcores, unit: vCore-hour, price: "azure.sql.vcore.{vkey}" }
+  - cost: { when: '!pool && serverless', name: Compute, quantity: 'serverlessVcoreHours ?? 0.0', unit: vCore-hour, price: azure.sql.vcore.gp_s_gen5 }
+  - cost: { when: '!pool && vkey == "gp_gen5" && zone_redundant', name: Zone redundancy, quantity: 730 * vcores, unit: vCore-hour, price: azure.sql.vcore.gp_gen5_zr }
+  - cost: { when: '!pool && serverless && zone_redundant', name: Zone redundancy, quantity: 'serverlessVcoreHours ?? 0.0', unit: vCore-hour, price: azure.sql.vcore.gp_s_gen5_zr }
+  - cost: { when: '!pool && hyperscale && read_replica_count > 0', name: HA replicas, quantity: 730 * vcores * read_replica_count, unit: vCore-hour, price: "azure.sql.vcore.{vkey}" }
+  - cost: { when: '!pool && vcoreModel && licensed', name: SQL license, quantity: 730 * vcores, unit: vCore-hour, price: "azure.sql.license.{lower(tier)}" }
+  - storage: { when: '!pool && vcoreModel', name: Storage, gb: sizeGb, price: "azure.sql.storage.{storageKey}" }
+  - cost: { when: '!pool && !vcoreModel', name: Compute, quantity: 730.0 / 24, unit: day, price: "azure.sql.dtu.{dtu}" }
+  - storage: { when: '!pool && !vcoreModel && dtu != "B" && sizeGb > included', name: Extra storage, gb: sizeGb - included, price: "azure.sql.storage.{dtuTier}" }
+  - storage: { when: '!hyperscale', name: Point-in-time backup storage, gb: backupGb, price: "azure.sql.backup.pitr.{redundancy}" }
+  - storage: { when: '!hyperscale', name: Long-term retention storage, gb: ltrGb, price: "azure.sql.backup.ltr.{redundancy}" }
+  - rate: { when: '!pool && !vcoreModel', name: Concurrent workers, unit: workers, quota: "azure.sql.workers.dtu.{dtu}", peak: total.peak * queryMs / 1000 }
+  - rate: { when: '!pool && vcoreModel', name: Concurrent workers, unit: workers, quota: "azure.sql.workers_per_vcore.{workersPerVcore}", peak: total.peak * queryMs / 1000, scale: vcores }
+terraform:
+  passive: true

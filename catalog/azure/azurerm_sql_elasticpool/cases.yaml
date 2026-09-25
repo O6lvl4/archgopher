@@ -1,0 +1,18 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Standard pool of 50 eDTUs with 100 GB in Japan East
+  region: japaneast
+  attributes:
+    edition: Standard
+    dtu: 50
+    pool_size: 102400
+  costs:
+    Compute: 124.7083333333
+    Extra storage: 12.325
+- name: Premium pool of 250 eDTUs in East US
+  region: eastus
+  attributes:
+    edition: Premium
+    dtu: 250
+  costs:
+    Compute: 1368.75

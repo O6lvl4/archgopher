@@ -1,0 +1,34 @@
+type: azurerm_mssql_elasticpool
+label: SQL elastic pool
+category: Database
+icon: sql-elastic-pools
+description: "The pool bills the compute and storage its databases share; the databases bill only their backups. DTU pools (Basic, Standard, Premium): eDTUs per day and storage above what the eDTUs include. vCore pools: compute hours per vCore, the SQL license on General Purpose and Business Critical unless Azure Hybrid Benefit, zone redundancy on General Purpose, and storage on the maximum size."
+kinds: [query]
+sla: azure.sql.database
+attributes:
+  - { key: sku_name, label: SKU, type: string, default: GP_Gen5, path: sku.name, hint: "BasicPool, StandardPool, PremiumPool, GP_Gen5, BC_Gen5, HS_Gen5, GP_Fsv2, HS_PRMS, HS_MOPRMS" }
+  - { key: capacity, label: Capacity, type: number, default: 2, path: sku.capacity, hint: "vCores, or eDTUs on a DTU pool" }
+  - { key: max_size_gb, label: Max size, type: number, unit: GB, optional: true, hint: "Storage is billed on the maximum size. Unset: 32 GB on vCore, what the eDTUs include on DTU" }
+  - { key: max_size_bytes, label: Max size in bytes, type: number, unit: bytes, optional: true, hint: "Used when max_size_gb is not written" }
+  - { key: license_type, label: License, type: choice, options: [LicenseIncluded, BasePrice], default: LicenseIncluded, hint: "BasePrice is Azure Hybrid Benefit: no SQL license charge" }
+  - { key: zone_redundant, label: Zone redundant, type: boolean, default: false, hint: "Extra on General Purpose; included on Business Critical and Premium" }
+let:
+  - dtuPool: 'sku_name in ["BasicPool", "StandardPool", "PremiumPool"]'
+  - dtuTier: 'lower(trimSuffix(sku_name, "Pool"))'
+  - parts: 'split(sku_name, "_")'
+  - tier: 'len(parts) == 2 ? parts[0] : ""'
+  - family: 'len(parts) == 2 ? parts[1] : ""'
+  - vkey: 'tier == "GP" && family == "Gen5" ? "gp_gen5" : tier == "GP" && family == "Fsv2" ? "gp_fsv2" : tier == "BC" && family == "Gen5" ? "bc_gen5" : tier == "HS" && family == "Gen5" ? "hs_gen5" : tier == "HS" && family == "PRMS" ? "hs_prms" : tier == "HS" && family == "MOPRMS" ? "hs_moprms" : ""'
+  - included: 'dtuTier == "standard" ? capacity : capacity == 125 ? 250.0 : capacity == 250 ? 500.0 : capacity == 500 ? 750.0 : capacity * 1.024'
+  - sizeGb: 'max_size_gb ?? (max_size_bytes != nil ? (max_size_bytes ?? 0.0) / 1073741824 : dtuPool ? included : 32.0)'
+  - storageKey: 'tier == "HS" ? "hs" : tier == "BC" ? "bc" : zone_redundant ? "gp_zr" : "gp"'
+readings:
+  - fail: { when: '!dtuPool && vkey == ""', message: "{sku_name} is not read yet: BasicPool, StandardPool, PremiumPool, GP_Gen5, GP_Fsv2, BC_Gen5, HS_Gen5, HS_PRMS and HS_MOPRMS are" }
+  - cost: { when: dtuPool, name: Compute, quantity: capacity * 730 / 24, unit: eDTU-day, price: "azure.sql.pool.edtu.{dtuTier}" }
+  - storage: { when: 'dtuPool && dtuTier != "basic" && sizeGb > included', name: Extra storage, gb: sizeGb - included, price: "azure.sql.storage.{dtuTier}" }
+  - cost: { when: '!dtuPool', name: Compute, quantity: 730 * capacity, unit: vCore-hour, price: "azure.sql.vcore.{vkey}" }
+  - cost: { when: 'vkey == "gp_gen5" && zone_redundant', name: Zone redundancy, quantity: 730 * capacity, unit: vCore-hour, price: azure.sql.vcore.gp_gen5_zr }
+  - cost: { when: 'license_type == "LicenseIncluded" && tier in ["GP", "BC"]', name: SQL license, quantity: 730 * capacity, unit: vCore-hour, price: "azure.sql.license.{lower(tier)}" }
+  - storage: { when: '!dtuPool', name: Storage, gb: sizeGb, price: "azure.sql.storage.{storageKey}" }
+terraform:
+  passive: true

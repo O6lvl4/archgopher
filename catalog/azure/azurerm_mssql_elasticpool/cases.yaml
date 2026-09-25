@@ -1,0 +1,38 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: General Purpose Gen5 4 vCores with 64 GB in Japan East
+  region: japaneast
+  attributes:
+    sku_name: GP_Gen5
+    capacity: 4
+    max_size_gb: 64
+  costs:
+    Compute: 502.2546
+    SQL license: 291.90072
+    Storage: 8.832
+- name: Standard pool of 100 eDTUs with 200 GB in East US
+  region: eastus
+  attributes:
+    sku_name: StandardPool
+    capacity: 100
+    max_size_gb: 200
+  costs:
+    Compute: 220.5208333333
+    Extra storage: 17
+- name: Premium pool of 125 eDTUs within its included storage in Japan East
+  region: japaneast
+  attributes:
+    sku_name: PremiumPool
+    capacity: 125
+  costs:
+    Compute: 774.8645833333
+- name: Business Critical with Azure Hybrid Benefit in East US
+  region: eastus
+  attributes:
+    sku_name: BC_Gen5
+    capacity: 8
+    license_type: BasePrice
+    max_size_bytes: 53687091200
+  costs:
+    Compute: 1777.9004
+    Storage: 12.5

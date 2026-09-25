@@ -1,0 +1,13 @@
+{
+  "azure.sql.database": {
+    "unit": "fraction",
+    "source": "https://www.microsoft.com/licensing/docs/view/Service-Level-Agreements-SLA-for-Online-Services",
+    "note": "Single databases and elastic pools; Premium and Business Critical with zone redundancy are 99.995%, Hyperscale without replicas 99.9%. From the consolidated SLA document, not machine-checked",
+    "values": {
+      "*": {
+        "value": 0.9999,
+        "verified": false
+      }
+    }
+  }
+}

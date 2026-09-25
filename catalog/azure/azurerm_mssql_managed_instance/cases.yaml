@@ -1,0 +1,41 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: General Purpose Gen5 4 vCores with 256 GB in Japan East
+  region: japaneast
+  attributes:
+    storage_size_in_gb: 256
+  demand:
+    query:
+      monthly: 10000000.0
+      peak: 200
+  costs:
+    Compute: 502.25752
+    SQL license: 291.90072
+    Storage: 30.912
+    Point-in-time backup storage: 0
+    Long-term retention storage: 0
+  limits:
+    Concurrent workers: 4
+- name: Business Critical premium-series, zone-redundant, Azure Hybrid Benefit, in East US
+  region: eastus
+  attributes:
+    sku_name: BC_G8IM
+    vcores: 8
+    storage_size_in_gb: 128
+    license_type: BasePrice
+    storage_account_type: LRS
+    zone_redundant_enabled: true
+  assumptions:
+    backupGb: 100
+  demand:
+    query:
+      monthly: 10000000.0
+      peak: 200
+  costs:
+    Compute: 2055.68
+    Zone redundancy: 1232.24
+    Storage: 48
+    Point-in-time backup storage: 10
+    Long-term retention storage: 0
+  limits:
+    Concurrent workers: 4

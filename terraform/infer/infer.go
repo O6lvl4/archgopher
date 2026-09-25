@@ -204,11 +204,15 @@ func (b *builder) node(r *eval.Resource) model.Node {
 	n := model.Node{ID: b.id(r), Type: r.Type, Address: r.Address, Attributes: map[string]any{}}
 	if s, ok := b.rules.Scouters[r.Type]; ok {
 		for _, f := range s.Attributes() {
-			if v := lookupPath(r.Attrs, f.TerraformPath()); v != nil {
+			path := f.TerraformPath()
+			v := lookupPath(r.Attrs, path)
+			if _, isBool := v.(bool); f.Type == field.Flag && !isBool && (v != nil || hasBlock(r.Attrs, path) || len(r.Refs[path]) > 0) {
+				// A boolean that points at a block or a value reads whether it is
+				// written, even when the value exists only after apply (an ID).
+				v = true
+			}
+			if v != nil {
 				n.Attributes[f.Key] = v
-			} else if f.Type == field.Flag && hasBlock(r.Attrs, f.TerraformPath()) {
-				// A boolean that points at a block reads whether the block is written.
-				n.Attributes[f.Key] = true
 			}
 		}
 		for _, f := range s.Assumptions() {

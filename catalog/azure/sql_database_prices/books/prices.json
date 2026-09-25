@@ -1,0 +1,1974 @@
+{
+  "azure.sql.backup.ltr.lrs": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/single/",
+    "note": "Long-term retention backup storage, LRS, per GB-month",
+    "sync": {
+      "filters": {
+        "meterName": "Backup LRS Data Stored",
+        "productName": "SQL Database - LTR Backup Storage",
+        "skuName": "Backup LRS"
+      },
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.0285,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.0298,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.0295,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.0275,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.backup.ltr.ragrs": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/single/",
+    "note": "Long-term retention backup storage, RA-GRS, per GB-month",
+    "sync": {
+      "filters": {
+        "meterName": "Backup RA-GRS Data Stored",
+        "productName": "SQL Database - LTR Backup Storage",
+        "skuName": "Backup RA-GRS"
+      },
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.057,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.0595,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.059,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.055,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.backup.ltr.ragzrs": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/single/",
+    "note": "Long-term retention backup storage, RA-GZRS, per GB-month",
+    "sync": {
+      "filters": {
+        "meterName": "Backup RA-GZRS Data Stored",
+        "productName": "SQL Database - LTR Backup Storage",
+        "skuName": "Backup RA-GZRS"
+      },
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.057,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.0595,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.059,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.055,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.06,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.05,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.backup.ltr.zrs": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/single/",
+    "note": "Long-term retention backup storage, ZRS, per GB-month",
+    "sync": {
+      "filters": {
+        "meterName": "Backup ZRS Data Stored",
+        "productName": "SQL Database - LTR Backup Storage",
+        "skuName": "Backup ZRS"
+      },
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.0285,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.0298,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.0295,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.0275,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.backup.pitr.lrs": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/single/",
+    "note": "Point-in-time restore backup storage beyond the free amount (the maximum data size), LRS, per GB-month",
+    "sync": {
+      "filters": {
+        "meterName": "LRS Data Stored",
+        "productName": "SQL Database Single/Elastic Pool PITR Backup Storage",
+        "skuName": "Backup LRS"
+      },
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.114,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.119,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.118,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.backup.pitr.ragrs": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/single/",
+    "note": "Point-in-time restore backup storage beyond the free amount (the maximum data size), RA-GRS, per GB-month",
+    "sync": {
+      "filters": {
+        "meterName": "RA-GRS Data Stored",
+        "productName": "SQL Database Single/Elastic Pool PITR Backup Storage",
+        "skuName": "Backup RA-GRS"
+      },
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.228,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.238,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.236,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.backup.pitr.ragzrs": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/single/",
+    "note": "Point-in-time restore backup storage beyond the free amount (the maximum data size), RA-GZRS, per GB-month",
+    "sync": {
+      "filters": {
+        "meterName": "RA-GZRS Data Stored",
+        "productName": "SQL Database Single/Elastic Pool PITR Backup Storage",
+        "skuName": "Backup RA-GZRS"
+      },
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.228,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.238,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.236,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.22,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.backup.pitr.zrs": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/single/",
+    "note": "Point-in-time restore backup storage beyond the free amount (the maximum data size), ZRS, per GB-month",
+    "sync": {
+      "filters": {
+        "meterName": "ZRS Data Stored",
+        "productName": "SQL Database Single/Elastic Pool PITR Backup Storage",
+        "skuName": "Backup ZRS"
+      },
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.114,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.119,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.118,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.11,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.dtu": {
+    "unit": "day",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/single/",
+    "note": "Single database in the DTU model, per day, by service objective (B is Basic)",
+    "sync": {
+      "filters": {
+        "productName": "SQL Database Single (Basic|Standard|Premium)",
+        "skuName": "{row}"
+      },
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "rows": {
+      "B": {
+        "australiaeast": 0.1771,
+        "centralindia": 0.1841,
+        "eastus": 0.161,
+        "eastus2": 0.161,
+        "germanywestcentral": 0.161,
+        "japaneast": 0.1819,
+        "koreacentral": 0.1771,
+        "northeurope": 0.161,
+        "southeastasia": 0.161,
+        "westus2": 0.161
+      },
+      "P1": {
+        "australiaeast": 16.5,
+        "centralindia": 17.16,
+        "eastus": 15,
+        "eastus2": 15,
+        "germanywestcentral": 15,
+        "japaneast": 16.95,
+        "koreacentral": 16.5,
+        "northeurope": 15,
+        "southeastasia": 15,
+        "westus2": 15
+      },
+      "P11": {
+        "australiaeast": 250,
+        "centralindia": 258.32,
+        "eastus": 225.81,
+        "eastus2": 225.81,
+        "germanywestcentral": 225.81,
+        "japaneast": 255.6,
+        "koreacentral": 250,
+        "northeurope": 225.81,
+        "southeastasia": 225.81,
+        "westus2": 225.81
+      },
+      "P15": {
+        "australiaeast": 571.408,
+        "centralindia": 590.4457,
+        "eastus": 516.128,
+        "eastus2": 516.128,
+        "germanywestcentral": 516.128,
+        "japaneast": 584.208,
+        "koreacentral": 571.408,
+        "northeurope": 516.128,
+        "southeastasia": 516.128,
+        "westus2": 516.128
+      },
+      "P2": {
+        "australiaeast": 33,
+        "centralindia": 34.32,
+        "eastus": 30,
+        "eastus2": 30,
+        "germanywestcentral": 30,
+        "japaneast": 33.9,
+        "koreacentral": 33,
+        "northeurope": 30,
+        "southeastasia": 30,
+        "westus2": 30
+      },
+      "P4": {
+        "australiaeast": 66.43,
+        "centralindia": 68.64,
+        "eastus": 60,
+        "eastus2": 60,
+        "germanywestcentral": 60,
+        "japaneast": 67.91,
+        "koreacentral": 66.43,
+        "northeurope": 60,
+        "southeastasia": 60,
+        "westus2": 60
+      },
+      "P6": {
+        "australiaeast": 132,
+        "centralindia": 137.28,
+        "eastus": 120,
+        "eastus2": 120,
+        "germanywestcentral": 120,
+        "japaneast": 135.6,
+        "koreacentral": 132,
+        "northeurope": 120,
+        "southeastasia": 120,
+        "westus2": 120
+      },
+      "S0": {
+        "australiaeast": 0.5323,
+        "centralindia": 0.5536,
+        "eastus": 0.4839,
+        "eastus2": 0.4839,
+        "germanywestcentral": 0.4839,
+        "japaneast": 0.5468,
+        "koreacentral": 0.5323,
+        "northeurope": 0.4839,
+        "southeastasia": 0.4839,
+        "westus2": 0.4839
+      },
+      "S1": {
+        "australiaeast": 1.0645,
+        "centralindia": 1.107,
+        "eastus": 0.9677,
+        "eastus2": 0.9677,
+        "germanywestcentral": 1.21,
+        "japaneast": 1.0935,
+        "koreacentral": 1.0645,
+        "northeurope": 0.9677,
+        "southeastasia": 0.9677,
+        "westus2": 0.9677
+      },
+      "S12": {
+        "australiaeast": 159.69,
+        "centralindia": 166.08,
+        "eastus": 145.17,
+        "eastus2": 145.17,
+        "germanywestcentral": 145.17,
+        "japaneast": 164.04,
+        "koreacentral": 159.69,
+        "northeurope": 145.17,
+        "southeastasia": 145.17,
+        "westus2": 145.17
+      },
+      "S2": {
+        "australiaeast": 2.68,
+        "centralindia": 2.7685,
+        "eastus": 2.42,
+        "eastus2": 2.42,
+        "germanywestcentral": 2.42,
+        "japaneast": 2.74,
+        "koreacentral": 2.68,
+        "northeurope": 2.42,
+        "southeastasia": 2.42,
+        "westus2": 2.42
+      },
+      "S3": {
+        "australiaeast": 5.3569,
+        "centralindia": 5.5354,
+        "eastus": 4.8387,
+        "eastus2": 4.8387,
+        "germanywestcentral": 4.8387,
+        "japaneast": 5.477,
+        "koreacentral": 5.3569,
+        "northeurope": 4.8387,
+        "southeastasia": 4.8387,
+        "westus2": 4.8387
+      },
+      "S4": {
+        "australiaeast": 10.646,
+        "centralindia": 11.072,
+        "eastus": 9.678,
+        "eastus2": 9.678,
+        "germanywestcentral": 9.678,
+        "japaneast": 10.936,
+        "koreacentral": 10.646,
+        "northeurope": 9.678,
+        "southeastasia": 9.678,
+        "westus2": 9.678
+      },
+      "S6": {
+        "australiaeast": 21.292,
+        "centralindia": 22.144,
+        "eastus": 19.356,
+        "eastus2": 19.356,
+        "germanywestcentral": 19.356,
+        "japaneast": 21.872,
+        "koreacentral": 21.292,
+        "northeurope": 19.356,
+        "southeastasia": 19.356,
+        "westus2": 19.356
+      },
+      "S7": {
+        "australiaeast": 42.584,
+        "centralindia": 44.288,
+        "eastus": 38.712,
+        "eastus2": 38.712,
+        "germanywestcentral": 38.712,
+        "japaneast": 43.744,
+        "koreacentral": 42.584,
+        "northeurope": 38.712,
+        "southeastasia": 38.712,
+        "westus2": 38.712
+      },
+      "S9": {
+        "australiaeast": 85.168,
+        "centralindia": 88.576,
+        "eastus": 77.424,
+        "eastus2": 77.424,
+        "germanywestcentral": 77.424,
+        "japaneast": 87.488,
+        "koreacentral": 85.168,
+        "northeurope": 77.424,
+        "southeastasia": 77.424,
+        "westus2": 77.424
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.sql.license.bc": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/single/",
+    "note": "Business Critical SQL Server license (Enterprise edition), per vCore-hour; the same in every region. Azure Hybrid Benefit (license_type BasePrice) removes it",
+    "sync": {
+      "filters": {
+        "meterName": "vCore",
+        "productName": "SQL Database Single/Elastic Pool Business Critical - SQL License",
+        "skuName": "vCore"
+      },
+      "region": "Global",
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "values": {
+      "*": {
+        "value": 0.375,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.license.gp": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/single/",
+    "note": "General Purpose SQL Server license (Standard edition), per vCore-hour; the same in every region. Azure Hybrid Benefit (license_type BasePrice) removes it",
+    "sync": {
+      "filters": {
+        "meterName": "vCore",
+        "productName": "SQL Database Single/Elastic Pool General Purpose - SQL License",
+        "skuName": "vCore"
+      },
+      "region": "Global",
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "values": {
+      "*": {
+        "value": 0.099966,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.pool.edtu.basic": {
+    "unit": "eDTU-day",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/elastic/",
+    "note": "Elastic pool in the DTU model, Basic tier, per eDTU-day (pools are sold in fixed eDTU sizes; the price is linear)",
+    "sync": {
+      "filters": {
+        "meterName": "eDTUs",
+        "productName": "SQL Database Elastic Pool - Basic",
+        "skuName": "1 DTU"
+      },
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.0536,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.0554,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.0484,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.0484,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.0484,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.0548,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.0536,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.0484,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.0484,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.0484,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.pool.edtu.premium": {
+    "unit": "eDTU-day",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/elastic/",
+    "note": "Elastic pool in the DTU model, Premium tier, per eDTU-day (pools are sold in fixed eDTU sizes; the price is linear)",
+    "sync": {
+      "filters": {
+        "meterName": "eDTUs",
+        "productName": "SQL Database Elastic Pool - Premium",
+        "skuName": "1 DTU"
+      },
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.1993,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.2059,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.18,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.18,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.18,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.2038,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.1993,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.18,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.18,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.18,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.pool.edtu.standard": {
+    "unit": "eDTU-day",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/elastic/",
+    "note": "Elastic pool in the DTU model, Standard tier, per eDTU-day (pools are sold in fixed eDTU sizes; the price is linear)",
+    "sync": {
+      "filters": {
+        "meterName": "eDTUs",
+        "productName": "SQL Database Elastic Pool - Standard",
+        "skuName": "1 DTU"
+      },
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.0805,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.0831,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.0725,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.0725,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.0725,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.082,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.0805,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.0725,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.0725,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.0725,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.storage.bc": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/single/",
+    "note": "Business Critical data storage, per GB-month of the maximum size",
+    "sync": {
+      "filters": {
+        "meterName": "Business Critical Data Stored",
+        "productName": "SQL Database Single/Elastic Pool Business Critical - Storage",
+        "skuName": "Business Critical"
+      },
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.285,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.2975,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.295,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.275,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.storage.gp": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/single/",
+    "note": "General Purpose (provisioned and serverless) data storage, per GB-month of the maximum size",
+    "sync": {
+      "filters": {
+        "meterName": "General Purpose Data Stored",
+        "productName": "SQL Database Single/Elastic Pool General Purpose - Storage",
+        "skuName": "General Purpose"
+      },
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.138,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.1311,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.115,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.115,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.137,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.138,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.1357,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.1265,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.138,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.115,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.storage.gp_zr": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/single/",
+    "note": "Zone-redundant General Purpose data storage, per GB-month of the maximum size",
+    "sync": {
+      "filters": {
+        "meterName": "General Purpose Zone Redundancy Data Stored",
+        "productName": "SQL Database Single/Elastic Pool General Purpose - Storage",
+        "skuName": "General Purpose Zone Redundancy"
+      },
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.276,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.262,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.23,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.23,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.274,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.276,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.271,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.253,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.276,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.23,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.storage.hs": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/single/",
+    "note": "Hyperscale data storage, per GB-month allocated",
+    "sync": {
+      "filters": {
+        "armSkuName": "Hyperscale",
+        "meterName": "Hyperscale Data Stored",
+        "productName": "SQL Database Hyperscale - Storage",
+        "skuName": "Hyperscale"
+      },
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.301724,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.284483,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.301724,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.301724,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.301724,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.275862,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.301724,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.storage.premium": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/single/",
+    "note": "Extra storage on a Premium (DTU) database or pool above what the size includes, per GB-month",
+    "sync": {
+      "filters": {
+        "meterName": "Data Stored",
+        "productName": "SQL Database Premium - Storage",
+        "skuName": "Premium"
+      },
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.493,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.476,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.34,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.408,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.442,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.493,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.459,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.408,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.442,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.34,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.storage.standard": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/single/",
+    "note": "Extra storage on a Standard (DTU) database or pool above what the size includes, per GB-month",
+    "sync": {
+      "filters": {
+        "meterName": "Data Stored",
+        "productName": "SQL Database Standard - Storage",
+        "skuName": "Standard"
+      },
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.2465,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.238,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.17,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.204,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.221,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.2465,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.2295,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.204,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.221,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.17,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.vcore.bc_gen5": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/single/",
+    "note": "Business Critical, standard-series (Gen5), per vCore-hour, without the SQL license; zone redundancy is included",
+    "sync": {
+      "filters": {
+        "meterName": "vCore",
+        "productName": "SQL Database Single/Elastic Pool Business Critical - Compute Gen5",
+        "skuName": "vCore"
+      },
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.362278,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.334879,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.304435,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.304435,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.334879,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.344012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.344012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.310524,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.362278,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.304435,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.vcore.gp_fsv2": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/single/",
+    "note": "General Purpose provisioned, Fsv2-series, per vCore-hour, without the SQL license",
+    "sync": {
+      "filters": {
+        "meterName": "vCore",
+        "productName": "SQL Database Single/Elastic Pool General Purpose - Compute FSv2 Series",
+        "skuName": "vCore"
+      },
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.15896,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.146938,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.13358,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.13358,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.146938,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.150945,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.150945,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.136252,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.15896,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.13358,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.vcore.gp_gen5": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/single/",
+    "note": "General Purpose provisioned, standard-series (Gen5), per vCore-hour, without the SQL license",
+    "sync": {
+      "filters": {
+        "meterName": "vCore",
+        "productName": "SQL Database Single/Elastic Pool General Purpose - Compute Gen5",
+        "skuName": "vCore"
+      },
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.181138,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.167439,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.152217,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.152217,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.167439,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.172005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.172005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.155261,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.181138,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.152217,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.vcore.gp_gen5_zr": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/single/",
+    "note": "Zone redundancy on General Purpose provisioned Gen5, per vCore-hour on top of compute",
+    "sync": {
+      "filters": {
+        "meterName": "Zone Redundancy vCore",
+        "productName": "SQL Database Single/Elastic Pool General Purpose - Compute Gen5",
+        "skuName": "vCore ZR Zone Redundancy"
+      },
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.108683,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.100463,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.09133,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.09133,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.100463,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.103203,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.103203,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.093157,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.108683,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.09133,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.vcore.gp_s_gen5": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/single/",
+    "note": "General Purpose serverless Gen5, per vCore-hour used (billed per second; the SQL license is included)",
+    "sync": {
+      "filters": {
+        "armSkuName": "",
+        "meterName": "vCore",
+        "productName": "SQL Database General Purpose - Serverless - Compute Gen5",
+        "skuName": "1 vCore"
+      },
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.620892,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.573934,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.521758,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.521758,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.573934,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.589587,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.589587,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.532193,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.620892,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.521758,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.vcore.gp_s_gen5_zr": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/single/",
+    "note": "Zone redundancy on General Purpose serverless Gen5, per vCore-hour used",
+    "sync": {
+      "filters": {
+        "armSkuName": "",
+        "meterName": "Zone Redundancy vCore",
+        "productName": "SQL Database General Purpose - Serverless - Compute Gen5",
+        "skuName": "1 vCore Zone Redundancy"
+      },
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.372535,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.34436,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.313055,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.313055,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.34436,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.353752,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.353752,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.319316,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.372535,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.313055,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.vcore.hs_gen5": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/single/",
+    "note": "Hyperscale, standard-series (Gen5), per vCore-hour; Hyperscale carries no SQL license charge. Each named or HA replica is billed the same",
+    "sync": {
+      "filters": {
+        "meterName": "vCore",
+        "productName": "SQL Database SingleDB/Elastic Pool Hyperscale - Compute Gen5",
+        "skuName": "vCore"
+      },
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.217365,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.200926,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.18266,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.18266,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.200926,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.206406,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.206406,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.186313,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.217365,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.18266,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.vcore.hs_moprms": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/single/",
+    "note": "Hyperscale, memory optimized premium-series, per vCore-hour",
+    "sync": {
+      "filters": {
+        "meterName": "vCore",
+        "productName": "SQL Database Single/Elastic Pool Hyperscale - Premium Series Memory Optimized Compute",
+        "skuName": "vCore"
+      },
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.304311,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.281296,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.255724,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.255724,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.281296,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.288968,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.288968,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.260838,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.304311,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.255724,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.sql.vcore.hs_prms": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/azure-sql-database/single/",
+    "note": "Hyperscale, premium-series, per vCore-hour",
+    "sync": {
+      "filters": {
+        "meterName": "vCore",
+        "productName": "SQL Database Single/Elastic Pool Hyperscale - Premium Series Compute",
+        "skuName": "vCore"
+      },
+      "service": "SQL Database",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.217365,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.200926,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.18266,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.18266,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.200926,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.206406,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.206406,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.186313,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.217365,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.18266,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

@@ -412,6 +412,11 @@ not zero.
 | `azurerm_storage_account` | Hot tier storage, write and read operations by redundancy, transfer out to the internet | Account request rate (varies by region) |
 | `azurerm_cosmosdb_account` | Serverless request units or provisioned RU/s-hours, storage, per region | Provisioned RU/s |
 | `azurerm_postgresql_flexible_server` | Compute by SKU (doubled with high availability), storage | Connections by SKU |
+| `azurerm_mssql_database` / `azurerm_sql_database` | vCore hours (serverless: vCore-hours used), SQL license, zone redundancy, Hyperscale replicas, storage; or DTU objective per day and extra storage; backups. In a pool, backups only | Concurrent workers |
+| `azurerm_mssql_elasticpool` / `azurerm_sql_elasticpool` | eDTUs per day and extra storage, or vCore hours, SQL license, zone redundancy, storage | - |
+| `azurerm_mssql_managed_instance` / `azurerm_sql_managed_instance` | vCore hours, SQL license, zone redundancy, storage above 32 GB, backups | Concurrent workers |
+| `azurerm_mysql_flexible_server` | Compute by SKU (doubled with high availability), storage, IOPS above 360, backups | Connections by SKU |
+| `azurerm_mysql_server` / `azurerm_postgresql_server` / `azurerm_mariadb_server` | Single servers (retired): vCore hours by tier, storage, backups | Connections by SKU |
 | `azurerm_api_management` | Consumption calls, or unit-hours by tier with included calls | Requests per unit (published guidance) |
 | `azurerm_cdn_frontdoor_profile` | Base fee, requests and transfer out by the viewers' zone | - |
 | `azurerm_servicebus_namespace` | Operations (Basic, Standard with its base fee), or Premium messaging units | Operations per second |
