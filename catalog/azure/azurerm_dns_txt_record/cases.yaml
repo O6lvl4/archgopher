@@ -1,0 +1,27 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: two million queries drawn as load in Japan East
+  region: japaneast
+  attributes:
+    records: 3
+  demand:
+    query:
+      monthly: 2000000.0
+      peak: 1
+  costs:
+    Queries (first 1 billion): 0.8
+  limits:
+    Records in the set: 3
+- name: one and a half billion queries given as an assumption in East US
+  region: eastus
+  assumptions:
+    queriesPerMonth: 1500000000
+  demand:
+    query:
+      monthly: 0
+      peak: 0
+  costs:
+    Queries (first 1 billion): 400
+    Queries (over 1 billion): 100
+  limits:
+    Records in the set: 1

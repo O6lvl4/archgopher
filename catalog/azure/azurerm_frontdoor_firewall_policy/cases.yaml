@@ -1,0 +1,33 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: three custom rules and the default rule set in Japan East
+  region: japaneast
+  attributes:
+    custom_rules: 3
+    managed_rulesets: 1
+  demand:
+    request:
+      monthly: 10000000.0
+      peak: 100
+  costs:
+    Policy: 5
+    Custom rules: 3
+    Custom rule requests: 6
+    Managed rule sets: 20
+    Managed rule set requests: 10
+  limits:
+    Custom rules: 3
+- name: default and bot protection rule sets without custom rules in East US
+  region: eastus
+  attributes:
+    managed_rulesets: 2
+  demand:
+    request:
+      monthly: 2000000.0
+      peak: 10
+  costs:
+    Policy: 5
+    Managed rule sets: 40
+    Managed rule set requests: 2
+  limits:
+    Custom rules: 0

@@ -1,0 +1,13 @@
+type: azurerm_traffic_manager_nested_endpoint
+label: Traffic Manager nested endpoint
+category: Edge
+icon: traffic-manager
+description: "A child profile used as an endpoint, per month. The child profile's own endpoints carry the health checks. A disabled endpoint is not billed. Nothing calls an endpoint: clients reach the child profile's targets directly."
+kinds: [probe]
+attributes:
+  - { key: enabled, label: Enabled, type: boolean, default: true }
+readings:
+  - cost: { when: enabled, name: Nested endpoint, quantity: 1, unit: endpoint-month, price: azure.trafficmanager.nested_endpoint }
+terraform:
+  # A nested endpoint names its parent and child profiles; neither is a call.
+  passive: true

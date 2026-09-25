@@ -1,0 +1,43 @@
+type: azurerm_frontdoor
+label: Front Door (classic)
+category: Edge
+icon: front-door
+description: "Classic Front Door: routing rules by the hour (the first 5 together, then each one more), frontend hosts beyond the 100 included, transfer from clients and transfer to clients in volume tiers, priced by the billing zone of the edge that serves the viewers (by default the zone of the region). Every routing_rule block counts, disabled ones too. Headroom is the requests and bandwidth a resource takes before Azure Support must raise them, and the routing rules and frontend hosts it may hold."
+kinds: [request]
+sla: azure.frontdoor
+attributes:
+  - { key: routing_rules, label: Routing rules, type: number, default: 0, path: routing_rule }
+  - { key: frontend_hosts, label: Frontend hosts, type: number, default: 1, path: frontend_endpoint }
+assumptions:
+  - { key: responseKb, label: Response size, type: number, unit: KB, hint: "After compression; cached responses count too" }
+  - { key: requestKb, label: Request size, type: number, unit: KB, default: 1, hint: "Headers and body a client sends" }
+  - { key: viewers, label: Viewers in, type: choice, options: [region, na_eu, asia, south_america, australia, india], default: region, hint: "Billing zone of most viewers: North America, Europe, Middle East and Africa; Asia Pacific including Japan; South America; Australia; India" }
+let:
+  - zone: >-
+      viewers == "na_eu" ? "zone1" :
+      viewers == "asia" ? "zone2" :
+      viewers == "south_america" ? "zone3" :
+      viewers == "australia" ? "zone4" :
+      viewers == "india" ? "zone5" :
+      region in ["japaneast", "japanwest", "koreacentral", "koreasouth", "southeastasia", "eastasia"] ? "zone2" :
+      region startsWith "brazil" ? "zone3" :
+      region startsWith "australia" ? "zone4" :
+      region in ["centralindia", "southindia", "westindia", "jioindiawest", "jioindiacentral"] ? "zone5" : "zone1"
+  - gbOut: total.monthly * responseKb / 1024 / 1024
+readings:
+  - cost: { when: routing_rules > 0, name: Routing rules (first 5), quantity: 730, unit: hour, price: azure.frontdoor_classic.routing_rules }
+  - cost: { when: routing_rules > 5, name: Routing rules beyond 5, quantity: (routing_rules - 5) * 730, unit: rule-hour, price: azure.frontdoor_classic.routing_rule_overage }
+  - cost: { when: frontend_hosts > 100, name: Frontend hosts beyond 100, quantity: frontend_hosts - 100, unit: host-month, price: azure.frontdoor_classic.frontend_host }
+  - cost: { name: Transfer from clients, quantity: total.monthly * requestKb / 1024 / 1024, unit: GB, price: azure.frontdoor_classic.transfer_in }
+  - cost: { name: Transfer to clients (first 10 TB), quantity: 'min(gbOut, 10000)', unit: GB, price: "azure.frontdoor_classic.{zone}.transfer_out.0" }
+  - cost: { when: gbOut > 10000, name: Transfer to clients (next 40 TB), quantity: 'min(gbOut, 50000) - 10000', unit: GB, price: "azure.frontdoor_classic.{zone}.transfer_out.10000" }
+  - cost: { when: gbOut > 50000, name: Transfer to clients (over 50 TB), quantity: gbOut - 50000, unit: GB, price: "azure.frontdoor_classic.{zone}.transfer_out.50000" }
+  - rate: { name: Requests, unit: requests/second, quota: azure.frontdoor_classic.rps, peak: total.peak }
+  - rate: { name: Bandwidth to clients, unit: Gbps, quota: azure.frontdoor_classic.bandwidth_gbps, peak: total.peak * responseKb * 8192 / 1e9 }
+  - limit: { name: Routing rules, demand: routing_rules, unit: rules, quota: azure.frontdoor_classic.routing_rules }
+  - limit: { name: Frontend hosts, demand: frontend_hosts, unit: hosts, quota: azure.frontdoor_classic.frontend_hosts }
+terraform:
+  frontDoor: true
+  mentioned: true
+  # Backends named by address are called; the WAF policy a frontend links is called for every request.
+  ignoreRefs: [backend_pool_health_probe, backend_pool_load_balancing]

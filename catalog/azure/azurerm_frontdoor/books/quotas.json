@@ -1,0 +1,50 @@
+{
+  "azure.frontdoor_classic.bandwidth_gbps": {
+    "unit": "Gbps",
+    "source": "https://learn.microsoft.com/azure/azure-resource-manager/management/azure-subscription-service-limits#azure-front-door-classic-limits",
+    "note": "Classic: bandwidth per resource, for traffic spread worldwide; Azure Support can raise it",
+    "values": {
+      "*": {
+        "value": 75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.frontdoor_classic.frontend_hosts": {
+    "unit": "hosts",
+    "source": "https://learn.microsoft.com/azure/azure-resource-manager/management/azure-subscription-service-limits#azure-front-door-classic-limits",
+    "note": "Classic: frontend hosts, custom domains included, per resource",
+    "values": {
+      "*": {
+        "value": 500,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.frontdoor_classic.routing_rules": {
+    "unit": "rules",
+    "source": "https://learn.microsoft.com/azure/azure-resource-manager/management/azure-subscription-service-limits#azure-front-door-classic-limits",
+    "note": "Classic: routing rules per resource",
+    "values": {
+      "*": {
+        "value": 500,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.frontdoor_classic.rps": {
+    "unit": "requests/second",
+    "source": "https://learn.microsoft.com/azure/azure-resource-manager/management/azure-subscription-service-limits#azure-front-door-classic-limits",
+    "note": "Classic: requests per second per resource, for traffic spread worldwide; Azure Support can raise it",
+    "values": {
+      "*": {
+        "value": 100000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

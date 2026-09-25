@@ -450,6 +450,14 @@ not zero.
 | `azurerm_mysql_server` / `azurerm_postgresql_server` / `azurerm_mariadb_server` | Single servers (retired): vCore hours by tier, storage, backups | Connections by SKU |
 | `azurerm_api_management` | Consumption calls, or unit-hours by tier with included calls | Requests per unit (published guidance) |
 | `azurerm_cdn_frontdoor_profile` | Base fee, requests and transfer out by the viewers' zone | - |
+| `azurerm_frontdoor` | Classic: routing rule-hours, frontend hosts beyond 100, transfer in, tiered transfer out by the viewers' zone | Requests, bandwidth, routing rules, frontend hosts |
+| `azurerm_frontdoor_firewall_policy` | Classic WAF: policy, custom rules and managed rule sets, the requests they evaluate | Custom rules |
+| `azurerm_cdn_endpoint` | Classic Standard from Microsoft: tiered transfer out by the viewers' zone, rules beyond 5 and rules engine requests | Requests, bandwidth, rules |
+| `azurerm_dns_zone` | Public zone-months, record sets beyond 10,000 | Record sets |
+| `azurerm_dns_a_record` ... `azurerm_dns_txt_record` (A, AAAA, CAA, CNAME, MX, NS, PTR, SRV, TXT) | Queries, first billion and beyond | Records per set |
+| `azurerm_traffic_manager_profile` | DNS queries, Traffic View data points | - |
+| `azurerm_traffic_manager_azure_endpoint` / `azurerm_traffic_manager_external_endpoint` | Health checks, fast interval and HTTPS add-ons | - |
+| `azurerm_traffic_manager_nested_endpoint` | Nested endpoint-months | - |
 | `azurerm_servicebus_namespace` | Operations (Basic, Standard with its base fee), or Premium messaging units | Operations per second |
 | `azurerm_eventgrid_topic` | Operations | Events per second |
 | `azurerm_key_vault` | Secret operations | Requests per vault |

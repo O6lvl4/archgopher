@@ -1,0 +1,13 @@
+{
+  "azure.trafficmanager": {
+    "unit": "fraction",
+    "source": "https://www.microsoft.com/licensing/docs/view/Service-Level-Agreements-SLA-for-Online-Services",
+    "note": "Valid DNS responses from at least one name server. From the consolidated SLA document, not machine-checked",
+    "values": {
+      "*": {
+        "value": 0.9999,
+        "verified": false
+      }
+    }
+  }
+}

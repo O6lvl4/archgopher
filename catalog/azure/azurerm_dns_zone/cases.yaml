@@ -1,0 +1,28 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: one of the first 25 zones in Japan East
+  region: japaneast
+  assumptions:
+    recordSets: 40
+  demand:
+    zone:
+      monthly: 0
+      peak: 0
+  costs:
+    Hosted zone: 0.5
+  limits:
+    Record sets: 40
+- name: a large zone beyond the first 25 in East US
+  region: eastus
+  assumptions:
+    recordSets: 12000
+    beyondFirst25: true
+  demand:
+    zone:
+      monthly: 0
+      peak: 0
+  costs:
+    Hosted zone: 0.1
+    Record sets beyond 10000: 3
+  limits:
+    Record sets: 12000

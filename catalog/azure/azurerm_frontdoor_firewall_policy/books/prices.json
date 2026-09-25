@@ -1,0 +1,116 @@
+{
+  "azure.frontdoor_classic.waf.managed_requests": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/web-application-firewall/",
+    "note": "WAF on Front Door (classic): requests evaluated by managed rule sets",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 1",
+      "filters": {
+        "productName": "Azure Front Door Service",
+        "skuName": "Standard",
+        "meterName": "Standard Default Request"
+      },
+      "listPer": 1000000
+    },
+    "values": {
+      "*": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.frontdoor_classic.waf.managed_ruleset": {
+    "unit": "ruleset-month",
+    "source": "https://azure.microsoft.com/pricing/details/web-application-firewall/",
+    "note": "WAF on Front Door (classic): each managed rule set (default or bot protection, priced alike)",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 1",
+      "filters": {
+        "productName": "Azure Front Door Service",
+        "skuName": "Standard",
+        "meterName": "Standard Default Ruleset"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.frontdoor_classic.waf.policy": {
+    "unit": "policy-month",
+    "source": "https://azure.microsoft.com/pricing/details/web-application-firewall/",
+    "note": "Web Application Firewall on Front Door (classic): each policy",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 1",
+      "filters": {
+        "productName": "Azure Front Door Service",
+        "skuName": "Standard",
+        "meterName": "Standard Policy"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.frontdoor_classic.waf.requests": {
+    "unit": "request",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/web-application-firewall/",
+    "note": "WAF on Front Door (classic): requests evaluated by custom rules",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 1",
+      "filters": {
+        "productName": "Azure Front Door Service",
+        "skuName": "Standard",
+        "meterName": "Standard Requests"
+      },
+      "listPer": 1000000
+    },
+    "values": {
+      "*": {
+        "value": 0.6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.frontdoor_classic.waf.rule": {
+    "unit": "rule-month",
+    "source": "https://azure.microsoft.com/pricing/details/web-application-firewall/",
+    "note": "WAF on Front Door (classic): each custom rule",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Front Door Service",
+      "region": "Zone 1",
+      "filters": {
+        "productName": "Azure Front Door Service",
+        "skuName": "Standard",
+        "meterName": "Standard Rule"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

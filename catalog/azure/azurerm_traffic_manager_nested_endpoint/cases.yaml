@@ -1,0 +1,19 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: a nested endpoint in Japan East
+  region: japaneast
+  demand:
+    probe:
+      monthly: 0
+      peak: 0
+  costs:
+    Nested endpoint: 10
+- name: a disabled nested endpoint in North Europe
+  region: northeurope
+  attributes:
+    enabled: false
+  demand:
+    probe:
+      monthly: 0
+      peak: 0
+  costs: {}

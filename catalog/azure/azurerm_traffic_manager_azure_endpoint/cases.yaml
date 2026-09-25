@@ -1,0 +1,32 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: basic health checks in Japan East
+  region: japaneast
+  demand:
+    probe:
+      monthly: 0
+      peak: 0
+  costs:
+    Health checks: 0.36
+- name: fast HTTPS health checks in East US
+  region: eastus
+  assumptions:
+    fastInterval: true
+    https: true
+  demand:
+    probe:
+      monthly: 0
+      peak: 0
+  costs:
+    Health checks: 0.36
+    Fast interval health checks: 1
+    HTTPS health checks: 1
+- name: a disabled endpoint is not probed
+  region: eastus
+  attributes:
+    enabled: false
+  demand:
+    probe:
+      monthly: 0
+      peak: 0
+  costs: {}

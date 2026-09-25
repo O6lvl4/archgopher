@@ -1,0 +1,48 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: plain endpoint in Japan East picks the Asia Pacific zone
+  region: japaneast
+  assumptions:
+    responseKb: 100
+  demand:
+    request:
+      monthly: 10000000.0
+      peak: 50
+  costs:
+    Transfer to clients (first 10 TB): 123.0239868164
+  limits:
+    Requests: 50
+    Bandwidth to clients: 0.04096
+    Rules: 0
+- name: seven rules and 200 TB to Europe from East US
+  region: eastus
+  attributes:
+    delivery_rules: 6
+    global_delivery_rule: true
+  assumptions:
+    responseKb: 1024
+  demand:
+    request:
+      monthly: 204800000.0
+      peak: 2000
+  costs:
+    Transfer to clients (first 10 TB): 810
+    Transfer to clients (next 40 TB): 3000
+    Transfer to clients (next 100 TB): 5600
+    Transfer to clients (next 350 TB): 1850
+    Rules beyond 5: 2
+    Rules engine requests: 122.88
+  limits:
+    Requests: 2000
+    Bandwidth to clients: 16.777216
+    Rules: 7
+- name: a retired Verizon profile
+  region: eastus
+  assumptions:
+    sku: Standard_Verizon
+    responseKb: 50
+  demand:
+    request:
+      monthly: 1000.0
+      peak: 1
+  error: retired

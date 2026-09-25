@@ -1,0 +1,47 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: two routing rules in Japan East pick the Asia Pacific zone
+  region: japaneast
+  attributes:
+    routing_rules: 2
+    frontend_hosts: 1
+  assumptions:
+    responseKb: 50
+  demand:
+    request:
+      monthly: 10000000.0
+      peak: 100
+  costs:
+    Routing rules (first 5): 21.9
+    Transfer from clients: 0.095367431640625
+    Transfer to clients (first 10 TB): 119.20928955078125
+  limits:
+    Requests: 100
+    Bandwidth to clients: 0.04096
+    Routing rules: 2
+    Frontend hosts: 1
+- name: eight rules, 120 hosts and 60 TB to North America from East US
+  region: eastus
+  attributes:
+    routing_rules: 8
+    frontend_hosts: 120
+  assumptions:
+    responseKb: 1024
+    requestKb: 0
+  demand:
+    request:
+      monthly: 61440000.0
+      peak: 1000
+  costs:
+    Routing rules (first 5): 21.9
+    Routing rules beyond 5: 26.28
+    Frontend hosts beyond 100: 100
+    Transfer from clients: 0
+    Transfer to clients (first 10 TB): 1700
+    Transfer to clients (next 40 TB): 6000
+    Transfer to clients (over 50 TB): 1300
+  limits:
+    Requests: 1000
+    Bandwidth to clients: 8.388608
+    Routing rules: 8
+    Frontend hosts: 120

@@ -1,0 +1,18 @@
+type: azurerm_dns_zone
+label: DNS zone
+category: Edge
+icon: dns-zones
+description: "A public zone per month (the first 25 in a subscription at the list price, later ones lower) and each record set beyond the 10,000 a zone includes. Headroom is the record sets a zone may hold. Queries are read on the records. Nothing calls a zone."
+kinds: [zone]
+sla: azure.dns
+assumptions:
+  - { key: recordSets, label: Record sets in the zone, type: number, default: 0, hint: "Only record sets beyond 10,000 cost extra; count the SOA and NS sets too" }
+  - { key: beyondFirst25, label: Beyond the first 25 zones, type: boolean, default: false, hint: "True when the subscription already has 25 public zones: later zones are billed at the lower rate" }
+readings:
+  - cost: { name: Hosted zone, quantity: 1, unit: zone-month, price: 'azure.dns.zone.{beyondFirst25 ? "over_25" : "first_25"}' }
+  - cost: { when: recordSets > 10000, name: Record sets beyond 10000, quantity: recordSets - 10000, unit: record set-month, price: azure.dns.record_set_over_10k }
+  - limit: { name: Record sets, demand: recordSets, unit: record sets, quota: azure.dns.record_sets_per_zone }
+terraform:
+  # Records name the zone they live in; none of them calls it.
+  mentioned: true
+  passive: true

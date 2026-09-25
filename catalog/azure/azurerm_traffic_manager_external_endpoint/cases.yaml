@@ -1,0 +1,21 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: basic health checks in Japan East
+  region: japaneast
+  demand:
+    probe:
+      monthly: 0
+      peak: 0
+  costs:
+    Health checks: 0.54
+- name: fast interval health checks in West US 2
+  region: westus2
+  assumptions:
+    fastInterval: true
+  demand:
+    probe:
+      monthly: 0
+      peak: 0
+  costs:
+    Health checks: 0.54
+    Fast interval health checks: 2

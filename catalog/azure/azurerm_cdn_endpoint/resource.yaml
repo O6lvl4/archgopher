@@ -1,0 +1,46 @@
+type: azurerm_cdn_endpoint
+label: CDN endpoint (classic)
+category: Edge
+icon: cdn
+description: "Azure CDN Standard from Microsoft (classic): transfer to clients in volume tiers, priced by the billing zone of the edge that serves the viewers (by default the zone of the region), and, when the endpoint has rules, the rules beyond the 5 included and the requests the rules engine processes. The tier is the profile's; Akamai and Verizon are retired and read as an error. Headroom is the requests and bandwidth a profile takes before Azure Support must raise them, and the rules an endpoint may hold."
+kinds: [request]
+sla: azure.cdn
+attributes:
+  - { key: delivery_rules, label: Delivery rules, type: number, default: 0, path: delivery_rule }
+  - { key: global_delivery_rule, label: Global delivery rule, type: boolean, default: false }
+assumptions:
+  - { key: sku, label: Profile tier, type: choice, options: [Standard_Microsoft, Standard_Akamai, Standard_Verizon, Premium_Verizon], default: Standard_Microsoft, hint: "The sku of the azurerm_cdn_profile the endpoint belongs to" }
+  - { key: responseKb, label: Response size, type: number, unit: KB, hint: "After compression; cached responses count too" }
+  - { key: viewers, label: Viewers in, type: choice, options: [region, na_eu, asia, south_america, australia, india], default: region, hint: "Billing zone of most viewers: North America, Europe, Middle East and Africa; Asia Pacific including Japan; South America; Australia; India" }
+let:
+  - zone: >-
+      viewers == "na_eu" ? "zone1" :
+      viewers == "asia" ? "zone2" :
+      viewers == "south_america" ? "zone3" :
+      viewers == "australia" ? "zone4" :
+      viewers == "india" ? "zone5" :
+      region in ["japaneast", "japanwest", "koreacentral", "koreasouth", "southeastasia", "eastasia"] ? "zone2" :
+      region startsWith "brazil" ? "zone3" :
+      region startsWith "australia" ? "zone4" :
+      region in ["centralindia", "southindia", "westindia", "jioindiawest", "jioindiacentral"] ? "zone5" : "zone1"
+  - rules: 'delivery_rules + (global_delivery_rule ? 1 : 0)'
+  - gb: total.monthly * responseKb / 1024 / 1024
+  - t: '"azure.cdn.microsoft." + zone + ".transfer."'
+readings:
+  - fail: { when: 'sku != "Standard_Microsoft"', message: "Azure CDN {sku} is retired; only Standard_Microsoft profiles still serve" }
+  - cost: { name: Transfer to clients (first 10 TB), quantity: 'min(gb, 10000)', unit: GB, price: "{t}0" }
+  - cost: { when: gb > 10000, name: Transfer to clients (next 40 TB), quantity: 'min(gb, 50000) - 10000', unit: GB, price: "{t}10000" }
+  - cost: { when: gb > 50000, name: Transfer to clients (next 100 TB), quantity: 'min(gb, 150000) - 50000', unit: GB, price: "{t}50000" }
+  - cost: { when: gb > 150000, name: Transfer to clients (next 350 TB), quantity: 'min(gb, 500000) - 150000', unit: GB, price: "{t}150000" }
+  - cost: { when: gb > 500000, name: Transfer to clients (next 500 TB), quantity: 'min(gb, 1000000) - 500000', unit: GB, price: "{t}500000" }
+  - cost: { when: gb > 1000000, name: Transfer to clients (over 1 PB), quantity: gb - 1000000, unit: GB, price: "{t}1000000" }
+  - cost: { when: rules > 5, name: Rules beyond 5, quantity: rules - 5, unit: rule-month, price: azure.cdn.microsoft.rule }
+  - requests: { when: rules > 0, name: Rules engine requests, count: total.monthly, price: azure.cdn.microsoft.rules_requests }
+  - rate: { name: Requests, unit: requests/second, quota: azure.cdn.profile_rps, peak: total.peak }
+  - rate: { name: Bandwidth to clients, unit: Gbps, quota: azure.cdn.profile_bandwidth_gbps, peak: total.peak * responseKb * 8192 / 1e9 }
+  - limit: { name: Rules, demand: rules, unit: rules, quota: azure.cdn.rules_per_endpoint }
+terraform:
+  frontDoor: true
+  mentioned: true
+  # The origin named by host_name is called; the profile only groups endpoints.
+  ignoreRefs: [profile_name, resource_group_name]

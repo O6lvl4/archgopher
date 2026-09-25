@@ -1,0 +1,37 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: ten million queries with Traffic View in Japan East
+  region: japaneast
+  attributes:
+    traffic_view_enabled: true
+  assumptions:
+    trafficViewDataPoints: 3000000
+  demand:
+    query:
+      monthly: 10000000.0
+      peak: 5
+  costs:
+    Queries (first 1 billion): 5.4
+    Traffic View: 6
+- name: two billion queries in East US
+  region: eastus
+  assumptions:
+    queriesPerMonth: 2000000000
+  demand:
+    query:
+      monthly: 0
+      peak: 0
+  costs:
+    Queries (first 1 billion): 540
+    Queries (over 1 billion): 375
+- name: a disabled profile costs nothing
+  region: eastus
+  attributes:
+    profile_status: Disabled
+  assumptions:
+    queriesPerMonth: 1000000
+  demand:
+    query:
+      monthly: 0
+      peak: 0
+  costs: {}
