@@ -1,0 +1,26 @@
+{
+  "gcp.monitoring.active_time_series": {
+    "unit": "time series",
+    "source": "https://cloud.google.com/monitoring/quotas",
+    "note": "Active time series from custom metrics per monitored resource; workload and external metrics have the same limit",
+    "values": {
+      "*": {
+        "value": 200000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "gcp.monitoring.points_per_series_per_second": {
+    "unit": "points/second",
+    "source": "https://cloud.google.com/monitoring/quotas",
+    "note": "Rate at which data can be written to a single time series: one point each 5 seconds",
+    "values": {
+      "*": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

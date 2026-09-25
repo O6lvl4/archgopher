@@ -1,0 +1,65 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo, 50 time series written every minute
+  region: asia-northeast1
+  attributes:
+    metric_type: custom.googleapis.com/orders/latency
+    value_type: DOUBLE
+  assumptions:
+    periodSeconds: 60
+    timeSeries: 50
+  demand:
+    write:
+        monthly: 0
+        peak: 0
+  costs:
+    Metric volume (first 100,000 MiB): 4.310760498
+  limits:
+    Active time series: 50
+    Write rate per time series: 0.016666667
+- name: Iowa, 200,000 distribution series from 1,000 pods every 10 seconds, read by a dashboard outside the console
+  region: us-central1
+  attributes:
+    metric_type: workload.googleapis.com/rpc/latency
+    value_type: DISTRIBUTION
+  assumptions:
+    periodSeconds: 10
+    timeSeries: 200000
+    monitoredResources: 1000
+    timeSeriesReadPerMonth: 5e+06
+  demand:
+    write:
+        monthly: 0
+        peak: 0
+  costs:
+    Metric volume (first 100,000 MiB): 25800
+    Metric volume (next 150,000 MiB): 22650
+    Metric volume (over 250,000 MiB): 229360.595703125
+    Read API time series: 2.5
+  limits:
+    Active time series: 200
+    Write rate per time series: 0.1
+- name: Tokyo, one point per order drawn as load across 10 series
+  region: asia-northeast1
+  attributes:
+    value_type: INT64
+  assumptions:
+    timeSeries: 10
+  demand:
+    write:
+        monthly: 5e+07
+        peak: 30
+  costs:
+    Metric volume (first 100,000 MiB): 98.419189453
+  limits:
+    Active time series: 10
+    Write rate per time series: 3
+- name: Prometheus metrics are billed per sample
+  region: asia-northeast1
+  attributes:
+    metric_type: prometheus.googleapis.com/http_requests_total/counter
+  demand:
+    write:
+        monthly: 0
+        peak: 0
+  error: Managed Service for Prometheus metrics bill per sample ingested, which is not read

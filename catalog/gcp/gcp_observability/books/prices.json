@@ -1,0 +1,51 @@
+{
+  "gcp.logging.retention": {
+    "unit": "GiB-month",
+    "source": "https://cloud.google.com/stackdriver/pricing",
+    "note": "Logging retention: logs kept in a log bucket beyond the 30 days that storage includes, billed monthly; the _Required bucket is free. The same in every location. From the pricing page; sync verifies it against the Billing Catalog once credentials are set. The SKU's list unit is unconfirmed.",
+    "sync": {
+      "source": "gcp",
+      "service": "5490-F7B7-8DF6",
+      "filters": {
+        "description": "Log Retention"
+      },
+      "region": "global"
+    },
+    "values": {
+      "*": {
+        "value": 0.01,
+        "verified": false
+      }
+    }
+  },
+  "gcp.logging.routing": {
+    "unit": "GiB",
+    "source": "https://cloud.google.com/stackdriver/pricing",
+    "note": "Log Router: no charge for routing logs to Cloud Storage, BigQuery, Pub/Sub or another project; the destination bills what it receives (exports to Cloud Storage pay no Class A operations). No SKU exists, so sync has nothing to check.",
+    "values": {
+      "*": {
+        "value": 0,
+        "verified": false
+      }
+    }
+  },
+  "gcp.logging.storage": {
+    "unit": "GiB",
+    "source": "https://cloud.google.com/stackdriver/pricing",
+    "note": "Logging storage: a one-time charge for each GiB streamed into a log bucket, which includes 30 days of storage; vended network logs are $0.25 and the _Required bucket is free. The first 50 GiB a project a month are free and ignored. From the pricing page; sync verifies it against the Billing Catalog once credentials are set. The SKU's list unit is unconfirmed.",
+    "sync": {
+      "source": "gcp",
+      "service": "5490-F7B7-8DF6",
+      "filters": {
+        "description": "Log Volume"
+      },
+      "region": "global"
+    },
+    "values": {
+      "*": {
+        "value": 0.5,
+        "verified": false
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+type: google_logging_billing_account_sink
+label: Log sink (billing account)
+category: Monitoring
+icon: cloud-logging
+description: "Routes a billing account's logs that match its filter. Routing is free. A destination written out as logging.googleapis.com/... is a log bucket outside the graph: the sink reads the Logging storage it bills per GiB (30 days included). A destination that names a resource in the graph is an edge, and that resource bills what it receives: a log bucket its storage and retention, Cloud Storage, BigQuery or Pub/Sub their own (exports to Cloud Storage are batched and pay no Class A operations, so give that edge a small perUnit). Draw log entries to the sink as load, or set a monthly volume. Headroom is the project's log write rate. The first 50 GiB a project a month are ignored."
+kinds: [route]
+sla: gcp.observability
+attributes:
+  - { key: destination, label: Destination, type: string, optional: true, path: destination, hint: "logging.googleapis.com/..., storage.googleapis.com/..., bigquery.googleapis.com/... or pubsub.googleapis.com/..." }
+  - { key: disabled, label: Disabled, type: boolean, default: false, path: disabled }
+assumptions:
+  - { key: gbPerMonth, label: Logs routed besides load, type: number, unit: GiB, default: 0, hint: "Per month, what the filter matches after exclusions and is not drawn as load; read only when this sink bills storage itself" }
+  - { key: kbPerEntry, label: Size per log entry, type: number, unit: KB, default: 1, hint: "Each unit of load is one log entry" }
+  - { key: routesToLogBucket, label: Routes to a log bucket outside the graph, type: boolean, default: false, hint: "Used when Terraform cannot tell the destination: leave false when it names a resource in the graph, which bills what it receives" }
+let:
+  - toBucket: 'destination != nil ? destination startsWith "logging.googleapis.com/" : routesToLogBucket'
+  - routedGb: 'disabled ? 0.0 : gbPerMonth + total.monthly * kbPerEntry / 1024 / 1024'
+readings:
+  - cost: { when: toBucket, name: Log storage, quantity: routedGb, unit: GiB, price: gcp.logging.storage }
+  - cost: { when: '!toBucket', name: Log routing (billed at the destination), quantity: routedGb, unit: GiB, price: gcp.logging.routing }
+  - limit: { name: Log write rate, demand: 'total.peak * kbPerEntry * 60 / 1024', unit: MB/minute, quota: gcp.logging.write_mb_per_minute }
+terraform:
+  # The destination is the call; filters and exclusions name what they match, not what they call.
+  ignoreRefs: [filter, exclusions]

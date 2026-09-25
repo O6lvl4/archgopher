@@ -1,0 +1,25 @@
+type: google_logging_project_bucket_config
+label: Log bucket (project)
+category: Monitoring
+icon: cloud-logging
+description: "A log bucket of a project. Storage is charged once per GiB streamed in and includes 30 days; retention beyond that is charged per GiB-month. Logs a sink in the graph routes here arrive as load, one log entry per unit; logs routed by sinks outside it (the built-in _Default sink) are set as a volume. The _Required bucket is free. Free allotments are ignored."
+kinds: [ingest]
+sla: gcp.observability
+attributes:
+  - { key: bucket_id, label: Bucket, type: string, optional: true, path: bucket_id, hint: "_Default, _Required or a user-defined bucket" }
+  - { key: retention_days, label: Retention, type: number, unit: days, default: 30, path: retention_days }
+assumptions:
+  - { key: gbPerMonth, label: Logs from sinks outside the graph, type: number, unit: GiB, default: 0, hint: "Per month, such as what the built-in _Default sink routes into the _Default bucket" }
+  - { key: kbPerEntry, label: Size per log entry from sinks in the graph, type: number, unit: KB, default: 1, hint: "Each unit of load a sink routes here is one log entry; use the sink's value" }
+let:
+  - required: 'bucket_id == "_Required"'
+  - routedGb: demand.ingest.monthly * kbPerEntry / 1024 / 1024
+  - retainedGb: (gbPerMonth + routedGb) * max(retention_days - 30, 0) / 30.4
+readings:
+  - cost: { when: '!required', name: Log storage, quantity: gbPerMonth + routedGb, unit: GiB, price: gcp.logging.storage }
+  - cost: { when: '!required && retainedGb > 0', name: Retention beyond 30 days, quantity: retainedGb, unit: GiB-month, price: gcp.logging.retention }
+terraform:
+  # A bucket config names its parent and key; it calls nothing. Sinks route logs into it.
+  passive: true
+iam:
+  ingest: ["roles/logging.bucketWriter"]

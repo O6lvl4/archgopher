@@ -494,6 +494,9 @@ the resource it is scoped to, with the kinds the role grants. Each resource's
 | `google_secret_manager_secret` | Active versions and access operations | Access requests per minute |
 | `google_api_gateway_gateway` | Calls | Quota units per second |
 | `gemini_model` | Gemini 2.5 input, cached and output tokens (placed by hand) | Tokens per minute |
+| `google_logging_{project,folder,organization,billing_account}_sink` | Logging storage for a log bucket written out as its destination; routing elsewhere is free and billed by the destination | Log write rate per project and region |
+| `google_logging_{project,folder,organization,billing_account}_bucket_config` | Logging storage of what sinks route in, retention beyond 30 days | - |
+| `google_monitoring_metric_descriptor` | Metric volume in bytes ingested by tier, read API time series | One point every 5 seconds per time series, active time series |
 
 Google Cloud prices are read from the pricing pages until a credentialed
 `sync` checks them against the Billing Catalog; they are marked unverified
