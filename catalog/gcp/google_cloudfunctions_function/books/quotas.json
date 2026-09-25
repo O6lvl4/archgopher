@@ -1,0 +1,13 @@
+{
+  "gcp.functions.v1.max_instances": {
+    "unit": "instances",
+    "source": "https://cloud.google.com/functions/quotas",
+    "note": "Maximum instances of a 1st gen function when max_instances is 0 (no limit set): 3,000 concurrent invocations for background functions",
+    "values": {
+      "*": {
+        "value": 3000,
+        "verified": false
+      }
+    }
+  }
+}

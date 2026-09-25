@@ -1,0 +1,14 @@
+{
+  "gcp.kms.crypto_rpm": {
+    "unit": "requests/minute",
+    "source": "https://cloud.google.com/kms/quotas",
+    "note": "Cryptographic requests per minute of the calling project; CMEK integrations are exempt",
+    "values": {
+      "*": {
+        "value": 60000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

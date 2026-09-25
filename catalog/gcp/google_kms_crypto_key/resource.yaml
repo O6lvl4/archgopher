@@ -1,0 +1,29 @@
+type: google_kms_crypto_key
+label: Cloud KMS key
+category: Security
+icon: kms
+description: "Active key versions by protection level and algorithm (every rotation adds one that bills until destroyed) and cryptographic operations per 10,000. Headroom is the calling project's cryptographic requests per minute."
+kinds: [encrypt, decrypt, sign]
+sla: gcp.kms
+attributes:
+  - { key: protection_level, label: Protection level, type: choice, options: [SOFTWARE, HSM, HSM_SINGLE_TENANT, EXTERNAL, EXTERNAL_VPC], default: SOFTWARE, path: version_template.protection_level }
+  - { key: algorithm, label: Algorithm, type: string, default: GOOGLE_SYMMETRIC_ENCRYPTION, path: version_template.algorithm }
+  - { key: rotation_period, label: Rotation period, type: string, optional: true, path: rotation_period, hint: "Seconds, such as 7776000s for 90 days" }
+assumptions:
+  - { key: versions, label: Active key versions, type: number, optional: true, hint: "Unset: 1, or a year of rotations when the key rotates" }
+let:
+  - largeHsm: 'protection_level == "HSM" && (algorithm contains "3072" || algorithm contains "4096" || algorithm startsWith "EC_")'
+  - class: 'protection_level == "SOFTWARE" ? "software" : protection_level startsWith "EXTERNAL" ? "external" : largeHsm ? "hsm_large" : "hsm"'
+  - rotationDays: 'rotation_period != nil ? float(trimSuffix(rotation_period ?? "0s", "s")) / 86400 : 0.0'
+  - active: 'versions ?? (rotationDays > 0 ? ceilDiv(365, rotationDays) : 1.0)'
+readings:
+  - fail: { when: 'protection_level == "HSM_SINGLE_TENANT"', message: "single-tenant Cloud HSM is priced per HSM instance, not per key version" }
+  - cost: { name: Key versions, quantity: active * 730, unit: version-hour, price: 'gcp.kms.version.{class}' }
+  - requests: { name: Cryptographic operations, price: 'gcp.kms.operation.{largeHsm ? "hsm_large" : "standard"}', unit: operation, count: total.monthly }
+  - rate: { name: Cryptographic requests, unit: requests/minute, quota: gcp.kms.crypto_rpm, peak: total.peak * 60 }
+terraform:
+  passive: true
+iam:
+  encrypt: ["roles/cloudkms.cryptoKeyEncrypter", "roles/cloudkms.cryptoKeyEncrypterDecrypter"]
+  decrypt: ["roles/cloudkms.cryptoKeyDecrypter"]
+  sign: ["roles/cloudkms.signer", "roles/cloudkms.signerVerifier"]

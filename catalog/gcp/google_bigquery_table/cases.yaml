@@ -1,0 +1,49 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo, streaming inserts of 1 KB rows, some long-term storage
+  region: asia-northeast1
+  assumptions:
+    activeGb: 100
+    longTermGb: 500
+    scannedGb: 10
+  demand:
+    write:
+      monthly: 1.0e+07
+      peak: 100
+    query:
+      monthly: 100
+      peak: 0.1
+    read:
+      monthly: 0
+      peak: 0
+  costs:
+    Active storage: 2.3
+    Long-term storage: 8
+    Streaming inserts: 0.5859375
+    Queries: 7.32421875
+  limits:
+    Streaming throughput: 0.1
+- name: US multi-region, Storage Write API with 2 KB rows and Storage Read API readers
+  region: us-east4
+  assumptions:
+    location: US
+    activeGb: 1000
+    writeApi: Storage Write API
+    rowKb: 2
+  demand:
+    write:
+      monthly: 5.0e+07
+      peak: 1000
+    query:
+      monthly: 10000
+      peak: 1
+    read:
+      monthly: 1000
+      peak: 1
+  costs:
+    Active storage: 20
+    Storage Write API: 2.384185791015625
+    Queries: 61.03515625
+    Storage Read API: 1.07421875
+  limits:
+    Streaming throughput: 2

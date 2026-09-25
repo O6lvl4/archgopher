@@ -1,0 +1,25 @@
+type: google_redis_cluster
+label: Memorystore for Redis Cluster
+category: Database
+icon: memorystore
+description: "Node-hours for every shard primary and replica by node type, AOF persistence per GB-hour of the cluster's size, and backup storage. Headroom is client connections per node against the node type's default."
+kinds: [command]
+sla: gcp.memorystore.redis_cluster
+attributes:
+  - { key: node_type, label: Node type, type: choice, options: [REDIS_SHARED_CORE_NANO, REDIS_STANDARD_SMALL, REDIS_HIGHMEM_MEDIUM, REDIS_HIGHCPU_MEDIUM, REDIS_STANDARD_LARGE, REDIS_HIGHMEM_XLARGE, REDIS_HIGHMEM_2XLARGE], default: REDIS_HIGHMEM_MEDIUM, path: node_type }
+  - { key: shard_count, label: Shards, type: number, default: 3, path: shard_count }
+  - { key: replica_count, label: Replicas per shard, type: number, default: 0, path: replica_count }
+  - { key: persistence_mode, label: Persistence, type: choice, options: [DISABLED, RDB, AOF], default: DISABLED, path: persistence_config.mode }
+assumptions:
+  - { key: backupGb, label: Backups stored, type: number, unit: GB, default: 0, hint: "Automated and on-demand backups, each kept at least 24 hours" }
+  - { key: clients, label: Client connections per node, type: number, optional: true, hint: "A cluster client connects to every node" }
+let:
+  - nodes: 'shard_count * (1 + replica_count)'
+  - nodeGb: 'node_type == "REDIS_SHARED_CORE_NANO" ? 1.4 : node_type == "REDIS_STANDARD_SMALL" ? 6.5 : node_type == "REDIS_STANDARD_LARGE" ? 26.0 : node_type == "REDIS_HIGHMEM_XLARGE" ? 58.0 : node_type == "REDIS_HIGHMEM_2XLARGE" ? 110.0 : 13.0'
+readings:
+  - capacity: { name: Nodes, units: nodes, unit: node-hour, price: 'gcp.redis_cluster.node.{node_type}' }
+  - capacity: { when: 'persistence_mode == "AOF"', name: AOF persistence, units: shard_count * nodeGb, unit: GB-hour, price: gcp.redis_cluster.aof }
+  - cost: { when: backupGb > 0, name: Backups, quantity: backupGb * 730, unit: GB-hour, price: gcp.redis_cluster.backup }
+  - limit: { when: 'clients != nil', name: Client connections, demand: 'clients ?? 0', unit: connections, quota: 'gcp.redis_cluster.connections.{node_type}' }
+terraform:
+  passive: true

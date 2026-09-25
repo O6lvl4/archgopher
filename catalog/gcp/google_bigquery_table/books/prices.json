@@ -1,0 +1,320 @@
+{
+  "gcp.bigquery.active_storage": {
+    "unit": "GB-month",
+    "source": "https://cloud.google.com/bigquery/pricing",
+    "note": "Active logical storage per GiB-month in a region; the free 10 GiB is ignored. Listed per GiB-hour; this is 730 hours of it. Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "24E6-581D-38E5",
+      "filters": {
+        "description": "Active Logical Storage \\(.+\\)"
+      },
+      "tier": "last"
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.023,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.023,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.023,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.02,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.023,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.02,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.023,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.023,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.023,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.023,
+        "verified": false
+      }
+    }
+  },
+  "gcp.bigquery.long_term_storage": {
+    "unit": "GB-month",
+    "source": "https://cloud.google.com/bigquery/pricing",
+    "note": "Long-term logical storage (tables or partitions unmodified for 90 days) per GiB-month in a region; the free 10 GiB is ignored. Listed per GiB-hour; this is 730 hours of it. Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "24E6-581D-38E5",
+      "filters": {
+        "description": "Long Term Logical Storage \\(.+\\)"
+      },
+      "tier": "last"
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.016,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.016,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.016,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.01,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.016,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.01,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.016,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.016,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.016,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.016,
+        "verified": false
+      }
+    }
+  },
+  "gcp.bigquery.multi.active_storage": {
+    "unit": "GB-month",
+    "source": "https://cloud.google.com/bigquery/pricing",
+    "note": "Active logical storage per GiB-month in the US or EU multi-region; the free 10 GiB is ignored. Listed per GiB-hour; this is 730 hours of it. Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
+    "rows": {
+      "eu": {
+        "*": 0.02
+      },
+      "us": {
+        "*": 0.02
+      }
+    }
+  },
+  "gcp.bigquery.multi.long_term_storage": {
+    "unit": "GB-month",
+    "source": "https://cloud.google.com/bigquery/pricing",
+    "note": "Long-term logical storage per GiB-month in the US or EU multi-region; the free 10 GiB is ignored. Listed per GiB-hour; this is 730 hours of it. Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
+    "rows": {
+      "eu": {
+        "*": 0.01
+      },
+      "us": {
+        "*": 0.01
+      }
+    }
+  },
+  "gcp.bigquery.multi.read_api": {
+    "unit": "TiB",
+    "source": "https://cloud.google.com/bigquery/pricing",
+    "note": "BigQuery Storage Read API per TiB read in the US or EU multi-region; the free 300 TiB a month is ignored. Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
+    "rows": {
+      "eu": {
+        "*": 1.1
+      },
+      "us": {
+        "*": 1.1
+      }
+    }
+  },
+  "gcp.bigquery.multi.streaming": {
+    "unit": "MiB",
+    "per": 200,
+    "source": "https://cloud.google.com/bigquery/pricing",
+    "note": "Streaming inserts per 200 MiB in the US or EU multi-region. The page's region table has no multi-region row; the us-central1 price is used.",
+    "rows": {
+      "eu": {
+        "*": 0.01
+      },
+      "us": {
+        "*": 0.01
+      }
+    }
+  },
+  "gcp.bigquery.multi.write_api": {
+    "unit": "GiB",
+    "source": "https://cloud.google.com/bigquery/pricing",
+    "note": "BigQuery Storage Write API (gRPC) per GiB in the US or EU multi-region. The page's region table has no multi-region row; the us-central1 price is used.",
+    "rows": {
+      "eu": {
+        "*": 0.025
+      },
+      "us": {
+        "*": 0.025
+      }
+    }
+  },
+  "gcp.bigquery.read_api": {
+    "unit": "TiB",
+    "source": "https://cloud.google.com/bigquery/pricing",
+    "note": "BigQuery Storage Read API per TiB read; the free 300 TiB a month is ignored. Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
+    "values": {
+      "asia-northeast1": {
+        "value": 1.32,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 1.32,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 1.32,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 1.485,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 1.43,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 1.32,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 1.43,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 1.1,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 1.1,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 1.1,
+        "verified": false
+      }
+    }
+  },
+  "gcp.bigquery.streaming": {
+    "unit": "MiB",
+    "per": 200,
+    "source": "https://cloud.google.com/bigquery/pricing",
+    "note": "Streaming inserts (legacy insertAll and the Storage Write API over REST) per 200 MiB, each row billed at 1 KB at least. Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
+    "values": {
+      "asia-northeast1": {
+        "value": 0.012,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.012,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.012,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.0136,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.013,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.012,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.013,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.01,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.01,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.01,
+        "verified": false
+      }
+    }
+  },
+  "gcp.bigquery.write_api": {
+    "unit": "GiB",
+    "source": "https://cloud.google.com/bigquery/pricing",
+    "note": "BigQuery Storage Write API (gRPC) ingestion per GiB; the free 2 TiB a month is ignored. Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
+    "values": {
+      "asia-northeast1": {
+        "value": 0.03,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.03,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.03,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.03375,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.033,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.03,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.0325,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.025,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.025,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.025,
+        "verified": false
+      }
+    }
+  }
+}

@@ -505,14 +505,26 @@ the resource it is scoped to, with the kinds the role grants. Each resource's
 | Type | Reads | Headroom |
 | --- | --- | --- |
 | `google_cloud_run_v2_service` | Request-based vCPU- and GiB-seconds from the container limits and concurrency, requests | Instances against max instances |
+| `google_cloud_run_service` | The same from the v1 template, idle minimum instances, or instance-based vCPU- and GiB-seconds with CPU always allocated | Instances against max instances |
+| `google_cloud_run_v2_job` | Instance-based vCPU- and GiB-seconds per task, a minute at least | Job runs per minute, running executions |
 | `google_cloudfunctions2_function` | Cloud Run prices for its CPU and memory, invocations | Instances against max instances |
+| `google_cloudfunctions_function` | 1st gen GB- and GHz-seconds in 100 ms steps, invocations, idle minimum instances, outbound data (its event trigger calls it) | Instances against max instances |
 | `google_cloud_scheduler_job` | Job-months | - |
 | `google_cloud_tasks_queue` | Operations in 32 KB chunks | Dispatch rate against max dispatches |
 | `google_storage_bucket` | Standard storage in a region, Class A and B operations, transfer out to the internet | Initial read and write rates per bucket |
 | `google_firestore_database` | Document reads, writes and deletes, stored data (Native mode, Standard edition) | - |
 | `google_sql_database_instance` | vCPU and memory hours or a shared-core instance, SSD, with high-availability prices | PostgreSQL connections by memory |
-| `google_pubsub_topic` | Throughput | Publish throughput per region (varies by region) |
-| `google_secret_manager_secret` | Active versions and access operations | Access requests per minute |
+| `google_pubsub_topic` | Publish throughput, and delivery to subscriptions not declared | Publish throughput per region (varies by region) |
+| `google_pubsub_subscription` | Delivery or BigQuery and Cloud Storage export throughput, retained acknowledged messages, snapshots, backlog (the topic calls it) | Pull, push or export throughput per region |
+| `google_secret_manager_secret` | Versions not declared, access operations | Access requests per minute |
+| `google_secret_manager_secret_version` | One version per replica location, access operations | Access requests per minute |
+| `google_kms_crypto_key` | Key versions by protection level and algorithm (rotation adds them), cryptographic operations | Cryptographic requests per minute |
+| `google_bigquery_dataset` | On-demand queries per TiB scanned, in a region or the US or EU multi-region | - |
+| `google_bigquery_table` | Active and long-term storage, streaming inserts or Storage Write API, queries, Storage Read API | Streaming throughput per project |
+| `google_redis_instance` | GiB-hours by tier and capacity tier, per node with read replicas | Network throughput by capacity tier |
+| `google_redis_cluster` | Node-hours by node type for shards and replicas, AOF persistence, backups | Client connections per node |
+| `google_artifact_registry_repository` | Storage, transfer to other locations by continent and to the internet | Requests and write requests per minute |
+| `google_container_registry` | The multi-region bucket behind it: Standard storage, Class A and B operations, transfer out | Initial read and write rates per bucket |
 | `google_api_gateway_gateway` | Calls | Quota units per second |
 | `google_compute_forwarding_rule` / `google_compute_global_forwarding_rule` | Rule-hours (the first five of a project share one minimum), data processed by passthrough rules, proxy instances for INTERNAL_MANAGED rules; Private Service Connect endpoint-hours and data processed | - |
 | `google_compute_target_http_proxy` / `_https_proxy` / `google_compute_region_target_http_proxy` / `_https_proxy` | Data processed, at the external or internal Application Load Balancer price | - |

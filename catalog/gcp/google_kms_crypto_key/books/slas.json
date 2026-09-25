@@ -1,0 +1,14 @@
+{
+  "gcp.kms": {
+    "unit": "fraction",
+    "source": "https://cloud.google.com/kms/sla",
+    "note": "Encrypt, decrypt and sign operations from a customer application; 99.99% for service accounts and CMEK",
+    "values": {
+      "*": {
+        "value": 0.9995,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

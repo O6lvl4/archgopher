@@ -1,0 +1,14 @@
+{
+  "gcp.memorystore.redis": {
+    "unit": "fraction",
+    "source": "https://cloud.google.com/memorystore/sla",
+    "note": "Memorystore for Redis Standard Tier; the Basic Tier has no SLA",
+    "values": {
+      "*": {
+        "value": 0.999,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

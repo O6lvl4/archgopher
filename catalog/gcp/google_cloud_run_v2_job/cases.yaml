@@ -1,0 +1,35 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo (Tier 1), a daily 5-minute task with 1 vCPU and 512 MiB
+  region: asia-northeast1
+  assumptions:
+    taskSeconds: 300
+  demand:
+    run:
+      monthly: 30
+      peak: 0.01
+  costs:
+    vCPU: 0.162
+    Memory: 0.009
+  limits:
+    Job runs: 0.6
+    Running executions: 3
+- name: Frankfurt (Tier 2), hourly 10 tasks five at a time, 30-second tasks billed a minute each
+  region: europe-west3
+  attributes:
+    task_count: 10
+    parallelism: 5
+    cpu: '2'
+    memory: 4Gi
+  assumptions:
+    taskSeconds: 30
+  demand:
+    run:
+      monthly: 720
+      peak: 0.001
+  costs:
+    vCPU: 18.6624
+    Memory: 4.1472
+  limits:
+    Job runs: 0.06
+    Running executions: 0.06

@@ -1,0 +1,32 @@
+{
+  "gcp.redis_cluster.connections": {
+    "unit": "connections",
+    "source": "https://cloud.google.com/memorystore/docs/cluster/cluster-node-specification",
+    "note": "Default client connections per node by node type (the maximum is up to twice that)",
+    "rows": {
+      "REDIS_HIGHCPU_MEDIUM": {
+        "*": 32000
+      },
+      "REDIS_HIGHMEM_2XLARGE": {
+        "*": 64000
+      },
+      "REDIS_HIGHMEM_MEDIUM": {
+        "*": 32000
+      },
+      "REDIS_HIGHMEM_XLARGE": {
+        "*": 64000
+      },
+      "REDIS_SHARED_CORE_NANO": {
+        "*": 5000
+      },
+      "REDIS_STANDARD_LARGE": {
+        "*": 32000
+      },
+      "REDIS_STANDARD_SMALL": {
+        "*": 16000
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

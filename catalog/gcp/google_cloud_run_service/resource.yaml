@@ -1,0 +1,42 @@
+type: google_cloud_run_service
+label: Cloud Run service (v1 API)
+category: Compute
+icon: cloud-run
+description: "Request-based billing by default: vCPU- and GiB-seconds while instances serve requests, requests, and idle minimum instances. With CPU always allocated, instance-based billing: vCPU- and GiB-seconds for the instances' whole lifetime and no request fee. Billing mode and minimum and maximum instances are read from the revision template's annotations. Headroom is instances needed against max instances."
+kinds: [request]
+sla: gcp.cloudrun
+attributes:
+  - { key: cpu, label: CPU limit, type: string, default: "1", path: template.spec.containers.resources.limits.cpu, hint: "1, 2 or 1000m" }
+  - { key: memory, label: Memory limit, type: string, default: "512Mi", path: template.spec.containers.resources.limits.memory, hint: "512Mi or 1Gi" }
+  - { key: container_concurrency, label: Requests per instance, type: number, default: 80, path: template.spec.container_concurrency, hint: "0 means the default of 80" }
+  - { key: cpu_throttling, label: CPU only during requests, type: boolean, default: true, path: "template.metadata.annotations.run.googleapis.com/cpu-throttling", hint: "The run.googleapis.com/cpu-throttling annotation; false allocates CPU always and bills by instance" }
+  - { key: min_scale, label: Minimum instances, type: number, default: 0, path: "template.metadata.annotations.autoscaling.knative.dev/minScale", hint: "The autoscaling.knative.dev/minScale annotation; idle minimum instances bill too" }
+  - { key: max_scale, label: Max instances, type: number, optional: true, path: "template.metadata.annotations.autoscaling.knative.dev/maxScale", hint: "The autoscaling.knative.dev/maxScale annotation; unset reads the default of 100" }
+assumptions:
+  - { key: durationMs, label: Request duration, type: number, unit: ms }
+  - { key: packing, label: Share of concurrency used, type: number, default: 1, hint: "1 bills each instance-second once for all its concurrent requests; lower when requests rarely overlap" }
+let:
+  - cpuAlwaysAllocated: '!cpu_throttling'
+  - vcpu: 'cpu endsWith "m" ? float(trimSuffix(cpu, "m")) / 1000 : float(cpu)'
+  - gib: 'memory endsWith "Gi" ? float(trimSuffix(memory, "Gi")) : memory endsWith "Mi" ? float(trimSuffix(memory, "Mi")) / 1024 : memory endsWith "G" ? float(trimSuffix(memory, "G")) * 1e9 / 1073741824 : float(trimSuffix(memory, "M")) * 1e6 / 1073741824'
+  - perInstance: 'max((container_concurrency > 0 ? container_concurrency : 80) * packing, 1)'
+  - activeSeconds: 'total.monthly * durationMs / 1000 / perInstance'
+  - minSeconds: 'min_scale * 730 * 3600'
+  - idleSeconds: 'max(minSeconds - activeSeconds, 0)'
+  - lifetimeSeconds: 'max(minSeconds, activeSeconds)'
+readings:
+  - cost: { when: '!cpuAlwaysAllocated', name: vCPU, quantity: activeSeconds * vcpu, unit: vCPU-second, price: gcp.cloudrun.cpu }
+  - cost: { when: '!cpuAlwaysAllocated', name: Memory, quantity: activeSeconds * gib, unit: GiB-second, price: gcp.cloudrun.memory }
+  - requests: { when: '!cpuAlwaysAllocated', name: Requests, price: gcp.cloudrun.requests, count: total.monthly }
+  - cost: { when: '!cpuAlwaysAllocated && idleSeconds > 0', name: Idle minimum instances vCPU, quantity: idleSeconds * vcpu, unit: vCPU-second, price: gcp.cloudrun.idle_cpu }
+  - cost: { when: '!cpuAlwaysAllocated && idleSeconds > 0', name: Idle minimum instances memory, quantity: idleSeconds * gib, unit: GiB-second, price: gcp.cloudrun.memory }
+  - cost: { when: cpuAlwaysAllocated, name: vCPU (instance-based), quantity: lifetimeSeconds * vcpu, unit: vCPU-second, price: gcp.cloudrun.instance.cpu }
+  - cost: { when: cpuAlwaysAllocated, name: Memory (instance-based), quantity: lifetimeSeconds * gib, unit: GiB-second, price: gcp.cloudrun.instance.memory }
+  - limit: { name: Instances, demand: 'ceilDiv(total.peak * durationMs / 1000, perInstance)', unit: instances, quota: gcp.cloudrun.max_instances, capacity: max_scale }
+terraform:
+  frontDoor: true
+  # The Cloud SQL annotation in template.metadata is a call; the service
+  # account and volumes are not.
+  ignoreRefs: [template.spec.service_account_name, template.spec.volumes]
+iam:
+  request: ["roles/run.invoker"]

@@ -2,18 +2,17 @@ type: google_secret_manager_secret
 label: Secret Manager secret
 category: Security
 icon: secret-manager
-description: "Active versions per location, billed by the hour, and access operations per 10,000. Free versions and operations are ignored, as every free tier. Headroom is the project's access requests per minute."
+description: "Active versions per location that are not declared as google_secret_manager_secret_version nodes, billed by the hour, and access operations per 10,000. Free versions and operations are ignored, as every free tier. Headroom is the project's access requests per minute."
 kinds: [read]
 sla: gcp.secretmanager
 assumptions:
-  - { key: versions, label: Active versions, type: number, default: 1, hint: "Enabled and disabled versions bill; destroyed ones do not" }
+  - { key: versions, label: Active versions outside the declaration, type: number, default: 0, hint: "Versions added outside Terraform; enabled and disabled versions bill, destroyed ones do not. A google_secret_manager_secret_version is its own node" }
   - { key: locations, label: Locations, type: number, default: 1, hint: "Automatic replication counts as one; user-managed replication counts each replica" }
 readings:
   - cost: { name: Versions, quantity: versions * locations * 730, unit: version-hour, price: gcp.secretmanager.versions }
   - requests: { name: Access operations, price: gcp.secretmanager.access, unit: operation, count: total.monthly }
   - limit: { name: Access requests, demand: total.peak * 60, unit: requests/minute, quota: gcp.secretmanager.access_rpm }
 terraform:
-  aliases: { google_secret_manager_secret_version: secret }
   ignoreRefs: [replication, topics]
 iam:
   read: ["roles/secretmanager.secretAccessor"]

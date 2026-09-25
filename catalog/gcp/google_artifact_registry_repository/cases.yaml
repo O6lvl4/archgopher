@@ -1,0 +1,53 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo, pulls in the same region are free
+  region: asia-northeast1
+  assumptions:
+    storageGb: 20
+  demand:
+    pull:
+      monthly: 1000
+      peak: 1
+    push:
+      monthly: 30
+      peak: 0.01
+  costs:
+    Storage: 2
+  limits:
+    Requests: 606
+    Write requests: 6
+- name: Sydney, half of 200 MB pulls go to other regions at the Oceania price
+  region: australia-southeast1
+  assumptions:
+    storageGb: 100
+    pullMb: 200
+    remoteShare: 0.5
+  demand:
+    pull:
+      monthly: 10000
+      peak: 0
+    push:
+      monthly: 0
+      peak: 0
+  costs:
+    Storage: 10
+    Transfer to other locations: 150
+  limits:
+    Requests: 0
+    Write requests: 0
+- name: Virtual repository stores nothing
+  region: us-east4
+  attributes:
+    mode: VIRTUAL_REPOSITORY
+  assumptions:
+    storageGb: 100
+  demand:
+    pull:
+      monthly: 0
+      peak: 0
+    push:
+      monthly: 0
+      peak: 0
+  limits:
+    Requests: 0
+    Write requests: 0

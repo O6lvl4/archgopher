@@ -1,0 +1,35 @@
+{
+  "gcp.kms.operation": {
+    "unit": "operation",
+    "per": 10000,
+    "source": "https://cloud.google.com/kms/pricing",
+    "note": "Cryptographic operations (encrypt, decrypt, sign, MAC, random bytes); HSM RSA 3072/4096 and elliptic curve keys cost more. Admin operations are free. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "rows": {
+      "hsm_large": {
+        "*": 0.15
+      },
+      "standard": {
+        "*": 0.03
+      }
+    }
+  },
+  "gcp.kms.version": {
+    "unit": "version-hour",
+    "source": "https://cloud.google.com/kms/pricing",
+    "note": "Active key version (enabled, disabled or scheduled for destruction) by protection level: software, HSM symmetric and RSA 2048, HSM RSA 3072/4096 and elliptic curve (first 2,000 a month), external. The same in every region. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "rows": {
+      "external": {
+        "*": 0.004109589
+      },
+      "hsm": {
+        "*": 0.001369863
+      },
+      "hsm_large": {
+        "*": 0.003424658
+      },
+      "software": {
+        "*": 0.000082192
+      }
+    }
+  }
+}

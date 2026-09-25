@@ -1,0 +1,110 @@
+{
+  "gcp.cloudrun.instance.cpu": {
+    "unit": "vCPU-second",
+    "source": "https://cloud.google.com/run/pricing",
+    "note": "Instance-based billing: the instance's whole lifetime, as for services with CPU always allocated and for jobs (Tier 1 or Tier 2 by region). Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "152E-C115-5142",
+      "filters": {
+        "description": "Services CPU .*Instance-based billing.*"
+      }
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.000018,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.0000216,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.000018,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.0000216,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.0000216,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.000018,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.0000216,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.000018,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.000018,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.000018,
+        "verified": false
+      }
+    }
+  },
+  "gcp.cloudrun.instance.memory": {
+    "unit": "GiB-second",
+    "source": "https://cloud.google.com/run/pricing",
+    "note": "Instance-based billing: the instance's whole lifetime, as for services with CPU always allocated and for jobs (Tier 1 or Tier 2 by region). Read from the pricing page's region table on 2026-09-25; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "152E-C115-5142",
+      "filters": {
+        "description": "Services Memory .*Instance-based billing.*"
+      }
+    },
+    "values": {
+      "asia-northeast1": {
+        "value": 0.000002,
+        "verified": false
+      },
+      "asia-northeast3": {
+        "value": 0.0000024,
+        "verified": false
+      },
+      "asia-south1": {
+        "value": 0.000002,
+        "verified": false
+      },
+      "asia-southeast1": {
+        "value": 0.0000024,
+        "verified": false
+      },
+      "australia-southeast1": {
+        "value": 0.0000024,
+        "verified": false
+      },
+      "europe-west1": {
+        "value": 0.000002,
+        "verified": false
+      },
+      "europe-west3": {
+        "value": 0.0000024,
+        "verified": false
+      },
+      "us-east4": {
+        "value": 0.000002,
+        "verified": false
+      },
+      "us-east5": {
+        "value": 0.000002,
+        "verified": false
+      },
+      "us-west1": {
+        "value": 0.000002,
+        "verified": false
+      }
+    }
+  }
+}

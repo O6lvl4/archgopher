@@ -1,0 +1,25 @@
+type: google_secret_manager_secret_version
+label: Secret Manager secret version
+category: Security
+icon: secret-manager
+description: "One active version per replica location, billed by the hour, and the access operations that reach this version, per 10,000; a reference to the secret that also names the version reads the secret. Free versions and operations are ignored. Headroom is the project's access requests per minute."
+kinds: [read]
+sla: gcp.secretmanager
+assumptions:
+  - { key: locations, label: Locations, type: number, default: 1, hint: "The secret's replication: automatic counts as one; user-managed counts each replica" }
+readings:
+  - cost: { name: Version, quantity: locations * 730, unit: version-hour, price: gcp.secretmanager.versions }
+  - requests: { name: Access operations, price: gcp.secretmanager.access, unit: operation, count: total.monthly }
+  - limit: { name: Access requests, demand: total.peak * 60, unit: requests/minute, quota: gcp.secretmanager.access_rpm }
+terraform:
+  passive: true
+  # A secret reference that also names the version is one access to the
+  # secret, which carries it; the version is where it bills its storage.
+  ignoreRefs:
+    - template.containers.env.value_source.secret_key_ref.version
+    - template.template.containers.env.value_source.secret_key_ref.version
+    - template.spec.containers.env.value_from.secret_key_ref.key
+    - service_config.secret_environment_variables.version
+    - secret_environment_variables.version
+iam:
+  read: ["roles/secretmanager.secretAccessor"]

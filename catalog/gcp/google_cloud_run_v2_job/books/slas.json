@@ -1,0 +1,24 @@
+{
+  "gcp.cloudrun.jobs": {
+    "unit": "fraction",
+    "source": "https://cloud.google.com/terms/cloudrunjobs/sla",
+    "note": "Cloud Run jobs (non-GPU); 99.5% in Mexico and Stockholm",
+    "values": {
+      "*": {
+        "value": 0.999,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "europe-north2": {
+        "value": 0.995,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northamerica-south1": {
+        "value": 0.995,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

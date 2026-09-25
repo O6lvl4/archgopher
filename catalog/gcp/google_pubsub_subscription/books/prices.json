@@ -1,0 +1,40 @@
+{
+  "gcp.pubsub.export": {
+    "unit": "TiB",
+    "source": "https://cloud.google.com/pubsub/pricing",
+    "note": "BigQuery and Cloud Storage subscriptions per TiB read from the subscription and written, the same in every region, with no free tier. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "A1E8-BE35-7EBC",
+      "filters": {
+        "description": "(BigQuery|Cloud Storage) Subscriptions?.*"
+      },
+      "region": "global"
+    },
+    "values": {
+      "*": {
+        "value": 50,
+        "verified": false
+      }
+    }
+  },
+  "gcp.pubsub.storage": {
+    "unit": "GiB-month",
+    "source": "https://cloud.google.com/pubsub/pricing",
+    "note": "Message storage: retained acknowledged messages, snapshots and unacknowledged backlog older than a day, the same in every region. From the pricing page; sync verifies it against the Billing Catalog once credentials are set.",
+    "sync": {
+      "source": "gcp",
+      "service": "A1E8-BE35-7EBC",
+      "filters": {
+        "description": "Subscriptions retained acknowledged messages"
+      },
+      "region": "global"
+    },
+    "values": {
+      "*": {
+        "value": 0.27,
+        "verified": false
+      }
+    }
+  }
+}

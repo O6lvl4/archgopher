@@ -62,6 +62,8 @@ type Rules struct {
 }
 
 // Link connects the node(s) referenced by From to the node(s) referenced by To.
+// When the link's own type is a node, it sits in between: From calls it, and
+// its references (To among them) are its own calls.
 type Link struct {
 	Type string
 	From string
@@ -314,6 +316,14 @@ func (b *builder) edges() []edgeKey {
 				continue
 			}
 			froms := b.targetsAt(r, l.From)
+			if b.isNode(r.Address) {
+				// A helper with a cost of its own (a Pub/Sub subscription) is a
+				// node on the path: from → it, and its own references carry on.
+				for _, from := range froms {
+					add(from, r.Address, "")
+				}
+				continue
+			}
 			for _, p := range l.To {
 				for _, to := range b.targetsAt(r, p) {
 					for _, from := range froms {
@@ -562,9 +572,13 @@ func countPath(m map[string]any, path string) int {
 }
 
 // lookupPath reads "a.b" from nested maps, taking the first element of block lists.
+// A map key may itself hold dots (annotations such as
+// "autoscaling.knative.dev/minScale"): when a part is not a key, the shortest
+// run of the following parts that is one is taken.
 func lookupPath(m map[string]any, path string) any {
 	var cur any = m
-	for _, part := range strings.Split(path, ".") {
+	parts := strings.Split(path, ".")
+	for i := 0; i < len(parts); {
 		if list, ok := cur.([]any); ok {
 			if len(list) == 0 {
 				return nil
@@ -575,7 +589,18 @@ func lookupPath(m map[string]any, path string) any {
 		if !ok {
 			return nil
 		}
-		cur = obj[part]
+		var next any
+		found := false
+		for j := i + 1; j <= len(parts); j++ {
+			if v, ok := obj[strings.Join(parts[i:j], ".")]; ok {
+				next, found, i = v, true, j
+				break
+			}
+		}
+		if !found {
+			return nil
+		}
+		cur = next
 	}
 	if list, ok := cur.([]any); ok && len(list) > 0 {
 		if _, isBlock := list[0].(map[string]any); isBlock {

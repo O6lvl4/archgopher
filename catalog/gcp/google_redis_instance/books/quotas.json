@@ -1,0 +1,26 @@
+{
+  "gcp.redis.bandwidth": {
+    "unit": "Gbps",
+    "source": "https://cloud.google.com/memorystore/docs/redis/pricing",
+    "note": "Minimum network performance by capacity tier (the tiers page lists 16 Gbps as the maximum for every tier)",
+    "rows": {
+      "m1": {
+        "*": 10
+      },
+      "m2": {
+        "*": 10
+      },
+      "m3": {
+        "*": 10
+      },
+      "m4": {
+        "*": 16
+      },
+      "m5": {
+        "*": 16
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}
