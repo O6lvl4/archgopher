@@ -1,0 +1,44 @@
+{
+  "azure.firewall.policy_analytics": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/firewall-manager/",
+    "note": "Policy analytics (insights) enabled on a policy, per hour",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Firewall Manager",
+      "filters": {
+        "skuName": "Policy analytics",
+        "meterName": "Policy analytics Deployment"
+      },
+      "region": "Global"
+    },
+    "values": {
+      "*": {
+        "value": 0.34246,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.firewall.policy_region": {
+    "unit": "month",
+    "source": "https://azure.microsoft.com/pricing/details/firewall-manager/",
+    "note": "A firewall policy associated with two or more firewalls, per region those firewalls span; a policy with one firewall is free",
+    "sync": {
+      "source": "azure",
+      "service": "Azure Firewall Manager",
+      "filters": {
+        "skuName": "Standard",
+        "meterName": "Standard Policy per Region"
+      },
+      "region": "Global"
+    },
+    "values": {
+      "*": {
+        "value": 100,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

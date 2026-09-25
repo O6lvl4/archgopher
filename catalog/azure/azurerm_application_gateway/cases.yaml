@@ -1,0 +1,39 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Standard_v2 autoscaling from 2 instances, 100 million requests of 16 KB (japaneast)
+  region: japaneast
+  attributes: { sku_name: Standard_v2, min_capacity: 2, max_capacity: 10 }
+  assumptions: { kbPerUnit: 16 }
+  demand: { request: { monthly: 1e+08, peak: 500 } }
+  # 1525.87890625 GB / 730 h = 2.09 CU used < 2 × 10 reserved, so 20 CU × 730 h × $0.008; fixed 730 × $0.29.
+  # Peak: 500/s × 16 KB × 3600 s = 27.4658203125 GB an hour = CU, / 10 per instance.
+  costs:
+    Fixed hours: 211.7
+    Capacity units: 116.8
+  limits:
+    Instances at peak: 2.74658203125
+- name: WAF_v2 scaling from zero, 300 million requests of 64 KB (eastus)
+  region: eastus
+  attributes: { sku_name: WAF_v2 }
+  assumptions: { kbPerUnit: 64 }
+  demand: { request: { monthly: 3e+08, peak: 2000 } }
+  # 18310.546875 GB / 730 = 25.08 CU from throughput > 3e8 / 2,628,000 s / 10 = 11.42 CU of compute;
+  # 730 × 25.08 × $0.0144 = 18310.546875 × $0.0144; fixed 730 × $0.36.
+  # Peak: 2000 × 64 KB × 3600 = 439.453125 GB an hour against 200 compute units: 43.9 instances.
+  costs:
+    Fixed hours: 262.8
+    Capacity units: 263.671875
+  limits:
+    Instances at peak: 43.9453125
+- name: v1 Standard Medium, two instances, 20 TB processed (japaneast)
+  region: japaneast
+  attributes: { sku_name: Standard_Medium, capacity: 2 }
+  assumptions: { gbPerMonth: 20480 }
+  # 730 × 2 × $0.0756; (20480 - 10240 free) GB × $0.007
+  costs:
+    Gateway hours: 110.376
+    Data processed: 71.68
+- name: load passes through without a size (eastus)
+  region: eastus
+  demand: { request: { monthly: 1000, peak: 1 } }
+  error: "load passes through this gateway: set kbPerUnit"

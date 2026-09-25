@@ -1,0 +1,31 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Standard firewall, 10 million requests of 4 KB (japaneast)
+  region: japaneast
+  assumptions: { kbPerUnit: 4 }
+  demand: { traffic: { monthly: 1e+07, peak: 100 } }
+  # 730 × $1.25; 38.14697265625 GB × $0.016; 100/s × 4 KB × 8 bit
+  costs:
+    Deployment (Standard): 912.5
+    Data processed: 0.6103515625
+  limits:
+    Throughput: 0.0030517578125
+- name: Premium firewall in a secured hub with 1 TB of other traffic (eastus)
+  region: eastus
+  attributes: { sku_tier: Premium, virtual_hub: true }
+  assumptions: { gbPerMonth: 1000 }
+  costs:
+    Deployment (Premium, secured hub): 1277.5
+    Data processed: 16
+  limits:
+    Throughput: 0
+- name: Basic firewall (japaneast)
+  region: japaneast
+  attributes: { sku_tier: Basic }
+  assumptions: { gbPerMonth: 100 }
+  # 730 × $0.395; 100 GB × $0.065
+  costs:
+    Deployment (Basic): 288.35
+    Data processed: 6.5
+  limits:
+    Throughput: 0

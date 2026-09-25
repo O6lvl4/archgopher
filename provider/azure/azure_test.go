@@ -17,9 +17,20 @@ var (
 	attrs = map[string]map[string]any{
 		"azurerm_service_plan":         {"sku_name": "P1v3"},
 		"azurerm_cognitive_deployment": {"model_name": "gpt-4o"},
+		"azurerm_lb":                   {"sku": "Standard"},
+		"azurerm_firewall_policy":      {"insights": true},
 	}
 	assume = map[string]map[string]any{
-		"azurerm_cosmosdb_account": {"provisionedRus": 400.0},
+		"azurerm_cosmosdb_account":        {"provisionedRus": 400.0},
+		"azurerm_lb":                      {"kbPerUnit": 4.0},
+		"azurerm_lb_rule":                 {"beyondFirstFive": true},
+		"azurerm_lb_outbound_rule":        {"beyondFirstFive": true},
+		"azurerm_application_gateway":     {"kbPerUnit": 8.0},
+		"azurerm_nat_gateway":             {"kbPerUnit": 4.0},
+		"azurerm_firewall":                {"kbPerUnit": 4.0},
+		"azurerm_firewall_policy":         {"firewalls": 2.0},
+		"azurerm_private_endpoint":        {"kbPerUnit": 4.0},
+		"azurerm_virtual_network_peering": {"kbPerUnit": 4.0},
 	}
 )
 

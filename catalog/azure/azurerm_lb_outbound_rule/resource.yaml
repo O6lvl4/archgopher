@@ -1,0 +1,17 @@
+type: azurerm_lb_outbound_rule
+label: Outbound rule
+category: Network
+icon: load-balancer
+description: "An outbound rule on a Standard or cross-region load balancer. The load balancer's hourly fee covers its first five load-balancing and outbound rules together; each rule after that is billed per rule-hour, read here when the rule is one of them. Terraform does not say which rules come first, and the rule cannot see its load balancer's SKU, so both are assumptions. Rules on Basic and gateway load balancers cost nothing."
+kinds: [traffic]
+assumptions:
+  - { key: beyondFirstFive, label: Beyond the first five, type: boolean, default: false, hint: "Set on every rule after the fifth on the same load balancer, counting load-balancing and outbound rules together" }
+  - { key: lbSku, label: Load balancer, type: choice, options: [Standard, Global, Gateway, Basic], default: Standard, hint: "Global is a cross-region load balancer (sku Standard, sku_tier Global)" }
+let:
+  - billed: 'lbSku in ["Standard", "Global"]'
+readings:
+  - cost: { when: billed, name: Rule hours, quantity: 'beyondFirstFive ? 730.0 : 0.0', unit: hour, price: 'azure.lb.{lower(lbSku)}.overage_rule' }
+terraform:
+  # A rule names its load balancer, backend pools, probe and frontend; it calls nothing.
+  passive: true
+  mentioned: true

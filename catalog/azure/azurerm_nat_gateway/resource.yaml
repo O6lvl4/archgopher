@@ -1,0 +1,23 @@
+type: azurerm_nat_gateway
+label: NAT gateway
+category: Network
+icon: nat
+description: "Gateway-hours and data processed, outbound and return traffic together; Standard and StandardV2 cost the same. Place it on the path to the internet: load that passes through carries kbPerUnit each and flows on. Its public addresses or prefixes are their own nodes, and transfer out to the internet is billed on top and not read here."
+kinds: [traffic]
+sla: azure.nat
+attributes:
+  - { key: sku_name, label: SKU, type: choice, options: [Standard, StandardV2], default: Standard }
+assumptions:
+  - { key: kbPerUnit, label: Data per unit, type: number, unit: KB, optional: true, hint: "Per request passing through, request and response together" }
+  - { key: gbPerMonth, label: Other data per month, type: number, unit: GB, default: 0, hint: "Traffic not drawn as load, such as package downloads" }
+let:
+  - perUnit: 'kbPerUnit != nil ? kbPerUnit : 0.0'
+readings:
+  - fail: { when: 'total.monthly > 0 && kbPerUnit == nil', message: "load passes through this NAT gateway: set kbPerUnit, the data each unit carries" }
+  - cost: { name: Gateway hours, quantity: 730, unit: hour, price: azure.nat.hour }
+  - cost: { name: Data processed, quantity: 'gbPerMonth + total.monthly * perUnit / 1024 / 1024', unit: GB, price: azure.nat.data_processed }
+  - limit: { name: Bandwidth, demand: 'total.peak * perUnit * 8 / 1024 / 1024', unit: Gbps, quota: 'azure.nat.{sku_name == "StandardV2" ? "v2." : ""}bandwidth_gbps' }
+terraform:
+  # Subnet and address associations name the gateway; nothing calls it. Draw the traffic through it by hand.
+  passive: true
+  mentioned: true

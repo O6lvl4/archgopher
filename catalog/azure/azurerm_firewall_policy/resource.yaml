@@ -1,0 +1,20 @@
+type: azurerm_firewall_policy
+label: Firewall policy
+category: Network
+icon: firewall-policy
+description: "Free while one firewall uses it; associated with two or more firewalls, a fixed monthly fee per region they span. Policy analytics (insights), when enabled, is billed per hour. Its rule collection groups fold into it and cost nothing."
+kinds: [traffic]
+attributes:
+  - { key: insights, label: Policy analytics, type: boolean, default: false, path: insights.enabled }
+assumptions:
+  - { key: firewalls, label: Firewalls using it, type: number, default: 1, hint: "Firewalls whose firewall_policy_id names this policy, here or in other configurations" }
+  - { key: regions, label: Regions they span, type: number, default: 1 }
+readings:
+  - cost: { name: Policy, quantity: 'firewalls >= 2 ? regions : 0.0', unit: month, price: azure.firewall.policy_region }
+  - cost: { when: insights, name: Policy analytics, quantity: 730, unit: hour, price: azure.firewall.policy_analytics }
+terraform:
+  # Firewalls and child policies name it; it calls nothing.
+  passive: true
+  mentioned: true
+  aliases:
+    azurerm_firewall_policy_rule_collection_group: firewall_policy_id

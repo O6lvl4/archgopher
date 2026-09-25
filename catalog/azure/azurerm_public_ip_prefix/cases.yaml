@@ -1,0 +1,17 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: /28 prefix (japaneast)
+  region: japaneast
+  # 16 addresses × 730 h × $0.006
+  costs:
+    IP prefix (/28, regional): 70.08
+- name: global /31 prefix (eastus)
+  region: eastus
+  attributes: { prefix_length: 31, sku_tier: Global }
+  # 2 × 730 × $0.012
+  costs:
+    IP prefix (/31, global): 17.52
+- name: prefix from your own range is free (japaneast)
+  region: japaneast
+  attributes: { prefix_length: 24 }
+  assumptions: { byoip: true }

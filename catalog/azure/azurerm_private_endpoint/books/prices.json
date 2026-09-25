@@ -1,0 +1,44 @@
+{
+  "azure.privatelink.data_processed": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/private-link/",
+    "note": "Data processed through a private endpoint, first 1 PB a month; inbound and outbound are billed at the same rate, so this ingress meter prices both",
+    "sync": {
+      "source": "azure",
+      "service": "Virtual Network",
+      "region": "Global",
+      "filters": {
+        "productName": "Virtual Network Private Link",
+        "meterName": "Standard Data Processed - Ingress"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.privatelink.endpoint_hour": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/private-link/",
+    "note": "Private endpoint-hour, the same in every region",
+    "sync": {
+      "source": "azure",
+      "service": "Virtual Network",
+      "region": "Global",
+      "filters": {
+        "productName": "Virtual Network Private Link",
+        "meterName": "Standard Private Endpoint"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Standard load balancer, 10 million requests of 4 KB (japaneast)
+  region: japaneast
+  attributes: { sku: Standard }
+  assumptions: { kbPerUnit: 4 }
+  demand: { traffic: { monthly: 1e+07, peak: 100 } }
+  # 730 h × $0.025; 1e7 × 4 KB = 38.14697265625 GB × $0.005
+  costs:
+    Rules (first five): 18.25
+    Data processed: 0.19073486328125
+- name: cross-region load balancer, 1 TB processed for free (eastus)
+  region: eastus
+  attributes: { sku: Standard, sku_tier: Global }
+  assumptions: { gbPerMonth: 1000 }
+  costs:
+    Rules (first five): 18.25
+    Data processed: 0
+- name: gateway load balancer with two chained frontends (eastus)
+  region: eastus
+  attributes: { sku: Gateway }
+  assumptions: { chains: 2, gbPerMonth: 100 }
+  # 730 × $0.0125; 730 × 2 × $0.01; 100 GB × $0.004
+  costs:
+    Gateway hours: 9.125
+    Chain hours: 14.6
+    Data processed: 0.4
+- name: Basic load balancer costs nothing (japaneast)
+  region: japaneast
+  demand: { traffic: { monthly: 1000, peak: 1 } }
+- name: load passes through without a size (japaneast)
+  region: japaneast
+  attributes: { sku: Standard }
+  demand: { traffic: { monthly: 1000, peak: 1 } }
+  error: "load passes through this load balancer: set kbPerUnit"

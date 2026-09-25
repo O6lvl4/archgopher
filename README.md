@@ -419,6 +419,16 @@ not zero.
 | `azurerm_key_vault` | Operations | Requests per vault |
 | `azurerm_log_analytics_workspace` | Ingestion (Application Insights folds in) and retention beyond 31 days | - |
 | `azurerm_cognitive_deployment` | Azure OpenAI input, cached and output tokens by model and deployment type | Tokens and requests per minute from capacity or quota |
+| `azurerm_lb` | Standard and cross-region: the fee covering the first five rules, data processed; gateway: gateway-, chain-hours and data processed (Basic is free) | - |
+| `azurerm_lb_rule` / `azurerm_lb_outbound_rule` | Rule-hours for each rule beyond a load balancer's first five | - |
+| `azurerm_application_gateway` | v2: fixed hours and capacity units, reserved or used (throughput, compute units); v1: instance-hours and data processed beyond the free allowance | Instances at peak against the autoscale maximum or manual count |
+| `azurerm_public_ip` / `azurerm_public_ip_prefix` | Address-hours by SKU, tier and allocation / address-hours for every address in the prefix | - |
+| `azurerm_nat_gateway` | Gateway-hours and data processed (Standard and StandardV2) | Bandwidth |
+| `azurerm_bastion_host` | Host-hours by SKU, instances beyond two, data out | Concurrent RDP or SSH sessions per instance |
+| `azurerm_firewall` | Deployment-hours and data processed by tier, in a VNet or a secured hub | Throughput by tier |
+| `azurerm_firewall_policy` | The fee per region once two or more firewalls use it, policy analytics; rule collection groups fold in | - |
+| `azurerm_private_endpoint` | Endpoint-hours and data processed | - |
+| `azurerm_virtual_network_peering` | Data sent and received, within a region or global | - |
 
 Role assignments become edges: an `azurerm_role_assignment` connects the
 resource whose managed identity holds the role (system- or user-assigned) to

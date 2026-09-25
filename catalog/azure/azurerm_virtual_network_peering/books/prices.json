@@ -1,0 +1,174 @@
+{
+  "azure.vnet.peering.inter.egress": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/virtual-network/",
+    "note": "Global peering, data sent from a virtual network in this region",
+    "sync": {
+      "source": "azure",
+      "service": "Virtual Network",
+      "filters": {
+        "productName": "Global Virtual Network Peering",
+        "meterName": "Inter-Region Egress"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.09,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.09,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.035,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.035,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.035,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.09,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.09,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.035,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.09,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.035,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.vnet.peering.inter.ingress": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/virtual-network/",
+    "note": "Global peering, data received by a virtual network in this region",
+    "sync": {
+      "source": "azure",
+      "service": "Virtual Network",
+      "filters": {
+        "productName": "Global Virtual Network Peering",
+        "meterName": "Inter-Region Ingress"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.09,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.09,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.035,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.035,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.035,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.09,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.09,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.035,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.09,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.035,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.vnet.peering.intra.egress": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/virtual-network/",
+    "note": "Peering within a region, data sent from this virtual network",
+    "sync": {
+      "source": "azure",
+      "service": "Virtual Network",
+      "region": "Global",
+      "filters": {
+        "productName": "Virtual Network Peering",
+        "meterName": "Intra-Region Egress"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.vnet.peering.intra.ingress": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/virtual-network/",
+    "note": "Peering within a region, data received by this virtual network",
+    "sync": {
+      "source": "azure",
+      "service": "Virtual Network",
+      "region": "Global",
+      "filters": {
+        "productName": "Virtual Network Peering",
+        "meterName": "Intra-Region Ingress"
+      }
+    },
+    "values": {
+      "*": {
+        "value": 0.01,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}
