@@ -3,7 +3,7 @@
 - name: two million queries drawn as load in Japan East
   region: japaneast
   attributes:
-    records: [10.0.0.1, 10.0.0.2]
+    records: ["2001:db8::1", "2001:db8::2"]
   demand:
     query:
       monthly: 2000000.0

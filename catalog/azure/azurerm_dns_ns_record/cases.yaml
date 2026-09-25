@@ -3,7 +3,7 @@
 - name: two million queries drawn as load in Japan East
   region: japaneast
   attributes:
-    records: [10.0.0.1, 10.0.0.2]
+    records: [ns1-01.azure-dns.com., ns2-01.azure-dns.net.]
   demand:
     query:
       monthly: 2000000.0
