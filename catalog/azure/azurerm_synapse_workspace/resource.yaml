@@ -11,6 +11,7 @@ assumptions:
   - { key: gbProcessedPerQuery, label: Data processed per serverless query, type: number, unit: GB, default: 0, hint: "Data scanned per query; each query bills at least 10 MB" }
   - { key: dataFlowBasicVcoreHours, label: Basic data flow, type: number, unit: vCore-hours, default: 0 }
   - { key: dataFlowStandardVcoreHours, label: Standard data flow, type: number, unit: vCore-hours, default: 0 }
+  - { key: activityRunsPerMonth, label: Activity runs not drawn as edges (Azure-hosted), type: number, default: 0, hint: "Per month; each unit of run load an edge brings is one activity run too" }
   - { key: copyDiuHours, label: Copy DIU-hours (Azure-hosted), type: number, unit: DIU-hours, default: 0 }
   - { key: pipelineActivityHours, label: Pipeline activity hours (Azure-hosted), type: number, unit: hours, default: 0 }
   - { key: externalActivityHours, label: External activity hours (Azure-hosted), type: number, unit: hours, default: 0 }
@@ -25,7 +26,7 @@ readings:
   - cost: { name: Serverless SQL, quantity: demand.query.monthly * billedGb / 1024, unit: TB, price: azure.synapse.serverless_sql.processed }
   - cost: { when: dataFlowBasicVcoreHours > 0, name: Data flow (basic), quantity: dataFlowBasicVcoreHours, unit: vCore-hour, price: azure.synapse.dataflow.basic }
   - cost: { when: dataFlowStandardVcoreHours > 0, name: Data flow (standard), quantity: dataFlowStandardVcoreHours, unit: vCore-hour, price: azure.synapse.dataflow.standard }
-  - cost: { name: Pipeline activity runs, quantity: demand.run.monthly, unit: activity run, price: "azure.synapse.{rt}.orchestration" }
+  - cost: { name: Pipeline activity runs, quantity: demand.run.monthly + activityRunsPerMonth, unit: activity run, price: "azure.synapse.{rt}.orchestration" }
   - cost: { when: copyDiuHours > 0, name: Pipeline data movement, quantity: copyDiuHours, unit: DIU-hour, price: "azure.synapse.{rt}.data_movement" }
   - cost: { when: pipelineActivityHours > 0, name: Pipeline activities, quantity: pipelineActivityHours, unit: hour, price: "azure.synapse.{rt}.pipeline_activity" }
   - cost: { when: externalActivityHours > 0, name: External activities, quantity: externalActivityHours, unit: hour, price: "azure.synapse.{rt}.external_activity" }

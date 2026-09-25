@@ -5,8 +5,6 @@ icon: data-factory
 description: "Read/write operations on the factory's entities and monitoring operations on its run records, per 50,000, and pipelines left a whole month without a run. Activity runs, data movement and data flows are billed on the integration runtime that runs them (azurerm_data_factory_integration_runtime_* nodes). Headroom is concurrent pipeline runs against the 10,000 a factory allows."
 kinds: [run]
 sla: azure.datafactory
-attributes:
-  - { key: managed_virtual_network_enabled, label: Managed virtual network, type: boolean, default: false, hint: "Its runtimes then run in a managed VNet, billed at the managed VNet rates" }
 assumptions:
   - { key: readWriteEntitiesPerMonth, label: Read/write entity operations, type: number, default: 0, hint: "Per month: creating, reading, updating and deleting pipelines, datasets, triggers and linked services; a deployment touches each entity once" }
   - { key: monitoringEntitiesPerRun, label: Monitoring operations per pipeline run, type: number, default: 0, hint: "Run records retrieved for each pipeline run: the pipeline, its activities and triggers" }

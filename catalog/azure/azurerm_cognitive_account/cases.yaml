@@ -52,6 +52,7 @@
     LUIS speech transcription: 80
   limits:
     LUIS transactions: 4
+  error: LUIS was retired on 31 March 2026
 - name: The free tier costs nothing
   region: japaneast
   attributes: { sku_name: F0 }

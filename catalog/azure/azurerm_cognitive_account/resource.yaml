@@ -2,7 +2,7 @@ type: azurerm_cognitive_account
 label: Cognitive Services account
 category: AI
 icon: cognitive-services
-description: "Pay-as-you-go usage of Speech (SpeechServices), Language (TextAnalytics) and LUIS accounts on a paid SKU: audio hours, characters, text records and transactions per meter, or a commitment tier's monthly fee plus its overage when you pick one (Azure or connected container). The F0 tier is free. OpenAI and AIServices accounts bill through their azurerm_cognitive_deployment nodes. Headroom is real-time speech to text concurrency and text to speech transactions per second (Speech), requests per minute (Language) and transactions per second (LUIS) against their default quotas."
+description: "Pay-as-you-go usage of Speech (SpeechServices), Language (TextAnalytics) and LUIS accounts on a paid SKU: audio hours, characters, text records and transactions per meter, or a commitment tier's monthly fee plus its overage when you pick one (Azure or connected container). The F0 tier is free. OpenAI and AIServices accounts bill through their azurerm_cognitive_deployment nodes. Headroom is real-time speech to text concurrency and text to speech transactions per second (Speech), requests per minute (Language) and transactions per second (LUIS) against the default quotas of the account's tier (F0 or paid). LUIS was retired on 31 March 2026."
 kinds: [call]
 sla: azure.cognitiveservices
 attributes:
@@ -52,6 +52,8 @@ let:
   - lang: 'k == "textanalytics"'
   - luis: 'k == "luis"'
   - paid: 'upper(sku_name) != "F0"'
+  - tier: 'paid ? "s0" : "f0"'
+  - langTier: 'upper(sku_name) == "S" ? "s" : "f0_s0"'
   - dep: commitmentHosting
   - s: speech && paid
   - l: lang && paid
@@ -71,6 +73,7 @@ let:
 readings:
   - fail: { when: '!speech && !lang && !luis && !(k in ["openai", "aiservices"])', message: "kind {kind} is not priced yet" }
   - fail: { when: '(speech || lang || luis) && !(upper(sku_name) in ["F0", "S0", "S1", "S"])', message: "SKU {sku_name} is not priced" }
+  - fail: { when: luis, message: "LUIS was retired on 31 March 2026; its prices are read while the price list still carries them", continue: true }
   - fail: { when: luisSpeechShare < 0 || luisSpeechShare > 1, message: "the share of speech calls must be between 0 and 1" }
   # Speech
   - cost: { when: s && sttAmt == 0, name: Speech to text, quantity: sttHours, unit: audio hour, price: azure.speech.stt }
@@ -100,8 +103,8 @@ readings:
   - cost: { when: s && speakerVerifications > 0, name: Speaker verification, quantity: speakerVerifications, unit: transaction, price: azure.speech.speaker_verification }
   - cost: { when: s && speakerIdentifications > 0, name: Speaker identification, quantity: speakerIdentifications, unit: transaction, price: azure.speech.speaker_identification }
   - cost: { when: s && voiceProfiles > 0, name: Voice profiles, quantity: voiceProfiles, unit: profile-month, price: azure.speech.voice_profiles }
-  - concurrency: { when: speech && audioSecondsPerCall > 0, name: Concurrent real-time transcriptions, peak: total.peak, seconds: audioSecondsPerCall, unit: requests, quota: azure.speech.stt.concurrent }
-  - rate: { when: speech && charactersPerCall > 0, name: Text to speech transactions, peak: total.peak, unit: transactions/second, quota: azure.speech.tts.tps }
+  - concurrency: { when: speech && audioSecondsPerCall > 0, name: Concurrent real-time transcriptions, peak: total.peak, seconds: audioSecondsPerCall, unit: requests, quota: "azure.speech.stt.concurrent.{tier}" }
+  - rate: { when: speech && charactersPerCall > 0, name: Text to speech transactions, peak: total.peak, unit: transactions/second, quota: "azure.speech.tts.tps.{tier}" }
   # Language
   - cost: { when: l && taAmt == 0, name: Text analytics, quantity: textRecords, unit: record, price: azure.language.text_analytics }
   - cost: { when: l && taAmt > 0, name: "Text analytics commitment ({textAnalyticsCommitment})", quantity: 1, unit: month, price: "azure.language.commit.text_analytics.{dep}.unit.{textAnalyticsCommitment}" }
@@ -116,14 +119,14 @@ readings:
   - cost: { when: l && customQaRecords > 0, name: Custom question answering, quantity: customQaRecords, unit: record, price: azure.language.custom_qa }
   - cost: { when: l && customTrainingHours > 0, name: Custom training, quantity: customTrainingHours, unit: training hour, price: azure.language.custom_training }
   - cost: { when: l && healthRecords > 0, name: Text analytics for health, quantity: healthRecords, unit: record, price: azure.language.health }
-  - limit: { when: lang, name: Language requests per minute, demand: total.peak * 60, unit: requests/minute, quota: azure.language.rpm }
+  - limit: { when: lang, name: Language requests per minute, demand: total.peak * 60, unit: requests/minute, quota: "azure.language.rpm.{langTier}" }
   # LUIS
   - cost: { when: u && luisAmt == 0, name: LUIS text requests, quantity: luisText, unit: transaction, price: azure.luis.text }
   - cost: { when: u && luisAmt > 0, name: "LUIS commitment ({luisCommitment})", quantity: 1, unit: month, price: "azure.luis.commit.{dep}.unit.{luisCommitment}" }
   - cost: { when: u && luisAmt > 0, name: LUIS text overage, quantity: "max(luisText - luisAmt, 0)", unit: transaction, price: "azure.luis.commit.{dep}.overage.{luisCommitment}" }
   - cost: { when: u && luisSpeech > 0, name: LUIS speech requests, quantity: luisSpeech, unit: transaction, price: azure.luis.speech }
   - cost: { when: u && luisSpeech > 0, name: LUIS speech transcription, quantity: luisSpeech, unit: transaction, price: azure.speech.intent_transcription }
-  - rate: { when: luis, name: LUIS transactions, peak: total.peak, unit: transactions/second, quota: azure.luis.tps }
+  - rate: { when: luis, name: LUIS transactions, peak: total.peak, unit: transactions/second, quota: "azure.luis.tps.{tier}" }
 terraform:
   ignoreRefs: [customer_managed_key, identity, network_acls, storage, network_injection, qna_runtime_endpoint]
 iam:

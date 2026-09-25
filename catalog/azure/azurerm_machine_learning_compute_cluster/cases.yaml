@@ -14,11 +14,10 @@
     Nodes (STANDARD_DS3_V2): 0
   limits:
     Nodes: 0
-- name: Low priority GPU node read at the dedicated price in East US
+- name: A low priority GPU node at the low priority price in East US
   region: eastus
   attributes: { vm_size: Standard_NC6s_v3, vm_priority: LowPriority, min_node_count: 1, max_node_count: 2 }
   costs:
-    Nodes (Standard_NC6s_v3): 2233.8
+    Nodes (Standard_NC6s_v3): 446.76
   limits:
     Nodes: 1
-  error: low priority nodes are read at the dedicated price
