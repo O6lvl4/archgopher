@@ -10,9 +10,11 @@ attributes:
   - { key: key_size, label: Key size, type: number, unit: bits, optional: true, hint: "RSA keys: 2048, 3072 or 4096" }
   - { key: rotation, label: Automatic rotation, type: boolean, default: false, path: rotation_policy.automatic }
   - { key: time_after_creation, label: Rotate after, type: string, optional: true, path: rotation_policy.automatic.time_after_creation, hint: "ISO 8601 duration such as P90D" }
+  - { key: time_before_expiry, label: Rotate before expiry, type: string, optional: true, path: rotation_policy.automatic.time_before_expiry, hint: "ISO 8601 duration; with expire_after it sets the rotation interval" }
+  - { key: expire_after, label: Expire after, type: string, optional: true, path: rotation_policy.expire_after, hint: "ISO 8601 duration such as P1Y" }
 assumptions:
   - { key: keyVersions, label: Versions kept, type: number, default: 1, hint: "HSM-protected keys bill every enabled version as a key; rotation adds one each time" }
-  - { key: rotationsPerMonth, label: Rotations per month, type: number, optional: true, hint: "Read from time_after_creation when it is a number of days, months or years" }
+  - { key: rotationsPerMonth, label: Rotations per month, type: number, optional: true, hint: "Read from time_after_creation, or from expire_after minus time_before_expiry, when they are a number of days, months or years" }
 let:
   - hsm: 'key_type endsWith "-HSM"'
   - rsa: 'key_type startsWith "RSA"'
@@ -20,12 +22,19 @@ let:
   - basic: 'rsa && size == 2048'
   - algo: 'rsa ? "rsa" + string(int(size)) : "ec"'
   - after: 'time_after_creation ?? ""'
-  - n: 'after matches "^P[0-9]+[DMY]$" ? float(trimSuffix(trimSuffix(trimSuffix(trimPrefix(after, "P"), "D"), "M"), "Y")) : 0.0'
-  - afterDays: 'after endsWith "D" ? n : after endsWith "M" ? n * 30.4 : n * 365'
-  - rotations: 'rotation ? (rotationsPerMonth ?? (afterDays > 0 ? 30.4 / afterDays : 0.0)) : 0.0'
+  - nA: 'after matches "^P[0-9]+[DMY]$" ? float(trimSuffix(trimSuffix(trimSuffix(trimPrefix(after, "P"), "D"), "M"), "Y")) : 0.0'
+  - afterDays: 'after endsWith "D" ? nA : after endsWith "M" ? nA * 30.4 : nA * 365'
+  - expiry: 'expire_after ?? ""'
+  - nE: 'expiry matches "^P[0-9]+[DMY]$" ? float(trimSuffix(trimSuffix(trimSuffix(trimPrefix(expiry, "P"), "D"), "M"), "Y")) : 0.0'
+  - expiryDays: 'expiry endsWith "D" ? nE : expiry endsWith "M" ? nE * 30.4 : nE * 365'
+  - before: 'time_before_expiry ?? ""'
+  - nB: 'before matches "^P[0-9]+[DMY]$" ? float(trimSuffix(trimSuffix(trimSuffix(trimPrefix(before, "P"), "D"), "M"), "Y")) : 0.0'
+  - beforeDays: 'before endsWith "D" ? nB : before endsWith "M" ? nB * 30.4 : nB * 365'
+  - interval: 'afterDays > 0 ? afterDays : (expiryDays > beforeDays && beforeDays > 0 ? expiryDays - beforeDays : 0.0)'
+  - rotations: 'rotation ? (rotationsPerMonth ?? (interval > 0 ? 30.4 / interval : 0.0)) : 0.0'
 readings:
   - fail: { when: 'key_type == "oct-HSM"', message: "oct-HSM keys live in a Managed HSM, whose pool price covers them" }
-  - fail: { when: 'rotation && rotationsPerMonth == nil && afterDays == 0', message: "automatic rotation is on: set rotationsPerMonth ({after} is not a plain number of days, months or years)", continue: true }
+  - fail: { when: 'rotation && rotationsPerMonth == nil && interval == 0', message: "automatic rotation is on: set rotationsPerMonth (the rotation policy is not a plain number of days, months or years)", continue: true }
   - cost: { when: hsm, name: HSM-protected key versions, quantity: keyVersions, unit: key-month, price: 'azure.keyvault.{basic ? "hsm_rsa2048_key" : "hsm_advanced_key"}' }
   - requests: { name: Key operations, price: '{basic ? (hsm ? "azure.keyvault.premium.operations" : "azure.keyvault.standard.operations") : "azure.keyvault.advanced_operations"}', count: total.monthly }
   - cost: { when: rotations > 0, name: Automatic rotations, quantity: rotations, unit: rotation, price: azure.keyvault.key_rotation }

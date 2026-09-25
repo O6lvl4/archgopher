@@ -55,3 +55,20 @@
       monthly: 0
       peak: 0
   error: oct-HSM keys live in a Managed HSM
+- name: rotated 30 days before a one-year expiry (Japan East)
+  region: japaneast
+  attributes:
+    key_type: RSA
+    key_size: 2048
+    rotation: true
+    expire_after: P1Y
+    time_before_expiry: P30D
+  demand:
+    crypt:
+      monthly: 0
+      peak: 0
+  costs:
+    Key operations: 0
+    Automatic rotations: 0.090746269
+  limits:
+    Key transactions: 0
