@@ -67,3 +67,12 @@
     launch_type: FARGATE
     desired_count: 2
   error: 'the task size is not known'
+- name: a task definition that still asks for an Elastic Inference accelerator
+  region: us-east-1
+  attributes:
+    launch_type: FARGATE
+    desired_count: 1
+    cpu: 1024
+    memory: 2048
+    inference_accelerator: eia2.medium
+  error: 'Elastic Inference reached end of life'

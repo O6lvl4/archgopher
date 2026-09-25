@@ -312,9 +312,9 @@ the demand and says the capacity is unknown.
 | `aws_scheduler_schedule` | Invocations | - |
 | `aws_cloudwatch_event_rule` | Nothing (scheduled rules are free) | - |
 | `aws_ecs_task_definition` | Fargate vCPU and GB hours per run (1-minute minimum, x86_64 or arm64), ephemeral storage above 20 GB | vCPUs running against the Fargate quota, task launch rate, RunTask calls |
-| `aws_ecs_service` | Fargate vCPU and GB hours of the tasks kept running (x86_64, arm64, Windows with its license), ephemeral storage above 20 GB, task size read through the task definition | vCPUs running, tasks per service, requests against the tasks' capacity |
+| `aws_ecs_service` | Fargate vCPU and GB hours of the tasks kept running (x86_64, arm64, Windows with its license), ephemeral storage above 20 GB, task size read through the task definition | vCPUs running against the On-Demand or Spot quota, tasks per service, requests against the tasks' capacity |
 | `aws_eks_cluster` | Cluster-hours, extended support by Kubernetes version, Provisioned Control Plane tier, Auto Mode management per instance, control plane logs | - |
-| `aws_eks_fargate_profile` | Fargate vCPU and GB hours of the pods it runs | vCPUs running against the Fargate quota |
+| `aws_eks_fargate_profile` | Fargate vCPU and GB hours of the pods it runs, ephemeral storage above 20 GB | vCPUs running against the Fargate quota |
 | `aws_ecr_repository` | Image storage | Image pulls and layer downloads per second |
 | `aws_kms_key` | Key-months with rotated versions, requests | Cryptographic requests per second (varies by region). References to a key are mentions: connect callers by hand |
 | `aws_secretsmanager_secret` | Secret-months with replicas, API calls | GetSecretValue rate |

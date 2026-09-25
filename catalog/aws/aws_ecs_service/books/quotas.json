@@ -2,10 +2,22 @@
   "aws.ecs.tasks_per_service": {
     "unit": "tasks",
     "source": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-quotas.html",
-    "note": "Tasks per service, desired count; adjustable",
+    "note": "Tasks per service (the desired count); not adjustable. Services that use service discovery stop at 1,000, the Cloud Map instances per service",
     "values": {
       "*": {
         "value": 5000,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.fargate.spot_vcpu": {
+    "unit": "vCPUs",
+    "source": "https://docs.aws.amazon.com/general/latest/gr/ecs-service.html",
+    "note": "Fargate Spot vCPU resource count, initial default; Fargate raises it automatically with usage, so check Service Quotas. Adjustable",
+    "values": {
+      "*": {
+        "value": 6,
         "verified": true,
         "checkedAt": "2026-09-25"
       }

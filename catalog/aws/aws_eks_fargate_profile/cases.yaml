@@ -22,3 +22,16 @@
     Memory (x86_64): 64.897
   limits:
     vCPUs running: 10
+- name: two small pods that request 100 GiB of ephemeral storage, provisioned as 115 GiB
+  region: ap-northeast-1
+  assumptions:
+    pods: 2
+    podVcpu: 0.25
+    podMemoryGb: 0.5
+    podEphemeralGb: 115
+  costs:
+    vCPU (x86_64): 18.4544
+    Memory (x86_64): 4.0369
+    Ephemeral storage over 20 GB: 18.4471
+  limits:
+    vCPUs running: 0.5
