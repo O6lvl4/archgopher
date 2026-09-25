@@ -15,6 +15,7 @@ var attrs = map[string]map[string]any{
 	"aws_dynamodb_table":      {"billing_mode": "PAY_PER_REQUEST"},
 	"aws_sfn_state_machine":   {"type": "STANDARD"},
 	"aws_ecs_task_definition": {"cpu": 256.0, "memory": 512.0},
+	"aws_ecs_service":         {"cpu": 256.0, "memory": 512.0, "desired_count": 2.0},
 }
 
 var assume = map[string]map[string]any{

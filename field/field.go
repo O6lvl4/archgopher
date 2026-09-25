@@ -46,7 +46,12 @@ type Field struct {
 	index []int
 }
 
-// TerraformPath is the dotted location of the value in a Terraform resource.
+// RefStep in a path follows a reference: "task_definition->cpu" is the cpu
+// of the resource that the task_definition attribute references.
+const RefStep = "->"
+
+// TerraformPath is the dotted location of the value in a Terraform resource,
+// with RefStep between the resources it passes through.
 func (f Field) TerraformPath() string {
 	if f.Path != "" {
 		return f.Path

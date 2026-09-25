@@ -1,0 +1,14 @@
+{
+  "aws.eks": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/eks/sla/",
+    "note": "Kubernetes endpoint of a cluster on the standard control plane; a Provisioned Control Plane tier commits 99.99%",
+    "values": {
+      "*": {
+        "value": 0.9995,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

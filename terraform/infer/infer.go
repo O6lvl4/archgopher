@@ -200,9 +200,13 @@ func (b *builder) node(r *eval.Resource) model.Node {
 	n := model.Node{ID: b.id(r), Type: r.Type, Address: r.Address, Attributes: map[string]any{}}
 	if s, ok := b.rules.Scouters[r.Type]; ok {
 		for _, f := range s.Attributes() {
-			if v := lookupPath(r.Attrs, f.TerraformPath()); v != nil {
+			at, path := b.through(r, f.TerraformPath())
+			if at == nil {
+				continue
+			}
+			if v := lookupPath(at.Attrs, path); v != nil {
 				n.Attributes[f.Key] = v
-			} else if f.Type == field.Flag && hasBlock(r.Attrs, f.TerraformPath()) {
+			} else if f.Type == field.Flag && hasBlock(at.Attrs, path) {
 				// A boolean that points at a block reads whether the block is written.
 				n.Attributes[f.Key] = true
 			}
@@ -463,6 +467,30 @@ func oneEdgePerPair(edges []model.Edge) []model.Edge {
 		first.Ops = append(first.Ops, model.Op{Kind: e.Kind})
 	}
 	return out
+}
+
+// through follows the references in a path: "task_definition->cpu" reads cpu
+// from the resource that task_definition references, which may be a helper
+// and need not be a node. It returns the resource that holds the rest of the
+// path, or nil when a reference leads nowhere.
+func (b *builder) through(r *eval.Resource, path string) (*eval.Resource, string) {
+	for {
+		ref, rest, ok := strings.Cut(path, field.RefStep)
+		if !ok {
+			return r, path
+		}
+		var next *eval.Resource
+		for _, addr := range r.Refs[ref] {
+			if t, ok := b.byAddr[addr]; ok {
+				next = t
+				break
+			}
+		}
+		if next == nil {
+			return nil, ""
+		}
+		r, path = next, rest
+	}
 }
 
 // lookupPath reads "a.b" from nested maps, taking the first element of block lists.

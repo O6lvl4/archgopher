@@ -1,0 +1,45 @@
+type: aws_ecs_service
+label: ECS service (Fargate)
+category: Compute
+icon: ecs
+description: "Tasks the service keeps running all month on Fargate: vCPU and memory hours for the task size read from its task definition (x86_64, arm64 or Windows with its license), and ephemeral storage above 20 GB. FARGATE_SPOT is read at On-Demand prices, an upper bound: Spot prices are not in the Price List. Services on EC2 or managed instances are priced on those instances. Headroom is vCPUs running against the Fargate quota, tasks per service, and requests against the tasks' capacity when you set it. Calls the containers make are read from the task definition's references: draw them from the service."
+kinds: [request]
+sla: aws.ecs
+attributes:
+  - { key: launch_type, label: Launch type, type: string, optional: true, hint: "FARGATE, EC2 or EXTERNAL; unset when a capacity provider strategy decides" }
+  - { key: capacity_provider, label: Capacity provider, type: string, optional: true, path: capacity_provider_strategy.capacity_provider, hint: "The first provider of the strategy: FARGATE, FARGATE_SPOT or an EC2 capacity provider" }
+  - { key: desired_count, label: Desired tasks, type: number, default: 0 }
+  - { key: cpu, label: Task CPU, type: number, unit: CPU units, optional: true, path: task_definition->cpu, hint: "From the task definition; 1024 units are one vCPU" }
+  - { key: memory, label: Task memory, type: number, unit: MiB, optional: true, path: task_definition->memory, hint: "From the task definition" }
+  - { key: cpu_architecture, label: CPU architecture, type: choice, options: [X86_64, ARM64], default: X86_64, path: task_definition->runtime_platform.cpu_architecture }
+  - { key: operating_system_family, label: Operating system, type: string, optional: true, path: task_definition->runtime_platform.operating_system_family, hint: "WINDOWS_SERVER_* adds the Windows license per vCPU" }
+  - { key: ephemeral_storage, label: Ephemeral storage, type: number, unit: GiB, default: 20, path: task_definition->ephemeral_storage.size_in_gib, hint: "The first 20 GiB are included" }
+assumptions:
+  - { key: runningTasks, label: Tasks running on average, type: number, optional: true, hint: "desired_count when unset; set it when Application Auto Scaling moves the count between its min and max capacity" }
+  - { key: clusterLaunchType, label: Cluster default, type: choice, options: [FARGATE, EC2], default: FARGATE, hint: "Used when the service names neither a launch type nor a capacity provider: the cluster's default capacity provider strategy decides" }
+  - { key: rpsPerTask, label: Requests per task, type: number, unit: requests/second, optional: true, hint: "What one task serves at its target utilization; gives the capacity headroom" }
+let:
+  - provider: 'capacity_provider != nil ? upper(capacity_provider) : ""'
+  - launch: 'launch_type != nil ? upper(launch_type) : provider != "" ? (provider startsWith "FARGATE" ? "FARGATE" : "EC2") : clusterLaunchType'
+  - spot: 'launch_type == nil && provider == "FARGATE_SPOT"'
+  - windows: 'operating_system_family != nil && operating_system_family startsWith "WINDOWS"'
+  - arch: 'windows ? "windows" : cpu_architecture == "ARM64" ? "arm64" : "x86_64"'
+  - tasks: 'runningTasks ?? desired_count'
+  - vcpu: '(cpu ?? 0.0) / 1024'
+  - gb: '(memory ?? 0.0) / 1024'
+  - line: 'arch + (spot ? ", Spot read at On-Demand" : "")'
+readings:
+  - fail: { when: 'launch != "FARGATE"', message: "only Fargate services are priced: {launch} tasks run on instances that are priced as those instances" }
+  - fail: { when: 'cpu == nil || memory == nil', message: "the task size is not known: set cpu and memory, which Terraform reads from the task definition the service names" }
+  - cost: { name: 'vCPU ({line})', quantity: tasks * vcpu * 730, unit: vCPU-hour, price: 'aws.fargate.{arch}.vcpu_hour' }
+  - cost: { name: 'Memory ({line})', quantity: tasks * gb * 730, unit: GB-hour, price: 'aws.fargate.{arch}.gb_hour' }
+  - cost: { when: windows, name: Windows license, quantity: tasks * vcpu * 730, unit: vCPU-hour, price: aws.fargate.windows.os_hour }
+  - cost: { when: '!windows && ephemeral_storage > 20', name: Ephemeral storage over 20 GB, quantity: tasks * (ephemeral_storage - 20) * 730, unit: GB-hour, price: aws.fargate.ephemeral_gb_hour }
+  - limit: { name: vCPUs running, demand: tasks * vcpu, unit: vCPUs, quota: aws.fargate.ondemand_vcpu }
+  - limit: { name: Tasks, demand: tasks, unit: tasks, quota: aws.ecs.tasks_per_service }
+  - limit: { when: rpsPerTask != nil, name: Request capacity, demand: total.peak, unit: requests/second, capacity: 'tasks * (rpsPerTask ?? 0.0)' }
+terraform:
+  # A load balancer's target group reaches the service; nothing in Terraform links the two, so users enter here.
+  frontDoor: true
+  # The task definition and the cluster describe the service; the service sends them no load.
+  ignoreRefs: [task_definition, cluster, iam_role, load_balancer, capacity_provider_strategy, service_registries, service_connect_configuration, deployment_controller, ordered_placement_strategy, placement_constraints, volume_configuration, vpc_lattice_configurations]

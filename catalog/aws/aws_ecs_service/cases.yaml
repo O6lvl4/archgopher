@@ -1,0 +1,69 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: three 0.5 vCPU, 1 GB tasks behind a load balancer
+  region: ap-northeast-1
+  attributes:
+    launch_type: FARGATE
+    desired_count: 3
+    cpu: '512'
+    memory: '1024'
+  assumptions:
+    rpsPerTask: 50
+  demand:
+    request:
+      monthly: 100000000
+      peak: 120
+  costs:
+    vCPU (x86_64): 55.3632
+    Memory (x86_64): 12.1107
+  limits:
+    vCPUs running: 1.5
+    Tasks: 3
+    Request capacity: 120
+- name: Graviton tasks on FARGATE_SPOT scaled to four, with 50 GiB ephemeral storage
+  region: us-east-1
+  attributes:
+    capacity_provider: FARGATE_SPOT
+    desired_count: 2
+    cpu: 1024
+    memory: 2048
+    cpu_architecture: ARM64
+    ephemeral_storage: 50
+  assumptions:
+    runningTasks: 4
+  costs:
+    vCPU (arm64, Spot read at On-Demand): 94.5496
+    Memory (arm64, Spot read at On-Demand): 20.7904
+    Ephemeral storage over 20 GB: 9.7236
+  limits:
+    vCPUs running: 4
+    Tasks: 4
+- name: one Windows task pays the license per vCPU
+  region: eu-west-1
+  attributes:
+    launch_type: FARGATE
+    desired_count: 1
+    cpu: 1024
+    memory: 2048
+    operating_system_family: WINDOWS_SERVER_2022_CORE
+  costs:
+    vCPU (windows): 33.98296
+    Memory (windows): 7.463155
+    Windows license: 33.58
+  limits:
+    vCPUs running: 1
+    Tasks: 1
+- name: an EC2 capacity provider is priced on its instances
+  region: ap-northeast-1
+  attributes:
+    capacity_provider: app-asg
+    desired_count: 2
+    cpu: 1024
+    memory: 2048
+  error: 'only Fargate services are priced: EC2 tasks'
+- name: without the task size
+  region: ap-northeast-1
+  attributes:
+    launch_type: FARGATE
+    desired_count: 2
+  error: 'the task size is not known'

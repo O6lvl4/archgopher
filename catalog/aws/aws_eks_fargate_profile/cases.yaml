@@ -1,0 +1,24 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: four 0.5 vCPU, 1 GB pods
+  region: ap-northeast-1
+  assumptions:
+    pods: 4
+    podVcpu: 0.5
+    podMemoryGb: 1
+  costs:
+    vCPU (x86_64): 73.8176
+    Memory (x86_64): 16.1476
+  limits:
+    vCPUs running: 2
+- name: ten 1 vCPU, 2 GB pods
+  region: us-east-1
+  assumptions:
+    pods: 10
+    podVcpu: 1
+    podMemoryGb: 2
+  costs:
+    vCPU (x86_64): 295.504
+    Memory (x86_64): 64.897
+  limits:
+    vCPUs running: 10
