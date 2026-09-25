@@ -17,7 +17,7 @@
   limits:
     Active time series: 50
     Write rate per time series: 0.016666667
-- name: Iowa, 200,000 distribution series every 10 seconds, read by a dashboard outside the console
+- name: Iowa, 200,000 distribution series from 1,000 pods every 10 seconds, read by a dashboard outside the console
   region: us-central1
   attributes:
     metric_type: workload.googleapis.com/rpc/latency
@@ -25,6 +25,7 @@
   assumptions:
     periodSeconds: 10
     timeSeries: 200000
+    monitoredResources: 1000
     timeSeriesReadPerMonth: 5e+06
   demand:
     write:
@@ -36,7 +37,7 @@
     Metric volume (over 250,000 MiB): 229360.595703125
     Read API time series: 2.5
   limits:
-    Active time series: 200000
+    Active time series: 200
     Write rate per time series: 0.1
 - name: Tokyo, one point per order drawn as load across 10 series
   region: asia-northeast1

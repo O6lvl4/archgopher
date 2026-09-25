@@ -2,14 +2,15 @@ type: google_monitoring_metric_descriptor
 label: Monitoring metric (user-defined)
 category: Monitoring
 icon: cloud-monitoring
-description: "A user-defined metric billed by bytes ingested: 8 bytes a point for scalar values, 80 for distributions, in volume tiers per MiB whose bounds are applied to this metric alone. Points come from time series written on a period and from load drawn to it, one point per unit. Read API calls outside the console bill per time series returned. Managed Service for Prometheus metrics bill per sample and are not read. Headroom is the one point every 5 seconds a time series accepts and the active time series per monitored resource. Free allotments are ignored."
+description: "A user-defined metric billed by bytes ingested: 8 bytes a point for scalar values, 80 for distributions, in volume tiers per MiB whose bounds are applied to this metric alone. Points come from time series written on a period and from load drawn to it, one point per unit. Read API calls outside the console bill per time series returned. Managed Service for Prometheus metrics bill per sample and are not read. Headroom is the one point every 5 seconds a time series accepts and the active time series per monitored resource (the metric's time series spread over its monitored resources). Free allotments are ignored."
 kinds: [write]
 sla: gcp.observability
 attributes:
   - { key: metric_type, label: Metric type, type: string, optional: true, path: type, hint: "custom.googleapis.com/..., external.googleapis.com/... or workload.googleapis.com/..." }
-  - { key: value_type, label: Value type, type: choice, options: [BOOL, INT64, DOUBLE, STRING, DISTRIBUTION, MONEY], default: DOUBLE, path: value_type }
+  - { key: value_type, label: Value type, type: choice, options: [BOOL, INT64, DOUBLE, STRING, DISTRIBUTION], default: DOUBLE, path: value_type }
 assumptions:
   - { key: timeSeries, label: Time series, type: number, default: 1, hint: "Label value combinations times the monitored resources that write them" }
+  - { key: monitoredResources, label: Monitored resources, type: number, default: 1, hint: "Monitored resources (VMs, containers, generic nodes) the time series are spread over; the active time series limit is per monitored resource" }
   - { key: periodSeconds, label: Write period, type: number, unit: s, optional: true, hint: "Seconds between points on each time series written on a schedule (60 for most exporters); unset when only load drawn to this node writes points" }
   - { key: timeSeriesReadPerMonth, label: Time series read by the API, type: number, default: 0, hint: "Time series returned a month by read calls outside the console, such as dashboards in other tools and scripts; at least one per call" }
 let:
@@ -24,7 +25,7 @@ readings:
   - cost: { when: mib > 250000, name: "Metric volume (over 250,000 MiB)", quantity: mib - 250000, unit: MiB, price: gcp.monitoring.volume_tier3 }
   - cost: { when: timeSeriesReadPerMonth > 0, name: Read API time series, quantity: timeSeriesReadPerMonth / 1000000, unit: million time series, price: gcp.monitoring.read_time_series }
   - limit: { name: Write rate per time series, demand: perSeriesPeak, unit: points/second, quota: gcp.monitoring.points_per_series_per_second }
-  - limit: { name: Active time series, demand: timeSeries, unit: time series, quota: gcp.monitoring.active_time_series }
+  - limit: { name: Active time series, demand: 'timeSeries / max(monitoredResources, 1)', unit: time series, quota: gcp.monitoring.active_time_series }
 terraform:
   # A metric descriptor declares a metric; it calls nothing. Code writes points to it.
   passive: true
