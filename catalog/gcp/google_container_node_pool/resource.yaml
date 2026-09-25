@@ -12,6 +12,7 @@ attributes:
   - { key: disk_type, label: Boot disk type, type: string, default: pd-balanced, path: node_config.disk_type }
   - { key: disk_size_gb, label: Boot disk size, type: number, unit: GiB, default: 100, path: node_config.disk_size_gb }
   - { key: local_ssd_count, label: Local SSDs per node, type: number, default: 0, path: node_config.local_ssd_count }
+  - { key: ephemeral_local_ssd_count, label: Local SSDs for ephemeral storage per node, type: number, default: 0, path: node_config.ephemeral_storage_local_ssd_config.local_ssd_count, hint: "Local SSDs backing ephemeral storage, 375 GiB each" }
   - { key: gpu_type, label: GPU type, type: string, optional: true, path: node_config.guest_accelerator.type, hint: "Billed on N1 only; the other GPU families include theirs in the machine price" }
   - { key: gpu_count, label: GPUs per node, type: number, default: 0, path: node_config.guest_accelerator.count }
   - { key: node_count, label: Nodes per zone, type: number, optional: true }
@@ -61,7 +62,7 @@ let:
   - bootThr: '(bootBalanced ? (bootGb <= 6 ? 140.0 : min(2400.0, 1.5 * bootGb + 140)) : bootType == "hyperdisk-throughput" ? min(90 * bootGb / 1024, 2400.0) : bootType == "hyperdisk-ml" ? max(24 * bootGb, 400.0) : 0.0)'
   - bootIopsBilled: 'bootType in ["pd-extreme", "hyperdisk-extreme"] ? bootIops : bootBalanced ? max(bootIops - 3000, 0.0) : 0.0'
   - bootThrBilled: 'bootType in ["hyperdisk-throughput", "hyperdisk-ml"] ? bootThr : bootBalanced ? max(bootThr - 140, 0.0) : 0.0'
-  - localSsds: 'local_ssd_count'
+  - localSsds: 'local_ssd_count + ephemeral_local_ssd_count'
   - gpuType: 'gpu_type ?? ""'
   - gpuCount: 'gpu_count'
   - gpuOn: 'gpuType != "" && gpuCount > 0 && family == "n1"'

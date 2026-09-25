@@ -2,7 +2,7 @@ type: google_compute_per_instance_config
 label: Per-instance config
 category: Compute
 icon: compute-engine
-description: "One more instance of its managed instance group, as Infracost counts a per-instance config: the instance-hours of the group template's machine type (predefined, or custom vCPUs and memory), on demand or Spot with the sustained use discount where the family earns it, the template's first disk as its boot disk, local SSDs, GPUs on N1 and an ephemeral external IP address, all read through the group from its instance template."
+description: "One more instance of its managed instance group, as Infracost counts a per-instance config: the instance-hours of the group template's machine type (predefined, or custom vCPUs and memory), on demand or Spot with the sustained use discount where the family earns it, the template's first disk as its boot disk and its other disks as data disks (by type), SCRATCH disks as local SSDs, local SSDs, GPUs on N1 and an ephemeral external IP address, all read through the group from its instance template."
 kinds: [request]
 sla: gcp.compute.instance
 attributes:
@@ -13,6 +13,11 @@ attributes:
   - { key: disk_size_gb, label: Boot disk size, type: number, unit: GiB, optional: true, path: instance_group_manager->version.instance_template->disk.disk_size_gb, hint: "Unset takes the image's size (imageSizeGb)" }
   - { key: disk_iops, label: Boot disk provisioned IOPS, type: number, optional: true, path: instance_group_manager->version.instance_template->disk.provisioned_iops }
   - { key: disk_throughput, label: Boot disk provisioned throughput, type: number, unit: MiB/s, optional: true, path: instance_group_manager->version.instance_template->disk.provisioned_throughput }
+  - { key: disk_kinds, label: Template disk kinds, type: list, optional: true, path: instance_group_manager->version.instance_template->disk.*.type, hint: "PERSISTENT or SCRATCH per disk block of the template, in order; SCRATCH disks are 375 GiB local SSDs" }
+  - { key: disk_types, label: Template disk types, type: list, optional: true, path: instance_group_manager->version.instance_template->disk.*.disk_type, hint: "disk_type per disk block; the disks after the first are data disks (unset: pd-standard)" }
+  - { key: disk_sizes, label: Template disk sizes, type: list, optional: true, path: instance_group_manager->version.instance_template->disk.*.disk_size_gb, hint: "disk_size_gb per disk block, GiB (unset: imageSizeGb)" }
+  - { key: disk_iops_list, label: Template disk provisioned IOPS, type: list, optional: true, path: instance_group_manager->version.instance_template->disk.*.provisioned_iops }
+  - { key: disk_throughput_list, label: Template disk provisioned throughput, type: list, optional: true, path: instance_group_manager->version.instance_template->disk.*.provisioned_throughput }
   - { key: gpu_type, label: GPU type, type: string, optional: true, path: instance_group_manager->version.instance_template->guest_accelerator.type, hint: "Billed on N1 only; the other GPU families include theirs in the machine price" }
   - { key: gpu_count, label: GPUs per instance, type: number, default: 0, path: instance_group_manager->version.instance_template->guest_accelerator.count }
   - { key: external_ip, label: External IP address, type: boolean, default: false, path: instance_group_manager->version.instance_template->network_interface.access_config, hint: "An access_config block gives each instance an ephemeral external IPv4 address" }
@@ -21,7 +26,7 @@ assumptions:
   - { key: monthlyHours, label: Hours running a month, type: number, unit: hours, default: 730, hint: "A stopped VM bills only its persistent disks and reserved addresses" }
   - { key: sustainedUse, label: Sustained use discount, type: boolean, default: true, hint: "N1, N2, N2D, C2, M1, M2, f1-micro and g1-small on demand (and GPUs on N1) earn up to 20 or 30% for running most of the month; off when committed use discounts cover the usage" }
   - { key: imageSizeGb, label: Image size, type: number, unit: GiB, default: 10, hint: "The boot disk size when the template sets none: 10 GiB for most public Linux images" }
-  - { key: localSsdsPerInstance, label: Local SSDs per instance, type: number, default: 0, hint: "SCRATCH disks in the template, 375 GiB each" }
+  - { key: localSsdsPerInstance, label: Local SSDs per instance, type: number, optional: true, hint: "Overrides the SCRATCH disks counted in the template, 375 GiB each" }
   - { key: requestsPerInstance, label: Capacity per instance, type: number, unit: requests/second, optional: true, hint: "What one instance serves at the peak, from a load test; the group's capacity is that times its instances" }
 let:
   - mt: 'last(split(machine_type ?? machineType ?? "", "/"))'
@@ -51,7 +56,25 @@ let:
   - bootThr: 'disk_throughput ?? (bootBalanced ? (bootGb <= 6 ? 140.0 : min(2400.0, 1.5 * bootGb + 140)) : bootType == "hyperdisk-throughput" ? min(90 * bootGb / 1024, 2400.0) : bootType == "hyperdisk-ml" ? max(24 * bootGb, 400.0) : 0.0)'
   - bootIopsBilled: 'bootType in ["pd-extreme", "hyperdisk-extreme"] ? bootIops : bootBalanced ? max(bootIops - 3000, 0.0) : 0.0'
   - bootThrBilled: 'bootType in ["hyperdisk-throughput", "hyperdisk-ml"] ? bootThr : bootBalanced ? max(bootThr - 140, 0.0) : 0.0'
-  - localSsds: localSsdsPerInstance
+  - localSsds: 'localSsdsPerInstance ?? float(len(filter(disk_kinds, # == "SCRATCH")))'
+  - xIdx: 'filter(0..(len(disk_kinds) - 1), # > 0 && disk_kinds[#] != "SCRATCH")'
+  - xTypes: 'map(xIdx, let d = get(disk_types, #) ?? ""; d == "" ? "pd-standard" : d)'
+  - xGbs: 'map(xIdx, let d = get(disk_sizes, #) ?? ""; d == "" ? imageSizeGb : float(d))'
+  - xIops: 'map(0..(len(xIdx) - 1), let t = xTypes[#]; let g = xGbs[#]; let d = get(disk_iops_list, xIdx[#]) ?? ""; let v = d == "" ? (t == "pd-extreme" ? 100000.0 : t == "hyperdisk-extreme" ? min(350000.0, 100 * g) : t in ["hyperdisk-balanced", "hyperdisk-balanced-high-availability"] ? (g <= 6 ? 500 * g : min(6 * g + 3000, t == "hyperdisk-balanced" ? 160000.0 : 100000.0)) : 0.0) : float(d); t in ["pd-extreme", "hyperdisk-extreme"] ? v : t in ["hyperdisk-balanced", "hyperdisk-balanced-high-availability"] ? max(v - 3000, 0.0) : 0.0)'
+  - xThr: 'map(0..(len(xIdx) - 1), let t = xTypes[#]; let g = xGbs[#]; let d = get(disk_throughput_list, xIdx[#]) ?? ""; let v = d == "" ? (t in ["hyperdisk-balanced", "hyperdisk-balanced-high-availability"] ? (g <= 6 ? 140.0 : min(2400.0, 1.5 * g + 140)) : t == "hyperdisk-throughput" ? min(90 * g / 1024, 2400.0) : t == "hyperdisk-ml" ? max(24 * g, 400.0) : 0.0) : float(d); t in ["hyperdisk-throughput", "hyperdisk-ml"] ? v : t in ["hyperdisk-balanced", "hyperdisk-balanced-high-availability"] ? max(v - 140, 0.0) : 0.0)'
+  - xKinds: 'uniq(xTypes)'
+  - xT0: 'string(get(xKinds, 0) ?? "")'
+  - xGb0: 'sum(map(0..(len(xTypes) - 1), xTypes[#] == xT0 ? xGbs[#] : 0.0))'
+  - xIops0: 'sum(map(0..(len(xTypes) - 1), xTypes[#] == xT0 ? xIops[#] : 0.0))'
+  - xThr0: 'sum(map(0..(len(xTypes) - 1), xTypes[#] == xT0 ? xThr[#] : 0.0))'
+  - xT1: 'string(get(xKinds, 1) ?? "")'
+  - xGb1: 'sum(map(0..(len(xTypes) - 1), xTypes[#] == xT1 ? xGbs[#] : 0.0))'
+  - xIops1: 'sum(map(0..(len(xTypes) - 1), xTypes[#] == xT1 ? xIops[#] : 0.0))'
+  - xThr1: 'sum(map(0..(len(xTypes) - 1), xTypes[#] == xT1 ? xThr[#] : 0.0))'
+  - xT2: 'string(get(xKinds, 2) ?? "")'
+  - xGb2: 'sum(map(0..(len(xTypes) - 1), xTypes[#] == xT2 ? xGbs[#] : 0.0))'
+  - xIops2: 'sum(map(0..(len(xTypes) - 1), xTypes[#] == xT2 ? xIops[#] : 0.0))'
+  - xThr2: 'sum(map(0..(len(xTypes) - 1), xTypes[#] == xT2 ? xThr[#] : 0.0))'
   - gpuType: 'gpu_type ?? ""'
   - gpuCount: 'gpu_count'
   - gpuOn: 'gpuType != "" && gpuCount > 0 && family == "n1"'
@@ -66,6 +89,16 @@ readings:
   - storage: { name: "Boot disk ({bootType})", gb: 'count * bootGb', price: 'gcp.compute.disk.{bootType}' }
   - cost: { when: 'bootIopsBilled > 0', name: "Boot disk IOPS ({bootType})", quantity: 'count * bootIopsBilled', unit: IOPS-month, price: 'gcp.compute.disk_iops.{bootType}' }
   - cost: { when: 'bootThrBilled > 0', name: "Boot disk throughput ({bootType})", quantity: 'count * bootThrBilled', unit: MiBps-month, price: 'gcp.compute.disk_throughput.{bootType}' }
+  - fail: { when: 'len(xKinds) > 3', message: "the template's data disks have more than three disk types; the first three are read", continue: true }
+  - storage: { when: 'xT0 != ""', name: "Data disk ({xT0})", gb: 'count * xGb0', price: 'gcp.compute.disk.{xT0}' }
+  - cost: { when: 'xT0 != "" && xIops0 > 0', name: "Data disk IOPS ({xT0})", quantity: 'count * xIops0', unit: IOPS-month, price: 'gcp.compute.disk_iops.{xT0}' }
+  - cost: { when: 'xT0 != "" && xThr0 > 0', name: "Data disk throughput ({xT0})", quantity: 'count * xThr0', unit: MiBps-month, price: 'gcp.compute.disk_throughput.{xT0}' }
+  - storage: { when: 'xT1 != ""', name: "Data disk ({xT1})", gb: 'count * xGb1', price: 'gcp.compute.disk.{xT1}' }
+  - cost: { when: 'xT1 != "" && xIops1 > 0', name: "Data disk IOPS ({xT1})", quantity: 'count * xIops1', unit: IOPS-month, price: 'gcp.compute.disk_iops.{xT1}' }
+  - cost: { when: 'xT1 != "" && xThr1 > 0', name: "Data disk throughput ({xT1})", quantity: 'count * xThr1', unit: MiBps-month, price: 'gcp.compute.disk_throughput.{xT1}' }
+  - storage: { when: 'xT2 != ""', name: "Data disk ({xT2})", gb: 'count * xGb2', price: 'gcp.compute.disk.{xT2}' }
+  - cost: { when: 'xT2 != "" && xIops2 > 0', name: "Data disk IOPS ({xT2})", quantity: 'count * xIops2', unit: IOPS-month, price: 'gcp.compute.disk_iops.{xT2}' }
+  - cost: { when: 'xT2 != "" && xThr2 > 0', name: "Data disk throughput ({xT2})", quantity: 'count * xThr2', unit: MiBps-month, price: 'gcp.compute.disk_throughput.{xT2}' }
   - cost: { when: 'localSsds > 0', name: "Local SSD{onSpot ? \" (spot)\" : \"\"}", quantity: 'count * localSsds * 375 * hours / 730', unit: GB-month, price: 'gcp.compute.local_ssd{market}' }
   - cost: { when: 'gpuOn', name: "GPU ({gpuType}{onSpot ? \", spot\" : \"\"})", quantity: 'count * gpuCount * gpuHours', unit: GPU-hour, price: 'gcp.compute.gpu{market}.{gpuType}' }
   - cost: { when: 'ephemeralIp', name: "External IP address{onSpot ? \" (spot)\" : \"\"}", quantity: 'count * hours', unit: address-hour, price: 'gcp.compute.ip.{onSpot ? "spot_vm" : "standard_vm"}' }

@@ -7256,7 +7256,7 @@
   "gcp.compute.machine_spot": {
     "unit": "instance-hour",
     "source": "https://cloud.google.com/spot-vms/pricing",
-    "note": "Spot VM price of each predefined machine type. Spot prices change up to once a month; null where the page lists no spot price. Read from the pricing page's regional tables; sync verifies rows with a single Billing Catalog SKU once credentials are set.",
+    "note": "Spot VM price of each predefined machine type. Spot prices change up to once a month; null where the page lists no spot price. The E2 shared-core types (e2-micro, e2-small, e2-medium) have no Spot table: they bill a fraction of the E2 Spot core and memory SKUs, 1/8, 1/4 and 1/2 of e2-standard-2 as on demand. Read from the pricing page's regional tables; sync verifies rows with a single Billing Catalog SKU once credentials are set.",
     "rows": {
       "c2-standard-16": {
         "asia-northeast1": 0.232128,
@@ -10149,6 +10149,42 @@
         "us-east4": 0.24432,
         "us-east5": 0.174416,
         "us-west1": 0.216976
+      },
+      "e2-medium": {
+        "asia-northeast1": 0.025792,
+        "asia-northeast3": 0.020552,
+        "asia-south1": 0.024144,
+        "asia-southeast1": 0.024806,
+        "australia-southeast1": 0.0254,
+        "europe-west1": 0.022054,
+        "europe-west3": 0.0259,
+        "us-east4": 0.02264,
+        "us-east5": 0.016166,
+        "us-west1": 0.020106
+      },
+      "e2-micro": {
+        "asia-northeast1": 0.006448,
+        "asia-northeast3": 0.005138,
+        "asia-south1": 0.006036,
+        "asia-southeast1": 0.0062015,
+        "australia-southeast1": 0.00635,
+        "europe-west1": 0.0055135,
+        "europe-west3": 0.006475,
+        "us-east4": 0.00566,
+        "us-east5": 0.0040415,
+        "us-west1": 0.0050265
+      },
+      "e2-small": {
+        "asia-northeast1": 0.012896,
+        "asia-northeast3": 0.010276,
+        "asia-south1": 0.012072,
+        "asia-southeast1": 0.012403,
+        "australia-southeast1": 0.0127,
+        "europe-west1": 0.011027,
+        "europe-west3": 0.01295,
+        "us-east4": 0.01132,
+        "us-east5": 0.008083,
+        "us-west1": 0.010053
       },
       "e2-standard-16": {
         "asia-northeast1": 0.412672,

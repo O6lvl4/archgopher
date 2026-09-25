@@ -501,15 +501,21 @@ const maxReferenceHops = 4
 
 // lookupPath reads "a.b" from nested maps, taking the first element of block
 // lists. A last step "#" counts the blocks or list elements written
-// ("scratch_disk.#").
+// ("scratch_disk.#"), and a step "*" reads the rest of the path in every
+// block, one text per block in order and "" where a block leaves it unset
+// ("disk.*.disk_size_gb").
 func lookupPath(m map[string]any, path string) any {
 	var cur any = m
-	for _, part := range strings.Split(path, ".") {
+	parts := strings.Split(path, ".")
+	for i, part := range parts {
 		if part == "#" {
 			if list, ok := cur.([]any); ok {
 				return len(list)
 			}
 			return nil
+		}
+		if part == "*" {
+			return eachBlock(cur, strings.Join(parts[i+1:], "."))
 		}
 		if list, ok := cur.([]any); ok {
 			if len(list) == 0 {
@@ -529,6 +535,32 @@ func lookupPath(m map[string]any, path string) any {
 		}
 	}
 	return cur
+}
+
+// eachBlock reads rest in every block of list, as text so the values of
+// several paths line up block by block.
+func eachBlock(list any, rest string) any {
+	blocks, ok := list.([]any)
+	if !ok {
+		return nil
+	}
+	out := make([]any, 0, len(blocks))
+	for _, blk := range blocks {
+		var v any
+		if obj, ok := blk.(map[string]any); ok {
+			v = obj
+			if rest != "" {
+				v = lookupPath(obj, rest)
+			}
+		}
+		switch v.(type) {
+		case string, bool, int, int64, float64:
+			out = append(out, fmt.Sprint(v))
+		default:
+			out = append(out, "")
+		}
+	}
+	return out
 }
 
 // hasBlock reports whether "a.b" names a block that is written, even empty.

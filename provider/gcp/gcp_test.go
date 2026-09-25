@@ -2,6 +2,7 @@ package gcp
 
 import (
 	"flag"
+	"fmt"
 	"path/filepath"
 	"testing"
 
@@ -112,6 +113,17 @@ func TestTerraformReadsThroughReferences(t *testing.T) {
 		for k, v := range attrs {
 			if got := n.Attributes[k]; got != v {
 				t.Errorf("%s %s = %v (%T), want %v", typ, k, got, got, v)
+			}
+		}
+	}
+	// "disk.*.x" reads x in every disk block, "" where a block leaves it unset.
+	lists := map[string]string{
+		"disk_kinds": "[  SCRATCH]", "disk_types": "[pd-balanced pd-ssd local-ssd]", "disk_sizes": "[20 200 375]",
+	}
+	for _, typ := range []string{"google_compute_instance_group_manager", "google_compute_per_instance_config"} {
+		for k, want := range lists {
+			if got := fmt.Sprint(nodes[typ].Attributes[k]); got != want {
+				t.Errorf("%s %s = %s, want %s", typ, k, got, want)
 			}
 		}
 	}

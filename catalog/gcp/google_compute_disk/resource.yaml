@@ -26,7 +26,7 @@ let:
   - dThr: 'provisioned_throughput ?? (dBalanced ? (dGb <= 6 ? 140.0 : min(2400.0, 1.5 * dGb + 140)) : dType == "hyperdisk-throughput" ? min(90 * dGb / 1024, 2400.0) : dType == "hyperdisk-ml" ? max(24 * dGb, 400.0) : 0.0)'
   - dIopsBilled: 'dType in ["pd-extreme", "hyperdisk-extreme"] ? dIops : dBalanced ? max(dIops - 3000, 0.0) : 0.0'
   - dThrBilled: 'dType in ["hyperdisk-throughput", "hyperdisk-ml"] ? dThr : dBalanced ? max(dThr - 140, 0.0) : 0.0'
-  - iopsLimit: 'dType == "pd-standard" ? min(0.75 * dGb, 7500.0) : dType == "pd-balanced" ? min(3000 + 6 * dGb, 80000.0) : dType == "pd-ssd" ? min(6000 + 30 * dGb, 100000.0) : dType in ["pd-extreme", "hyperdisk-extreme"] || dBalanced ? dIops : dType == "hyperdisk-throughput" ? 4 * dThr : dType == "hyperdisk-ml" ? 16 * dThr : 0.0'
+  - iopsLimit: 'dType == "pd-standard" ? min(0.75 * dGb, 7500.0) : dType == "pd-balanced" ? min(3000 + 6 * dGb, 80000.0) : dType == "pd-ssd" ? min(6000 + 30 * dGb, 100000.0) : dType in ["pd-extreme", "hyperdisk-extreme"] || dBalanced ? dIops : dType == "hyperdisk-throughput" ? min(4 * dThr, 9600.0) : dType == "hyperdisk-ml" ? 16 * dThr : 0.0'
 readings:
   - fail: { when: 'type startsWith "regional-" || !(type in ["pd-standard", "pd-balanced", "pd-ssd", "pd-extreme", "hyperdisk-balanced", "hyperdisk-balanced-high-availability", "hyperdisk-extreme", "hyperdisk-throughput", "hyperdisk-ml"])', message: "disk type {type} is not read" }
   - storage: { name: "Disk ({dType})", gb: 'dGb', price: 'gcp.compute.disk.{dType}' }

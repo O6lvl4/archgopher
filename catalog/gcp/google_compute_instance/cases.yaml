@@ -96,3 +96,16 @@
       monthly: 1
       peak: 1
   error: custom machine type n2-custom is not read
+- name: Tokyo Spot e2-micro
+  # Shared-core e2-micro bills 1/8 of e2-standard-2: Spot 0.051584 / 8 = 0.006448 x 730; 10 GiB pd-standard boot disk at 0.052
+  region: asia-northeast1
+  attributes:
+    machine_type: e2-micro
+    provisioning_model: SPOT
+  demand:
+    request:
+      monthly: 1000
+      peak: 1
+  costs:
+    Instance (e2-micro, spot): 4.70704
+    Boot disk (pd-standard): 0.52

@@ -48,7 +48,8 @@ type Field struct {
 
 // TerraformPath is the dotted location of the value in a Terraform resource.
 // "ref->path" reads path on the resource the attribute ref references, and a
-// last step "#" counts blocks ("scratch_disk.#").
+// last step "#" counts blocks ("scratch_disk.#"); a step "*" reads the rest
+// in every block as a list ("disk.*.disk_type").
 func (f Field) TerraformPath() string {
 	if f.Path != "" {
 		return f.Path

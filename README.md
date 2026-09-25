@@ -441,7 +441,7 @@ the resource it is scoped to, with the kinds the role grants. Each resource's
 | `google_api_gateway_gateway` | Calls | Quota units per second |
 | `gemini_model` | Gemini 2.5 input, cached and output tokens (placed by hand) | Tokens per minute |
 | `google_compute_instance` | Machine type hours (predefined, or custom vCPUs, memory and extended memory), on demand or Spot, with sustained use discounts; boot disk capacity, IOPS and throughput; local SSDs; GPUs on N1; an ephemeral external IP | Requests against what the VM serves |
-| `google_compute_instance_group_manager`, `google_compute_region_instance_group_manager` | The same per instance, read from the instance template, times the target size | Requests against the instances |
+| `google_compute_instance_group_manager`, `google_compute_region_instance_group_manager` | The same per instance, read from the instance template (its first disk as the boot disk, the other disks as data disks, SCRATCH disks as local SSDs), times the target size | Requests against the instances |
 | `google_compute_per_instance_config`, `google_compute_region_per_instance_config` | One more instance of the group, read through the group from its template | - |
 | `google_compute_disk` | Persistent Disk and Hyperdisk capacity, provisioned IOPS and throughput (type defaults for the size) | IOPS against the disk's limit |
 | `google_compute_image`, `google_compute_machine_image`, `google_compute_snapshot` | Image, machine image and standard or archive snapshot storage (regional or multi-regional) | - |
@@ -540,7 +540,9 @@ An attribute's `path` is where Terraform holds it (`boot_disk.initialize_params.
 `ref->path` reads `path` on the resource that attribute `ref` references, so an
 instance group reads `version.instance_template->machine_type` and a node pool
 `cluster->location`; a last step `#` counts blocks or list elements
-(`scratch_disk.#`).
+(`scratch_disk.#`), and a step `*` reads the rest of the path in every block
+as a `list` attribute, `""` where a block leaves it unset, so several lists
+line up block by block (`version.instance_template->disk.*.disk_size_gb`).
 
 Prices that differ by one attribute only (an instance type, a database
 class) are a table: one entry with `rows` instead of `values`, one number per

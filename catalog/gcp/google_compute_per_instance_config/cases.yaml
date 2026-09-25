@@ -28,3 +28,19 @@
   costs:
     Instance (n1-standard-1): 34.6748175
     Boot disk (pd-ssd): 5.1
+- name: Oregon stateful e2-standard-2 whose template adds a 100 GiB data disk with no type
+  # 0.06701142 x 730; boot 10 GiB pd-standard at 0.04; the data disk takes pd-standard: 100 x 0.04
+  region: us-west1
+  attributes:
+    machine_type: e2-standard-2
+    disk_kinds: ["", ""]
+    disk_types: ["", ""]
+    disk_sizes: ["", "100"]
+  demand:
+    request:
+      monthly: 1000
+      peak: 1
+  costs:
+    Instance (e2-standard-2): 48.9183366
+    Boot disk (pd-standard): 0.4
+    Data disk (pd-standard): 4.0

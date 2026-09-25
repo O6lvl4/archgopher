@@ -18,6 +18,7 @@ attributes:
   - { key: disk_type, label: Default pool disk type, type: string, optional: true, path: node_config.disk_type }
   - { key: disk_size_gb, label: Default pool disk size, type: number, unit: GiB, optional: true, path: node_config.disk_size_gb }
   - { key: local_ssd_count, label: Default pool local SSDs, type: number, optional: true, path: node_config.local_ssd_count }
+  - { key: ephemeral_local_ssd_count, label: Default pool ephemeral storage local SSDs, type: number, optional: true, path: node_config.ephemeral_storage_local_ssd_config.local_ssd_count }
   - { key: gpu_type, label: Default pool GPU type, type: string, optional: true, path: node_config.guest_accelerator.type }
   - { key: gpu_count, label: Default pool GPUs per node, type: number, optional: true, path: node_config.guest_accelerator.count }
   - { key: pool_machine_type, label: Node pool machine type, type: string, optional: true, path: node_pool.node_config.machine_type }
@@ -26,6 +27,7 @@ attributes:
   - { key: pool_disk_type, label: Node pool disk type, type: string, optional: true, path: node_pool.node_config.disk_type }
   - { key: pool_disk_size_gb, label: Node pool disk size, type: number, unit: GiB, optional: true, path: node_pool.node_config.disk_size_gb }
   - { key: pool_local_ssd_count, label: Node pool local SSDs, type: number, optional: true, path: node_pool.node_config.local_ssd_count }
+  - { key: pool_ephemeral_local_ssd_count, label: Node pool ephemeral storage local SSDs, type: number, optional: true, path: node_pool.node_config.ephemeral_storage_local_ssd_config.local_ssd_count }
   - { key: pool_gpu_type, label: Node pool GPU type, type: string, optional: true, path: node_pool.node_config.guest_accelerator.type }
   - { key: pool_gpu_count, label: Node pool GPUs per node, type: number, optional: true, path: node_pool.node_config.guest_accelerator.count }
   - { key: pool_node_count, label: Node pool nodes per zone, type: number, optional: true, path: node_pool.node_count }
@@ -75,7 +77,7 @@ let:
   - bootThr: '(bootBalanced ? (bootGb <= 6 ? 140.0 : min(2400.0, 1.5 * bootGb + 140)) : bootType == "hyperdisk-throughput" ? min(90 * bootGb / 1024, 2400.0) : bootType == "hyperdisk-ml" ? max(24 * bootGb, 400.0) : 0.0)'
   - bootIopsBilled: 'bootType in ["pd-extreme", "hyperdisk-extreme"] ? bootIops : bootBalanced ? max(bootIops - 3000, 0.0) : 0.0'
   - bootThrBilled: 'bootType in ["hyperdisk-throughput", "hyperdisk-ml"] ? bootThr : bootBalanced ? max(bootThr - 140, 0.0) : 0.0'
-  - localSsds: '(inline ? pool_local_ssd_count : local_ssd_count) ?? 0.0'
+  - localSsds: '(inline ? (pool_local_ssd_count ?? 0.0) + (pool_ephemeral_local_ssd_count ?? 0.0) : (local_ssd_count ?? 0.0) + (ephemeral_local_ssd_count ?? 0.0))'
   - gpuType: '(inline ? pool_gpu_type : gpu_type) ?? ""'
   - gpuCount: '(inline ? pool_gpu_count : gpu_count) ?? 0.0'
   - gpuOn: 'gpuType != "" && gpuCount > 0 && family == "n1"'

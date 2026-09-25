@@ -12,6 +12,16 @@ resource "google_compute_instance_template" "web" {
     disk_type    = "pd-balanced"
     disk_size_gb = 20
   }
+  disk {
+    disk_type    = "pd-ssd"
+    disk_size_gb = 200
+  }
+  disk {
+    type         = "SCRATCH"
+    disk_type    = "local-ssd"
+    disk_size_gb = 375
+    interface    = "NVME"
+  }
   network_interface {
     network = "default"
     access_config {}

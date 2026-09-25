@@ -40,3 +40,20 @@
     Nodes (e2-standard-8, spot): 132.2176
     Boot disks (pd-ssd): 9.35
     Local SSD (spot): 19.8
+- name: Tokyo zonal pool of one c3-standard-8 whose ephemeral storage is on two local SSDs
+  # Zone asia-northeast1-a, 1 node: 0.51781 x 730 (no sustained use discount on C3); 100 GiB pd-balanced at 0.13; 2 x 375 GiB local SSD at 0.104; public node IP 730 x 0.005
+  region: asia-northeast1
+  attributes:
+    machine_type: c3-standard-8
+    node_count: 1
+    location: asia-northeast1-a
+    ephemeral_local_ssd_count: 2
+  demand:
+    request:
+      monthly: 1000
+      peak: 1
+  costs:
+    Nodes (c3-standard-8): 378.0013
+    Boot disks (pd-balanced): 13.0
+    Local SSD: 78.0
+    External IP address: 3.65
