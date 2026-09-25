@@ -1,0 +1,91 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Internet-facing ALB in three zones, 10 million 40 KB requests (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    subnets: [a, b, c]
+  assumptions:
+    kbPerUnit: 40
+  demand:
+    request:
+      monthly: 1e+07
+      peak: 50
+  # 730 h × $0.0243. Bytes dominate: 1e7 × 40 KB = 381.4697265625 GB a month,
+  # 0.5226 GB an hour = 0.5226 LCU, × 730 h × $0.008 (new connections: 3.8/s ÷ 25 = 0.152 LCU).
+  # Three public IPv4 addresses × 730 h × $0.005.
+  costs:
+    Load balancer hours: 17.739
+    Capacity units: 3.0517578125
+    Public IPv4 addresses: 10.95
+- name: Internal TLS NLB within its reserved capacity (us-east-1)
+  region: us-east-1
+  attributes:
+    load_balancer_type: network
+    internal: true
+    capacity_units: 2
+  assumptions:
+    kbPerUnit: 1
+    protocol: TLS
+  demand:
+    request:
+      monthly: 1e+08
+      peak: 100
+  # New TLS flows dominate: 1e8 / 2,628,000 s = 38.05/s ÷ 50 = 0.761 NLCU, under the 2 reserved.
+  # 730 h × $0.0225; 2 × 730 h × $0.006 reserved; nothing above the reservation.
+  costs:
+    Load balancer hours: 16.425
+    Capacity units: 0
+    Reserved capacity units: 8.76
+- name: ALB with Lambda targets, 30 rules and mutual TLS (us-east-1)
+  region: us-east-1
+  assumptions:
+    kbPerUnit: 10
+    targets: lambda
+    rulesPerRequest: 30
+    requestsPerConnection: 5
+    connectionSeconds: 60
+    trustStores: 1
+  demand:
+    request:
+      monthly: 2.628e+07
+      peak: 30
+  # 10 requests/s: new connections 2/s ÷ 25 = 0.08, active 120 ÷ 3,000 = 0.04,
+  # rules 10 × (30 - 10) ÷ 1,000 = 0.2, bytes 0.3433 GB/h ÷ 0.4 = 0.8583 LCU (the largest).
+  # 0.8583 × 730 × $0.008; one trust store × 730 × $0.005; two zones by default × 730 × $0.005.
+  costs:
+    Load balancer hours: 16.425
+    Capacity units: 5.01251220703125
+    Trust store associations: 3.65
+    Public IPv4 addresses: 7.3
+- name: Idle Gateway Load Balancer (us-east-1)
+  region: us-east-1
+  attributes:
+    load_balancer_type: gateway
+  demand:
+    request:
+      monthly: 0
+      peak: 0
+  costs:
+    Load balancer hours: 9.125
+    Capacity units: 0
+- name: Internet-facing NLB on Elastic IPs pays no address here (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    load_balancer_type: network
+    subnet_mapping: 2
+    elastic_ips: true
+  demand:
+    request:
+      monthly: 0
+      peak: 0
+  # 730 h × $0.0243; the Elastic IPs are billed as Elastic IPs.
+  costs:
+    Load balancer hours: 17.739
+    Capacity units: 0
+- name: load passes through without a size (us-east-1)
+  region: us-east-1
+  demand:
+    request:
+      monthly: 1000
+      peak: 1
+  error: "load passes through this load balancer: set kbPerUnit, the data each unit carries"

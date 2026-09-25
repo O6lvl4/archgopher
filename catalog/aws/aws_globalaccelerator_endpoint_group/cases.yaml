@@ -1,0 +1,57 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Tokyo endpoints, clients in Asia Pacific (ap-northeast-1)
+  region: ap-northeast-1
+  assumptions:
+    kbPerUnit: 50
+  demand:
+    request:
+      monthly: 1e+07
+      peak: 50
+  # 1e7 × 50 KB = 476.837158203125 GB × $0.01 (AP-AP)
+  costs:
+    Data transfer premium: 4.76837158203125
+- name: Virginia endpoints, clients in Asia Pacific (us-east-1)
+  region: us-east-1
+  assumptions:
+    kbPerUnit: 50
+    clients: AP
+  demand:
+    request:
+      monthly: 1e+07
+      peak: 50
+  # 476.837158203125 GB × $0.035 (NA-AP)
+  costs:
+    Data transfer premium: 16.689300537109375
+- name: endpoint group in Seoul declared from Virginia, 200 GB
+  region: us-east-1
+  attributes:
+    endpoint_group_region: ap-northeast-2
+  assumptions:
+    gbPerMonth: 200
+  demand:
+    request:
+      monthly: 0
+      peak: 0
+  # Seoul is its own group: 200 GB × $0.043 (KR-KR)
+  costs:
+    Data transfer premium: 8.6
+- name: Ireland endpoints, clients in Australia, 100 GB (eu-west-1)
+  region: eu-west-1
+  assumptions:
+    gbPerMonth: 100
+    clients: AU
+  demand:
+    request:
+      monthly: 0
+      peak: 0
+  # 100 GB × $0.105 (EU-AU)
+  costs:
+    Data transfer premium: 10.5
+- name: load passes through without a size (us-east-1)
+  region: us-east-1
+  demand:
+    request:
+      monthly: 1000
+      peak: 1
+  error: "load passes through this endpoint group: set kbPerUnit"

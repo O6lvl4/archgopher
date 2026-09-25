@@ -1,0 +1,14 @@
+{
+  "aws.elb": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/elasticloadbalancing/sla/",
+    "note": "Multi-AZ load balancer; a load balancer in a single Availability Zone, and a Gateway Load Balancer, is 99.9%",
+    "values": {
+      "*": {
+        "value": 0.9999,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

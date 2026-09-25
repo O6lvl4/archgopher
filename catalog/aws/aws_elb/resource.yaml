@@ -1,0 +1,26 @@
+type: aws_elb
+label: Classic Load Balancer
+category: Network
+icon: elastic-load-balancing
+description: "Load balancer-hours and each GB processed. Internet-facing load balancers also pay a public IPv4 address per Availability Zone. It sits on the path: load that passes through carries kbPerUnit each and flows on to the instances."
+kinds: [request]
+sla: aws.elb
+attributes:
+  - { key: internal, label: Internal, type: boolean, default: false }
+  - { key: subnets, label: Subnets, type: list, optional: true, hint: "One load balancer node per subnet (VPC)" }
+  - { key: availability_zones, label: Availability Zones, type: list, optional: true, hint: "EC2-Classic placement" }
+assumptions:
+  - { key: kbPerUnit, label: Data per unit, type: number, unit: KB, optional: true, hint: "Per request passing through, request and response together" }
+  - { key: gbPerMonth, label: Other data per month, type: number, unit: GB, default: 0, hint: "Traffic not drawn as load" }
+  - { key: azs, label: Availability Zones, type: number, default: 2, hint: "Used when neither subnets nor zones are known from Terraform" }
+let:
+  - zones: 'len(subnets) > 0 ? float(len(subnets)) : len(availability_zones) > 0 ? float(len(availability_zones)) : azs'
+readings:
+  - fail: { when: 'total.monthly > 0 && kbPerUnit == nil', message: "load passes through this load balancer: set kbPerUnit, the data each unit carries" }
+  - cost: { name: Load balancer hours, quantity: 730, unit: hour, price: aws.elb.classic.hour }
+  - cost: { name: Data processed, quantity: 'gbPerMonth + total.monthly * (kbPerUnit != nil ? kbPerUnit : 0.0) / 1024 / 1024', unit: GB, price: aws.elb.classic.data_processed }
+  - cost: { when: '!internal', name: Public IPv4 addresses, quantity: zones * 730, unit: hour, price: aws.elb.public_ipv4_hour }
+terraform:
+  # Users reach it unless something in the graph calls it; instances are its targets.
+  frontDoor: true
+  ignoreRefs: [security_groups, source_security_group, subnets, access_logs]

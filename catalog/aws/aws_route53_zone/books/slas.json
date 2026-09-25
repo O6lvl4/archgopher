@@ -1,0 +1,14 @@
+{
+  "aws.route53": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/route53/sla/",
+    "note": "Authoritative DNS of a hosted zone; Resolver endpoints and health checks are not covered",
+    "values": {
+      "*": {
+        "value": 0.9999,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

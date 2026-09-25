@@ -1,0 +1,16 @@
+type: aws_route53_zone
+label: Route 53 hosted zone
+category: Edge
+icon: route-53
+description: "A hosted zone per month, public or private (the first 25 in an account price; later ones are cheaper), and each record set beyond the 10,000 a zone includes. Queries are read on the records. Nothing calls a zone."
+kinds: [zone]
+sla: aws.route53
+assumptions:
+  - { key: recordSets, label: Record sets in the zone, type: number, default: 0, hint: "Only record sets beyond 10,000 cost extra" }
+readings:
+  - cost: { name: Hosted zone, quantity: 1, unit: zone-month, price: aws.route53.hosted_zone }
+  - cost: { when: recordSets > 10000, name: Record sets beyond 10000, quantity: recordSets - 10000, unit: record-month, price: aws.route53.extra_records }
+terraform:
+  # Records, associations and validations name the zone; none of them calls it.
+  mentioned: true
+  passive: true

@@ -224,7 +224,7 @@ without state and without cloud credentials, so it also works on a pull request.
   closing edge, with a warning.
 
 Resource types that should be nodes but have no scouter yet (ECS services,
-Kinesis streams, load balancers...) still become nodes: they pass load through
+Kinesis streams...) still become nodes: they pass load through
 and appear in the report as skipped.
 
 ## Pull requests
@@ -360,6 +360,14 @@ the demand and says the capacity is unknown.
 | `aws_ec2_transit_gateway_vpc_attachment` | Attachment-hours and data processed, billed to the attachment owner | Bandwidth per zone |
 | `aws_vpn_connection` | Connection-hours (standard or large tunnels), data sent out | Bandwidth per tunnel |
 | `aws_nat_gateway` | Gateway-hours and data processed | Bandwidth |
+| `aws_lb` / `aws_alb` | Load balancer-hours and capacity units (LCU, NLCU, GLCU) from new and active connections, bytes and rule evaluations, reserved capacity, trust stores, public IPv4 addresses | - |
+| `aws_elb` | Classic load balancer-hours, data processed, public IPv4 addresses | - |
+| `aws_globalaccelerator_accelerator` / `aws_globalaccelerator_endpoint_group` | Fixed fee / data transfer premium in the dominant direction, by the endpoints' and the clients' location groups | - |
+| `aws_route53_zone` / `aws_route53_record` | Hosted zone-months and record sets beyond 10,000 / queries by routing policy in two tiers (alias queries are free) | - |
+| `aws_route53_health_check` | Health check-months for AWS or other endpoints, optional features | - |
+| `aws_route53_resolver_endpoint` | Network interface-hours per IP address (DNS over HTTPS priced apart), queries in two tiers | Queries per second per IP address |
+| `aws_api_gateway_stage` | The dedicated cache by size; requests pass on to the REST API | - |
+| `aws_acm_certificate` / `aws_acmpca_certificate_authority` | Private certificate issues spread over the renewal period (public ones are free) / CA-months, certificates in tiers or short-lived, OCSP | IssueCertificate rate |
 | `aws_cloudwatch_metric_alarm` | Alarm metric-months, standard or high resolution, anomaly detection | - |
 | `aws_bedrock_guardrail` | Text units per configured policy (content, topics, sensitive information, contextual grounding) | ApplyGuardrail and per-policy text units per second (varies by region) |
 | `bedrock_model` | Input, output, cache read and cache write tokens (Claude 4.5 models), global or regional inference | Tokens per minute (output × burndown, cache reads excluded) and requests per minute |

@@ -1,0 +1,39 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: HTTP check of a load balancer (ap-northeast-1)
+  region: ap-northeast-1
+  demand:
+    check:
+      monthly: 0
+      peak: 0
+  # $0.50 for an AWS endpoint beyond the free 50
+  costs:
+    Health check: 0.5
+- name: fast HTTPS string match with latency of an outside endpoint (us-east-1)
+  region: us-east-1
+  attributes:
+    type: HTTPS_STR_MATCH
+    request_interval: 10
+    measure_latency: true
+  assumptions:
+    endpoint: Non-AWS
+  demand:
+    check:
+      monthly: 0
+      peak: 0
+  # $0.75 + 4 features (HTTPS, string match, 10 s, latency) × $2
+  costs:
+    Health check: 0.75
+    Optional features: 8
+- name: calculated check prices as an AWS endpoint (us-east-1)
+  region: us-east-1
+  attributes:
+    type: CALCULATED
+  assumptions:
+    endpoint: Non-AWS
+  demand:
+    check:
+      monthly: 0
+      peak: 0
+  costs:
+    Health check: 0.5

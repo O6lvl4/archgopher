@@ -127,6 +127,35 @@ func TestPassiveResourcesMakeNoEdges(t *testing.T) {
 	}
 }
 
+func TestEdgeResources(t *testing.T) {
+	spec, warnings := build(t, "testdata/edge", eval.Options{})
+	if len(warnings) > 0 {
+		t.Errorf("warnings: %v", warnings)
+	}
+	want := "prod>api:- tokyo>web:- users>edge:- users>prod:- edge>tokyo:-"
+	got := edges(spec)
+	sort.Strings(got)
+	wantList := strings.Fields(want)
+	sort.Strings(wantList)
+	if strings.Join(got, " ") != strings.Join(wantList, " ") {
+		t.Errorf("edges: %s\nwant: %s", strings.Join(got, " "), strings.Join(wantList, " "))
+	}
+	// A number that points at repeated blocks counts them; a flag that points
+	// at an attribute set from a reference reads true.
+	if got := nodeByID(spec, "out").Attributes["ip_address"]; got != 3.0 {
+		t.Errorf("resolver endpoint ip_address: got %v, want 3", got)
+	}
+	if got := nodeByID(spec, "web").Attributes["subnet_mapping"]; got != 2.0 {
+		t.Errorf("load balancer subnet_mapping: got %v, want 2", got)
+	}
+	if got := nodeByID(spec, "web").Attributes["elastic_ips"]; got != true {
+		t.Errorf("load balancer on Elastic IPs: got %v", got)
+	}
+	if got := nodeByID(spec, "internal").Attributes["private"]; got != true {
+		t.Errorf("certificate from a private CA: got %v", got)
+	}
+}
+
 func TestPoliciesForEachAndFunctions(t *testing.T) {
 	spec, warnings := build(t, "testdata/policies", eval.Options{})
 	if len(warnings) > 0 {

@@ -1,0 +1,14 @@
+{
+  "aws.globalaccelerator": {
+    "unit": "fraction",
+    "source": "https://aws.amazon.com/global-accelerator/sla/",
+    "note": "Multi-AZ accelerator",
+    "values": {
+      "*": {
+        "value": 0.9999,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

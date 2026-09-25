@@ -1,0 +1,258 @@
+{
+  "aws.route53resolver.doh_interface_hour": {
+    "unit": "hour",
+    "source": "https://aws.amazon.com/route53/pricing/",
+    "note": "Resolver endpoint network interface-hour with DNS over HTTPS",
+    "sync": {
+      "service": "AmazonRoute53",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?ResolverNetworkInterface-SecurityEnabled"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.route53resolver.interface_hour": {
+    "unit": "hour",
+    "source": "https://aws.amazon.com/route53/pricing/",
+    "note": "Resolver endpoint network interface (IP address)-hour",
+    "sync": {
+      "service": "AmazonRoute53",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?ResolverNetworkInterface"
+      }
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.125,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.route53resolver.queries": {
+    "unit": "query",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/route53/pricing/",
+    "note": "Queries through Resolver endpoints, first 1 billion a month",
+    "sync": {
+      "service": "AmazonRoute53",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?DNS-Queries"
+      },
+      "tier": "first"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "aws.route53resolver.queries_over_1b": {
+    "unit": "query",
+    "per": 1000000,
+    "source": "https://aws.amazon.com/route53/pricing/",
+    "note": "Queries through Resolver endpoints beyond 1 billion a month",
+    "sync": {
+      "service": "AmazonRoute53",
+      "filters": {
+        "usagetype": "(?:(?:[A-Z]+[0-9]|EU)-)?DNS-Queries"
+      },
+      "tier": "1000000000"
+    },
+    "values": {
+      "ap-northeast-1": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-northeast-2": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-south-1": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-1": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "ap-southeast-2": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-central-1": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eu-west-1": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-1": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-east-2": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "us-west-2": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

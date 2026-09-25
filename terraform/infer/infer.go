@@ -54,6 +54,10 @@ type Rules struct {
 	Boundaries map[string]string
 }
 
+// LinkSelf in a link's To names the link resource itself when it is a node:
+// an endpoint group that names its listener is called through that listener.
+const LinkSelf = "self"
+
 // Link connects the node(s) referenced by From to the node(s) referenced by To.
 type Link struct {
 	Type string
@@ -200,11 +204,8 @@ func (b *builder) node(r *eval.Resource) model.Node {
 	n := model.Node{ID: b.id(r), Type: r.Type, Address: r.Address, Attributes: map[string]any{}}
 	if s, ok := b.rules.Scouters[r.Type]; ok {
 		for _, f := range s.Attributes() {
-			if v := lookupPath(r.Attrs, f.TerraformPath()); v != nil {
+			if v, ok := attribute(r, f); ok {
 				n.Attributes[f.Key] = v
-			} else if f.Type == field.Flag && hasBlock(r.Attrs, f.TerraformPath()) {
-				// A boolean that points at a block reads whether the block is written.
-				n.Attributes[f.Key] = true
 			}
 		}
 		for _, f := range s.Assumptions() {
@@ -309,7 +310,11 @@ func (b *builder) edges() []edgeKey {
 			}
 			froms := b.targetsAt(r, l.From)
 			for _, p := range l.To {
-				for _, to := range b.targetsAt(r, p) {
+				tos := b.targetsAt(r, p)
+				if p == LinkSelf && b.isNode(r.Address) {
+					tos = []string{r.Address}
+				}
+				for _, to := range tos {
 					for _, from := range froms {
 						add(from, to, "")
 					}
@@ -489,24 +494,53 @@ func lookupPath(m map[string]any, path string) any {
 	return cur
 }
 
-// hasBlock reports whether "a.b" names a block that is written, even empty.
-func hasBlock(m map[string]any, path string) bool {
+// attribute reads a field's value from a resource. A boolean that points at
+// something else reads whether it is written: a block, or an attribute set to a
+// value or to a reference known only after apply (a private CA's ARN). A
+// number that points at a repeated block reads how many are written.
+func attribute(r *eval.Resource, f field.Field) (any, bool) {
+	path := f.TerraformPath()
+	v := lookupPath(r.Attrs, path)
+	switch {
+	case f.Type == field.Flag && v != nil:
+		if _, isBool := v.(bool); isBool {
+			return v, true
+		}
+		return true, true
+	case v != nil:
+		return v, true
+	case f.Type == field.Flag && (blocks(r.Attrs, path) > 0 || len(r.Refs[path]) > 0):
+		return true, true
+	case f.Type == field.Number && blocks(r.Attrs, path) > 0:
+		return float64(blocks(r.Attrs, path)), true
+	}
+	return nil, false
+}
+
+// blocks counts the blocks written at "a.b", even empty ones: 0 when none is.
+func blocks(m map[string]any, path string) int {
 	parts := strings.Split(path, ".")
 	parent, last := m, parts[len(parts)-1]
 	if len(parts) > 1 {
 		p, ok := lookupBlock(m, strings.Join(parts[:len(parts)-1], "."))
 		if !ok {
-			return false
+			return 0
 		}
 		parent = p
 	}
 	switch v := parent[last].(type) {
 	case []any:
-		return len(v) > 0
+		n := 0
+		for _, b := range v {
+			if _, ok := b.(map[string]any); ok {
+				n++
+			}
+		}
+		return n
 	case map[string]any:
-		return true
+		return 1
 	}
-	return false
+	return 0
 }
 
 // lookupBlock walks "a.b" through blocks and returns the first instance.

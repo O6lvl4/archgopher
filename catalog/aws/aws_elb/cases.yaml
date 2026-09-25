@@ -1,0 +1,37 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Internet-facing in three subnets, 10 million 20 KB requests (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    subnets: [a, b, c]
+  assumptions:
+    kbPerUnit: 20
+  demand:
+    request:
+      monthly: 1e+07
+      peak: 40
+  # 730 h × $0.027; 1e7 × 20 KB = 190.73486328125 GB × $0.008; 3 × 730 h × $0.005
+  costs:
+    Load balancer hours: 19.71
+    Data processed: 1.52587890625
+    Public IPv4 addresses: 10.95
+- name: Internal with 50 GB of other traffic (us-east-1)
+  region: us-east-1
+  attributes:
+    internal: true
+  assumptions:
+    gbPerMonth: 50
+  demand:
+    request:
+      monthly: 0
+      peak: 0
+  costs:
+    Load balancer hours: 18.25
+    Data processed: 0.4
+- name: load passes through without a size (us-east-1)
+  region: us-east-1
+  demand:
+    request:
+      monthly: 1000
+      peak: 1
+  error: "load passes through this load balancer: set kbPerUnit, the data each unit carries"

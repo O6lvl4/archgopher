@@ -1,0 +1,22 @@
+type: aws_route53_health_check
+label: Route 53 health check
+category: Monitoring
+icon: route-53
+description: "A health check per month, for an AWS or a non-AWS endpoint, plus each optional feature it uses: HTTPS, string matching, a 10-second interval, latency measurement. The first 50 health checks of AWS endpoints in an account are free and not subtracted. Calculated and CloudWatch metric checks price as AWS endpoints. Load does not flow through a health check."
+kinds: [check]
+attributes:
+  - { key: type, label: Type, type: choice, options: [HTTP, HTTPS, HTTP_STR_MATCH, HTTPS_STR_MATCH, TCP, CALCULATED, CLOUDWATCH_METRIC, RECOVERY_CONTROL], default: HTTP }
+  - { key: request_interval, label: Interval, type: number, unit: s, default: 30 }
+  - { key: measure_latency, label: Measure latency, type: boolean, default: false }
+assumptions:
+  - { key: endpoint, label: Endpoint, type: choice, options: [AWS, Non-AWS], default: AWS, hint: "AWS: an endpoint running on AWS in the same account (a load balancer, an Elastic IP); Non-AWS: anything else" }
+let:
+  - ep: 'type in ["CALCULATED", "CLOUDWATCH_METRIC", "RECOVERY_CONTROL"] ? "AWS" : endpoint'
+  - options: '(type startsWith "HTTPS" ? 1 : 0) + (type endsWith "STR_MATCH" ? 1 : 0) + (request_interval == 10 ? 1 : 0) + (measure_latency ? 1 : 0)'
+readings:
+  - cost: { name: Health check, quantity: 1, unit: check-month, price: 'aws.route53.health_check.{ep}' }
+  - cost: { when: options > 0, name: Optional features, quantity: float(options), unit: feature-month, price: 'aws.route53.health_check_option.{ep}' }
+terraform:
+  # A health check names what it probes and alarms name it; nothing calls it.
+  mentioned: true
+  passive: true

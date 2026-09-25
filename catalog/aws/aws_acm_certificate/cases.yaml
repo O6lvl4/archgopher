@@ -1,0 +1,31 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: public certificate is free (ap-northeast-1)
+  region: ap-northeast-1
+  demand:
+    issue:
+      monthly: 0
+      peak: 0
+- name: private certificate renewed every 11 months (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    private: true
+  demand:
+    issue:
+      monthly: 0
+      peak: 0
+  # $0.75 per issue / 11 months
+  costs:
+    Private certificate issuance: 0.068181818
+- name: private certificate reissued monthly (us-east-1)
+  region: us-east-1
+  attributes:
+    private: true
+  assumptions:
+    monthsBetweenIssues: 1
+  demand:
+    issue:
+      monthly: 0
+      peak: 0
+  costs:
+    Private certificate issuance: 0.75

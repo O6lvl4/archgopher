@@ -1,0 +1,23 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: one zone (ap-northeast-1)
+  region: ap-northeast-1
+  demand:
+    zone:
+      monthly: 0
+      peak: 0
+  # $0.50 a zone-month, the same everywhere
+  costs:
+    Hosted zone: 0.5
+- name: a zone with 25,000 record sets (us-east-1)
+  region: us-east-1
+  assumptions:
+    recordSets: 25000
+  demand:
+    zone:
+      monthly: 0
+      peak: 0
+  # 15,000 beyond the included 10,000 × $0.0015
+  costs:
+    Hosted zone: 0.5
+    Record sets beyond 10000: 22.5

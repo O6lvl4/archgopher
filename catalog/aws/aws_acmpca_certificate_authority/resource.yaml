@@ -1,0 +1,31 @@
+type: aws_acmpca_certificate_authority
+label: Private CA
+category: Security
+icon: private-ca
+description: "A monthly fee per CA, general-purpose or short-lived certificate mode, and each certificate it issues through the API: general-purpose certificates in the account's tiers (first 1,000, next 9,000, beyond), short-lived ones at one price. Certificates ACM issues from it are read on the ACM certificate. With OCSP on, each certificate queried in the month and each query. Headroom is the IssueCertificate rate."
+kinds: [issue]
+sla: aws.acmpca
+attributes:
+  - { key: usage_mode, label: Mode, type: choice, options: [GENERAL_PURPOSE, SHORT_LIVED_CERTIFICATE], default: GENERAL_PURPOSE }
+  - { key: ocsp, label: OCSP, type: boolean, default: false, path: revocation_configuration.ocsp_configuration.enabled }
+assumptions:
+  - { key: certificatesPerMonth, label: Other certificates per month, type: number, default: 0, hint: "Issued through the API by callers not drawn as load" }
+  - { key: ocspCertificates, label: Certificates queried by OCSP, type: number, default: 0, hint: "Distinct certificates whose status is queried in the month" }
+  - { key: ocspQueriesPerMonth, label: OCSP queries per month, type: number, default: 0 }
+let:
+  - shortLived: 'usage_mode == "SHORT_LIVED_CERTIFICATE"'
+  - issued: 'total.monthly + certificatesPerMonth'
+readings:
+  - cost: { name: 'Private CA ({shortLived ? "short-lived" : "general-purpose"})', quantity: 1, unit: CA-month, price: 'aws.acmpca.ca.{shortLived ? "short_lived" : "general_purpose"}' }
+  - cost: { when: shortLived, name: Certificates (short-lived), quantity: issued, unit: certificate, price: aws.acmpca.short_lived_certificate }
+  - cost: { when: '!shortLived', name: Certificates (first 1000), quantity: 'min(issued, 1000)', unit: certificate, price: aws.acmpca.certificate }
+  - cost: { when: '!shortLived && issued > 1000', name: Certificates (next 9000), quantity: 'min(issued - 1000, 9000)', unit: certificate, price: aws.acmpca.certificate_tier2 }
+  - cost: { when: '!shortLived && issued > 10000', name: Certificates (over 10000), quantity: 'issued - 10000', unit: certificate, price: aws.acmpca.certificate_tier3 }
+  - cost: { when: ocsp, name: OCSP responses, quantity: ocspCertificates, unit: certificate-month, price: aws.acmpca.ocsp_certificate }
+  - requests: { when: ocsp, name: OCSP queries, count: ocspQueriesPerMonth, unit: query, price: aws.acmpca.ocsp_queries }
+  - rate: { name: IssueCertificate rate, unit: requests/second, quota: aws.acmpca.issue_certificate_tps, peak: total.peak }
+terraform:
+  # Certificates and roles name the CA; the CRL bucket is where it writes, not a call per certificate.
+  ignoreRefs: [revocation_configuration]
+iam:
+  issue: ["acm-pca:IssueCertificate"]

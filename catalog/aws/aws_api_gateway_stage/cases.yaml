@@ -1,0 +1,32 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 1.6 GB cache (ap-northeast-1)
+  region: ap-northeast-1
+  attributes:
+    cache_cluster_enabled: true
+    cache_cluster_size: "1.6"
+  demand:
+    request:
+      monthly: 1e+07
+      peak: 50
+  # 730 h × $0.054 (1.55 GB in the price list)
+  costs:
+    Cache (1.6 GB): 39.42
+- name: 237 GB cache (us-east-1)
+  region: us-east-1
+  attributes:
+    cache_cluster_enabled: true
+    cache_cluster_size: "237"
+  demand:
+    request:
+      monthly: 1e+07
+      peak: 50
+  # 730 h × $3.80
+  costs:
+    Cache (237 GB): 2774
+- name: a stage without a cache passes requests on at no cost of its own (us-east-1)
+  region: us-east-1
+  demand:
+    request:
+      monthly: 1e+07
+      peak: 50
