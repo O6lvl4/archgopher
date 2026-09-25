@@ -7,17 +7,19 @@ kinds: [traffic]
 sla: gcp.nat
 attributes:
   - { key: nat_type, label: Type, type: choice, options: [PUBLIC, PRIVATE], default: PUBLIC, path: type }
-  - { key: nat_ip_allocate_option, label: NAT IP allocation, type: choice, options: [AUTO_ONLY, MANUAL_ONLY], default: AUTO_ONLY, hint: "AUTO_ONLY adds addresses as needed; MANUAL_ONLY uses nat_ips only" }
+  - { key: nat_ip_allocate_option, label: NAT IP allocation, type: choice, options: [AUTO_ONLY, MANUAL_ONLY], default: AUTO_ONLY, hint: "AUTO_ONLY adds addresses as the VMs' minimum ports need them; MANUAL_ONLY uses nat_ips only" }
   - { key: nat_ips, label: NAT IP addresses, type: list, optional: true }
-  - { key: min_ports_per_vm, label: Minimum ports per VM, type: number, default: 64 }
+  - { key: min_ports_per_vm, label: Minimum ports per VM, type: number, optional: true, hint: "Unset: 64, or 32 with dynamic port allocation" }
+  - { key: enable_dynamic_port_allocation, label: Dynamic port allocation, type: boolean, default: false }
 assumptions:
   - { key: vms, label: VM instances using it, type: number, hint: "Instances that get a NAT assignment, averaged over the month; GKE nodes and serverless connectors count" }
-  - { key: natIps, label: NAT IP addresses, type: number, default: 1, hint: "Used when nat_ips is not known from Terraform, as with AUTO_ONLY" }
+  - { key: natIps, label: NAT IP addresses, type: number, default: 1, hint: "MANUAL_ONLY when nat_ips is not known from Terraform (references to addresses are not); AUTO_ONLY allocates as many as the VMs' minimum ports need" }
   - { key: kbPerUnit, label: Data per unit, type: number, unit: KB, optional: true, hint: "Per request passing through, request and response together" }
   - { key: gbPerMonth, label: Other data per month, type: number, unit: GB, default: 0, hint: "Traffic not drawn as load, such as package downloads" }
 let:
   - public: 'nat_type == "PUBLIC"'
-  - ips: 'len(nat_ips) > 0 ? float(len(nat_ips)) : natIps'
+  - ports: 'min_ports_per_vm != nil ? min_ports_per_vm : (enable_dynamic_port_allocation ? 32.0 : 64.0)'
+  - ips: 'nat_ip_allocate_option == "AUTO_ONLY" ? ceilDiv(vms * ports, 64512) : (len(nat_ips) > 0 ? float(len(nat_ips)) : natIps)'
   - gb: 'gbPerMonth + total.monthly * (kbPerUnit != nil ? kbPerUnit : 0.0) / 1024 / 1024'
 readings:
   - fail: { when: 'total.monthly > 0 && kbPerUnit == nil', message: "load passes through this NAT gateway: set kbPerUnit, the data each unit carries" }
@@ -27,8 +29,7 @@ readings:
   - cost: { when: public, name: Data processed, quantity: gb, unit: GB, price: gcp.nat.data_processed }
   - cost: { when: '!public', name: Gateway uptime, quantity: 730, unit: hour, price: gcp.nat.private.gateway_hour }
   - cost: { when: '!public', name: Data processed, quantity: gb, unit: GB, price: gcp.nat.private.data_processed }
-  - limit: { when: 'public && nat_ip_allocate_option == "MANUAL_ONLY"', name: Source ports, demand: vms * min_ports_per_vm, unit: ports, capacity: ips * 64512 }
+  - limit: { when: 'public && nat_ip_allocate_option == "MANUAL_ONLY"', name: Source ports, demand: vms * ports, unit: ports, capacity: ips * 64512 }
 terraform:
   # Nothing calls a NAT gateway; draw the traffic through it by hand.
   passive: true
-  ignoreRefs: [router, nat_ips, drain_nat_ips, subnetwork, rules]

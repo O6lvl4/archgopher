@@ -33,3 +33,14 @@
   # 730 h × $0.01
   costs:
     Forwarding rule hours: 7.3
+- name: Private Service Connect endpoint for Google APIs (asia-northeast1)
+  region: asia-northeast1
+  attributes:
+    load_balancing_scheme: ""
+  demand:
+    request:
+      monthly: 1e+07
+      peak: 100
+  # 730 h × $0.01, no data charge and no forwarding rule charge
+  costs:
+    Endpoint hours: 7.3

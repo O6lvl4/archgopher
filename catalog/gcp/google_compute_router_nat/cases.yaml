@@ -57,3 +57,31 @@
       monthly: 1000
       peak: 1
   error: "load passes through this NAT gateway: set kbPerUnit, the data each unit carries"
+- name: AUTO_ONLY allocates addresses for 1,500 VMs (asia-northeast1)
+  region: asia-northeast1
+  assumptions:
+    vms: 1500
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # over 32 VMs: 730 h × $0.044; 1,500 × 64 ports = 96,000 of 64,512 per address = 2 addresses × 730 h × $0.005
+  costs:
+    Gateway uptime: 32.12
+    NAT IP addresses: 7.3
+    Data processed: 0
+- name: AUTO_ONLY with dynamic port allocation, 1,500 VMs fit one address (us-east4)
+  region: us-east4
+  attributes:
+    enable_dynamic_port_allocation: true
+  assumptions:
+    vms: 1500
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  # 1,500 × 32 ports = 48,000 of 64,512: 1 address × 730 h × $0.005
+  costs:
+    Gateway uptime: 32.12
+    NAT IP addresses: 3.65
+    Data processed: 0

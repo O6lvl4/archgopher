@@ -10,4 +10,3 @@ readings:
   - cost: { name: Managed zone, quantity: 1, unit: zone-month, price: 'gcp.dns.zone.{otherZones < 25 ? "first_25" : otherZones < 10000 ? "to_10000" : "over_10000"}' }
 terraform:
   passive: true
-  ignoreRefs: [private_visibility_config, peering_config, forwarding_config, service_directory_config]

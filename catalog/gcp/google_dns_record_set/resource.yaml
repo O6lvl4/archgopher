@@ -14,4 +14,3 @@ readings:
 terraform:
   # A record set names its zone and the addresses it answers with; it calls none of them.
   passive: true
-  ignoreRefs: [managed_zone, rrdatas, routing_policy]

@@ -439,7 +439,7 @@ the resource it is scoped to, with the kinds the role grants. Each resource's
 | `google_pubsub_topic` | Throughput | Publish throughput per region (varies by region) |
 | `google_secret_manager_secret` | Active versions and access operations | Access requests per minute |
 | `google_api_gateway_gateway` | Calls | Quota units per second |
-| `google_compute_forwarding_rule` / `google_compute_global_forwarding_rule` | Rule-hours (the first five of a project share one minimum), data processed by passthrough rules, proxy instances for INTERNAL_MANAGED rules | - |
+| `google_compute_forwarding_rule` / `google_compute_global_forwarding_rule` | Rule-hours (the first five of a project share one minimum), data processed by passthrough rules, proxy instances for INTERNAL_MANAGED rules; Private Service Connect endpoint-hours and data processed | - |
 | `google_compute_target_http_proxy` / `_https_proxy` / `google_compute_region_target_http_proxy` / `_https_proxy` | Data processed, at the external or internal Application Load Balancer price | - |
 | `google_compute_target_tcp_proxy` / `google_compute_target_ssl_proxy` | Data processed by the proxy Network Load Balancer | - |
 | `google_compute_target_grpc_proxy` | Cloud Service Mesh client-hours | - |

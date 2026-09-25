@@ -35,3 +35,13 @@
       peak: 0
   costs:
     Between zones: 0
+- name: service in another region (asia-northeast1)
+  region: asia-northeast1
+  assumptions:
+    zones: 3
+    serviceRegion: other-region
+  demand:
+    traffic:
+      monthly: 0
+      peak: 0
+  error: traffic to a managed service in another region is billed at inter-region rates, which are not priced yet

@@ -59,15 +59,33 @@
     request:
       monthly: 0
       peak: 0
-- name: Private Service Connect endpoint (asia-northeast1)
+- name: Private Service Connect endpoint to a published service, 10 million requests of 4 KB (asia-northeast1)
   region: asia-northeast1
   attributes:
     load_balancing_scheme: ""
+  assumptions:
+    kbPerUnit: 4
   demand:
     request:
-      monthly: 0
-      peak: 0
-  error: Private Service Connect endpoints are not priced yet
+      monthly: 1e+07
+      peak: 100
+  # 730 h × $0.01; 1e7 × 4 KB = 38.14697265625 GiB × $0.01; no forwarding rule charge
+  costs:
+    Endpoint hours: 7.3
+    Endpoint data processed: 0.3814697265625
+- name: Private Service Connect endpoint to regional Google APIs (us-east4)
+  region: us-east4
+  attributes:
+    load_balancing_scheme: ""
+  assumptions:
+    pscTarget: google-apis
+  demand:
+    request:
+      monthly: 1e+07
+      peak: 100
+  # 730 h × $0.01, no data charge
+  costs:
+    Endpoint hours: 7.3
 - name: load passes through without a size (asia-northeast1)
   region: asia-northeast1
   demand:
