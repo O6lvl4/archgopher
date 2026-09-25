@@ -2,8 +2,10 @@ const usdFormat = new Intl.NumberFormat("en-US", { style: "currency", currency: 
 const compact = new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 1 });
 const plain = new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 });
 
+/** Dollars to the cent; an amount above zero that rounds to $0.00 shows as <$0.01, so it never reads as free. */
 export function usd(v: number | null | undefined): string {
   if (v === null || v === undefined) return "unknown";
+  if (v > 0 && v < 0.005) return "<$0.01";
   return usdFormat.format(v);
 }
 

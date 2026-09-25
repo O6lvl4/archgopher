@@ -154,7 +154,14 @@ func orDash(s string) string {
 	return s
 }
 
-func usd(v float64) string { return "$" + strconv.FormatFloat(v, 'f', 2, 64) }
+// usd writes dollars to the cent; an amount above zero that rounds to $0.00
+// is written <$0.01, so it never reads as free.
+func usd(v float64) string {
+	if v > 0 && v < 0.005 {
+		return "<$0.01"
+	}
+	return "$" + strconv.FormatFloat(v, 'f', 2, 64)
+}
 
 func usdPtr(v *float64) string {
 	if v == nil {
