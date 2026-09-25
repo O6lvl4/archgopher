@@ -1,0 +1,13 @@
+type: azurerm_powerbi_embedded
+label: Power BI Embedded
+category: Analytics
+icon: power-bi-embedded
+description: "Capacity node-hours by A SKU while the capacity runs; a paused capacity is not billed."
+kinds: [query]
+sla: azure.powerbi.embedded
+attributes:
+  - { key: sku_name, label: SKU, type: choice, options: [A1, A2, A3, A4, A5, A6, A7, A8], default: A1 }
+assumptions:
+  - { key: monthlyHours, label: Hours running, type: number, unit: hours, default: 730, hint: "A paused capacity is not billed" }
+readings:
+  - cost: { name: "Capacity ({sku_name})", quantity: monthlyHours, unit: node-hour, price: "azure.powerbi.embedded.{sku_name}" }

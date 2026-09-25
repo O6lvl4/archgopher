@@ -1,0 +1,23 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Two DS3 v2 nodes on average in Japan East
+  region: japaneast
+  attributes: { max_node_count: 4 }
+  assumptions: { averageNodes: 2 }
+  costs:
+    Nodes (STANDARD_DS3_V2): 597.14
+  limits:
+    Nodes: 2
+- name: A cluster that scales to zero costs nothing idle
+  region: eastus
+  costs:
+    Nodes (STANDARD_DS3_V2): 0
+  limits:
+    Nodes: 0
+- name: A low priority GPU node at the low priority price in East US
+  region: eastus
+  attributes: { vm_size: Standard_NC6s_v3, vm_priority: LowPriority, min_node_count: 1, max_node_count: 2 }
+  costs:
+    Nodes (Standard_NC6s_v3): 446.76
+  limits:
+    Nodes: 1

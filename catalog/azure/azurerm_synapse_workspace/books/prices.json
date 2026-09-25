@@ -1,0 +1,995 @@
+{
+  "azure.synapse.azure_ir.data_movement": {
+    "unit": "DIU-hour",
+    "source": "https://azure.microsoft.com/pricing/details/synapse-analytics/",
+    "note": "Pipelines on the Azure Hosted IR: copy activity",
+    "sync": {
+      "filters": {
+        "meterName": "Azure Hosted IR Data Movement",
+        "productName": "Azure Synapse Analytics Pipelines",
+        "skuName": "Azure Hosted IR"
+      },
+      "service": "Azure Synapse Analytics",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.azure_ir.external_activity": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/synapse-analytics/",
+    "note": "Pipelines on the Azure Hosted IR: external activities while they run",
+    "sync": {
+      "filters": {
+        "meterName": "Azure Hosted IR External Pipeline Activity",
+        "productName": "Azure Synapse Analytics Pipelines",
+        "skuName": "Azure Hosted IR"
+      },
+      "service": "Azure Synapse Analytics",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.00025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.00025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.00025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.00025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.00025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.00025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.00025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.00025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.00025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.00025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.azure_ir.orchestration": {
+    "unit": "activity run",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/synapse-analytics/",
+    "note": "Pipelines on the Azure Hosted IR: activity runs, per 1,000",
+    "sync": {
+      "filters": {
+        "meterName": "Azure Hosted IR Orchestration Activity Run",
+        "productName": "Azure Synapse Analytics Pipelines",
+        "skuName": "Azure Hosted IR"
+      },
+      "listPer": 1000,
+      "service": "Azure Synapse Analytics",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.azure_ir.pipeline_activity": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/synapse-analytics/",
+    "note": "Pipelines on the Azure Hosted IR: pipeline activities while they run",
+    "sync": {
+      "filters": {
+        "meterName": "Azure Hosted IR Pipeline Activity",
+        "productName": "Azure Synapse Analytics Pipelines",
+        "skuName": "Azure Hosted IR"
+      },
+      "service": "Azure Synapse Analytics",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.dataflow.basic": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/synapse-analytics/",
+    "note": "Data flow cluster, Basic, per vCore-hour",
+    "sync": {
+      "filters": {
+        "productName": "Azure Synapse Analytics Data Flow - Basic",
+        "skuName": "vCore"
+      },
+      "service": "Azure Synapse Analytics",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.283728,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.283985,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.272985,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.257,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.266252,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.301949,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.282237,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.265481,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.278716,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.257,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.dataflow.standard": {
+    "unit": "vCore-hour",
+    "source": "https://azure.microsoft.com/pricing/details/synapse-analytics/",
+    "note": "Data flow cluster, Standard, per vCore-hour",
+    "sync": {
+      "filters": {
+        "productName": "Azure Synapse Analytics Data Flow - Standard",
+        "skuName": "vCore"
+      },
+      "service": "Azure Synapse Analytics",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.350025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.34502,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.343005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.325,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.333255,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.36504,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.350025,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.343005,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.345768,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.325,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.managed_vnet_ir.data_movement": {
+    "unit": "DIU-hour",
+    "source": "https://azure.microsoft.com/pricing/details/synapse-analytics/",
+    "note": "Pipelines on the Azure Hosted Managed VNET IR: copy activity",
+    "sync": {
+      "filters": {
+        "meterName": "Azure Hosted Managed VNET IR Data Movement",
+        "productName": "Azure Synapse Analytics Pipelines",
+        "skuName": "Azure Hosted Managed VNET IR"
+      },
+      "service": "Azure Synapse Analytics",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.managed_vnet_ir.external_activity": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/synapse-analytics/",
+    "note": "Pipelines on the Azure Hosted Managed VNET IR: external activities while they run",
+    "sync": {
+      "filters": {
+        "meterName": "Azure Hosted Managed VNET IR External Pipeline Activity",
+        "productName": "Azure Synapse Analytics Pipelines",
+        "skuName": "Azure Hosted Managed VNET IR"
+      },
+      "service": "Azure Synapse Analytics",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.managed_vnet_ir.orchestration": {
+    "unit": "activity run",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/synapse-analytics/",
+    "note": "Pipelines on the Azure Hosted Managed VNET IR: activity runs, per 1,000",
+    "sync": {
+      "filters": {
+        "meterName": "Azure Hosted Managed VNET IR Orchestration Activity Run",
+        "productName": "Azure Synapse Analytics Pipelines",
+        "skuName": "Azure Hosted Managed VNET IR"
+      },
+      "listPer": 1000,
+      "service": "Azure Synapse Analytics",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.managed_vnet_ir.pipeline_activity": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/synapse-analytics/",
+    "note": "Pipelines on the Azure Hosted Managed VNET IR: pipeline activities while they run",
+    "sync": {
+      "filters": {
+        "meterName": "Azure Hosted Managed VNET IR Pipeline Activity",
+        "productName": "Azure Synapse Analytics Pipelines",
+        "skuName": "Azure Hosted Managed VNET IR"
+      },
+      "service": "Azure Synapse Analytics",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.self_hosted_ir.data_movement": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/synapse-analytics/",
+    "note": "Pipelines on the Self Hosted IR: copy activity",
+    "sync": {
+      "filters": {
+        "meterName": "Self Hosted IR Data Movement",
+        "productName": "Azure Synapse Analytics Pipelines",
+        "skuName": "Self Hosted IR"
+      },
+      "service": "Azure Synapse Analytics",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.self_hosted_ir.external_activity": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/synapse-analytics/",
+    "note": "Pipelines on the Self Hosted IR: external activities while they run",
+    "sync": {
+      "filters": {
+        "meterName": "Self Hosted IR External Pipeline Activity",
+        "productName": "Azure Synapse Analytics Pipelines",
+        "skuName": "Self Hosted IR"
+      },
+      "service": "Azure Synapse Analytics",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.0001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.0001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.0001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.0001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.0001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.0001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.0001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.0001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.0001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.0001,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.self_hosted_ir.orchestration": {
+    "unit": "activity run",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/synapse-analytics/",
+    "note": "Pipelines on the Self Hosted IR: activity runs, per 1,000",
+    "sync": {
+      "filters": {
+        "meterName": "Self Hosted IR Orchestration Activity Run",
+        "productName": "Azure Synapse Analytics Pipelines",
+        "skuName": "Self Hosted IR"
+      },
+      "listPer": 1000,
+      "service": "Azure Synapse Analytics",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.self_hosted_ir.pipeline_activity": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/synapse-analytics/",
+    "note": "Pipelines on the Self Hosted IR: pipeline activities while they run",
+    "sync": {
+      "filters": {
+        "meterName": "Self Hosted IR Pipeline Activity",
+        "productName": "Azure Synapse Analytics Pipelines",
+        "skuName": "Self Hosted IR"
+      },
+      "service": "Azure Synapse Analytics",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.002,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.serverless_sql.processed": {
+    "unit": "TB",
+    "source": "https://azure.microsoft.com/pricing/details/synapse-analytics/",
+    "note": "Serverless SQL pool, per TB of data processed",
+    "sync": {
+      "filters": {
+        "productName": "Azure Synapse Analytics Serverless SQL Pool",
+        "skuName": "Standard"
+      },
+      "service": "Azure Synapse Analytics",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 6.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 6,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 6.75,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

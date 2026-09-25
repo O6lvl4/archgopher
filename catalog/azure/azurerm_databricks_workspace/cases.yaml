@@ -1,0 +1,22 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Premium workspace in Japan East
+  region: japaneast
+  attributes: { sku: premium }
+  assumptions: { allPurposeDbuHours: 1000, jobsDbuHours: 2000 }
+  costs:
+    All-purpose compute: 550
+    Jobs compute: 600
+    Jobs light compute: 0
+- name: Standard workspace with every workload in East US
+  region: eastus
+  assumptions: { allPurposeDbuHours: 100, jobsDbuHours: 500, jobsLightDbuHours: 100, sqlDbuHours: 50 }
+  costs:
+    All-purpose compute: 40
+    Jobs compute: 75
+    Jobs light compute: 7
+    Classic SQL: 11
+- name: A trial workspace costs nothing
+  region: eastus
+  attributes: { sku: trial }
+  assumptions: { allPurposeDbuHours: 100, jobsDbuHours: 500 }

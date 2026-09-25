@@ -1,0 +1,23 @@
+type: azurerm_machine_learning_compute_cluster
+label: Machine Learning compute cluster
+category: AI
+icon: machine-learning
+description: "Instance-hours of the cluster's VM size at the Linux pay-as-you-go price (Azure Machine Learning adds no surcharge), times the average nodes: min_node_count unless you give one, so a cluster that scales to zero costs nothing idle. Low priority nodes are read at the low priority price. Headroom is the average nodes against max_node_count."
+kinds: [job]
+sla: azure.machinelearning
+attributes:
+  - { key: vm_size, label: VM size, type: string, default: STANDARD_DS3_V2, hint: "Any case, such as STANDARD_DS3_V2 or Standard_NC6s_v3" }
+  - { key: vm_priority, label: Priority, type: choice, options: [Dedicated, LowPriority], default: Dedicated }
+  - { key: min_node_count, label: Minimum nodes, type: number, default: 0, path: scale_settings.min_node_count }
+  - { key: max_node_count, label: Maximum nodes, type: number, default: 1, path: scale_settings.max_node_count }
+assumptions:
+  - { key: averageNodes, label: Average nodes, type: number, optional: true, hint: "Nodes running averaged over the hours below; min_node_count when unset" }
+  - { key: monthlyHours, label: Hours, type: number, unit: hours, default: 730 }
+let:
+  - nodes: 'averageNodes ?? min_node_count'
+  - prices: 'vm_priority == "LowPriority" ? "linux_low_priority" : "linux"'
+readings:
+  - cost: { name: "Nodes ({vm_size})", quantity: nodes * monthlyHours, unit: instance-hour, price: "azure.ml.vm.{prices}.{lower(vm_size)}" }
+  - limit: { name: Nodes, demand: nodes, unit: nodes, capacity: max_node_count }
+terraform:
+  ignoreRefs: [machine_learning_workspace_id, subnet_resource_id, identity, ssh]

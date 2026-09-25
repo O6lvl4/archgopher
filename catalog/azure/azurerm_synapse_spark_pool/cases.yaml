@@ -1,0 +1,16 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Three small nodes for 100 hours in Japan East
+  region: japaneast
+  attributes: { node_count: 3 }
+  assumptions: { monthlyHours: 100 }
+  costs:
+    vCore hours (Small, 3 nodes): 185.472
+- name: Autoscaled medium pool averaging 5 nodes in East US
+  region: eastus
+  attributes: { node_size: Medium, min_node_count: 3, max_node_count: 10 }
+  assumptions: { monthlyHours: 200, averageNodes: 5 }
+  costs:
+    vCore hours (Medium, 5 nodes): 1104
+  limits:
+    Nodes: 5

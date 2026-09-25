@@ -1,0 +1,15 @@
+type: azurerm_machine_learning_compute_instance
+label: Machine Learning compute instance
+category: AI
+icon: machine-learning
+description: "Instance-hours of its VM size at the Linux pay-as-you-go price (Azure Machine Learning adds no surcharge) while it runs; a stopped instance pays only for its disk, which is not read here."
+kinds: [job]
+sla: azure.machinelearning
+attributes:
+  - { key: virtual_machine_size, label: VM size, type: string, default: STANDARD_DS3_V2, hint: "Any case, such as STANDARD_DS3_V2" }
+assumptions:
+  - { key: monthlyHours, label: Hours running, type: number, unit: hours, default: 730, hint: "Idle shutdown and schedules stop it" }
+readings:
+  - cost: { name: "Instance ({virtual_machine_size})", quantity: monthlyHours, unit: instance-hour, price: "azure.ml.vm.linux.{lower(virtual_machine_size)}" }
+terraform:
+  ignoreRefs: [machine_learning_workspace_id, subnet_resource_id, identity, assign_to_user, ssh]

@@ -1,0 +1,45 @@
+type: azurerm_hdinsight_kafka_cluster
+label: HDInsight Kafka cluster
+category: Analytics
+icon: hdinsight
+description: "Node-hours all month for 2 head nodes, the worker nodes (target_instance_count) and 3 Zookeeper nodes by VM size, VM and HDInsight surcharge in one price, the brokers' managed disks (S30, or P30 on the Premium tier) and their operations, and the REST proxy nodes when roles.kafka_management_node is set. A cluster cannot be stopped; delete it to stop paying."
+kinds: [publish]
+sla: azure.hdinsight
+attributes:
+  - { key: head_vm_size, label: Head node size, type: string, default: Standard_E4_V3, path: roles.head_node.vm_size }
+  - { key: worker_vm_size, label: Worker node size, type: string, default: Standard_E8_V3, path: roles.worker_node.vm_size }
+  - { key: worker_count, label: Worker nodes, type: number, default: 3, path: roles.worker_node.target_instance_count }
+  - { key: zookeeper_vm_size, label: Zookeeper node size, type: string, default: Standard_A4_V2, path: roles.zookeeper_node.vm_size }
+  - { key: disks_per_node, label: Disks per broker, type: number, default: 2, path: roles.worker_node.number_of_disks_per_node }
+  - { key: tier, label: Cluster tier, type: choice, options: [Standard, Premium], default: Standard, hint: "Premium brokers use P30 disks, Standard S30" }
+  - { key: management_vm_size, label: REST proxy node size, type: string, optional: true, path: roles.kafka_management_node.vm_size }
+assumptions:
+  - { key: operationsPerDisk, label: Operations per disk, type: number, default: 0, hint: "Per month, per broker disk; billed per 10,000" }
+let:
+  - headS: 'split(replace(head_vm_size, "Standard_", ""), "_")'
+  - headB: 'headS[0]'
+  - headV: 'len(headS) > 1 ? lower(headS[1]) : ""'
+  - headKey: 'headB matches "^D[0-9]+$" && headV in ["v2", ""] ? "Dv2" + headB[1:] : headB matches "^[A-Z][0-9]+as?$" && headV == "v4" ? trimSuffix(headB, "s") + " v4/" + trimSuffix(headB, "s") + "s v4" : headV == "" ? headB : headB + " " + headV'
+  - workerS: 'split(replace(worker_vm_size, "Standard_", ""), "_")'
+  - workerB: 'workerS[0]'
+  - workerV: 'len(workerS) > 1 ? lower(workerS[1]) : ""'
+  - workerKey: 'workerB matches "^D[0-9]+$" && workerV in ["v2", ""] ? "Dv2" + workerB[1:] : workerB matches "^[A-Z][0-9]+as?$" && workerV == "v4" ? trimSuffix(workerB, "s") + " v4/" + trimSuffix(workerB, "s") + "s v4" : workerV == "" ? workerB : workerB + " " + workerV'
+  - zkS: 'split(replace(zookeeper_vm_size, "Standard_", ""), "_")'
+  - zkB: 'zkS[0]'
+  - zkV: 'len(zkS) > 1 ? lower(zkS[1]) : ""'
+  - zkKey: 'zkB matches "^D[0-9]+$" && zkV in ["v2", ""] ? "Dv2" + zkB[1:] : zkB matches "^[A-Z][0-9]+as?$" && zkV == "v4" ? trimSuffix(zkB, "s") + " v4/" + trimSuffix(zkB, "s") + "s v4" : zkV == "" ? zkB : zkB + " " + zkV'
+  - mgmtS: 'split(replace((management_vm_size ?? ""), "Standard_", ""), "_")'
+  - mgmtB: 'mgmtS[0]'
+  - mgmtV: 'len(mgmtS) > 1 ? lower(mgmtS[1]) : ""'
+  - mgmtKey: 'mgmtB matches "^D[0-9]+$" && mgmtV in ["v2", ""] ? "Dv2" + mgmtB[1:] : mgmtB matches "^[A-Z][0-9]+as?$" && mgmtV == "v4" ? trimSuffix(mgmtB, "s") + " v4/" + trimSuffix(mgmtB, "s") + "s v4" : mgmtV == "" ? mgmtB : mgmtB + " " + mgmtV'
+  - disk: 'tier == "Premium" ? "P30" : "S30"'
+  - disks: worker_count * disks_per_node
+readings:
+  - cost: { name: "Head nodes ({head_vm_size})", quantity: 2 * 730, unit: node-hour, price: "azure.hdinsight.node.{headKey}" }
+  - cost: { name: "Worker nodes ({worker_vm_size})", quantity: worker_count * 730, unit: node-hour, price: "azure.hdinsight.node.{workerKey}" }
+  - cost: { name: "Zookeeper nodes ({zookeeper_vm_size})", quantity: 3 * 730, unit: node-hour, price: "azure.hdinsight.node.{zkKey}" }
+  - cost: { name: "Broker disks ({disk})", quantity: disks, unit: disk-month, price: "azure.hdinsight.disk.{disk}" }
+  - cost: { when: operationsPerDisk > 0, name: Disk operations, quantity: disks * operationsPerDisk, unit: operation, price: "azure.hdinsight.disk.{disk}.operations" }
+  - cost: { when: management_vm_size != nil, name: "REST proxy nodes ({management_vm_size})", quantity: 2 * 730, unit: node-hour, price: "azure.hdinsight.node.{mgmtKey}" }
+terraform:
+  ignoreRefs: [network, security_profile, disk_encryption, monitor, extension, compute_isolation, private_link_configuration, gateway]

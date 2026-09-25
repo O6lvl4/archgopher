@@ -1,0 +1,29 @@
+type: azurerm_data_factory_integration_runtime_managed
+label: Data Factory managed integration runtime
+category: Integration
+icon: ssis-integration-runtime
+description: "The SSIS nodes by size, edition and license times the node count while started, and the managed VNet runtime's activity runs per 1,000, copy per DIU-hour, pipeline and external activities per hour."
+kinds: [run]
+sla: azure.datafactory
+attributes:
+  - { key: node_size, label: Node size, type: string, default: Standard_D8_v3, hint: "Such as Standard_D4_v3 or Standard_E8_v3" }
+  - { key: number_of_nodes, label: Nodes, type: number, default: 1 }
+  - { key: edition, label: Edition, type: choice, options: [Standard, Enterprise], default: Standard }
+  - { key: license_type, label: License, type: choice, options: [LicenseIncluded, BasePrice], default: LicenseIncluded }
+assumptions:
+  - { key: monthlyHours, label: Hours started, type: number, unit: hours, default: 730, hint: "A stopped runtime is not billed" }
+  - { key: activityRunsPerMonth, label: Activity runs not drawn as edges, type: number, default: 0, hint: "Per month; each unit of load an edge brings is one activity run too" }
+  - { key: copyDiuHours, label: Copy DIU-hours, type: number, unit: DIU-hours, default: 0 }
+  - { key: pipelineActivityHours, label: Pipeline activity hours, type: number, unit: hours, default: 0 }
+  - { key: externalActivityHours, label: External activity hours, type: number, unit: hours, default: 0 }
+let:
+  - size: 'replace(replace(replace(node_size, "Standard_", ""), "_V", " v"), "_", " ")'
+  - lic: 'license_type == "BasePrice" ? "ahb" : "license_included"'
+readings:
+  - cost: { name: "Nodes ({node_size}, {edition})", quantity: number_of_nodes * monthlyHours, unit: node-hour, price: "azure.datafactory.ssis.{lower(edition)}.{lic}.{size}" }
+  - cost: { name: Orchestration, quantity: demand.run.monthly + activityRunsPerMonth, unit: activity run, price: azure.datafactory.managed_vnet_ir.orchestration }
+  - cost: { name: Data movement, quantity: copyDiuHours, unit: DIU-hour, price: azure.datafactory.managed_vnet_ir.data_movement }
+  - cost: { name: Pipeline activities, quantity: pipelineActivityHours, unit: hour, price: azure.datafactory.managed_vnet_ir.pipeline_activity }
+  - cost: { name: External activities, quantity: externalActivityHours, unit: hour, price: azure.datafactory.managed_vnet_ir.external_activity }
+terraform:
+  ignoreRefs: [data_factory_id, catalog_info, custom_setup_script, vnet_integration]

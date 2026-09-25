@@ -1,0 +1,3806 @@
+{
+  "azure.language.clu": {
+    "unit": "record",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-service/",
+    "note": "Conversational language understanding, per 1,000 text records",
+    "sync": {
+      "filters": {
+        "meterName": "Standard CLU Text Records",
+        "productName": "Azure Language",
+        "skuName": "Standard"
+      },
+      "listPer": 1000,
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.language.clu_advanced_training": {
+    "unit": "training hour",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-service/",
+    "note": "Conversational language understanding advanced training",
+    "sync": {
+      "filters": {
+        "meterName": "Standard CLU Advanced Training Unit",
+        "productName": "Azure Language",
+        "skuName": "Standard"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.language.commit.summarization.azure.overage": {
+    "unit": "record",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-service/",
+    "note": "Summarization commitment tier (Azure): usage beyond the commitment, per 1,000",
+    "sync": {
+      "filters": {
+        "meterName": ".*Overage.*",
+        "productName": "Azure Language",
+        "skuName": "Commitment Tier Summarization Azure {row}"
+      },
+      "listPer": 1000,
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "rows": {
+      "10M": {
+        "australiaeast": 0.7,
+        "centralindia": 0.7,
+        "eastus": 0.7,
+        "eastus2": 0.7,
+        "germanywestcentral": null,
+        "japaneast": 0.7,
+        "koreacentral": 0.7,
+        "northeurope": 0.7,
+        "southeastasia": 0.7,
+        "westus2": 0.7
+      },
+      "3M": {
+        "australiaeast": 1.1,
+        "centralindia": 1.1,
+        "eastus": 1.1,
+        "eastus2": 1.1,
+        "germanywestcentral": null,
+        "japaneast": 1.1,
+        "koreacentral": 1.1,
+        "northeurope": 1.1,
+        "southeastasia": 1.1,
+        "westus2": 1.1
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.language.commit.summarization.azure.unit": {
+    "unit": "month",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-service/",
+    "note": "Summarization commitment tier (Azure): the monthly commitment fee by tier",
+    "sync": {
+      "filters": {
+        "meterName": ".* Unit",
+        "productName": "Azure Language",
+        "skuName": "Commitment Tier Summarization Azure {row}"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "rows": {
+      "10M": {
+        "australiaeast": 7000,
+        "centralindia": 7000,
+        "eastus": 7000,
+        "eastus2": 7000,
+        "germanywestcentral": null,
+        "japaneast": 7000,
+        "koreacentral": 7000,
+        "northeurope": 7000,
+        "southeastasia": 7000,
+        "westus2": 7000
+      },
+      "3M": {
+        "australiaeast": 3300,
+        "centralindia": 3300,
+        "eastus": 3300,
+        "eastus2": 3300,
+        "germanywestcentral": null,
+        "japaneast": 3300,
+        "koreacentral": 3300,
+        "northeurope": 3300,
+        "southeastasia": 3300,
+        "westus2": 3300
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.language.commit.summarization.connected.overage": {
+    "unit": "record",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-service/",
+    "note": "Summarization commitment tier (connected container): usage beyond the commitment, per 1,000",
+    "sync": {
+      "filters": {
+        "meterName": ".*Overage.*",
+        "productName": "Azure Language",
+        "skuName": "Commitment Tier Summarization Connected {row}"
+      },
+      "listPer": 1000,
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "rows": {
+      "10M": {
+        "australiaeast": 0.56,
+        "centralindia": 0.56,
+        "eastus": 0.56,
+        "eastus2": 0.56,
+        "germanywestcentral": null,
+        "japaneast": 0.56,
+        "koreacentral": 0.56,
+        "northeurope": 0.56,
+        "southeastasia": 0.56,
+        "westus2": 0.56
+      },
+      "3M": {
+        "australiaeast": 0.88,
+        "centralindia": 0.88,
+        "eastus": 0.88,
+        "eastus2": 0.88,
+        "germanywestcentral": null,
+        "japaneast": 0.88,
+        "koreacentral": 0.88,
+        "northeurope": 0.88,
+        "southeastasia": 0.88,
+        "westus2": 0.88
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.language.commit.summarization.connected.unit": {
+    "unit": "month",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-service/",
+    "note": "Summarization commitment tier (connected container): the monthly commitment fee by tier",
+    "sync": {
+      "filters": {
+        "meterName": ".* Unit",
+        "productName": "Azure Language",
+        "skuName": "Commitment Tier Summarization Connected {row}"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "rows": {
+      "10M": {
+        "australiaeast": 5600,
+        "centralindia": 5600,
+        "eastus": 5600,
+        "eastus2": 5600,
+        "germanywestcentral": null,
+        "japaneast": 5600,
+        "koreacentral": 5600,
+        "northeurope": 5600,
+        "southeastasia": 5600,
+        "westus2": 5600
+      },
+      "3M": {
+        "australiaeast": 2640,
+        "centralindia": 2640,
+        "eastus": 2640,
+        "eastus2": 2640,
+        "germanywestcentral": null,
+        "japaneast": 2640,
+        "koreacentral": 2640,
+        "northeurope": 2640,
+        "southeastasia": 2640,
+        "westus2": 2640
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.language.commit.text_analytics.azure.overage": {
+    "unit": "record",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-service/",
+    "note": "Text analytics commitment tier (Azure): usage beyond the commitment, per 1,000",
+    "sync": {
+      "filters": {
+        "meterName": ".*Overage.*",
+        "productName": "Azure Language",
+        "skuName": "Commitment Tier Azure {row}"
+      },
+      "listPer": 1000,
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "rows": {
+      "10M": {
+        "australiaeast": 0.35,
+        "centralindia": 0.35,
+        "eastus": 0.35,
+        "eastus2": 0.35,
+        "germanywestcentral": null,
+        "japaneast": 0.35,
+        "koreacentral": 0.35,
+        "northeurope": 0.35,
+        "southeastasia": 0.35,
+        "westus2": 0.35
+      },
+      "1M": {
+        "australiaeast": 0.7,
+        "centralindia": 0.7,
+        "eastus": 0.7,
+        "eastus2": 0.7,
+        "germanywestcentral": null,
+        "japaneast": 0.7,
+        "koreacentral": 0.7,
+        "northeurope": 0.7,
+        "southeastasia": 0.7,
+        "westus2": 0.7
+      },
+      "25M": {
+        "australiaeast": 0.25,
+        "centralindia": 0.25,
+        "eastus": 0.25,
+        "eastus2": 0.25,
+        "germanywestcentral": null,
+        "japaneast": 0.25,
+        "koreacentral": 0.25,
+        "northeurope": 0.25,
+        "southeastasia": 0.25,
+        "westus2": 0.25
+      },
+      "3M": {
+        "australiaeast": 0.55,
+        "centralindia": 0.55,
+        "eastus": 0.55,
+        "eastus2": 0.55,
+        "germanywestcentral": null,
+        "japaneast": 0.55,
+        "koreacentral": 0.55,
+        "northeurope": 0.55,
+        "southeastasia": 0.55,
+        "westus2": 0.55
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.language.commit.text_analytics.azure.unit": {
+    "unit": "month",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-service/",
+    "note": "Text analytics commitment tier (Azure): the monthly commitment fee by tier",
+    "sync": {
+      "filters": {
+        "meterName": ".* Unit",
+        "productName": "Azure Language",
+        "skuName": "Commitment Tier Azure {row}"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "rows": {
+      "10M": {
+        "australiaeast": 3500,
+        "centralindia": 3500,
+        "eastus": 3500,
+        "eastus2": 3500,
+        "germanywestcentral": null,
+        "japaneast": 3500,
+        "koreacentral": 3500,
+        "northeurope": 3500,
+        "southeastasia": 3500,
+        "westus2": 3500
+      },
+      "1M": {
+        "australiaeast": 700,
+        "centralindia": 700,
+        "eastus": 700,
+        "eastus2": 700,
+        "germanywestcentral": null,
+        "japaneast": 700,
+        "koreacentral": 700,
+        "northeurope": 700,
+        "southeastasia": 700,
+        "westus2": 700
+      },
+      "25M": {
+        "australiaeast": 6250,
+        "centralindia": 6250,
+        "eastus": 6250,
+        "eastus2": 6250,
+        "germanywestcentral": null,
+        "japaneast": 6250,
+        "koreacentral": 6250,
+        "northeurope": 6250,
+        "southeastasia": 6250,
+        "westus2": 6250
+      },
+      "3M": {
+        "australiaeast": 1375,
+        "centralindia": 1375,
+        "eastus": 1375,
+        "eastus2": 1375,
+        "germanywestcentral": null,
+        "japaneast": 1375,
+        "koreacentral": 1375,
+        "northeurope": 1375,
+        "southeastasia": 1375,
+        "westus2": 1375
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.language.commit.text_analytics.connected.overage": {
+    "unit": "record",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-service/",
+    "note": "Text analytics commitment tier (connected container): usage beyond the commitment, per 1,000",
+    "sync": {
+      "filters": {
+        "meterName": ".*Overage.*",
+        "productName": "Azure Language",
+        "skuName": "Commitment Tier Connected {row}"
+      },
+      "listPer": 1000,
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "rows": {
+      "10M": {
+        "australiaeast": 0.28,
+        "centralindia": 0.28,
+        "eastus": 0.28,
+        "eastus2": 0.28,
+        "germanywestcentral": null,
+        "japaneast": 0.28,
+        "koreacentral": 0.28,
+        "northeurope": 0.28,
+        "southeastasia": 0.28,
+        "westus2": 0.28
+      },
+      "1M": {
+        "australiaeast": 0.56,
+        "centralindia": 0.56,
+        "eastus": 0.56,
+        "eastus2": 0.56,
+        "germanywestcentral": null,
+        "japaneast": 0.56,
+        "koreacentral": 0.56,
+        "northeurope": 0.56,
+        "southeastasia": 0.56,
+        "westus2": 0.56
+      },
+      "25M": {
+        "australiaeast": 0.2,
+        "centralindia": 0.2,
+        "eastus": 0.2,
+        "eastus2": 0.2,
+        "germanywestcentral": null,
+        "japaneast": 0.2,
+        "koreacentral": 0.2,
+        "northeurope": 0.2,
+        "southeastasia": 0.2,
+        "westus2": 0.2
+      },
+      "3M": {
+        "australiaeast": 0.44,
+        "centralindia": 0.44,
+        "eastus": 0.44,
+        "eastus2": 0.44,
+        "germanywestcentral": null,
+        "japaneast": 0.44,
+        "koreacentral": 0.44,
+        "northeurope": 0.44,
+        "southeastasia": 0.44,
+        "westus2": 0.44
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.language.commit.text_analytics.connected.unit": {
+    "unit": "month",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-service/",
+    "note": "Text analytics commitment tier (connected container): the monthly commitment fee by tier",
+    "sync": {
+      "filters": {
+        "meterName": ".* Unit",
+        "productName": "Azure Language",
+        "skuName": "Commitment Tier Connected {row}"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "rows": {
+      "10M": {
+        "australiaeast": 2800,
+        "centralindia": 2800,
+        "eastus": 2800,
+        "eastus2": 2800,
+        "germanywestcentral": null,
+        "japaneast": 2800,
+        "koreacentral": 2800,
+        "northeurope": 2800,
+        "southeastasia": 2800,
+        "westus2": 2800
+      },
+      "1M": {
+        "australiaeast": 560,
+        "centralindia": 560,
+        "eastus": 560,
+        "eastus2": 560,
+        "germanywestcentral": null,
+        "japaneast": 560,
+        "koreacentral": 560,
+        "northeurope": 560,
+        "southeastasia": 560,
+        "westus2": 560
+      },
+      "25M": {
+        "australiaeast": 5000,
+        "centralindia": 5000,
+        "eastus": 5000,
+        "eastus2": 5000,
+        "germanywestcentral": null,
+        "japaneast": 5000,
+        "koreacentral": 5000,
+        "northeurope": 5000,
+        "southeastasia": 5000,
+        "westus2": 5000
+      },
+      "3M": {
+        "australiaeast": 1100,
+        "centralindia": 1100,
+        "eastus": 1100,
+        "eastus2": 1100,
+        "germanywestcentral": null,
+        "japaneast": 1100,
+        "koreacentral": 1100,
+        "northeurope": 1100,
+        "southeastasia": 1100,
+        "westus2": 1100
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.language.custom_classification": {
+    "unit": "record",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-service/",
+    "note": "Custom text classification and custom NER, per 1,000 text records",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Custom Text Records",
+        "productName": "Azure Language",
+        "skuName": "Standard"
+      },
+      "listPer": 1000,
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.language.custom_qa": {
+    "unit": "record",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-service/",
+    "note": "Custom question answering, first tier, per 1,000 text records",
+    "sync": {
+      "filters": {
+        "meterName": "Standard QA Text Records",
+        "productName": "Azure Language",
+        "skuName": "Standard"
+      },
+      "listPer": 1000,
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.language.custom_summarization": {
+    "unit": "record",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-service/",
+    "note": "Custom summarization, per 1,000 text records",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Custom Summarization Text Records",
+        "productName": "Azure Language",
+        "skuName": "Standard"
+      },
+      "listPer": 1000,
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.language.custom_training": {
+    "unit": "training hour",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-service/",
+    "note": "Custom feature training",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Custom Training Unit",
+        "productName": "Azure Language",
+        "skuName": "Standard"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.language.health": {
+    "unit": "record",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-service/",
+    "note": "Text analytics for health, first paid tier after the 5,000 free records, per 1,000 text records",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Health Text Records",
+        "productName": "Azure Language",
+        "skuName": "Standard"
+      },
+      "listPer": 1000,
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.language.summarization": {
+    "unit": "record",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-service/",
+    "note": "Summarization, per 1,000 text records",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Summarization Text Records",
+        "productName": "Azure Language",
+        "skuName": "Standard"
+      },
+      "listPer": 1000,
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.language.text_analytics": {
+    "unit": "record",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-service/",
+    "note": "Text analytics (sentiment, key phrases, entities, PII, language detection), first tier, per 1,000 text records",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Text Records",
+        "productName": "Azure Language",
+        "skuName": "Standard"
+      },
+      "listPer": 1000,
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.luis.commit.azure.overage": {
+    "unit": "transaction",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-understanding-intelligent-services/",
+    "note": "LUIS text requests commitment tier (Azure): usage beyond the commitment, per 1,000",
+    "sync": {
+      "filters": {
+        "meterName": ".*Overage.*",
+        "productName": "Language Understanding",
+        "skuName": "Commitment Tier Azure {row}"
+      },
+      "listPer": 1000,
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "rows": {
+      "1M": {
+        "australiaeast": 1.2,
+        "centralindia": 1.2,
+        "eastus": 1.2,
+        "eastus2": 1.2,
+        "germanywestcentral": null,
+        "japaneast": 1.2,
+        "koreacentral": 1.2,
+        "northeurope": 1.2,
+        "southeastasia": 1.2,
+        "westus2": 1.2
+      },
+      "25M": {
+        "australiaeast": 0.87,
+        "centralindia": 0.87,
+        "eastus": 0.87,
+        "eastus2": 0.87,
+        "germanywestcentral": null,
+        "japaneast": 0.87,
+        "koreacentral": 0.87,
+        "northeurope": 0.87,
+        "southeastasia": 0.87,
+        "westus2": 0.87
+      },
+      "5M": {
+        "australiaeast": 1.02,
+        "centralindia": 1.02,
+        "eastus": 1.02,
+        "eastus2": 1.02,
+        "germanywestcentral": null,
+        "japaneast": 1.02,
+        "koreacentral": 1.02,
+        "northeurope": 1.02,
+        "southeastasia": 1.02,
+        "westus2": 1.02
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.luis.commit.azure.unit": {
+    "unit": "month",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-understanding-intelligent-services/",
+    "note": "LUIS text requests commitment tier (Azure): the monthly commitment fee by tier",
+    "sync": {
+      "filters": {
+        "meterName": ".* Unit",
+        "productName": "Language Understanding",
+        "skuName": "Commitment Tier Azure {row}"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "rows": {
+      "1M": {
+        "australiaeast": 1200,
+        "centralindia": 1200,
+        "eastus": 1200,
+        "eastus2": 1200,
+        "germanywestcentral": null,
+        "japaneast": 1200,
+        "koreacentral": 1200,
+        "northeurope": 1200,
+        "southeastasia": 1200,
+        "westus2": 1200
+      },
+      "25M": {
+        "australiaeast": 21750,
+        "centralindia": 21750,
+        "eastus": 21750,
+        "eastus2": 21750,
+        "germanywestcentral": null,
+        "japaneast": 21750,
+        "koreacentral": 21750,
+        "northeurope": 21750,
+        "southeastasia": 21750,
+        "westus2": 21750
+      },
+      "5M": {
+        "australiaeast": 5100,
+        "centralindia": 5100,
+        "eastus": 5100,
+        "eastus2": 5100,
+        "germanywestcentral": null,
+        "japaneast": 5100,
+        "koreacentral": 5100,
+        "northeurope": 5100,
+        "southeastasia": 5100,
+        "westus2": 5100
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.luis.commit.connected.overage": {
+    "unit": "transaction",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-understanding-intelligent-services/",
+    "note": "LUIS text requests commitment tier (connected container): usage beyond the commitment, per 1,000",
+    "sync": {
+      "filters": {
+        "meterName": ".*Overage.*",
+        "productName": "Language Understanding",
+        "skuName": "Commitment Tier Connected {row}"
+      },
+      "listPer": 1000,
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "rows": {
+      "1M": {
+        "australiaeast": 0.96,
+        "centralindia": 0.96,
+        "eastus": 0.96,
+        "eastus2": 0.96,
+        "germanywestcentral": null,
+        "japaneast": 0.96,
+        "koreacentral": 0.96,
+        "northeurope": 0.96,
+        "southeastasia": 0.96,
+        "westus2": 0.96
+      },
+      "25M": {
+        "australiaeast": 0.7,
+        "centralindia": 0.7,
+        "eastus": 0.7,
+        "eastus2": 0.7,
+        "germanywestcentral": null,
+        "japaneast": 0.7,
+        "koreacentral": 0.7,
+        "northeurope": 0.7,
+        "southeastasia": 0.7,
+        "westus2": 0.7
+      },
+      "5M": {
+        "australiaeast": 0.82,
+        "centralindia": 0.82,
+        "eastus": 0.82,
+        "eastus2": 0.82,
+        "germanywestcentral": null,
+        "japaneast": 0.82,
+        "koreacentral": 0.82,
+        "northeurope": 0.82,
+        "southeastasia": 0.82,
+        "westus2": 0.82
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.luis.commit.connected.unit": {
+    "unit": "month",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-understanding-intelligent-services/",
+    "note": "LUIS text requests commitment tier (connected container): the monthly commitment fee by tier",
+    "sync": {
+      "filters": {
+        "meterName": ".* Unit",
+        "productName": "Language Understanding",
+        "skuName": "Commitment Tier Connected {row}"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "rows": {
+      "1M": {
+        "australiaeast": 960,
+        "centralindia": 960,
+        "eastus": 960,
+        "eastus2": 960,
+        "germanywestcentral": null,
+        "japaneast": 960,
+        "koreacentral": 960,
+        "northeurope": 960,
+        "southeastasia": 960,
+        "westus2": 960
+      },
+      "25M": {
+        "australiaeast": 17400,
+        "centralindia": 17400,
+        "eastus": 17400,
+        "eastus2": 17400,
+        "germanywestcentral": null,
+        "japaneast": 17400,
+        "koreacentral": 17400,
+        "northeurope": 17400,
+        "southeastasia": 17400,
+        "westus2": 17400
+      },
+      "5M": {
+        "australiaeast": 4080,
+        "centralindia": 4080,
+        "eastus": 4080,
+        "eastus2": 4080,
+        "germanywestcentral": null,
+        "japaneast": 4080,
+        "koreacentral": 4080,
+        "northeurope": 4080,
+        "southeastasia": 4080,
+        "westus2": 4080
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.luis.speech": {
+    "unit": "transaction",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-understanding-intelligent-services/",
+    "note": "LUIS speech requests: the understanding half, per 1,000 (the transcription half is azure.speech.intent_transcription)",
+    "sync": {
+      "filters": {
+        "meterName": "S1 Speech To Intent - Understanding Transactions",
+        "productName": "Language Understanding",
+        "skuName": "S1"
+      },
+      "listPer": 1000,
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.luis.text": {
+    "unit": "transaction",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/language-understanding-intelligent-services/",
+    "note": "LUIS text requests, per 1,000 transactions",
+    "sync": {
+      "filters": {
+        "meterName": "S1 Transactions",
+        "productName": "Language Understanding",
+        "skuName": "S1"
+      },
+      "listPer": 1000,
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.speech.commit.custom_stt.azure.overage": {
+    "unit": "audio hour",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Custom speech to text commitment tier (Azure): usage beyond the commitment",
+    "sync": {
+      "filters": {
+        "meterName": ".*Overage.*",
+        "productName": "Azure Speech",
+        "skuName": "Commitment Tier Custom Speech to Text Azure {row}"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "rows": {
+      "100K": {
+        "australiaeast": 0.48,
+        "centralindia": 0.48,
+        "eastus": 0.48,
+        "eastus2": 0.48,
+        "germanywestcentral": null,
+        "japaneast": 0.48,
+        "koreacentral": 0.48,
+        "northeurope": 0.48,
+        "southeastasia": 0.48,
+        "westus2": 0.48
+      },
+      "10K": {
+        "australiaeast": 0.78,
+        "centralindia": 0.78,
+        "eastus": 0.78,
+        "eastus2": 0.78,
+        "germanywestcentral": 0.78,
+        "japaneast": 0.78,
+        "koreacentral": 0.78,
+        "northeurope": 0.78,
+        "southeastasia": 0.78,
+        "westus2": 0.78
+      },
+      "2K": {
+        "australiaeast": 0.96,
+        "centralindia": 0.96,
+        "eastus": 0.96,
+        "eastus2": 0.96,
+        "germanywestcentral": 0.96,
+        "japaneast": 0.96,
+        "koreacentral": 0.96,
+        "northeurope": 0.96,
+        "southeastasia": 0.96,
+        "westus2": 0.96
+      },
+      "50K": {
+        "australiaeast": 0.6,
+        "centralindia": 0.6,
+        "eastus": 0.6,
+        "eastus2": 0.6,
+        "germanywestcentral": 0.6,
+        "japaneast": 0.6,
+        "koreacentral": 0.6,
+        "northeurope": 0.6,
+        "southeastasia": 0.6,
+        "westus2": 0.6
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.speech.commit.custom_stt.azure.unit": {
+    "unit": "month",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Custom speech to text commitment tier (Azure): the monthly commitment fee by tier",
+    "sync": {
+      "filters": {
+        "meterName": ".* Unit",
+        "productName": "Azure Speech",
+        "skuName": "Commitment Tier Custom Speech to Text Azure {row}"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "rows": {
+      "100K": {
+        "australiaeast": 48000,
+        "centralindia": 48000,
+        "eastus": 48000,
+        "eastus2": 48000,
+        "germanywestcentral": null,
+        "japaneast": 48000,
+        "koreacentral": 48000,
+        "northeurope": 48000,
+        "southeastasia": 48000,
+        "westus2": 48000
+      },
+      "10K": {
+        "australiaeast": 7800,
+        "centralindia": 7800,
+        "eastus": 7800,
+        "eastus2": 7800,
+        "germanywestcentral": 7800,
+        "japaneast": 7800,
+        "koreacentral": 7800,
+        "northeurope": 7800,
+        "southeastasia": 7800,
+        "westus2": 7800
+      },
+      "2K": {
+        "australiaeast": 1920,
+        "centralindia": 1920,
+        "eastus": 1920,
+        "eastus2": 1920,
+        "germanywestcentral": 1920,
+        "japaneast": 1920,
+        "koreacentral": 1920,
+        "northeurope": 1920,
+        "southeastasia": 1920,
+        "westus2": 1920
+      },
+      "50K": {
+        "australiaeast": 30000,
+        "centralindia": 30000,
+        "eastus": 30000,
+        "eastus2": 30000,
+        "germanywestcentral": 30000,
+        "japaneast": 30000,
+        "koreacentral": 30000,
+        "northeurope": 30000,
+        "southeastasia": 30000,
+        "westus2": 30000
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.speech.commit.custom_stt.connected.overage": {
+    "unit": "audio hour",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Custom speech to text commitment tier (connected container): usage beyond the commitment",
+    "sync": {
+      "filters": {
+        "meterName": ".*Overage.*",
+        "productName": "Azure Speech",
+        "skuName": "(Commitment Tier Custom Speech to Text|Commit Tier Custom STT) Connected {row}"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "rows": {
+      "100K": {
+        "australiaeast": 0.45,
+        "centralindia": 0.45,
+        "eastus": 0.45,
+        "eastus2": 0.45,
+        "germanywestcentral": 0.45,
+        "japaneast": 0.45,
+        "koreacentral": 0.45,
+        "northeurope": 0.45,
+        "southeastasia": 0.45,
+        "westus2": 0.45
+      },
+      "10K": {
+        "australiaeast": 0.7372,
+        "centralindia": 0.7372,
+        "eastus": 0.7372,
+        "eastus2": 0.7372,
+        "germanywestcentral": null,
+        "japaneast": 0.7372,
+        "koreacentral": 0.7372,
+        "northeurope": 0.7372,
+        "southeastasia": 0.7372,
+        "westus2": 0.7372
+      },
+      "2K": {
+        "australiaeast": 0.9086,
+        "centralindia": 0.9086,
+        "eastus": 0.9086,
+        "eastus2": 0.9086,
+        "germanywestcentral": null,
+        "japaneast": 0.9086,
+        "koreacentral": 0.9086,
+        "northeurope": 0.9086,
+        "southeastasia": 0.9086,
+        "westus2": 0.9086
+      },
+      "50K": {
+        "australiaeast": 0.565,
+        "centralindia": 0.565,
+        "eastus": 0.565,
+        "eastus2": 0.565,
+        "germanywestcentral": null,
+        "japaneast": 0.565,
+        "koreacentral": 0.565,
+        "northeurope": 0.565,
+        "southeastasia": 0.565,
+        "westus2": 0.565
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.speech.commit.custom_stt.connected.unit": {
+    "unit": "month",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Custom speech to text commitment tier (connected container): the monthly commitment fee by tier",
+    "sync": {
+      "filters": {
+        "meterName": ".* Unit",
+        "productName": "Azure Speech",
+        "skuName": "(Commitment Tier Custom Speech to Text|Commit Tier Custom STT) Connected {row}"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "rows": {
+      "100K": {
+        "australiaeast": 45600,
+        "centralindia": 45600,
+        "eastus": 45600,
+        "eastus2": 45600,
+        "germanywestcentral": 45600,
+        "japaneast": 45600,
+        "koreacentral": 45600,
+        "northeurope": 45600,
+        "southeastasia": 45600,
+        "westus2": 45600
+      },
+      "10K": {
+        "australiaeast": 7410,
+        "centralindia": 7410,
+        "eastus": 7410,
+        "eastus2": 7410,
+        "germanywestcentral": null,
+        "japaneast": 7410,
+        "koreacentral": 7410,
+        "northeurope": 7410,
+        "southeastasia": 7410,
+        "westus2": 7410
+      },
+      "2K": {
+        "australiaeast": 1824,
+        "centralindia": 1824,
+        "eastus": 1824,
+        "eastus2": 1824,
+        "germanywestcentral": null,
+        "japaneast": 1824,
+        "koreacentral": 1824,
+        "northeurope": 1824,
+        "southeastasia": 1824,
+        "westus2": 1824
+      },
+      "50K": {
+        "australiaeast": 28500,
+        "centralindia": 28500,
+        "eastus": 28500,
+        "eastus2": 28500,
+        "germanywestcentral": null,
+        "japaneast": 28500,
+        "koreacentral": 28500,
+        "northeurope": 28500,
+        "southeastasia": 28500,
+        "westus2": 28500
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.speech.commit.stt.azure.overage": {
+    "unit": "audio hour",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Speech to text commitment tier (Azure): usage beyond the commitment",
+    "sync": {
+      "filters": {
+        "meterName": ".*Overage.*",
+        "productName": "Azure Speech",
+        "skuName": "Commitment Tier Speech to Text Azure {row}"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "rows": {
+      "100K": {
+        "australiaeast": 0.4,
+        "centralindia": 0.4,
+        "eastus": 0.4,
+        "eastus2": 0.4,
+        "germanywestcentral": null,
+        "japaneast": 0.4,
+        "koreacentral": 0.4,
+        "northeurope": 0.4,
+        "southeastasia": 0.4,
+        "westus2": 0.4
+      },
+      "10K": {
+        "australiaeast": 0.65,
+        "centralindia": 0.65,
+        "eastus": 0.65,
+        "eastus2": 0.65,
+        "germanywestcentral": 0.65,
+        "japaneast": 0.65,
+        "koreacentral": 0.65,
+        "northeurope": 0.65,
+        "southeastasia": 0.65,
+        "westus2": 0.65
+      },
+      "2K": {
+        "australiaeast": 0.8,
+        "centralindia": 0.8,
+        "eastus": 0.8,
+        "eastus2": 0.8,
+        "germanywestcentral": 0.8,
+        "japaneast": 0.8,
+        "koreacentral": 0.8,
+        "northeurope": 0.8,
+        "southeastasia": 0.8,
+        "westus2": 0.8
+      },
+      "50K": {
+        "australiaeast": 0.5,
+        "centralindia": 0.5,
+        "eastus": 0.5,
+        "eastus2": 0.5,
+        "germanywestcentral": 0.5,
+        "japaneast": 0.5,
+        "koreacentral": 0.5,
+        "northeurope": 0.5,
+        "southeastasia": 0.5,
+        "westus2": 0.5
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.speech.commit.stt.azure.unit": {
+    "unit": "month",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Speech to text commitment tier (Azure): the monthly commitment fee by tier",
+    "sync": {
+      "filters": {
+        "meterName": ".* Unit",
+        "productName": "Azure Speech",
+        "skuName": "Commitment Tier Speech to Text Azure {row}"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "rows": {
+      "100K": {
+        "australiaeast": 40000,
+        "centralindia": 40000,
+        "eastus": 40000,
+        "eastus2": 40000,
+        "germanywestcentral": null,
+        "japaneast": 40000,
+        "koreacentral": 40000,
+        "northeurope": 40000,
+        "southeastasia": 40000,
+        "westus2": 40000
+      },
+      "10K": {
+        "australiaeast": 6500,
+        "centralindia": 6500,
+        "eastus": 6500,
+        "eastus2": 6500,
+        "germanywestcentral": 6500,
+        "japaneast": 6500,
+        "koreacentral": 6500,
+        "northeurope": 6500,
+        "southeastasia": 6500,
+        "westus2": 6500
+      },
+      "2K": {
+        "australiaeast": 1600,
+        "centralindia": 1600,
+        "eastus": 1600,
+        "eastus2": 1600,
+        "germanywestcentral": 1600,
+        "japaneast": 1600,
+        "koreacentral": 1600,
+        "northeurope": 1600,
+        "southeastasia": 1600,
+        "westus2": 1600
+      },
+      "50K": {
+        "australiaeast": 25000,
+        "centralindia": 25000,
+        "eastus": 25000,
+        "eastus2": 25000,
+        "germanywestcentral": 25000,
+        "japaneast": 25000,
+        "koreacentral": 25000,
+        "northeurope": 25000,
+        "southeastasia": 25000,
+        "westus2": 25000
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.speech.commit.stt.connected.overage": {
+    "unit": "audio hour",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Speech to text commitment tier (connected container): usage beyond the commitment",
+    "sync": {
+      "filters": {
+        "meterName": ".*Overage.*",
+        "productName": "Azure Speech",
+        "skuName": "Commitment Tier Speech to Text Connected {row}"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "rows": {
+      "100K": {
+        "australiaeast": 0.38,
+        "centralindia": 0.38,
+        "eastus": 0.38,
+        "eastus2": 0.38,
+        "germanywestcentral": 0.38,
+        "japaneast": 0.38,
+        "koreacentral": 0.38,
+        "northeurope": 0.38,
+        "southeastasia": 0.38,
+        "westus2": 0.38
+      },
+      "10K": {
+        "australiaeast": 0.62,
+        "centralindia": 0.62,
+        "eastus": 0.62,
+        "eastus2": 0.62,
+        "germanywestcentral": 0.62,
+        "japaneast": 0.62,
+        "koreacentral": 0.62,
+        "northeurope": 0.62,
+        "southeastasia": 0.62,
+        "westus2": 0.62
+      },
+      "2K": {
+        "australiaeast": 0.76,
+        "centralindia": 0.76,
+        "eastus": 0.76,
+        "eastus2": 0.76,
+        "germanywestcentral": 0.76,
+        "japaneast": 0.76,
+        "koreacentral": 0.76,
+        "northeurope": 0.76,
+        "southeastasia": 0.76,
+        "westus2": 0.76
+      },
+      "50K": {
+        "australiaeast": 0.48,
+        "centralindia": 0.48,
+        "eastus": 0.48,
+        "eastus2": 0.48,
+        "germanywestcentral": 0.48,
+        "japaneast": 0.48,
+        "koreacentral": 0.48,
+        "northeurope": 0.48,
+        "southeastasia": 0.48,
+        "westus2": 0.48
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.speech.commit.stt.connected.unit": {
+    "unit": "month",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Speech to text commitment tier (connected container): the monthly commitment fee by tier",
+    "sync": {
+      "filters": {
+        "meterName": ".* Unit",
+        "productName": "Azure Speech",
+        "skuName": "Commitment Tier Speech to Text Connected {row}"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "rows": {
+      "100K": {
+        "australiaeast": 38000,
+        "centralindia": 38000,
+        "eastus": 38000,
+        "eastus2": 38000,
+        "germanywestcentral": 38000,
+        "japaneast": 38000,
+        "koreacentral": 38000,
+        "northeurope": 38000,
+        "southeastasia": 38000,
+        "westus2": 38000
+      },
+      "10K": {
+        "australiaeast": 6175,
+        "centralindia": 6175,
+        "eastus": 6175,
+        "eastus2": 6175,
+        "germanywestcentral": 6175,
+        "japaneast": 6175,
+        "koreacentral": 6175,
+        "northeurope": 6175,
+        "southeastasia": 6175,
+        "westus2": 6175
+      },
+      "2K": {
+        "australiaeast": 1520,
+        "centralindia": 1520,
+        "eastus": 1520,
+        "eastus2": 1520,
+        "germanywestcentral": 1520,
+        "japaneast": 1520,
+        "koreacentral": 1520,
+        "northeurope": 1520,
+        "southeastasia": 1520,
+        "westus2": 1520
+      },
+      "50K": {
+        "australiaeast": 23750,
+        "centralindia": 23750,
+        "eastus": 23750,
+        "eastus2": 23750,
+        "germanywestcentral": 23750,
+        "japaneast": 23750,
+        "koreacentral": 23750,
+        "northeurope": 23750,
+        "southeastasia": 23750,
+        "westus2": 23750
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.speech.commit.stt_addon.azure.overage": {
+    "unit": "audio hour",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Speech to text enhanced add-ons commitment tier (Azure): usage beyond the commitment",
+    "sync": {
+      "filters": {
+        "meterName": ".*Overage.*",
+        "productName": "Azure Speech",
+        "skuName": "Commitment Tier STT AddOn Azure {row}"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "rows": {
+      "100K": {
+        "australiaeast": 0.12,
+        "centralindia": 0.12,
+        "eastus": 0.12,
+        "eastus2": 0.12,
+        "germanywestcentral": 0.12,
+        "japaneast": 0.12,
+        "koreacentral": 0.12,
+        "northeurope": 0.12,
+        "southeastasia": 0.12,
+        "westus2": 0.12
+      },
+      "10K": {
+        "australiaeast": 0.195,
+        "centralindia": 0.195,
+        "eastus": 0.195,
+        "eastus2": 0.195,
+        "germanywestcentral": 0.195,
+        "japaneast": 0.195,
+        "koreacentral": 0.195,
+        "northeurope": 0.195,
+        "southeastasia": 0.195,
+        "westus2": 0.195
+      },
+      "2K": {
+        "australiaeast": 0.24,
+        "centralindia": 0.24,
+        "eastus": 0.24,
+        "eastus2": 0.24,
+        "germanywestcentral": 0.24,
+        "japaneast": 0.24,
+        "koreacentral": 0.24,
+        "northeurope": 0.24,
+        "southeastasia": 0.24,
+        "westus2": 0.24
+      },
+      "50K": {
+        "australiaeast": 0.15,
+        "centralindia": 0.15,
+        "eastus": 0.15,
+        "eastus2": 0.15,
+        "germanywestcentral": 0.15,
+        "japaneast": 0.15,
+        "koreacentral": 0.15,
+        "northeurope": 0.15,
+        "southeastasia": 0.15,
+        "westus2": 0.15
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.speech.commit.stt_addon.azure.unit": {
+    "unit": "month",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Speech to text enhanced add-ons commitment tier (Azure): the monthly commitment fee by tier",
+    "sync": {
+      "filters": {
+        "meterName": ".* Unit",
+        "productName": "Azure Speech",
+        "skuName": "Commitment Tier STT AddOn Azure {row}"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "rows": {
+      "100K": {
+        "australiaeast": 12000,
+        "centralindia": 12000,
+        "eastus": 12000,
+        "eastus2": 12000,
+        "germanywestcentral": 12000,
+        "japaneast": 12000,
+        "koreacentral": 12000,
+        "northeurope": 12000,
+        "southeastasia": 12000,
+        "westus2": 12000
+      },
+      "10K": {
+        "australiaeast": 1950,
+        "centralindia": 1950,
+        "eastus": 1950,
+        "eastus2": 1950,
+        "germanywestcentral": 1950,
+        "japaneast": 1950,
+        "koreacentral": 1950,
+        "northeurope": 1950,
+        "southeastasia": 1950,
+        "westus2": 1950
+      },
+      "2K": {
+        "australiaeast": 480,
+        "centralindia": 480,
+        "eastus": 480,
+        "eastus2": 480,
+        "germanywestcentral": 480,
+        "japaneast": 480,
+        "koreacentral": 480,
+        "northeurope": 480,
+        "southeastasia": 480,
+        "westus2": 480
+      },
+      "50K": {
+        "australiaeast": 7500,
+        "centralindia": 7500,
+        "eastus": 7500,
+        "eastus2": 7500,
+        "germanywestcentral": 7500,
+        "japaneast": 7500,
+        "koreacentral": 7500,
+        "northeurope": 7500,
+        "southeastasia": 7500,
+        "westus2": 7500
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.speech.commit.stt_addon.connected.overage": {
+    "unit": "audio hour",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Speech to text enhanced add-ons commitment tier (connected container): usage beyond the commitment",
+    "sync": {
+      "filters": {
+        "meterName": ".*Overage.*",
+        "productName": "Azure Speech",
+        "skuName": "Commitment Tier STT AddOn Connected {row}"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "rows": {
+      "100K": {
+        "australiaeast": 0.114,
+        "centralindia": 0.114,
+        "eastus": 0.114,
+        "eastus2": 0.114,
+        "germanywestcentral": 0.114,
+        "japaneast": 0.114,
+        "koreacentral": 0.114,
+        "northeurope": 0.114,
+        "southeastasia": 0.114,
+        "westus2": 0.114
+      },
+      "10K": {
+        "australiaeast": 0.1853,
+        "centralindia": 0.1853,
+        "eastus": 0.1853,
+        "eastus2": 0.1853,
+        "germanywestcentral": 0.1853,
+        "japaneast": 0.1853,
+        "koreacentral": 0.1853,
+        "northeurope": 0.1853,
+        "southeastasia": 0.1853,
+        "westus2": 0.1853
+      },
+      "2K": {
+        "australiaeast": 0.228,
+        "centralindia": 0.228,
+        "eastus": 0.228,
+        "eastus2": 0.228,
+        "germanywestcentral": 0.228,
+        "japaneast": 0.228,
+        "koreacentral": 0.228,
+        "northeurope": 0.228,
+        "southeastasia": 0.228,
+        "westus2": 0.228
+      },
+      "50K": {
+        "australiaeast": 0.1425,
+        "centralindia": 0.1425,
+        "eastus": 0.1425,
+        "eastus2": 0.1425,
+        "germanywestcentral": 0.1425,
+        "japaneast": 0.1425,
+        "koreacentral": 0.1425,
+        "northeurope": 0.1425,
+        "southeastasia": 0.1425,
+        "westus2": 0.1425
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.speech.commit.stt_addon.connected.unit": {
+    "unit": "month",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Speech to text enhanced add-ons commitment tier (connected container): the monthly commitment fee by tier",
+    "sync": {
+      "filters": {
+        "meterName": ".* Unit",
+        "productName": "Azure Speech",
+        "skuName": "Commitment Tier STT AddOn Connected {row}"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "rows": {
+      "100K": {
+        "australiaeast": 11400,
+        "centralindia": 11400,
+        "eastus": 11400,
+        "eastus2": 11400,
+        "germanywestcentral": 11400,
+        "japaneast": 11400,
+        "koreacentral": 11400,
+        "northeurope": 11400,
+        "southeastasia": 11400,
+        "westus2": 11400
+      },
+      "10K": {
+        "australiaeast": 1852.5,
+        "centralindia": 1852.5,
+        "eastus": 1852.5,
+        "eastus2": 1852.5,
+        "germanywestcentral": 1852.5,
+        "japaneast": 1852.5,
+        "koreacentral": 1852.5,
+        "northeurope": 1852.5,
+        "southeastasia": 1852.5,
+        "westus2": 1852.5
+      },
+      "2K": {
+        "australiaeast": 456,
+        "centralindia": 456,
+        "eastus": 456,
+        "eastus2": 456,
+        "germanywestcentral": 456,
+        "japaneast": 456,
+        "koreacentral": 456,
+        "northeurope": 456,
+        "southeastasia": 456,
+        "westus2": 456
+      },
+      "50K": {
+        "australiaeast": 7125,
+        "centralindia": 7125,
+        "eastus": 7125,
+        "eastus2": 7125,
+        "germanywestcentral": 7125,
+        "japaneast": 7125,
+        "koreacentral": 7125,
+        "northeurope": 7125,
+        "southeastasia": 7125,
+        "westus2": 7125
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.speech.commit.tts.azure.overage": {
+    "unit": "character",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Neural text to speech commitment tier (Azure): usage beyond the commitment, per 1,000,000",
+    "sync": {
+      "filters": {
+        "meterName": ".*Overage.*",
+        "productName": "Azure Speech",
+        "skuName": "Commitment Tier Neural Text to Speech Azure {row}"
+      },
+      "listPer": 1000000,
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "rows": {
+      "2000M": {
+        "australiaeast": 7.5,
+        "centralindia": 7.5,
+        "eastus": 7.5,
+        "eastus2": 7.5,
+        "germanywestcentral": 7.5,
+        "japaneast": 7.5,
+        "koreacentral": 7.5,
+        "northeurope": 7.5,
+        "southeastasia": 7.5,
+        "westus2": 7.5
+      },
+      "4000M": {
+        "australiaeast": 6,
+        "centralindia": 6,
+        "eastus": 6,
+        "eastus2": 6,
+        "germanywestcentral": null,
+        "japaneast": 6,
+        "koreacentral": 6,
+        "northeurope": 6,
+        "southeastasia": 6,
+        "westus2": 6
+      },
+      "400M": {
+        "australiaeast": 9.75,
+        "centralindia": 9.75,
+        "eastus": 9.75,
+        "eastus2": 9.75,
+        "germanywestcentral": 9.75,
+        "japaneast": 9.75,
+        "koreacentral": 9.75,
+        "northeurope": 9.75,
+        "southeastasia": 9.75,
+        "westus2": 9.75
+      },
+      "80M": {
+        "australiaeast": 12,
+        "centralindia": 12,
+        "eastus": 12,
+        "eastus2": 12,
+        "germanywestcentral": 12,
+        "japaneast": 12,
+        "koreacentral": 12,
+        "northeurope": 12,
+        "southeastasia": 12,
+        "westus2": 12
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.speech.commit.tts.azure.unit": {
+    "unit": "month",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Neural text to speech commitment tier (Azure): the monthly commitment fee by tier",
+    "sync": {
+      "filters": {
+        "meterName": ".* Unit",
+        "productName": "Azure Speech",
+        "skuName": "Commitment Tier Neural Text to Speech Azure {row}"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "rows": {
+      "2000M": {
+        "australiaeast": 15000,
+        "centralindia": 15000,
+        "eastus": 15000,
+        "eastus2": 15000,
+        "germanywestcentral": 15000,
+        "japaneast": 15000,
+        "koreacentral": 15000,
+        "northeurope": 15000,
+        "southeastasia": 15000,
+        "westus2": 15000
+      },
+      "4000M": {
+        "australiaeast": 24000,
+        "centralindia": 24000,
+        "eastus": 24000,
+        "eastus2": 24000,
+        "germanywestcentral": null,
+        "japaneast": 24000,
+        "koreacentral": 24000,
+        "northeurope": 24000,
+        "southeastasia": 24000,
+        "westus2": 24000
+      },
+      "400M": {
+        "australiaeast": 3900,
+        "centralindia": 3900,
+        "eastus": 3900,
+        "eastus2": 3900,
+        "germanywestcentral": 3900,
+        "japaneast": 3900,
+        "koreacentral": 3900,
+        "northeurope": 3900,
+        "southeastasia": 3900,
+        "westus2": 3900
+      },
+      "80M": {
+        "australiaeast": 960,
+        "centralindia": 960,
+        "eastus": 960,
+        "eastus2": 960,
+        "germanywestcentral": 960,
+        "japaneast": 960,
+        "koreacentral": 960,
+        "northeurope": 960,
+        "southeastasia": 960,
+        "westus2": 960
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.speech.commit.tts.connected.overage": {
+    "unit": "character",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Neural text to speech commitment tier (connected container): usage beyond the commitment, per 1,000,000",
+    "sync": {
+      "filters": {
+        "meterName": ".*Overage.*",
+        "productName": "Azure Speech",
+        "skuName": "Commit Tier Neural TTS Connected {row}"
+      },
+      "listPer": 1000000,
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "rows": {
+      "2000M": {
+        "australiaeast": 7.125,
+        "centralindia": 7.125,
+        "eastus": 7.125,
+        "eastus2": 7.125,
+        "germanywestcentral": null,
+        "japaneast": 7.125,
+        "koreacentral": 7.125,
+        "northeurope": 7.125,
+        "southeastasia": 7.125,
+        "westus2": 7.125
+      },
+      "4000M": {
+        "australiaeast": 5.7,
+        "centralindia": 5.7,
+        "eastus": 5.7,
+        "eastus2": 5.7,
+        "germanywestcentral": 5.7,
+        "japaneast": 5.7,
+        "koreacentral": 5.7,
+        "northeurope": 5.7,
+        "southeastasia": 5.7,
+        "westus2": 5.7
+      },
+      "400M": {
+        "australiaeast": 9.2625,
+        "centralindia": 9.2625,
+        "eastus": 9.2625,
+        "eastus2": 9.2625,
+        "germanywestcentral": null,
+        "japaneast": 9.2625,
+        "koreacentral": 9.2625,
+        "northeurope": 9.2625,
+        "southeastasia": 9.2625,
+        "westus2": 9.2625
+      },
+      "80M": {
+        "australiaeast": 11.4,
+        "centralindia": 11.4,
+        "eastus": 11.4,
+        "eastus2": 11.4,
+        "germanywestcentral": null,
+        "japaneast": 11.4,
+        "koreacentral": 11.4,
+        "northeurope": 11.4,
+        "southeastasia": 11.4,
+        "westus2": 11.4
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.speech.commit.tts.connected.unit": {
+    "unit": "month",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Neural text to speech commitment tier (connected container): the monthly commitment fee by tier",
+    "sync": {
+      "filters": {
+        "meterName": ".* Unit",
+        "productName": "Azure Speech",
+        "skuName": "Commit Tier Neural TTS Connected {row}"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "rows": {
+      "2000M": {
+        "australiaeast": 14250,
+        "centralindia": 14250,
+        "eastus": 14250,
+        "eastus2": 14250,
+        "germanywestcentral": null,
+        "japaneast": 14250,
+        "koreacentral": 14250,
+        "northeurope": 14250,
+        "southeastasia": 14250,
+        "westus2": 14250
+      },
+      "4000M": {
+        "australiaeast": 22800,
+        "centralindia": 22800,
+        "eastus": 22800,
+        "eastus2": 22800,
+        "germanywestcentral": 22800,
+        "japaneast": 22800,
+        "koreacentral": 22800,
+        "northeurope": 22800,
+        "southeastasia": 22800,
+        "westus2": 22800
+      },
+      "400M": {
+        "australiaeast": 3705,
+        "centralindia": 3705,
+        "eastus": 3705,
+        "eastus2": 3705,
+        "germanywestcentral": null,
+        "japaneast": 3705,
+        "koreacentral": 3705,
+        "northeurope": 3705,
+        "southeastasia": 3705,
+        "westus2": 3705
+      },
+      "80M": {
+        "australiaeast": 912,
+        "centralindia": 912,
+        "eastus": 912,
+        "eastus2": 912,
+        "germanywestcentral": null,
+        "japaneast": 912,
+        "koreacentral": 912,
+        "northeurope": 912,
+        "southeastasia": 912,
+        "westus2": 912
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.speech.custom_neural": {
+    "unit": "character",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Text to speech with a custom neural voice, per 1M characters",
+    "sync": {
+      "filters": {
+        "meterName": "S1 Custom Neural Realtime Characters",
+        "productName": "Azure Speech",
+        "skuName": "S1"
+      },
+      "listPer": 1000000,
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.speech.custom_neural_hosting": {
+    "unit": "endpoint-hour",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Custom neural voice endpoint hosting",
+    "sync": {
+      "filters": {
+        "meterName": "S1 Custom Neural Voice Model Hosting Unit",
+        "productName": "Azure Speech",
+        "skuName": "S1",
+        "unitOfMeasure": "1/Hour"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 4.032,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 4.032,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 4.032,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 4.032,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 4.032,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 4.032,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 4.032,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 4.032,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 4.032,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 4.032,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.speech.custom_neural_training": {
+    "unit": "training hour",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Custom neural voice training",
+    "sync": {
+      "filters": {
+        "meterName": "S1 Custom Neural Training",
+        "productName": "Azure Speech",
+        "skuName": "S1"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 52,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 52,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 52,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 52,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 52,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 52,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 52,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 52,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 52,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 52,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.speech.custom_stt": {
+    "unit": "audio hour",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Speech to text with a custom model, real-time",
+    "sync": {
+      "filters": {
+        "meterName": "S1 Custom Speech To Text",
+        "productName": "Azure Speech",
+        "skuName": "S1"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.speech.custom_stt_batch": {
+    "unit": "audio hour",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Speech to text with a custom model, batch",
+    "sync": {
+      "filters": {
+        "meterName": "S1 Custom Speech to Text Batch",
+        "productName": "Azure Speech",
+        "skuName": "S1"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.225,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.225,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.225,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.225,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.225,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.225,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.225,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.225,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.225,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.speech.custom_stt_hosting": {
+    "unit": "endpoint-hour",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Custom speech model endpoint hosting",
+    "sync": {
+      "filters": {
+        "meterName": "S1 Custom Speech Model Hosting Unit",
+        "productName": "Azure Speech",
+        "skuName": "S1",
+        "unitOfMeasure": "1/Hour"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.05375,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.05375,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.05375,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.05375,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.05375,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.05375,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.05375,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.05375,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.05375,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.speech.custom_stt_training": {
+    "unit": "training hour",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Custom speech model training",
+    "sync": {
+      "filters": {
+        "meterName": "S1 Custom Speech Training",
+        "productName": "Azure Speech",
+        "skuName": "S1"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.speech.intent_transcription": {
+    "unit": "transaction",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Speech to intent: the transcription half of a LUIS speech request, per 1,000",
+    "sync": {
+      "filters": {
+        "meterName": "S1 Speech To Intent - Transcription Transactions",
+        "productName": "Azure Speech",
+        "skuName": "S1"
+      },
+      "listPer": 1000,
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.speech.long_audio": {
+    "unit": "character",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Long audio (batch synthesis) with neural voices, per 1M characters",
+    "sync": {
+      "filters": {
+        "meterName": "S1 Neural Long Audio Characters",
+        "productName": "Azure Speech",
+        "skuName": "S1"
+      },
+      "listPer": 1000000,
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 100,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 100,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 100,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 100,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 100,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 100,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 100,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.speech.multichannel": {
+    "unit": "audio hour",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Conversation transcription, multichannel audio",
+    "sync": {
+      "filters": {
+        "meterName": "S1 Conversation Transcription Multichannel Audio",
+        "productName": "Azure Speech",
+        "skuName": "S1"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 2.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 2.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 2.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 2.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 2.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 2.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 2.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 2.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 2.1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.speech.personal_voice.characters": {
+    "unit": "character",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Text to speech with a personal voice, per 1M characters",
+    "sync": {
+      "filters": {
+        "meterName": "Text to Speech - Personal Voice Characters",
+        "productName": "Azure Speech",
+        "skuName": "Text to Speech - Personal Voice"
+      },
+      "listPer": 1000000,
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 24,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.speech.personal_voice.profiles": {
+    "unit": "profile-month",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Personal voice profiles stored, per 1,000",
+    "sync": {
+      "filters": {
+        "meterName": "Text to Speech - Personal Voice Voice Storage",
+        "productName": "Azure Speech",
+        "skuName": "Text to Speech - Personal Voice"
+      },
+      "listPer": 1000,
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 600,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 600,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 600,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 600,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.speech.speaker_identification": {
+    "unit": "transaction",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Speaker identification, per 1,000 transactions",
+    "sync": {
+      "filters": {
+        "meterName": "S1 Speaker Identification Transactions",
+        "productName": "Azure Speech",
+        "skuName": "S1"
+      },
+      "listPer": 1000,
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 10,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.speech.speaker_verification": {
+    "unit": "transaction",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Speaker verification, per 1,000 transactions",
+    "sync": {
+      "filters": {
+        "meterName": "S1 Speaker Verification Transactions",
+        "productName": "Azure Speech",
+        "skuName": "S1"
+      },
+      "listPer": 1000,
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.speech.stt": {
+    "unit": "audio hour",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Speech to text, real-time, standard model",
+    "sync": {
+      "filters": {
+        "meterName": "S1 Speech To Text",
+        "productName": "Azure Speech",
+        "skuName": "S1"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.speech.stt_batch": {
+    "unit": "audio hour",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Speech to text, batch transcription",
+    "sync": {
+      "filters": {
+        "meterName": "S1 Speech to Text Batch",
+        "productName": "Azure Speech",
+        "skuName": "S1"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.18,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.18,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.18,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.18,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.18,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.18,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.18,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.18,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.18,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.speech.stt_enhanced": {
+    "unit": "audio hour",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Speech to text enhanced add-on features",
+    "sync": {
+      "filters": {
+        "meterName": "S1 Speech to Text Enhanced Feature Audio",
+        "productName": "Azure Speech",
+        "skuName": "S1"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.3,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.speech.translation": {
+    "unit": "audio hour",
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Speech translation",
+    "sync": {
+      "filters": {
+        "meterName": "S1 Speech Translation",
+        "productName": "Azure Speech",
+        "skuName": "S1"
+      },
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 2.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 2.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 2.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 2.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 2.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 2.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 2.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 2.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 2.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 2.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.speech.tts_neural": {
+    "unit": "character",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Text to speech, prebuilt neural voices, per 1M characters",
+    "sync": {
+      "filters": {
+        "meterName": "S1 Neural Text To Speech Characters",
+        "productName": "Azure Speech",
+        "skuName": "S1"
+      },
+      "listPer": 1000000,
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.speech.voice_profiles": {
+    "unit": "profile-month",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/",
+    "note": "Speaker recognition voice profiles stored, per 1,000",
+    "sync": {
+      "filters": {
+        "meterName": "S1 Voice Storage",
+        "productName": "Azure Speech",
+        "skuName": "S1"
+      },
+      "listPer": 1000,
+      "service": "Foundry Tools",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.2,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

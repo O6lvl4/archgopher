@@ -1,0 +1,194 @@
+{
+  "azure.synapse.sql.concurrency.DW10000c": {
+    "unit": "queries",
+    "source": "https://learn.microsoft.com/en-us/azure/synapse-analytics/sql-data-warehouse/memory-concurrency-limits",
+    "note": "Maximum concurrent queries at DW10000c (workload groups); more queue",
+    "values": {
+      "*": {
+        "value": 128,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.sql.concurrency.DW1000c": {
+    "unit": "queries",
+    "source": "https://learn.microsoft.com/en-us/azure/synapse-analytics/sql-data-warehouse/memory-concurrency-limits",
+    "note": "Maximum concurrent queries at DW1000c (workload groups); more queue",
+    "values": {
+      "*": {
+        "value": 32,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.sql.concurrency.DW100c": {
+    "unit": "queries",
+    "source": "https://learn.microsoft.com/en-us/azure/synapse-analytics/sql-data-warehouse/memory-concurrency-limits",
+    "note": "Maximum concurrent queries at DW100c (workload groups); more queue",
+    "values": {
+      "*": {
+        "value": 4,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.sql.concurrency.DW15000c": {
+    "unit": "queries",
+    "source": "https://learn.microsoft.com/en-us/azure/synapse-analytics/sql-data-warehouse/memory-concurrency-limits",
+    "note": "Maximum concurrent queries at DW15000c (workload groups); more queue",
+    "values": {
+      "*": {
+        "value": 128,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.sql.concurrency.DW1500c": {
+    "unit": "queries",
+    "source": "https://learn.microsoft.com/en-us/azure/synapse-analytics/sql-data-warehouse/memory-concurrency-limits",
+    "note": "Maximum concurrent queries at DW1500c (workload groups); more queue",
+    "values": {
+      "*": {
+        "value": 32,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.sql.concurrency.DW2000c": {
+    "unit": "queries",
+    "source": "https://learn.microsoft.com/en-us/azure/synapse-analytics/sql-data-warehouse/memory-concurrency-limits",
+    "note": "Maximum concurrent queries at DW2000c (workload groups); more queue",
+    "values": {
+      "*": {
+        "value": 48,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.sql.concurrency.DW200c": {
+    "unit": "queries",
+    "source": "https://learn.microsoft.com/en-us/azure/synapse-analytics/sql-data-warehouse/memory-concurrency-limits",
+    "note": "Maximum concurrent queries at DW200c (workload groups); more queue",
+    "values": {
+      "*": {
+        "value": 8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.sql.concurrency.DW2500c": {
+    "unit": "queries",
+    "source": "https://learn.microsoft.com/en-us/azure/synapse-analytics/sql-data-warehouse/memory-concurrency-limits",
+    "note": "Maximum concurrent queries at DW2500c (workload groups); more queue",
+    "values": {
+      "*": {
+        "value": 48,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.sql.concurrency.DW30000c": {
+    "unit": "queries",
+    "source": "https://learn.microsoft.com/en-us/azure/synapse-analytics/sql-data-warehouse/memory-concurrency-limits",
+    "note": "Maximum concurrent queries at DW30000c (workload groups); more queue",
+    "values": {
+      "*": {
+        "value": 128,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.sql.concurrency.DW3000c": {
+    "unit": "queries",
+    "source": "https://learn.microsoft.com/en-us/azure/synapse-analytics/sql-data-warehouse/memory-concurrency-limits",
+    "note": "Maximum concurrent queries at DW3000c (workload groups); more queue",
+    "values": {
+      "*": {
+        "value": 64,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.sql.concurrency.DW300c": {
+    "unit": "queries",
+    "source": "https://learn.microsoft.com/en-us/azure/synapse-analytics/sql-data-warehouse/memory-concurrency-limits",
+    "note": "Maximum concurrent queries at DW300c (workload groups); more queue",
+    "values": {
+      "*": {
+        "value": 12,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.sql.concurrency.DW400c": {
+    "unit": "queries",
+    "source": "https://learn.microsoft.com/en-us/azure/synapse-analytics/sql-data-warehouse/memory-concurrency-limits",
+    "note": "Maximum concurrent queries at DW400c (workload groups); more queue",
+    "values": {
+      "*": {
+        "value": 16,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.sql.concurrency.DW5000c": {
+    "unit": "queries",
+    "source": "https://learn.microsoft.com/en-us/azure/synapse-analytics/sql-data-warehouse/memory-concurrency-limits",
+    "note": "Maximum concurrent queries at DW5000c (workload groups); more queue",
+    "values": {
+      "*": {
+        "value": 64,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.sql.concurrency.DW500c": {
+    "unit": "queries",
+    "source": "https://learn.microsoft.com/en-us/azure/synapse-analytics/sql-data-warehouse/memory-concurrency-limits",
+    "note": "Maximum concurrent queries at DW500c (workload groups); more queue",
+    "values": {
+      "*": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.sql.concurrency.DW6000c": {
+    "unit": "queries",
+    "source": "https://learn.microsoft.com/en-us/azure/synapse-analytics/sql-data-warehouse/memory-concurrency-limits",
+    "note": "Maximum concurrent queries at DW6000c (workload groups); more queue",
+    "values": {
+      "*": {
+        "value": 128,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.sql.concurrency.DW7500c": {
+    "unit": "queries",
+    "source": "https://learn.microsoft.com/en-us/azure/synapse-analytics/sql-data-warehouse/memory-concurrency-limits",
+    "note": "Maximum concurrent queries at DW7500c (workload groups); more queue",
+    "values": {
+      "*": {
+        "value": 128,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

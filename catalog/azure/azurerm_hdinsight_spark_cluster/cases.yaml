@@ -1,0 +1,15 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Default E-series v3 nodes in Japan East
+  region: japaneast
+  costs:
+    Head nodes (Standard_E4_V3): 554.8
+    Worker nodes (Standard_E8_V3): 1664.4
+    Zookeeper nodes (Standard_A4_V2): 670.14
+- name: D13 v2 head, Dav4 and Av2 nodes in East US
+  region: eastus
+  attributes: { head_vm_size: Standard_D13_V2, worker_vm_size: Standard_D4a_V4, worker_count: 4 }
+  costs:
+    Head nodes (Standard_D13_V2): 1091.496
+    Worker nodes (Standard_D4a_V4): 700.8
+    Zookeeper nodes (Standard_A4_V2): 567.21

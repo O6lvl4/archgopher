@@ -1,0 +1,341 @@
+{
+  "azure.synapse.sql.dr_storage": {
+    "unit": "GB-month",
+    "source": "https://azure.microsoft.com/pricing/details/synapse-analytics/",
+    "note": "Geo-redundant backup of a dedicated SQL pool",
+    "sync": {
+      "filters": {
+        "productName": "Azure Synapse Analytics SQL Disaster Recovery Storage",
+        "skuName": "Standard RA-GRS"
+      },
+      "service": "Azure Synapse Analytics",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.0575,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.0575,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.0562,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.0562,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.0575,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.0575,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.0575,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.0562,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.0562,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.0562,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.synapse.sql.dwu": {
+    "unit": "pool-hour",
+    "source": "https://azure.microsoft.com/pricing/details/synapse-analytics/",
+    "note": "Dedicated SQL pool by performance level, per hour the pool is online",
+    "sync": {
+      "filters": {
+        "productName": "Azure Synapse Analytics Dedicated SQL Pool",
+        "skuName": "{row}"
+      },
+      "service": "Azure Synapse Analytics",
+      "source": "azure"
+    },
+    "rows": {
+      "DW10000c": {
+        "australiaeast": 169,
+        "centralindia": 169,
+        "eastus": 151,
+        "eastus2": 120,
+        "germanywestcentral": 151,
+        "japaneast": 181,
+        "koreacentral": 169,
+        "northeurope": 139,
+        "southeastasia": 181,
+        "westus2": 120
+      },
+      "DW1000c": {
+        "australiaeast": 16.9,
+        "centralindia": 16.9,
+        "eastus": 15.1,
+        "eastus2": 12,
+        "germanywestcentral": 15.1,
+        "japaneast": 18.1,
+        "koreacentral": 16.9,
+        "northeurope": 13.9,
+        "southeastasia": 18.1,
+        "westus2": 12
+      },
+      "DW100c": {
+        "australiaeast": 1.69,
+        "centralindia": 1.69,
+        "eastus": 1.51,
+        "eastus2": 1.2,
+        "germanywestcentral": 1.51,
+        "japaneast": 1.81,
+        "koreacentral": 1.69,
+        "northeurope": 1.39,
+        "southeastasia": 1.81,
+        "westus2": 1.2
+      },
+      "DW15000c": {
+        "australiaeast": 253.5,
+        "centralindia": 253.5,
+        "eastus": 226.5,
+        "eastus2": 180,
+        "germanywestcentral": 226.5,
+        "japaneast": 271.5,
+        "koreacentral": 253.5,
+        "northeurope": 208.5,
+        "southeastasia": 271.5,
+        "westus2": 180
+      },
+      "DW1500c": {
+        "australiaeast": 25.35,
+        "centralindia": 25.35,
+        "eastus": 22.65,
+        "eastus2": 18,
+        "germanywestcentral": 22.65,
+        "japaneast": 27.15,
+        "koreacentral": 25.35,
+        "northeurope": 20.85,
+        "southeastasia": 27.15,
+        "westus2": 18
+      },
+      "DW2000c": {
+        "australiaeast": 33.8,
+        "centralindia": 33.8,
+        "eastus": 30.2,
+        "eastus2": 24,
+        "germanywestcentral": 30.2,
+        "japaneast": 36.2,
+        "koreacentral": 33.8,
+        "northeurope": 27.8,
+        "southeastasia": 36.2,
+        "westus2": 24
+      },
+      "DW200c": {
+        "australiaeast": 3.38,
+        "centralindia": 3.38,
+        "eastus": 3.02,
+        "eastus2": 2.4,
+        "germanywestcentral": 3.02,
+        "japaneast": 3.62,
+        "koreacentral": 3.38,
+        "northeurope": 2.78,
+        "southeastasia": 3.62,
+        "westus2": 2.4
+      },
+      "DW2500c": {
+        "australiaeast": 42.25,
+        "centralindia": 42.25,
+        "eastus": 37.75,
+        "eastus2": 30,
+        "germanywestcentral": 37.75,
+        "japaneast": 45.25,
+        "koreacentral": 42.25,
+        "northeurope": 34.75,
+        "southeastasia": 45.25,
+        "westus2": 30
+      },
+      "DW30000c": {
+        "australiaeast": 507,
+        "centralindia": 507,
+        "eastus": 453,
+        "eastus2": 360,
+        "germanywestcentral": 453,
+        "japaneast": 543,
+        "koreacentral": 507,
+        "northeurope": 417,
+        "southeastasia": 543,
+        "westus2": 360
+      },
+      "DW3000c": {
+        "australiaeast": 50.7,
+        "centralindia": 50.7,
+        "eastus": 45.3,
+        "eastus2": 36,
+        "germanywestcentral": 45.3,
+        "japaneast": 54.3,
+        "koreacentral": 50.7,
+        "northeurope": 41.7,
+        "southeastasia": 54.3,
+        "westus2": 36
+      },
+      "DW300c": {
+        "australiaeast": 5.07,
+        "centralindia": 5.07,
+        "eastus": 4.53,
+        "eastus2": 3.6,
+        "germanywestcentral": 4.53,
+        "japaneast": 5.43,
+        "koreacentral": 5.07,
+        "northeurope": 4.17,
+        "southeastasia": 5.43,
+        "westus2": 3.6
+      },
+      "DW400c": {
+        "australiaeast": 6.76,
+        "centralindia": 6.76,
+        "eastus": 6.04,
+        "eastus2": 4.8,
+        "germanywestcentral": 6.04,
+        "japaneast": 7.24,
+        "koreacentral": 6.76,
+        "northeurope": 5.56,
+        "southeastasia": 7.24,
+        "westus2": 4.8
+      },
+      "DW5000c": {
+        "australiaeast": 84.5,
+        "centralindia": 84.5,
+        "eastus": 75.5,
+        "eastus2": 60,
+        "germanywestcentral": 75.5,
+        "japaneast": 90.5,
+        "koreacentral": 84.5,
+        "northeurope": 69.5,
+        "southeastasia": 90.5,
+        "westus2": 60
+      },
+      "DW500c": {
+        "australiaeast": 8.45,
+        "centralindia": 8.45,
+        "eastus": 7.55,
+        "eastus2": 6,
+        "germanywestcentral": 7.55,
+        "japaneast": 9.05,
+        "koreacentral": 8.45,
+        "northeurope": 6.95,
+        "southeastasia": 9.05,
+        "westus2": 6
+      },
+      "DW6000c": {
+        "australiaeast": 101.4,
+        "centralindia": 101.4,
+        "eastus": 90.6,
+        "eastus2": 72,
+        "germanywestcentral": 90.6,
+        "japaneast": 108.6,
+        "koreacentral": 101.4,
+        "northeurope": 83.4,
+        "southeastasia": 108.6,
+        "westus2": 72
+      },
+      "DW7500c": {
+        "australiaeast": 126.75,
+        "centralindia": 126.75,
+        "eastus": 113.25,
+        "eastus2": 90,
+        "germanywestcentral": 113.25,
+        "japaneast": 135.75,
+        "koreacentral": 126.75,
+        "northeurope": 104.25,
+        "southeastasia": 135.75,
+        "westus2": 90
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.synapse.sql.storage": {
+    "unit": "TB-month",
+    "source": "https://azure.microsoft.com/pricing/details/synapse-analytics/",
+    "note": "Dedicated SQL pool data storage, including snapshots",
+    "sync": {
+      "filters": {
+        "productName": "Azure Synapse Analytics SQL Storage",
+        "skuName": "Standard LRS"
+      },
+      "service": "Azure Synapse Analytics",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 23.552,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 23.552,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 23,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 23,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 23,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 23.552,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 23.552,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 23,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 23,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 23,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Two D4 v3 nodes with Azure Hybrid Benefit and pipelines in Japan East
+  region: japaneast
+  attributes: { node_size: Standard_D4_v3, number_of_nodes: 2, license_type: BasePrice }
+  assumptions: { copyDiuHours: 10, pipelineActivityHours: 3, externalActivityHours: 1 }
+  demand: { run: { monthly: 5000, peak: 1 } }
+  costs:
+    Nodes (Standard_D4_v3, Standard): 845.34
+    Orchestration: 5
+    Data movement: 2.5
+    Pipeline activities: 3
+    External activities: 1
+- name: Started 100 hours in East US
+  region: eastus
+  assumptions: { monthlyHours: 100 }
+  costs:
+    Nodes (Standard_D8_v3, Standard): 193.8
+    Orchestration: 0
+    Data movement: 0
+    Pipeline activities: 0
+    External activities: 0

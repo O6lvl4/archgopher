@@ -1,0 +1,30 @@
+type: azurerm_data_factory_integration_runtime_azure
+label: Data Factory Azure integration runtime
+category: Integration
+icon: data-factory
+description: "Activity runs per 1,000, copy activity per DIU-hour, pipeline and external activities per hour on the Azure integration runtime (at the managed VNet rates when virtual_network_enabled), and its mapping data flow cluster per vCore-hour by compute type. Headroom is concurrent pipeline activities against the 1,000 a subscription runs per Azure IR region."
+kinds: [run]
+sla: azure.datafactory
+attributes:
+  - { key: compute_type, label: Data flow compute type, type: choice, options: [General, ComputeOptimized, MemoryOptimized], default: General }
+  - { key: core_count, label: Data flow cores, type: number, default: 8 }
+  - { key: virtual_network_enabled, label: Managed virtual network, type: boolean, default: false }
+assumptions:
+  - { key: activityRunsPerMonth, label: Activity runs not drawn as edges, type: number, default: 0, hint: "Per month; each unit of load an edge brings is one activity run too" }
+  - { key: dataFlowHours, label: Data flow cluster hours, type: number, unit: hours, hint: "Hours a month the data flow cluster runs, including its time to live; 0 for a runtime that only copies" }
+  - { key: copyDiuHours, label: Copy DIU-hours, type: number, unit: DIU-hours, default: 0, hint: "Per month: data integration units × hours of copy activity" }
+  - { key: pipelineActivityHours, label: Pipeline activity hours, type: number, unit: hours, default: 0, hint: "Per month: Lookup, Get Metadata, Delete and similar activities while they run" }
+  - { key: externalActivityHours, label: External activity hours, type: number, unit: hours, default: 0, hint: "Per month: Databricks, stored procedure, HDInsight and web activities while they run" }
+  - { key: activitySeconds, label: Pipeline activity duration, type: number, unit: s, optional: true, hint: "Compared with the concurrent pipeline activities a subscription runs per region" }
+let:
+  - rt: 'virtual_network_enabled ? "managed_vnet_ir" : "azure_ir"'
+  - flow: 'compute_type == "ComputeOptimized" ? "compute_optimized" : compute_type == "MemoryOptimized" ? "memory_optimized" : "general"'
+readings:
+  - cost: { name: Orchestration, quantity: demand.run.monthly + activityRunsPerMonth, unit: activity run, price: "azure.datafactory.{rt}.orchestration" }
+  - cost: { name: Data movement, quantity: copyDiuHours, unit: DIU-hour, price: "azure.datafactory.{rt}.data_movement" }
+  - cost: { name: Pipeline activities, quantity: pipelineActivityHours, unit: hour, price: "azure.datafactory.{rt}.pipeline_activity" }
+  - cost: { name: External activities, quantity: externalActivityHours, unit: hour, price: "azure.datafactory.{rt}.external_activity" }
+  - cost: { name: "Data flow ({compute_type}, {core_count} vCores)", quantity: core_count * dataFlowHours, unit: vCore-hour, price: "azure.datafactory.dataflow.{flow}" }
+  - concurrency: { when: activitySeconds != nil, name: Concurrent pipeline activities, peak: demand.run.peak, seconds: "activitySeconds ?? 0", unit: activity runs, quota: azure.datafactory.concurrent_pipeline_activities }
+terraform:
+  ignoreRefs: [data_factory_id]

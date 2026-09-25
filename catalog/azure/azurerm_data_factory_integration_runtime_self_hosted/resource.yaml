@@ -1,0 +1,19 @@
+type: azurerm_data_factory_integration_runtime_self_hosted
+label: Data Factory self-hosted integration runtime
+category: Integration
+icon: data-factory
+description: "Activity runs per 1,000, copy activity per hour, pipeline and external activities per hour on a self-hosted integration runtime. The machines it runs on are billed where they are."
+kinds: [run]
+sla: azure.datafactory
+assumptions:
+  - { key: activityRunsPerMonth, label: Activity runs not drawn as edges, type: number, default: 0, hint: "Per month; each unit of load an edge brings is one activity run too" }
+  - { key: copyHours, label: Copy hours, type: number, unit: hours, default: 0, hint: "Per month: hours of copy activity" }
+  - { key: pipelineActivityHours, label: Pipeline activity hours, type: number, unit: hours, default: 0 }
+  - { key: externalActivityHours, label: External activity hours, type: number, unit: hours, default: 0 }
+readings:
+  - cost: { name: Orchestration, quantity: demand.run.monthly + activityRunsPerMonth, unit: activity run, price: azure.datafactory.self_hosted_ir.orchestration }
+  - cost: { name: Data movement, quantity: copyHours, unit: hour, price: azure.datafactory.self_hosted_ir.data_movement }
+  - cost: { name: Pipeline activities, quantity: pipelineActivityHours, unit: hour, price: azure.datafactory.self_hosted_ir.pipeline_activity }
+  - cost: { name: External activities, quantity: externalActivityHours, unit: hour, price: azure.datafactory.self_hosted_ir.external_activity }
+terraform:
+  ignoreRefs: [data_factory_id, rbac_authorization]

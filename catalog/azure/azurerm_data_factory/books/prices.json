@@ -1,0 +1,204 @@
+{
+  "azure.datafactory.inactive_pipeline": {
+    "unit": "pipeline-month",
+    "source": "https://azure.microsoft.com/pricing/details/data-factory/data-pipeline/",
+    "note": "A pipeline with no triggered run in the month",
+    "sync": {
+      "filters": {
+        "meterName": "Inactive Pipeline",
+        "productName": "Azure Data Factory v2",
+        "skuName": "Cloud"
+      },
+      "service": "Azure Data Factory v2",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.8,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.datafactory.monitoring": {
+    "unit": "entity",
+    "per": 50000,
+    "source": "https://azure.microsoft.com/pricing/details/data-factory/data-pipeline/",
+    "note": "Monitoring operations (run records retrieved), per 50,000 entities",
+    "sync": {
+      "filters": {
+        "meterName": "Cloud Monitoring Operations",
+        "productName": "Azure Data Factory v2",
+        "skuName": "Cloud"
+      },
+      "listPer": 50000,
+      "service": "Azure Data Factory v2",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.25,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.datafactory.read_write": {
+    "unit": "entity",
+    "per": 50000,
+    "source": "https://azure.microsoft.com/pricing/details/data-factory/data-pipeline/",
+    "note": "Read/write operations (create, read, update, delete of entities such as pipelines and datasets), per 50,000 entities",
+    "sync": {
+      "filters": {
+        "meterName": "Cloud Read Write Operations",
+        "productName": "Azure Data Factory v2",
+        "skuName": "Cloud"
+      },
+      "listPer": 50000,
+      "service": "Azure Data Factory v2",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}
