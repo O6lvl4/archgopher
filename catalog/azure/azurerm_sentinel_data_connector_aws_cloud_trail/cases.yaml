@@ -1,0 +1,22 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: 20 GB a month in Japan East
+  region: japaneast
+  assumptions:
+    gbPerMonth: 20
+  demand:
+    ingest:
+      monthly: 0
+      peak: 0
+  costs:
+    Sentinel data ingestion: 124.8
+- name: 150 GB a month in East US
+  region: eastus
+  assumptions:
+    gbPerMonth: 150
+  demand:
+    ingest:
+      monthly: 0
+      peak: 0
+  costs:
+    Sentinel data ingestion: 645

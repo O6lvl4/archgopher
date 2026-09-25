@@ -1,0 +1,55 @@
+{
+  "azure.entrads": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/microsoft-entra-ds/",
+    "note": "Managed domain (user forest) by SKU, per replica set",
+    "sync": {
+      "filters": {
+        "meterName": "{row} User Forest",
+        "skuName": "{row}"
+      },
+      "service": "Microsoft Entra Domain Services",
+      "source": "azure"
+    },
+    "rows": {
+      "Enterprise": {
+        "australiaeast": 0.4,
+        "centralindia": 0.4,
+        "eastus": 0.4,
+        "eastus2": 0.4,
+        "germanywestcentral": 0.4,
+        "japaneast": 0.4,
+        "koreacentral": 0.4,
+        "northeurope": 0.4,
+        "southeastasia": 0.4,
+        "westus2": 0.4
+      },
+      "Premium": {
+        "australiaeast": 1.6,
+        "centralindia": 1.6,
+        "eastus": 1.6,
+        "eastus2": 1.6,
+        "germanywestcentral": 1.6,
+        "japaneast": 1.6,
+        "koreacentral": 1.6,
+        "northeurope": 1.6,
+        "southeastasia": 1.6,
+        "westus2": 1.6
+      },
+      "Standard": {
+        "australiaeast": 0.15,
+        "centralindia": 0.15,
+        "eastus": 0.15,
+        "eastus2": 0.15,
+        "germanywestcentral": 0.15,
+        "japaneast": 0.15,
+        "koreacentral": 0.15,
+        "northeurope": 0.15,
+        "southeastasia": 0.15,
+        "westus2": 0.15
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  }
+}

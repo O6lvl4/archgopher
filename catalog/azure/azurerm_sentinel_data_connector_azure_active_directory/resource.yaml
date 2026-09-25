@@ -1,0 +1,15 @@
+type: azurerm_sentinel_data_connector_azure_active_directory
+label: "Sentinel: Microsoft Entra ID"
+category: Security
+icon: sentinel
+description: "Entra ID sign-in and audit logs (SigninLogs, AuditLogs). Billed as Microsoft Sentinel pay-as-you-go analytics ingestion per GB, a price that includes the Log Analytics ingestion of the same data, so do not count these GB again on the workspace. Commitment tiers and the data lake tier are not read."
+kinds: [ingest]
+sla: azure.sentinel
+assumptions:
+  - { key: gbPerMonth, label: Sign-in and audit logs ingested, type: number, unit: GB, hint: "Per month; the workspace's Usage table shows it per data type" }
+readings:
+  - cost: { name: Sentinel data ingestion, quantity: gbPerMonth, unit: GB, price: azure.sentinel.analysis }
+terraform:
+  # The connector names the workspace it fills; its ingestion is priced here, at
+  # the Sentinel price that already includes the workspace's Log Analytics charge.
+  passive: true

@@ -1,0 +1,24 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Standard domain in Japan East
+  region: japaneast
+  demand:
+    authenticate:
+      monthly: 1000000.0
+      peak: 0.5
+  costs:
+    Domain hours: 109.5
+  limits:
+    Authentications: 1800
+- name: Premium domain in East US
+  region: eastus
+  attributes:
+    sku: Premium
+  demand:
+    authenticate:
+      monthly: 10000000.0
+      peak: 10
+  costs:
+    Domain hours: 1168.0
+  limits:
+    Authentications: 36000

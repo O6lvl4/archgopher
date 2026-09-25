@@ -1,0 +1,48 @@
+type: azurerm_security_center_subscription_pricing
+label: Defender for Cloud plan
+category: Security
+icon: defender-for-cloud
+description: "One Microsoft Defender for Cloud plan on a subscription, priced by what it protects: servers (Plan 1 or 2), App Service instances, SQL servers, storage accounts (with transactions beyond 73 million per account and malware scanning), key vaults, the subscription (Resource Manager, APIs), open-source database servers, container vCores, registry images, Cosmos DB throughput, CSPM billable resources, DNS queries or AI tokens. The Free tier costs nothing. Terraform says which plan is on, not how much it covers, so the count is an assumption."
+kinds: [scan]
+attributes:
+  - { key: tier, label: Tier, type: choice, options: [Free, Standard], default: Free }
+  - { key: resource_type, label: Plan, type: choice, options: [VirtualMachines, AppServices, SqlServers, SqlServerVirtualMachines, StorageAccounts, KeyVaults, Arm, Dns, OpenSourceRelationalDatabases, Containers, ContainerRegistry, KubernetesService, CosmosDbs, CloudPosture, AI, Api], default: VirtualMachines }
+  - { key: subplan, label: Subplan, type: string, optional: true, hint: "Servers: P1 or P2 (P2 when unset). Storage: DefenderForStorageV2 or PerStorageAccount. APIs: P1 to P5" }
+assumptions:
+  - { key: resources, label: Protected resources, type: number, optional: true, hint: "Servers, App Service instances, SQL servers, storage accounts, key vaults, database servers, container vCores, Cosmos DB RU/s, or CSPM billable resources, by plan" }
+  - { key: monthlyUsage, label: Usage per month, type: number, optional: true, hint: "Container registry: images scanned; DNS: million queries; AI: thousand tokens; storage: million transactions across the accounts" }
+  - { key: malwareScanGb, label: Malware scanning, type: number, unit: GB, default: 0, hint: "Storage: GB scanned on upload per month" }
+let:
+  - on: 'tier == "Standard"'
+  - rt: resource_type
+  - n: 'resources ?? 0.0'
+  - usage: 'monthlyUsage ?? 0.0'
+  - p2: 'subplan == nil || subplan == "P2"'
+  - counted: 'rt in ["VirtualMachines", "AppServices", "SqlServers", "SqlServerVirtualMachines", "StorageAccounts", "KeyVaults", "OpenSourceRelationalDatabases", "Containers", "CosmosDbs", "CloudPosture"]'
+  - metered: 'rt in ["ContainerRegistry", "Dns", "AI"]'
+readings:
+  - fail: { when: 'on && rt == "KubernetesService"', message: "KubernetesService is a retired plan; Defender for Containers (Containers) replaced it" }
+  - fail: { when: 'on && rt == "StorageAccounts" && subplan == "PerTransaction"', message: "the per-transaction storage plan is retired and not in the price list; use DefenderForStorageV2" }
+  - fail: { when: 'on && rt in ["KeyVaults", "Arm"] && subplan in ["PerTransaction", "PerApiCall"]', message: "the per-transaction {rt} plan is retired and not in the price list" }
+  - fail: { when: on && counted && resources == nil, message: "set resources: how many things the {rt} plan protects", continue: true }
+  - fail: { when: on && metered && monthlyUsage == nil, message: "set monthlyUsage for the {rt} plan", continue: true }
+  - cost: { when: 'on && rt == "VirtualMachines"', name: 'Servers (Plan {p2 ? 2 : 1})', quantity: 730 * n, unit: hour, price: 'azure.defender.servers_{p2 ? "p2" : "p1"}' }
+  - cost: { when: 'on && rt == "AppServices"', name: App Service instances, quantity: 730 * n, unit: hour, price: azure.defender.app_service }
+  - cost: { when: 'on && rt == "SqlServers"', name: Azure SQL servers, quantity: 730 * n, unit: hour, price: azure.defender.sql_databases }
+  - cost: { when: 'on && rt == "SqlServerVirtualMachines"', name: SQL servers on machines, quantity: n, unit: month, price: azure.defender.sql_machines }
+  - cost: { when: 'on && rt == "StorageAccounts"', name: Storage accounts, quantity: 730 * n, unit: hour, price: azure.defender.storage }
+  - cost: { when: 'on && rt == "StorageAccounts" && usage > 73 * n', name: Storage transactions beyond included, quantity: (usage - 73 * n) * 1000000, unit: transaction, price: azure.defender.storage_transactions }
+  - cost: { when: 'on && rt == "StorageAccounts" && malwareScanGb > 0', name: Malware scanning, quantity: malwareScanGb, unit: GB, price: azure.defender.storage_malware }
+  - cost: { when: 'on && rt == "KeyVaults"', name: Key vaults, quantity: 730 * n, unit: hour, price: azure.defender.key_vault }
+  - cost: { when: 'on && rt == "Arm"', name: Subscription (Resource Manager), quantity: 730, unit: hour, price: azure.defender.arm }
+  - cost: { when: 'on && rt == "Dns"', name: DNS queries, quantity: usage * 1000000, unit: query, price: azure.defender.dns }
+  - cost: { when: 'on && rt == "OpenSourceRelationalDatabases"', name: Database servers, quantity: n, unit: month, price: azure.defender.oss_db }
+  - cost: { when: 'on && rt == "Containers"', name: Container vCores, quantity: 730 * n, unit: hour, price: azure.defender.containers }
+  - cost: { when: 'on && rt == "ContainerRegistry"', name: Images scanned, quantity: usage, unit: image, price: azure.defender.container_registry }
+  - cost: { when: 'on && rt == "CosmosDbs"', name: Cosmos DB throughput, quantity: 730 * n / 100, unit: hour, price: azure.defender.cosmos }
+  - cost: { when: 'on && rt == "CloudPosture"', name: CSPM billable resources, quantity: 730 * n, unit: hour, price: azure.defender.cspm }
+  - cost: { when: 'on && rt == "AI"', name: AI tokens scanned, quantity: usage * 1000, unit: token, price: azure.defender.ai }
+  - cost: { when: 'on && rt == "Api"', name: 'APIs ({subplan ?? "P1"})', quantity: 730, unit: hour, price: 'azure.defender.api.{subplan ?? "P1"}' }
+terraform:
+  # A plan covers a whole subscription; it calls nothing.
+  passive: true

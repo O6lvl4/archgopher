@@ -1,0 +1,1059 @@
+{
+  "azure.defender.ai": {
+    "unit": "token",
+    "per": 1000,
+    "source": "https://azure.microsoft.com/pricing/details/defender-for-cloud/",
+    "note": "Defender for AI services, per token scanned",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Tokens",
+        "productName": "Microsoft Defender for AI Services"
+      },
+      "listPer": 1000,
+      "region": "Global",
+      "service": "Microsoft Defender for Cloud",
+      "source": "azure"
+    },
+    "values": {
+      "*": {
+        "value": 0.0008,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.defender.api": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/defender-for-cloud/",
+    "note": "Defender for APIs, per subscription by plan",
+    "sync": {
+      "filters": {
+        "meterName": "Per Sub Billing {row} Subscription",
+        "productName": "Defender for APIs",
+        "skuName": "Per Sub Billing {row}"
+      },
+      "region": "Global",
+      "service": "Microsoft Defender for Cloud",
+      "source": "azure"
+    },
+    "rows": {
+      "P1": {
+        "*": 0.274
+      },
+      "P2": {
+        "*": 0.9589
+      },
+      "P3": {
+        "*": 6.8493
+      },
+      "P4": {
+        "*": 9.589
+      },
+      "P5": {
+        "*": 68.4932
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-25"
+  },
+  "azure.defender.app_service": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/defender-for-cloud/",
+    "note": "Defender for App Service, per instance",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Node",
+        "productName": "Microsoft Defender for App Service"
+      },
+      "service": "Microsoft Defender for Cloud",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.defender.arm": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/defender-for-cloud/",
+    "note": "Defender for Resource Manager, per subscription",
+    "sync": {
+      "filters": {
+        "meterName": "Per node Std Node",
+        "productName": "Microsoft Defender for Resource Manager"
+      },
+      "service": "Microsoft Defender for Cloud",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.0069,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.0069,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.0069,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.0069,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.0069,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.0069,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.0069,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.0069,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.0069,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.0069,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.defender.container_registry": {
+    "unit": "image",
+    "source": "https://azure.microsoft.com/pricing/details/defender-for-cloud/",
+    "note": "Defender for container registries (retired plan), per image scanned",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Images",
+        "productName": "Microsoft Defender for Containers"
+      },
+      "service": "Microsoft Defender for Cloud",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.29,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.29,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.29,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.29,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.29,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.29,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.29,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.29,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.29,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.29,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.defender.containers": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/defender-for-cloud/",
+    "note": "Defender for Containers, per vCore of the protected clusters",
+    "sync": {
+      "filters": {
+        "meterName": "Standard vCore vCore Pack",
+        "productName": "Microsoft Defender for Containers"
+      },
+      "service": "Microsoft Defender for Cloud",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.00941,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.00941,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.00941,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.00941,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.00941,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.00941,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.00941,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.00941,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.00941,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.00941,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.defender.cosmos": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/defender-for-cloud/",
+    "note": "Defender for Azure Cosmos DB, per 100 RU/s provisioned",
+    "sync": {
+      "filters": {
+        "meterName": "Standard 100 RU/s",
+        "productName": "Microsoft Defender for Azure Cosmos DB"
+      },
+      "service": "Microsoft Defender for Cloud",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.0012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.0012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.0012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.0012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.0012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.0012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.0012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.0012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.0012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.0012,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.defender.cspm": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/defender-for-cloud/",
+    "note": "Defender CSPM, per billable resource (servers, databases, storage accounts)",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Node",
+        "productName": "Microsoft Defender CSPM"
+      },
+      "region": "Global",
+      "service": "Microsoft Defender for Cloud",
+      "source": "azure"
+    },
+    "values": {
+      "*": {
+        "value": 0.007,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.defender.dns": {
+    "unit": "query",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/defender-for-cloud/",
+    "note": "Defender for DNS, per query",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Queries",
+        "productName": "Microsoft Defender for DNS"
+      },
+      "listPer": 1000000,
+      "service": "Microsoft Defender for Cloud",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.7,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.7,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.7,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.7,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.7,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.7,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.7,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.7,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.7,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.7,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.defender.key_vault": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/defender-for-cloud/",
+    "note": "Defender for Key Vault, per vault",
+    "sync": {
+      "filters": {
+        "meterName": "Per node Std Node",
+        "productName": "Microsoft Defender for Key Vault"
+      },
+      "service": "Microsoft Defender for Cloud",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.00034,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.00034,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.00034,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.00034,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.00034,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.00034,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.00034,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.00034,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.00034,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.00034,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.defender.oss_db": {
+    "unit": "month",
+    "source": "https://azure.microsoft.com/pricing/details/defender-for-cloud/",
+    "note": "Defender for open-source relational databases (PostgreSQL, MySQL), per server",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Node",
+        "productName": "Microsoft Defender for PostgreSQL"
+      },
+      "service": "Microsoft Defender for Cloud",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.defender.servers_p1": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/defender-for-cloud/",
+    "note": "Defender for Servers Plan 1, per server",
+    "sync": {
+      "filters": {
+        "meterName": "Standard P1 Node",
+        "productName": "Microsoft Defender for Servers"
+      },
+      "service": "Microsoft Defender for Cloud",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.00672,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.00672,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.00672,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.00672,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.00672,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.00672,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.00672,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.00672,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.00672,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.00672,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.defender.servers_p2": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/defender-for-cloud/",
+    "note": "Defender for Servers Plan 2, per server",
+    "sync": {
+      "filters": {
+        "meterName": "Standard P2 Node",
+        "productName": "Microsoft Defender for Servers"
+      },
+      "service": "Microsoft Defender for Cloud",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.02,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.defender.sql_databases": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/defender-for-cloud/",
+    "note": "Defender for Azure SQL Databases, per server",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Instance",
+        "productName": "Microsoft Defender for SQL"
+      },
+      "service": "Microsoft Defender for Cloud",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.020161,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.020161,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.020161,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.020161,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.020161,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.020161,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.020161,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.020161,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.020161,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.020161,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.defender.sql_machines": {
+    "unit": "month",
+    "source": "https://azure.microsoft.com/pricing/details/defender-for-cloud/",
+    "note": "Defender for SQL servers on machines, per server",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Node",
+        "productName": "Microsoft Defender for SQL"
+      },
+      "service": "Microsoft Defender for Cloud",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.defender.storage": {
+    "unit": "hour",
+    "source": "https://azure.microsoft.com/pricing/details/defender-for-cloud/",
+    "note": "Defender for Storage, per storage account; 73 million transactions a month included",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Node",
+        "productName": "Microsoft Defender for Storage"
+      },
+      "service": "Microsoft Defender for Cloud",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.0134,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.0134,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.0134,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.0134,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.0134,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.0134,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.0134,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.0134,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.0134,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.0134,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.defender.storage_malware": {
+    "unit": "GB",
+    "source": "https://azure.microsoft.com/pricing/details/defender-for-cloud/",
+    "note": "Defender for Storage on-upload malware scanning, per GB scanned",
+    "sync": {
+      "filters": {
+        "meterName": "Malware Scanning Data Ingested",
+        "productName": "Microsoft Defender for Storage"
+      },
+      "service": "Microsoft Defender for Cloud",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.defender.storage_transactions": {
+    "unit": "transaction",
+    "per": 1000000,
+    "source": "https://azure.microsoft.com/pricing/details/defender-for-cloud/",
+    "note": "Defender for Storage, transactions beyond those included per account",
+    "sync": {
+      "filters": {
+        "meterName": "Standard Transactions",
+        "productName": "Microsoft Defender for Storage"
+      },
+      "listPer": 1000000,
+      "service": "Microsoft Defender for Cloud",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.1492,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.1492,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.1492,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.1492,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.1492,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.1492,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.1492,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.1492,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.1492,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.1492,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

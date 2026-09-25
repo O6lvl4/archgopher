@@ -1,0 +1,19 @@
+type: azurerm_sentinel_data_connector_office_365
+label: "Sentinel: Office 365"
+category: Security
+icon: sentinel
+description: "Office 365 audit logs (OfficeActivity table). SharePoint activity, Exchange admin activity and Teams are a Microsoft Sentinel free data source; Exchange mailbox activity by users is billed at the pay-as-you-go analytics ingestion price, which includes the Log Analytics charge."
+kinds: [ingest]
+sla: azure.sentinel
+attributes:
+  - { key: exchange_enabled, label: Exchange, type: boolean, default: true }
+  - { key: sharepoint_enabled, label: SharePoint, type: boolean, default: true }
+  - { key: teams_enabled, label: Teams, type: boolean, default: true }
+assumptions:
+  - { key: mailboxGb, label: Exchange mailbox activity ingested, type: number, unit: GB, default: 0, hint: "Per month; audit records of mailbox operations by users, not admins. The rest of OfficeActivity is free" }
+readings:
+  - cost: { name: Sentinel data ingestion, quantity: 'exchange_enabled ? mailboxGb : 0.0', unit: GB, price: azure.sentinel.analysis }
+terraform:
+  # The connector names the workspace it fills; its ingestion is priced here, at
+  # the Sentinel price that already includes the workspace's Log Analytics charge.
+  passive: true

@@ -1,0 +1,20 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: alerts only, free (Japan East)
+  region: japaneast
+  demand:
+    ingest:
+      monthly: 0
+      peak: 0
+  costs:
+    Sentinel data ingestion: 0
+- name: 5 GB of billable data (North Europe)
+  region: northeurope
+  assumptions:
+    billableGb: 5
+  demand:
+    ingest:
+      monthly: 0
+      peak: 0
+  costs:
+    Sentinel data ingestion: 25.8

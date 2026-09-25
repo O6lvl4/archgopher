@@ -1,0 +1,57 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: software RSA 2048 key in Japan East
+  region: japaneast
+  attributes:
+    key_type: RSA
+    key_size: 2048
+  demand:
+    crypt:
+      monthly: 1000000.0
+      peak: 20
+  costs:
+    Key operations: 3.0
+  limits:
+    Key transactions: 20
+- name: HSM RSA 3072 key rotated every 90 days (East US)
+  region: eastus
+  attributes:
+    key_type: RSA-HSM
+    key_size: 3072
+    rotation: true
+    time_after_creation: P90D
+  assumptions:
+    keyVersions: 2
+  demand:
+    crypt:
+      monthly: 500000.0
+      peak: 5
+  costs:
+    HSM-protected key versions: 10.0
+    Key operations: 7.5
+    Automatic rotations: 0.337777778
+  limits:
+    Key transactions: 5
+- name: HSM RSA 2048 key in North Europe
+  region: northeurope
+  attributes:
+    key_type: RSA-HSM
+    key_size: 2048
+  demand:
+    crypt:
+      monthly: 10000.0
+      peak: 1
+  costs:
+    HSM-protected key versions: 1.0
+    Key operations: 0.03
+  limits:
+    Key transactions: 1
+- name: oct-HSM keys belong to a Managed HSM
+  region: eastus
+  attributes:
+    key_type: oct-HSM
+  demand:
+    crypt:
+      monthly: 0
+      peak: 0
+  error: oct-HSM keys live in a Managed HSM

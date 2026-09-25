@@ -1,0 +1,269 @@
+{
+  "azure.keyvault.advanced_operations": {
+    "unit": "request",
+    "per": 10000,
+    "source": "https://azure.microsoft.com/pricing/details/key-vault/",
+    "note": "Operations on RSA 3072/4096-bit and elliptic-curve keys, software- or HSM-protected",
+    "sync": {
+      "filters": {
+        "meterName": "Advanced Key Operations",
+        "productName": "Key Vault",
+        "skuName": "Standard"
+      },
+      "listPer": 10000,
+      "service": "Key Vault",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.keyvault.hsm_advanced_key": {
+    "unit": "key-month",
+    "source": "https://azure.microsoft.com/pricing/details/key-vault/",
+    "note": "Premium vault: HSM-protected RSA 3072/4096-bit or elliptic-curve key, first 250 keys a month; later keys are cheaper",
+    "sync": {
+      "filters": {
+        "meterName": "Premium HSM-protected Advanced Key",
+        "productName": "Key Vault",
+        "skuName": "Premium"
+      },
+      "service": "Key Vault",
+      "source": "azure",
+      "tier": "0"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 5,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.keyvault.hsm_rsa2048_key": {
+    "unit": "key-month",
+    "source": "https://azure.microsoft.com/pricing/details/key-vault/",
+    "note": "Premium vault: HSM-protected RSA 2048-bit key, each key version",
+    "sync": {
+      "filters": {
+        "meterName": "Premium HSM-protected RSA 2048-bit key",
+        "productName": "Key Vault",
+        "skuName": "Premium"
+      },
+      "service": "Key Vault",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  },
+  "azure.keyvault.key_rotation": {
+    "unit": "rotation",
+    "source": "https://azure.microsoft.com/pricing/details/key-vault/",
+    "note": "Automated key rotation, per scheduled rotation",
+    "sync": {
+      "filters": {
+        "meterName": "Automated Key Rotation",
+        "productName": "Key Vault",
+        "skuName": "Standard"
+      },
+      "service": "Key Vault",
+      "source": "azure"
+    },
+    "values": {
+      "australiaeast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "centralindia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "eastus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "germanywestcentral": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "japaneast": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "koreacentral": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "northeurope": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "southeastasia": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      },
+      "westus2": {
+        "value": 1,
+        "verified": true,
+        "checkedAt": "2026-09-25"
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+- name: Standard B1 pool in Japan East
+  region: japaneast
+  demand:
+    crypt:
+      monthly: 1000000.0
+      peak: 50
+  costs:
+    HSM pool hours: 2336.0
+  limits:
+    Unwrap and decrypt (RSA 2048): 50
+- name: Standard B1 pool in West US 2
+  region: westus2
+  demand:
+    crypt:
+      monthly: 0
+      peak: 0
+  costs:
+    HSM pool hours: 2336.0
+  limits:
+    Unwrap and decrypt (RSA 2048): 0
+- name: custom pools are not in the price list
+  region: eastus
+  attributes:
+    sku_name: Custom_B32
+  demand:
+    crypt:
+      monthly: 0
+      peak: 0
+  error: only Standard_B1 pools are in the price list
