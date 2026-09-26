@@ -109,3 +109,14 @@ func TestSpecAndDecodeValues(t *testing.T) {
 		t.Fatal("a choice without options must fail")
 	}
 }
+func TestLabelsNameOptions(t *testing.T) {
+	s := Spec{Key: "plan", Type: Choice, Options: []string{"a", "b"}, Labels: map[string]string{"a": "4 GB, 4 cores"}}
+	f, err := s.Build()
+	if err != nil || f.Labels["a"] != "4 GB, 4 cores" {
+		t.Fatalf("labels = %v, %v", f.Labels, err)
+	}
+	s.Labels["c"] = "not an option"
+	if _, err := s.Build(); err == nil {
+		t.Error("a label for an option the choice lacks should be refused")
+	}
+}

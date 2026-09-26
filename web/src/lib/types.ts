@@ -93,6 +93,8 @@ export interface Field {
   hint?: string;
   default?: unknown;
   options?: string[];
+  /** How a choice's options are shown, keyed by option. */
+  labels?: Record<string, string>;
   multi?: boolean;
   required: boolean;
   path?: string;

@@ -8,7 +8,13 @@ sla: conoha.vps.server
 attributes:
   - { key: flavor_id, label: Flavor ID, type: string, optional: true, hint: "The flavor's UUID, which names the plan (g2l-t-c2m1 is Linux, hourly billing, 2 cores, 1 GB)" }
 assumptions:
-  - { key: plan, label: Flavor name, type: string, optional: true, hint: "When flavor_id is not a UUID ConoHa publishes: a variable, or a 12 GB to 128 GB plan (g2l-t-c6m12, c8m24, c12m48, c24m96, c40m128), whose UUIDs are only in the account's flavor list" }
+  - key: plan
+    label: Plan
+    type: choice
+    optional: true
+    options: [g2l-t-c1m512, g2l-t-c2m1, g2l-t-c3m2, g2l-t-c4m4, g2l-t-c6m12, g2l-t-c8m24, g2l-t-c12m48, g2l-t-c24m96, g2l-t-c40m128, g2l-t-c6m8, g2l-t-c8m16, g2l-t-c12m32, g2l-t-c24m64]
+    labels: { g2l-t-c1m512: "512 MB, 1 core, 30 GB SSD", g2l-t-c2m1: "1 GB, 2 cores, 100 GB SSD", g2l-t-c3m2: "2 GB, 3 cores, 100 GB SSD", g2l-t-c4m4: "4 GB, 4 cores, 100 GB SSD", g2l-t-c6m12: "12 GB, 6 cores, 100 GB SSD", g2l-t-c8m24: "24 GB, 8 cores, 100 GB SSD", g2l-t-c12m48: "48 GB, 12 cores, 100 GB SSD", g2l-t-c24m96: "96 GB, 24 cores, 100 GB SSD", g2l-t-c40m128: "128 GB, 40 cores, 100 GB SSD", g2l-t-c6m8: "8 GB, 6 cores, 100 GB SSD (replaced in March 2025)", g2l-t-c8m16: "16 GB, 8 cores, 100 GB SSD (replaced in March 2025)", g2l-t-c12m32: "32 GB, 12 cores, 100 GB SSD (replaced in March 2025)", g2l-t-c24m64: "64 GB, 24 cores, 100 GB SSD (replaced in March 2025)" }
+    hint: "When flavor_id is not a UUID ConoHa publishes: a variable, a node placed by hand, or a 12 GB to 128 GB plan, whose UUIDs are only in the account's flavor list. Linux, hourly billing"
   - { key: requestsPerInstance, label: Capacity per server, type: number, unit: requests/second, optional: true, hint: "What the server serves at the peak, from a load test; compared with the peak load" }
 let:
   # The flavors of the flavor list (https://doc.conoha.jp/reference/api-vps3/api-compute-vps3/compute-get_flavors_list-v3/).

@@ -29,16 +29,18 @@ const (
 // `options:"a,b"` turns a string (or []string) into a choice.
 // `path:"block.attr"` says where the value sits in the Terraform resource.
 type Field struct {
-	Key      string   `json:"key"`
-	Label    string   `json:"label"`
-	Type     Type     `json:"type"`
-	Unit     string   `json:"unit,omitempty"`
-	Hint     string   `json:"hint,omitempty"`
-	Default  any      `json:"default,omitempty"`
-	Options  []string `json:"options,omitempty"`
-	Multi    bool     `json:"multi,omitempty"`
-	Required bool     `json:"required"`
-	Path     string   `json:"path,omitempty"`
+	Key     string   `json:"key"`
+	Label   string   `json:"label"`
+	Type    Type     `json:"type"`
+	Unit    string   `json:"unit,omitempty"`
+	Hint    string   `json:"hint,omitempty"`
+	Default any      `json:"default,omitempty"`
+	Options []string `json:"options,omitempty"`
+	// Labels are how a choice's options are shown, keyed by option.
+	Labels   map[string]string `json:"labels,omitempty"`
+	Multi    bool              `json:"multi,omitempty"`
+	Required bool              `json:"required"`
+	Path     string            `json:"path,omitempty"`
 
 	index []int
 }

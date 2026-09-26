@@ -36,7 +36,7 @@ function ChoiceInput({ field, value, onChange }: Props) {
       <option value="">{defaultText(field)}</option>
       {(field.options ?? []).filter((o) => o !== "").map((o) => (
         <option key={o} value={o}>
-          {o}
+          {field.labels?.[o] ?? o}
         </option>
       ))}
     </select>

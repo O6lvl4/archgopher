@@ -364,6 +364,10 @@ iam:
 | `cost` / `limit` | Any quantity × price / any demand against a quota or capacity |
 | `fail` | A problem with the declaration; stops the node unless `continue: true` |
 
+A `choice` field lists its `options`; `labels` shows them as people know
+them in the web UI (`{ g2l-t-c4m4: "4 GB, 4 cores, 100 GB SSD" }`), and a
+label for a value that is not an option is refused.
+
 Expressions see every attribute and assumption by key (optional ones are nil
 when unset), `total.monthly` and `total.peak`, `demand.<kind>.monthly` and
 `.peak`, `region`, earlier `let` values, and `ceilDiv(a, b)`. `includes: [logs]` adds a
