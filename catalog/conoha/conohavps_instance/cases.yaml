@@ -32,3 +32,17 @@
   attributes:
     flavor_id: 11111111-1111-1111-1111-111111111111
   error: set plan
+- name: the 12 GB plan, whose flavor ID is only in the account's list, named by hand
+  region: ap-northeast-1
+  assumptions:
+    plan: g2l-t-c6m12
+  costs:
+    # 7,348 yen / 1.1 x 0.006348 = 42.40464
+    Server (g2l-t-c6m12): 42.40464
+- name: a server still on the old 8 GB plan keeps its price
+  region: ap-northeast-1
+  attributes:
+    flavor_id: c8ce932a-a7de-4fbb-ab64-903826082be3
+  costs:
+    # 8,083 yen / 1.1 x 0.006348 = 46.64625818
+    Server (g2l-t-c6m8): 46.64625818

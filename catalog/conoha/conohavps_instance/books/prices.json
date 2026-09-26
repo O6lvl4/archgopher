@@ -2,15 +2,15 @@
   "conoha.vps.linux": {
     "unit": "server-month",
     "source": "https://www.conoha.jp/vps/pricing/",
-    "note": "Hourly billing (時間課金): the monthly amount, which a month's hours never exceed. Tax-inclusive yen as published; the 128 GB plan is on the pricing page but not in the flavor list. Read on the pricing page; ConoHa publishes no price API, so sync cannot recheck it",
+    "note": "Hourly billing (時間課金): the monthly amount, which a month's hours never exceed, for the plans on sale. Tax-inclusive yen as published. The flavor names of the 12 GB to 128 GB plans are from https://doc.conoha.jp/reference/api-vps3/api-utilization-vps3/api-create_vm-v3/. Read on the pricing page; ConoHa publishes no price API, so sync cannot recheck it",
     "rows": {
-      "g2l-t-c12m32": {
+      "g2l-t-c12m48": {
         "*": 28600
       },
       "g2l-t-c1m512": {
         "*": 751
       },
-      "g2l-t-c24m64": {
+      "g2l-t-c24m96": {
         "*": 53900
       },
       "g2l-t-c2m1": {
@@ -19,14 +19,40 @@
       "g2l-t-c3m2": {
         "*": 2033
       },
+      "g2l-t-c40m128": {
+        "*": 72600
+      },
       "g2l-t-c4m4": {
         "*": 3608
       },
-      "g2l-t-c6m8": {
+      "g2l-t-c6m12": {
         "*": 7348
       },
-      "g2l-t-c8m16": {
+      "g2l-t-c8m24": {
         "*": 14300
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-26",
+    "currency": "JPY",
+    "tax": 0.1
+  },
+  "conoha.vps.linux_old_memory": {
+    "unit": "server-month",
+    "source": "https://vps.conoha.jp/pdf/vswj020-old/conoha_spec_ja.pdf",
+    "note": "Hourly billing of the 8 GB to 64 GB plans that the 12 GB to 96 GB plans replaced in March 2025, for servers still on them: the monthly amount. Tax-inclusive yen, from the old memory plans' price sheet the pricing page links (ConoHa VPS Ver 3.0の旧メモリプラン)",
+    "rows": {
+      "g2l-t-c12m32": {
+        "*": 31460
+      },
+      "g2l-t-c24m64": {
+        "*": 59290
+      },
+      "g2l-t-c6m8": {
+        "*": 8083
+      },
+      "g2l-t-c8m16": {
+        "*": 15730
       }
     },
     "verified": true,

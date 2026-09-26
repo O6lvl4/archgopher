@@ -291,7 +291,7 @@ fee is paid once. Free tiers (R2's, the Workers AI neurons) are not counted.
 
 | Type | Reads | Headroom |
 | --- | --- | --- |
-| `conohavps_instance` | The plan's monthly amount by flavor (Linux, hourly billing); the flavor UUID names the plan, or `plan` names it when a variable sets the ID | Requests per second per server |
+| `conohavps_instance` | The plan's monthly amount by flavor (Linux, hourly billing: 512 MB to 128 GB, and the 8 GB to 64 GB plans the March 2025 renewal replaced); the flavor UUID names the plan, or `plan` names it when a variable sets the ID or the flavor is a 12 GB to 128 GB plan, whose UUIDs ConoHa does not publish | Requests per second per server |
 | `conohavps_volume` | Boot storage added above the plan's 100 GB (200 and 500 GB boot volumes), or the additional SSD by size | - |
 
 These are the resources of GMO Internet's `gmo-internet/conohavps` provider
