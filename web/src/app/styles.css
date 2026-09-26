@@ -113,8 +113,21 @@ button.link:hover { text-decoration: underline; background: none; }
 .catalog { grid-area: cat; overflow: auto; padding: 12px; background: var(--surface); border-right: 1px solid var(--border); }
 .catalog h3 { margin: 12px 4px 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
 .catalog section:first-child h3 { margin-top: 0; }
-.catalog h2 { margin: 18px 4px 8px; font-size: 13px; font-weight: 600; color: var(--text); border-bottom: 1px solid var(--border); padding-bottom: 4px; }
-.catalog .catalog-provider:first-child h2 { margin-top: 0; }
+.catalog-provider { border-bottom: 1px solid var(--border); }
+.catalog-provider > summary {
+  display: flex; align-items: center; gap: 6px; padding: 8px 4px; cursor: pointer; list-style: none; user-select: none;
+}
+.catalog-provider > summary::-webkit-details-marker { display: none; }
+.catalog-provider > summary::after {
+  content: ""; width: 6px; height: 6px; margin-left: 2px; border: solid var(--muted); border-width: 0 1.5px 1.5px 0;
+  transform: rotate(-45deg); transition: transform 0.15s;
+}
+.catalog-provider[open] > summary::after { transform: rotate(45deg); }
+.catalog-provider > summary:hover h2 { color: var(--accent); }
+.catalog-provider > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: 6px; }
+.catalog-provider[open] { padding-bottom: 10px; }
+.catalog h2 { flex: 1; margin: 0; font-size: 13px; font-weight: 600; color: var(--text); }
+.catalog-count { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .catalog-item {
   display: flex; align-items: center; gap: 8px; width: 100%; border: 0; background: none; padding: 6px 8px; border-radius: 6px;
   font-weight: 450; text-align: left;

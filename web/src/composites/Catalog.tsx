@@ -17,12 +17,16 @@ function groups(catalog: CatalogEntry[]): [string, [string, CatalogEntry[]][]][]
     .map(([p, entries]) => [p, byKey(entries, (e) => e.category).sort(([a], [b]) => a.localeCompare(b))]);
 }
 
+/** One provider per disclosure, all closed at first: the list stays short until a provider is opened. */
 export function Catalog({ catalog, onAdd }: { catalog: CatalogEntry[]; onAdd: (type: string) => void }) {
   return (
     <nav className="catalog" aria-label="Scouters">
       {groups(catalog).map(([provider, categories]) => (
-        <section key={provider} className={`catalog-provider prov-${provider || "general"}`}>
-          <h2>{providerLabels[provider] ?? provider}</h2>
+        <details key={provider} className={`catalog-provider prov-${provider || "general"}`}>
+          <summary>
+            <h2>{providerLabels[provider] ?? provider}</h2>
+            <span className="catalog-count">{categories.reduce((n, [, entries]) => n + entries.length, 0)}</span>
+          </summary>
           {categories.map(([category, entries]) => (
             <section key={category}>
               <h3>{category}</h3>
@@ -34,7 +38,7 @@ export function Catalog({ catalog, onAdd }: { catalog: CatalogEntry[]; onAdd: (t
               ))}
             </section>
           ))}
-        </section>
+        </details>
       ))}
     </nav>
   );
