@@ -2,6 +2,7 @@ package book
 
 import (
 	"encoding/json"
+	"math"
 	"strings"
 	"testing"
 )
@@ -86,5 +87,24 @@ func TestFlattenGivesEveryRowOfAPlainTableItsRules(t *testing.T) {
 	}
 	if e := b["x.44"]; e.Pool != PoolAccount || e.Included != 100 {
 		t.Fatalf("x.44 = %+v", e)
+	}
+}
+
+func TestYenPricesConvertBeforeTax(t *testing.T) {
+	flat := flatBook(t, `{
+	  "fx.jpy": {"unit": "JPY", "source": "s", "values": {"*": {"value": 0.01, "verified": true}}},
+	  "conoha.vps.linux": {"unit": "server-month", "source": "s", "currency": "JPY", "tax": 0.1, "verified": true,
+	    "rows": {"g2l-t-c2m1": {"*": 1100}}}}`)
+	usd, err := flat.InUSD()
+	if err != nil {
+		t.Fatal(err)
+	}
+	e, v, err := usd.Lookup("conoha.vps.linux.g2l-t-c2m1", "c3j1")
+	if err != nil || math.Abs(*v.Value-10) > 1e-9 || !v.Verified || e.Currency != "" || e.Tax != 0 {
+		t.Fatalf("1,100 yen with tax at 0.01: %+v %+v %v", e, v, err)
+	}
+	delete(flat, "fx.jpy")
+	if _, err := flat.InUSD(); err == nil || !strings.Contains(err.Error(), "fx.jpy") {
+		t.Fatalf("no rate: %v", err)
 	}
 }

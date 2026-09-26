@@ -1,7 +1,7 @@
 import type { CatalogEntry } from "../lib/types";
 import { Icon } from "../ui/Icon";
 
-const providerLabels: Record<string, string> = { "": "General", aws: "AWS", azure: "Azure", gcp: "Google Cloud", cloudflare: "Cloudflare" };
+const providerLabels: Record<string, string> = { "": "General", aws: "AWS", azure: "Azure", gcp: "Google Cloud", cloudflare: "Cloudflare", conoha: "ConoHa" };
 
 function byKey<T>(items: T[], key: (t: T) => string): [string, T[]][] {
   const by = new Map<string, T[]>();

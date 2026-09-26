@@ -1,0 +1,45 @@
+{
+  "conoha.vps.additional_ssd": {
+    "unit": "volume-month",
+    "source": "https://www.conoha.jp/vps/pricing/",
+    "note": "Additional SSD (追加SSD) by size in GB, hourly billing up to the monthly amount. Tax-inclusive yen as published. Read on the pricing page; ConoHa publishes no price API, so sync cannot recheck it",
+    "rows": {
+      "1000": {
+        "*": 8954
+      },
+      "10000": {
+        "*": 89540
+      },
+      "200": {
+        "*": 3025
+      },
+      "500": {
+        "*": 5445
+      },
+      "5000": {
+        "*": 44770
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-26",
+    "currency": "JPY",
+    "tax": 0.1
+  },
+  "conoha.vps.boot_storage": {
+    "unit": "volume-month",
+    "source": "https://www.conoha.jp/vps/pricing/",
+    "note": "Boot storage added (ブートストレージ容量追加) above the 100 GB a plan includes, by the GB added; API and hourly billing only, not on the 512 MB plan. Tax-inclusive yen as published. Read on the pricing page; ConoHa publishes no price API, so sync cannot recheck it",
+    "rows": {
+      "100": {
+        "*": 1513
+      },
+      "400": {
+        "*": 4356
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-26",
+    "currency": "JPY",
+    "tax": 0.1
+  }
+}

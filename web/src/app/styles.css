@@ -17,6 +17,7 @@
   --prov-azure: #0078d4;
   --prov-gcp: linear-gradient(90deg, #4285f4 0 25%, #ea4335 25% 50%, #fbbc04 50% 75%, #34a853 75%);
   --prov-cloudflare: #f38020;
+  --prov-conoha: #1b8bd6;
   --prov-general: #ffffff;
   --radius: 10px;
   --shadow: 0 1px 2px rgb(16 24 40 / 6%), 0 1px 3px rgb(16 24 40 / 8%);
@@ -45,6 +46,7 @@
     --prov-azure: #3a96dd;
     --prov-gcp: linear-gradient(90deg, #8ab4f8 0 25%, #f28b82 25% 50%, #fdd663 50% 75%, #81c995 75%);
     --prov-cloudflare: #f6933b;
+    --prov-conoha: #4aa8e8;
     --prov-general: #ffffff;
     --shadow: 0 1px 2px rgb(0 0 0 / 40%);
     color-scheme: dark;
@@ -125,6 +127,7 @@ button.link:hover { text-decoration: underline; background: none; }
 .prov-azure { --prov-line: var(--prov-azure); }
 .prov-gcp { --prov-line: var(--prov-gcp); }
 .prov-cloudflare { --prov-line: var(--prov-cloudflare); }
+.prov-conoha { --prov-line: var(--prov-conoha); }
 .prov-general { --prov-line: var(--prov-general); --prov-edge: inset 0 0 0 1px #16181d; }
 .catalog h2::before {
   content: ""; display: inline-block; width: 10px; height: 10px; margin-right: 6px; border-radius: 3px;

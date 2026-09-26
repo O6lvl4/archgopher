@@ -67,8 +67,11 @@ var allowed = map[string][]string{
 	// Cloudflare provider: prices read by hand from the pricing pages.
 	"provider/cloudflare": {"book", "catalog", "definition", "scouter", "terraform/infer", "provider/internal/embedded"},
 
+	// ConoHa provider: prices read by hand from the pricing page, in yen.
+	"provider/conoha": {"book", "catalog", "definition", "scouter", "terraform/infer", "provider/internal/embedded"},
+
 	// The one place that lists the providers.
-	"cloud": {"book", "model", "pattern", "scouter", "terraform/infer", "provider/aws", "provider/aws/pattern", "provider/azure", "provider/cloudflare", "provider/gcp"},
+	"cloud": {"book", "model", "pattern", "scouter", "terraform/infer", "provider/aws", "provider/aws/pattern", "provider/azure", "provider/cloudflare", "provider/conoha", "provider/gcp"},
 
 	// Edges of the system.
 	"api":            {"book", "cloud", "engine", "field", "gaps", "model", "pattern", "scouter", "terraform/eval", "terraform/infer", "terraform/merge"},

@@ -5,7 +5,7 @@
   </picture>
 </h1>
 
-作る前に構成を読むためのツールです。Terraform（AWS・Azure・Google Cloud・Cloudflare）を
+作る前に構成を読むためのツールです。Terraform（AWS・Azure・Google Cloud・Cloudflare・ConoHa VPS）を
 グラフにし、想定する負荷を入口から流して、ノードごとに**金額**・**余裕**・**応答**・**可用性**を読みます。
 
 「入口に月3,000万件が来たとき、後ろの資源はそれぞれ何件を受け、いくらかかり、どこが最初に上限に当たるか」。

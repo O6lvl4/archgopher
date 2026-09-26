@@ -37,3 +37,11 @@ var Cloudflare embed.FS
 
 // CloudflareRoot is the directory of the Cloudflare catalog inside Cloudflare.
 const CloudflareRoot = "cloudflare"
+
+// ConoHa is the ConoHa VPS catalog.
+//
+//go:embed conoha
+var ConoHa embed.FS
+
+// ConoHaRoot is the directory of the ConoHa catalog inside ConoHa.
+const ConoHaRoot = "conoha"

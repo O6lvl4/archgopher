@@ -1,0 +1,13 @@
+{
+  "conoha.vps.volume": {
+    "unit": "fraction",
+    "source": "https://vps.conoha.jp/sla/",
+    "note": "The SLA covers the uptime of servers; no SLA is published for volumes",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": false
+      }
+    }
+  }
+}

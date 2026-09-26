@@ -6,7 +6,7 @@
 </h1>
 
 Read an architecture before you build it. archgopher turns Terraform (AWS,
-Azure, Google Cloud and Cloudflare) into a graph, pushes your expected load
+Azure, Google Cloud, Cloudflare and ConoHa VPS) into a graph, pushes your expected load
 through it, and reads every node for **cost**, **headroom**, **latency** and
 **availability**.
 

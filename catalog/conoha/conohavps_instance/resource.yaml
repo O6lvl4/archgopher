@@ -1,0 +1,26 @@
+type: conohavps_instance
+label: ConoHa VPS server
+category: Compute
+icon: server
+description: "The server plan by flavor, Linux on hourly billing. ConoHa bills a server by the hour up to the plan's monthly amount, whether it runs or is shut off, until it is deleted; a server a declaration keeps all month pays the monthly amount, which is what is read. The plan includes the boot volume up to 100 GB (30 GB on 512 MB); a larger boot volume is priced on conohavps_volume. Data transfer is free. Prices are published in yen with tax; they are read before tax, in US dollars at the book's rate. Headroom is the peak against what the server serves."
+kinds: [request]
+sla: conoha.vps.server
+attributes:
+  - { key: flavor_id, label: Flavor ID, type: string, optional: true, hint: "The flavor's UUID, which names the plan (g2l-t-c2m1 is Linux, hourly billing, 2 cores, 1 GB)" }
+assumptions:
+  - { key: plan, label: Flavor name, type: string, optional: true, hint: "Only when flavor_id is not a UUID ConoHa lists, as when a variable sets it: the flavor name, such as g2l-t-c4m4" }
+  - { key: requestsPerInstance, label: Capacity per server, type: number, unit: requests/second, optional: true, hint: "What the server serves at the peak, from a load test; compared with the peak load" }
+let:
+  # The flavors of the flavor list (https://doc.conoha.jp/reference/api-vps3/api-compute-vps3/compute-get_flavors_list-v3/).
+  - flavor: 'string({"4e0d8272-48c4-46c5-9947-fc599f540f9e": "g2d-t-c16m64d1000", "42ae7d35-dcb0-4fb9-bae5-df7efee9c25f": "g2d-t-c1m1d10", "1488a6c7-6c8f-4e39-a522-ccab7d3acc84": "g2d-t-c1m2d30", "4f4a2fd5-258c-4540-b21b-c84594138f1a": "g2d-t-c2m4d60", "5af64431-3baf-40a7-8a7b-946447dd2900": "g2d-t-c4m8d120", "32ec2250-4123-4d73-b13e-985771208a2e": "g2d-t-c6m16d240", "93865573-c6be-4834-8129-901336cac0f7": "g2d-t-c8m32d480", "3229329c-4e4f-4152-98df-4728a8308b56": "g2l-p-c12m32", "8401b041-1497-4d3a-9946-a8ecb0ea915f": "g2l-p-c1m512", "214643c8-4f8f-4aa9-a3d6-a28c504c0de4": "g2l-p-c20m128g1-l4", "9845d28f-6e8f-4ac9-9de7-9c5fc0daa664": "g2l-p-c22m228g1-h100", "3de8506d-a003-4caf-a5c7-73a705b45247": "g2l-p-c24m64", "4f32f7c2-b55b-4d1d-a0c7-320f0feaf8f4": "g2l-p-c2m1", "b5d047c0-2fc2-4a06-b26b-5d18d7fdf694": "g2l-p-c3m2", "3053c9d0-890a-4b2c-ae2c-19c2ac86da25": "g2l-p-c4m4", "6f894e28-6ce3-426d-9a9d-36ac8d07c4a7": "g2l-p-c6m8", "b8a19dfd-3f20-4913-a8cb-9f4d1a45b27c": "g2l-p-c8m16", "b9eb8f9f-6cbf-4c8b-89cd-b0cfb484f13a": "g2l-t-c12m32", "3f8244e7-c7a2-4c60-84b9-cd76dd98a177": "g2l-t-c1m512", "b5d0e377-3440-41c2-a967-15bbde929325": "g2l-t-c20m128g1-l4", "66394e53-3e1c-455a-a09e-e575520edcef": "g2l-t-c22m228g1-h100", "95afc016-cf7f-4cc1-8622-8790bdc95bb7": "g2l-t-c24m64", "f2a77529-1815-43a2-bc14-1f3f6b09079c": "g2l-t-c2m1", "784f1ae8-0bc8-4d06-a06b-2afaa9580e0a": "g2l-t-c3m2", "6f3c4747-8471-4a38-902b-4c57ad76d776": "g2l-t-c4m4", "c8ce932a-a7de-4fbb-ab64-903826082be3": "g2l-t-c6m8", "719b3191-3163-478a-b14c-cb667e0e19b2": "g2l-t-c8m16", "09ef51a1-139c-439f-9f10-81bae5d845f5": "g2w-p-c12m32", "4034a027-8714-4e5d-8f37-b8a90264b628": "g2w-p-c24m64", "be5499be-f4b2-45e4-a7b2-cc7c47c1864f": "g2w-p-c2m1", "6354dabe-00c1-475c-8f57-9b9db214f4c2": "g2w-p-c3m2", "4a331166-a4e9-49dc-a89f-04e7b299889d": "g2w-p-c4m4", "f80eb2f1-c7c4-4e0a-9b4c-ba67695cdd39": "g2w-p-c6m8", "d8270d6e-fb46-4ed6-b1a4-6b657b16f1c3": "g2w-p-c8m16", "a5cc3a59-99e8-4671-9c4d-0cca816ea9e6": "g2w-t-c12m32", "74de86d2-9a6d-4396-99b7-ba510fa7dcf7": "g2w-t-c24m64", "09efe5d4-725a-4027-a28a-acd85286d87c": "g2w-t-c2m1", "cb3a7934-7b93-447a-8c54-3fd5d4e67a1f": "g2w-t-c3m2", "a2734ed4-1d04-46bf-a3c9-3b6f8d5ec43c": "g2w-t-c4m4", "2e60a683-1f84-4f12-a3a9-7caf4bdb5e21": "g2w-t-c6m8", "7a67cd68-8453-4e1b-b3a8-ba5c3a10a5f4": "g2w-t-c8m16"}[flavor_id ?? ""] ?? plan ?? "")'
+readings:
+  - fail: { when: 'flavor == ""', message: "flavor_id is not a flavor ConoHa lists: set plan, the flavor name (g2l-t-c2m1)" }
+  - fail: { when: 'flavor matches "^g2[lw]-p-"', message: "{flavor} is a prepaid plan, paid up front for a term at a price that depends on the term: use the hourly flavor, g2l-t-, for what the plan costs a month" }
+  - fail: { when: 'flavor matches "^g2w-"', message: "{flavor} is a Windows Server plan, which is not priced yet" }
+  - fail: { when: 'flavor matches "^g2d-"', message: "{flavor} is a database server plan, which is not priced yet" }
+  - fail: { when: 'flavor matches "^g2l-t-.*g[0-9]"', message: "{flavor} is a GPU plan, which is not priced yet" }
+  - cost: { when: 'flavor matches "^g2l-t-c[0-9]+m[0-9]+$"', name: "Server ({flavor})", quantity: 1, unit: server-month, price: "conoha.vps.linux.{flavor}" }
+  - limit: { when: requestsPerInstance != nil, name: Requests per second, demand: total.peak, unit: requests/second, capacity: 'requestsPerInstance ?? 0' }
+terraform:
+  # Volumes are priced on their own node; key pairs and security groups cost nothing.
+  ignoreRefs: [block_device, key_name, security_group]

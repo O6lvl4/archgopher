@@ -63,5 +63,5 @@ and a feature never imports another feature.
   through `perUnit` and assumptions.
 - One region per declaration. A declaration that mixes AWS, Azure and Google
   Cloud prices every node in that one region, so nodes of the other clouds
-  find no price. Cloudflare prices are the same everywhere and price in any
-  region.
+  find no price. Cloudflare and ConoHa prices are the same wherever the
+  declaration is and price in any region.

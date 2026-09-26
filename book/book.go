@@ -72,6 +72,14 @@ type Entry struct {
 	// A zero-priced tier at the start is a free grant, billed at the first
 	// paid tier's price.
 	Tiered bool `json:"tiered,omitempty"`
+	// Currency is the ISO 4217 code of the values when they are not US
+	// dollars ("JPY"). Loading converts them at the book's rate for it
+	// (InUSD), so everything past the book is in US dollars.
+	Currency string `json:"currency,omitempty"`
+	// Tax is the consumption tax rate the values include (0.1 for Japan's
+	// 10%), where the provider publishes tax-inclusive prices. Loading takes
+	// it out, as the other providers' prices are before tax.
+	Tax float64 `json:"tax,omitempty"`
 	// Applied names where an account's own value came from, when the value
 	// replaces the published default for one declaration. It is not stored.
 	Applied string `json:"-"`

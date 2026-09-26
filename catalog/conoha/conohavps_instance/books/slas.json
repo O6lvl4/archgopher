@@ -1,0 +1,14 @@
+{
+  "conoha.vps.server": {
+    "unit": "fraction",
+    "source": "https://vps.conoha.jp/sla/",
+    "note": "Monthly uptime of each server; below it ConoHa credits 10% of the month's fee, below 99.9% 30%",
+    "values": {
+      "*": {
+        "value": 0.9999,
+        "verified": true,
+        "checkedAt": "2026-09-26"
+      }
+    }
+  }
+}

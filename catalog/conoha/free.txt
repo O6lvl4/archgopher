@@ -1,0 +1,5 @@
+# Resource types that cost nothing by themselves (key pairs, security groups and their rules).
+# Terraform import counts them as free instead of unpriced; they never become nodes.
+conohavps_keypair
+conohavps_securitygroup
+conohavps_securitygroup_rule

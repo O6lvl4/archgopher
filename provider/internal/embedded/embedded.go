@@ -71,7 +71,8 @@ func (c *Catalog) Registry() scouter.Registry {
 	return reg
 }
 
-// Books merges the books of every unit; an id owned by two units is an error.
+// Books merges the books of every unit, with every price in US dollars; an
+// id owned by two units is an error.
 func (c *Catalog) Books() (book.Books, error) {
 	us, err := c.Units()
 	if err != nil {
@@ -81,7 +82,12 @@ func (c *Catalog) Books() (book.Books, error) {
 	for _, u := range us {
 		parts = append(parts, u.Books)
 	}
-	return book.Merge(parts...)
+	books, err := book.Merge(parts...)
+	if err != nil {
+		return book.Books{}, err
+	}
+	books.Prices, err = books.Prices.InUSD()
+	return books, err
 }
 
 // Regions lists every region the price books name, sorted; "*" is not one.

@@ -15,8 +15,8 @@ The UI holds no formulas. It asks the engine for the catalog of scouters and
 builds every form from the fields the Go structs declare.
 
 Each card shows its service's icon, named by `icon` in `resource.yaml`, and a
-line in its provider's color: AWS, Azure, Google Cloud's four colors or
-Cloudflare. The icons come from each provider's architecture icon set; see
+line in its provider's color: AWS, Azure, Google Cloud's four colors,
+Cloudflare or ConoHa. The icons come from each provider's architecture icon set; see
 [web/src/ui/icons/NOTICE.md](../web/src/ui/icons/NOTICE.md) for their sources and
 terms.
 

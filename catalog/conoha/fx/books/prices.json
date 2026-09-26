@@ -1,0 +1,14 @@
+{
+  "fx.jpy": {
+    "unit": "JPY",
+    "source": "https://open.er-api.com/v6/latest/JPY",
+    "note": "US dollars one yen buys, the reference rate of 26 September 2026 (157.53 yen to the dollar). Prices published in yen are converted at it; it moves daily, so update it with checkedAt when the yen does",
+    "values": {
+      "*": {
+        "value": 0.006348,
+        "verified": true,
+        "checkedAt": "2026-09-26"
+      }
+    }
+  }
+}

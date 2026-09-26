@@ -287,13 +287,35 @@ CPU time, Workers KV, Durable Objects, D1, Queues) are counted once over the
 whole account: every node of a declaration shares them, and the plan's $5
 fee is paid once. Free tiers (R2's, the Workers AI neurons) are not counted.
 
+## ConoHa VPS
+
+| Type | Reads | Headroom |
+| --- | --- | --- |
+| `conohavps_instance` | The plan's monthly amount by flavor (Linux, hourly billing); the flavor UUID names the plan, or `plan` names it when a variable sets the ID | Requests per second per server |
+| `conohavps_volume` | Boot storage added above the plan's 100 GB (200 and 500 GB boot volumes), or the additional SSD by size | - |
+
+These are the resources of GMO Internet's `gmo-internet/conohavps` provider
+(beta); key pairs, security groups and their rules cost nothing. ConoHa bills
+a server or volume by the hour up to a monthly amount, running or shut off,
+until it is deleted, so a resource a declaration keeps pays the monthly
+amount. Prepaid (まとめトク), Windows Server, database and GPU plans are not
+priced yet and say so. The prices are read from the pricing page by hand, like
+Cloudflare's, and are the same wherever the declaration is. ConoHa publishes
+them in yen with 10% consumption tax: a price entry carries `currency: JPY`
+and `tax: 0.1`, and loading takes the tax out and converts at the book's rate
+`fx.jpy` (US dollars a yen, with the day it was read), so every amount is in
+US dollars before tax, like the other providers'. Change the rate in
+[`catalog/conoha/fx`](../catalog/conoha/fx/books/prices.json) to read in a
+different yen.
+
 `archgopher catalog` prints every scouter with its fields as JSON.
 
 ## Adding a resource
 
 Every resource is a directory in [`catalog/aws`](../catalog/aws),
 [`catalog/azure`](../catalog/azure), [`catalog/gcp`](../catalog/gcp) or
-[`catalog/cloudflare`](../catalog/cloudflare), named after its type. It holds
+[`catalog/cloudflare`](../catalog/cloudflare) or
+[`catalog/conoha`](../catalog/conoha), named after its type. It holds
 everything about that resource and nothing else; adding one needs no Go code.
 Its `icon` names a picture in `web/src/ui/icons/<provider>/`; a test fails when
 a resource has none or a picture is unused.
@@ -398,6 +420,7 @@ the cost out by quantity. The declaration is one account.
 | `tiered` | The table's rows are volume tiers: a row key is where the tier starts, in the entry's unit, counted over the pool's whole usage, and `"tier": "{row}"` in the sync spec verifies each one (a provider that counts in larger units, `listPer`, has its starts converted) |
 | `included` | Units a paid plan includes each month, given once per pool (the Workers Paid plan's requests) |
 | `combine: max` | A fee the pool pays once however many lines need it: billed for the largest quantity, not the sum (a regional fee while any dedicated instance runs) |
+| `currency`, `tax` | The values are in another currency (`JPY`) and include consumption tax at this rate (`0.1`), as published; loading takes the tax out and converts at the rate entry `fx.<currency>`, so everything past the book is US dollars before tax |
 
 Free tiers are not counted: archgopher reads what an architecture costs
 month after month, and an always-free allowance or a free grant is not that

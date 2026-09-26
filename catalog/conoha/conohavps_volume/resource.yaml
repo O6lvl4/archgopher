@@ -1,0 +1,19 @@
+type: conohavps_volume
+label: ConoHa VPS volume
+category: Storage
+icon: hard-drive
+description: "A boot volume up to 100 GB is included in the server plan (30 GB on 512 MB); at 200 or 500 GB it pays the boot storage added above 100 GB. An additional volume pays its size, from 200 GB. ConoHa bills volumes by the hour up to the monthly amount until they are deleted, attached or not. Prices are published in yen with tax; they are read before tax, in US dollars at the book's rate."
+kinds: [io]
+sla: conoha.vps.volume
+attributes:
+  - { key: size, label: Size, type: number, unit: GB, hint: "30, 100, 200, 500, 1000, 5000 or 10000" }
+  - { key: volume_type, label: Volume type, type: choice, options: [c3j1-ds02-boot, c3j1-ds02-add], default: c3j1-ds02-add, hint: "boot holds the OS a server starts from; add is an additional volume" }
+let:
+  - gb: 'string(size)'
+  - boot: 'volume_type == "c3j1-ds02-boot"'
+readings:
+  - fail: { when: 'boot && size > 500', message: "a boot volume is at most 500 GB, not {gb}" }
+  - cost: { when: 'boot && size == 200', name: Boot storage added (100 GB), quantity: 1, unit: volume-month, price: conoha.vps.boot_storage.100 }
+  - cost: { when: 'boot && size == 500', name: Boot storage added (400 GB), quantity: 1, unit: volume-month, price: conoha.vps.boot_storage.400 }
+  - fail: { when: '!boot && size < 200', message: "an additional volume is at least 200 GB, not {gb}" }
+  - cost: { when: '!boot && size >= 200', name: "Additional SSD ({gb} GB)", quantity: 1, unit: volume-month, price: "conoha.vps.additional_ssd.{gb}" }

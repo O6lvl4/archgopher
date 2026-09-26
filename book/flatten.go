@@ -55,7 +55,7 @@ func (e Entry) row(prices map[string]*float64) Entry {
 	for region, v := range prices {
 		values[region] = Value{Value: v, Verified: e.Verified, CheckedAt: e.CheckedAt}
 	}
-	row := Entry{Unit: e.Unit, Per: e.Per, Source: e.Source, Note: e.Note, Values: values}
+	row := Entry{Unit: e.Unit, Per: e.Per, Source: e.Source, Note: e.Note, Currency: e.Currency, Tax: e.Tax, Values: values}
 	if !e.Tiered {
 		// The rules hold for each row on its own: one pool per row.
 		row.Pool, row.Included, row.Combine = e.Pool, e.Included, e.Combine
@@ -73,6 +73,10 @@ func (e Entry) checkRules(id string) error {
 		return fmt.Errorf("%q: combine needs a pool", id)
 	case e.Included < 0:
 		return fmt.Errorf("%q: included must not be negative", id)
+	case e.Tax < 0 || e.Tax >= 1:
+		return fmt.Errorf("%q: tax is a rate from 0 to 1, not %v", id, e.Tax)
+	case e.Tax > 0 && e.Currency == "":
+		return fmt.Errorf("%q: tax needs the currency it was published in", id)
 	case e.Tiered && len(e.Rows) == 0:
 		return fmt.Errorf("%q: tiered needs rows", id)
 	}

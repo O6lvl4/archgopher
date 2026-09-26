@@ -1,0 +1,37 @@
+{
+  "conoha.vps.linux": {
+    "unit": "server-month",
+    "source": "https://www.conoha.jp/vps/pricing/",
+    "note": "Hourly billing (時間課金): the monthly amount, which a month's hours never exceed. Tax-inclusive yen as published; the 128 GB plan is on the pricing page but not in the flavor list. Read on the pricing page; ConoHa publishes no price API, so sync cannot recheck it",
+    "rows": {
+      "g2l-t-c12m32": {
+        "*": 28600
+      },
+      "g2l-t-c1m512": {
+        "*": 751
+      },
+      "g2l-t-c24m64": {
+        "*": 53900
+      },
+      "g2l-t-c2m1": {
+        "*": 1065
+      },
+      "g2l-t-c3m2": {
+        "*": 2033
+      },
+      "g2l-t-c4m4": {
+        "*": 3608
+      },
+      "g2l-t-c6m8": {
+        "*": 7348
+      },
+      "g2l-t-c8m16": {
+        "*": 14300
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-26",
+    "currency": "JPY",
+    "tax": 0.1
+  }
+}
