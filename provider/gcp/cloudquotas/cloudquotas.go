@@ -165,5 +165,5 @@ func (c *Client) get(project, u string, out any) error {
 		Error struct{ Message string } `json:"error"`
 	}
 	_ = json.Unmarshal(data, &e)
-	return fmt.Errorf("Cloud Quotas API: HTTP %d %s", resp.StatusCode, e.Error.Message)
+	return fmt.Errorf("cloud quotas API: HTTP %d %s", resp.StatusCode, e.Error.Message)
 }

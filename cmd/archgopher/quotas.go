@@ -119,7 +119,7 @@ func (a *account) readGCP(code json.RawMessage, region string) (float64, string,
 		return 0, "", err
 	}
 	if a.project == "" {
-		return 0, "", fmt.Errorf("Google Cloud quotas need --project")
+		return 0, "", fmt.Errorf("google cloud quotas need --project")
 	}
 	if a.gcp == nil {
 		auth, err := billingcatalog.EnvAuth()
