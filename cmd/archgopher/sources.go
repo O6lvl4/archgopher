@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	"github.com/O6lvl4/archgopher/provider/aws/pricelist"
+	"github.com/O6lvl4/archgopher/provider/aws/servicequotas"
 	"github.com/O6lvl4/archgopher/provider/azure/retailprices"
 	"github.com/O6lvl4/archgopher/provider/gcp/billingcatalog"
 )
@@ -29,17 +30,18 @@ type sources struct {
 	aws   *pricelist.Client
 	azure *retailprices.Client
 	gcp   *billingcatalog.Client
+	sq    *servicequotas.Client
 }
 
 // absent reports an error that means the price list offers nothing there.
 func absent(err error) bool {
-	return errors.Is(err, pricelist.ErrAbsent) || errors.Is(err, retailprices.ErrAbsent) || errors.Is(err, billingcatalog.ErrAbsent) || errors.Is(err, errNotOffered)
+	return errors.Is(err, pricelist.ErrAbsent) || errors.Is(err, retailprices.ErrAbsent) || errors.Is(err, billingcatalog.ErrAbsent) || errors.Is(err, servicequotas.ErrAbsent) || errors.Is(err, errNotOffered)
 }
 
 // unauthorized reports an error that means the price list needs credentials
 // this environment does not have.
 func unauthorized(err error) bool {
-	return errors.Is(err, billingcatalog.ErrNoCredentials)
+	return errors.Is(err, billingcatalog.ErrNoCredentials) || errors.Is(err, servicequotas.ErrNoCredentials)
 }
 
 func (s *sources) of(raw json.RawMessage) (priceSource, error) {
@@ -77,6 +79,15 @@ func (s *sources) of(raw json.RawMessage) (priceSource, error) {
 			s.gcp = billingcatalog.NewClient()
 		}
 		return gcpSource{s.gcp, spec}, nil
+	case servicequotas.Source:
+		var spec servicequotas.Spec
+		if err := json.Unmarshal(raw, &spec); err != nil {
+			return nil, err
+		}
+		if s.sq == nil {
+			s.sq = servicequotas.NewClient()
+		}
+		return quotaSource{s.sq, spec}, nil
 	}
 	return nil, fmt.Errorf("unknown price source %q", probe.Source)
 }
@@ -125,3 +136,19 @@ func (g gcpSource) quote(region string) (quote, error) {
 }
 
 func (g gcpSource) global() bool { return g.spec.Region != "" }
+
+// quotaSource reads a quota's default value; a quote's "USD" is the value.
+type quotaSource struct {
+	c    *servicequotas.Client
+	spec servicequotas.Spec
+}
+
+func (q quotaSource) quote(region string) (quote, error) {
+	v, err := q.c.Resolve(q.spec, region)
+	if err != nil {
+		return quote{}, err
+	}
+	return quote{q.spec.PerUnit(v.Value), v.QuotaCode + " " + v.Label()}, nil
+}
+
+func (q quotaSource) global() bool { return q.spec.Region != "" }

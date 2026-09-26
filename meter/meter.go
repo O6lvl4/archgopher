@@ -42,7 +42,8 @@ type Limit struct {
 	// Capacity is nil when unknown. Headroom is 1 − demand/capacity; negative means over.
 	Capacity *float64 `json:"capacity"`
 	Headroom *float64 `json:"headroom"`
-	// From says where the capacity came from: "quota" or "attribute".
+	// From says where the capacity came from: "quota" (the published
+	// default), "account" (the value applied to the account) or "attribute".
 	From string `json:"from"`
 }
 
@@ -186,7 +187,7 @@ func (r *Recorder) Limit(name string, demand float64, unit, quotaID string) {
 		c := e.PerUnit(*v)
 		capacity = &c
 	}
-	r.limits = append(r.limits, withHeadroom(Limit{Name: name, Unit: unit, Demand: demand, QuotaID: quotaID, Capacity: capacity, From: "quota"}))
+	r.limits = append(r.limits, withHeadroom(Limit{Name: name, Unit: unit, Demand: demand, QuotaID: quotaID, Capacity: capacity, From: quotaFrom(e)}))
 }
 
 // LimitScaled is Limit with the quota multiplied by factor (per-prefix limits × prefixes).
@@ -200,7 +201,7 @@ func (r *Recorder) LimitScaled(name string, demand float64, unit, quotaID string
 		c := e.PerUnit(*v) * factor
 		capacity = &c
 	}
-	r.limits = append(r.limits, withHeadroom(Limit{Name: name, Unit: unit, Demand: demand, QuotaID: quotaID, Capacity: capacity, From: "quota"}))
+	r.limits = append(r.limits, withHeadroom(Limit{Name: name, Unit: unit, Demand: demand, QuotaID: quotaID, Capacity: capacity, From: quotaFrom(e)}))
 }
 
 // Ref reads a raw reference value (a multiplier, a size cap). Nil means unknown.
@@ -266,4 +267,13 @@ func CeilDiv(a, b float64) float64 {
 		return 1
 	}
 	return math.Ceil(a / b)
+}
+
+// quotaFrom says whether a quota's value is the published default or the
+// account's own.
+func quotaFrom(e book.Entry) string {
+	if e.Applied != "" {
+		return "account"
+	}
+	return "quota"
 }

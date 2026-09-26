@@ -2,6 +2,7 @@ package engine
 
 import (
 	"math"
+	"strings"
 	"testing"
 
 	"github.com/O6lvl4/archgopher/book"
@@ -67,5 +68,34 @@ func TestPoolsBillTheAccountOnce(t *testing.T) {
 	}
 	if len(res.Pools) != 2 || res.Pools[0].Key != "fee.regional@r1" || res.Pools[0].Quantity != 730 || res.Pools[1].Quantity != 15e6 || len(res.Pools[1].Members) != 2 {
 		t.Fatalf("pools = %+v", res.Pools)
+	}
+}
+
+func TestAppliedQuotasReplaceThePublishedDefault(t *testing.T) {
+	spec := model.Spec{Region: "r1",
+		Nodes:  []model.Node{{ID: "u", Type: scouter.EntryType, Load: &model.Load{Monthly: 1, PeakPerSecond: 10}}, node("a", 1)},
+		Edges:  []model.Edge{{From: "u", To: "a"}},
+		Quotas: map[string]model.AppliedQuota{"pipe.concurrency": {Value: 40, Source: "Service Quotas", CheckedAt: "2026-09-26"}, "pipe.nothing": {Value: 1}},
+	}
+	res, err := Run(spec, registry(), books())
+	if err != nil {
+		t.Fatal(err)
+	}
+	var got *float64
+	for _, n := range res.Nodes {
+		for _, l := range n.Limits {
+			if n.ID == "a" && l.QuotaID == "pipe.concurrency" {
+				if l.From != "account" {
+					t.Errorf("from %q, want account", l.From)
+				}
+				got = l.Capacity
+			}
+		}
+	}
+	if got == nil || *got != 40 {
+		t.Fatalf("capacity %v, want the applied 40 over the default 100", got)
+	}
+	if len(res.Warnings) == 0 || !strings.Contains(res.Warnings[0], "pipe.nothing") {
+		t.Fatalf("warnings %v", res.Warnings)
 	}
 }

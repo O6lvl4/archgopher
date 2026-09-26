@@ -158,3 +158,11 @@ func label(n engine.NodeResult) string {
 	}
 	return n.Label
 }
+
+// capacity writes a limit's capacity, marking the account's own value.
+func capacity(l meter.Limit) string {
+	if l.From == "account" {
+		return numPtr(l.Capacity) + " (account)"
+	}
+	return numPtr(l.Capacity)
+}

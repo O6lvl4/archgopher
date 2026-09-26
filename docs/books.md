@@ -45,3 +45,21 @@ Quotas are the published defaults. Some are account-specific in practice
 (Lambda concurrency on new accounts, Bedrock tokens per minute), and their
 notes say so. AgentCore publishes no SLA, so its availability stays unknown. A value AWS does not publish stays unknown: the report shows
 the demand and says the capacity is unknown.
+
+**An account's own quotas.** `archgopher quotas <spec.yaml> --profile <aws profile>`
+reads, from AWS Service Quotas, the value each quota the declaration's limits
+use is set to in that account, and writes it under `quotas:` in the
+declaration. Headroom then reads the account's value, and reports mark it
+`(account)`. A quota finds its Service Quotas code in its sync spec
+(`{"source": "servicequotas", "service": "lambda", "quota": "L-B99A9384"}`),
+or in a file given with `--codes` that maps quota ids to codes. Quotas
+Service Quotas does not list (hard limits) keep their published value.
+Service Quotas needs credentials: archgopher borrows temporary keys from the
+AWS CLI for the profile (`ARCHGOPHER_AWS_PROFILE` or `AWS_PROFILE` by
+default), so log in first. An account's quota values are its own: keep a
+declaration that holds them out of a public repository.
+
+```sh
+archgopher explore servicequotas lambda ap-northeast-1 name=concurrent
+archgopher quotas spec.yaml --profile prod -o spec.yaml
+```

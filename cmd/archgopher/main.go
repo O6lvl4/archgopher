@@ -24,7 +24,8 @@ Usage:
   archgopher tf <dir> [flags]               Build a declaration from Terraform
   archgopher diff <before> <after> [flags]  What changed: declarations or Terraform directories
   archgopher catalog                        List scouters and their fields as JSON
-  archgopher sync [--check]                 Verify the price book against the AWS Price List
+  archgopher quotas <spec.yaml> [flags]     Put the account's own quota values into a declaration
+  archgopher sync [--check]                 Verify the books against the price lists and Service Quotas
   archgopher explore <service> <region> [attr=regex...]
                                               Search the Price List to write sync filters
 
@@ -58,6 +59,8 @@ func run(args []string, out io.Writer) error {
 		return cmdCatalog(out)
 	case "sync":
 		return cmdSync(args[1:], out)
+	case "quotas":
+		return cmdQuotas(args[1:], out)
 	case "explore":
 		return cmdExplore(args[1:], out)
 	case "-h", "--help", "help":

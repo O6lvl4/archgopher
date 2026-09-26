@@ -3,10 +3,12 @@ package main
 import (
 	"fmt"
 	"io"
+	"regexp"
 	"strings"
 	"text/tabwriter"
 
 	"github.com/O6lvl4/archgopher/provider/aws/pricelist"
+	"github.com/O6lvl4/archgopher/provider/aws/servicequotas"
 	"github.com/O6lvl4/archgopher/provider/azure/retailprices"
 	"github.com/O6lvl4/archgopher/provider/gcp/billingcatalog"
 )
@@ -16,13 +18,14 @@ import (
 //	explore <AWS service code> <region> [attr=regex...]
 //	explore azure <Azure service name> <region> [attr=regex...]
 //	explore gcp <Billing Catalog service id> <region> [attr=regex...]
+//	explore servicequotas <service code> <region> [name=regex]
 func cmdExplore(args []string, out io.Writer) error {
 	cloud := ""
-	if len(args) > 0 && (args[0] == retailprices.Source || args[0] == billingcatalog.Source) {
+	if len(args) > 0 && (args[0] == retailprices.Source || args[0] == billingcatalog.Source || args[0] == servicequotas.Source) {
 		cloud, args = args[0], args[1:]
 	}
 	if len(args) < 2 {
-		return fmt.Errorf("explore takes [azure|gcp] a service, a region and optional attr=regex filters")
+		return fmt.Errorf("explore takes [azure|gcp|servicequotas] a service, a region and optional attr=regex filters")
 	}
 	filters := map[string]string{}
 	for _, f := range args[2:] {
@@ -39,6 +42,8 @@ func cmdExplore(args []string, out io.Writer) error {
 		err = exploreAzure(w, args[0], args[1], filters)
 	case billingcatalog.Source:
 		err = exploreGCP(w, args[0], args[1], filters)
+	case servicequotas.Source:
+		err = exploreQuotas(w, args[0], args[1], filters["name"])
 	default:
 		err = exploreAWS(w, args[0], args[1], filters)
 	}
@@ -97,6 +102,24 @@ func exploreGCP(w io.Writer, service, region string, filters map[string]string) 
 			tiers = append(tiers, fmt.Sprintf("%g:%g", r.Start, r.UnitPrice.USD()))
 		}
 		fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%s\t%s\n", m.Description, m.Category.ResourceFamily, m.Category.ResourceGroup, m.Unit(), strings.Join(tiers, " "), trim(strings.Join(m.ServiceRegions, ","), 40))
+	}
+	return nil
+}
+
+func exploreQuotas(w io.Writer, service, region, name string) error {
+	quotas, err := servicequotas.NewClient().Defaults(service, region)
+	if err != nil {
+		return err
+	}
+	re, err := regexp.Compile("(?i)" + name)
+	if err != nil {
+		return err
+	}
+	fmt.Fprintln(w, "CODE\tVALUE\tUNIT\tADJUSTABLE\tGLOBAL\tNAME")
+	for _, q := range quotas {
+		if re.MatchString(q.QuotaName) {
+			fmt.Fprintf(w, "%s\t%g\t%s\t%t\t%t\t%s\n", q.QuotaCode, q.Value, q.Unit, q.Adjustable, q.GlobalQuota, q.QuotaName)
+		}
 	}
 	return nil
 }

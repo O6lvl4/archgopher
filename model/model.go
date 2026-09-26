@@ -119,6 +119,17 @@ type Spec struct {
 	// Groups are boundaries drawn around nodes, such as a VPC. The engine
 	// reads nothing from them.
 	Groups []Group `yaml:"groups,omitempty" json:"groups,omitempty"`
+	// Quotas are the values an account runs against, keyed by quota id, in
+	// place of the published defaults (archgopher quotas reads them from
+	// Service Quotas).
+	Quotas map[string]AppliedQuota `yaml:"quotas,omitempty" json:"quotas,omitempty"`
+}
+
+// AppliedQuota is a quota value read from an account.
+type AppliedQuota struct {
+	Value     float64 `yaml:"value" json:"value"`
+	Source    string  `yaml:"source" json:"source"`
+	CheckedAt string  `yaml:"checkedAt" json:"checkedAt"`
 }
 
 // Group is a boundary nodes sit in: a VPC, a virtual network.

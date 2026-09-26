@@ -115,6 +115,7 @@ func Run(spec model.Spec, reg scouter.Registry, books book.Books) (Result, error
 		return Result{}, err
 	}
 	demand := g.propagate()
+	books, quotaWarnings := withApplied(books, spec.Quotas)
 	rd := newReader(reg, books, spec.Region)
 	res := Result{Name: spec.Name, Region: spec.Region}
 	res.Nodes = g.readNodes(rd, demand, arrivals)
@@ -124,6 +125,7 @@ func Run(spec model.Spec, reg scouter.Registry, books book.Books) (Result, error
 	res.MonthlyUSD, res.UnpricedCosts = sumCosts(all)
 	res.Unverified = sortedRefs(rd.unverified)
 	res.Paths, res.Warnings = g.paths(res.Nodes)
+	res.Warnings = append(quotaWarnings, res.Warnings...)
 	return res, nil
 }
 

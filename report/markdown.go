@@ -87,10 +87,10 @@ func writePools(b *strings.Builder, r engine.Result) {
 }
 
 func writeLimits(b *strings.Builder, r engine.Result) {
-	b.WriteString("\n## Limits\n\n| Node | Limit | Peak demand | Capacity | Unit | Headroom |\n| --- | --- | ---: | ---: | --- | ---: |\n")
+	b.WriteString("\n## Limits\n\nCapacities are the published defaults, unless marked as the account's own.\n\n| Node | Limit | Peak demand | Capacity | Unit | Headroom |\n| --- | --- | ---: | ---: | --- | ---: |\n")
 	for _, n := range members(r) {
 		for _, l := range n.Limits {
-			fmt.Fprintf(b, "| %s | %s | %s | %s | %s | %s |\n", n.ID, l.Name, num(l.Demand), numPtr(l.Capacity), l.Unit, pct(l.Headroom))
+			fmt.Fprintf(b, "| %s | %s | %s | %s | %s | %s |\n", n.ID, l.Name, num(l.Demand), capacity(l), l.Unit, pct(l.Headroom))
 		}
 	}
 }

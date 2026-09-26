@@ -72,6 +72,9 @@ type Entry struct {
 	// A zero-priced tier at the start is a free grant, billed at the first
 	// paid tier's price.
 	Tiered bool `json:"tiered,omitempty"`
+	// Applied names where an account's own value came from, when the value
+	// replaces the published default for one declaration. It is not stored.
+	Applied string `json:"-"`
 	// Tiers are a tiered table's row keys as numbers, ascending. Flatten
 	// fills them on the entry it keeps under the table's own id.
 	Tiers []Tier `json:"-"`

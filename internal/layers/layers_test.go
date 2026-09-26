@@ -49,10 +49,11 @@ var allowed = map[string][]string{
 
 	// AWS provider: resources are data in catalog/aws; the provider adds IAM,
 	// the schedule syntax and account-wide rules.
-	"provider/aws/iam":       {"terraform/eval", "terraform/infer"},
-	"provider/aws/pricelist": {},
-	"provider/aws/pattern":   {"model", "pattern", "scouter"},
-	"provider/aws":           {"book", "catalog", "definition", "scouter", "terraform/eval", "terraform/infer", "provider/aws/iam", "provider/internal/embedded"},
+	"provider/aws/iam":           {"terraform/eval", "terraform/infer"},
+	"provider/aws/pricelist":     {},
+	"provider/aws/servicequotas": {},
+	"provider/aws/pattern":       {"model", "pattern", "scouter"},
+	"provider/aws":               {"book", "catalog", "definition", "scouter", "terraform/eval", "terraform/infer", "provider/aws/iam", "provider/internal/embedded"},
 
 	// Azure provider: resources are data in catalog/azure.
 	"provider/azure/retailprices": {},
@@ -70,7 +71,7 @@ var allowed = map[string][]string{
 
 	// Edges of the system.
 	"api":            {"book", "cloud", "engine", "field", "gaps", "model", "pattern", "scouter", "terraform/eval", "terraform/infer", "terraform/merge"},
-	"cmd/archgopher": {"api", "book", "cloud", "gaps", "model", "report", "provider/aws/pricelist", "provider/azure/retailprices", "provider/gcp/billingcatalog", "terraform/eval", "terraform/infer", "terraform/merge"},
+	"cmd/archgopher": {"api", "book", "cloud", "engine", "gaps", "model", "report", "provider/aws/pricelist", "provider/aws/servicequotas", "provider/azure/retailprices", "provider/gcp/billingcatalog", "terraform/eval", "terraform/infer", "terraform/merge"},
 	"cmd/wasm":       {"api"},
 }
 
