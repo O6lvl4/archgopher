@@ -1,12 +1,13 @@
 {
   "gcp.cloudrun.max_instances": {
     "unit": "instances",
-    "source": "https://cloud.google.com/run/quotas",
-    "note": "Default maximum instances per service when max_instance_count is unset",
+    "source": "https://docs.cloud.google.com/run/docs/configuring/max-instances",
+    "note": "Default maximum instances when max_instance_count is unset (\"By default, Cloud Run revisions are configured to scale up to a maximum of 100 instances\")",
     "values": {
       "*": {
         "value": 100,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-26"
       }
     }
   }

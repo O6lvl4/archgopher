@@ -17,7 +17,6 @@
     Output tokens: 5000
   limits:
     Tokens per minute: 2.4e+06
-    Requests per minute: 1200
 - name: 2.5 Flash writing and reading an explicit cache (Northern Virginia)
   region: us-east4
   assumptions:
@@ -37,7 +36,6 @@
     Output tokens: 750
   limits:
     Tokens per minute: 1.14e+06
-    Requests per minute: 600
 - name: 2.5 Flash-Lite without cache (Tokyo)
   region: asia-northeast1
   assumptions:
@@ -53,4 +51,3 @@
     Output tokens: 160
   limits:
     Tokens per minute: 2.16e+06
-    Requests per minute: 1800

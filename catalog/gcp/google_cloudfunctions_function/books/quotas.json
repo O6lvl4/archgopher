@@ -1,12 +1,13 @@
 {
   "gcp.functions.v1.max_instances": {
     "unit": "instances",
-    "source": "https://cloud.google.com/functions/quotas",
-    "note": "Maximum instances of a 1st gen function when max_instances is 0 (no limit set): 3,000 concurrent invocations for background functions",
+    "source": "https://docs.cloud.google.com/functions/1stgendocs/configuring/max-instances",
+    "note": "Maximum instances of a 1st gen function when max_instances is 0 (\"If you don't specify a limit, Cloud Run functions sets a default of 3000\"). The quotas page says 1st gen HTTP functions have no default limit and recommends setting one such as 3,000 (https://docs.cloud.google.com/functions/quotas), so for HTTP functions this is the recommended cap rather than an enforced one",
     "values": {
       "*": {
         "value": 3000,
-        "verified": false
+        "verified": true,
+        "checkedAt": "2026-09-26"
       }
     }
   }

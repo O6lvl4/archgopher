@@ -204,6 +204,12 @@ func (r *Recorder) LimitScaled(name string, demand float64, unit, quotaID string
 	r.limits = append(r.limits, withHeadroom(Limit{Name: name, Unit: unit, Demand: demand, QuotaID: quotaID, Capacity: capacity, From: quotaFrom(e)}))
 }
 
+// Has reports whether a book defines id at all.
+func (r *Recorder) Has(name book.Name, id string) bool {
+	_, ok := r.books.Book(name)[id]
+	return ok
+}
+
 // Ref reads a raw reference value (a multiplier, a size cap). Nil means unknown.
 func (r *Recorder) Ref(name book.Name, id, unit string) *float64 {
 	e, v, ok := r.lookup(name, id, unit)

@@ -17,7 +17,9 @@ type TokenAssume struct {
 // per minute. Prices are PricePrefix + ".input", ".output", ".cache_read" and
 // ".cache_write"; quotas are Prefix + ".tpm", ".rpm" and ".output_burndown".
 // PricePrefix defaults to Prefix. They differ when one quota covers several
-// price lists, such as a model's global and regional inference.
+// price lists, such as a model's global and regional inference. A provider
+// without a multiplier or a requests-per-minute limit has no such entry: output
+// then counts once, and requests are not limited.
 type Tokens struct {
 	Prefix, PricePrefix string
 }
@@ -42,12 +44,16 @@ func (f Tokens) Read(r *meter.Recorder, monthly, peakPerSecond float64, a TokenA
 	}
 	r.Cost("Output tokens", monthly*a.OutputTokens, "token", price+".output")
 	burndown := 1.0
-	if b := r.Ref(book.Quotas, f.Prefix+".output_burndown", "multiplier"); b != nil {
-		burndown = *b
+	if r.Has(book.Quotas, f.Prefix+".output_burndown") {
+		if b := r.Ref(book.Quotas, f.Prefix+".output_burndown", "multiplier"); b != nil {
+			burndown = *b
+		}
 	}
 	perMinute := peakPerSecond * 60
 	// Cache reads do not count against tokens per minute; output counts burndown times.
 	counted := a.InputTokens*(1-a.CacheReadShare) + a.OutputTokens*burndown
 	r.Limit("Tokens per minute", perMinute*counted, "tokens/minute", f.Prefix+".tpm")
-	r.Limit("Requests per minute", perMinute, "requests/minute", f.Prefix+".rpm")
+	if r.Has(book.Quotas, f.Prefix+".rpm") {
+		r.Limit("Requests per minute", perMinute, "requests/minute", f.Prefix+".rpm")
+	}
 }
