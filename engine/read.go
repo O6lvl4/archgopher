@@ -37,10 +37,14 @@ func (rd *reader) read(n model.Node, d model.Demand) NodeResult {
 		nr.SLA = rd.sla(m.SLA)
 	}
 	nr.Latency = latencyOf(n)
-	if err := s.Scout(n, d, r); err != nil {
+	k := n.Count()
+	if err := s.Scout(n, share(d, k), r); err != nil {
 		nr.Error = err.Error()
 	}
-	nr.Costs, nr.Limits = r.Costs(), r.Limits()
+	nr.Costs, nr.Limits = rd.times(r.Costs(), k), r.Limits()
+	if k > 1 {
+		nr.Instances = k
+	}
 	for _, u := range r.Refs() {
 		rd.note(u)
 	}

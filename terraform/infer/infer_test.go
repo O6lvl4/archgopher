@@ -177,8 +177,8 @@ func TestPoliciesForEachAndFunctions(t *testing.T) {
 	if got := edges(spec); strings.Join(got, "\n") != strings.Join(want, "\n") {
 		t.Errorf("edges:\n%s\nwant:\n%s", strings.Join(got, "\n"), strings.Join(want, "\n"))
 	}
-	if n := nodeByID(spec, "t"); !strings.Contains(n.Note, "2 instances") {
-		t.Errorf("for_each over two tables should be noted: %q", n.Note)
+	if n := nodeByID(spec, "t"); n.Instances != 2 {
+		t.Errorf("for_each over two tables should make two instances: %d", n.Instances)
 	}
 	if n := nodeByID(spec, "nightly"); n.Traffic == nil || n.Traffic.Schedule == "" {
 		t.Errorf("a cron schedule should become the node's traffic: %+v", n.Traffic)
@@ -260,5 +260,21 @@ func TestAttributesReadFromReferencesAndSettings(t *testing.T) {
 	}
 	if got := strings.Join(edges(spec), " "); got != "users>env:-" {
 		t.Errorf("an instance on a host does not call it: %s", got)
+	}
+}
+
+func TestCountsMultiplyThroughModules(t *testing.T) {
+	spec, _ := build(t, "testdata/counted", eval.Options{})
+	counts := map[string]int{}
+	for _, n := range spec.Nodes {
+		counts[n.Address] = n.Instances
+	}
+	// Three queues in each of two copies of the module; a list of teams
+	// that has no value yet is unknown until apply.
+	if got := counts["module.region.aws_sqs_queue.work"]; got != 6 {
+		t.Errorf("3 queues × 2 modules = %d instances, want 6 (%v)", got, counts)
+	}
+	if got := counts["aws_sqs_queue.per_team"]; got != model.UnknownInstances {
+		t.Errorf("a count from an unset variable = %d, want unknown", got)
 	}
 }

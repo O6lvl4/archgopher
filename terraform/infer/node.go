@@ -23,8 +23,8 @@ func (b *builder) node(r *eval.Resource) model.Node {
 	if attr, ok := b.rules.Schedules[r.Type]; ok {
 		b.readSchedule(&n, r, attr)
 	}
-	if note := instancesNote(r.Instances); note != "" {
-		n.Note = join(n.Note, note)
+	if r.Instances > 1 || r.Instances == eval.UnknownInstances {
+		n.Instances = r.Instances
 	}
 	if len(n.Attributes) == 0 {
 		n.Attributes = nil
@@ -61,18 +61,6 @@ func (b *builder) readSchedule(n *model.Node, r *eval.Resource, attr string) {
 		return
 	}
 	n.Traffic = &model.Traffic{Schedule: expr}
-}
-
-// instancesNote says how one node stands for a counted resource, or "" for
-// a single instance.
-func instancesNote(instances int) string {
-	switch {
-	case instances > 1:
-		return fmt.Sprintf("%d instances (count or for_each); one node carries their combined load.", instances)
-	case instances < 0:
-		return "Instance count is unknown before apply; one node carries the combined load."
-	}
-	return ""
 }
 
 // id derives a short, stable id: the resource name, the module name for
@@ -115,11 +103,4 @@ func shortType(t string) string {
 		return parts[1]
 	}
 	return t
-}
-
-func join(a, b string) string {
-	if a == "" {
-		return b
-	}
-	return a + " " + b
 }

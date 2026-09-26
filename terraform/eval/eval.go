@@ -30,7 +30,9 @@ type Resource struct {
 	Attrs map[string]any
 	// Refs maps an attribute path ("environment.variables") to the resources it references.
 	Refs map[string][]string
-	// Instances is the count or for_each size; -1 when unknown.
+	// Instances is how many copies apply makes: the resource's count or
+	// for_each size times its modules'; UnknownInstances when one of them
+	// is not known before apply.
 	Instances int
 	// Body and Scope let provider packages read the block further (IAM policies).
 	Body  *hclsyntax.Body
@@ -88,7 +90,7 @@ func EvaluateFS(fsys fs.FS, dir string, opt Options) (*Evaluated, error) {
 	if err != nil {
 		return nil, err
 	}
-	in := &instance{mod: root, vars: vars}
+	in := &instance{mod: root, vars: vars, copies: 1}
 	ev.evalInstance(in)
 	out := &Evaluated{}
 	ev.collect(in, out)
@@ -110,6 +112,20 @@ type instance struct {
 	// counted children have count or for_each; their outputs are left unknown
 	counted map[string]bool
 	removed map[string]bool
+	// copies is how many times the module is made: the product of the
+	// counts of the calls above it, UnknownInstances when one is unknown.
+	copies int
+}
+
+// UnknownInstances is a count or for_each that is not known before apply.
+const UnknownInstances = -1
+
+// times multiplies two counts; unknown stays unknown.
+func times(a, b int) int {
+	if a == UnknownInstances || b == UnknownInstances {
+		return UnknownInstances
+	}
+	return a * b
 }
 
 func (in *instance) addr() string {

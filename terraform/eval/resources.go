@@ -45,7 +45,7 @@ func (ev *evaluator) collectResource(in *instance, rb *config.ResourceBlock, out
 	}
 	r := &Resource{
 		Address: resourceAddr(in.addr(), rb), Mode: rb.Mode, Type: rb.Type, Name: rb.Name, Module: strings.TrimSuffix(in.addr(), "."),
-		Attrs: ev.body(rb.Body, in, extra), Refs: map[string][]string{}, Instances: n,
+		Attrs: ev.body(rb.Body, in, extra), Refs: map[string][]string{}, Instances: times(in.copies, n),
 	}
 	ev.bodyRefs(rb.Body, in, "", r.Refs)
 	r.Body, r.Scope = rb.Body, &Scope{ev: ev, in: in, extra: extra}
@@ -78,7 +78,7 @@ func (ev *evaluator) collectRemoved(in *instance, call *config.ModuleCall, out *
 	if err != nil {
 		return
 	}
-	child := &instance{mod: mod, path: key}
+	child := &instance{mod: mod, path: key, copies: 1}
 	for _, rb := range mod.Resources {
 		out.Removed = append(out.Removed, removedResource(child.addr(), rb))
 	}

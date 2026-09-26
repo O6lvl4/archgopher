@@ -10,7 +10,10 @@ without state and without cloud credentials, so it also works on a pull request.
 - **Values.** Variables (defaults, `terraform.tfvars`, `*.auto.tfvars`,
   `--var-file`, `--var`), locals, module inputs and outputs, `count`,
   `for_each`, conditionals and the common built-in functions are evaluated.
-  A resource whose `count` is 0 disappears, and so does a module.
+  A resource whose `count` is 0 disappears, and so does a module. Otherwise
+  the counts become the node's `instances`, multiplied through the modules
+  around it; `tf --merge` keeps a count you wrote where Terraform cannot know
+  one before apply.
 - **Unknowns.** Values that exist only after apply (ARNs, IDs) stay unknown.
   Edges do not need them: they come from references.
 - **Edges.** A node that references another node calls it (a Lambda whose

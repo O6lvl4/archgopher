@@ -24,6 +24,8 @@ export interface SpecNode {
   stale?: boolean;
   /** The id of the boundary the node sits in (a VPC). */
   group?: string;
+  /** How many identical resources the node stands for (count or for_each); -1 when unknown before apply. */
+  instances?: number;
   /** The load said another way; the engine turns it into a load. A node has one or the other. */
   traffic?: Traffic;
 }
@@ -162,6 +164,8 @@ export interface NodeResult {
   type: string;
   label: string;
   address?: string;
+  /** Set when the node stands for more than one resource: costs are for all of them, limits for one. */
+  instances?: number;
   note?: string;
   stale?: boolean;
   demand: Record<string, Load> | null;

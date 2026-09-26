@@ -44,6 +44,12 @@ function EntryLoad({ node, reading }: { node: CardNode["data"]["node"]; reading:
   );
 }
 
+/** How many resources the card stands for: "×4", "× ?" before apply, nothing for one. */
+function countLabel(instances: number | undefined): string | undefined {
+  if (instances === -1) return "× ?";
+  return instances !== undefined && instances > 1 ? `×${instances}` : undefined;
+}
+
 /** The provider sets the card's line; a pattern also draws a dashed frame. */
 function cardClass(entry: CardNode["data"]["entry"]): string {
   const provider = `prov-${entry?.provider ?? "general"}`;
@@ -53,6 +59,7 @@ function cardClass(entry: CardNode["data"]["entry"]): string {
 export function ScouterNode({ data, selected }: NodeProps<CardNode>) {
   const { node, reading, entry } = data;
   const s = status(reading, node.stale);
+  const count = countLabel(node.instances);
   return (
     <div className={`card ${cardClass(entry)}${selected ? " selected" : ""}`}>
       <Handle type="target" position={Position.Left} />
@@ -61,6 +68,7 @@ export function ScouterNode({ data, selected }: NodeProps<CardNode>) {
         <div className="card-names">
           <div className="card-head">
             <span className="card-kind">{entry?.label ?? node.type}</span>
+            {count && <Chip tone={node.instances === -1 ? "warn" : "muted"}>{count}</Chip>}
             {reading?.members && <Chip tone="muted">{reading.members.length} inside</Chip>}
             {s && <Chip tone={s.tone}>{s.label}</Chip>}
           </div>

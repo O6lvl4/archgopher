@@ -21,6 +21,7 @@ edges:
 | --- | --- |
 | `load` | Monthly volume (drives cost) and peak per second (drives headroom). A node with load is an entry. |
 | `attributes` | Terraform attributes the scouter reads. `tf` fills them; you can also write them. |
+| `instances` | How many identical resources the node stands for (a Terraform `count` or `for_each`; `tf` fills it, times the counts of the modules around it). Each is read with an equal share of the node's load, and the costs are multiplied: four servers cost four times one, and requests cost the same as on one. Limits hold for one of them. A fee a pool pays once, however many need it, is not multiplied. `-1` is a count not known before apply: one is read until you set it. |
 | `assumptions` | Numbers Terraform cannot know. A missing required assumption is an error on that node, never a silent default. |
 | `kind` | The work the downstream node receives (`read` / `write` for DynamoDB). Defaults to the node's first kind. |
 | `perUnit` | Downstream units per upstream unit. Defaults to 1. |
@@ -95,6 +96,7 @@ what calls from outside it. `archgopher gaps` lists those unknowns:
 | `load` | An entry has no load or traffic |
 | `caller` | A node's readings grow with the work it receives, but no edge feeds it: calls from application code, roles made elsewhere, other accounts, or the platform itself (an encryption key used by storage). Found by reading the node once idle and once busy, so alarms and other fixed-price nodes are not listed |
 | `assumption` | A required number is null or missing |
+| `instances` | A `count` or `for_each` is not known before apply (`instances: -1`) |
 | `ratio` | An edge has neither `perUnit`, `ops` nor a `note`. A note saying why one call per unit holds closes it |
 | `failed` | The node could not be read for another reason |
 

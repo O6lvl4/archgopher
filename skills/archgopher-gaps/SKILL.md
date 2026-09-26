@@ -30,6 +30,7 @@ every provider: the sources differ only by name (see [Sources](#sources)).
 | `load` | An entry has no volume, so nothing downstream is read | `load` or `traffic` from the front door's request count or access log for a window; `traffic` when the plan speaks of users, schedules or batches |
 | `caller` | A node's readings grow with work, but nothing sends it any | Find the call outside the infrastructure code (see [Calls it does not show](#calls-it-does-not-show)) and add the edge; or give the node its own `load` / `traffic` (a job run by hand) |
 | `assumption` | A number the reading needs is unknown | Measure it (duration, stored size, item size, run time) over the same window as the counts |
+| `instances` | A `count` or `for_each` is not known before apply, so one resource is read | Set `instances` from the plan, the variables the environment uses, or the running count; `tf --merge` keeps it |
 | `ratio` | An edge sends one call per upstream unit and nobody said so | `perUnit` = downstream count / upstream count over one window. Several kinds or sizes on one call: `ops`. If one per unit is right, say why in `note` and the gap closes |
 | `failed` | The node could not be read for another reason | Read the message; it names the missing piece |
 

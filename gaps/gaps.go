@@ -31,11 +31,14 @@ const (
 	// Ratio: an edge says neither how many calls one upstream unit makes nor
 	// where its one-per-unit came from.
 	Ratio Kind = "ratio"
+	// Instances: a count or for_each is not known before apply, so one
+	// resource is read.
+	Instances Kind = "instances"
 	// Failed: the node could not be read for another reason.
 	Failed Kind = "failed"
 )
 
-var order = map[Kind]int{Load: 0, Caller: 1, Assumption: 2, Ratio: 3, Failed: 4}
+var order = map[Kind]int{Load: 0, Caller: 1, Assumption: 2, Instances: 3, Ratio: 4, Failed: 5}
 
 // Gap is one unknown.
 type Gap struct {
@@ -98,6 +101,10 @@ func (j judge) nodeGaps(n model.Node, s scouter.Scouter) []Gap {
 	}
 	missing := assumptionGaps(n, s)
 	out = append(out, missing...)
+	if n.Instances == model.UnknownInstances {
+		out = append(out, Gap{Kind: Instances, Node: n.ID, Message: "count or for_each is not known before apply; one is read",
+			Hint: "set instances to how many there will be"})
+	}
 	if failure := j.failed[n.ID]; failure != "" && len(missing) == 0 && !unfedEntry {
 		out = append(out, Gap{Kind: Failed, Node: n.ID, Message: failure})
 	}

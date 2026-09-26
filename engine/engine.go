@@ -36,13 +36,17 @@ type Result struct {
 
 // NodeResult is one node's readings.
 type NodeResult struct {
-	ID      string       `json:"id"`
-	Type    string       `json:"type"`
-	Label   string       `json:"label"`
-	Address string       `json:"address,omitempty"`
-	Note    string       `json:"note,omitempty"`
-	Stale   bool         `json:"stale,omitempty"`
-	Demand  model.Demand `json:"demand"`
+	ID      string `json:"id"`
+	Type    string `json:"type"`
+	Label   string `json:"label"`
+	Address string `json:"address,omitempty"`
+	// Instances is how many resources the node stands for when more than
+	// one: Demand is their combined load, Limits hold for one of them and
+	// Costs are for all of them.
+	Instances int          `json:"instances,omitempty"`
+	Note      string       `json:"note,omitempty"`
+	Stale     bool         `json:"stale,omitempty"`
+	Demand    model.Demand `json:"demand"`
 	// Load is the load the node brings in, and LoadBasis how it was worked
 	// out when it was given as traffic.
 	Load       *model.Load   `json:"load,omitempty"`

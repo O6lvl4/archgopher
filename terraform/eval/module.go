@@ -89,7 +89,7 @@ func (ev *evaluator) evalCall(in *instance, call *config.ModuleCall) bool {
 		return false
 	}
 	args := callArgs(call)
-	child := &instance{mod: mod, path: key, parent: in, callArgs: args, vars: ev.childVars(mod, args, in)}
+	child := &instance{mod: mod, path: key, parent: in, callArgs: args, vars: ev.childVars(mod, args, in), copies: times(in.copies, n)}
 	ev.evalInstance(child)
 	prev, had := in.children[call.Name]
 	in.children[call.Name] = child
@@ -147,12 +147,12 @@ func (ev *evaluator) childVars(mod *config.Module, args map[string]hcl.Expressio
 	return vars
 }
 
-// instances evaluates count / for_each: -1 unknown, otherwise the size.
+// instances evaluates count / for_each: UnknownInstances, otherwise the size.
 func (ev *evaluator) instances(count, forEach hcl.Expression, in *instance) int {
 	if count != nil {
 		v := ev.eval(count, in, nil)
 		if !v.IsWhollyKnown() || v.IsNull() || !v.Type().Equals(cty.Number) {
-			return -1
+			return UnknownInstances
 		}
 		f, _ := v.AsBigFloat().Int64()
 		return int(f)
@@ -160,7 +160,7 @@ func (ev *evaluator) instances(count, forEach hcl.Expression, in *instance) int 
 	if forEach != nil {
 		v := ev.eval(forEach, in, nil)
 		if !v.IsKnown() || v.IsNull() || !v.CanIterateElements() {
-			return -1
+			return UnknownInstances
 		}
 		return v.LengthInt()
 	}

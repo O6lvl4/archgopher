@@ -115,6 +115,11 @@ func (m *merger) addNew(f model.Node) {
 // assumptions, load and traffic people left out.
 func updateNode(n *model.Node, f model.Node, group string) {
 	n.Type, n.Attributes, n.Stale, n.Group = f.Type, f.Attributes, false, group
+	// A count Terraform knows is Terraform's; one it cannot know before
+	// apply keeps the count people wrote.
+	if f.Instances != model.UnknownInstances || n.Instances <= 0 {
+		n.Instances = f.Instances
+	}
 	for k, v := range f.Assumptions {
 		if _, has := n.Assumptions[k]; has {
 			continue

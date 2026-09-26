@@ -69,6 +69,9 @@ func (g *graph) addNode(n model.Node, groups map[string]bool, reg scouter.Regist
 	if n.Group != "" && !groups[n.Group] {
 		return fmt.Errorf("node %q: no group %q", n.ID, n.Group)
 	}
+	if n.Instances < model.UnknownInstances {
+		return fmt.Errorf("node %q: instances must be a count, or %d when unknown", n.ID, model.UnknownInstances)
+	}
 	if n.Load != nil && (n.Load.Monthly < 0 || n.Load.PeakPerSecond < 0) {
 		return fmt.Errorf("node %q: load must not be negative", n.ID)
 	}

@@ -1,6 +1,7 @@
 package report
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 
@@ -153,8 +154,11 @@ func sla(a *engine.Availability) string {
 func availability(v float64) string { return strconv.FormatFloat(v*100, 'f', 3, 64) + "%" }
 
 func label(n engine.NodeResult) string {
-	if len(n.Members) > 0 {
+	switch {
+	case len(n.Members) > 0:
 		return n.Label + " (pattern)"
+	case n.Instances > 1:
+		return fmt.Sprintf("%s ×%d", n.Label, n.Instances)
 	}
 	return n.Label
 }

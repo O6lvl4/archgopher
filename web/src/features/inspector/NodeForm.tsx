@@ -44,6 +44,28 @@ export function Problem({ reading }: { reading: NodeResult | undefined }) {
   return <p className={`notice ${reading?.error ? "tone-bad" : "tone-muted"}`}>{text}</p>;
 }
 
+/** How many identical resources the node stands for; empty is one. */
+function InstancesInput({ node, update }: { node: SpecNode; update: (patch: Partial<SpecNode>) => void }) {
+  const unknown = node.instances === -1;
+  return (
+    <label className="field">
+      <span className="field-label">Instances</span>
+      <input
+        type="number"
+        min={1}
+        step={1}
+        placeholder={unknown ? "unknown before apply" : "1"}
+        value={node.instances !== undefined && node.instances > 0 ? node.instances : ""}
+        onChange={(e) => {
+          const n = Math.floor(Number(e.target.value));
+          update({ instances: e.target.value === "" || n <= 1 ? undefined : n });
+        }}
+      />
+      <span className="field-hint">Costs are for all of them; each takes an equal share of the load, and limits hold for one</span>
+    </label>
+  );
+}
+
 /** An entry always brings load; any other node does once load or traffic is set on it. */
 const bringsLoad = (node: SpecNode) => node.type === "entry" || node.load !== undefined || node.traffic !== undefined;
 
@@ -64,6 +86,7 @@ export function NodeForm({ node, entry, reading, dispatch }: Props) {
       {entry && <p className="panel-desc">{entry.description}</p>}
       <Problem reading={reading} />
       <IdInput node={node} dispatch={dispatch} />
+      {node.type !== "entry" && <InstancesInput node={node} update={update} />}
       {showLoad && <TrafficForm node={node} reading={reading} dispatch={dispatch} />}
       <Fields title="From Terraform" fields={entry?.attributes ?? []} values={node.attributes} onChange={(k, v) => update({ attributes: withValue(node.attributes, k, v) })} />
       <Fields title="Assumptions" fields={entry?.assumptions ?? []} values={node.assumptions} onChange={(k, v) => update({ assumptions: withValue(node.assumptions, k, v) })} />

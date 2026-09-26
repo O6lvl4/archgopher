@@ -172,11 +172,22 @@ type Node struct {
 	Traffic  *Traffic  `yaml:"traffic,omitempty" json:"traffic,omitempty"`
 	Note     string    `yaml:"note,omitempty" json:"note,omitempty"`
 	Position *Position `yaml:"position,omitempty" json:"position,omitempty"`
+	// Instances is how many identical resources the node stands for (a
+	// Terraform count or for_each): each is read with its share of the load
+	// and the costs are multiplied. 0 means one; UnknownInstances means the
+	// count is not known before apply, and one is read.
+	Instances int `yaml:"instances,omitempty" json:"instances,omitempty"`
 	// Group is the id of the boundary the node sits in; empty for none.
 	Group string `yaml:"group,omitempty" json:"group,omitempty"`
 	// Stale marks a node whose Terraform address disappeared on the last merge.
 	Stale bool `yaml:"stale,omitempty" json:"stale,omitempty"`
 }
+
+// UnknownInstances marks a node whose count is not known before apply.
+const UnknownInstances = -1
+
+// Count is how many resources the node stands for, one when unknown.
+func (n Node) Count() int { return max(1, n.Instances) }
 
 // Position is where the UI draws the node. The engine ignores it.
 type Position struct {
