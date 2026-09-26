@@ -1,4 +1,4 @@
-<!-- Lucide "globe" (ISC), on a tile -->
+<!-- Lucide "globe" (ISC), on a tile. Notice: licenses/lucide.txt -->
 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><rect width="48" height="48" rx="8" fill="#F38020"/><g transform="translate(10 10) scale(1.1667)" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" />
   <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
   <path d="M2 12h20" /></g></svg>
