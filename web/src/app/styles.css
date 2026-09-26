@@ -17,7 +17,7 @@
   --prov-azure: #0078d4;
   --prov-gcp: linear-gradient(90deg, #4285f4 0 25%, #ea4335 25% 50%, #fbbc04 50% 75%, #34a853 75%);
   --prov-cloudflare: #f38020;
-  --prov-conoha: #1b8bd6;
+  --prov-conoha: #0ea5c6;
   --prov-general: #ffffff;
   --radius: 10px;
   --shadow: 0 1px 2px rgb(16 24 40 / 6%), 0 1px 3px rgb(16 24 40 / 8%);
@@ -46,7 +46,7 @@
     --prov-azure: #3a96dd;
     --prov-gcp: linear-gradient(90deg, #8ab4f8 0 25%, #f28b82 25% 50%, #fdd663 50% 75%, #81c995 75%);
     --prov-cloudflare: #f6933b;
-    --prov-conoha: #4aa8e8;
+    --prov-conoha: #3cc8e2;
     --prov-general: #ffffff;
     --shadow: 0 1px 2px rgb(0 0 0 / 40%);
     color-scheme: dark;
