@@ -47,6 +47,9 @@ func (ev *evaluator) collectResource(in *instance, rb *config.ResourceBlock, out
 		Address: resourceAddr(in.addr(), rb), Mode: rb.Mode, Type: rb.Type, Name: rb.Name, Module: strings.TrimSuffix(in.addr(), "."),
 		Attrs: ev.body(rb.Body, in, extra), Refs: map[string][]string{}, Instances: times(in.copies, n),
 	}
+	if in.copies != UnknownInstances {
+		r.Variants = ev.variants(rb, in, r.Address)
+	}
 	ev.bodyRefs(rb.Body, in, "", r.Refs)
 	r.Body, r.Scope = rb.Body, &Scope{ev: ev, in: in, extra: extra}
 	out.Resources = append(out.Resources, r)

@@ -115,11 +115,7 @@ func (m *merger) addNew(f model.Node) {
 // assumptions, load and traffic people left out.
 func updateNode(n *model.Node, f model.Node, group string) {
 	n.Type, n.Attributes, n.Stale, n.Group = f.Type, f.Attributes, false, group
-	// A count Terraform knows is Terraform's; one it cannot know before
-	// apply keeps the count people wrote.
-	if f.Instances != model.UnknownInstances || n.Instances <= 0 {
-		n.Instances = f.Instances
-	}
+	n.Instances = mergedInstances(n.Instances, f.Instances)
 	for k, v := range f.Assumptions {
 		if _, has := n.Assumptions[k]; has {
 			continue
@@ -137,6 +133,15 @@ func updateNode(n *model.Node, f model.Node, group string) {
 	if f.Traffic != nil && n.Load == nil && (n.Traffic == nil || n.Traffic.Schedule != "") {
 		n.Traffic = f.Traffic
 	}
+}
+
+// mergedInstances is the count Terraform knows, or the one people wrote
+// where Terraform cannot know it before apply.
+func mergedInstances(written, terraform int) int {
+	if terraform == model.UnknownInstances && written > 0 {
+		return written
+	}
+	return terraform
 }
 
 // markStale flags the addressed nodes Terraform no longer declares.

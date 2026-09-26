@@ -13,7 +13,11 @@ without state and without cloud credentials, so it also works on a pull request.
   A resource whose `count` is 0 disappears, and so does a module. Otherwise
   the counts become the node's `instances`, multiplied through the modules
   around it; `tf --merge` keeps a count you wrote where Terraform cannot know
-  one before apply.
+  one before apply. Every instance is evaluated: instances the scouter reads alike are one
+  node, and ones it reads differently (a `for_each` over plans of different
+  sizes) are one node each, `app-web` for `aws_instance.app["web"]`, with the
+  load coming in shared out by instances. Names and tags that differ do not
+  split a node.
 - **Unknowns.** Values that exist only after apply (ARNs, IDs) stay unknown.
   Edges do not need them: they come from references.
 - **Edges.** A node that references another node calls it (a Lambda whose

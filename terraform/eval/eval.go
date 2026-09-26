@@ -34,6 +34,9 @@ type Resource struct {
 	// for_each size times its modules'; UnknownInstances when one of them
 	// is not known before apply.
 	Instances int
+	// Variants split the instances by configuration when they differ (for_each
+	// over plans of different sizes); nil when they are all alike.
+	Variants []Variant
 	// Body and Scope let provider packages read the block further (IAM policies).
 	Body  *hclsyntax.Body
 	Scope *Scope

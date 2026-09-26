@@ -1,6 +1,7 @@
 package infer_test
 
 import (
+	"fmt"
 	"sort"
 	"strings"
 	"testing"
@@ -276,5 +277,23 @@ func TestCountsMultiplyThroughModules(t *testing.T) {
 	}
 	if got := counts["aws_sqs_queue.per_team"]; got != model.UnknownInstances {
 		t.Errorf("a count from an unset variable = %d, want unknown", got)
+	}
+}
+
+func TestDifferentInstancesSplitAndAlikeOnesStay(t *testing.T) {
+	spec, _ := build(t, "testdata/variants", eval.Options{})
+	got := map[string]string{}
+	for _, n := range spec.Nodes {
+		got[n.ID] = fmt.Sprintf("%v ×%d %s", n.Attributes["instance_type"], n.Instances, n.Address)
+	}
+	want := map[string]string{
+		"app-batch": `m5.large ×0 aws_instance.app["batch"]`,
+		"app-web":   `t3.micro ×2 aws_instance.app["web"]`,
+		"work":      "<nil> ×3 aws_sqs_queue.work",
+	}
+	for id, w := range want {
+		if got[id] != w {
+			t.Errorf("%s = %q, want %q (all: %v)", id, got[id], w, got)
+		}
 	}
 }

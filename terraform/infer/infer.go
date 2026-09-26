@@ -175,6 +175,7 @@ func Build(ev *eval.Evaluated, rules Rules, name string) (model.Spec, []string) 
 	edges := b.edges()
 	spec.Nodes, edges = b.frontDoors(spec.Nodes, edges)
 	spec.Edges = b.breakCycles(spec.Nodes, edges)
+	spec.Nodes, spec.Edges = b.splitVariants(spec.Nodes, spec.Edges)
 	return spec, b.warnings
 }
 

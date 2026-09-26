@@ -13,8 +13,11 @@ import (
 // node turns a resource into a node: the fields its scouter reads, the
 // assumptions it needs, a schedule as traffic, and notes on what the
 // declaration cannot say.
-func (b *builder) node(r *eval.Resource) model.Node {
-	n := model.Node{ID: b.id(r), Type: r.Type, Address: r.Address, Attributes: map[string]any{}}
+func (b *builder) node(r *eval.Resource) model.Node { return b.nodeAs(b.id(r), r) }
+
+// nodeAs is node under a given id.
+func (b *builder) nodeAs(id string, r *eval.Resource) model.Node {
+	n := model.Node{ID: id, Type: r.Type, Address: r.Address, Attributes: map[string]any{}}
 	if s, ok := b.rules.Scouters[r.Type]; ok {
 		b.readFields(&n, r, s)
 	} else {

@@ -1,6 +1,7 @@
 package eval
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/hashicorp/hcl/v2/ext/tryfunc"
@@ -30,6 +31,45 @@ var unknownFunc = function.New(&function.Spec{
 	Type: function.StaticReturnType(cty.DynamicPseudoType),
 	Impl: func([]cty.Value, cty.Type) (cty.Value, error) { return cty.DynamicVal, nil },
 })
+
+// lookupFunc is Terraform's lookup: the default may be left out or be null,
+// which go-cty's refuses ("argument must not be null", "3 required").
+var lookupFunc = function.New(&function.Spec{
+	Params: []function.Parameter{
+		{Name: "inputMap", Type: cty.DynamicPseudoType, AllowMarked: true},
+		{Name: "key", Type: cty.String, AllowMarked: true},
+	},
+	VarParam: &function.Parameter{Name: "default", Type: cty.DynamicPseudoType, AllowNull: true, AllowUnknown: true, AllowDynamicType: true, AllowMarked: true},
+	Type:     function.StaticReturnType(cty.DynamicPseudoType),
+	Impl: func(args []cty.Value, _ cty.Type) (cty.Value, error) {
+		if len(args) == 3 && !args[2].IsNull() {
+			return stdlib.LookupFunc.Call(args)
+		}
+		m := args[0]
+		if !m.IsKnown() {
+			return cty.DynamicVal, nil
+		}
+		if v, ok := element(m, args[1]); ok {
+			return v, nil
+		}
+		if len(args) == 3 {
+			return args[2], nil
+		}
+		return cty.DynamicVal, fmt.Errorf("lookup failed to find key %q", args[1].AsString())
+	},
+})
+
+// element is m[key] of a map or object, and whether it is there.
+func element(m, key cty.Value) (cty.Value, bool) {
+	switch {
+	case m.IsNull():
+	case m.Type().IsObjectType() && m.Type().HasAttribute(key.AsString()):
+		return m.GetAttr(key.AsString()), true
+	case m.Type().IsMapType() && m.HasIndex(key).True():
+		return m.Index(key), true
+	}
+	return cty.NilVal, false
+}
 
 func stringPredicate(f func(s, x string) bool) function.Function {
 	return function.New(&function.Spec{
@@ -116,7 +156,7 @@ func functions() map[string]function.Function {
 		"chunklist":   stdlib.ChunklistFunc, "coalesce": stdlib.CoalesceFunc, "coalescelist": stdlib.CoalesceListFunc,
 		"compact": stdlib.CompactFunc, "concat": stdlib.ConcatFunc, "contains": stdlib.ContainsFunc,
 		"distinct": stdlib.DistinctFunc, "element": stdlib.ElementFunc, "flatten": stdlib.FlattenFunc,
-		"keys": stdlib.KeysFunc, "length": stdlib.LengthFunc, "lookup": stdlib.LookupFunc, "merge": stdlib.MergeFunc,
+		"keys": stdlib.KeysFunc, "length": stdlib.LengthFunc, "lookup": lookupFunc, "merge": stdlib.MergeFunc,
 		"range": stdlib.RangeFunc, "reverse": stdlib.ReverseListFunc, "setintersection": stdlib.SetIntersectionFunc,
 		"setproduct": stdlib.SetProductFunc, "setsubtract": stdlib.SetSubtractFunc, "setunion": stdlib.SetUnionFunc,
 		"slice": stdlib.SliceFunc, "sort": stdlib.SortFunc, "values": stdlib.ValuesFunc, "zipmap": stdlib.ZipmapFunc,
