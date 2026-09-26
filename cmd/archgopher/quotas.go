@@ -12,21 +12,25 @@ import (
 	"time"
 
 	"github.com/O6lvl4/archgopher/api"
-	"github.com/O6lvl4/archgopher/book"
 	"github.com/O6lvl4/archgopher/cloud"
 	"github.com/O6lvl4/archgopher/engine"
 	"github.com/O6lvl4/archgopher/model"
 	"github.com/O6lvl4/archgopher/provider/aws/servicequotas"
+	"github.com/O6lvl4/archgopher/provider/gcp/billingcatalog"
+	"github.com/O6lvl4/archgopher/provider/gcp/cloudquotas"
 )
 
-// cmdQuotas reads from Service Quotas the values an account runs against,
-// for every quota the declaration's limits use, and writes the declaration
-// with them under quotas: so its headroom is the account's own.
+// cmdQuotas reads the values an account runs against, for every quota the
+// declaration's limits use, and writes the declaration with them under
+// quotas: so its headroom is the account's own. AWS quotas come from
+// Service Quotas for a profile, Google Cloud quotas from the Cloud Quotas API
+// for a project.
 func cmdQuotas(args []string, out io.Writer) error {
 	fs := flag.NewFlagSet("quotas", flag.ContinueOnError)
 	profile := fs.String("profile", servicequotas.EnvProfile(), "AWS CLI profile of the account (default ARCHGOPHER_AWS_PROFILE or AWS_PROFILE)")
+	project := fs.String("project", "", "Google Cloud project whose quotas to read (credentials as for sync: ARCHGOPHER_GCP_ACCOUNT, _TOKEN)")
 	file := fs.String("o", "", "write to this file instead of stdout")
-	codesFile := fs.String("codes", "", "JSON file mapping quota ids to Service Quotas codes ({\"aws.lambda.concurrent_executions\": {\"service\": \"lambda\", \"quota\": \"L-B99A9384\"}}), over the codes in the books")
+	codesFile := fs.String("codes", "", "JSON file mapping quota ids to quota codes ({\"aws.lambda.concurrent_executions\": {\"source\": \"servicequotas\", \"service\": \"lambda\", \"quota\": \"L-B99A9384\"}}), over the codes in the books")
 	if err := fs.Parse(reorder(args)); err != nil {
 		return err
 	}
@@ -45,15 +49,14 @@ func cmdQuotas(args []string, out io.Writer) error {
 	if err != nil {
 		return err
 	}
-	c := servicequotas.NewClient()
-	c.Credentials = func() (servicequotas.Credentials, error) { return servicequotas.ProfileCredentials(*profile) }
-	read, kept, err := applyAccountQuotas(&spec, c, *profile, codes)
+	acct := &account{profile: *profile, project: *project}
+	read, kept, err := applyAccountQuotas(&spec, acct, codes)
 	if err != nil {
 		return err
 	}
-	fmt.Fprintf(os.Stderr, "%d quotas read from the account (profile %s)\n", read, *profile)
+	fmt.Fprintf(os.Stderr, "%d quotas read from the account\n", read)
 	if len(kept) > 0 {
-		fmt.Fprintf(os.Stderr, "published default kept, not in Service Quotas: %s\n", strings.Join(kept, ", "))
+		fmt.Fprintf(os.Stderr, "published default kept, no account value: %s\n", strings.Join(kept, ", "))
 	}
 	text, err := api.MarshalYAML(spec)
 	if err != nil {
@@ -66,9 +69,81 @@ func cmdQuotas(args []string, out io.Writer) error {
 	return err
 }
 
+// account reads quota values from one AWS account and one Google Cloud
+// project, creating each client on first use.
+type account struct {
+	profile, project string
+	aws              *servicequotas.Client
+	gcp              *cloudquotas.Client
+}
+
+// read is a quota's value in the account, in the book's unit, and where it
+// came from; errAbsent when the account has no value for it.
+func (a *account) read(code json.RawMessage, region string) (float64, string, error) {
+	var probe struct {
+		Source string `json:"source"`
+	}
+	if err := json.Unmarshal(code, &probe); err != nil {
+		return 0, "", err
+	}
+	switch probe.Source {
+	case "", servicequotas.Source:
+		return a.readAWS(code, region)
+	case cloudquotas.Source:
+		return a.readGCP(code, region)
+	}
+	return 0, "", errAbsent
+}
+
+var errAbsent = errors.New("no account value")
+
+func (a *account) readAWS(code json.RawMessage, region string) (float64, string, error) {
+	var q servicequotas.Spec
+	if err := json.Unmarshal(code, &q); err != nil {
+		return 0, "", err
+	}
+	if a.aws == nil {
+		a.aws = servicequotas.NewClient()
+		a.aws.Credentials = func() (servicequotas.Credentials, error) { return servicequotas.ProfileCredentials(a.profile) }
+	}
+	v, err := a.aws.Applied(q, region)
+	if errors.Is(err, servicequotas.ErrAbsent) {
+		return 0, "", errAbsent
+	}
+	return q.PerUnit(v.Value), fmt.Sprintf("Service Quotas %s %s, profile %s", v.QuotaCode, v.Label(), a.profile), err
+}
+
+func (a *account) readGCP(code json.RawMessage, region string) (float64, string, error) {
+	var q cloudquotas.Spec
+	if err := json.Unmarshal(code, &q); err != nil {
+		return 0, "", err
+	}
+	if a.project == "" {
+		return 0, "", fmt.Errorf("Google Cloud quotas need --project")
+	}
+	if a.gcp == nil {
+		auth, err := billingcatalog.EnvAuth()
+		if err != nil {
+			return 0, "", err
+		}
+		a.gcp = cloudquotas.NewClient(auth)
+	}
+	info, err := a.gcp.Info(a.project, q)
+	if err == nil {
+		var v float64
+		if v, err = info.Value(region); err == nil {
+			return q.PerUnit(v), fmt.Sprintf("Cloud Quotas %s %s, project %s", q.Service, info.Label(), a.project), nil
+		}
+	}
+	if errors.Is(err, cloudquotas.ErrAbsent) {
+		return 0, "", errAbsent
+	}
+	return 0, "", err
+}
+
 // applyAccountQuotas sets spec.Quotas from the account for the quotas the
-// declaration reads, and lists those without a Service Quotas code.
-func applyAccountQuotas(spec *model.Spec, c *servicequotas.Client, profile string, codes map[string]servicequotas.Spec) (int, []string, error) {
+// declaration reads, and lists those it has no value for.
+func applyAccountQuotas(spec *model.Spec, a *account, codes map[string]json.RawMessage) (int, []string, error) {
 	res, err := api.Scout(*spec)
 	if err != nil {
 		return 0, nil, err
@@ -83,23 +158,23 @@ func applyAccountQuotas(spec *model.Spec, c *servicequotas.Client, profile strin
 	today := time.Now().Format("2006-01-02")
 	read, kept := 0, []string{}
 	for _, id := range quotaIDs(res) {
-		q, ok := codes[id]
+		code, ok := codes[id]
 		if !ok {
-			q, ok = quotaSpec(books.Quotas[id])
+			code = books.Quotas[id].Sync
 		}
-		if !ok {
+		if len(code) == 0 {
 			kept = append(kept, id)
 			continue
 		}
-		v, err := c.Applied(q, spec.Region)
-		if errors.Is(err, servicequotas.ErrAbsent) {
+		v, source, err := a.read(code, spec.Region)
+		if errors.Is(err, errAbsent) {
 			kept = append(kept, id)
 			continue
 		}
 		if err != nil {
 			return 0, nil, fmt.Errorf("%s: %w", id, err)
 		}
-		spec.Quotas[id] = model.AppliedQuota{Value: q.PerUnit(v.Value), Source: fmt.Sprintf("Service Quotas %s %s, profile %s", v.QuotaCode, v.Label(), profile), CheckedAt: today}
+		spec.Quotas[id] = model.AppliedQuota{Value: v, Source: source, CheckedAt: today}
 		read++
 	}
 	return read, kept, nil
@@ -123,18 +198,9 @@ func quotaIDs(res engine.Result) []string {
 	return ids
 }
 
-// quotaSpec is the Service Quotas code a quota entry syncs from, if any.
-func quotaSpec(e book.Entry) (servicequotas.Spec, bool) {
-	var q servicequotas.Spec
-	if len(e.Sync) == 0 || json.Unmarshal(e.Sync, &q) != nil || q.Source != servicequotas.Source {
-		return servicequotas.Spec{}, false
-	}
-	return q, true
-}
-
-// readCodes reads a file of Service Quotas codes by quota id; none is empty.
-func readCodes(path string) (map[string]servicequotas.Spec, error) {
-	codes := map[string]servicequotas.Spec{}
+// readCodes reads a file of quota codes by quota id; none is empty.
+func readCodes(path string) (map[string]json.RawMessage, error) {
+	codes := map[string]json.RawMessage{}
 	if path == "" {
 		return codes, nil
 	}

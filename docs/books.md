@@ -47,19 +47,25 @@ notes say so. AgentCore publishes no SLA, so its availability stays unknown. A v
 the demand and says the capacity is unknown.
 
 **An account's own quotas.** `archgopher quotas <spec.yaml> --profile <aws profile>`
-reads, from AWS Service Quotas, the value each quota the declaration's limits
-use is set to in that account, and writes it under `quotas:` in the
+(or `--project <gcp project>`) reads, from AWS Service Quotas or the Google
+Cloud Quotas API, the value each quota the declaration's limits use is set to
+in that account or project, and writes it under `quotas:` in the
 declaration. Headroom then reads the account's value, and reports mark it
 `(account)`. A quota finds its Service Quotas code in its sync spec
-(`{"source": "servicequotas", "service": "lambda", "quota": "L-B99A9384"}`),
+(`{"source": "servicequotas", "service": "lambda", "quota": "L-B99A9384"}`,
+or `{"source": "cloudquotas", "service": "cloudkms.googleapis.com", "quota":
+"CryptoRequestsPerMinutePerProject"}`; a Google Cloud value is the region's
+own, else the project-wide one),
 or in a file given with `--codes` that maps quota ids to codes. Quotas
 Service Quotas does not list (hard limits) keep their published value.
 Service Quotas needs credentials: archgopher borrows temporary keys from the
 AWS CLI for the profile (`ARCHGOPHER_AWS_PROFILE` or `AWS_PROFILE` by
-default), so log in first. An account's quota values are its own: keep a
+default), so log in first. The Cloud Quotas API reads with the same
+Google Cloud credentials as sync, and must be enabled in the project. An account's quota values are its own: keep a
 declaration that holds them out of a public repository.
 
 ```sh
 archgopher explore servicequotas lambda ap-northeast-1 name=concurrent
+archgopher explore cloudquotas cloudkms.googleapis.com my-project name=crypto
 archgopher quotas spec.yaml --profile prod -o spec.yaml
 ```

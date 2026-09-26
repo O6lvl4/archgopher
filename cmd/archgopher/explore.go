@@ -11,6 +11,7 @@ import (
 	"github.com/O6lvl4/archgopher/provider/aws/servicequotas"
 	"github.com/O6lvl4/archgopher/provider/azure/retailprices"
 	"github.com/O6lvl4/archgopher/provider/gcp/billingcatalog"
+	"github.com/O6lvl4/archgopher/provider/gcp/cloudquotas"
 )
 
 // cmdExplore lists the prices that match filters, to write a sync spec:
@@ -19,13 +20,14 @@ import (
 //	explore azure <Azure service name> <region> [attr=regex...]
 //	explore gcp <Billing Catalog service id> <region> [attr=regex...]
 //	explore servicequotas <service code> <region> [name=regex]
+//	explore cloudquotas <service name> <project> [name=regex]
 func cmdExplore(args []string, out io.Writer) error {
 	cloud := ""
-	if len(args) > 0 && (args[0] == retailprices.Source || args[0] == billingcatalog.Source || args[0] == servicequotas.Source) {
+	if len(args) > 0 && (args[0] == retailprices.Source || args[0] == billingcatalog.Source || args[0] == servicequotas.Source || args[0] == cloudquotas.Source) {
 		cloud, args = args[0], args[1:]
 	}
 	if len(args) < 2 {
-		return fmt.Errorf("explore takes [azure|gcp|servicequotas] a service, a region and optional attr=regex filters")
+		return fmt.Errorf("explore takes [azure|gcp|servicequotas|cloudquotas] a service, a region (a project for cloudquotas) and optional attr=regex filters")
 	}
 	filters := map[string]string{}
 	for _, f := range args[2:] {
@@ -44,6 +46,8 @@ func cmdExplore(args []string, out io.Writer) error {
 		err = exploreGCP(w, args[0], args[1], filters)
 	case servicequotas.Source:
 		err = exploreQuotas(w, args[0], args[1], filters["name"])
+	case cloudquotas.Source:
+		err = exploreCloudQuotas(w, args[0], args[1], filters["name"])
 	default:
 		err = exploreAWS(w, args[0], args[1], filters)
 	}
@@ -122,4 +126,41 @@ func exploreQuotas(w io.Writer, service, region, name string) error {
 		}
 	}
 	return nil
+}
+
+func exploreCloudQuotas(w io.Writer, service, project, name string) error {
+	auth, err := billingcatalog.EnvAuth()
+	if err != nil {
+		return err
+	}
+	infos, err := cloudquotas.NewClient(auth).List(project, service)
+	if err != nil {
+		return err
+	}
+	re, err := regexp.Compile("(?i)" + name)
+	if err != nil {
+		return err
+	}
+	fmt.Fprintln(w, "QUOTA\tUNIT\tVALUES\tNAME")
+	for _, i := range infos {
+		if re.MatchString(i.Label()) || re.MatchString(i.QuotaID) {
+			fmt.Fprintf(w, "%s\t%s\t%s\t%s\n", i.QuotaID, i.Unit, dimensionValues(i), i.Label())
+		}
+	}
+	return nil
+}
+
+// dimensionValues writes a quota's value per region, the default first.
+func dimensionValues(i cloudquotas.Info) string {
+	var parts []string
+	for _, d := range i.Dimensions {
+		where := d.Dimensions["region"]
+		if len(d.Dimensions) == 0 {
+			where = "default"
+		} else if where == "" {
+			where = fmt.Sprint(d.Dimensions)
+		}
+		parts = append(parts, where+"="+d.Details.Value)
+	}
+	return strings.Join(parts, " ")
 }

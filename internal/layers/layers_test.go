@@ -61,6 +61,7 @@ var allowed = map[string][]string{
 
 	// Google Cloud provider: prices from the Billing Catalog.
 	"provider/gcp/billingcatalog": {},
+	"provider/gcp/cloudquotas":    {},
 	"provider/gcp":                {"book", "catalog", "definition", "scouter", "terraform/eval", "terraform/infer", "provider/internal/embedded"},
 
 	// Cloudflare provider: prices read by hand from the pricing pages.
@@ -71,7 +72,7 @@ var allowed = map[string][]string{
 
 	// Edges of the system.
 	"api":            {"book", "cloud", "engine", "field", "gaps", "model", "pattern", "scouter", "terraform/eval", "terraform/infer", "terraform/merge"},
-	"cmd/archgopher": {"api", "book", "cloud", "engine", "gaps", "model", "report", "provider/aws/pricelist", "provider/aws/servicequotas", "provider/azure/retailprices", "provider/gcp/billingcatalog", "terraform/eval", "terraform/infer", "terraform/merge"},
+	"cmd/archgopher": {"api", "book", "cloud", "engine", "gaps", "model", "report", "provider/aws/pricelist", "provider/aws/servicequotas", "provider/azure/retailprices", "provider/gcp/billingcatalog", "provider/gcp/cloudquotas", "terraform/eval", "terraform/infer", "terraform/merge"},
 	"cmd/wasm":       {"api"},
 }
 
