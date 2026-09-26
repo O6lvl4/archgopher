@@ -1,27 +1,35 @@
 package pricelist
 
 import (
+	"errors"
 	"net/http"
 	"strings"
 	"testing"
 	"time"
 )
 
-// offline serves offer files from testdata and fails on any network access.
-func offline() *Client {
-	return &Client{
-		HTTP:     &http.Client{Transport: roundTripFunc(func(*http.Request) (*http.Response, error) { panic("network access in a test") })},
-		CacheDir: "testdata/cache",
-		MaxAge:   100 * 365 * 24 * time.Hour,
-	}
+// offline serves offer files from testdata and fails the test on any
+// network access.
+func offline(t *testing.T) *Client {
+	return cached(func(r *http.Request) (*http.Response, error) {
+		t.Errorf("network access in a test: %s", r.URL)
+		return nil, errNoNetwork
+	})
 }
+
+// cached serves offer files from testdata and sends every download to get.
+func cached(get roundTripFunc) *Client {
+	return &Client{HTTP: &http.Client{Transport: get}, CacheDir: "testdata/cache", MaxAge: 100 * 365 * 24 * time.Hour}
+}
+
+var errNoNetwork = errors.New("no network in a test")
 
 type roundTripFunc func(*http.Request) (*http.Response, error)
 
 func (f roundTripFunc) RoundTrip(r *http.Request) (*http.Response, error) { return f(r) }
 
 func TestResolveTiers(t *testing.T) {
-	c := offline()
+	c := offline(t)
 	spec := Spec{Service: "AWSLambda", Filters: map[string]string{"usagetype": "([A-Z]+[0-9]-)?Lambda-GB-Second"}}
 	first, err := c.Resolve(spec, "ap-northeast-1")
 	if err != nil || first.USD != 0.0000166667 {
@@ -39,7 +47,7 @@ func TestResolveTiers(t *testing.T) {
 }
 
 func TestResolveNeedsExactlyOneProduct(t *testing.T) {
-	c := offline()
+	c := offline(t)
 	_, err := c.Resolve(Spec{Service: "AWSLambda", Filters: map[string]string{"usagetype": ".*GB-Second.*"}}, "ap-northeast-1")
 	if err == nil || !strings.Contains(err.Error(), "2 products match") {
 		t.Fatalf("want an ambiguity error, got %v", err)
@@ -74,5 +82,21 @@ func TestRegionInFilters(t *testing.T) {
 	got := spec.filtersFor("ap-northeast-1")
 	if got["fromRegionCode"] != `ap-northeast-1` || got["usagetype"] != "x" || spec.Filters["fromRegionCode"] != "{region}" {
 		t.Fatalf("got %v, spec %v", got, spec.Filters)
+	}
+}
+
+// A failed read leaves no offer behind: reading the previous one again
+// returns it, not nothing.
+func TestFailedReadForgetsTheLastOffer(t *testing.T) {
+	c := cached(func(*http.Request) (*http.Response, error) { return nil, errNoNetwork })
+	spec := Spec{Service: "AWSLambda", Filters: map[string]string{"usagetype": "APN1-Request"}}
+	if _, err := c.Resolve(spec, "ap-northeast-1"); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := c.Resolve(spec, "eu-west-1"); !errors.Is(err, errNoNetwork) {
+		t.Fatalf("eu-west-1 is not cached: %v", err)
+	}
+	if m, err := c.Resolve(spec, "ap-northeast-1"); err != nil || m.USD != 0.0000002 {
+		t.Fatalf("again: %v %v", m.USD, err)
 	}
 }

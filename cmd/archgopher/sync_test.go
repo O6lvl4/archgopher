@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"math"
 	"net/http"
@@ -33,12 +34,7 @@ func TestSyncTableRows(t *testing.T) {
 	if err := os.WriteFile(path, []byte(in), 0o644); err != nil {
 		t.Fatal(err)
 	}
-	offline := &pricelist.Client{
-		HTTP:     &http.Client{Transport: roundTripFunc(func(*http.Request) (*http.Response, error) { panic("network access in a test") })},
-		CacheDir: "testdata/cache",
-		MaxAge:   100 * 365 * 24 * time.Hour,
-	}
-	s := syncer{sources: sources{aws: offline}, today: "2026-01-02"}
+	s := syncer{sources: sources{aws: offlinePriceList(t)}, today: "2026-01-02"}
 	if err := s.file(&bytes.Buffer{}, path, false); err != nil {
 		t.Fatal(err)
 	}
@@ -56,13 +52,34 @@ func TestSyncTableRows(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		if (w == nil) != (v.Value == nil) || (w != nil && *v.Value != *w) || !v.Verified || v.CheckedAt != "2026-01-02" {
+		if !equal(w, v.Value) || !v.Verified || v.CheckedAt != "2026-01-02" {
 			t.Errorf("%s: %+v, want %v\n%s", row, v, w, data)
 		}
 	}
 }
 
+// offlinePriceList reads the Price List from the test cache only; reaching
+// the network fails the test.
+func offlinePriceList(t *testing.T) *pricelist.Client {
+	return &pricelist.Client{
+		HTTP: &http.Client{Transport: roundTripFunc(func(r *http.Request) (*http.Response, error) {
+			t.Errorf("network access in a test: %s", r.URL)
+			return nil, errors.New("network access in a test")
+		})},
+		CacheDir: "testdata/cache",
+		MaxAge:   100 * 365 * 24 * time.Hour,
+	}
+}
+
 func f(v float64) *float64 { return &v }
+
+// equal reports whether two optional prices are exactly equal.
+func equal(a, b *float64) bool {
+	if a == nil || b == nil {
+		return a == b
+	}
+	return *a == *b
+}
 
 type fixed map[string]float64
 

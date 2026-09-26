@@ -10,10 +10,6 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"regexp"
-	"sort"
-	"strconv"
-	"strings"
 	"sync"
 	"time"
 )
@@ -126,7 +122,9 @@ func (c *Client) Offer(service, region string) (*Offer, error) {
 	if c.last.key == key {
 		return c.last.offer, nil
 	}
-	c.last.offer = nil // let the previous offer go before reading the next
+	// Let the previous offer go before reading the next; a failed read then
+	// leaves nothing cached.
+	c.last.key, c.last.offer = "", nil
 	o, err := c.read(service, region)
 	if err != nil {
 		return nil, err
@@ -137,10 +135,8 @@ func (c *Client) Offer(service, region string) (*Offer, error) {
 
 func (c *Client) read(service, region string) (*Offer, error) {
 	path := filepath.Join(c.CacheDir, service, region+".json")
-	if st, err := os.Stat(path); err != nil || time.Since(st.ModTime()) > c.MaxAge {
-		if err := c.download(service, region, path); err != nil {
-			return nil, err
-		}
+	if err := c.refresh(service, region, path); err != nil {
+		return nil, err
 	}
 	f, err := os.Open(path)
 	if err != nil {
@@ -152,6 +148,14 @@ func (c *Client) read(service, region string) (*Offer, error) {
 		return nil, fmt.Errorf("%s %s: %w", service, region, err)
 	}
 	return &o, nil
+}
+
+// refresh downloads an offer file unless the cached copy is recent enough.
+func (c *Client) refresh(service, region, path string) error {
+	if st, err := os.Stat(path); err == nil && time.Since(st.ModTime()) <= c.MaxAge {
+		return nil
+	}
+	return c.download(service, region, path)
 }
 
 func (c *Client) download(service, region, path string) error {
@@ -186,123 +190,4 @@ func (c *Client) download(service, region, path string) error {
 		return err
 	}
 	return os.Rename(tmp, path)
-}
-
-// Find returns every priced dimension of the products that match filters.
-func (o *Offer) Find(filters map[string]string) ([]Match, error) {
-	res := map[string]*regexp.Regexp{}
-	for k, v := range filters {
-		re, err := regexp.Compile("^(?:" + v + ")$")
-		if err != nil {
-			return nil, fmt.Errorf("filter %s: %w", k, err)
-		}
-		res[k] = re
-	}
-	var out []Match
-	for sku, p := range o.Products {
-		if !matches(p, res) {
-			continue
-		}
-		for _, term := range o.Terms.OnDemand[sku] {
-			for _, d := range term.PriceDimensions {
-				usd, err := strconv.ParseFloat(d.PricePerUnit["USD"], 64)
-				if err != nil {
-					continue
-				}
-				out = append(out, Match{Product: p, Dimension: d, USD: usd})
-			}
-		}
-	}
-	sort.Slice(out, func(i, j int) bool {
-		a, b := out[i], out[j]
-		if a.Product.SKU != b.Product.SKU {
-			return a.Product.Attributes["usagetype"]+a.Product.SKU < b.Product.Attributes["usagetype"]+b.Product.SKU
-		}
-		return begin(a.Dimension) < begin(b.Dimension)
-	})
-	return out, nil
-}
-
-func matches(p Product, res map[string]*regexp.Regexp) bool {
-	for k, re := range res {
-		v := p.Attributes[k]
-		if k == "productFamily" {
-			v = p.ProductFamily
-		}
-		if !re.MatchString(v) {
-			return false
-		}
-	}
-	return true
-}
-
-func begin(d Dimension) float64 {
-	v, err := strconv.ParseFloat(d.BeginRange, 64)
-	if err != nil {
-		return 0
-	}
-	return v
-}
-
-// filtersFor puts the region being resolved in place of "{region}", for
-// offers that list prices in both directions (data transfer between regions
-// is listed in the offer of either end, so "from this region" needs the name).
-func (s Spec) filtersFor(region string) map[string]string {
-	out := make(map[string]string, len(s.Filters))
-	for k, v := range s.Filters {
-		out[k] = strings.ReplaceAll(v, "{region}", regexp.QuoteMeta(region))
-	}
-	return out
-}
-
-// Resolve finds exactly one price for a spec, or explains why it cannot.
-func (c *Client) Resolve(spec Spec, region string) (Match, error) {
-	filters := spec.filtersFor(region)
-	o, err := c.Offer(spec.Service, spec.For(region))
-	if err != nil {
-		return Match{}, err
-	}
-	ms, err := o.Find(filters)
-	if err != nil {
-		return Match{}, err
-	}
-	skus := map[string][]Match{}
-	for _, m := range ms {
-		skus[m.Product.SKU] = append(skus[m.Product.SKU], m)
-	}
-	switch len(skus) {
-	case 0:
-		return Match{}, fmt.Errorf("%w: no product matches %v", ErrAbsent, filters)
-	case 1:
-	default:
-		var names []string
-		for _, list := range skus {
-			names = append(names, list[0].Product.Attributes["usagetype"])
-		}
-		sort.Strings(names)
-		return Match{}, fmt.Errorf("%d products match %v: %s", len(skus), filters, strings.Join(names, ", "))
-	}
-	for _, list := range skus {
-		return pickTier(list, spec.Tier)
-	}
-	panic("unreachable")
-}
-
-func pickTier(list []Match, tier string) (Match, error) {
-	switch tier {
-	case "", "first":
-		return list[0], nil
-	case "last":
-		return list[len(list)-1], nil
-	}
-	want, err := strconv.ParseFloat(tier, 64)
-	if err != nil {
-		return Match{}, fmt.Errorf("tier %q: want first, last or a beginRange", tier)
-	}
-	for _, m := range list {
-		if begin(m.Dimension) == want {
-			return m, nil
-		}
-	}
-	return Match{}, fmt.Errorf("no tier begins at %s", tier)
 }

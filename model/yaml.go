@@ -42,14 +42,28 @@ func MarshalSpec(s Spec) ([]byte, error) {
 // plainFloats rewrites 3e+07 as 30000000 so declarations stay readable.
 func plainFloats(n *yaml.Node) {
 	if n.Kind == yaml.ScalarNode && n.Tag == "!!float" {
-		if v, err := strconv.ParseFloat(n.Value, 64); err == nil && math.Abs(v) < 1e15 && (v == 0 || math.Abs(v) >= 1e-6) {
-			n.Value = strconv.FormatFloat(v, 'f', -1, 64)
-			if v == math.Trunc(v) {
-				n.Tag = "!!int"
-			}
-		}
+		plainFloat(n)
 	}
 	for _, c := range n.Content {
 		plainFloats(c)
 	}
+}
+
+// plainFloat writes a float scalar without an exponent, and as an int when it
+// is whole, if its size makes that readable.
+func plainFloat(n *yaml.Node) {
+	v, err := strconv.ParseFloat(n.Value, 64)
+	if err != nil || !readablePlain(v) {
+		return
+	}
+	n.Value = strconv.FormatFloat(v, 'f', -1, 64)
+	if v == math.Trunc(v) {
+		n.Tag = "!!int"
+	}
+}
+
+// readablePlain says whether v written out in full stays short: below 1e15
+// and, unless zero, not below 1e-6.
+func readablePlain(v float64) bool {
+	return math.Abs(v) < 1e15 && (v == 0 || math.Abs(v) >= 1e-6)
 }

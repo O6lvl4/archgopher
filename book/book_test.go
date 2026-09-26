@@ -7,18 +7,10 @@ import (
 )
 
 func TestTablesFlattenToRows(t *testing.T) {
-	var b Book
-	err := json.Unmarshal([]byte(`{
+	flat := flatBook(t, `{
 	  "aws.ec2.linux": {"unit": "hour", "source": "s", "verified": true, "checkedAt": "2026-01-02",
 	    "rows": {"t3.micro": {"us-east-1": 0.0104, "eu-west-1": null}}},
-	  "aws.s3.storage": {"unit": "GB-month", "source": "s", "values": {"*": {"value": 0.023}}}}`), &b)
-	if err != nil {
-		t.Fatal(err)
-	}
-	flat, err := b.Flatten()
-	if err != nil {
-		t.Fatal(err)
-	}
+	  "aws.s3.storage": {"unit": "GB-month", "source": "s", "values": {"*": {"value": 0.023}}}}`)
 	e, v, err := flat.Lookup("aws.ec2.linux.t3.micro", "us-east-1")
 	if err != nil || *v.Value != 0.0104 || !v.Verified || v.CheckedAt != "2026-01-02" || e.Unit != "hour" {
 		t.Fatalf("row: %+v %+v %v", e, v, err)
@@ -32,6 +24,20 @@ func TestTablesFlattenToRows(t *testing.T) {
 	if _, ok := flat["aws.ec2.linux"]; ok {
 		t.Fatal("the table itself is not an entry")
 	}
+}
+
+// flatBook reads a book from JSON and flattens it.
+func flatBook(t *testing.T, data string) Book {
+	t.Helper()
+	var b Book
+	if err := json.Unmarshal([]byte(data), &b); err != nil {
+		t.Fatal(err)
+	}
+	flat, err := b.Flatten()
+	if err != nil {
+		t.Fatal(err)
+	}
+	return flat
 }
 
 func TestTableAndValuesConflict(t *testing.T) {

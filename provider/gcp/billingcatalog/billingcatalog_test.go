@@ -49,7 +49,7 @@ func server(t *testing.T) *Client {
 		if tok == "" {
 			next = "p2"
 		}
-		_ = json.NewEncoder(w).Encode(map[string]any{"skus": pages[tok], "nextPageToken": next})
+		reply(t, w, map[string]any{"skus": pages[tok], "nextPageToken": next})
 	}))
 	t.Cleanup(srv.Close)
 	return &Client{HTTP: srv.Client(), CacheDir: t.TempDir(), BaseURL: srv.URL, Auth: func(r *http.Request) error {
@@ -93,5 +93,12 @@ func TestResolveExplainsAbsenceAmbiguityAndMissingCredentials(t *testing.T) {
 func TestMoney(t *testing.T) {
 	if got := (Money{Units: "1", Nanos: 500000000}).USD(); got != 1.5 {
 		t.Fatalf("got %v", got)
+	}
+}
+
+// reply writes a JSON response from a test server.
+func reply(t *testing.T, w http.ResponseWriter, v any) {
+	if err := json.NewEncoder(w).Encode(v); err != nil {
+		t.Errorf("reply: %v", err)
 	}
 }

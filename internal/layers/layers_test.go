@@ -44,23 +44,26 @@ var allowed = map[string][]string{
 	// Checks every provider catalog must pass, called from provider tests.
 	"internal/catalogtest": {"book", "definition", "field", "meter", "model", "scouter"},
 
+	// What every provider derives from its embedded catalog.
+	"provider/internal/embedded": {"book", "definition", "scouter", "terraform/infer"},
+
 	// AWS provider: resources are data in catalog/aws; the provider adds IAM,
 	// the schedule syntax and account-wide rules.
 	"provider/aws/iam":       {"terraform/eval", "terraform/infer"},
 	"provider/aws/pricelist": {},
 	"provider/aws/pattern":   {"model", "pattern", "scouter"},
-	"provider/aws":           {"book", "catalog", "definition", "scouter", "terraform/eval", "terraform/infer", "provider/aws/iam"},
+	"provider/aws":           {"book", "catalog", "definition", "scouter", "terraform/eval", "terraform/infer", "provider/aws/iam", "provider/internal/embedded"},
 
 	// Azure provider: resources are data in catalog/azure.
 	"provider/azure/retailprices": {},
-	"provider/azure":              {"book", "catalog", "definition", "scouter", "terraform/eval", "terraform/infer"},
+	"provider/azure":              {"book", "catalog", "definition", "scouter", "terraform/eval", "terraform/infer", "provider/internal/embedded"},
 
 	// Google Cloud provider: prices from the Billing Catalog.
 	"provider/gcp/billingcatalog": {},
-	"provider/gcp":                {"book", "catalog", "definition", "scouter", "terraform/eval", "terraform/infer"},
+	"provider/gcp":                {"book", "catalog", "definition", "scouter", "terraform/eval", "terraform/infer", "provider/internal/embedded"},
 
 	// Cloudflare provider: prices read by hand from the pricing pages.
-	"provider/cloudflare": {"book", "catalog", "definition", "scouter", "terraform/infer"},
+	"provider/cloudflare": {"book", "catalog", "definition", "scouter", "terraform/infer", "provider/internal/embedded"},
 
 	// The one place that lists the providers.
 	"cloud": {"book", "model", "pattern", "scouter", "terraform/infer", "provider/aws", "provider/aws/pattern", "provider/azure", "provider/cloudflare", "provider/gcp"},
@@ -75,12 +78,12 @@ func rule(pkg string) ([]string, bool) {
 	if r, ok := allowed[pkg]; ok {
 		return r, true
 	}
-	if i := strings.LastIndex(pkg, "/"); i > 0 {
-		if r, ok := allowed[pkg[:i]+"/*"]; ok {
-			return r, true
-		}
+	i := strings.LastIndex(pkg, "/")
+	if i <= 0 {
+		return nil, false
 	}
-	return nil, false
+	r, ok := allowed[pkg[:i]+"/*"]
+	return r, ok
 }
 
 func permits(list []string, imp string) bool {
@@ -125,30 +128,44 @@ func TestDependencyRule(t *testing.T) {
 		if err != nil || !d.IsDir() {
 			return err
 		}
-		name := d.Name()
-		if path != root && (strings.HasPrefix(name, ".") || name == "web" || name == "internal" || name == "testdata" || name == "examples" || name == "node_modules") {
+		if path != root && skipped(d.Name()) {
 			return filepath.SkipDir
 		}
-		rel, _ := filepath.Rel(root, path)
-		rel = filepath.ToSlash(rel)
-		imps := imports(t, path)
-		if rel == "." || len(imps) == 0 && !hasGo(path) {
-			return nil
-		}
-		list, ok := rule(rel)
-		if !ok {
-			t.Errorf("%s has no entry in the dependency rule; add one", rel)
-			return nil
-		}
-		for _, imp := range imps {
-			if !permits(list, imp) {
-				t.Errorf("%s imports %s, which the dependency rule does not allow", rel, imp)
-			}
-		}
+		checkPackage(t, root, path)
 		return nil
 	})
 	if err != nil {
 		t.Fatal(err)
+	}
+}
+
+// skipped names the directories that hold no packages of the module's own.
+func skipped(name string) bool {
+	switch name {
+	case "web", "internal", "testdata", "examples", "node_modules":
+		return true
+	}
+	return strings.HasPrefix(name, ".")
+}
+
+// checkPackage checks the imports of the package in dir against its rule.
+func checkPackage(t *testing.T, root, dir string) {
+	t.Helper()
+	rel, _ := filepath.Rel(root, dir)
+	rel = filepath.ToSlash(rel)
+	imps := imports(t, dir)
+	if rel == "." || len(imps) == 0 && !hasGo(dir) {
+		return
+	}
+	list, ok := rule(rel)
+	if !ok {
+		t.Errorf("%s has no entry in the dependency rule; add one", rel)
+		return
+	}
+	for _, imp := range imps {
+		if !permits(list, imp) {
+			t.Errorf("%s imports %s, which the dependency rule does not allow", rel, imp)
+		}
 	}
 }
 

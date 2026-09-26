@@ -4,99 +4,38 @@
 package gcp
 
 import (
-	"sort"
 	"strings"
-	"sync"
 
 	"github.com/O6lvl4/archgopher/book"
 	"github.com/O6lvl4/archgopher/catalog"
 	"github.com/O6lvl4/archgopher/definition"
+	"github.com/O6lvl4/archgopher/provider/internal/embedded"
 	"github.com/O6lvl4/archgopher/scouter"
 	"github.com/O6lvl4/archgopher/terraform/eval"
 	"github.com/O6lvl4/archgopher/terraform/infer"
 )
 
-var (
-	once   sync.Once
-	units  []definition.Unit
-	errCat error
-)
+var cat = embedded.New("Google Cloud", catalog.GCP, catalog.GCPRoot)
 
 // Units loads the catalog once.
-func Units() ([]definition.Unit, error) {
-	once.Do(func() { units, errCat = definition.LoadAll(catalog.GCP, catalog.GCPRoot) })
-	return units, errCat
-}
-
-func mustUnits() []definition.Unit {
-	u, err := Units()
-	if err != nil {
-		// The catalog is embedded and tested; a broken one is a build defect.
-		panic("archgopher: Google Cloud catalog: " + err.Error())
-	}
-	return u
-}
+func Units() ([]definition.Unit, error) { return cat.Units() }
 
 // Registry returns every Google Cloud resource plus the provider-neutral entry.
-func Registry() scouter.Registry {
-	reg := scouter.Registry{}
-	reg.Register(scouter.EntryScouter)
-	for _, u := range mustUnits() {
-		if u.Resource != nil {
-			reg.Register(u.Resource)
-		}
-	}
-	return reg
-}
+func Registry() scouter.Registry { return cat.Registry() }
 
 // Books merges the books of every unit; an id owned by two units is an error.
-func Books() (book.Books, error) {
-	us, err := Units()
-	if err != nil {
-		return book.Books{}, err
-	}
-	parts := make([]book.Books, 0, len(us))
-	for _, u := range us {
-		parts = append(parts, u.Books)
-	}
-	return book.Merge(parts...)
-}
+func Books() (book.Books, error) { return cat.Books() }
 
 // Regions lists every region the price books cover, sorted.
-func Regions() ([]string, error) {
-	books, err := Books()
-	if err != nil {
-		return nil, err
-	}
-	set := map[string]bool{}
-	for _, e := range books.Prices {
-		for r := range e.Values {
-			if r != book.AnyRegion {
-				set[r] = true
-			}
-		}
-	}
-	out := make([]string, 0, len(set))
-	for r := range set {
-		out = append(out, r)
-	}
-	sort.Strings(out)
-	return out, nil
-}
+func Regions() ([]string, error) { return cat.Regions() }
 
 // TerraformRules combine the region reader and every resource's rules.
 func TerraformRules() infer.Rules {
-	parts := []infer.Rules{{
+	return cat.Rules(infer.Rules{
 		Scouters: Registry(), Region: Region,
-		Free:       freeTypes(),
+		Free:       cat.FreeTypes(),
 		IgnoreRefs: []string{"service_account", "service_account_email", "encryption_key_name", "kms_key_name"},
-	}}
-	for _, u := range mustUnits() {
-		if u.Resource != nil {
-			parts = append(parts, u.Resource.Rules())
-		}
-	}
-	return infer.Combine(parts...)
+	})
 }
 
 // Region reads the google provider's region, or else the most common region
@@ -107,14 +46,8 @@ func Region(ev *eval.Evaluated) string {
 	}
 	count := map[string]int{}
 	for _, r := range ev.Resources {
-		if !strings.HasPrefix(r.Type, "google_") {
-			continue
-		}
-		for _, k := range []string{"region", "location"} {
-			if loc, ok := r.Attrs[k].(string); ok && strings.Contains(loc, "-") {
-				count[strings.ToLower(loc)]++
-				break
-			}
+		if loc := location(r); loc != "" {
+			count[loc]++
 		}
 	}
 	best, n := "", 0
@@ -126,11 +59,17 @@ func Region(ev *eval.Evaluated) string {
 	return best
 }
 
-// freeTypes are the resource types that cost nothing by themselves.
-func freeTypes() map[string]bool {
-	f, err := definition.FreeTypes(catalog.GCP, catalog.GCPRoot)
-	if err != nil {
-		panic("archgopher: Google Cloud free types: " + err.Error())
+// location is where a google resource is placed, lowercased: its region, or
+// else its location. A location without a dash is a multi-region ("US"), not
+// a region, and is skipped.
+func location(r *eval.Resource) string {
+	if !strings.HasPrefix(r.Type, "google_") {
+		return ""
 	}
-	return f
+	for _, k := range []string{"region", "location"} {
+		if loc, ok := r.Attrs[k].(string); ok && strings.Contains(loc, "-") {
+			return strings.ToLower(loc)
+		}
+	}
+	return ""
 }

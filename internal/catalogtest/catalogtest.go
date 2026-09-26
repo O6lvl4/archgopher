@@ -101,27 +101,32 @@ func (c Catalog) BooksAreCanonical(t *testing.T) {
 		t.Fatalf("no book files under %s: %v", c.Dir, err)
 	}
 	for _, path := range files {
-		raw, err := os.ReadFile(path)
-		if err != nil {
+		c.canonical(t, path)
+	}
+}
+
+// canonical checks one book file, or with Update rewrites it canonically.
+func (c Catalog) canonical(t *testing.T, path string) {
+	t.Helper()
+	raw, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var b book.Book
+	if err := json.Unmarshal(raw, &b); err != nil {
+		t.Fatal(err)
+	}
+	want, err := book.Marshal(b)
+	if err != nil {
+		t.Fatal(err)
+	}
+	switch {
+	case bytes.Equal(raw, want):
+	case c.Update:
+		if err := os.WriteFile(path, want, 0o644); err != nil {
 			t.Fatal(err)
 		}
-		var b book.Book
-		if err := json.Unmarshal(raw, &b); err != nil {
-			t.Fatal(err)
-		}
-		want, err := book.Marshal(b)
-		if err != nil {
-			t.Fatal(err)
-		}
-		if bytes.Equal(raw, want) {
-			continue
-		}
-		if c.Update {
-			if err := os.WriteFile(path, want, 0o644); err != nil {
-				t.Fatal(err)
-			}
-			continue
-		}
+	default:
 		t.Errorf("%s is not canonical; run: %s", path, c.UpdateHint)
 	}
 }
@@ -137,25 +142,32 @@ func (c Catalog) Cases(t *testing.T) {
 			t.Errorf("%s has no cases.yaml", u.Name)
 			continue
 		}
-		for i, cs := range u.Cases {
-			if strings.Contains(cs.Error, "no reference entry") || strings.Contains(cs.Error, "but the reading counts") {
-				t.Errorf("%s case %q reads a missing or mismatched reference: %s", u.Name, cs.Name, cs.Error)
-			}
-			if c.Update {
-				costs, limits, err := cs.Read(u.Resource, c.Books)
-				u.Cases[i].Costs, u.Cases[i].Limits, u.Cases[i].Error = costs, limits, ""
-				if err != nil {
-					u.Cases[i].Error = err.Error()
-				}
-				continue
-			}
-			if err := cs.Check(u.Resource, c.Books); err != nil {
-				t.Errorf("%s: %v", u.Name, err)
-			}
+		for i := range u.Cases {
+			c.readCase(t, u, i)
 		}
 		if c.Update {
 			c.writeCases(t, u)
 		}
+	}
+}
+
+// readCase checks case i of u, or with Update records what it reads now.
+func (c Catalog) readCase(t *testing.T, u definition.Unit, i int) {
+	t.Helper()
+	cs := u.Cases[i]
+	if strings.Contains(cs.Error, "no reference entry") || strings.Contains(cs.Error, "but the reading counts") {
+		t.Errorf("%s case %q reads a missing or mismatched reference: %s", u.Name, cs.Name, cs.Error)
+	}
+	if c.Update {
+		costs, limits, err := cs.Read(u.Resource, c.Books)
+		u.Cases[i].Costs, u.Cases[i].Limits, u.Cases[i].Error = costs, limits, ""
+		if err != nil {
+			u.Cases[i].Error = err.Error()
+		}
+		return
+	}
+	if err := cs.Check(u.Resource, c.Books); err != nil {
+		t.Errorf("%s: %v", u.Name, err)
 	}
 }
 

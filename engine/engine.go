@@ -6,7 +6,6 @@ package engine
 
 import (
 	"fmt"
-	"sort"
 	"strings"
 
 	"github.com/O6lvl4/archgopher/book"
@@ -99,6 +98,10 @@ type PathResult struct {
 // MaxPaths caps path enumeration on dense graphs.
 const MaxPaths = 200
 
+// GroupKind is the demand a group's scouter reads: GB a month moved between
+// its nodes.
+const GroupKind = "transfer"
+
 // Run validates the spec, propagates load and reads every node.
 // Structural errors (duplicate IDs, dangling edges, cycles, bad kinds) fail the run;
 // a node's own errors are reported on the node and load still flows through it.
@@ -111,361 +114,17 @@ func Run(spec model.Spec, reg scouter.Registry, books book.Books) (Result, error
 	if err != nil {
 		return Result{}, err
 	}
-	res := Result{Name: spec.Name, Region: spec.Region}
 	demand := g.propagate()
-	unverified := map[meter.RefUse]bool{}
-	for _, id := range g.order {
-		n := g.nodes[id]
-		nr := readNode(n, demand[id], reg, books, spec.Region, unverified)
-		nr.Load, nr.LoadBasis = n.Load, arrivals[id].basis
-		if e := arrivals[id].err; e != "" {
-			nr.Error = strings.TrimPrefix(nr.Error+"; "+e, "; ")
-		}
-		res.Nodes = append(res.Nodes, nr)
-	}
-	for _, gr := range spec.Groups {
-		gb := g.crossing(gr.ID, demand)
-		if gr.Type == "" || gb == 0 {
-			continue
-		}
-		n := model.Node{ID: gr.ID, Type: gr.Type, Assumptions: gr.Assumptions}
-		res.Groups = append(res.Groups, readNode(n, model.Demand{GroupKind: {Monthly: gb}}, reg, books, spec.Region, unverified))
-	}
-	var all []*NodeResult
-	for i := range res.Nodes {
-		all = append(all, &res.Nodes[i])
-	}
-	for i := range res.Groups {
-		all = append(all, &res.Groups[i])
-	}
+	rd := newReader(reg, books, spec.Region)
+	res := Result{Name: spec.Name, Region: spec.Region}
+	res.Nodes = g.readNodes(rd, demand, arrivals)
+	res.Groups = g.readGroups(spec.Groups, rd, demand)
+	all := results(res.Nodes, res.Groups)
 	res.Pools = sharePools(all, books.Prices, spec.Region)
-	for _, nr := range all {
-		nr.MonthlyUSD = 0
-		for _, c := range nr.Costs {
-			if c.MonthlyUSD == nil {
-				res.UnpricedCosts++
-				continue
-			}
-			nr.MonthlyUSD += *c.MonthlyUSD
-		}
-		res.MonthlyUSD += nr.MonthlyUSD
-	}
-	var warnings []string
-	res.Unverified = sortedRefs(unverified)
-	var pathWarnings []string
-	res.Paths, pathWarnings = g.paths(res.Nodes)
-	res.Warnings = append(warnings, pathWarnings...)
+	res.MonthlyUSD, res.UnpricedCosts = sumCosts(all)
+	res.Unverified = sortedRefs(rd.unverified)
+	res.Paths, res.Warnings = g.paths(res.Nodes)
 	return res, nil
-}
-
-// sharePools bills every pool of the declaration once, over all its nodes'
-// lines. A pool that cannot be billed puts its error on each node sharing it.
-func sharePools(nodes []*NodeResult, prices book.Book, region string) []meter.Pool {
-	var lines []meter.Owned
-	byID := map[string]*NodeResult{}
-	for _, n := range nodes {
-		byID[n.ID] = n
-		for i := range n.Costs {
-			lines = append(lines, meter.Owned{Node: n.ID, Cost: &n.Costs[i]})
-		}
-	}
-	pools := meter.Share(lines, prices, region)
-	for _, p := range pools {
-		if p.Error == "" {
-			continue
-		}
-		seen := map[string]bool{}
-		for _, m := range p.Members {
-			if n := byID[m.Node]; !seen[m.Node] && !strings.Contains(n.Error, p.Error) {
-				seen[m.Node] = true
-				n.Error = strings.TrimPrefix(n.Error+"; "+p.Error, "; ")
-			}
-		}
-	}
-	return pools
-}
-
-// GroupKind is the demand a group's scouter reads: GB a month moved between
-// its nodes.
-const GroupKind = "transfer"
-
-// crossing is the GB a month that edges with kb move between two nodes of a group.
-func (g *graph) crossing(group string, demand map[string]model.Demand) float64 {
-	var gb float64
-	for _, id := range g.order {
-		for _, e := range g.outgoing[id] {
-			if g.nodes[e.From].Group != group || g.nodes[e.To].Group != group {
-				continue
-			}
-			for _, op := range e.Operations() {
-				if op.KB != nil {
-					gb += demand[e.From].Total().Monthly * op.Factor() * *op.KB / 1024 / 1024
-				}
-			}
-		}
-	}
-	return gb
-}
-
-func readNode(n model.Node, d model.Demand, reg scouter.Registry, books book.Books, region string, unverified map[meter.RefUse]bool) NodeResult {
-	nr := NodeResult{ID: n.ID, Type: n.Type, Label: n.Type, Address: n.Address, Note: n.Note, Stale: n.Stale, Demand: d}
-	s, ok := reg[n.Type]
-	if !ok {
-		nr.Skipped = "no scouter for " + n.Type
-		return nr
-	}
-	m := s.Meta()
-	nr.Label = m.Label
-	r := meter.NewRecorder(region, books)
-	if m.SLA != "" {
-		e, v, err := books.SLAs.Lookup(m.SLA, region)
-		if err == nil {
-			nr.SLA = &Availability{ID: m.SLA, Value: v.Value}
-			use := meter.RefUse{Book: book.SLAs, ID: m.SLA, Region: region, Verified: v.Verified, Known: v.Value != nil, Source: e.Source}
-			if !use.Verified || !use.Known {
-				unverified[use] = true
-			}
-		}
-	}
-	nr.Latency = latencyOf(n)
-	if err := s.Scout(n, d, r); err != nil {
-		nr.Error = err.Error()
-	}
-	nr.Costs, nr.Limits = r.Costs(), r.Limits()
-	for _, u := range r.Refs() {
-		if !u.Verified || !u.Known {
-			unverified[u] = true
-		}
-	}
-	return nr
-}
-
-func latencyOf(n model.Node) *Latency {
-	p50, ok50 := n.Assumptions[scouter.LatencyP50]
-	p99, ok99 := n.Assumptions[scouter.LatencyP99]
-	if !ok50 && !ok99 {
-		return nil
-	}
-	l := &Latency{}
-	if v, ok := number(p50); ok {
-		l.P50Ms = v
-	}
-	if v, ok := number(p99); ok {
-		l.P99Ms = v
-	} else {
-		l.P99Ms = l.P50Ms
-	}
-	return l
-}
-
-func sortedRefs(set map[meter.RefUse]bool) []meter.RefUse {
-	out := make([]meter.RefUse, 0, len(set))
-	for u := range set {
-		out = append(out, u)
-	}
-	sort.Slice(out, func(i, j int) bool {
-		if out[i].Book != out[j].Book {
-			return out[i].Book < out[j].Book
-		}
-		return out[i].ID < out[j].ID
-	})
-	return out
-}
-
-type graph struct {
-	nodes    map[string]model.Node
-	outgoing map[string][]model.Edge
-	order    []string
-	kinds    map[string]string // default kind per node
-}
-
-func buildGraph(spec model.Spec, reg scouter.Registry) (*graph, error) {
-	g := &graph{nodes: map[string]model.Node{}, outgoing: map[string][]model.Edge{}, kinds: map[string]string{}}
-	groups := map[string]bool{}
-	for _, gr := range spec.Groups {
-		if gr.ID == "" {
-			return nil, fmt.Errorf("a %s group has no id", gr.Kind)
-		}
-		if groups[gr.ID] {
-			return nil, fmt.Errorf("duplicate group id %q", gr.ID)
-		}
-		groups[gr.ID] = true
-	}
-	var ids []string
-	for _, n := range spec.Nodes {
-		if n.ID == "" {
-			return nil, fmt.Errorf("a node of type %s has no id", n.Type)
-		}
-		if _, dup := g.nodes[n.ID]; dup {
-			return nil, fmt.Errorf("duplicate node id %q", n.ID)
-		}
-		if n.Group != "" && !groups[n.Group] {
-			return nil, fmt.Errorf("node %q: no group %q", n.ID, n.Group)
-		}
-		g.nodes[n.ID] = n
-		ids = append(ids, n.ID)
-		g.kinds[n.ID] = "request"
-		if s, ok := reg[n.Type]; ok && len(s.Meta().Kinds) > 0 {
-			g.kinds[n.ID] = s.Meta().Kinds[0]
-		}
-		if n.Load != nil && (n.Load.Monthly < 0 || n.Load.PeakPerSecond < 0) {
-			return nil, fmt.Errorf("node %q: load must not be negative", n.ID)
-		}
-	}
-	indegree := map[string]int{}
-	for _, e := range spec.Edges {
-		label := fmt.Sprintf("edge %s -> %s", e.From, e.To)
-		if _, ok := g.nodes[e.From]; !ok {
-			return nil, fmt.Errorf("%s: no node %q", label, e.From)
-		}
-		to, ok := g.nodes[e.To]
-		if !ok {
-			return nil, fmt.Errorf("%s: no node %q", label, e.To)
-		}
-		if err := checkOps(e, label, reg[to.Type]); err != nil {
-			return nil, err
-		}
-		g.outgoing[e.From] = append(g.outgoing[e.From], e)
-		indegree[e.To]++
-	}
-	queue := []string{}
-	for _, id := range ids {
-		if indegree[id] == 0 {
-			queue = append(queue, id)
-		}
-	}
-	for len(queue) > 0 {
-		id := queue[0]
-		queue = queue[1:]
-		g.order = append(g.order, id)
-		for _, e := range g.outgoing[id] {
-			indegree[e.To]--
-			if indegree[e.To] == 0 {
-				queue = append(queue, e.To)
-			}
-		}
-	}
-	if len(g.order) != len(ids) {
-		var cyclic []string
-		for _, id := range ids {
-			if indegree[id] > 0 {
-				cyclic = append(cyclic, id)
-			}
-		}
-		return nil, fmt.Errorf("edges form a cycle through %s", strings.Join(cyclic, ", "))
-	}
-	return g, nil
-}
-
-func (g *graph) propagate() map[string]model.Demand {
-	demand := map[string]model.Demand{}
-	for _, id := range g.order {
-		d := demand[id]
-		if d == nil {
-			d = model.Demand{}
-			demand[id] = d
-		}
-		if l := g.nodes[id].Load; l != nil {
-			k := g.kinds[id]
-			d[k] = d[k].Add(*l)
-		}
-		// A node passes on its own work; the sizes of what it received stay with it.
-		out := d.Total().Plain()
-		for _, e := range g.outgoing[id] {
-			if demand[e.To] == nil {
-				demand[e.To] = model.Demand{}
-			}
-			for _, op := range e.Operations() {
-				k := op.Kind
-				if k == "" {
-					k = g.kinds[e.To]
-				}
-				l := out.Scale(op.Factor())
-				if op.KB != nil {
-					l = l.Sized(*op.KB)
-				}
-				demand[e.To][k] = demand[e.To][k].Add(l)
-			}
-		}
-	}
-	return demand
-}
-
-func (g *graph) paths(results []NodeResult) ([]PathResult, []string) {
-	byID := map[string]NodeResult{}
-	for _, r := range results {
-		byID[r.ID] = r
-	}
-	var out []PathResult
-	var warnings []string
-	var walk func(id string, trail []string)
-	walk = func(id string, trail []string) {
-		if len(out) >= MaxPaths {
-			return
-		}
-		trail = append(trail, id)
-		if len(g.outgoing[id]) == 0 {
-			out = append(out, composePath(append([]string(nil), trail...), byID))
-			return
-		}
-		seen := map[string]bool{}
-		for _, e := range g.outgoing[id] {
-			if !seen[e.To] {
-				seen[e.To] = true
-				walk(e.To, trail)
-			}
-		}
-	}
-	for _, id := range g.order {
-		if g.nodes[id].Load != nil {
-			walk(id, nil)
-		}
-	}
-	if len(out) >= MaxPaths {
-		warnings = append(warnings, fmt.Sprintf("more than %d paths; only the first %d are listed", MaxPaths, MaxPaths))
-	}
-	return out, warnings
-}
-
-func composePath(ids []string, byID map[string]NodeResult) PathResult {
-	p := PathResult{Nodes: ids, Availability: 1, MissingLatency: []string{}, MissingSLA: []string{}}
-	for i, id := range ids {
-		n := byID[id]
-		if i == 0 && n.Type == scouter.EntryType {
-			continue // the entry is the caller, not a hop
-		}
-		if n.Latency != nil {
-			p.P50Ms += n.Latency.P50Ms
-			p.P99Ms += n.Latency.P99Ms
-		} else {
-			p.MissingLatency = append(p.MissingLatency, id)
-		}
-		if n.SLA != nil && n.SLA.Value != nil {
-			p.Availability *= *n.SLA.Value
-		} else {
-			p.MissingSLA = append(p.MissingSLA, id)
-		}
-	}
-	return p
-}
-
-func contains(list []string, s string) bool {
-	for _, x := range list {
-		if x == s {
-			return true
-		}
-	}
-	return false
-}
-
-func number(v any) (float64, bool) {
-	switch x := v.(type) {
-	case float64:
-		return x, true
-	case int:
-		return float64(x), true
-	}
-	return 0, false
 }
 
 type arrival struct{ basis, err string }
@@ -496,21 +155,100 @@ func resolveTraffic(spec model.Spec) (model.Spec, map[string]arrival, error) {
 	return spec, out, nil
 }
 
-// checkOps validates an edge's operations against what the target accepts.
-func checkOps(e model.Edge, label string, target scouter.Scouter) error {
-	if len(e.Ops) > 0 && (e.Kind != "" || e.PerUnit != nil || e.KB != nil) {
-		return fmt.Errorf("%s: give ops or kind, perUnit and kb, not both", label)
+// readNodes reads every node in topological order, with the load it brings
+// in and any error its traffic had.
+func (g *graph) readNodes(rd *reader, demand map[string]model.Demand, arrivals map[string]arrival) []NodeResult {
+	var out []NodeResult
+	for _, id := range g.order {
+		n := g.nodes[id]
+		nr := rd.read(n, demand[id])
+		nr.Load, nr.LoadBasis = n.Load, arrivals[id].basis
+		if e := arrivals[id].err; e != "" {
+			nr.Error = joinError(nr.Error, e)
+		}
+		out = append(out, nr)
 	}
-	for _, op := range e.Operations() {
-		if op.Factor() < 0 {
-			return fmt.Errorf("%s: perUnit must not be negative", label)
+	return out
+}
+
+// readGroups reads the groups that have a scouter and traffic between their nodes.
+func (g *graph) readGroups(groups []model.Group, rd *reader, demand map[string]model.Demand) []NodeResult {
+	var out []NodeResult
+	for _, gr := range groups {
+		gb := g.crossing(gr.ID, demand)
+		if gr.Type == "" || gb == 0 {
+			continue
 		}
-		if op.KB != nil && *op.KB < 0 {
-			return fmt.Errorf("%s: kb must not be negative", label)
+		n := model.Node{ID: gr.ID, Type: gr.Type, Assumptions: gr.Assumptions}
+		out = append(out, rd.read(n, model.Demand{GroupKind: {Monthly: gb}}))
+	}
+	return out
+}
+
+// results points at every node and group result, so pools and totals can
+// update them in place.
+func results(nodes, groups []NodeResult) []*NodeResult {
+	var all []*NodeResult
+	for i := range nodes {
+		all = append(all, &nodes[i])
+	}
+	for i := range groups {
+		all = append(all, &groups[i])
+	}
+	return all
+}
+
+// sumCosts sets each result's monthly total and returns the grand total with
+// the number of lines that have no price.
+func sumCosts(all []*NodeResult) (float64, int) {
+	var total float64
+	var unpriced int
+	for _, nr := range all {
+		nr.MonthlyUSD = 0
+		for _, c := range nr.Costs {
+			if c.MonthlyUSD == nil {
+				unpriced++
+				continue
+			}
+			nr.MonthlyUSD += *c.MonthlyUSD
 		}
-		if target != nil && op.Kind != "" && !contains(target.Meta().Kinds, op.Kind) {
-			return fmt.Errorf("%s: %s accepts %s, not %q", label, target.Meta().Type, strings.Join(target.Meta().Kinds, ", "), op.Kind)
+		total += nr.MonthlyUSD
+	}
+	return total, unpriced
+}
+
+// sharePools bills every pool of the declaration once, over all its nodes'
+// lines. A pool that cannot be billed puts its error on each node sharing it.
+func sharePools(nodes []*NodeResult, prices book.Book, region string) []meter.Pool {
+	var lines []meter.Owned
+	byID := map[string]*NodeResult{}
+	for _, n := range nodes {
+		byID[n.ID] = n
+		for i := range n.Costs {
+			lines = append(lines, meter.Owned{Node: n.ID, Cost: &n.Costs[i]})
 		}
 	}
-	return nil
+	pools := meter.Share(lines, prices, region)
+	for _, p := range pools {
+		if p.Error != "" {
+			blame(p, byID)
+		}
+	}
+	return pools
+}
+
+// blame puts a pool's error once on each node sharing it.
+func blame(p meter.Pool, byID map[string]*NodeResult) {
+	seen := map[string]bool{}
+	for _, m := range p.Members {
+		if n := byID[m.Node]; !seen[m.Node] && !strings.Contains(n.Error, p.Error) {
+			seen[m.Node] = true
+			n.Error = joinError(n.Error, p.Error)
+		}
+	}
+}
+
+// joinError appends msg to an error text that may be empty.
+func joinError(err, msg string) string {
+	return strings.TrimPrefix(err+"; "+msg, "; ")
 }

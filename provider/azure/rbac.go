@@ -1,6 +1,7 @@
 package azure
 
 import (
+	"slices"
 	"sort"
 	"strings"
 
@@ -17,11 +18,8 @@ type Roles map[string]map[string][]string
 func (r Roles) Kinds(targetType, role string) []string {
 	var out []string
 	for kind, names := range r[targetType] {
-		for _, n := range names {
-			if strings.EqualFold(n, role) {
-				out = append(out, kind)
-				break
-			}
+		if slices.ContainsFunc(names, func(n string) bool { return strings.EqualFold(n, role) }) {
+			out = append(out, kind)
 		}
 	}
 	sort.Strings(out)
@@ -36,26 +34,39 @@ func RBAC(roles Roles) infer.EdgeSource {
 	return func(g *infer.Graph) []infer.Hint {
 		var out []infer.Hint
 		for _, a := range g.Resources() {
-			if a.Type != "azurerm_role_assignment" {
-				continue
-			}
-			role, _ := a.Attrs["role_definition_name"].(string)
-			if role == "" {
-				continue
-			}
-			for _, from := range principals(g, refsAt(a, "principal_id")) {
-				for _, ref := range refsAt(a, "scope") {
-					for _, to := range g.Targets(ref) {
-						target, _ := g.Resource(to)
-						for _, kind := range roles.Kinds(target.Type, role) {
-							out = append(out, infer.Hint{From: from, To: to, Kind: kind})
-						}
-					}
-				}
-			}
+			out = append(out, roles.granted(g, a)...)
 		}
 		return out
 	}
+}
+
+// granted is the edges one role assignment grants; a resource that is not a
+// role assignment, or names no role, grants none.
+func (r Roles) granted(g *infer.Graph, a *eval.Resource) []infer.Hint {
+	role, _ := a.Attrs["role_definition_name"].(string)
+	if a.Type != "azurerm_role_assignment" || role == "" {
+		return nil
+	}
+	scopes := scopes(g, a)
+	var out []infer.Hint
+	for _, from := range principals(g, refsAt(a, "principal_id")) {
+		for _, to := range scopes {
+			target, _ := g.Resource(to)
+			for _, kind := range r.Kinds(target.Type, role) {
+				out = append(out, infer.Hint{From: from, To: to, Kind: kind})
+			}
+		}
+	}
+	return out
+}
+
+// scopes resolves the scope of a role assignment to the nodes it covers.
+func scopes(g *infer.Graph, a *eval.Resource) []string {
+	var out []string
+	for _, ref := range refsAt(a, "scope") {
+		out = append(out, g.Targets(ref)...)
+	}
+	return out
 }
 
 // principals resolves principal references to the nodes that act with them.
@@ -66,20 +77,19 @@ func principals(g *infer.Graph, refs []string) []string {
 			out = append(out, ref)
 			continue
 		}
-		r, ok := g.Resource(ref)
-		if !ok || r.Type != "azurerm_user_assigned_identity" {
-			continue
+		if r, ok := g.Resource(ref); ok && r.Type == "azurerm_user_assigned_identity" {
+			out = append(out, holders(g, ref)...)
 		}
-		for _, n := range g.Resources() {
-			if !g.IsNode(n.Address) {
-				continue
-			}
-			for _, u := range refsAt(n, "identity") {
-				if u == ref {
-					out = append(out, n.Address)
-					break
-				}
-			}
+	}
+	return out
+}
+
+// holders are the nodes that list a user-assigned identity in identity.
+func holders(g *infer.Graph, identity string) []string {
+	var out []string
+	for _, n := range g.Resources() {
+		if g.IsNode(n.Address) && slices.Contains(refsAt(n, "identity"), identity) {
+			out = append(out, n.Address)
 		}
 	}
 	return out
@@ -100,7 +110,7 @@ func refsAt(r *eval.Resource, path string) []string {
 // roles collects every unit's iam map.
 func roles() Roles {
 	out := Roles{}
-	for _, u := range mustUnits() {
+	for _, u := range cat.MustUnits() {
 		if u.Resource != nil && len(u.Resource.File.IAM) > 0 {
 			out[u.Resource.File.Type] = u.Resource.File.IAM
 		}

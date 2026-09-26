@@ -99,18 +99,25 @@ func steps(t hcl.Traversal) []PathStep {
 	return out
 }
 
-// iterRefs resolves references in expr where the root iter is the iterator of a
-// dynamic block whose current element is at elem inside forEach.
-func (ev *evaluator) iterRefs(expr hcl.Expression, in *instance, iter string, forEach hcl.Expression, elem PathStep) []string {
+// iterator is a dynamic block's iterator positioned at one element of the
+// collection it ranges over.
+type iterator struct {
+	name    string         // the iterator variable, the block label unless renamed
+	forEach hcl.Expression // the collection
+	elem    PathStep       // the current element; Every for all of them
+}
+
+// iterRefs resolves references in expr where the root it.name is the iterator
+// of a dynamic block whose current element is at it.elem inside it.forEach.
+func (ev *evaluator) iterRefs(expr hcl.Expression, in *instance, it iterator) []string {
 	set := map[string]bool{}
 	for _, t := range expr.Variables() {
 		var refs []string
-		if t.RootName() == iter {
-			if step(t, 1) == "value" {
-				refs = ev.navigate(forEach, in, append([]PathStep{elem}, steps(t[2:])...))
-			}
-		} else {
+		switch {
+		case t.RootName() != it.name:
 			refs = ev.resolve(t, in)
+		case step(t, 1) == "value":
+			refs = ev.navigate(it.forEach, in, append([]PathStep{it.elem}, steps(t[2:])...))
 		}
 		for _, r := range refs {
 			set[r] = true

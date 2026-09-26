@@ -6,90 +6,36 @@ package aws
 
 import (
 	"sort"
-	"sync"
 
 	"github.com/O6lvl4/archgopher/book"
 	"github.com/O6lvl4/archgopher/catalog"
 	"github.com/O6lvl4/archgopher/definition"
 	"github.com/O6lvl4/archgopher/provider/aws/iam"
+	"github.com/O6lvl4/archgopher/provider/internal/embedded"
 	"github.com/O6lvl4/archgopher/scouter"
 	"github.com/O6lvl4/archgopher/terraform/infer"
 )
 
-var (
-	once   sync.Once
-	units  []definition.Unit
-	errCat error
-)
+var cat = embedded.New("AWS", catalog.AWS, catalog.AWSRoot)
 
 // Units loads the catalog once.
-func Units() ([]definition.Unit, error) {
-	once.Do(func() { units, errCat = definition.LoadAll(catalog.AWS, catalog.AWSRoot) })
-	return units, errCat
-}
-
-func mustUnits() []definition.Unit {
-	u, err := Units()
-	if err != nil {
-		// The catalog is embedded and tested; a broken one is a build defect.
-		panic("archgopher: AWS catalog: " + err.Error())
-	}
-	return u
-}
+func Units() ([]definition.Unit, error) { return cat.Units() }
 
 // Registry returns every AWS resource plus the provider-neutral entry.
-func Registry() scouter.Registry {
-	reg := scouter.Registry{}
-	reg.Register(scouter.EntryScouter)
-	for _, u := range mustUnits() {
-		if u.Resource != nil {
-			reg.Register(u.Resource)
-		}
-	}
-	return reg
-}
+func Registry() scouter.Registry { return cat.Registry() }
 
 // Books merges the books of every unit; an id owned by two units is an error.
-func Books() (book.Books, error) {
-	us, err := Units()
-	if err != nil {
-		return book.Books{}, err
-	}
-	parts := make([]book.Books, 0, len(us))
-	for _, u := range us {
-		parts = append(parts, u.Books)
-	}
-	return book.Merge(parts...)
-}
+func Books() (book.Books, error) { return cat.Books() }
 
 // Regions lists every region the price books cover, sorted. A region is
 // supported when every row that varies by region has a value for it, which
 // TestEveryRegionIsComplete checks.
-func Regions() ([]string, error) {
-	books, err := Books()
-	if err != nil {
-		return nil, err
-	}
-	set := map[string]bool{}
-	for _, e := range books.Prices {
-		for r := range e.Values {
-			if r != book.AnyRegion {
-				set[r] = true
-			}
-		}
-	}
-	out := make([]string, 0, len(set))
-	for r := range set {
-		out = append(out, r)
-	}
-	sort.Strings(out)
-	return out, nil
-}
+func Regions() ([]string, error) { return cat.Regions() }
 
 // Actions maps each resource type to kinds of work and the IAM actions that do them.
 func Actions() map[string]map[string][]string {
 	out := map[string]map[string][]string{}
-	for _, u := range mustUnits() {
+	for _, u := range cat.MustUnits() {
 		if u.Resource != nil && len(u.Resource.File.IAM) > 0 {
 			out[u.Resource.File.Type] = u.Resource.File.IAM
 		}
@@ -129,24 +75,9 @@ func IAM() iam.Config {
 // TerraformRules combine the account-wide rules, every resource's rules, the
 // IAM edge source.
 func TerraformRules() infer.Rules {
-	parts := []infer.Rules{common(), {
+	return cat.Rules(common(), infer.Rules{
 		Scouters: Registry(),
-		Free:     freeTypes(),
+		Free:     cat.FreeTypes(),
 		Sources:  []infer.EdgeSource{iam.Source(IAM())},
-	}}
-	for _, u := range mustUnits() {
-		if u.Resource != nil {
-			parts = append(parts, u.Resource.Rules())
-		}
-	}
-	return infer.Combine(parts...)
-}
-
-// freeTypes are the resource types that cost nothing by themselves.
-func freeTypes() map[string]bool {
-	f, err := definition.FreeTypes(catalog.AWS, catalog.AWSRoot)
-	if err != nil {
-		panic("archgopher: AWS free types: " + err.Error())
-	}
-	return f
+	})
 }

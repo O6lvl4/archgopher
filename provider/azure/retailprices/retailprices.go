@@ -11,9 +11,6 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
-	"regexp"
-	"sort"
-	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -141,10 +138,8 @@ func (c *Client) Items(service, region string) ([]Item, error) {
 
 func (c *Client) items(service, region string) ([]Item, error) {
 	path := filepath.Join(c.CacheDir, safe(service), safe(region)+".json")
-	if st, err := os.Stat(path); err == nil && time.Since(st.ModTime()) <= c.MaxAge {
-		if items, err := readCache(path); err == nil {
-			return items, nil
-		}
+	if items, ok := c.cached(path); ok {
+		return items, nil
 	}
 	items, err := c.download(service, region)
 	if err != nil {
@@ -154,6 +149,16 @@ func (c *Client) items(service, region string) ([]Item, error) {
 		return nil, err
 	}
 	return items, nil
+}
+
+// cached returns the cached list when it is recent enough and readable.
+func (c *Client) cached(path string) ([]Item, bool) {
+	st, err := os.Stat(path)
+	if err != nil || time.Since(st.ModTime()) > c.MaxAge {
+		return nil, false
+	}
+	items, err := readCache(path)
+	return items, err == nil
 }
 
 func (c *Client) download(service, region string) ([]Item, error) {
@@ -189,104 +194,6 @@ func (c *Client) page(u string) ([]Item, string, error) {
 		return nil, "", err
 	}
 	return p.Items, p.NextPageLink, nil
-}
-
-// Find returns the items that match filters (type defaults to Consumption).
-func Find(items []Item, filters map[string]string) ([]Item, error) {
-	f := map[string]string{"type": "Consumption"}
-	for k, v := range filters {
-		f[k] = v
-	}
-	res := map[string]*regexp.Regexp{}
-	for k, v := range f {
-		re, err := regexp.Compile("^(?:" + v + ")$")
-		if err != nil {
-			return nil, fmt.Errorf("filter %s: %w", k, err)
-		}
-		res[k] = re
-	}
-	var out []Item
-	for _, it := range items {
-		ok := true
-		for k, re := range res {
-			if !re.MatchString(it.Field(k)) {
-				ok = false
-				break
-			}
-		}
-		if ok {
-			out = append(out, it)
-		}
-	}
-	sort.Slice(out, func(i, j int) bool {
-		a, b := out[i], out[j]
-		if a.MeterID != b.MeterID {
-			return a.MeterName+a.MeterID < b.MeterName+b.MeterID
-		}
-		return a.TierMinimum < b.TierMinimum
-	})
-	return out, nil
-}
-
-// Resolve finds exactly one price for a spec, or explains why it cannot.
-func (c *Client) Resolve(spec Spec, region string) (Item, error) {
-	items, err := c.Items(spec.Service, spec.For(region))
-	if err != nil {
-		return Item{}, err
-	}
-	ms, err := Find(items, spec.Filters)
-	if err != nil {
-		return Item{}, err
-	}
-	meters := map[string][]Item{}
-	for _, m := range ms {
-		meters[m.MeterID] = append(meters[m.MeterID], m)
-	}
-	switch len(meters) {
-	case 0:
-		return Item{}, fmt.Errorf("%w: no price matches %v", ErrAbsent, spec.Filters)
-	case 1:
-	default:
-		var names []string
-		for _, list := range meters {
-			names = append(names, list[0].ProductName+" / "+list[0].SkuName+" / "+list[0].MeterName)
-		}
-		sort.Strings(names)
-		return Item{}, fmt.Errorf("%d meters match %v: %s", len(meters), spec.Filters, strings.Join(names, "; "))
-	}
-	for _, list := range meters {
-		return pickTier(list, spec.Tier, spec.ListPer)
-	}
-	panic("unreachable")
-}
-
-func pickTier(list []Item, tier string, listPer float64) (Item, error) {
-	if listPer == 0 {
-		listPer = 1
-	}
-	switch tier {
-	case "":
-		for _, it := range list {
-			if it.RetailPrice > 0 {
-				return it, nil
-			}
-		}
-		return list[0], nil
-	case "last":
-		return list[len(list)-1], nil
-	case "first":
-		return list[0], nil
-	}
-	want, err := strconv.ParseFloat(tier, 64)
-	if err != nil {
-		return Item{}, fmt.Errorf("tier %q: want first, last or where the tier starts", tier)
-	}
-	for _, it := range list {
-		if it.TierMinimum*listPer == want {
-			return it, nil
-		}
-	}
-	return Item{}, fmt.Errorf("no tier starts at %s", tier)
 }
 
 func safe(s string) string {

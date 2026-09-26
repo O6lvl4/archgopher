@@ -143,6 +143,12 @@ func TestZoneCrossingsAreReadByTheVPC(t *testing.T) {
 
 func readUnits(t *testing.T, res engine.Result, id string) float64 {
 	t.Helper()
+	return units(t, res, id, "Read request units")
+}
+
+// units is the quantity of the cost line name of node id, which must read.
+func units(t *testing.T, res engine.Result, id, name string) float64 {
+	t.Helper()
 	for _, n := range res.Nodes {
 		if n.ID != id {
 			continue
@@ -151,12 +157,12 @@ func readUnits(t *testing.T, res engine.Result, id string) float64 {
 			t.Fatalf("%s: %s", id, n.Error)
 		}
 		for _, c := range n.Costs {
-			if c.Name == "Read request units" {
+			if c.Name == name {
 				return c.Quantity
 			}
 		}
 	}
-	t.Fatalf("%s has no read units", id)
+	t.Fatalf("%s has no %s", id, strings.ToLower(name))
 	return 0
 }
 
@@ -184,12 +190,8 @@ func TestOperationsOfOneEdge(t *testing.T) {
 	if got, want := readUnits(t, res, "table"), 1e6*(7+2); math.Abs(got-want) > 1e-6 {
 		t.Errorf("reads: %v units, want %v", got, want)
 	}
-	for _, n := range res.Nodes {
-		for _, c := range n.Costs {
-			if n.ID == "table" && c.Name == "Write request units" && math.Abs(c.Quantity-1e6*0.1*2) > 1e-6 {
-				t.Errorf("writes: %v units, want %v", c.Quantity, 1e6*0.1*2)
-			}
-		}
+	if got, want := units(t, res, "table", "Write request units"), 1e6*0.1*2; math.Abs(got-want) > 1e-6 {
+		t.Errorf("writes: %v units, want %v", got, want)
 	}
 	// An operation of no size needs the table's item size.
 	spec.Edges[0].Ops[0].KB = nil

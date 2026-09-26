@@ -57,12 +57,18 @@ func TestCompare(t *testing.T) {
 		t.Fatalf("alerts:\n%s", alerts)
 	}
 
+	wantDiffMarkdown(t, d, Marker, "**$30.00 → $70.00** (+$40.00, +133.3%)", "| `grows` L | changed | $15.00 → $58.00 | +$43.00, +286.7% | 50.0% → 10.0% |", "| `gone` L | removed | $5.00 | −$5.00, −100.0% |")
+}
+
+// wantDiffMarkdown fails unless the diff's comment contains every wanted text.
+func wantDiffMarkdown(t *testing.T, d Diff, wants ...string) {
+	t.Helper()
 	var b strings.Builder
 	if err := DiffMarkdown(&b, d); err != nil {
 		t.Fatal(err)
 	}
 	md := b.String()
-	for _, want := range []string{Marker, "**$30.00 → $70.00** (+$40.00, +133.3%)", "| `grows` L | changed | $15.00 → $58.00 | +$43.00, +286.7% | 50.0% → 10.0% |", "| `gone` L | removed | $5.00 | −$5.00, −100.0% |"} {
+	for _, want := range wants {
 		if !strings.Contains(md, want) {
 			t.Errorf("markdown lacks %q:\n%s", want, md)
 		}

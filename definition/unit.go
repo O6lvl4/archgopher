@@ -76,10 +76,11 @@ func Load(fsys fs.FS, dir string) (Unit, error) {
 		return u, fmt.Errorf("%s: %w", dir, err)
 	}
 	cases, err := fs.ReadFile(fsys, path.Join(dir, "cases.yaml"))
-	if err == nil {
-		if err := strict(cases, &u.Cases); err != nil {
-			return u, fmt.Errorf("%s/cases.yaml: %w", dir, err)
-		}
+	if err != nil {
+		return u, nil // a definition without cases
+	}
+	if err := strict(cases, &u.Cases); err != nil {
+		return u, fmt.Errorf("%s/cases.yaml: %w", dir, err)
 	}
 	return u, nil
 }

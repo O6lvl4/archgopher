@@ -111,37 +111,50 @@ func count(field string, lo, hi int) float64 {
 	field = names.Replace(strings.ToUpper(field))
 	total := 0.0
 	for _, part := range strings.Split(field, ",") {
-		base, stepStr, stepped := strings.Cut(part, "/")
-		step := 1.0
-		if stepped {
-			if s, err := strconv.ParseFloat(stepStr, 64); err == nil && s > 0 {
-				step = s
-			}
-		}
-		from, to := float64(lo), float64(hi)
-		switch {
-		case base == "*" || base == "?":
-		case strings.Contains(base, "-"):
-			a, b, _ := strings.Cut(base, "-")
-			x, e1 := strconv.Atoi(a)
-			y, e2 := strconv.Atoi(b)
-			if e1 != nil || e2 != nil {
-				total++
-				continue
-			}
-			from, to = float64(x), float64(y)
-		default:
-			if !stepped {
-				total++ // a single value, or L / W / # forms
-				continue
-			}
-			if x, err := strconv.Atoi(base); err == nil {
-				from = float64(x)
-			}
-		}
-		if to >= from {
-			total += float64(int((to-from)/step)) + 1
-		}
+		total += countPart(part, lo, hi)
 	}
 	return total
+}
+
+// countPart counts the values one comma-separated part of a cron field selects.
+func countPart(part string, lo, hi int) float64 {
+	base, stepStr, stepped := strings.Cut(part, "/")
+	from, to, ok := rangeOf(base, stepped, lo, hi)
+	if !ok {
+		return 1 // a single value, or L / W / # forms
+	}
+	if to < from {
+		return 0
+	}
+	return float64(int((to-from)/stepOf(stepStr))) + 1
+}
+
+// rangeOf is the range a part's base covers: all of [lo, hi] for * or ?,
+// a-b, or from a single value to hi when it is stepped. False when the base
+// selects one value, or a range that cannot be read.
+func rangeOf(base string, stepped bool, lo, hi int) (from, to float64, ok bool) {
+	switch {
+	case base == "*" || base == "?":
+		return float64(lo), float64(hi), true
+	case strings.Contains(base, "-"):
+		a, b, _ := strings.Cut(base, "-")
+		x, e1 := strconv.Atoi(a)
+		y, e2 := strconv.Atoi(b)
+		return float64(x), float64(y), e1 == nil && e2 == nil
+	case !stepped:
+		return 0, 0, false
+	}
+	from = float64(lo)
+	if x, err := strconv.Atoi(base); err == nil {
+		from = float64(x)
+	}
+	return from, float64(hi), true
+}
+
+// stepOf reads the step after "/"; a missing or unreadable step is 1.
+func stepOf(s string) float64 {
+	if step, err := strconv.ParseFloat(s, 64); err == nil && step > 0 {
+		return step
+	}
+	return 1
 }

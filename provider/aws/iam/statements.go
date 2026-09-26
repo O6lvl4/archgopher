@@ -101,11 +101,19 @@ func dynamicStatements(blk *hclsyntax.Block, s *eval.Scope) []Statement {
 	return out
 }
 
+// encodedPolicy reads a policy written as jsonencode({...}); it reports
+// false for any other expression, or an object it cannot read.
+func encodedPolicy(expr hcl.Expression, s *eval.Scope) ([]Statement, bool) {
+	call, ok := expr.(*hclsyntax.FunctionCallExpr)
+	if !ok || call.Name != "jsonencode" || len(call.Args) != 1 {
+		return nil, false
+	}
+	return policyObject(call.Args[0], s)
+}
+
 func policy(expr hcl.Expression, s *eval.Scope) []Statement {
-	if call, ok := expr.(*hclsyntax.FunctionCallExpr); ok && call.Name == "jsonencode" && len(call.Args) == 1 {
-		if sts, ok := policyObject(call.Args[0], s); ok {
-			return sts
-		}
+	if sts, ok := encodedPolicy(expr, s); ok {
+		return sts
 	}
 	var docs, targets []string
 	for _, r := range s.Refs(expr) {

@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"path/filepath"
+	"slices"
 	"testing"
 
 	"github.com/O6lvl4/archgopher/internal/catalogtest"
@@ -60,7 +61,7 @@ func under(t *testing.T) catalogtest.Catalog {
 		t.Fatal(err)
 	}
 	return catalogtest.Catalog{
-		Dir: filepath.Join("..", "..", "catalog", "gcp"), Units: mustUnits(), Books: books, Registry: Registry(), Regions: regions,
+		Dir: filepath.Join("..", "..", "catalog", "gcp"), Units: cat.MustUnits(), Books: books, Registry: Registry(), Regions: regions,
 		Attrs: attrs, Assume: assume, Update: *update, UpdateHint: "go test ./provider/gcp -update",
 	}
 }
@@ -109,13 +110,25 @@ func TestTerraformReadsThroughReferences(t *testing.T) {
 	for _, n := range spec.Nodes {
 		nodes[n.Type] = n
 	}
-	want := map[string]map[string]any{
+	checkAttributes(t, nodes, map[string]map[string]any{
 		"google_compute_instance_group_manager": {"machine_type": "n2-standard-4", "provisioning_model": "SPOT", "disk_type": "pd-balanced", "disk_size_gb": 20, "external_ip": true, "target_size": 3},
 		"google_compute_per_instance_config":    {"machine_type": "n2-standard-4", "provisioning_model": "SPOT", "disk_size_gb": 20},
 		"google_compute_instance":               {"machine_type": "n1-standard-2", "scratch_disks": 2.0},
 		"google_container_node_pool":            {"machine_type": "e2-standard-4", "cluster_location": "asia-northeast1", "cluster_node_locations": 2.0, "node_count": 2},
 		"google_container_cluster":              {"node_locations": 2.0, "remove_default_node_pool": true},
+	})
+	// "disk.*.x" reads x in every disk block, "" where a block leaves it unset.
+	checkLists(t, nodes, []string{"google_compute_instance_group_manager", "google_compute_per_instance_config"}, map[string]string{
+		"disk_kinds": "[  SCRATCH]", "disk_types": "[pd-balanced pd-ssd local-ssd]", "disk_sizes": "[20 200 375]",
+	})
+	if !slices.ContainsFunc(spec.Edges, func(e model.Edge) bool { return e.From == "db" && e.To == "data" }) {
+		t.Errorf("the instance should do I/O on its attached disk: %+v", spec.Edges)
 	}
+}
+
+// checkAttributes compares the attributes each node type reads with what it should.
+func checkAttributes(t *testing.T, nodes map[string]model.Node, want map[string]map[string]any) {
+	t.Helper()
 	for typ, attrs := range want {
 		n, ok := nodes[typ]
 		if !ok {
@@ -128,24 +141,16 @@ func TestTerraformReadsThroughReferences(t *testing.T) {
 			}
 		}
 	}
-	// "disk.*.x" reads x in every disk block, "" where a block leaves it unset.
-	lists := map[string]string{
-		"disk_kinds": "[  SCRATCH]", "disk_types": "[pd-balanced pd-ssd local-ssd]", "disk_sizes": "[20 200 375]",
-	}
-	for _, typ := range []string{"google_compute_instance_group_manager", "google_compute_per_instance_config"} {
-		for k, want := range lists {
-			if got := fmt.Sprint(nodes[typ].Attributes[k]); got != want {
-				t.Errorf("%s %s = %s, want %s", typ, k, got, want)
+}
+
+// checkLists compares list attributes of the node types, as fmt prints them.
+func checkLists(t *testing.T, nodes map[string]model.Node, types []string, want map[string]string) {
+	t.Helper()
+	for _, typ := range types {
+		for k, w := range want {
+			if got := fmt.Sprint(nodes[typ].Attributes[k]); got != w {
+				t.Errorf("%s %s = %s, want %s", typ, k, got, w)
 			}
 		}
-	}
-	var disk bool
-	for _, e := range spec.Edges {
-		if e.From == "db" && e.To == "data" {
-			disk = true
-		}
-	}
-	if !disk {
-		t.Errorf("the instance should do I/O on its attached disk: %+v", spec.Edges)
 	}
 }

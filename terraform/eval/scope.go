@@ -60,7 +60,7 @@ func (s *Scope) Elements(forEach hcl.Expression) (elems []Element, ok bool) {
 // IterRefs resolves references in expr where iter is a dynamic block iterator
 // over forEach, positioned at elem (use Every for all elements).
 func (s *Scope) IterRefs(expr hcl.Expression, iter string, forEach hcl.Expression, elem PathStep) []string {
-	return s.ev.iterRefs(expr, s.in, iter, forEach, elem)
+	return s.ev.iterRefs(expr, s.in, iterator{name: iter, forEach: forEach, elem: elem})
 }
 
 // Every is the element step meaning "any element": references of the whole collection.
@@ -114,10 +114,12 @@ func keyName(expr hclsyntax.Expression) string {
 }
 
 func iteratorName(blk *hclsyntax.Block) string {
-	if a, ok := blk.Body.Attributes["iterator"]; ok {
-		if t, diags := hcl.AbsTraversalForExpr(a.Expr); !diags.HasErrors() {
-			return t.RootName()
-		}
+	a, ok := blk.Body.Attributes["iterator"]
+	if !ok {
+		return blk.Labels[0]
+	}
+	if t, diags := hcl.AbsTraversalForExpr(a.Expr); !diags.HasErrors() {
+		return t.RootName()
 	}
 	return blk.Labels[0]
 }

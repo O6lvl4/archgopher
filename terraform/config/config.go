@@ -74,53 +74,85 @@ func parseModule(fsys fs.FS, dir string) (*Module, error) {
 	return m, nil
 }
 
+// blockReaders maps a top-level block type to the reader that records it.
+var blockReaders = map[string]func(*Module, *hclsyntax.Block){
+	"variable": (*Module).addVariable,
+	"locals":   (*Module).addLocals,
+	"resource": (*Module).addResource,
+	"data":     (*Module).addResource,
+	"module":   (*Module).addCall,
+	"output":   (*Module).addOutput,
+	"provider": (*Module).addProvider,
+}
+
+// addBlock records a top-level block; types Terraform has but the model does
+// not read (terraform, moved, import and the like) are skipped.
 func (m *Module) addBlock(b *hclsyntax.Block) {
-	switch b.Type {
-	case "variable":
-		if len(b.Labels) == 1 {
-			var def hcl.Expression
-			if a, ok := b.Body.Attributes["default"]; ok {
-				def = a.Expr
-			}
-			m.Variables[b.Labels[0]] = def
-		}
-	case "locals":
-		for name, a := range b.Body.Attributes {
-			m.Locals[name] = a.Expr
-		}
-	case "resource", "data":
-		if len(b.Labels) == 2 {
-			mode := "managed"
-			if b.Type == "data" {
-				mode = "data"
-			}
-			m.Resources = append(m.Resources, &ResourceBlock{
-				Mode: mode, Type: b.Labels[0], Name: b.Labels[1], Body: b.Body,
-				Count: attrExpr(b.Body, "count"), ForEach: attrExpr(b.Body, "for_each"),
-			})
-		}
-	case "module":
-		if len(b.Labels) == 1 {
-			src := ""
-			if a, ok := b.Body.Attributes["source"]; ok {
-				if v, diags := a.Expr.Value(nil); !diags.HasErrors() && v.Type().FriendlyName() == "string" {
-					src = v.AsString()
-				}
-			}
-			m.Calls = append(m.Calls, &ModuleCall{
-				Name: b.Labels[0], Source: src, Body: b.Body,
-				Count: attrExpr(b.Body, "count"), ForEach: attrExpr(b.Body, "for_each"),
-			})
-		}
-	case "output":
-		if len(b.Labels) == 1 {
-			if a, ok := b.Body.Attributes["value"]; ok {
-				m.Outputs[b.Labels[0]] = a.Expr
-			}
-		}
-	case "provider":
-		m.Providers = append(m.Providers, b)
+	if read, ok := blockReaders[b.Type]; ok {
+		read(m, b)
 	}
+}
+
+func (m *Module) addVariable(b *hclsyntax.Block) {
+	if len(b.Labels) == 1 {
+		m.Variables[b.Labels[0]] = attrExpr(b.Body, "default")
+	}
+}
+
+func (m *Module) addLocals(b *hclsyntax.Block) {
+	for name, a := range b.Body.Attributes {
+		m.Locals[name] = a.Expr
+	}
+}
+
+func (m *Module) addResource(b *hclsyntax.Block) {
+	if len(b.Labels) != 2 {
+		return
+	}
+	mode := "managed"
+	if b.Type == "data" {
+		mode = "data"
+	}
+	m.Resources = append(m.Resources, &ResourceBlock{
+		Mode: mode, Type: b.Labels[0], Name: b.Labels[1], Body: b.Body,
+		Count: attrExpr(b.Body, "count"), ForEach: attrExpr(b.Body, "for_each"),
+	})
+}
+
+func (m *Module) addCall(b *hclsyntax.Block) {
+	if len(b.Labels) != 1 {
+		return
+	}
+	m.Calls = append(m.Calls, &ModuleCall{
+		Name: b.Labels[0], Source: literalString(attrExpr(b.Body, "source")), Body: b.Body,
+		Count: attrExpr(b.Body, "count"), ForEach: attrExpr(b.Body, "for_each"),
+	})
+}
+
+func (m *Module) addOutput(b *hclsyntax.Block) {
+	if len(b.Labels) != 1 {
+		return
+	}
+	if v := attrExpr(b.Body, "value"); v != nil {
+		m.Outputs[b.Labels[0]] = v
+	}
+}
+
+func (m *Module) addProvider(b *hclsyntax.Block) {
+	m.Providers = append(m.Providers, b)
+}
+
+// literalString returns the value of an expression that is a string without
+// references, or "" for anything else.
+func literalString(expr hcl.Expression) string {
+	if expr == nil {
+		return ""
+	}
+	v, diags := expr.Value(nil)
+	if diags.HasErrors() || v.Type().FriendlyName() != "string" {
+		return ""
+	}
+	return v.AsString()
 }
 
 func attrExpr(body *hclsyntax.Body, name string) hcl.Expression {

@@ -2,10 +2,8 @@ package report
 
 import (
 	"fmt"
-	"io"
 	"math"
 	"sort"
-	"strconv"
 	"strings"
 
 	"github.com/O6lvl4/archgopher/engine"
@@ -73,24 +71,13 @@ func Compare(before, after engine.Result) Diff {
 	d := Diff{Name: after.Name, BeforeUSD: before.MonthlyUSD, AfterUSD: after.MonthlyUSD}
 	b, a := byID(before), byID(after)
 	for _, id := range union(keys(b), keys(a)) {
-		nb, inB := b[id]
-		na, inA := a[id]
-		c := NodeChange{ID: id}
-		switch {
-		case !inB:
-			c.Change, c.Label, c.AfterUSD, c.AfterHeadroom = "added", label(na), na.MonthlyUSD, na.MinHeadroom()
-		case !inA:
-			c.Change, c.Label, c.BeforeUSD, c.BeforeHeadroom = "removed", label(nb), nb.MonthlyUSD, nb.MinHeadroom()
-		default:
-			c.Change, c.Label = "changed", label(na)
-			c.BeforeUSD, c.AfterUSD = nb.MonthlyUSD, na.MonthlyUSD
-			c.BeforeHeadroom, c.AfterHeadroom = nb.MinHeadroom(), na.MinHeadroom()
-		}
-		c.Lines = lineChanges(nb.Costs, na.Costs)
-		if c.Change != "changed" || len(c.Lines) > 0 || moved(c.BeforeHeadroom, c.AfterHeadroom, 0.001) {
+		p := pair{id: id}
+		p.before, p.inBefore = b[id]
+		p.after, p.inAfter = a[id]
+		if c := p.change(); c.Change != "changed" || len(c.Lines) > 0 || moved(c.BeforeHeadroom, c.AfterHeadroom, 0.001) {
 			d.Nodes = append(d.Nodes, c)
 		}
-		d.Alerts = append(d.Alerts, alerts(id, nb, inB, na, inA)...)
+		d.Alerts = append(d.Alerts, p.alerts()...)
 	}
 	sort.SliceStable(d.Nodes, func(i, j int) bool {
 		return math.Abs(d.Nodes[i].AfterUSD-d.Nodes[i].BeforeUSD) > math.Abs(d.Nodes[j].AfterUSD-d.Nodes[j].BeforeUSD)
@@ -100,6 +87,64 @@ func Compare(before, after engine.Result) Diff {
 		d.Alerts = append(d.Alerts, fmt.Sprintf("%d more cost lines have unknown prices", after.UnpricedCosts-before.UnpricedCosts))
 	}
 	return d
+}
+
+// pair is one node's readings before and after, with whether it was there.
+type pair struct {
+	id                string
+	before, after     engine.NodeResult
+	inBefore, inAfter bool
+}
+
+func (p pair) change() NodeChange {
+	c := NodeChange{ID: p.id}
+	nb, na := p.before, p.after
+	switch {
+	case !p.inBefore:
+		c.Change, c.Label, c.AfterUSD, c.AfterHeadroom = "added", label(na), na.MonthlyUSD, na.MinHeadroom()
+	case !p.inAfter:
+		c.Change, c.Label, c.BeforeUSD, c.BeforeHeadroom = "removed", label(nb), nb.MonthlyUSD, nb.MinHeadroom()
+	default:
+		c.Change, c.Label = "changed", label(na)
+		c.BeforeUSD, c.AfterUSD = nb.MonthlyUSD, na.MonthlyUSD
+		c.BeforeHeadroom, c.AfterHeadroom = nb.MinHeadroom(), na.MinHeadroom()
+	}
+	c.Lines = lineChanges(nb.Costs, na.Costs)
+	return c
+}
+
+// alerts call out a node that stopped reading, or that crossed into tight
+// headroom or over its capacity.
+func (p pair) alerts() []string {
+	if !p.inAfter {
+		return nil
+	}
+	var out []string
+	if p.after.Error != "" && (!p.inBefore || p.before.Error == "") {
+		out = append(out, fmt.Sprintf("`%s` no longer reads: %s", p.id, p.after.Error))
+	}
+	var hb *float64
+	if p.inBefore {
+		hb = p.before.MinHeadroom()
+	}
+	if a, ok := headroomAlert(p.id, hb, p.after.MinHeadroom()); ok {
+		out = append(out, a)
+	}
+	return out
+}
+
+// headroomAlert is set when headroom h falls below zero or below Tight and
+// the headroom before, hb, was not already there.
+func headroomAlert(id string, hb, h *float64) (string, bool) {
+	switch {
+	case h == nil:
+		return "", false
+	case *h < 0 && (hb == nil || *hb >= 0):
+		return fmt.Sprintf("`%s` is over capacity at peak (headroom %s)", id, pct(h)), true
+	case *h >= 0 && *h < Tight && (hb == nil || *hb >= Tight):
+		return fmt.Sprintf("`%s` has less than %s headroom at peak (%s)", id, pct(ptr(Tight)), pct(h)), true
+	}
+	return "", false
 }
 
 func byID(r engine.Result) map[string]engine.NodeResult {
@@ -131,32 +176,26 @@ func union(a, b []string) []string {
 	return out
 }
 
+type lineKey struct{ name, unit string }
+
 // lineChanges pairs cost lines by name and unit and keeps the ones that
 // moved by a cent or more, or whose price became known or unknown.
 func lineChanges(before, after []meter.Cost) []LineChange {
-	type key struct{ name, unit string }
-	b, a := map[key]*float64{}, map[key]*float64{}
-	var order []key
-	add := func(m map[key]*float64, lines []meter.Cost) {
+	var order []lineKey
+	seen := map[lineKey]bool{}
+	sum := func(lines []meter.Cost) map[lineKey]*float64 {
+		m := map[lineKey]*float64{}
 		for _, c := range lines {
-			k := key{c.Name, c.Unit}
-			if _, seen := b[k]; !seen {
-				if _, seen := a[k]; !seen {
-					order = append(order, k)
-				}
+			k := lineKey{c.Name, c.Unit}
+			if !seen[k] {
+				seen[k] = true
+				order = append(order, k)
 			}
-			v := c.MonthlyUSD
-			if v != nil {
-				if old, ok := m[k]; ok && old != nil {
-					sum := *old + *v
-					v = &sum
-				}
-			}
-			m[k] = v
+			m[k] = plus(m[k], c.MonthlyUSD)
 		}
+		return m
 	}
-	add(b, before)
-	add(a, after)
+	b, a := sum(before), sum(after)
 	var out []LineChange
 	for _, k := range order {
 		vb, inB := b[k]
@@ -169,6 +208,16 @@ func lineChanges(before, after []meter.Cost) []LineChange {
 	return out
 }
 
+// plus adds a line's amount to the sum so far; a line of unknown price makes
+// the sum unknown until a later known line starts it again.
+func plus(sum, v *float64) *float64 {
+	if v == nil || sum == nil {
+		return v
+	}
+	total := *sum + *v
+	return &total
+}
+
 // moved reports two optional numbers that differ by at least eps, or of which
 // only one is known.
 func moved(b, a *float64, eps float64) bool {
@@ -178,38 +227,10 @@ func moved(b, a *float64, eps float64) bool {
 	return b != nil && math.Abs(*a-*b) >= eps
 }
 
-func alerts(id string, nb engine.NodeResult, inB bool, na engine.NodeResult, inA bool) []string {
-	if !inA {
-		return nil
-	}
-	var out []string
-	if na.Error != "" && (!inB || nb.Error == "") {
-		out = append(out, fmt.Sprintf("`%s` no longer reads: %s", id, na.Error))
-	}
-	h := na.MinHeadroom()
-	var hb *float64
-	if inB {
-		hb = nb.MinHeadroom()
-	}
-	switch {
-	case h != nil && *h < 0 && (hb == nil || *hb >= 0):
-		out = append(out, fmt.Sprintf("`%s` is over capacity at peak (headroom %s)", id, pct(h)))
-	case h != nil && *h >= 0 && *h < Tight && (hb == nil || *hb >= Tight):
-		out = append(out, fmt.Sprintf("`%s` has less than %s headroom at peak (%s)", id, pct(ptr(Tight)), pct(h)))
-	}
-	return out
-}
-
 func ptr(v float64) *float64 { return &v }
 
 func pathChanges(before, after []engine.PathResult) []PathChange {
-	b, a := map[string]engine.PathResult{}, map[string]engine.PathResult{}
-	for _, p := range before {
-		b[strings.Join(p.Nodes, " → ")] = p
-	}
-	for _, p := range after {
-		a[strings.Join(p.Nodes, " → ")] = p
-	}
+	b, a := pathsByKey(before), pathsByKey(after)
 	var out []PathChange
 	for _, k := range union(keys(b), keys(a)) {
 		pb, inB := b[k]
@@ -226,90 +247,10 @@ func pathChanges(before, after []engine.PathResult) []PathChange {
 	return out
 }
 
-// DiffMarkdown writes a diff as a pull request comment.
-func DiffMarkdown(w io.Writer, d Diff) error {
-	b := &strings.Builder{}
-	b.WriteString(Marker + "\n")
-	fmt.Fprintf(b, "### archgopher · %s\n\n", orDash(d.Name))
-	fmt.Fprintf(b, "Monthly: **%s → %s** (%s)\n\n", usd(d.BeforeUSD), usd(d.AfterUSD), delta(d.BeforeUSD, d.AfterUSD))
-	if d.Empty() {
-		b.WriteString("No change in cost, headroom or paths.\n")
-		_, err := io.WriteString(w, b.String())
-		return err
+func pathsByKey(paths []engine.PathResult) map[string]engine.PathResult {
+	out := map[string]engine.PathResult{}
+	for _, p := range paths {
+		out[strings.Join(p.Nodes, " → ")] = p
 	}
-	for _, a := range d.Alerts {
-		fmt.Fprintf(b, "> [!WARNING]\n> %s\n\n", a)
-	}
-	if len(d.Nodes) > 0 {
-		b.WriteString("| Node | | Monthly | Change | Tightest headroom |\n| --- | --- | ---: | ---: | ---: |\n")
-		for _, n := range d.Nodes {
-			fmt.Fprintf(b, "| `%s` %s | %s | %s | %s | %s |\n", n.ID, n.Label, n.Change,
-				span(n.Change, usd(n.BeforeUSD), usd(n.AfterUSD)), delta(n.BeforeUSD, n.AfterUSD),
-				span(n.Change, pct(n.BeforeHeadroom), pct(n.AfterHeadroom)))
-		}
-		b.WriteString("\n<details><summary>Cost lines</summary>\n\n| Node | Component | Before | After |\n| --- | --- | ---: | ---: |\n")
-		for _, n := range d.Nodes {
-			for _, l := range n.Lines {
-				fmt.Fprintf(b, "| `%s` | %s | %s | %s |\n", n.ID, l.Name, lineUSD(l.Before), lineUSD(l.After))
-			}
-		}
-		b.WriteString("\n</details>\n")
-	}
-	if len(d.Paths) > 0 {
-		b.WriteString("\n<details><summary>Paths</summary>\n\n| Path | | p99 | Availability |\n| --- | --- | ---: | ---: |\n")
-		for _, p := range d.Paths {
-			fmt.Fprintf(b, "| %s | %s | %s | %s |\n", p.Path, p.Change, pathSpan(p, func(r engine.PathResult) string { return num(r.P99Ms) + " ms" }),
-				pathSpan(p, func(r engine.PathResult) string { return availability(r.Availability) }))
-		}
-		b.WriteString("\n</details>\n")
-	}
-	_, err := io.WriteString(w, b.String())
-	return err
-}
-
-func span(change, before, after string) string {
-	switch change {
-	case "added":
-		return after
-	case "removed":
-		return before
-	}
-	if before == after {
-		return after
-	}
-	return before + " → " + after
-}
-
-func pathSpan(p PathChange, f func(engine.PathResult) string) string {
-	switch {
-	case p.Before == nil:
-		return f(*p.After)
-	case p.After == nil:
-		return f(*p.Before)
-	}
-	return span("changed", f(*p.Before), f(*p.After))
-}
-
-func lineUSD(v *float64) string {
-	if v == nil {
-		return "-"
-	}
-	return usd(*v)
-}
-
-// delta writes a signed change with its percentage when there is a base.
-func delta(before, after float64) string {
-	d := after - before
-	if math.Abs(d) < 0.005 {
-		return "±$0.00"
-	}
-	sign := "+"
-	if d < 0 {
-		sign = "−"
-	}
-	s := sign + "$" + strconv.FormatFloat(math.Abs(d), 'f', 2, 64)
-	if before >= 0.005 {
-		s += fmt.Sprintf(", %s%s%%", sign, strconv.FormatFloat(math.Abs(d)/before*100, 'f', 1, 64))
-	}
-	return s
+	return out
 }

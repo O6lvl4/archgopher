@@ -55,10 +55,7 @@ func TestPoolsBillTheAccountOnce(t *testing.T) {
 	}
 	// 15M requests: 1M included, 9M × $10/M, 5M × $5/M = $115, shared 6:9.
 	// The fee is 730 h × $2 once, shared 1:1. Alone, a would pay $50 + $1460.
-	byID := map[string]NodeResult{}
-	for _, n := range res.Nodes {
-		byID[n.ID] = n
-	}
+	byID := resultsByID(res.Nodes)
 	if got := *byID["a"].Costs[0].MonthlyUSD; math.Abs(got-46) > 1e-9 {
 		t.Errorf("a's requests = %v, want 46", got)
 	}

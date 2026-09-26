@@ -27,7 +27,7 @@ func under(t *testing.T) catalogtest.Catalog {
 		t.Fatal(err)
 	}
 	return catalogtest.Catalog{
-		Dir: filepath.Join("..", "..", "catalog", "cloudflare"), Units: mustUnits(), Books: books, Registry: Registry(), Regions: sampleRegions,
+		Dir: filepath.Join("..", "..", "catalog", "cloudflare"), Units: cat.MustUnits(), Books: books, Registry: Registry(), Regions: sampleRegions,
 		Attrs: attrs, Assume: assume, Update: *update, UpdateHint: "go test ./provider/cloudflare -update",
 	}
 }

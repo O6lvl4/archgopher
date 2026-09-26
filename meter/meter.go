@@ -186,7 +186,7 @@ func (r *Recorder) Limit(name string, demand float64, unit, quotaID string) {
 		c := e.PerUnit(*v)
 		capacity = &c
 	}
-	r.limits = append(r.limits, newLimit(name, unit, demand, quotaID, capacity, "quota"))
+	r.limits = append(r.limits, withHeadroom(Limit{Name: name, Unit: unit, Demand: demand, QuotaID: quotaID, Capacity: capacity, From: "quota"}))
 }
 
 // LimitScaled is Limit with the quota multiplied by factor (per-prefix limits × prefixes).
@@ -200,7 +200,7 @@ func (r *Recorder) LimitScaled(name string, demand float64, unit, quotaID string
 		c := e.PerUnit(*v) * factor
 		capacity = &c
 	}
-	r.limits = append(r.limits, newLimit(name, unit, demand, quotaID, capacity, "quota"))
+	r.limits = append(r.limits, withHeadroom(Limit{Name: name, Unit: unit, Demand: demand, QuotaID: quotaID, Capacity: capacity, From: "quota"}))
 }
 
 // Ref reads a raw reference value (a multiplier, a size cap). Nil means unknown.
@@ -220,7 +220,7 @@ func (r *Recorder) LimitOverride(name string, demand float64, unit, quotaID stri
 		r.Limit(name, demand, unit, quotaID)
 		return
 	}
-	r.limits = append(r.limits, newLimit(name, unit, demand, "", override, "attribute"))
+	r.limits = append(r.limits, withHeadroom(Limit{Name: name, Unit: unit, Demand: demand, Capacity: override, From: "attribute"}))
 }
 
 // Fail records a problem that makes the node's readings unreliable.
@@ -250,10 +250,11 @@ func (r *Recorder) Limits() []Limit { return r.limits }
 // Refs returns every reference value the recorder read.
 func (r *Recorder) Refs() []RefUse { return r.refs }
 
-func newLimit(name, unit string, demand float64, quotaID string, capacity *float64, from string) Limit {
-	l := Limit{Name: name, Unit: unit, Demand: demand, QuotaID: quotaID, Capacity: capacity, From: from}
-	if capacity != nil && *capacity > 0 {
-		h := 1 - demand / *capacity
+// withHeadroom sets the share of a limit's capacity left at its demand; it
+// stays unknown without a capacity above zero.
+func withHeadroom(l Limit) Limit {
+	if l.Capacity != nil && *l.Capacity > 0 {
+		h := 1 - l.Demand / *l.Capacity
 		l.Headroom = &h
 	}
 	return l

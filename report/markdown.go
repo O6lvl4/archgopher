@@ -5,11 +5,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"strconv"
 	"strings"
 
 	"github.com/O6lvl4/archgopher/engine"
-	"github.com/O6lvl4/archgopher/meter"
 )
 
 // JSON writes the result as indented JSON.
@@ -22,90 +20,109 @@ func JSON(w io.Writer, r engine.Result) error {
 // Markdown writes the result as Markdown tables.
 func Markdown(w io.Writer, r engine.Result) error {
 	b := &strings.Builder{}
+	for _, section := range []func(*strings.Builder, engine.Result){
+		writeTotal, writeNodes, writeLoads, writeCosts, writePools, writeLimits, writePaths, writeUnverified, writeProblems,
+	} {
+		section(b, r)
+	}
+	_, err := io.WriteString(w, b.String())
+	return err
+}
+
+func writeTotal(b *strings.Builder, r engine.Result) {
 	fmt.Fprintf(b, "# %s (%s)\n\n", orDash(r.Name), r.Region)
 	fmt.Fprintf(b, "Monthly cost: **%s**", usd(r.MonthlyUSD))
 	if r.UnpricedCosts > 0 {
 		fmt.Fprintf(b, " (plus %d cost lines with unknown prices)", r.UnpricedCosts)
 	}
 	b.WriteString("\n\n")
+}
 
+func writeNodes(b *strings.Builder, r engine.Result) {
 	b.WriteString("## Nodes\n\n")
 	if len(members(r))-len(r.Groups) < len(r.Nodes) {
 		b.WriteString("Pattern rows sum the nodes they expand into.\n\n")
 	}
 	b.WriteString("| Node | Type | Monthly | Tightest headroom | p99 | SLA | Status |\n| --- | --- | ---: | ---: | ---: | ---: | --- |\n")
-	for _, n := range append(append([]engine.NodeResult(nil), r.Nodes...), r.Groups...) {
+	for _, n := range nodesAndGroups(r) {
 		fmt.Fprintf(b, "| %s | %s | %s | %s | %s | %s | %s |\n",
 			n.ID, label(n), usd(n.MonthlyUSD), pct(n.MinHeadroom()), latency(n.Latency), sla(n.SLA), status(n))
 	}
+}
 
+// writeLoads lists the nodes that bring load in, and how it was worked out.
+func writeLoads(b *strings.Builder, r engine.Result) {
 	var arrivals []engine.NodeResult
 	for _, n := range r.Nodes {
 		if n.Load != nil {
 			arrivals = append(arrivals, n)
 		}
 	}
-	if len(arrivals) > 0 {
-		b.WriteString("\n## Load in\n\n| Node | Monthly | Peak / s | How |\n| --- | ---: | ---: | --- |\n")
-		for _, n := range arrivals {
-			how := n.LoadBasis
-			if how == "" {
-				how = "given"
-			}
-			fmt.Fprintf(b, "| %s | %s | %s | %s |\n", n.ID, num(n.Load.Monthly), num(n.Load.PeakPerSecond), how)
-		}
+	if len(arrivals) == 0 {
+		return
 	}
+	b.WriteString("\n## Load in\n\n| Node | Monthly | Peak / s | How |\n| --- | ---: | ---: | --- |\n")
+	for _, n := range arrivals {
+		fmt.Fprintf(b, "| %s | %s | %s | %s |\n", n.ID, num(n.Load.Monthly), num(n.Load.PeakPerSecond), orGiven(n.LoadBasis))
+	}
+}
 
+func writeCosts(b *strings.Builder, r engine.Result) {
 	b.WriteString("\n## Cost lines\n\n| Node | Component | Quantity | Unit | Unit price | Monthly |\n| --- | --- | ---: | --- | ---: | ---: |\n")
 	for _, n := range members(r) {
 		for _, c := range n.Costs {
 			fmt.Fprintf(b, "| %s | %s | %s | %s | %s | %s |\n", n.ID, c.Name, num(c.Quantity), c.Unit, price(c.UnitPrice), usdPtr(c.MonthlyUSD))
 		}
 	}
+}
 
-	if len(r.Pools) > 0 {
-		b.WriteString("\n## Shared across the account\n\nThe provider bills these prices on what the whole account uses: volume tiers and included units count once, and each line above pays the average price of its pool.\n\n| Price | Quantity | Unit | Bands | Monthly | Lines |\n| --- | ---: | --- | --- | ---: | --- |\n")
-		for _, p := range r.Pools {
-			fmt.Fprintf(b, "| %s | %s | %s | %s | %s | %s |\n", p.PriceID, num(p.Quantity), p.Unit, bands(p.Bands), usdPtr(p.MonthlyUSD), poolLines(p))
-		}
+func writePools(b *strings.Builder, r engine.Result) {
+	if len(r.Pools) == 0 {
+		return
 	}
+	b.WriteString("\n## Shared across the account\n\nThe provider bills these prices on what the whole account uses: volume tiers and included units count once, and each line above pays the average price of its pool.\n\n| Price | Quantity | Unit | Bands | Monthly | Lines |\n| --- | ---: | --- | --- | ---: | --- |\n")
+	for _, p := range r.Pools {
+		fmt.Fprintf(b, "| %s | %s | %s | %s | %s | %s |\n", p.PriceID, num(p.Quantity), p.Unit, bands(p.Bands), usdPtr(p.MonthlyUSD), poolLines(p))
+	}
+}
 
+func writeLimits(b *strings.Builder, r engine.Result) {
 	b.WriteString("\n## Limits\n\n| Node | Limit | Peak demand | Capacity | Unit | Headroom |\n| --- | --- | ---: | ---: | --- | ---: |\n")
 	for _, n := range members(r) {
 		for _, l := range n.Limits {
 			fmt.Fprintf(b, "| %s | %s | %s | %s | %s | %s |\n", n.ID, l.Name, num(l.Demand), numPtr(l.Capacity), l.Unit, pct(l.Headroom))
 		}
 	}
+}
 
-	if len(r.Paths) > 0 {
-		b.WriteString("\n## Paths\n\np99 adds up the p99 of every hop, so it is an upper bound.\n\n| Path | p50 | p99 | Availability | Missing |\n| --- | ---: | ---: | ---: | --- |\n")
-		for _, p := range r.Paths {
-			fmt.Fprintf(b, "| %s | %s ms | %s ms | %s | %s |\n", strings.Join(p.Nodes, " → "), num(p.P50Ms), num(p.P99Ms), availability(p.Availability), missing(p))
-		}
+func writePaths(b *strings.Builder, r engine.Result) {
+	if len(r.Paths) == 0 {
+		return
 	}
-
-	if len(r.Unverified) > 0 {
-		b.WriteString("\n## Unverified reference values\n\nNobody has checked these against the source yet, or the value is unknown.\n\n| Book | ID | Region | State | Source |\n| --- | --- | --- | --- | --- |\n")
-		for _, u := range r.Unverified {
-			state := "unverified"
-			if !u.Known {
-				state = "unknown"
-			}
-			fmt.Fprintf(b, "| %s | %s | %s | %s | %s |\n", u.Book, u.ID, u.Region, state, u.Source)
-		}
+	b.WriteString("\n## Paths\n\np99 adds up the p99 of every hop, so it is an upper bound.\n\n| Path | p50 | p99 | Availability | Missing |\n| --- | ---: | ---: | ---: | --- |\n")
+	for _, p := range r.Paths {
+		fmt.Fprintf(b, "| %s | %s ms | %s ms | %s | %s |\n", strings.Join(p.Nodes, " → "), num(p.P50Ms), num(p.P99Ms), availability(p.Availability), missing(p))
 	}
+}
 
+func writeUnverified(b *strings.Builder, r engine.Result) {
+	if len(r.Unverified) == 0 {
+		return
+	}
+	b.WriteString("\n## Unverified reference values\n\nNobody has checked these against the source yet, or the value is unknown.\n\n| Book | ID | Region | State | Source |\n| --- | --- | --- | --- | --- |\n")
+	for _, u := range r.Unverified {
+		state := "unverified"
+		if !u.Known {
+			state = "unknown"
+		}
+		fmt.Fprintf(b, "| %s | %s | %s | %s | %s |\n", u.Book, u.ID, u.Region, state, u.Source)
+	}
+}
+
+func writeProblems(b *strings.Builder, r engine.Result) {
 	var problems []string
-	for _, n := range append(append([]engine.NodeResult(nil), r.Nodes...), r.Groups...) {
-		if n.Error != "" {
-			problems = append(problems, fmt.Sprintf("- **%s**: %s", n.ID, n.Error))
-		}
-		if n.Skipped != "" {
-			problems = append(problems, fmt.Sprintf("- **%s**: skipped, %s", n.ID, n.Skipped))
-		}
-		if n.Stale {
-			problems = append(problems, fmt.Sprintf("- **%s**: no longer in Terraform (%s)", n.ID, n.Address))
-		}
+	for _, n := range nodesAndGroups(r) {
+		problems = append(problems, nodeProblems(n)...)
 	}
 	for _, w := range r.Warnings {
 		problems = append(problems, "- "+w)
@@ -113,28 +130,26 @@ func Markdown(w io.Writer, r engine.Result) error {
 	if len(problems) > 0 {
 		b.WriteString("\n## Problems\n\n" + strings.Join(problems, "\n") + "\n")
 	}
-	_, err := io.WriteString(w, b.String())
-	return err
 }
 
-func bands(list []meter.Band) string {
-	parts := make([]string, 0, len(list))
-	for _, x := range list {
-		if x.Included {
-			parts = append(parts, num(x.Quantity)+" included")
-			continue
-		}
-		parts = append(parts, num(x.Quantity)+" at "+price(x.UnitPrice))
+// nodeProblems are the list items for a node that failed, was skipped or is stale.
+func nodeProblems(n engine.NodeResult) []string {
+	var out []string
+	if n.Error != "" {
+		out = append(out, fmt.Sprintf("- **%s**: %s", n.ID, n.Error))
 	}
-	return orDash(strings.Join(parts, ", "))
+	if n.Skipped != "" {
+		out = append(out, fmt.Sprintf("- **%s**: skipped, %s", n.ID, n.Skipped))
+	}
+	if n.Stale {
+		out = append(out, fmt.Sprintf("- **%s**: no longer in Terraform (%s)", n.ID, n.Address))
+	}
+	return out
 }
 
-func poolLines(p meter.Pool) string {
-	parts := make([]string, 0, len(p.Members))
-	for _, m := range p.Members {
-		parts = append(parts, m.Node+" ("+m.Line+")")
-	}
-	return strings.Join(parts, ", ")
+// nodesAndGroups is every row of the result: the nodes, then the groups.
+func nodesAndGroups(r engine.Result) []engine.NodeResult {
+	return append(append([]engine.NodeResult(nil), r.Nodes...), r.Groups...)
 }
 
 // members skips rolled-up pattern results, whose lines their members already
@@ -147,127 +162,4 @@ func members(r engine.Result) []engine.NodeResult {
 		}
 	}
 	return append(out, r.Groups...)
-}
-
-func status(n engine.NodeResult) string {
-	switch {
-	case n.Error != "":
-		return "error"
-	case n.Skipped != "":
-		return "skipped"
-	case n.Stale:
-		return "stale"
-	}
-	if h := n.MinHeadroom(); h != nil && *h < 0 {
-		return "over limit"
-	}
-	return "ok"
-}
-
-func missing(p engine.PathResult) string {
-	var parts []string
-	if len(p.MissingLatency) > 0 {
-		parts = append(parts, "latency: "+strings.Join(p.MissingLatency, ", "))
-	}
-	if len(p.MissingSLA) > 0 {
-		parts = append(parts, "SLA: "+strings.Join(p.MissingSLA, ", "))
-	}
-	return orDash(strings.Join(parts, "; "))
-}
-
-func orDash(s string) string {
-	if s == "" {
-		return "-"
-	}
-	return s
-}
-
-// usd writes dollars to the cent; an amount above zero that rounds to $0.00
-// is written <$0.01, so it never reads as free.
-func usd(v float64) string {
-	if v > 0 && v < 0.005 {
-		return "<$0.01"
-	}
-	return "$" + strconv.FormatFloat(v, 'f', 2, 64)
-}
-
-func usdPtr(v *float64) string {
-	if v == nil {
-		return "unknown"
-	}
-	return usd(*v)
-}
-
-func price(v *float64) string {
-	if v == nil {
-		return "unknown"
-	}
-	return "$" + strconv.FormatFloat(*v, 'g', 4, 64)
-}
-
-func num(v float64) string {
-	switch {
-	case v == 0:
-		return "0"
-	case v >= 1000:
-		return group(strconv.FormatFloat(v, 'f', 0, 64))
-	case v >= 1:
-		return strconv.FormatFloat(v, 'f', 2, 64)
-	}
-	return strconv.FormatFloat(v, 'g', 3, 64)
-}
-
-func group(s string) string {
-	n := len(s)
-	if n <= 3 {
-		return s
-	}
-	var b strings.Builder
-	for i, c := range s {
-		if i > 0 && (n-i)%3 == 0 {
-			b.WriteByte(',')
-		}
-		b.WriteRune(c)
-	}
-	return b.String()
-}
-
-func numPtr(v *float64) string {
-	if v == nil {
-		return "unknown"
-	}
-	return num(*v)
-}
-
-func pct(v *float64) string {
-	if v == nil {
-		return "-"
-	}
-	return strconv.FormatFloat(*v*100, 'f', 1, 64) + "%"
-}
-
-func latency(l *engine.Latency) string {
-	if l == nil {
-		return "-"
-	}
-	return num(l.P99Ms) + " ms"
-}
-
-func sla(a *engine.Availability) string {
-	if a == nil {
-		return "-"
-	}
-	if a.Value == nil {
-		return "unknown"
-	}
-	return availability(*a.Value)
-}
-
-func availability(v float64) string { return strconv.FormatFloat(v*100, 'f', 3, 64) + "%" }
-
-func label(n engine.NodeResult) string {
-	if len(n.Members) > 0 {
-		return n.Label + " (pattern)"
-	}
-	return n.Label
 }

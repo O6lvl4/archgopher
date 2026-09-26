@@ -48,25 +48,32 @@ func Resolve(t model.Traffic) (Reading, error) {
 	if err != nil {
 		return Reading{}, err
 	}
-	var monthly, factor float64
-	var basis string
+	var v volume
 	switch {
 	case t.Rate != nil:
-		monthly, factor, basis, err = rated(*t.Rate, w)
+		v, err = rated(*t.Rate, w)
 	case t.Users != nil:
-		monthly, factor, basis, err = used(*t.Users, w)
+		v, err = used(*t.Users, w)
 	default:
-		monthly, factor, basis, err = concurrent(*t.Concurrent, w)
+		v, err = concurrent(*t.Concurrent, w)
 	}
 	if err != nil {
 		return Reading{}, err
 	}
-	return peaked(t, monthly, w, factor, basis)
+	return peaked(t, w, v)
+}
+
+// volume is the monthly volume of traffic that comes within a window, the
+// factor its peak has over the average, and the arithmetic.
+type volume struct {
+	monthly, factor float64
+	basis           string
 }
 
 // peaked adds the peak: the average over the active hours times a factor,
 // unless the peak is given.
-func peaked(t model.Traffic, monthly float64, w window, factor float64, basis string) (Reading, error) {
+func peaked(t model.Traffic, w window, v volume) (Reading, error) {
+	monthly, factor, basis := v.monthly, v.factor, v.basis
 	if t.PeakFactor != nil {
 		if *t.PeakFactor < 1 {
 			return Reading{}, fmt.Errorf("peakFactor must be at least 1")
@@ -90,44 +97,44 @@ var subDay = map[string]float64{"second": 1, "minute": 60, "hour": 3600}
 
 // rated: per second, minute or hour is the rate while active; per day, week
 // or month is a total spread over the active hours, which peaks.
-func rated(r model.Rate, w window) (monthly, factor float64, basis string, err error) {
+func rated(r model.Rate, w window) (volume, error) {
 	if r.Count < 0 {
-		return 0, 0, "", fmt.Errorf("rate count must not be negative")
+		return volume{}, fmt.Errorf("rate count must not be negative")
 	}
 	if s, ok := subDay[r.Per]; ok {
-		monthly = r.Count / s * w.seconds()
-		return monthly, 1, fmt.Sprintf("%s a %s while active × %s = %s a month", num(r.Count), r.Per, w.describe(), num(monthly)), nil
+		monthly := r.Count / s * w.seconds()
+		return volume{monthly, 1, fmt.Sprintf("%s a %s while active × %s = %s a month", num(r.Count), r.Per, w.describe(), num(monthly))}, nil
 	}
 	periods, label, err := periodsPerMonth(r.Per, w)
 	if err != nil {
-		return 0, 0, "", err
+		return volume{}, err
 	}
-	monthly = r.Count * periods
-	return monthly, 2, fmt.Sprintf("%s a %s × %s %s = %s a month", num(r.Count), r.Per, num(periods), label, num(monthly)), nil
+	monthly := r.Count * periods
+	return volume{monthly, 2, fmt.Sprintf("%s a %s × %s %s = %s a month", num(r.Count), r.Per, num(periods), label, num(monthly))}, nil
 }
 
-func used(u model.Users, w window) (monthly, factor float64, basis string, err error) {
+func used(u model.Users, w window) (volume, error) {
 	if u.Count < 0 || u.Actions < 0 {
-		return 0, 0, "", fmt.Errorf("users and actions must not be negative")
+		return volume{}, fmt.Errorf("users and actions must not be negative")
 	}
 	periods, label, err := periodsPerMonth(u.Per, w)
 	if err != nil {
-		return 0, 0, "", err
+		return volume{}, err
 	}
-	monthly = u.Count * u.Actions * periods
-	return monthly, 2, fmt.Sprintf("%s users × %s a %s × %s %s = %s a month", num(u.Count), num(u.Actions), u.Per, num(periods), label, num(monthly)), nil
+	monthly := u.Count * u.Actions * periods
+	return volume{monthly, 2, fmt.Sprintf("%s users × %s a %s × %s %s = %s a month", num(u.Count), num(u.Actions), u.Per, num(periods), label, num(monthly))}, nil
 }
 
 // concurrent: a closed model. The rate is users over the time between one
 // person's actions, and never peaks above it.
-func concurrent(c model.Concurrent, w window) (monthly, factor float64, basis string, err error) {
+func concurrent(c model.Concurrent, w window) (volume, error) {
 	if c.Users < 0 || c.EverySeconds <= 0 {
-		return 0, 0, "", fmt.Errorf("concurrent needs users and everySeconds above 0")
+		return volume{}, fmt.Errorf("concurrent needs users and everySeconds above 0")
 	}
 	rate := c.Users / c.EverySeconds
-	monthly = rate * w.seconds()
-	return monthly, 1, fmt.Sprintf("%s users at a time, one action each every %s s = %s/s × %s = %s a month",
-		num(c.Users), num(c.EverySeconds), num(rate), w.describe(), num(monthly)), nil
+	monthly := rate * w.seconds()
+	return volume{monthly, 1, fmt.Sprintf("%s users at a time, one action each every %s s = %s/s × %s = %s a month",
+		num(c.Users), num(c.EverySeconds), num(rate), w.describe(), num(monthly))}, nil
 }
 
 func scheduled(t model.Traffic) (Reading, error) {
@@ -220,15 +227,9 @@ func (w window) describe() string {
 func hoursOf(s string) (float64, error) {
 	total := 0.0
 	for _, part := range strings.Split(s, ",") {
-		a, b, ok := strings.Cut(strings.TrimSpace(part), "-")
-		from, e1 := strconv.ParseFloat(strings.TrimSpace(a), 64)
-		to, e2 := strconv.ParseFloat(strings.TrimSpace(b), 64)
-		if !ok || e1 != nil || e2 != nil || from < 0 || from > 24 || to < 0 || to > 24 {
+		span, ok := hourSpan(part)
+		if !ok {
 			return 0, fmt.Errorf("hours must be ranges like 9-18, not %q", s)
-		}
-		span := to - from
-		if span <= 0 {
-			span += 24
 		}
 		total += span
 	}
@@ -237,6 +238,24 @@ func hoursOf(s string) (float64, error) {
 	}
 	return total, nil
 }
+
+// hourSpan is the hours in one range "9-18"; a range that ends where or
+// before it starts wraps midnight.
+func hourSpan(part string) (float64, bool) {
+	a, b, ok := strings.Cut(strings.TrimSpace(part), "-")
+	from, e1 := strconv.ParseFloat(strings.TrimSpace(a), 64)
+	to, e2 := strconv.ParseFloat(strings.TrimSpace(b), 64)
+	if !ok || e1 != nil || e2 != nil || outsideDay(from) || outsideDay(to) {
+		return 0, false
+	}
+	span := to - from
+	if span <= 0 {
+		span += 24
+	}
+	return span, true
+}
+
+func outsideDay(h float64) bool { return h < 0 || h > 24 }
 
 func duration(s float64) string {
 	switch {

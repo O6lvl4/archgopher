@@ -1,10 +1,6 @@
 package field
 
-import (
-	"fmt"
-	"sort"
-	"strings"
-)
+import "fmt"
 
 // Spec is a field written in a resource definition (YAML) rather than as a
 // struct tag. A field without a default is required unless marked optional.
@@ -52,52 +48,4 @@ func (s Spec) Build() (Field, error) {
 		f.Required = !s.Optional
 	}
 	return f, nil
-}
-
-// DecodeValues validates values against fields and returns them normalized:
-// numbers as float64, text as string, flags as bool, lists as []string.
-// Defaults are applied; optional fields that are not set are absent. Unknown
-// keys are errors unless listed in allow.
-func DecodeValues(fields []Field, values map[string]any, what string, allow ...string) (map[string]any, error) {
-	out := map[string]any{}
-	known := map[string]bool{}
-	for _, a := range allow {
-		known[a] = true
-	}
-	var problems []string
-	for _, f := range fields {
-		known[f.Key] = true
-		raw, present := values[f.Key]
-		if !present || raw == nil {
-			switch {
-			case f.Default != nil:
-				raw = f.Default
-			case f.Required:
-				problems = append(problems, fmt.Sprintf("missing %s %q", what, f.Key))
-				continue
-			default:
-				continue
-			}
-		}
-		v, err := coerce(f, raw)
-		if err != nil {
-			problems = append(problems, fmt.Sprintf("%s %q: %v", what, f.Key, err))
-			continue
-		}
-		out[f.Key] = v
-	}
-	var unknown []string
-	for k := range values {
-		if !known[k] {
-			unknown = append(unknown, k)
-		}
-	}
-	sort.Strings(unknown)
-	for _, k := range unknown {
-		problems = append(problems, fmt.Sprintf("unknown %s %q", what, k))
-	}
-	if len(problems) > 0 {
-		return nil, fmt.Errorf("%s", strings.Join(problems, "; "))
-	}
-	return out, nil
 }

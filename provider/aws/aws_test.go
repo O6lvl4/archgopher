@@ -167,7 +167,7 @@ func under(t *testing.T) catalogtest.Catalog {
 		t.Fatal(err)
 	}
 	return catalogtest.Catalog{
-		Dir: filepath.Join("..", "..", "catalog", "aws"), Units: mustUnits(), Books: books, Registry: Registry(), Regions: regions,
+		Dir: filepath.Join("..", "..", "catalog", "aws"), Units: cat.MustUnits(), Books: books, Registry: Registry(), Regions: regions,
 		Attrs: attrs, Assume: assume, Update: *update, UpdateHint: "go test ./provider/aws -update",
 	}
 }

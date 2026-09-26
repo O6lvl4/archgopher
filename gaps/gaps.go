@@ -54,23 +54,20 @@ type Gap struct {
 // expand to and the engine's reading of that. Nodes are judged expanded, so a
 // pattern's members count; ratios only on the edges someone can edit.
 func Find(spec, expanded model.Spec, reg scouter.Registry, books book.Books, res engine.Result) []Gap {
-	fed := map[string]bool{}
+	j := judge{books: books, region: expanded.Region, fed: map[string]bool{}, failed: map[string]string{}}
 	for _, e := range expanded.Edges {
-		fed[e.To] = true
+		j.fed[e.To] = true
 	}
-	failed := map[string]string{}
 	for _, n := range res.Nodes {
 		if n.Error != "" {
-			failed[n.ID] = n.Error
+			j.failed[n.ID] = n.Error
 		}
 	}
 	var out []Gap
 	for _, n := range expanded.Nodes {
-		s, ok := reg[n.Type]
-		if !ok {
-			continue
+		if s, ok := reg[n.Type]; ok {
+			out = append(out, j.nodeGaps(n, s)...)
 		}
-		out = append(out, nodeGaps(n, s, books, expanded.Region, fed[n.ID], failed[n.ID])...)
 	}
 	for _, e := range spec.Edges {
 		if len(e.Ops) == 0 && e.PerUnit == nil && e.Note == "" {
@@ -85,19 +82,47 @@ func Find(spec, expanded model.Spec, reg scouter.Registry, books book.Books, res
 	return out
 }
 
-func nodeGaps(n model.Node, s scouter.Scouter, books book.Books, region string, fed bool, failure string) []Gap {
-	meta := s.Meta()
+// judge decides the gaps of the nodes of one expanded declaration.
+type judge struct {
+	books  book.Books
+	region string
+	fed    map[string]bool   // nodes some edge sends work to
+	failed map[string]string // the engine's error per node
+}
+
+func (j judge) nodeGaps(n model.Node, s scouter.Scouter) []Gap {
 	var out []Gap
-	sourced := n.Load != nil || n.Traffic != nil
-	switch {
-	case meta.Type == scouter.EntryType && !sourced:
-		out = append(out, Gap{Kind: Load, Node: n.ID, Message: "no load",
-			Hint: "set load or traffic from access logs, analytics or the plan"})
-	case meta.Type != scouter.EntryType && !fed && !sourced && takesWork(n, s, books, region):
-		out = append(out, Gap{Kind: Caller, Node: n.ID, Message: "nothing sends it work",
-			Hint: "add edges for calls the infrastructure code does not show (application code, roles made elsewhere, other accounts), or give it a load"})
+	unfedEntry := s.Meta().Type == scouter.EntryType && n.Load == nil && n.Traffic == nil
+	if g, ok := j.sourceGap(n, s); ok {
+		out = append(out, g)
 	}
-	missing := 0
+	missing := assumptionGaps(n, s)
+	out = append(out, missing...)
+	if failure := j.failed[n.ID]; failure != "" && len(missing) == 0 && !unfedEntry {
+		out = append(out, Gap{Kind: Failed, Node: n.ID, Message: failure})
+	}
+	return out
+}
+
+// sourceGap is an entry without load, or a node that takes work nobody sends.
+func (j judge) sourceGap(n model.Node, s scouter.Scouter) (Gap, bool) {
+	if n.Load != nil || n.Traffic != nil {
+		return Gap{}, false
+	}
+	if s.Meta().Type == scouter.EntryType {
+		return Gap{Kind: Load, Node: n.ID, Message: "no load",
+			Hint: "set load or traffic from access logs, analytics or the plan"}, true
+	}
+	if !j.fed[n.ID] && j.takesWork(n, s) {
+		return Gap{Kind: Caller, Node: n.ID, Message: "nothing sends it work",
+			Hint: "add edges for calls the infrastructure code does not show (application code, roles made elsewhere, other accounts), or give it a load"}, true
+	}
+	return Gap{}, false
+}
+
+// assumptionGaps are the required assumptions with no default that the node leaves unset.
+func assumptionGaps(n model.Node, s scouter.Scouter) []Gap {
+	var out []Gap
 	for _, f := range s.Assumptions() {
 		if !f.Required || f.Default != nil {
 			continue
@@ -105,28 +130,39 @@ func nodeGaps(n model.Node, s scouter.Scouter, books book.Books, region string, 
 		if v, ok := n.Assumptions[f.Key]; ok && v != nil {
 			continue
 		}
-		missing++
 		label := f.Label
 		if f.Unit != "" {
 			label += " (" + f.Unit + ")"
 		}
 		out = append(out, Gap{Kind: Assumption, Node: n.ID, Key: f.Key, Message: label + " is unknown", Hint: f.Hint})
 	}
-	if failure != "" && missing == 0 && !(meta.Type == scouter.EntryType && !sourced) {
-		out = append(out, Gap{Kind: Failed, Node: n.ID, Message: failure})
-	}
 	return out
 }
 
 // takesWork says whether the node's readings change with the work it
 // receives: it is read once idle and once busy. Alarms, parameters and other
-// fixed-price nodes accept edges but read the same either way. Unknown numbers
-// are set to 1 for the trial so a node that is missing them still answers.
-func takesWork(n model.Node, s scouter.Scouter, books book.Books, region string) bool {
+// fixed-price nodes accept edges but read the same either way.
+func (j judge) takesWork(n model.Node, s scouter.Scouter) bool {
 	kinds := s.Meta().Kinds
 	if len(kinds) == 0 {
 		return false
 	}
+	trial := withTrialNumbers(n, s)
+	busy := model.Demand{}
+	for _, k := range kinds {
+		busy[k] = model.Load{Monthly: 1e6, PeakPerSecond: 10}
+	}
+	idle, errIdle := j.readings(trial, s, model.Demand{})
+	working, errBusy := j.readings(trial, s, busy)
+	if errIdle != nil || errBusy != nil {
+		return true
+	}
+	return idle != working
+}
+
+// withTrialNumbers is a copy of n whose unknown numbers are set to 1, so a
+// node that is missing them still answers a trial reading.
+func withTrialNumbers(n model.Node, s scouter.Scouter) model.Node {
 	trial := n
 	trial.Assumptions = map[string]any{}
 	for k, v := range n.Assumptions {
@@ -137,21 +173,12 @@ func takesWork(n model.Node, s scouter.Scouter, books book.Books, region string)
 			trial.Assumptions[f.Key] = 1.0
 		}
 	}
-	busy := model.Demand{}
-	for _, k := range kinds {
-		busy[k] = model.Load{Monthly: 1e6, PeakPerSecond: 10}
-	}
-	idle, errIdle := readings(trial, s, books, region, model.Demand{})
-	working, errBusy := readings(trial, s, books, region, busy)
-	if errIdle != nil || errBusy != nil {
-		return true
-	}
-	return idle != working
+	return trial
 }
 
 // readings is a node's cost quantities and limit demands, as one comparable string.
-func readings(n model.Node, s scouter.Scouter, books book.Books, region string, d model.Demand) (string, error) {
-	r := meter.NewRecorder(region, books)
+func (j judge) readings(n model.Node, s scouter.Scouter, d model.Demand) (string, error) {
+	r := meter.NewRecorder(j.region, j.books)
 	if err := s.Scout(n, d, r); err != nil {
 		return "", err
 	}

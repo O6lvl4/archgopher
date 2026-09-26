@@ -111,26 +111,34 @@ func (rd *reading) compileParams(kind string, spec map[string]param, params Para
 			}
 			continue
 		}
-		switch p.kind {
-		case num, opt:
-			prog, err := compile(fmt.Sprint(v), decl)
-			if err != nil {
-				return fmt.Errorf("%s %s: %w", kind, name, err)
-			}
-			rd.nums[name] = prog
-		case txt:
-			t, err := compileText(fmt.Sprint(v), decl)
-			if err != nil {
-				return fmt.Errorf("%s %s: %w", kind, name, err)
-			}
-			rd.texts[name] = t
-		case flag:
-			b, ok := v.(bool)
-			if !ok {
-				return fmt.Errorf("%s %s: want true or false", kind, name)
-			}
-			rd.flags[name] = b
+		if err := rd.compileParam(name, p, v, decl); err != nil {
+			return fmt.Errorf("%s %w", kind, err)
 		}
+	}
+	return nil
+}
+
+// compileParam compiles the value v of parameter name.
+func (rd *reading) compileParam(name string, p param, v any, decl map[string]any) error {
+	switch p.kind {
+	case num, opt:
+		prog, err := compile(fmt.Sprint(v), decl)
+		if err != nil {
+			return fmt.Errorf("%s: %w", name, err)
+		}
+		rd.nums[name] = prog
+	case txt:
+		t, err := compileText(fmt.Sprint(v), decl)
+		if err != nil {
+			return fmt.Errorf("%s: %w", name, err)
+		}
+		rd.texts[name] = t
+	case flag:
+		b, ok := v.(bool)
+		if !ok {
+			return fmt.Errorf("%s: want true or false", name)
+		}
+		rd.flags[name] = b
 	}
 	return nil
 }

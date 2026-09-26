@@ -66,32 +66,32 @@ func declare(attrs, assume []field.Field) map[string]any {
 	return env
 }
 
-// runtimeEnv fills the environment for one node.
-func runtimeEnv(region string, attrs, assume []field.Field, a, p map[string]any, kinds []string, d model.Demand) map[string]any {
+// demandEnv starts the environment for one node with its demand and region.
+func demandEnv(region string, kinds []string, d model.Demand) map[string]any {
 	demand := map[string]Flow{}
 	for _, k := range kinds {
 		demand[k] = flowOf(d.Of(k))
 	}
-	env := map[string]any{"total": flowOf(d.Total()), "demand": demand, "region": region}
-	put := func(fields []field.Field, values map[string]any) {
-		for _, f := range fields {
-			v, set := values[f.Key]
-			t := typeOf(f)
-			switch {
-			case !set:
-				env[f.Key] = reflect.Zero(t).Interface()
-			case t.Kind() == reflect.Pointer:
-				ptr := reflect.New(t.Elem())
-				ptr.Elem().Set(reflect.ValueOf(v))
-				env[f.Key] = ptr.Interface()
-			default:
-				env[f.Key] = v
-			}
+	return map[string]any{"total": flowOf(d.Total()), "demand": demand, "region": region}
+}
+
+// putValues adds the node's decoded values of fields to env: an unset field
+// is its type's zero, an optional one a pointer to its value.
+func putValues(env map[string]any, fields []field.Field, values map[string]any) {
+	for _, f := range fields {
+		v, set := values[f.Key]
+		t := typeOf(f)
+		switch {
+		case !set:
+			env[f.Key] = reflect.Zero(t).Interface()
+		case t.Kind() == reflect.Pointer:
+			ptr := reflect.New(t.Elem())
+			ptr.Elem().Set(reflect.ValueOf(v))
+			env[f.Key] = ptr.Interface()
+		default:
+			env[f.Key] = v
 		}
 	}
-	put(attrs, a)
-	put(assume, p)
-	return env
 }
 
 var functions = []expr.Option{

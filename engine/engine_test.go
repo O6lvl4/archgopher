@@ -71,9 +71,7 @@ func TestLoadFlowsByKindAndFactor(t *testing.T) {
 	if h := *b.Limits[0].Headroom; math.Abs(h-(1-40*2.0/100)) > 1e-9 {
 		t.Fatalf("headroom %v", h)
 	}
-	if len(res.Paths) != 1 || res.Paths[0].P99Ms != 100 || math.Abs(res.Paths[0].Availability-0.99*0.99) > 1e-12 {
-		t.Fatalf("paths %+v", res.Paths)
-	}
+	wantOnePath(t, res.Paths, 100, 0.99*0.99)
 	if len(res.Unverified) != 1 || res.Unverified[0].ID != "pipe.concurrency" {
 		t.Fatalf("unverified %+v", res.Unverified)
 	}

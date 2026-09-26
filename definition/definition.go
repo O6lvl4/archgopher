@@ -84,26 +84,11 @@ func Compile(f File) (*Resource, error) {
 		return nil, fmt.Errorf("a resource needs a type and at least one kind")
 	}
 	r := &Resource{File: f}
-	var err error
-	if r.attributes, err = build(f.Attributes); err != nil {
-		return nil, fmt.Errorf("%s attributes: %w", f.Type, err)
-	}
-	if r.assumptions, err = build(f.Assumptions); err != nil {
-		return nil, fmt.Errorf("%s assumptions: %w", f.Type, err)
-	}
-	for _, inc := range f.Includes {
-		t, ok := facet.Includes[inc]
-		if !ok {
-			return nil, fmt.Errorf("%s: unknown include %q", f.Type, inc)
-		}
-		r.assumptions = append(r.assumptions, field.FieldsOf(t)...)
-	}
-	for _, fd := range append(append([]field.Field(nil), r.attributes...), r.assumptions...) {
-		if reserved[fd.Key] {
-			return nil, fmt.Errorf("%s: %q is a name every expression already has", f.Type, fd.Key)
-		}
+	if err := r.buildFields(); err != nil {
+		return nil, err
 	}
 	decl := declare(r.attributes, r.assumptions)
+	var err error
 	if r.lets, err = compileLets(f.Let, decl); err != nil {
 		return nil, fmt.Errorf("%s: %w", f.Type, err)
 	}
@@ -115,6 +100,32 @@ func Compile(f File) (*Resource, error) {
 		r.readings = append(r.readings, rd)
 	}
 	return r, nil
+}
+
+// buildFields builds the attributes and the assumptions, with those of the
+// included facets, none of which may take a name expressions already have.
+func (r *Resource) buildFields() error {
+	f := r.File
+	var err error
+	if r.attributes, err = build(f.Attributes); err != nil {
+		return fmt.Errorf("%s attributes: %w", f.Type, err)
+	}
+	if r.assumptions, err = build(f.Assumptions); err != nil {
+		return fmt.Errorf("%s assumptions: %w", f.Type, err)
+	}
+	for _, inc := range f.Includes {
+		t, ok := facet.Includes[inc]
+		if !ok {
+			return fmt.Errorf("%s: unknown include %q", f.Type, inc)
+		}
+		r.assumptions = append(r.assumptions, field.FieldsOf(t)...)
+	}
+	for _, fd := range append(append([]field.Field(nil), r.attributes...), r.assumptions...) {
+		if reserved[fd.Key] {
+			return fmt.Errorf("%s: %q is a name every expression already has", f.Type, fd.Key)
+		}
+	}
+	return nil
 }
 
 func build(specs []field.Spec) ([]field.Field, error) {
@@ -155,7 +166,9 @@ func (r *Resource) Scout(node model.Node, demand model.Demand, rec *meter.Record
 	if errA != nil || errP != nil {
 		return joinErrs(errA, errP)
 	}
-	env := runtimeEnv(rec.Region, r.attributes, r.assumptions, attrs, assume, r.File.Kinds, demand)
+	env := demandEnv(rec.Region, r.File.Kinds, demand)
+	putValues(env, r.attributes, attrs)
+	putValues(env, r.assumptions, assume)
 	for _, l := range r.lets {
 		v, err := l.eval(env)
 		if err != nil {
