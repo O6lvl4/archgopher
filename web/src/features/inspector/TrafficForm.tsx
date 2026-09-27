@@ -1,15 +1,33 @@
 import type { Dispatch } from "react";
-import { num } from "../../lib/format";
+import { num, usd } from "../../lib/format";
 import type { Action } from "../../lib/state";
 import { partFields, peakField, peakOnlyParts, shapeOf, shapes, switchTo, whenEffect, whenFields, type Effect, type Shape } from "../../lib/traffic";
 import type { Field, NodeResult, SpecNode, Traffic } from "../../lib/types";
 import { FieldInput } from "../../ui/FieldInput";
 import { useFlash } from "../../ui/useFlash";
 
+/** The declaration's monthly total and what of it comes with no load at all. */
+export interface Split {
+  total: number;
+  idle: number;
+}
+
 interface Props {
   node: SpecNode;
   reading: NodeResult | undefined;
+  split?: Split;
   dispatch: Dispatch<Action>;
+}
+
+/** Why a big change of load can barely move the total: most of it may not follow the load. */
+function LoadShare({ split }: { split: Split | undefined }) {
+  if (!split || split.total <= 0 || split.total - split.idle < -0.005) return null;
+  const fromLoad = Math.max(split.total - split.idle, 0);
+  return (
+    <p className="load-share">
+      Of {usd(split.total)} a month, {usd(split.idle)} comes with no load at all; the load moves the other {usd(fromLoad)}.
+    </p>
+  );
 }
 
 type Part = "rate" | "users" | "concurrent" | "batch";
@@ -107,7 +125,7 @@ function Resolved({ node, reading }: { node: SpecNode; reading: NodeResult | und
 }
 
 /** The load a node brings in, said the way that fits: a volume, a rate, users, a schedule or batches. */
-export function TrafficForm({ node, reading, dispatch }: Props) {
+export function TrafficForm({ node, reading, split, dispatch }: Props) {
   const shape = shapeOf(node);
   const update = (patch: Partial<SpecNode>) => dispatch({ type: "updateNode", id: node.id, patch });
   const rows = shape === "load" || !node.traffic ? volumeRows(node, dispatch) : trafficRows(shape, node.traffic, (traffic) => update({ traffic }));
@@ -127,6 +145,7 @@ export function TrafficForm({ node, reading, dispatch }: Props) {
         <span className="field-hint">{shapes.find((s) => s.shape === shape)?.hint}</span>
       </label>
       <Resolved node={node} reading={reading} />
+      <LoadShare split={split} />
       <Group effect="volume" rows={rows.volume} now={load && `${num(load.monthly)} a month`} reset={node.id} />
       <Group effect="peak" rows={rows.peak} now={load && `${num(load.peakPerSecond)}/s`} reset={node.id} />
       {node.type !== "entry" && (

@@ -96,7 +96,7 @@ export function App() {
   if (!ws.ready) return <p className="loading">Loading the engine…</p>;
   return (
     <div className="app">
-      <Header result={ws.result} generation={ws.generation} actions={actions} />
+      <Header result={ws.result} idleUsd={ws.idleUsd} generation={ws.generation} actions={actions} />
       <Catalog catalog={ws.catalog} onAdd={addNode} />
       <main className="canvas">
         <Canvas
@@ -112,7 +112,7 @@ export function App() {
         {notice && <div className="toast" role="status">{notice}</div>}
       </main>
       <aside className="panel">
-        <Inspector spec={ws.spec} result={ws.result} catalog={ws.catalogMap} regions={ws.regions} selection={selection} dispatch={ws.dispatch} />
+        <Inspector spec={ws.spec} result={ws.result} idleUsd={ws.idleUsd} catalog={ws.catalogMap} regions={ws.regions} selection={selection} dispatch={ws.dispatch} />
       </aside>
       <Results result={ws.result} error={ws.error} warnings={warnings} coverage={coverage} onSelect={(id) => setSelection((ws.spec.groups ?? []).some((g) => g.id === id) ? { kind: "group", id } : { kind: "node", id })} />
       {importing && <TerraformDialog canMerge={ws.spec.nodes.length > 0} onImport={onImport} onClose={() => setImporting(false)} />}

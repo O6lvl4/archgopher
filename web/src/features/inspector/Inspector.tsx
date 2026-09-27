@@ -9,6 +9,8 @@ import { SpecForm } from "./SpecForm";
 interface Props {
   spec: Spec;
   result: Result | undefined;
+  /** What the declaration costs with no load; undefined until it is read. */
+  idleUsd: number | undefined;
   catalog: Map<string, CatalogEntry>;
   regions: RegionGroup[];
   selection: Selection;
@@ -17,12 +19,13 @@ interface Props {
 
 type Panel = (p: Props) => React.ReactNode;
 
-const nodePanel: Panel = ({ spec, result, catalog, selection, dispatch }) => {
+const nodePanel: Panel = ({ spec, result, idleUsd, catalog, selection, dispatch }) => {
   if (selection?.kind !== "node") return undefined;
   const node = spec.nodes.find((n) => n.id === selection.id);
   if (!node) return undefined;
   const reading = (result?.nodes ?? []).find((r) => r.id === node.id);
-  return <NodeForm key={node.id} node={node} entry={catalog.get(node.type)} reading={reading} dispatch={dispatch} />;
+  const split = result && idleUsd !== undefined ? { total: result.monthlyUsd, idle: idleUsd } : undefined;
+  return <NodeForm key={node.id} node={node} entry={catalog.get(node.type)} reading={reading} split={split} dispatch={dispatch} />;
 };
 
 const edgePanel: Panel = ({ spec, catalog, selection, dispatch }) => {

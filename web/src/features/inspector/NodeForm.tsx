@@ -3,12 +3,14 @@ import { withValue, type Action } from "../../lib/state";
 import type { CatalogEntry, Field, NodeResult, SpecNode, Values } from "../../lib/types";
 import { FieldInput } from "../../ui/FieldInput";
 import { NodeReadings } from "../../composites/NodeReadings";
-import { TrafficForm } from "./TrafficForm";
+import { TrafficForm, type Split } from "./TrafficForm";
 
 interface Props {
   node: SpecNode;
   entry: CatalogEntry | undefined;
   reading: NodeResult | undefined;
+  /** The declaration's monthly total and what of it comes with no load. */
+  split?: Split;
   dispatch: Dispatch<Action>;
 }
 
@@ -69,7 +71,7 @@ function InstancesInput({ node, update }: { node: SpecNode; update: (patch: Part
 /** An entry always brings load; any other node does once load or traffic is set on it. */
 const bringsLoad = (node: SpecNode) => node.type === "entry" || node.load !== undefined || node.traffic !== undefined;
 
-export function NodeForm({ node, entry, reading, dispatch }: Props) {
+export function NodeForm({ node, entry, reading, split, dispatch }: Props) {
   const update = (patch: Partial<SpecNode>) => dispatch({ type: "updateNode", id: node.id, patch });
   const showLoad = bringsLoad(node);
   return (
@@ -87,7 +89,7 @@ export function NodeForm({ node, entry, reading, dispatch }: Props) {
       <Problem reading={reading} />
       <IdInput node={node} dispatch={dispatch} />
       {node.type !== "entry" && <InstancesInput node={node} update={update} />}
-      {showLoad && <TrafficForm node={node} reading={reading} dispatch={dispatch} />}
+      {showLoad && <TrafficForm node={node} reading={reading} split={split} dispatch={dispatch} />}
       <Fields title="From Terraform" fields={entry?.attributes ?? []} values={node.attributes} onChange={(k, v) => update({ attributes: withValue(node.attributes, k, v) })} />
       <Fields title="Assumptions" fields={entry?.assumptions ?? []} values={node.assumptions} onChange={(k, v) => update({ assumptions: withValue(node.assumptions, k, v) })} />
       <NodeReadings reading={reading} />

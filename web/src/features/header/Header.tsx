@@ -105,13 +105,26 @@ function Total({ monthly, generation }: { monthly: number; generation: number })
   );
 }
 
+/** How much of the total comes with no load at all, and how much the load adds. */
+function Split({ monthly, idleUsd }: { monthly: number; idleUsd: number | undefined }) {
+  if (idleUsd === undefined || monthly <= 0) return null;
+  const fromLoad = monthly - idleUsd;
+  if (fromLoad < -0.005) return null;
+  return (
+    <span className="totals-split" title="What this declaration costs with every entry, schedule and batch at zero; the rest comes with the load">
+      {usd(idleUsd)} with no load · +{usd(Math.max(fromLoad, 0))} from load
+    </span>
+  );
+}
+
 interface Props {
   result: Result | undefined;
+  idleUsd: number | undefined;
   generation: number;
   actions: HeaderActions;
 }
 
-export function Header({ result, generation, actions }: Props) {
+export function Header({ result, idleUsd, generation, actions }: Props) {
   const c = counts(result);
   return (
     <header className="topbar">
@@ -123,7 +136,10 @@ export function Header({ result, generation, actions }: Props) {
         </div>
       </div>
       <div className="totals" aria-live="polite">
-        <span className="totals-label">Monthly estimate</span>
+        <div className="totals-head">
+          <span className="totals-label">Monthly estimate</span>
+          <Split monthly={result?.monthlyUsd ?? 0} idleUsd={idleUsd} />
+        </div>
         <div className="totals-row">
           <Total monthly={result?.monthlyUsd ?? 0} generation={generation} />
           {c.over > 0 && <Chip tone="bad">{c.over} over limit</Chip>}

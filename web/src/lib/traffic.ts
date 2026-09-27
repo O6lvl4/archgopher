@@ -1,4 +1,4 @@
-import type { Field, Load, SpecNode, Traffic } from "./types";
+import type { Field, Load, Spec, SpecNode, Traffic } from "./types";
 
 // The ways a node's load can be said, and the fields each one asks for. The
 // engine turns traffic into a load and explains the arithmetic; the UI only
@@ -96,3 +96,18 @@ export function whenEffect(key: string, t: Traffic): Effect {
 }
 
 const subDay: Record<string, true> = { second: true, minute: true, hour: true };
+
+/**
+ * The declaration with every source of load at zero: entries, schedules,
+ * batches and load put on any other node. What it costs is what the
+ * architecture costs standing still, as declared; the rest of a total is
+ * what the load brings. Mixed prices (an hourly charge plus one per GB) split
+ * themselves this way, with no line classed as fixed or variable.
+ */
+export function withoutLoad(spec: Spec): Spec {
+  const idle = { monthly: 0, peakPerSecond: 0 };
+  return {
+    ...spec,
+    nodes: spec.nodes.map((n) => (n.type === "entry" || n.load || n.traffic ? { ...n, load: idle, traffic: undefined } : n)),
+  };
+}
