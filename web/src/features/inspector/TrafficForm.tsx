@@ -1,9 +1,10 @@
 import type { Dispatch } from "react";
 import { num } from "../../lib/format";
 import type { Action } from "../../lib/state";
-import { partFields, peakField, shapeOf, shapes, switchTo, whenFields, type Shape } from "../../lib/traffic";
+import { partFields, peakField, peakOnlyParts, shapeOf, shapes, switchTo, whenEffect, whenFields, type Effect, type Shape } from "../../lib/traffic";
 import type { Field, NodeResult, SpecNode, Traffic } from "../../lib/types";
 import { FieldInput } from "../../ui/FieldInput";
+import { useFlash } from "../../ui/useFlash";
 
 interface Props {
   node: SpecNode;
@@ -23,58 +24,83 @@ function withKey(t: Traffic, part: Part | undefined, key: string, v: unknown): T
   return { ...t, [part]: { ...(t[part] as object), [key]: v } };
 }
 
-function Fields({ fields, values, onChange }: { fields: Field[]; values: Record<string, unknown> | undefined; onChange: (key: string, v: unknown) => void }) {
+/** A field with where its value comes from and goes to. */
+interface Row {
+  field: Field;
+  value: unknown;
+  onChange: (v: unknown) => void;
+}
+
+const groups: Record<Effect, { title: string; says: string }> = {
+  volume: { title: "Volume", says: "Sets the monthly cost; the peak follows it" },
+  peak: { title: "Peak", says: "Moves only the peak and headroom, not the cost" },
+};
+
+/** The fields that move one thing, under a heading that says which and what it is now. */
+function Group({ effect, rows, now, reset }: { effect: Effect; rows: Row[]; now: string | undefined; reset: string }) {
+  const { flash, tick } = useFlash(now, reset);
+  if (rows.length === 0) return null;
+  const g = groups[effect];
   return (
-    <>
-      {fields.map((f) => (
-        <FieldInput key={f.key} field={f} value={values?.[f.key]} onChange={(v) => onChange(f.key, v)} />
+    <div className={`load-group effect-${effect}`}>
+      <div className="load-group-head">
+        <span className="load-group-title">
+          {g.title}
+          {now && (
+            <span key={tick} className={`load-group-now${flash ? " flash" : ""}`}>
+              {now}
+            </span>
+          )}
+        </span>
+        <span className="load-group-says">{g.says}</span>
+      </div>
+      {rows.map((r) => (
+        <FieldInput key={r.field.key} field={r.field} value={r.value} onChange={r.onChange} />
       ))}
-    </>
+    </div>
   );
 }
 
-function VolumeFields({ node, dispatch }: Pick<Props, "node" | "dispatch">) {
+function volumeRows(node: SpecNode, dispatch: Dispatch<Action>): Record<Effect, Row[]> {
   const load = node.load ?? { monthly: 0, peakPerSecond: 0 };
-  const fields: Field[] = [
-    { key: "monthly", label: "Monthly volume", type: "number", required: true, hint: "Drives cost" },
-    { key: "peakPerSecond", label: "Peak per second", type: "number", required: true, hint: "Drives headroom" },
-  ];
-  return (
-    <Fields
-      fields={fields}
-      values={load as unknown as Record<string, unknown>}
-      onChange={(k, v) => dispatch({ type: "updateNode", id: node.id, patch: { load: { ...load, [k]: typeof v === "number" ? v : 0 } } })}
-    />
-  );
+  const row = (field: Field): Row => ({
+    field,
+    value: load[field.key as keyof typeof load],
+    onChange: (v) => dispatch({ type: "updateNode", id: node.id, patch: { load: { ...load, [field.key]: typeof v === "number" ? v : 0 } } }),
+  });
+  return {
+    volume: [row({ key: "monthly", label: "Monthly volume", type: "number", required: true })],
+    peak: [row({ key: "peakPerSecond", label: "Peak per second", type: "number", required: true })],
+  };
 }
 
-function TrafficFields({ shape, traffic, onChange }: { shape: Exclude<Shape, "load">; traffic: Traffic; onChange: (t: Traffic) => void }) {
-  const set = (part: Part | undefined) => (key: string, v: unknown) => onChange(withKey(traffic, part, key, v));
-  const scheduleField: Field = { key: "schedule", label: "Schedule", type: "string", required: true, hint: "rate(1 hour), cron(0 2 * * ? *), */15 9-17 * * 1-5" };
-  const part = shape === "schedule" ? undefined : shape;
-  const timed = shape === "rate" || shape === "users" || shape === "concurrent";
-  return (
-    <>
-      {part ? (
-        <Fields fields={partFields[part]} values={traffic[part] as Record<string, unknown>} onChange={set(part)} />
-      ) : (
-        <Fields fields={[scheduleField]} values={traffic as Record<string, unknown>} onChange={set(undefined)} />
-      )}
-      {timed && <Fields fields={whenFields} values={traffic as Record<string, unknown>} onChange={set(undefined)} />}
-      <Fields fields={[peakField]} values={traffic as Record<string, unknown>} onChange={set(undefined)} />
-    </>
-  );
+function trafficRows(shape: Exclude<Shape, "load">, traffic: Traffic, onChange: (t: Traffic) => void): Record<Effect, Row[]> {
+  const rows: Record<Effect, Row[]> = { volume: [], peak: [] };
+  const add = (effect: Effect, part: Part | undefined, field: Field) => {
+    const values = (part ? traffic[part] : traffic) as Record<string, unknown> | undefined;
+    rows[effect].push({ field, value: values?.[field.key], onChange: (v) => onChange(withKey(traffic, part, field.key, v)) });
+  };
+  if (shape === "schedule") {
+    add("volume", undefined, { key: "schedule", label: "Schedule", type: "string", required: true, hint: "rate(1 hour), cron(0 2 * * ? *), */15 9-17 * * 1-5" });
+  } else {
+    for (const f of partFields[shape]) add(peakOnlyParts[shape]?.includes(f.key) ? "peak" : "volume", shape, f);
+  }
+  if (shape === "rate" || shape === "users" || shape === "concurrent") {
+    for (const f of whenFields) add(f.key === "peakFactor" ? "peak" : whenEffect(f.key, traffic), undefined, f);
+  }
+  add("peak", undefined, peakField);
+  return rows;
 }
 
 /** What the engine made of it: the load and the arithmetic, or why it could not. */
-function Resolved({ reading }: { reading: NodeResult | undefined }) {
+function Resolved({ node, reading }: { node: SpecNode; reading: NodeResult | undefined }) {
   const load = reading?.load;
+  const said = load ? `${num(load.monthly)} a month · peak ${num(load.peakPerSecond)}/s` : undefined;
+  const { flash, tick } = useFlash(said, node.id);
   if (!load) return null;
   return (
-    <p className="traffic-result">
-      <strong>
-        {num(load.monthly)} a month · peak {num(load.peakPerSecond)}/s
-      </strong>
+    <p key={tick} className={`traffic-result${flash ? " flash" : ""}`} aria-live="polite">
+      <strong>{said}</strong>
       {reading.loadBasis && <span className="traffic-basis">{reading.loadBasis}</span>}
     </p>
   );
@@ -84,6 +110,8 @@ function Resolved({ reading }: { reading: NodeResult | undefined }) {
 export function TrafficForm({ node, reading, dispatch }: Props) {
   const shape = shapeOf(node);
   const update = (patch: Partial<SpecNode>) => dispatch({ type: "updateNode", id: node.id, patch });
+  const rows = shape === "load" || !node.traffic ? volumeRows(node, dispatch) : trafficRows(shape, node.traffic, (traffic) => update({ traffic }));
+  const load = reading?.load;
   return (
     <section className="panel-section">
       <h3>Load</h3>
@@ -98,12 +126,9 @@ export function TrafficForm({ node, reading, dispatch }: Props) {
         </select>
         <span className="field-hint">{shapes.find((s) => s.shape === shape)?.hint}</span>
       </label>
-      <Resolved reading={reading} />
-      {shape === "load" || !node.traffic ? (
-        <VolumeFields node={node} dispatch={dispatch} />
-      ) : (
-        <TrafficFields shape={shape} traffic={node.traffic} onChange={(traffic) => update({ traffic })} />
-      )}
+      <Resolved node={node} reading={reading} />
+      <Group effect="volume" rows={rows.volume} now={load && `${num(load.monthly)} a month`} reset={node.id} />
+      <Group effect="peak" rows={rows.peak} now={load && `${num(load.peakPerSecond)}/s`} reset={node.id} />
       {node.type !== "entry" && (
         <button className="link" onClick={() => update({ load: undefined, traffic: undefined })}>
           Remove load

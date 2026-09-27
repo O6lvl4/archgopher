@@ -96,7 +96,7 @@ export function App() {
   if (!ws.ready) return <p className="loading">Loading the engine…</p>;
   return (
     <div className="app">
-      <Header result={ws.result} actions={actions} />
+      <Header result={ws.result} generation={ws.generation} actions={actions} />
       <Catalog catalog={ws.catalog} onAdd={addNode} />
       <main className="canvas">
         <Canvas

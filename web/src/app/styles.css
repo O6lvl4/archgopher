@@ -304,5 +304,29 @@ table.grid tbody tr:hover { background: var(--surface-2); }
 .traffic-result { margin: 4px 0 8px; padding: 8px 10px; border-radius: 8px; background: var(--surface-2); font-size: 12px; display: flex; flex-direction: column; gap: 4px; }
 .traffic-result strong { font-size: 13px; font-variant-numeric: tabular-nums; }
 .traffic-basis { color: var(--muted); line-height: 1.45; }
+.traffic-result.flash { animation: flash-bg 1.6s ease-out; }
+
+/* the load's fields, by what they move */
+.load-group { display: flex; flex-direction: column; gap: 10px; padding: 10px 0 2px 12px; border-left: 3px solid var(--effect); }
+.effect-volume { --effect: var(--accent); }
+.effect-peak { --effect: var(--border); }
+.load-group-head { display: flex; flex-direction: column; gap: 1px; }
+.load-group-title { display: flex; align-items: baseline; gap: 8px; font-size: 12px; font-weight: 650; }
+.load-group-now { font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; border-radius: 4px; padding: 0 4px; }
+.load-group-now.flash { animation: flash-chip 1.6s ease-out; }
+@keyframes flash-chip { from { background: var(--accent-soft); color: var(--accent); } }
+.load-group-says { font-size: 12px; color: var(--muted); }
+
+/* a total that just changed */
+.total.flash { animation: flash-text 1.6s ease-out; }
+.delta { align-self: center; font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; animation: fade-in 0.2s ease-out; }
+.delta-up { color: var(--warn); }
+.delta-down { color: var(--ok); }
+@keyframes flash-bg { from { background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--accent); } }
+@keyframes flash-text { from { color: var(--accent); } }
+@keyframes fade-in { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .traffic-result.flash, .total.flash, .delta, .load-group-now.flash { animation: none; }
+}
 .op-row { border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px 2px; margin-bottom: 8px; background: var(--surface-2); }
 .op-remove { margin: 0 0 8px; color: var(--bad); }

@@ -72,3 +72,27 @@ export const whenFields: Field[] = [
 ];
 
 export const peakField: Field = { key: "peakPerSecond", label: "Peak", type: "number", unit: "/s", required: false, hint: "Set the peak outright" };
+
+/**
+ * What a field of the load moves: the monthly volume, which is the cost (the
+ * peak follows it), or only the peak, which is the headroom. Every field moves
+ * one of the two; this mirrors how traffic/traffic.go resolves a load.
+ */
+export type Effect = "volume" | "peak";
+
+/** Fields of a part that set only the peak; the rest set the volume. */
+export const peakOnlyParts: Partial<Record<keyof typeof partFields, string[]>> = { batch: ["withinSeconds"] };
+
+/**
+ * Hours and days set the volume of a rate while active (per second, minute or
+ * hour) and of concurrent users, whose peak is their rate. Of a total, days set
+ * the volume only per day, as a day counts only the active days; otherwise they
+ * and the hours only spread the same volume, which moves the peak.
+ */
+export function whenEffect(key: string, t: Traffic): Effect {
+  if (t.concurrent || (t.rate && t.rate.per in subDay)) return "volume";
+  if (key === "days" && (t.rate ?? t.users)?.per === "day") return "volume";
+  return "peak";
+}
+
+const subDay: Record<string, true> = { second: true, minute: true, hour: true };

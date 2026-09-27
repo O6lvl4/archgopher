@@ -2,6 +2,7 @@ import { usd } from "../../lib/format";
 import { exampleNames } from "../../lib/examples";
 import type { Result } from "../../lib/types";
 import { Chip } from "../../ui/Chip";
+import { useFlash } from "../../ui/useFlash";
 
 export interface HeaderActions {
   onExample: (name: string) => void;
@@ -84,7 +85,33 @@ function ExamplePicker({ onExample }: { onExample: (name: string) => void }) {
   );
 }
 
-export function Header({ result, actions }: { result: Result | undefined; actions: HeaderActions }) {
+/** The monthly total, and for a moment after an edit changes it, by how much. */
+function Total({ monthly, generation }: { monthly: number; generation: number }) {
+  const { flash, from, tick } = useFlash(monthly, generation);
+  const delta = from === undefined ? 0 : monthly - from;
+  return (
+    <>
+      <span key={tick} className={`total${flash ? " flash" : ""}`}>
+        {usd(monthly)}
+      </span>
+      <span className="muted">/ mo</span>
+      {flash && Math.abs(delta) >= 0.005 && (
+        <span className={`delta ${delta > 0 ? "delta-up" : "delta-down"}`}>
+          {delta > 0 ? "+" : "−"}
+          {usd(Math.abs(delta))}
+        </span>
+      )}
+    </>
+  );
+}
+
+interface Props {
+  result: Result | undefined;
+  generation: number;
+  actions: HeaderActions;
+}
+
+export function Header({ result, generation, actions }: Props) {
   const c = counts(result);
   return (
     <header className="topbar">
@@ -98,8 +125,7 @@ export function Header({ result, actions }: { result: Result | undefined; action
       <div className="totals" aria-live="polite">
         <span className="totals-label">Monthly estimate</span>
         <div className="totals-row">
-          <span className="total">{usd(result?.monthlyUsd ?? 0)}</span>
-          <span className="muted">/ mo</span>
+          <Total monthly={result?.monthlyUsd ?? 0} generation={generation} />
           {c.over > 0 && <Chip tone="bad">{c.over} over limit</Chip>}
           {c.errors > 0 && <Chip tone="warn">{c.errors} need input</Chip>}
         </div>
