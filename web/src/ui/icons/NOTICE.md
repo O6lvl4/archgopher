@@ -11,6 +11,10 @@ unchanged.
 | `gcp/` | [Google Cloud icons](https://cloud.google.com/icons) | Provided by Google for architecture diagrams |
 | `cloudflare/`, `conoha/`, `general/` | [Lucide](https://lucide.dev) glyphs, recolored and placed on a tile: white on Cloudflare orange, white on ConoHa cyan, black on white for provider-neutral nodes | ISC License, Copyright (c) Lucide Icons and Contributors. `code`, `database` and `server` are derived from [Feather](https://feathericons.com): MIT License, Copyright (c) 2013-present Cole Bemis |
 
+The toolbar in the header draws a few Lucide glyphs (file-plus, folder-open,
+save, import, chevron-down) inline in `features/header/Header.tsx`, unchanged
+apart from their color.
+
 The full ISC and MIT notices are in
 [web/public/licenses/lucide.txt](../../../public/licenses/lucide.txt), which the
 build publishes next to the icons; each Lucide file names it in its first line.
