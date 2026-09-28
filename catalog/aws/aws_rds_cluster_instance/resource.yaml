@@ -1,6 +1,7 @@
 type: aws_rds_cluster_instance
 label: Aurora instance
 category: Database
+attach: true
 icon: aurora
 description: "Instance-hours of a provisioned Aurora instance, Aurora Standard or I/O-Optimized, surplus CPU credits, Database Insights and Extended Support per vCPU. Storage and I/O are billed on the aws_rds_cluster node, and so is a db.serverless instance's capacity (its ACU-hours). On-demand prices."
 kinds: [query]

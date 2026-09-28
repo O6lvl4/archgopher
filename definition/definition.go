@@ -29,7 +29,10 @@ type File struct {
 	External    bool     `yaml:"external"`
 	// Boundary types are drawn around nodes (a VPC) instead of being nodes;
 	// they read the traffic between the nodes inside.
-	Boundary    bool         `yaml:"boundary"`
+	Boundary bool `yaml:"boundary"`
+	// Attach types are drawn as a count under the node that owns them, not as
+	// their own picture: log groups, alarms, a bucket's lifecycle rules.
+	Attach      bool         `yaml:"attach"`
 	Attributes  []field.Spec `yaml:"attributes"`
 	Assumptions []field.Spec `yaml:"assumptions"`
 	// Includes pulls in a facet's assumption fields (logs, tokens).
@@ -148,7 +151,7 @@ func build(specs []field.Spec) ([]field.Field, error) {
 // Meta is the catalog entry.
 func (r *Resource) Meta() scouter.Meta {
 	f := r.File
-	return scouter.Meta{Type: f.Type, Label: f.Label, Category: f.Category, Provider: r.provider, Description: f.Description, Kinds: f.Kinds, SLA: f.SLA, External: f.External, Boundary: f.Boundary, Icon: iconPath(r.provider, f.Icon)}
+	return scouter.Meta{Type: f.Type, Label: f.Label, Category: f.Category, Provider: r.provider, Description: f.Description, Kinds: f.Kinds, SLA: f.SLA, External: f.External, Boundary: f.Boundary, Attach: f.Attach, Icon: iconPath(r.provider, f.Icon)}
 }
 
 // Attributes lists the Terraform attributes the resource reads.

@@ -17,7 +17,7 @@ builds every form from the fields the Go structs declare.
 Each card shows its service's icon, named by `icon` in `resource.yaml`, and a
 line in its provider's color: AWS, Azure, Google Cloud's four colors,
 Cloudflare or ConoHa. The icons come from each provider's architecture icon set; see
-[web/src/ui/icons/NOTICE.md](../web/src/ui/icons/NOTICE.md) for their sources and
+[icons/NOTICE.md](../icons/NOTICE.md) for their sources and
 terms.
 
 Frames are drawn from the catalog too: pick VPC (or VNet, VPC network) under

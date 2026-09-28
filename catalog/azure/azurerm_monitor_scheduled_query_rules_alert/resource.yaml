@@ -1,6 +1,7 @@
 type: azurerm_monitor_scheduled_query_rules_alert
 label: Log alert (legacy)
 category: Monitoring
+attach: true
 icon: alerts
 description: "A monthly cost per rule by how often it runs its query: every 1, 5, 10 or 15 minutes or slower, priced at the next faster step. The legacy rule monitors one time series. Load does not flow through an alert."
 kinds: [alarm]

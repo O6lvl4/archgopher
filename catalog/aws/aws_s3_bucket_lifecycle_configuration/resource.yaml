@@ -1,6 +1,7 @@
 type: aws_s3_bucket_lifecycle_configuration
 label: S3 lifecycle rules
 category: Storage
+attach: true
 icon: s3
 description: "Transition requests into the storage class the first rule's transition names, and the storage of the objects held there. The bucket node reads S3 Standard only, so give it the data that stays in Standard. Expiration is free; retrieval fees and minimum storage durations are not read. Rules that only expire objects cost nothing."
 kinds: [transition]

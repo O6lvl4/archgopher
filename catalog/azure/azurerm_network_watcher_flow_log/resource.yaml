@@ -1,6 +1,7 @@
 type: azurerm_network_watcher_flow_log
 label: Flow log
 category: Monitoring
+attach: true
 icon: network-watcher
 description: "NSG or VNet flow logs: GB collected and, with traffic analytics, GB processed at the 60- or 10-minute interval. The logs' storage is billed on the storage account and the analytics results on the Log Analytics workspace. Load does not flow through it."
 kinds: [collect]

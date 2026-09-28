@@ -317,7 +317,7 @@ Every resource is a directory in [`catalog/aws`](../catalog/aws),
 [`catalog/cloudflare`](../catalog/cloudflare) or
 [`catalog/conoha`](../catalog/conoha), named after its type. It holds
 everything about that resource and nothing else; adding one needs no Go code.
-Its `icon` names a picture in `web/src/ui/icons/<provider>/`; a test fails when
+Its `icon` names a picture in `icons/<provider>/`; a test fails when
 a resource has none or a picture is unused.
 
 ```text

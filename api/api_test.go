@@ -1,10 +1,12 @@
 package api
 
 import (
+	"io/fs"
 	"math"
 
 	"encoding/json"
 	"github.com/O6lvl4/archgopher/engine"
+	"github.com/O6lvl4/archgopher/icons"
 	"github.com/O6lvl4/archgopher/model"
 	"os"
 	"path/filepath"
@@ -84,21 +86,19 @@ func TestCallEnvelope(t *testing.T) {
 
 // Every node the UI can place has a picture, and every picture is used.
 func TestEveryEntryHasAnIcon(t *testing.T) {
-	dir := filepath.Join("..", "web", "src", "ui", "icons")
 	used := map[string]bool{}
 	for _, e := range Catalog() {
 		if e.Icon == "" {
 			t.Errorf("%s: no icon", e.Type)
 			continue
 		}
-		p := filepath.Join(dir, filepath.FromSlash(e.Icon)+".svg")
-		if _, err := os.Stat(p); err != nil {
+		if _, err := icons.Read(e.Icon); err != nil {
 			t.Errorf("%s: icon %q: %v", e.Type, e.Icon, err)
 		}
-		used[filepath.Clean(p)] = true
+		used[e.Icon+".svg"] = true
 	}
-	err := filepath.WalkDir(dir, func(p string, d os.DirEntry, err error) error {
-		if err == nil && !d.IsDir() && strings.HasSuffix(p, ".svg") && !used[filepath.Clean(p)] {
+	err := fs.WalkDir(icons.FS, ".", func(p string, d fs.DirEntry, err error) error {
+		if err == nil && !d.IsDir() && strings.HasSuffix(p, ".svg") && !used[p] {
 			t.Errorf("%s: no node uses it", p)
 		}
 		return err

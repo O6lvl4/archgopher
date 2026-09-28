@@ -42,6 +42,9 @@ type Meta struct {
 	External bool `json:"external,omitempty"`
 	// Boundary types are groups drawn around nodes (a VPC), never nodes.
 	Boundary bool `json:"boundary,omitempty"`
+	// Attach types are drawn as a count under the node that owns them (a log
+	// group, an alarm, a bucket's lifecycle rules), never as their own picture.
+	Attach bool `json:"attach,omitempty"`
 	// Icon names the picture the UI draws for the node: "<provider>/<name>",
 	// or "general/<name>" for provider-neutral nodes.
 	Icon string `json:"icon,omitempty"`

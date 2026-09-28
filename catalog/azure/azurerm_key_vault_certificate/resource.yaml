@@ -1,6 +1,7 @@
 type: azurerm_key_vault_certificate
 label: Key Vault certificate
 category: Security
+attach: true
 icon: key-vault
 description: "Renewal requests, read from the certificate policy when Key Vault renews it automatically (validity times the lifetime trigger), and other certificate operations per 10,000. Imported certificates are renewed outside Key Vault. References to a certificate are mentions, not load: App Service and Application Gateway fetch it a few times a day."
 kinds: [read]

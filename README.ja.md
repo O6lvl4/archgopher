@@ -20,6 +20,7 @@ go install github.com/O6lvl4/archgopher/cmd/archgopher@latest
 archgopher tf ./infra -o app.scouter.yaml   # Terraform から宣言を作る（init・認証は不要）
 archgopher gaps app.scouter.yaml            # Terraform から分からないものを並べ、埋める
 archgopher scout app.scouter.yaml           # 読む（--json で機械可読）
+archgopher export app.scouter.yaml -o app.svg # 描く（アイコン・枠・ラベル付きの辺）
 ```
 
 例は [`examples/serverless-api`](examples/serverless-api) にあります。
@@ -41,4 +42,4 @@ archgopher scout app.scouter.yaml           # 読む（--json で機械可読）
 
 [Apache License 2.0](LICENSE)。ロゴは [Renée French](https://reneefrench.blogspot.com/) による Go gopher
 （[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)）をもとにしています。
-サービスアイコンの権利は各社にあります（[NOTICE](web/src/ui/icons/NOTICE.md)）。
+サービスアイコンの権利は各社にあります（[NOTICE](icons/NOTICE.md)）。

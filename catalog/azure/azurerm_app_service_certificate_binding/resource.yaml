@@ -1,6 +1,7 @@
 type: azurerm_app_service_certificate_binding
 label: App Service certificate binding
 category: Security
+attach: true
 icon: app-service-certificate
 description: "Binds a certificate to a custom hostname of an app. An IP-based SSL binding costs a monthly fee per binding; an SNI binding is free. Load does not flow through a binding."
 kinds: [tls]

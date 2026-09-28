@@ -9,7 +9,7 @@ an import breaks the rule, and `web/scripts/layers.mjs` does the same for the UI
 ```text
 cmd/archgopher, cmd/wasm          edges of the system
         │
-       api ── gaps                  JSON in, JSON out; what the declaration does not know
+       api ── gaps, diagram         JSON in, JSON out; what the declaration does not know; the drawing
         │
 provider/aws ── iam, schedule,     loads the catalog; IAM edges, schedule syntax,
    │      │     pattern            account-wide rules; L3 patterns
@@ -35,6 +35,7 @@ facet ── scouter                    L2 reusable readings; how one type is re
 | Scouter | [`scouter`](../scouter) | How one resource type is read: catalog entry, fields, and a function built from facets |
 | Engine | [`engine`](../engine) | Validation, load propagation in topological order, path composition. No provider knowledge |
 | Gaps | [`gaps`](../gaps) | What a declaration does not know yet, found from the readings and the scouters' fields. No provider knowledge |
+| Diagram | [`diagram`](../diagram), [`icons`](../icons) | The declaration drawn: attached nodes folded under their owners, a layered layout with groups placed as blocks, the cloud and region as frames, and the providers' icons embedded once for the CLI and the web UI |
 | L3 | [`pattern`](../pattern) | Reusable architectures that expand into nodes and edges, then roll up |
 | Terraform | [`terraform/config`](../terraform/config), [`eval`](../terraform/eval), [`infer`](../terraform/infer), [`merge`](../terraform/merge) | Parse, evaluate, infer a graph, merge into edits. No provider knowledge |
 | Resources | [`definition`](../definition), [`catalog/aws`](../catalog/aws) | Resources as data, one directory per type: a definition compiles into a scouter built from facets |

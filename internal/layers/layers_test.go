@@ -33,7 +33,10 @@ var allowed = map[string][]string{
 	"engine":     {"book", "meter", "model", "scouter", "traffic"},
 	"pattern":    {"engine", "field", "meter", "model", "scouter"},
 	"report":     {"engine", "meter", "model"},
-	"gaps":       {"book", "engine", "field", "meter", "model", "scouter"},
+	// Drawing: the icons, and the diagram that places them.
+	"icons":   {},
+	"diagram": {"icons", "model", "scouter"},
+	"gaps":    {"book", "engine", "field", "meter", "model", "scouter"},
 
 	// Terraform adapter: read, evaluate, infer, merge. No provider knowledge.
 	"terraform/config": {},
@@ -74,7 +77,7 @@ var allowed = map[string][]string{
 	"cloud": {"book", "model", "pattern", "scouter", "terraform/infer", "provider/aws", "provider/aws/pattern", "provider/azure", "provider/cloudflare", "provider/conoha", "provider/gcp"},
 
 	// Edges of the system.
-	"api":            {"book", "cloud", "engine", "field", "gaps", "model", "pattern", "scouter", "terraform/eval", "terraform/infer", "terraform/merge"},
+	"api":            {"book", "cloud", "diagram", "engine", "field", "gaps", "icons", "model", "pattern", "scouter", "terraform/eval", "terraform/infer", "terraform/merge"},
 	"cmd/archgopher": {"api", "book", "cloud", "engine", "gaps", "model", "report", "provider/aws/pricelist", "provider/aws/servicequotas", "provider/azure/retailprices", "provider/gcp/billingcatalog", "provider/gcp/cloudquotas", "terraform/eval", "terraform/infer", "terraform/merge"},
 	"cmd/wasm":       {"api"},
 }

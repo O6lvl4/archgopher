@@ -13,6 +13,7 @@ import (
 
 	"github.com/O6lvl4/archgopher/book"
 	"github.com/O6lvl4/archgopher/cloud"
+	"github.com/O6lvl4/archgopher/diagram"
 	"github.com/O6lvl4/archgopher/engine"
 	"github.com/O6lvl4/archgopher/field"
 	"github.com/O6lvl4/archgopher/gaps"
@@ -56,6 +57,22 @@ func Scout(spec model.Spec) (engine.Result, error) {
 		return engine.Result{}, err
 	}
 	return pattern.Rollup(r.res, spec, r.exp, cloud.Patterns()), nil
+}
+
+// ExportSVG draws the declaration as an architecture diagram: icons, labelled
+// edges, and frames for the groups, the cloud and its region.
+func ExportSVG(spec model.Spec) ([]byte, error) {
+	reg, patterns := cloud.Registry(), cloud.Patterns()
+	lookup := func(typ string) (scouter.Meta, bool) {
+		if s, ok := reg[typ]; ok {
+			return s.Meta(), true
+		}
+		if p, ok := patterns[typ]; ok {
+			return p.Meta(), true
+		}
+		return scouter.Meta{}, false
+	}
+	return diagram.SVG(spec, lookup)
 }
 
 // Gaps lists what the declaration does not know yet: entries without load,

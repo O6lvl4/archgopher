@@ -1,6 +1,7 @@
 type: aws_s3_bucket_versioning
 label: S3 versioning
 category: Storage
+attach: true
 icon: s3
 description: "Noncurrent object versions kept by versioning, stored at the S3 Standard price. The bucket node reads the current versions; lifecycle rules that expire or move noncurrent versions shrink this amount. Suspended versioning keeps the versions already written."
 kinds: [version]

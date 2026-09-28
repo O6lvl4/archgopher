@@ -24,6 +24,7 @@ go install github.com/O6lvl4/archgopher/cmd/archgopher@latest
 archgopher tf ./infra -o app.scouter.yaml   # Terraform → declaration (no init, no credentials)
 archgopher gaps app.scouter.yaml            # what Terraform cannot know; fill it in
 archgopher scout app.scouter.yaml           # read it (--json for machines)
+archgopher export app.scouter.yaml -o app.svg # draw it: icons, frames, labelled edges
 ```
 
 ```text
@@ -43,6 +44,7 @@ install && pnpm run dev`.
 
 - [The declaration](docs/declaration.md): nodes, edges, load, filling the gaps
 - [Terraform and pull requests](docs/terraform.md): import, merge, diff, GitHub Action
+- [Export](docs/export.md): the declaration as an architecture diagram
 - [Reference books](docs/books.md): prices, quotas, SLAs, regions, `sync`
 - [Scouters](docs/scouters.md): every supported resource, and adding one
 - [Web UI](docs/web.md)
@@ -52,4 +54,4 @@ install && pnpm run dev`.
 
 [Apache License 2.0](LICENSE). The logo is derived from the Go gopher by
 [Renée French](https://reneefrench.blogspot.com/) ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)).
-Service icons belong to their owners; see [their notice](web/src/ui/icons/NOTICE.md).
+Service icons belong to their owners; see [their notice](icons/NOTICE.md).

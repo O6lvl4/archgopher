@@ -1,6 +1,7 @@
 type: aws_acm_certificate
 label: ACM certificate
 category: Security
+attach: true
 icon: certificate-manager
 description: "Public certificates are free. A private certificate (certificate_authority_arn) pays its private CA's issuance price each time ACM issues or renews it, about every 11 months, spread over the months between. The CA itself is its own node. Load does not flow through a certificate."
 kinds: [issue]

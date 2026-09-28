@@ -1,6 +1,7 @@
 type: aws_route53_health_check
 label: Route 53 health check
 category: Monitoring
+attach: true
 icon: route-53
 description: "A health check per month, for an AWS or a non-AWS endpoint, plus each optional feature it uses: HTTPS, string matching, a 10-second interval, latency measurement. Calculated and CloudWatch metric checks price as AWS endpoints. Load does not flow through a health check."
 kinds: [check]

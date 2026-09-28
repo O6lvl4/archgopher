@@ -1,6 +1,7 @@
 type: azurerm_monitor_diagnostic_setting
 label: Diagnostic setting
 category: Monitoring
+attach: true
 icon: diagnostic-settings
 description: "Platform logs processed on their way to a storage account, an event hub or a partner solution. Logs sent to a Log Analytics workspace are billed as that workspace's ingestion instead: count them there. Storing them and event hub throughput are billed on the destination."
 kinds: [export]

@@ -16,7 +16,7 @@ save, import, chevron-down) inline in `features/header/Header.tsx`, unchanged
 apart from their color.
 
 The full ISC and MIT notices are in
-[web/public/licenses/lucide.txt](../../../public/licenses/lucide.txt), which the
+[web/public/licenses/lucide.txt](../web/public/licenses/lucide.txt), which the
 build publishes next to the icons; each Lucide file names it in its first line.
 
 The AWS, Azure and Google Cloud icons are trademarks of their owners and are

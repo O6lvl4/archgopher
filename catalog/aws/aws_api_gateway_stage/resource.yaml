@@ -1,6 +1,7 @@
 type: aws_api_gateway_stage
 label: API Gateway stage
 category: Edge
+attach: true
 icon: api-gateway
 description: "Where requests to a REST API arrive: the stage passes them on to its API, which bills them and carries the SLA, so the stage adds no availability of its own. A stage with a cache pays its dedicated cache by the hour, by size. Requests answered from the cache still reach the API's request count; the calls behind the API are fewer, which the edges from the API say."
 kinds: [request]
