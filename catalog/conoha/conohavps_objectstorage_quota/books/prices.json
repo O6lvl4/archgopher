@@ -1,0 +1,16 @@
+{
+  "conoha.vps.object_storage": {
+    "unit": "100GB-month",
+    "source": "https://vps.conoha.jp/pricing/",
+    "note": "Each 100 GB of object storage capacity (オブジェクトストレージ), hourly billing up to the monthly amount. Tax-inclusive yen as published. Read on the pricing page; ConoHa publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 545,
+        "verified": true,
+        "checkedAt": "2026-09-28"
+      }
+    },
+    "currency": "JPY",
+    "tax": 0.1
+  }
+}

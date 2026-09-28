@@ -1,0 +1,24 @@
+type: conohavps_instance_autobackup
+label: ConoHa VPS auto backup
+category: Storage
+icon: history
+attach: true
+description: "Daily automatic backups (自動バックアップ) of a server, priced by the capacity backed up (the boot volume and the volumes attached, 100 to 700 GB) and billed by the hour up to the monthly amount; 14 generations are included, and each generation kept beyond 14 pays per 100 GB. It is drawn under its server. Prices are published in yen with tax; they are read before tax, in US dollars at the book's rate."
+kinds: [backup]
+attributes:
+  - { key: retention, label: Generations kept, type: number, unit: days, default: 14, hint: "14 to 30 daily backups; each beyond 14 is paid" }
+assumptions:
+  - key: backupGb
+    label: Capacity backed up
+    type: choice
+    default: "100"
+    options: ["100", "200", "300", "500", "600", "700"]
+    labels: { "100": "100 GB: the boot volume of a plan (30 GB on 512 MB is billed as 100)", "200": "200 GB: a 200 GB boot volume", "300": "300 GB: 100 GB boot and a 200 GB volume", "500": "500 GB: a 500 GB boot volume", "600": "600 GB: 100 GB boot and a 500 GB volume", "700": "700 GB: 200 GB boot and a 500 GB volume" }
+    hint: "The boot volume plus the volumes attached; ConoHa prices six tiers"
+let:
+  - gb: 'backupGb'
+  - days: 'string(retention)'
+readings:
+  - fail: { when: 'retention < 14 || retention > 30', message: "retention is 14 to 30 days, not {days}" }
+  - cost: { name: "Auto backup ({gb} GB)", quantity: 1, unit: server-month, price: "conoha.vps.autobackup.{gb}" }
+  - cost: { when: 'retention > 14', name: Backup generations beyond 14, quantity: '(retention - 14) * int(backupGb) / 100', unit: generation-month, price: conoha.vps.autobackup_generation }

@@ -1,0 +1,11 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Monthly USD per cost line, peak demand per limit. After an intended change:
+#   go test ./provider/conoha -update
+- name: a load balancer
+  region: ap-northeast-1
+  demand:
+    request:
+        monthly: 1e+06
+        peak: 20
+  costs:
+    Load balancer: 6.9828

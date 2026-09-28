@@ -1,0 +1,15 @@
+type: conohavps_objectstorage_quota
+label: ConoHa object storage
+category: Storage
+icon: archive
+description: "The account's object storage capacity (オブジェクトストレージ), bought in steps of 100 GB and billed by the hour up to the monthly amount. Requests and transfer are free, and containers (conohavps_objectstorage_container) cost nothing of their own. One per account. Prices are published in yen with tax; they are read before tax, in US dollars at the book's rate."
+kinds: [read, write]
+attributes:
+  - { key: quota_gb, label: Capacity, type: number, unit: GB, default: 100, hint: "A multiple of 100" }
+let:
+  - gb: 'string(quota_gb)'
+readings:
+  - fail: { when: 'quota_gb < 100 || int(quota_gb) % 100 != 0', message: "quota_gb is a multiple of 100, not {gb}" }
+  - cost: { name: Object storage, quantity: 'quota_gb / 100', unit: 100GB-month, price: conoha.vps.object_storage }
+terraform:
+  passive: true

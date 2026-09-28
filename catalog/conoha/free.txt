@@ -1,5 +1,24 @@
-# Resource types that cost nothing by themselves (key pairs, security groups and their rules).
-# Terraform import counts them as free instead of unpriced; they never become nodes.
+# Resource types that cost nothing by themselves. Terraform import counts them as
+# free instead of unpriced; they never become nodes. Listeners, pools, members and
+# health monitors come with the load balancer; local networks, subnets, ports and
+# attachments come with the servers; DNS comes with the account; containers sit in
+# the object storage capacity; snapshots take the image save capacity.
 conohavps_keypair
 conohavps_securitygroup
 conohavps_securitygroup_rule
+conohavps_lb_listener
+conohavps_lb_pool
+conohavps_lb_member
+conohavps_lb_health_monitor
+conohavps_network
+conohavps_subnet
+conohavps_port
+conohavps_port_attachment
+conohavps_volume_attachment
+conohavps_volume_snapshot
+conohavps_dns_domain
+conohavps_dns_record
+conohavps_objectstorage_container
+conohavps_role
+conohavps_subuser
+conohavps_credential

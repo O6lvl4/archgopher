@@ -17,3 +17,9 @@ readings:
   - cost: { when: 'boot && size == 500', name: Boot storage added (400 GB), quantity: 1, unit: volume-month, price: conoha.vps.boot_storage.400 }
   - fail: { when: '!boot && size < 200', message: "an additional volume is at least 200 GB, not {gb}" }
   - cost: { when: '!boot && size >= 200', name: "Additional SSD ({gb} GB)", quantity: 1, unit: volume-month, price: "conoha.vps.additional_ssd.{gb}" }
+terraform:
+  # A volume calls nothing; a conohavps_volume_attachment connects the server that does I/O on it.
+  passive: true
+  links:
+    - { type: conohavps_volume_attachment, from: instance_id, to: [volume_id] }
+  ignoreRefs: [backup_id, image_ref, source_volid]

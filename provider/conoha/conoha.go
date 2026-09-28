@@ -1,7 +1,8 @@
-// Package conoha is the ConoHa VPS provider (GMO Internet's conohavps
-// Terraform provider). Resources live as data in catalog/conoha, one
-// directory per resource type; this package loads them and adds what is not
-// per resource.
+// Package conoha is the ConoHa VPS provider: the conohavps Terraform
+// provider as Aid-On's fork extends it to every resource of the ConoHa VPS
+// Ver.3.0 API (github.com/Aid-On/terraform-provider-conohavps). Resources
+// live as data in catalog/conoha, one directory per resource type; this
+// package loads them and adds what is not per resource.
 package conoha
 
 import (

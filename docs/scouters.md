@@ -291,15 +291,27 @@ fee is paid once. Free tiers (R2's, the Workers AI neurons) are not counted.
 
 | Type | Reads | Headroom |
 | --- | --- | --- |
-| `conohavps_instance` | The plan's monthly amount by flavor (Linux, hourly billing: 512 MB to 128 GB, and the 8 GB to 64 GB plans the March 2025 renewal replaced); the flavor UUID names the plan, or `plan` names it when a variable sets the ID or the flavor is a 12 GB to 128 GB plan, whose UUIDs ConoHa does not publish | Requests per second per server |
-| `conohavps_volume` | Boot storage added above the plan's 100 GB (200 and 500 GB boot volumes), or the additional SSD by size | - |
+| `conohavps_instance` | The plan's monthly amount by flavor: Linux on hourly billing (512 MB to 128 GB, and the 8 GB to 64 GB plans the March 2025 renewal replaced) or a database server (10 GB to 1,000 GB of disk); the flavor UUID names the plan, or `plan` names it when a variable or the `conohavps_flavor` data source sets the ID, or the flavor is a 12 GB to 128 GB plan, whose UUIDs ConoHa does not publish | Requests per second per server |
+| `conohavps_volume` | Boot storage added above the plan's 100 GB (200 and 500 GB boot volumes), or the additional SSD by size; a `conohavps_volume_attachment` connects the server that uses it | - |
+| `conohavps_additional_ip` | The port's additional global IP addresses, one to sixteen; a `conohavps_port_attachment` puts them under the server, where the diagram counts them | - |
+| `conohavps_lb_loadbalancer` | The load balancer's monthly amount; a front door that calls the servers its pool members name (member → pool → listener → load balancer). Listeners, pools, members and health monitors are free | - |
+| `conohavps_instance_autobackup` | Daily backups of a server by the capacity backed up (100 to 700 GB, `backupGb`), and each generation kept beyond the 14 included; counted under the server | - |
+| `conohavps_image_quota` | The account's image save capacity beyond the 50 GB free, per 500 GB | - |
+| `conohavps_objectstorage_quota` | The account's object storage capacity, per 100 GB; containers are free | - |
 
-These are the resources of GMO Internet's `gmo-internet/conohavps` provider
-(beta); key pairs, security groups and their rules cost nothing. ConoHa bills
-a server or volume by the hour up to a monthly amount, running or shut off,
-until it is deleted, so a resource a declaration keeps pays the monthly
-amount. Prepaid (まとめトク), Windows Server, database and GPU plans are not
-priced yet and say so. The prices are read from the pricing page by hand, like
+These are the resources of the `conohavps` Terraform provider as
+[Aid-On's fork](https://github.com/Aid-On/terraform-provider-conohavps)
+extends it to every resource of the ConoHa VPS Ver.3.0 API (the type names
+and attributes are the fork's; GMO's own beta provider is a subset). Key
+pairs, security groups and their rules, listeners, pools, members and health
+monitors, local networks, subnets, ports and attachments, volume snapshots
+(they take image save capacity), DNS domains and records, object storage
+containers, roles, sub-users and credentials cost nothing and never become
+nodes. ConoHa bills a resource by the hour up to a monthly amount, running or
+shut off, until it is deleted, so a resource a declaration keeps pays the
+monthly amount. Prepaid (まとめトク), Windows Server and GPU plans, bandwidth
+expansion (a QoS policy on a port) and the mail server are not priced yet
+and say so. The prices are read from the pricing page by hand, like
 Cloudflare's, and are the same wherever the declaration is. ConoHa publishes
 them in yen with 10% consumption tax: a price entry carries `currency: JPY`
 and `tax: 0.1`, and loading takes the tax out and converts at the book's rate

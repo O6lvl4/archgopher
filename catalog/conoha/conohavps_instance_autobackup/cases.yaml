@@ -1,0 +1,21 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Monthly USD per cost line, peak demand per limit. After an intended change:
+#   go test ./provider/conoha -update
+- name: a 100 GB server with the 14 generations included
+  region: ap-northeast-1
+  costs:
+    Auto backup (100 GB): 2.09484
+- name: 300 GB backed up, 20 generations kept
+  region: us-east-1
+  attributes:
+    retention: 20
+  assumptions:
+    backupGb: "300"
+  costs:
+    Auto backup (300 GB): 6.9828
+    Backup generations beyond 14: 6.85584
+- name: more than 30 days
+  region: ap-northeast-1
+  attributes:
+    retention: 45
+  error: retention is 14 to 30 days, not 45

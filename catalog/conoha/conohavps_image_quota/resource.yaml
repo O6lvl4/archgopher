@@ -1,0 +1,16 @@
+type: conohavps_image_quota
+label: ConoHa VPS image save
+category: Storage
+icon: image
+description: "The account's image save capacity (イメージ保存): 50 GB come free, and each 500 GB added is billed by the hour up to the monthly amount. Saved server images and volume snapshots take this space. One per account. Prices are published in yen with tax; they are read before tax, in US dollars at the book's rate."
+kinds: [store]
+attributes:
+  - { key: image_size_gb, label: Capacity, type: number, unit: GB, default: 50, hint: "50 plus a multiple of 500: 50, 550, 1050, ..." }
+let:
+  - added: 'image_size_gb - 50'
+  - gb: 'string(image_size_gb)'
+readings:
+  - fail: { when: 'added < 0 || int(added) % 500 != 0', message: "image_size_gb is 50 plus a multiple of 500, not {gb}" }
+  - cost: { when: 'added > 0', name: Image save beyond 50 GB, quantity: 'added / 500', unit: 500GB-month, price: conoha.vps.image_save }
+terraform:
+  passive: true

@@ -1,0 +1,20 @@
+type: conohavps_additional_ip
+label: ConoHa VPS additional IP
+category: Network
+icon: globe
+attach: true
+description: "Additional global IP addresses (追加IP) held by one port, one to sixteen, each billed by the hour up to the monthly amount. A conohavps_port_attachment puts the port on a server, and the addresses are drawn under that server. Prices are published in yen with tax; they are read before tax, in US dollars at the book's rate."
+kinds: [traffic]
+attributes:
+  - { key: ip_count, label: Addresses, type: number, default: 1, hint: "1 to 16 addresses on the port" }
+let:
+  - n: 'string(ip_count)'
+readings:
+  - fail: { when: 'ip_count < 1 || ip_count > 16', message: "ip_count is 1 to 16 addresses, not {n}" }
+  - cost: { name: Additional IP addresses, quantity: ip_count, unit: address-month, price: conoha.vps.additional_ip }
+terraform:
+  # The port names its QoS policy and security groups; nothing it names is called.
+  passive: true
+  links:
+    - { type: conohavps_port_attachment, from: server_id, to: [port_id] }
+  ignoreRefs: [qos_policy_id, security_group_ids]

@@ -1,0 +1,15 @@
+type: conohavps_lb_loadbalancer
+label: ConoHa VPS load balancer
+category: Network
+icon: network
+description: "A load balancer (ロードバランサー), billed by the hour up to the monthly amount, with as many listeners, pools, members and health monitors as it needs at no extra cost. Users reach it first, and it calls the servers its pool members name: a member whose address reads a server's addresses. ConoHa publishes no SLA and no throughput figure for it, so it reads no headroom and no availability. Prices are published in yen with tax; they are read before tax, in US dollars at the book's rate."
+kinds: [request]
+readings:
+  - cost: { name: Load balancer, quantity: 1, unit: loadbalancer-month, price: conoha.vps.loadbalancer }
+terraform:
+  frontDoor: true
+  # A listener stands for its load balancer and a pool for its listener, so a
+  # member's pool leads to the load balancer that calls the member's server.
+  aliases: { conohavps_lb_listener: loadbalancer_id, conohavps_lb_pool: listener_id }
+  links:
+    - { type: conohavps_lb_member, from: pool_id, to: [address] }

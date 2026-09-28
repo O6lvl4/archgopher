@@ -1,0 +1,24 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Monthly USD per cost line, peak demand per limit. After an intended change:
+#   go test ./provider/conoha -update
+- name: 100 GB
+  region: ap-northeast-1
+  attributes:
+    quota_gb: 100
+  costs:
+    Object storage: 3.145145455
+- name: 300 GB written to from a server
+  region: us-east-1
+  attributes:
+    quota_gb: 300
+  demand:
+    write:
+        monthly: 100000
+        peak: 2
+  costs:
+    Object storage: 9.435436364
+- name: a size that is not a multiple of 100
+  region: ap-northeast-1
+  attributes:
+    quota_gb: 150
+  error: quota_gb is a multiple of 100, not 150

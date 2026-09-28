@@ -1,12 +1,11 @@
 # Worked examples: given these values and this load, the resource reads this.
-# Expected values are computed by hand from the unit prices, not taken from the engine.
-# Yen prices include 10% tax and convert at 0.006348 US dollars a yen.
+# Monthly USD per cost line, peak demand per limit. After an intended change:
+#   go test ./provider/conoha -update
 - name: the 1 GB plan by its flavor ID
   region: ap-northeast-1
   attributes:
     flavor_id: f2a77529-1815-43a2-bc14-1f3f6b09079c
   costs:
-    # 1,065 yen / 1.1 x 0.006348 = 6.146018182
     Server (g2l-t-c2m1): 6.146018182
 - name: the 4 GB plan named by hand, serving 40 requests a second at the peak
   region: us-east-1
@@ -15,10 +14,9 @@
     requestsPerInstance: 200
   demand:
     request:
-      monthly: 10000000
-      peak: 40
+        monthly: 1e+07
+        peak: 40
   costs:
-    # 3,608 yen / 1.1 x 0.006348 = 20.82144
     Server (g2l-t-c4m4): 20.82144
   limits:
     Requests per second: 40
@@ -26,23 +24,27 @@
   region: ap-northeast-1
   attributes:
     flavor_id: 6f894e28-6ce3-426d-9a9d-36ac8d07c4a7
-  error: g2l-p-c6m8 is a prepaid plan
+  error: 'g2l-p-c6m8 is a prepaid plan, paid up front for a term at a price that depends on the term: use the hourly flavor, g2l-t-, for what the plan costs a month'
 - name: a flavor ID that is not listed
   region: ap-northeast-1
   attributes:
     flavor_id: 11111111-1111-1111-1111-111111111111
-  error: set plan
+  error: 'flavor_id is not a flavor ConoHa publishes (a variable or the conohavps_flavor data source): set plan, the flavor name (g2l-t-c6m12)'
 - name: the 12 GB plan, whose flavor ID is only in the account's list, named by hand
   region: ap-northeast-1
   assumptions:
     plan: g2l-t-c6m12
   costs:
-    # 7,348 yen / 1.1 x 0.006348 = 42.40464
     Server (g2l-t-c6m12): 42.40464
 - name: a server still on the old 8 GB plan keeps its price
   region: ap-northeast-1
   attributes:
     flavor_id: c8ce932a-a7de-4fbb-ab64-903826082be3
   costs:
-    # 8,083 yen / 1.1 x 0.006348 = 46.64625818
-    Server (g2l-t-c6m8): 46.64625818
+    Server (g2l-t-c6m8): 46.646258182
+- name: the 30 GB database server plan by its flavor ID
+  region: ap-northeast-1
+  attributes:
+    flavor_id: 1488a6c7-6c8f-4e39-a522-ccab7d3acc84
+  costs:
+    Database server (g2d-t-c1m2d30): 15.217887273

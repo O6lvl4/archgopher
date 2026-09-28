@@ -1,0 +1,18 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Monthly USD per cost line, peak demand per limit. After an intended change:
+#   go test ./provider/conoha -update
+- name: the 50 GB that come free
+  region: ap-northeast-1
+  attributes:
+    image_size_gb: 50
+- name: 1,050 GB, two steps of 500
+  region: ap-northeast-1
+  attributes:
+    image_size_gb: 1050
+  costs:
+    Image save beyond 50 GB: 19.044
+- name: a size that is not 50 plus a multiple of 500
+  region: ap-northeast-1
+  attributes:
+    image_size_gb: 300
+  error: image_size_gb is 50 plus a multiple of 500, not 300

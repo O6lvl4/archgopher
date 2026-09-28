@@ -13,10 +13,16 @@ var update = flag.Bool("update", false, "rewrite the bundled books in canonical 
 // attrs and assume make each resource take its main code path.
 var (
 	attrs = map[string]map[string]any{
-		"conohavps_instance": {"flavor_id": "f2a77529-1815-43a2-bc14-1f3f6b09079c"},
-		"conohavps_volume":   {"size": 200},
+		"conohavps_instance":            {"flavor_id": "f2a77529-1815-43a2-bc14-1f3f6b09079c"},
+		"conohavps_volume":              {"size": 200},
+		"conohavps_additional_ip":       {"ip_count": 2},
+		"conohavps_instance_autobackup": {"retention": 16},
+		"conohavps_image_quota":         {"image_size_gb": 550},
+		"conohavps_objectstorage_quota": {"quota_gb": 200},
 	}
-	assume = map[string]map[string]any{}
+	assume = map[string]map[string]any{
+		"conohavps_instance_autobackup": {"backupGb": "300"},
+	}
 )
 
 // ConoHa prices are the same wherever the declaration is; read them in regions of each

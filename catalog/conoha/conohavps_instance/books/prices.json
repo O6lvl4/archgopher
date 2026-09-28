@@ -1,4 +1,36 @@
 {
+  "conoha.vps.database": {
+    "unit": "server-month",
+    "source": "https://vps.conoha.jp/pricing/",
+    "note": "Database server plans (DBサーバー) by flavor, hourly billing up to the monthly amount; the flavor's disk size (d10 to d1000) names the plan. Tax-inclusive yen as published. Read on the pricing page; ConoHa publishes no price API, so sync cannot recheck it",
+    "rows": {
+      "g2d-t-c16m64d1000": {
+        "*": 106722
+      },
+      "g2d-t-c1m1d10": {
+        "*": 798
+      },
+      "g2d-t-c1m2d30": {
+        "*": 2637
+      },
+      "g2d-t-c2m4d60": {
+        "*": 5553
+      },
+      "g2d-t-c4m8d120": {
+        "*": 12124
+      },
+      "g2d-t-c6m16d240": {
+        "*": 25168
+      },
+      "g2d-t-c8m32d480": {
+        "*": 53482
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-28",
+    "currency": "JPY",
+    "tax": 0.1
+  },
   "conoha.vps.linux": {
     "unit": "server-month",
     "source": "https://www.conoha.jp/vps/pricing/",
