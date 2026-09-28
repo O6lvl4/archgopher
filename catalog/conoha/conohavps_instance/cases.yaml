@@ -102,3 +102,37 @@
     term: "36"
   costs:
     Server (g2l-p-c6m8, 36-month term): 27.861949091
+- name: a GPU plan (L4, 4 cores) by its flavor ID
+  region: ap-northeast-1
+  attributes:
+    flavor_id: 1ff846c5-72d2-41d5-8da9-7d1cb3353022
+  costs:
+    GPU server (g2l-t-c4m16g1-l4): 209.484
+- name: a prepaid GPU plan has no published amount
+  region: ap-northeast-1
+  attributes:
+    flavor_id: 9a21ce94-4d16-43b6-9428-92a0039b190c
+  assumptions:
+    term: "1"
+  error: 'g2l-p-c4m16g1-l4 is a prepaid GPU plan, which ConoHa publishes no amount for: read the hourly plan instead'
+- name: a KUSANAGI plan needs its edition
+  region: ap-northeast-1
+  attributes:
+    flavor_id: 0d2cb44d-b77c-49d0-a885-2a26794d4da1
+  error: 'g2l-t-c1m2-kusanagi is a KUSANAGI plan: set kusanagiEdition (business, premium or security), which the flavor name does not carry'
+- name: a KUSANAGI Business plan on hourly billing, named by hand
+  region: ap-northeast-1
+  assumptions:
+    kusanagiEdition: business
+    plan: g2l-t-c4m8-kusanagi
+  costs:
+    KUSANAGI server (g2l-t-c4m8-kusanagi, business): 73.6368
+- name: a KUSANAGI Security plan prepaid for a month
+  region: ap-northeast-1
+  attributes:
+    flavor_id: 04403cea-75e1-43cf-b685-82091e7f0cb6
+  assumptions:
+    kusanagiEdition: security
+    term: "1"
+  costs:
+    KUSANAGI server (g2l-p-c32m64-kusanagi, security, 1-month term): 901.416

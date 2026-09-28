@@ -45,6 +45,326 @@
     "currency": "JPY",
     "tax": 0.1
   },
+  "conoha.vps.gpu": {
+    "unit": "server-month",
+    "source": "https://vps.conoha.jp/gpu/",
+    "note": "GPU servers on hourly billing: the monthly amount. The GPU page lists tax-excluded amounts (L4 4 vCPU 33,000, L4 20 vCPU 82,000, H100 ×1 582,010); the spec sheet https://vps.conoha.jp/pdf/conoha_spec_ja.pdf confirms the L4 amounts tax-inclusive (36,300 and 90,200), and H100 is the same ×1.1. H100 sales have ended (提供終了) but the flavor still exists. The 4 × H100 plan and the prepaid GPU plans have no published amount. Read on the page; ConoHa publishes no price API, so sync cannot recheck it",
+    "rows": {
+      "g2l-t-c20m128g1-l4": {
+        "*": 90200
+      },
+      "g2l-t-c22m228g1-h100": {
+        "*": 640211
+      },
+      "g2l-t-c4m16g1-l4": {
+        "*": 36300
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-29",
+    "currency": "JPY",
+    "tax": 0.1
+  },
+  "conoha.vps.kusanagi_business": {
+    "unit": "server-month",
+    "source": "https://vps.conoha.jp/kusanagi/",
+    "note": "KUSANAGI Business Edition on hourly billing (料金(時間課金)): the monthly amount, licence included. Tax-inclusive yen as published. The edition is chosen at order time and is not in the flavor name. Read on the page; ConoHa publishes no price API, so sync cannot recheck it",
+    "rows": {
+      "g2l-t-c16m32-kusanagi": {
+        "*": 35530
+      },
+      "g2l-t-c16m64-kusanagi": {
+        "*": 50930
+      },
+      "g2l-t-c1m2-kusanagi": {
+        "*": 4510
+      },
+      "g2l-t-c2m4-kusanagi": {
+        "*": 8360
+      },
+      "g2l-t-c2m8-kusanagi": {
+        "*": 10230
+      },
+      "g2l-t-c32m64-kusanagi": {
+        "*": 59180
+      },
+      "g2l-t-c4m16-kusanagi": {
+        "*": 16610
+      },
+      "g2l-t-c4m8-kusanagi": {
+        "*": 12760
+      },
+      "g2l-t-c64m128-kusanagi": {
+        "*": 102300
+      },
+      "g2l-t-c6m12-kusanagi": {
+        "*": 17270
+      },
+      "g2l-t-c6m24-kusanagi": {
+        "*": 22990
+      },
+      "g2l-t-c8m16-kusanagi": {
+        "*": 21780
+      },
+      "g2l-t-c8m32-kusanagi": {
+        "*": 29480
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-29",
+    "currency": "JPY",
+    "tax": 0.1
+  },
+  "conoha.vps.kusanagi_business_prepaid": {
+    "unit": "server-month",
+    "source": "https://vps.conoha.jp/kusanagi/",
+    "note": "KUSANAGI Business Edition prepaid for 1 month (料金(1ヶ月)), the only prepaid amount the page publishes. Tax-inclusive yen as published. Read on the page; ConoHa publishes no price API, so sync cannot recheck it",
+    "rows": {
+      "g2l-p-c16m32-kusanagi": {
+        "*": 33770
+      },
+      "g2l-p-c16m64-kusanagi": {
+        "*": 47740
+      },
+      "g2l-p-c1m2-kusanagi": {
+        "*": 4400
+      },
+      "g2l-p-c2m4-kusanagi": {
+        "*": 8140
+      },
+      "g2l-p-c2m8-kusanagi": {
+        "*": 9790
+      },
+      "g2l-p-c32m64-kusanagi": {
+        "*": 55660
+      },
+      "g2l-p-c4m16-kusanagi": {
+        "*": 15730
+      },
+      "g2l-p-c4m8-kusanagi": {
+        "*": 12320
+      },
+      "g2l-p-c64m128-kusanagi": {
+        "*": 95260
+      },
+      "g2l-p-c6m12-kusanagi": {
+        "*": 16610
+      },
+      "g2l-p-c6m24-kusanagi": {
+        "*": 21780
+      },
+      "g2l-p-c8m16-kusanagi": {
+        "*": 20900
+      },
+      "g2l-p-c8m32-kusanagi": {
+        "*": 27830
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-29",
+    "currency": "JPY",
+    "tax": 0.1
+  },
+  "conoha.vps.kusanagi_premium": {
+    "unit": "server-month",
+    "source": "https://vps.conoha.jp/kusanagi/",
+    "note": "KUSANAGI Premium Edition on hourly billing (料金(時間課金)): the monthly amount, licence included. Tax-inclusive yen as published. The edition is chosen at order time and is not in the flavor name. Read on the page; ConoHa publishes no price API, so sync cannot recheck it",
+    "rows": {
+      "g2l-t-c16m32-kusanagi": {
+        "*": 181060
+      },
+      "g2l-t-c16m64-kusanagi": {
+        "*": 196460
+      },
+      "g2l-t-c1m2-kusanagi": {
+        "*": 34210
+      },
+      "g2l-t-c2m4-kusanagi": {
+        "*": 61820
+      },
+      "g2l-t-c2m8-kusanagi": {
+        "*": 63690
+      },
+      "g2l-t-c32m64-kusanagi": {
+        "*": 243320
+      },
+      "g2l-t-c4m16-kusanagi": {
+        "*": 87890
+      },
+      "g2l-t-c4m8-kusanagi": {
+        "*": 84040
+      },
+      "g2l-t-c64m128-kusanagi": {
+        "*": 326040
+      },
+      "g2l-t-c6m12-kusanagi": {
+        "*": 107360
+      },
+      "g2l-t-c6m24-kusanagi": {
+        "*": 113080
+      },
+      "g2l-t-c8m16-kusanagi": {
+        "*": 130680
+      },
+      "g2l-t-c8m32-kusanagi": {
+        "*": 138380
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-29",
+    "currency": "JPY",
+    "tax": 0.1
+  },
+  "conoha.vps.kusanagi_premium_prepaid": {
+    "unit": "server-month",
+    "source": "https://vps.conoha.jp/kusanagi/",
+    "note": "KUSANAGI Premium Edition prepaid for 1 month (料金(1ヶ月)), the only prepaid amount the page publishes. Tax-inclusive yen as published. Read on the page; ConoHa publishes no price API, so sync cannot recheck it",
+    "rows": {
+      "g2l-p-c16m32-kusanagi": {
+        "*": 179300
+      },
+      "g2l-p-c16m64-kusanagi": {
+        "*": 193270
+      },
+      "g2l-p-c1m2-kusanagi": {
+        "*": 34100
+      },
+      "g2l-p-c2m4-kusanagi": {
+        "*": 61600
+      },
+      "g2l-p-c2m8-kusanagi": {
+        "*": 63250
+      },
+      "g2l-p-c32m64-kusanagi": {
+        "*": 239800
+      },
+      "g2l-p-c4m16-kusanagi": {
+        "*": 87010
+      },
+      "g2l-p-c4m8-kusanagi": {
+        "*": 83600
+      },
+      "g2l-p-c64m128-kusanagi": {
+        "*": 319000
+      },
+      "g2l-p-c6m12-kusanagi": {
+        "*": 106700
+      },
+      "g2l-p-c6m24-kusanagi": {
+        "*": 111870
+      },
+      "g2l-p-c8m16-kusanagi": {
+        "*": 129800
+      },
+      "g2l-p-c8m32-kusanagi": {
+        "*": 136730
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-29",
+    "currency": "JPY",
+    "tax": 0.1
+  },
+  "conoha.vps.kusanagi_security": {
+    "unit": "server-month",
+    "source": "https://vps.conoha.jp/kusanagi/",
+    "note": "KUSANAGI Security Edition on hourly billing (料金(時間課金)): the monthly amount, licence included. Tax-inclusive yen as published. The edition is chosen at order time and is not in the flavor name. Read on the page; ConoHa publishes no price API, so sync cannot recheck it",
+    "rows": {
+      "g2l-t-c16m32-kusanagi": {
+        "*": 140360
+      },
+      "g2l-t-c16m64-kusanagi": {
+        "*": 155760
+      },
+      "g2l-t-c1m2-kusanagi": {
+        "*": 122210
+      },
+      "g2l-t-c2m4-kusanagi": {
+        "*": 123420
+      },
+      "g2l-t-c2m8-kusanagi": {
+        "*": 125290
+      },
+      "g2l-t-c32m64-kusanagi": {
+        "*": 159720
+      },
+      "g2l-t-c4m16-kusanagi": {
+        "*": 129690
+      },
+      "g2l-t-c4m8-kusanagi": {
+        "*": 125840
+      },
+      "g2l-t-c64m128-kusanagi": {
+        "*": 198440
+      },
+      "g2l-t-c6m12-kusanagi": {
+        "*": 128260
+      },
+      "g2l-t-c6m24-kusanagi": {
+        "*": 133980
+      },
+      "g2l-t-c8m16-kusanagi": {
+        "*": 130680
+      },
+      "g2l-t-c8m32-kusanagi": {
+        "*": 138380
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-29",
+    "currency": "JPY",
+    "tax": 0.1
+  },
+  "conoha.vps.kusanagi_security_prepaid": {
+    "unit": "server-month",
+    "source": "https://vps.conoha.jp/kusanagi/",
+    "note": "KUSANAGI Security Edition prepaid for 1 month (料金(1ヶ月)), the only prepaid amount the page publishes. Tax-inclusive yen as published. Read on the page; ConoHa publishes no price API, so sync cannot recheck it",
+    "rows": {
+      "g2l-p-c16m32-kusanagi": {
+        "*": 138600
+      },
+      "g2l-p-c16m64-kusanagi": {
+        "*": 152570
+      },
+      "g2l-p-c1m2-kusanagi": {
+        "*": 122100
+      },
+      "g2l-p-c2m4-kusanagi": {
+        "*": 123200
+      },
+      "g2l-p-c2m8-kusanagi": {
+        "*": 124850
+      },
+      "g2l-p-c32m64-kusanagi": {
+        "*": 156200
+      },
+      "g2l-p-c4m16-kusanagi": {
+        "*": 128810
+      },
+      "g2l-p-c4m8-kusanagi": {
+        "*": 125400
+      },
+      "g2l-p-c64m128-kusanagi": {
+        "*": 191400
+      },
+      "g2l-p-c6m12-kusanagi": {
+        "*": 127600
+      },
+      "g2l-p-c6m24-kusanagi": {
+        "*": 132770
+      },
+      "g2l-p-c8m16-kusanagi": {
+        "*": 129800
+      },
+      "g2l-p-c8m32-kusanagi": {
+        "*": 136730
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-29",
+    "currency": "JPY",
+    "tax": 0.1
+  },
   "conoha.vps.linux": {
     "unit": "server-month",
     "source": "https://www.conoha.jp/vps/pricing/",

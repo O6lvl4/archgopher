@@ -3,7 +3,7 @@ label: ConoHa VPS additional IP
 category: Network
 icon: globe
 attach: true
-description: "Additional global IP addresses (追加IP) held by one port, one to sixteen, each billed by the hour up to the monthly amount. A conohavps_port_attachment puts the port on a server, and the addresses are drawn under that server. The port's QoS policy names its bandwidth: the paid bandwidth expansion (ネットワーク帯域拡張, global-i_300000-o_300000) is 300 Mbps for a monthly amount. Prices are published in yen with tax; they are read before tax, in US dollars at the book's rate."
+description: "Additional global IP addresses (追加IP) held by one port, one to sixteen, each billed by the hour up to the monthly amount. A conohavps_port_attachment puts the port on a server, and the addresses are drawn under that server. The port's QoS policy names its bandwidth: the paid bandwidth expansion (ネットワーク帯域拡張, global-i_300000-o_300000) is 300 Mbps for a monthly amount. Prices are published in yen with tax; they are read before tax, in US dollars at the book's rate. ConoHa refuses to cancel an address within 30 days of allocation, so the first month is always billed."
 kinds: [traffic]
 attributes:
   - { key: ip_count, label: Addresses, type: number, default: 1, hint: "1 to 16 addresses on the port" }
