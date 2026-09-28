@@ -105,5 +105,437 @@
     "checkedAt": "2026-09-26",
     "currency": "JPY",
     "tax": 0.1
+  },
+  "conoha.vps.prepaid": {
+    "unit": "server-month",
+    "source": "https://vps.conoha.jp/pricing/",
+    "note": "Prepaid plans (まとめトク) of the Linux plans on sale, the amount a month for a term of 1, 3, 6, 12, 24 or 36 months, keyed by the flavor and the term: the renewal price (更新時), which the term pays month after month; the first term's campaign discount (until 2026-10-01) is not read. Tax-inclusive yen as published. Read on the pricing page; ConoHa publishes no price API, so sync cannot recheck it",
+    "rows": {
+      "g2l-p-c12m48-1": {
+        "*": 22099
+      },
+      "g2l-p-c12m48-12": {
+        "*": 19491
+      },
+      "g2l-p-c12m48-24": {
+        "*": 18991
+      },
+      "g2l-p-c12m48-3": {
+        "*": 20988
+      },
+      "g2l-p-c12m48-36": {
+        "*": 18491
+      },
+      "g2l-p-c12m48-6": {
+        "*": 19883
+      },
+      "g2l-p-c1m512-1": {
+        "*": 460
+      },
+      "g2l-p-c1m512-12": {
+        "*": 353
+      },
+      "g2l-p-c1m512-24": {
+        "*": 341
+      },
+      "g2l-p-c1m512-3": {
+        "*": 400
+      },
+      "g2l-p-c1m512-36": {
+        "*": 326
+      },
+      "g2l-p-c1m512-6": {
+        "*": 382
+      },
+      "g2l-p-c24m96-1": {
+        "*": 44198
+      },
+      "g2l-p-c24m96-12": {
+        "*": 38991
+      },
+      "g2l-p-c24m96-24": {
+        "*": 38491
+      },
+      "g2l-p-c24m96-3": {
+        "*": 41984
+      },
+      "g2l-p-c24m96-36": {
+        "*": 37991
+      },
+      "g2l-p-c24m96-6": {
+        "*": 39773
+      },
+      "g2l-p-c2m1-1": {
+        "*": 763
+      },
+      "g2l-p-c2m1-12": {
+        "*": 588
+      },
+      "g2l-p-c2m1-24": {
+        "*": 568
+      },
+      "g2l-p-c2m1-3": {
+        "*": 666
+      },
+      "g2l-p-c2m1-36": {
+        "*": 542
+      },
+      "g2l-p-c2m1-6": {
+        "*": 634
+      },
+      "g2l-p-c3m2-1": {
+        "*": 1259
+      },
+      "g2l-p-c3m2-12": {
+        "*": 980
+      },
+      "g2l-p-c3m2-24": {
+        "*": 947
+      },
+      "g2l-p-c3m2-3": {
+        "*": 1106
+      },
+      "g2l-p-c3m2-36": {
+        "*": 903
+      },
+      "g2l-p-c3m2-6": {
+        "*": 1055
+      },
+      "g2l-p-c40m128-1": {
+        "*": 58927
+      },
+      "g2l-p-c40m128-12": {
+        "*": 51987
+      },
+      "g2l-p-c40m128-24": {
+        "*": 51321
+      },
+      "g2l-p-c40m128-3": {
+        "*": 55976
+      },
+      "g2l-p-c40m128-36": {
+        "*": 50654
+      },
+      "g2l-p-c40m128-6": {
+        "*": 53030
+      },
+      "g2l-p-c4m4-1": {
+        "*": 2189
+      },
+      "g2l-p-c4m4-12": {
+        "*": 1791
+      },
+      "g2l-p-c4m4-24": {
+        "*": 1741
+      },
+      "g2l-p-c4m4-3": {
+        "*": 1929
+      },
+      "g2l-p-c4m4-36": {
+        "*": 1691
+      },
+      "g2l-p-c4m4-6": {
+        "*": 1841
+      },
+      "g2l-p-c6m12-1": {
+        "*": 4389
+      },
+      "g2l-p-c6m12-12": {
+        "*": 3591
+      },
+      "g2l-p-c6m12-24": {
+        "*": 3391
+      },
+      "g2l-p-c6m12-3": {
+        "*": 3865
+      },
+      "g2l-p-c6m12-36": {
+        "*": 3192
+      },
+      "g2l-p-c6m12-6": {
+        "*": 3689
+      },
+      "g2l-p-c8m24-1": {
+        "*": 9746
+      },
+      "g2l-p-c8m24-12": {
+        "*": 7791
+      },
+      "g2l-p-c8m24-24": {
+        "*": 7491
+      },
+      "g2l-p-c8m24-3": {
+        "*": 8573
+      },
+      "g2l-p-c8m24-36": {
+        "*": 7191
+      },
+      "g2l-p-c8m24-6": {
+        "*": 8183
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-28",
+    "currency": "JPY",
+    "tax": 0.1
+  },
+  "conoha.vps.prepaid_old_memory": {
+    "unit": "server-month",
+    "source": "https://vps.conoha.jp/pdf/vswj020-old/conoha_spec_ja.pdf",
+    "note": "Prepaid plans (まとめトク) of the 8 GB to 64 GB memory lineup the March 2025 renewal replaced, for servers still on them, keyed by the flavor and the term: the sheet prints the amount paid for the whole term, which is the same a month whatever the term (8 GB: 4,828 for 1 month, 14,484 for 3, 173,808 for 36). Tax-inclusive yen, from the old memory plans' price sheet the pricing page links (ConoHa VPS Ver 3.0の旧メモリプラン)",
+    "rows": {
+      "g2l-p-c12m32-1": {
+        "*": 24309
+      },
+      "g2l-p-c12m32-12": {
+        "*": 24309
+      },
+      "g2l-p-c12m32-24": {
+        "*": 24309
+      },
+      "g2l-p-c12m32-3": {
+        "*": 24309
+      },
+      "g2l-p-c12m32-36": {
+        "*": 24309
+      },
+      "g2l-p-c12m32-6": {
+        "*": 24309
+      },
+      "g2l-p-c24m64-1": {
+        "*": 48618
+      },
+      "g2l-p-c24m64-12": {
+        "*": 48618
+      },
+      "g2l-p-c24m64-24": {
+        "*": 48618
+      },
+      "g2l-p-c24m64-3": {
+        "*": 48618
+      },
+      "g2l-p-c24m64-36": {
+        "*": 48618
+      },
+      "g2l-p-c24m64-6": {
+        "*": 48618
+      },
+      "g2l-p-c6m8-1": {
+        "*": 4828
+      },
+      "g2l-p-c6m8-12": {
+        "*": 4828
+      },
+      "g2l-p-c6m8-24": {
+        "*": 4828
+      },
+      "g2l-p-c6m8-3": {
+        "*": 4828
+      },
+      "g2l-p-c6m8-36": {
+        "*": 4828
+      },
+      "g2l-p-c6m8-6": {
+        "*": 4828
+      },
+      "g2l-p-c8m16-1": {
+        "*": 10721
+      },
+      "g2l-p-c8m16-12": {
+        "*": 10721
+      },
+      "g2l-p-c8m16-24": {
+        "*": 10721
+      },
+      "g2l-p-c8m16-3": {
+        "*": 10721
+      },
+      "g2l-p-c8m16-36": {
+        "*": 10721
+      },
+      "g2l-p-c8m16-6": {
+        "*": 10721
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-28",
+    "currency": "JPY",
+    "tax": 0.1
+  },
+  "conoha.vps.windows": {
+    "unit": "server-month",
+    "source": "https://vps.conoha.jp/windows/pricing/",
+    "note": "Hourly billing (時間課金) of ConoHa for Windows Server: the monthly amount, which a month's hours never exceed, by flavor (1 GB to 64 GB, the memory lineup Windows keeps). Tax-inclusive yen as published. Read on the pricing page; ConoHa publishes no price API, so sync cannot recheck it",
+    "rows": {
+      "g2w-t-c12m32": {
+        "*": 37191
+      },
+      "g2w-t-c24m64": {
+        "*": 75647
+      },
+      "g2w-t-c2m1": {
+        "*": 1392
+      },
+      "g2w-t-c3m2": {
+        "*": 2530
+      },
+      "g2w-t-c4m4": {
+        "*": 4939
+      },
+      "g2w-t-c6m8": {
+        "*": 9746
+      },
+      "g2w-t-c8m16": {
+        "*": 18348
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-28",
+    "currency": "JPY",
+    "tax": 0.1
+  },
+  "conoha.vps.windows_office_sal": {
+    "unit": "license-month",
+    "source": "https://vps.conoha.jp/windows/pricing/",
+    "note": "One Microsoft Office SAL (Office 2021 Professional Plus) a month on a Windows Server. Tax-inclusive yen as published. Read on the pricing page; ConoHa publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 4312,
+        "verified": true,
+        "checkedAt": "2026-09-28"
+      }
+    },
+    "currency": "JPY",
+    "tax": 0.1
+  },
+  "conoha.vps.windows_prepaid": {
+    "unit": "server-month",
+    "source": "https://vps.conoha.jp/windows/pricing/",
+    "note": "Prepaid plans (まとめトク) of ConoHa for Windows Server, the amount a month for a term of 3, 6, 12, 24 or 36 months, keyed by the flavor and the term: the renewal price (更新時); the first term's campaign discount (until 2026-10-23) is not read. Tax-inclusive yen as published. Read on the pricing page; ConoHa publishes no price API, so sync cannot recheck it",
+    "rows": {
+      "g2w-p-c12m32-12": {
+        "*": 34092
+      },
+      "g2w-p-c12m32-24": {
+        "*": 34029
+      },
+      "g2w-p-c12m32-3": {
+        "*": 36685
+      },
+      "g2w-p-c12m32-36": {
+        "*": 33902
+      },
+      "g2w-p-c12m32-6": {
+        "*": 36053
+      },
+      "g2w-p-c24m64-12": {
+        "*": 69322
+      },
+      "g2w-p-c24m64-24": {
+        "*": 68943
+      },
+      "g2w-p-c24m64-3": {
+        "*": 74635
+      },
+      "g2w-p-c24m64-36": {
+        "*": 68310
+      },
+      "g2w-p-c24m64-6": {
+        "*": 73370
+      },
+      "g2w-p-c2m1-12": {
+        "*": 1267
+      },
+      "g2w-p-c2m1-24": {
+        "*": 1253
+      },
+      "g2w-p-c2m1-3": {
+        "*": 1368
+      },
+      "g2w-p-c2m1-36": {
+        "*": 1239
+      },
+      "g2w-p-c2m1-6": {
+        "*": 1323
+      },
+      "g2w-p-c3m2-12": {
+        "*": 2316
+      },
+      "g2w-p-c3m2-24": {
+        "*": 2303
+      },
+      "g2w-p-c3m2-3": {
+        "*": 2468
+      },
+      "g2w-p-c3m2-36": {
+        "*": 2277
+      },
+      "g2w-p-c3m2-6": {
+        "*": 2404
+      },
+      "g2w-p-c4m4-12": {
+        "*": 4517
+      },
+      "g2w-p-c4m4-24": {
+        "*": 4504
+      },
+      "g2w-p-c4m4-3": {
+        "*": 4807
+      },
+      "g2w-p-c4m4-36": {
+        "*": 4491
+      },
+      "g2w-p-c4m4-6": {
+        "*": 4681
+      },
+      "g2w-p-c6m8-12": {
+        "*": 8919
+      },
+      "g2w-p-c6m8-24": {
+        "*": 8894
+      },
+      "g2w-p-c6m8-3": {
+        "*": 9614
+      },
+      "g2w-p-c6m8-36": {
+        "*": 8855
+      },
+      "g2w-p-c6m8-6": {
+        "*": 9488
+      },
+      "g2w-p-c8m16-12": {
+        "*": 16813
+      },
+      "g2w-p-c8m16-24": {
+        "*": 16762
+      },
+      "g2w-p-c8m16-3": {
+        "*": 18029
+      },
+      "g2w-p-c8m16-36": {
+        "*": 16698
+      },
+      "g2w-p-c8m16-6": {
+        "*": 17710
+      }
+    },
+    "verified": true,
+    "checkedAt": "2026-09-28",
+    "currency": "JPY",
+    "tax": 0.1
+  },
+  "conoha.vps.windows_rds_sal": {
+    "unit": "license-month",
+    "source": "https://vps.conoha.jp/windows/pricing/",
+    "note": "One Remote Desktop Services SAL (RDS SAL) a month on a Windows Server. Tax-inclusive yen as published. Read on the pricing page; ConoHa publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 1386,
+        "verified": true,
+        "checkedAt": "2026-09-28"
+      }
+    },
+    "currency": "JPY",
+    "tax": 0.1
   }
 }
