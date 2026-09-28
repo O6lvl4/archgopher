@@ -30,8 +30,31 @@ resource "conohavps_volume_attachment" "data" {
   volume_id   = conohavps_volume.data.id
 }
 
+data "conohavps_qos_policy" "fast" {
+  name = "global-i_300000-o_300000"
+}
+
 resource "conohavps_additional_ip" "extra" {
-  ip_count = 2
+  ip_count      = 2
+  qos_policy_id = data.conohavps_qos_policy.fast.id
+}
+
+data "conohavps_flavor" "api" {
+  name = "g2l-t-c4m4"
+}
+
+resource "conohavps_instance" "api" {
+  flavor_id         = data.conohavps_flavor.api.id
+  instance_name_tag = "api"
+  block_device {
+    uuid = conohavps_volume.api.id
+  }
+}
+
+resource "conohavps_volume" "api" {
+  name        = "api"
+  size        = 100
+  volume_type = "c3j1-ds02-boot"
 }
 
 resource "conohavps_port_attachment" "extra" {

@@ -291,9 +291,9 @@ fee is paid once. Free tiers (R2's, the Workers AI neurons) are not counted.
 
 | Type | Reads | Headroom |
 | --- | --- | --- |
-| `conohavps_instance` | The plan's monthly amount by flavor: Linux on hourly billing (512 MB to 128 GB, and the 8 GB to 64 GB plans the March 2025 renewal replaced) or a database server (10 GB to 1,000 GB of disk); the flavor UUID names the plan, or `plan` names it when a variable or the `conohavps_flavor` data source sets the ID, or the flavor is a 12 GB to 128 GB plan, whose UUIDs ConoHa does not publish | Requests per second per server |
+| `conohavps_instance` | The plan's monthly amount by flavor: Linux on hourly billing (512 MB to 128 GB, and the 8 GB to 64 GB plans the March 2025 renewal replaced) or a database server (10 GB to 1,000 GB of disk); the flavor UUID names the plan, the `conohavps_flavor` data source's name does when the ID comes from it, or `plan` names it when a variable sets the ID or the flavor is a 12 GB to 128 GB plan, whose UUIDs ConoHa does not publish; the bandwidth expansion of the server's global port (`bandwidthMbps`, the QoS policy `global-i_300000-o_300000`) | Requests per second per server |
 | `conohavps_volume` | Boot storage added above the plan's 100 GB (200 and 500 GB boot volumes), or the additional SSD by size; a `conohavps_volume_attachment` connects the server that uses it | - |
-| `conohavps_additional_ip` | The port's additional global IP addresses, one to sixteen; a `conohavps_port_attachment` puts them under the server, where the diagram counts them | - |
+| `conohavps_additional_ip` | The port's additional global IP addresses, one to sixteen, and the bandwidth expansion when the port's QoS policy (read through the `conohavps_qos_policy` data source) is `global-i_300000-o_300000`; a `conohavps_port_attachment` puts them under the server, where the diagram counts them | - |
 | `conohavps_lb_loadbalancer` | The load balancer's monthly amount; a front door that calls the servers its pool members name (member → pool → listener → load balancer). Listeners, pools, members and health monitors are free | - |
 | `conohavps_instance_autobackup` | Daily backups of a server by the capacity backed up (100 to 700 GB, `backupGb`), and each generation kept beyond the 14 included; counted under the server | - |
 | `conohavps_image_quota` | The account's image save capacity beyond the 50 GB free, per 500 GB | - |
@@ -309,9 +309,10 @@ monitors, local networks, subnets, ports and attachments, volume snapshots
 containers, roles, sub-users and credentials cost nothing and never become
 nodes. ConoHa bills a resource by the hour up to a monthly amount, running or
 shut off, until it is deleted, so a resource a declaration keeps pays the
-monthly amount. Prepaid (まとめトク), Windows Server and GPU plans, bandwidth
-expansion (a QoS policy on a port) and the mail server are not priced yet
-and say so. The prices are read from the pricing page by hand, like
+monthly amount. Prepaid (まとめトク), Windows Server and GPU plans and the mail server are
+not priced yet and say so. Of the five QoS policies ConoHa publishes, only
+`global-i_300000-o_300000` (300 Mbps) is paid; the 100 Mbps default, the
+512 kbps limit, the local 1 Gbps and the GPU servers' 1 Gbps cost nothing. The prices are read from the pricing page by hand, like
 Cloudflare's, and are the same wherever the declaration is. ConoHa publishes
 them in yen with 10% consumption tax: a price entry carries `currency: JPY`
 and `tax: 0.1`, and loading takes the tax out and converts at the book's rate

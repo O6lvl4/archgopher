@@ -3,15 +3,19 @@ label: ConoHa VPS additional IP
 category: Network
 icon: globe
 attach: true
-description: "Additional global IP addresses (追加IP) held by one port, one to sixteen, each billed by the hour up to the monthly amount. A conohavps_port_attachment puts the port on a server, and the addresses are drawn under that server. Prices are published in yen with tax; they are read before tax, in US dollars at the book's rate."
+description: "Additional global IP addresses (追加IP) held by one port, one to sixteen, each billed by the hour up to the monthly amount. A conohavps_port_attachment puts the port on a server, and the addresses are drawn under that server. The port's QoS policy names its bandwidth: the paid bandwidth expansion (ネットワーク帯域拡張, global-i_300000-o_300000) is 300 Mbps for a monthly amount. Prices are published in yen with tax; they are read before tax, in US dollars at the book's rate."
 kinds: [traffic]
 attributes:
   - { key: ip_count, label: Addresses, type: number, default: 1, hint: "1 to 16 addresses on the port" }
+  - { key: qos_policy, label: QoS policy, type: string, optional: true, path: "qos_policy_id->name", hint: "The name of the port's QoS policy, read from the conohavps_qos_policy data source qos_policy_id comes from: global-i_100000-o_100000 (100 Mbps, included) or global-i_300000-o_300000 (300 Mbps, the paid bandwidth expansion)" }
 let:
   - n: 'string(ip_count)'
+  - policy: 'qos_policy ?? "global-i_100000-o_100000"'
 readings:
   - fail: { when: 'ip_count < 1 || ip_count > 16', message: "ip_count is 1 to 16 addresses, not {n}" }
+  - fail: { when: 'policy not in ["global-i_100000-o_100000", "global-i_512-o_512", "global-i_300000-o_300000", "global-i_1000000-o_1000000", "local-i_1000000-o_1000000"]', message: "{policy} is not a QoS policy ConoHa publishes" }
   - cost: { name: Additional IP addresses, quantity: ip_count, unit: address-month, price: conoha.vps.additional_ip }
+  - cost: { when: 'policy == "global-i_300000-o_300000"', name: Bandwidth expansion (300 Mbps), quantity: 1, unit: port-month, price: conoha.vps.bandwidth_expansion }
 terraform:
   # The port names its QoS policy and security groups; nothing it names is called.
   passive: true

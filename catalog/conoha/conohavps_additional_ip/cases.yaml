@@ -18,3 +18,17 @@
   attributes:
     ip_count: 20
   error: ip_count is 1 to 16 addresses, not 20
+- name: one address on the 300 Mbps policy
+  region: ap-northeast-1
+  attributes:
+    ip_count: 1
+    qos_policy: global-i_300000-o_300000
+  costs:
+    Additional IP addresses: 2.446865455
+    Bandwidth expansion (300 Mbps): 57.132
+- name: a policy ConoHa does not publish
+  region: ap-northeast-1
+  attributes:
+    ip_count: 1
+    qos_policy: global-i_50000-o_50000
+  error: global-i_50000-o_50000 is not a QoS policy ConoHa publishes

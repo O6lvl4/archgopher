@@ -29,7 +29,7 @@
   region: ap-northeast-1
   attributes:
     flavor_id: 11111111-1111-1111-1111-111111111111
-  error: 'flavor_id is not a flavor ConoHa publishes (a variable or the conohavps_flavor data source): set plan, the flavor name (g2l-t-c6m12)'
+  error: 'flavor_id is not a flavor ConoHa publishes (a variable, or a data source whose name is not known): set plan, the flavor name (g2l-t-c6m12)'
 - name: the 12 GB plan, whose flavor ID is only in the account's list, named by hand
   region: ap-northeast-1
   assumptions:
@@ -48,3 +48,13 @@
     flavor_id: 1488a6c7-6c8f-4e39-a522-ccab7d3acc84
   costs:
     Database server (g2d-t-c1m2d30): 15.217887273
+- name: the 1 GB plan named through the flavor data source, with the bandwidth expansion
+  region: ap-northeast-1
+  attributes:
+    flavor_id: 00000000-0000-0000-0000-000000000000
+    flavor_name: g2l-t-c2m1
+  assumptions:
+    bandwidthMbps: "300"
+  costs:
+    Bandwidth expansion (300 Mbps): 57.132
+    Server (g2l-t-c2m1): 6.146018182
