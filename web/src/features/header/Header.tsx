@@ -9,6 +9,7 @@ export interface HeaderActions {
   onNew: () => void;
   onOpen: (file: File) => void;
   onSave: () => void;
+  onExport: () => void;
   onTerraform: () => void;
 }
 
@@ -36,6 +37,7 @@ const glyphs = {
     "M7 3v4a1 1 0 0 0 1 1h7",
   ],
   import: ["M12 3v12", "m8 11 4 4 4-4", "M8 5H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-4"],
+  image: ["M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z", "M11 9a2 2 0 1 1-4 0 2 2 0 0 1 4 0z", "m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"],
   "chevron-down": ["m6 9 6 6 6-6"],
 };
 
@@ -156,6 +158,10 @@ export function Header({ result, idleUsd, generation, actions }: Props) {
           <button onClick={actions.onSave} title="Download as .scouter.yaml">
             <Glyph name="save" />
             Save
+          </button>
+          <button onClick={actions.onExport} title="Draw the declaration as an SVG architecture diagram in a new tab">
+            <Glyph name="image" />
+            Export SVG
           </button>
         </div>
         <ExamplePicker onExample={actions.onExample} />

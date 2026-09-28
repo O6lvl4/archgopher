@@ -5,7 +5,7 @@ import { Header } from "../features/header/Header";
 import { Inspector } from "../features/inspector/Inspector";
 import { Results } from "../features/results/Results";
 import { TerraformDialog, type ImportRequest } from "../features/terraform/TerraformDialog";
-import { download, slug } from "../lib/download";
+import { download, openInTab, slug } from "../lib/download";
 import { engine } from "../lib/engine";
 import { examples } from "../lib/examples";
 import { useReactFlow } from "@xyflow/react";
@@ -89,6 +89,13 @@ export function App() {
         .catch((e: unknown) => setNotice(message(e)));
     },
     onSave: () => replace(() => download(`${slug(ws.spec.name)}.scouter.yaml`, engine.toYaml(ws.spec))),
+    onExport: () => {
+      try {
+        openInTab(engine.exportSvg(ws.spec), "image/svg+xml");
+      } catch (e: unknown) {
+        setNotice(message(e));
+      }
+    },
     onTerraform: () => setImporting(true),
   };
 

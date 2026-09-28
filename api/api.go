@@ -240,6 +240,16 @@ func call(name, input string) (any, error) {
 			return nil, err
 		}
 		return MarshalYAML(spec)
+	case "exportSvg":
+		var spec model.Spec
+		if err := json.Unmarshal([]byte(input), &spec); err != nil {
+			return nil, err
+		}
+		b, err := ExportSVG(spec)
+		if err != nil {
+			return nil, err
+		}
+		return string(b), nil
 	}
 	return nil, fmt.Errorf("unknown call %q", name)
 }

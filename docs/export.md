@@ -7,7 +7,8 @@ archgopher export app.scouter.yaml -o app.svg
 archgopher export app.scouter.yaml --format svg      # to stdout
 ```
 
-The diagram is one self-contained SVG: the providers' architecture icons are
+The web UI's Export SVG button draws the same picture from the cards on
+screen, in their places. The diagram is one self-contained SVG: the providers' architecture icons are
 embedded, no fonts or images are fetched, and it opens in a browser, an
 editor or a slide.
 
