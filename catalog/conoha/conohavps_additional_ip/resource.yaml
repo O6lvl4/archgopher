@@ -7,7 +7,7 @@ description: "Additional global IP addresses (追加IP) held by one port, one to
 kinds: [traffic]
 attributes:
   - { key: ip_count, label: Addresses, type: number, default: 1, hint: "1 to 16 addresses on the port" }
-  - { key: qos_policy, label: QoS policy, type: string, optional: true, path: "qos_policy_id->name", hint: "The name of the port's QoS policy, read from the conohavps_qos_policy data source qos_policy_id comes from: global-i_100000-o_100000 (100 Mbps, included) or global-i_300000-o_300000 (300 Mbps, the paid bandwidth expansion)" }
+  - { key: qos_policy, label: QoS policy, type: string, optional: true, path: "qos_policy_id->name", hint: "The name of the port's QoS policy, read from the conohavps_qos_policy data source qos_policy_id comes from when that data source looks the policy up by name (looked up by id, the name is unknown and the port reads as the included 100 Mbps): global-i_100000-o_100000 (100 Mbps, included) or global-i_300000-o_300000 (300 Mbps, the paid bandwidth expansion)" }
 let:
   - n: 'string(ip_count)'
   - policy: 'qos_policy ?? "global-i_100000-o_100000"'

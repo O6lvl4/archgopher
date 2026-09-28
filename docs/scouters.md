@@ -296,7 +296,7 @@ fee is paid once. Free tiers (R2's, the Workers AI neurons) are not counted.
 | `conohavps_additional_ip` | The port's additional global IP addresses, one to sixteen, and the bandwidth expansion when the port's QoS policy (read through the `conohavps_qos_policy` data source) is `global-i_300000-o_300000`; a `conohavps_port_attachment` puts them under the server, where the diagram counts them | - |
 | `conohavps_lb_loadbalancer` | The load balancer's monthly amount; a front door that calls the servers its pool members name (member → pool → listener → load balancer). Listeners, pools, members and health monitors are free | - |
 | `conohavps_instance_autobackup` | Daily backups of a server by the capacity backed up (100 to 700 GB, `backupGb`), and each generation kept beyond the 14 included; counted under the server | - |
-| `conohavps_image_quota` | The account's image save capacity beyond the 50 GB free, per 500 GB | - |
+| `conohavps_image_quota` | The account's image save capacity beyond the 50 GB free, per 500 GB (550 GB and up; the free 50 GB alone is no resource) | - |
 | `conohavps_objectstorage_quota` | The account's object storage capacity, per 100 GB; containers are free | - |
 
 These are the resources of the `conohavps` Terraform provider as
