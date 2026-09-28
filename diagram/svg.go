@@ -38,6 +38,7 @@ text { font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans", "Noto S
 // svg renders the laid-out graph.
 func (g *graph) svg() []byte {
 	var b strings.Builder
+	b.WriteString(`<?xml version="1.0" encoding="UTF-8"?>` + "\n")
 	fmt.Fprintf(&b, `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %s %s" width="%s" height="%s" font-size="11">`+"\n", num(g.w), num(g.h), num(g.w), num(g.h))
 	fmt.Fprintf(&b, "<title>%s</title>\n", esc(g.spec.Name))
 	b.WriteString("<style>" + style + "</style>\n")

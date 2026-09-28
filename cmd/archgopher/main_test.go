@@ -47,7 +47,7 @@ func TestExportDrawsAnSVG(t *testing.T) {
 		t.Fatal(err)
 	}
 	svg := out.String()
-	for _, want := range []string{"<svg ", `<symbol id="i-aws-lambda"`, "app-vpc", "Region ap-northeast-1", "</svg>"} {
+	for _, want := range []string{`<?xml version="1.0" encoding="UTF-8"?>`, "<svg ", `<symbol id="i-aws-lambda"`, "app-vpc", "Region ap-northeast-1", "</svg>"} {
 		if !strings.Contains(svg, want) {
 			t.Fatalf("export lacks %s", want)
 		}

@@ -206,7 +206,7 @@ func TestExamplesDraw(t *testing.T) {
 		if err != nil {
 			t.Fatalf("%s: %v", path, err)
 		}
-		if !strings.HasPrefix(string(out), "<svg ") || !strings.HasSuffix(strings.TrimSpace(string(out)), "</svg>") {
+		if !strings.HasPrefix(string(out), `<?xml version="1.0" encoding="UTF-8"?>`+"\n<svg ") || !strings.HasSuffix(strings.TrimSpace(string(out)), "</svg>") {
 			t.Fatalf("%s: not an SVG document", path)
 		}
 	}
