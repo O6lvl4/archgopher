@@ -24,7 +24,7 @@ go install github.com/O6lvl4/archgopher/cmd/archgopher@latest
 archgopher tf ./infra -o app.scouter.yaml   # Terraform → declaration (no init, no credentials)
 archgopher gaps app.scouter.yaml            # what Terraform cannot know; fill it in
 archgopher scout app.scouter.yaml           # read it (--json for machines)
-archgopher export app.scouter.yaml -o app.svg # draw it: icons, frames, labelled edges
+archgopher export app.scouter.yaml -o app.png # draw it: .svg, .png or .html by extension
 ```
 
 ```text

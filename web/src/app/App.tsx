@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Canvas } from "../features/canvas/Canvas";
 import { Catalog } from "../composites/Catalog";
-import { Header } from "../features/header/Header";
+import { Header, type ExportFormat } from "../features/header/Header";
 import { Inspector } from "../features/inspector/Inspector";
 import { Results } from "../features/results/Results";
 import { TerraformDialog, type ImportRequest } from "../features/terraform/TerraformDialog";
-import { download, openInTab, slug } from "../lib/download";
+import { download, openBlob, slug, svgToPng } from "../lib/download";
 import { engine } from "../lib/engine";
 import { examples } from "../lib/examples";
 import { useReactFlow } from "@xyflow/react";
@@ -89,9 +89,16 @@ export function App() {
         .catch((e: unknown) => setNotice(message(e)));
     },
     onSave: () => replace(() => download(`${slug(ws.spec.name)}.scouter.yaml`, engine.toYaml(ws.spec))),
-    onExport: () => {
+    onExport: (format: ExportFormat) => {
+      const name = slug(ws.spec.name);
       try {
-        openInTab(engine.exportSvg(ws.spec), "image/svg+xml");
+        if (format === "png") {
+          svgToPng(engine.export(ws.spec, "svg"))
+            .then((blob) => openBlob(blob, `${name}.png`))
+            .catch((e: unknown) => setNotice(message(e)));
+        } else {
+          openBlob(new Blob([engine.export(ws.spec, format)], { type: format === "svg" ? "image/svg+xml" : "text/html" }), `${name}.${format}`);
+        }
       } catch (e: unknown) {
         setNotice(message(e));
       }

@@ -23,7 +23,7 @@ Usage:
   archgopher gaps <spec.yaml> [--json]      List what the declaration does not know yet
   archgopher tf <dir> [flags]               Build a declaration from Terraform
   archgopher diff <before> <after> [flags]  What changed: declarations or Terraform directories
-  archgopher export <spec.yaml> [flags]     Draw a declaration as an SVG architecture diagram
+  archgopher export <spec.yaml> [flags]     Draw a declaration: -o app.svg, app.png or app.html
   archgopher catalog                        List scouters and their fields as JSON
   archgopher quotas <spec.yaml> [flags]     Put the account's own quota values into a declaration
   archgopher sync [--check]                 Verify the books against the price lists and Service Quotas

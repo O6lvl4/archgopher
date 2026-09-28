@@ -20,7 +20,7 @@ go install github.com/O6lvl4/archgopher/cmd/archgopher@latest
 archgopher tf ./infra -o app.scouter.yaml   # Terraform から宣言を作る（init・認証は不要）
 archgopher gaps app.scouter.yaml            # Terraform から分からないものを並べ、埋める
 archgopher scout app.scouter.yaml           # 読む（--json で機械可読）
-archgopher export app.scouter.yaml -o app.svg # 描く（アイコン・枠・ラベル付きの辺）
+archgopher export app.scouter.yaml -o app.png # 描く（拡張子で .svg / .png / .html）
 ```
 
 例は [`examples/serverless-api`](examples/serverless-api) にあります。

@@ -56,7 +56,7 @@ export const engine = {
   scout: (spec: Spec) => call<Result>("scout", JSON.stringify(spec)),
   parseYaml: (text: string) => call<Spec>("parseYaml", text),
   toYaml: (spec: Spec) => call<string>("toYaml", JSON.stringify(spec)),
-  exportSvg: (spec: Spec) => call<string>("exportSvg", JSON.stringify(spec)),
+  export: (spec: Spec, format: "svg" | "html") => call<string>("export", JSON.stringify({ format, spec })),
   roots: (files: Record<string, string>) => call<string[]>("roots", JSON.stringify(files)),
   terraform: (req: { files: Record<string, string>; root: string; vars?: Record<string, string>; merge?: Spec }) =>
     call<TerraformResponse>("terraform", JSON.stringify(req)),

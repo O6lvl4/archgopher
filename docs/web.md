@@ -4,9 +4,10 @@ The same engine runs in the browser as WebAssembly. Import a Terraform folder
 (read locally, never uploaded), place and connect nodes, fill in assumptions,
 and every edit re-reads the whole graph. Declarations open and save as the
 same YAML the CLI reads.
-Export SVG opens the declaration drawn as an architecture diagram (what
+Export opens the declaration drawn as an architecture diagram (what
 `archgopher export` writes, see [Export](export.md)) in a new tab, placed the
-way the cards are.
+way the cards are: as an SVG, a PNG the browser draws, or an HTML page with
+the readings.
 
 ```sh
 cd web

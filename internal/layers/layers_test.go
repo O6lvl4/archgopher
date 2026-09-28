@@ -77,7 +77,7 @@ var allowed = map[string][]string{
 	"cloud": {"book", "model", "pattern", "scouter", "terraform/infer", "provider/aws", "provider/aws/pattern", "provider/azure", "provider/cloudflare", "provider/conoha", "provider/gcp"},
 
 	// Edges of the system.
-	"api":            {"book", "cloud", "diagram", "engine", "field", "gaps", "icons", "model", "pattern", "scouter", "terraform/eval", "terraform/infer", "terraform/merge"},
+	"api":            {"book", "cloud", "diagram", "engine", "field", "gaps", "icons", "model", "pattern", "report", "scouter", "terraform/eval", "terraform/infer", "terraform/merge"},
 	"cmd/archgopher": {"api", "book", "cloud", "engine", "gaps", "model", "report", "provider/aws/pricelist", "provider/aws/servicequotas", "provider/azure/retailprices", "provider/gcp/billingcatalog", "provider/gcp/cloudquotas", "terraform/eval", "terraform/infer", "terraform/merge"},
 	"cmd/wasm":       {"api"},
 }

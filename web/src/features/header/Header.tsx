@@ -4,12 +4,14 @@ import type { Result } from "../../lib/types";
 import { Chip } from "../../ui/Chip";
 import { useFlash } from "../../ui/useFlash";
 
+export type ExportFormat = "svg" | "png" | "html";
+
 export interface HeaderActions {
   onExample: (name: string) => void;
   onNew: () => void;
   onOpen: (file: File) => void;
   onSave: () => void;
-  onExport: () => void;
+  onExport: (format: ExportFormat) => void;
   onTerraform: () => void;
 }
 
@@ -81,6 +83,33 @@ function ExamplePicker({ onExample }: { onExample: (name: string) => void }) {
         </option>
         {exampleNames.map((n) => (
           <option key={n}>{n}</option>
+        ))}
+      </select>
+    </label>
+  );
+}
+
+/** The formats Export can draw, opened in a new tab. */
+const exportFormats: { format: ExportFormat; label: string }[] = [
+  { format: "svg", label: "SVG diagram" },
+  { format: "png", label: "PNG image" },
+  { format: "html", label: "HTML page with readings" },
+];
+
+function ExportPicker({ onExport }: { onExport: (format: ExportFormat) => void }) {
+  return (
+    <label className="button picker" title="Draw the declaration as the cards stand">
+      <Glyph name="image" />
+      Export
+      <Glyph name="chevron-down" />
+      <select value="" aria-label="Export as" onChange={(e) => e.target.value && onExport(e.target.value as ExportFormat)}>
+        <option value="" disabled>
+          Export as
+        </option>
+        {exportFormats.map((f) => (
+          <option key={f.format} value={f.format}>
+            {f.label}
+          </option>
         ))}
       </select>
     </label>
@@ -159,10 +188,7 @@ export function Header({ result, idleUsd, generation, actions }: Props) {
             <Glyph name="save" />
             Save
           </button>
-          <button onClick={actions.onExport} title="Draw the declaration as an SVG architecture diagram in a new tab">
-            <Glyph name="image" />
-            Export SVG
-          </button>
+          <ExportPicker onExport={actions.onExport} />
         </div>
         <ExamplePicker onExample={actions.onExample} />
         <span className="actions-divider" aria-hidden="true" />

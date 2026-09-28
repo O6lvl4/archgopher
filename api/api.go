@@ -4,6 +4,7 @@
 package api
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"path"
@@ -19,6 +20,7 @@ import (
 	"github.com/O6lvl4/archgopher/gaps"
 	"github.com/O6lvl4/archgopher/model"
 	"github.com/O6lvl4/archgopher/pattern"
+	"github.com/O6lvl4/archgopher/report"
 	"github.com/O6lvl4/archgopher/scouter"
 	"github.com/O6lvl4/archgopher/terraform/eval"
 	"github.com/O6lvl4/archgopher/terraform/infer"
@@ -59,9 +61,12 @@ func Scout(spec model.Spec) (engine.Result, error) {
 	return pattern.Rollup(r.res, spec, r.exp, cloud.Patterns()), nil
 }
 
-// ExportSVG draws the declaration as an architecture diagram: icons, labelled
-// edges, and frames for the groups, the cloud and its region.
-func ExportSVG(spec model.Spec) ([]byte, error) {
+// ExportFormats are the pictures Export can draw: an SVG, a PNG, or an HTML
+// page with the diagram and the readings.
+var ExportFormats = []string{"svg", "png", "html"}
+
+// Export draws the declaration in one of ExportFormats.
+func Export(spec model.Spec, format string) ([]byte, error) {
 	reg, patterns := cloud.Registry(), cloud.Patterns()
 	lookup := func(typ string) (scouter.Meta, bool) {
 		if s, ok := reg[typ]; ok {
@@ -72,7 +77,33 @@ func ExportSVG(spec model.Spec) ([]byte, error) {
 		}
 		return scouter.Meta{}, false
 	}
-	return diagram.SVG(spec, lookup)
+	switch format {
+	case "svg":
+		return diagram.SVG(spec, lookup)
+	case "png":
+		return diagram.PNG(spec, lookup, 2)
+	case "html":
+		svg, err := diagram.SVG(spec, lookup)
+		if err != nil {
+			return nil, err
+		}
+		res, err := Scout(spec)
+		if err != nil {
+			return nil, err
+		}
+		var b bytes.Buffer
+		if err := report.HTML(&b, res, svg); err != nil {
+			return nil, err
+		}
+		return b.Bytes(), nil
+	}
+	return nil, fmt.Errorf("unknown format %q: one of %s", format, strings.Join(ExportFormats, ", "))
+}
+
+// ExportRequest is the input of the "export" call.
+type ExportRequest struct {
+	Format string     `json:"format"`
+	Spec   model.Spec `json:"spec"`
 }
 
 // Gaps lists what the declaration does not know yet: entries without load,
@@ -240,12 +271,15 @@ func call(name, input string) (any, error) {
 			return nil, err
 		}
 		return MarshalYAML(spec)
-	case "exportSvg":
-		var spec model.Spec
-		if err := json.Unmarshal([]byte(input), &spec); err != nil {
+	case "export":
+		var req ExportRequest
+		if err := json.Unmarshal([]byte(input), &req); err != nil {
 			return nil, err
 		}
-		b, err := ExportSVG(spec)
+		if req.Format == "png" {
+			return nil, fmt.Errorf("the browser draws PNG itself; ask for svg or html")
+		}
+		b, err := Export(req.Spec, req.Format)
 		if err != nil {
 			return nil, err
 		}

@@ -1,16 +1,25 @@
 # Export
 
-`archgopher export` draws a declaration as an architecture diagram.
+`archgopher export` draws a declaration as an architecture diagram. The
+file's extension picks the format; `--format` overrides it, and svg is the
+default on stdout.
 
 ```sh
-archgopher export app.scouter.yaml -o app.svg
-archgopher export app.scouter.yaml --format svg      # to stdout
+archgopher export app.scouter.yaml -o app.svg    # a self-contained SVG
+archgopher export app.scouter.yaml -o app.png    # the same picture at 2 pixels per unit
+archgopher export app.scouter.yaml -o app.html   # a page: the diagram, then the readings
+archgopher export app.scouter.yaml --format svg  # to stdout
 ```
 
-The web UI's Export SVG button draws the same picture from the cards on
-screen, in their places. The diagram is one self-contained SVG: the providers' architecture icons are
-embedded, no fonts or images are fetched, and it opens in a browser, an
-editor or a slide.
+| Format | What it is | Fonts |
+| --- | --- | --- |
+| `svg` | One file with the providers' icons embedded as symbols and every style on the element; nothing is fetched. Opens in a browser, an editor or a slide | The system's sans-serif and monospace |
+| `png` | The same picture rasterized in Go, no browser needed, 2 pixels per unit of the SVG | The Go fonts, embedded. For kana, kanji and fullwidth text the first font found among the system's CJK fonts (Hiragino on macOS, Noto Sans CJK on Linux, Yu Gothic or Meiryo on Windows), or the file `ARCHGOPHER_FONT` names |
+| `html` | A page with the diagram inline, then the tables of `scout`: nodes, load in, cost lines, limits, paths, unverified values, problems | The system's |
+
+The web UI's Export button draws the same picture from the cards on screen,
+in their places, and opens it in a new tab: the SVG and the HTML page come
+from the engine, the PNG is drawn by the browser from the SVG.
 
 ## What is drawn
 

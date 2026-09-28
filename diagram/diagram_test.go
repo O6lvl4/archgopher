@@ -1,6 +1,8 @@
 package diagram
 
 import (
+	"bytes"
+	"image/png"
 	"os"
 	"strings"
 	"testing"
@@ -159,7 +161,7 @@ edges:
 		}
 	}
 	svg := string(g.svg())
-	for _, want := range []string{`<symbol id="i-aws-lambda"`, `<use href="#i-aws-aurora"`, `VPC <tspan`, `app-vpc`, `Region ap-northeast-1`, `AWS Cloud`, `>query<`} {
+	for _, want := range []string{`<symbol id="i-aws-lambda"`, `<use href="#i-aws-aurora"`, `>VPC</text>`, `>app-vpc</text>`, `Region ap-northeast-1`, `AWS Cloud`, `>query<`} {
 		if !strings.Contains(svg, want) {
 			t.Errorf("svg lacks %s", want)
 		}
@@ -209,5 +211,49 @@ func TestExamplesDraw(t *testing.T) {
 		if !strings.HasPrefix(string(out), `<?xml version="1.0" encoding="UTF-8"?>`+"\n<svg ") || !strings.HasSuffix(strings.TrimSpace(string(out)), "</svg>") {
 			t.Fatalf("%s: not an SVG document", path)
 		}
+	}
+}
+
+func TestPNGDrawsEveryPixelRow(t *testing.T) {
+	spec, err := model.ParseSpec([]byte(`
+name: png
+region: ap-northeast-1
+nodes:
+  - { id: users, type: entry, load: { monthly: 1000, peakPerSecond: 1 } }
+  - { id: api, type: aws_apigatewayv2_api }
+  - { id: fn, type: aws_lambda_function }
+edges:
+  - { from: users, to: api }
+  - { from: api, to: fn, kind: invoke }
+`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	out, err := PNG(spec, lookup, 2)
+	if err != nil {
+		t.Fatal(err)
+	}
+	img, err := png.Decode(bytes.NewReader(out))
+	if err != nil {
+		t.Fatal(err)
+	}
+	g, _ := build(spec, lookup)
+	g.layout()
+	if w, h := img.Bounds().Dx(), img.Bounds().Dy(); float64(w) < g.w*2-1 || float64(h) < g.h*2-1 {
+		t.Errorf("png is %dx%d for a %vx%v drawing at scale 2", w, h, g.w, g.h)
+	}
+	// The Lambda icon is orange; the picture must have painted it.
+	orange := 0
+	b := img.Bounds()
+	for y := b.Min.Y; y < b.Max.Y; y += 2 {
+		for x := b.Min.X; x < b.Max.X; x += 2 {
+			r, gg, bb, _ := img.At(x, y).RGBA()
+			if r>>8 > 200 && gg>>8 > 90 && gg>>8 < 140 && bb>>8 < 40 {
+				orange++
+			}
+		}
+	}
+	if orange < 100 {
+		t.Errorf("only %d orange samples; the Lambda icon was not drawn", orange)
 	}
 }
