@@ -52,3 +52,21 @@
     Requests per minute: 60
     Tokens per minute: 36000
   error: Cache read tokens is not offered in us-east-1 (no "cloudflare.workers_ai.gemma-3-12b-it.cache_read" price)
+- name: GLM 5.3 (comide's default) with cached input
+  region: us-east-1
+  assumptions:
+    model: glm-5.3
+    inputTokensPerCall: 10000
+    outputTokensPerCall: 1000
+    cacheReadShare: 0.8
+  demand:
+    call:
+      monthly: 100000.0
+      peak: 0.2
+  costs:
+    Input tokens: 280
+    Cache read tokens: 208
+    Output tokens: 440
+  limits:
+    Requests per minute: 12
+    Tokens per minute: 36000

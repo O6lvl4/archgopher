@@ -102,6 +102,108 @@
       }
     }
   },
+  "cloudflare.workers_ai.glm-5.3-flash.cache_read": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/zai-org/glm-5.3-flash: 2727 neurons per million cached input tokens. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 0.03,
+        "verified": true,
+        "checkedAt": "2026-09-29"
+      }
+    }
+  },
+  "cloudflare.workers_ai.glm-5.3-flash.cache_write": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/zai-org/glm-5.3-flash: no price is listed for writing the cache; prefix caching is automatic, so leave cacheWriteShare at 0 and count first reads as input",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": false
+      }
+    }
+  },
+  "cloudflare.workers_ai.glm-5.3-flash.input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/zai-org/glm-5.3-flash: 13636 neurons per million input tokens at $0.011 per 1,000 neurons. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 0.15,
+        "verified": true,
+        "checkedAt": "2026-09-29"
+      }
+    }
+  },
+  "cloudflare.workers_ai.glm-5.3-flash.output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/zai-org/glm-5.3-flash: 45455 neurons per million output tokens at $0.011 per 1,000 neurons. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 0.5,
+        "verified": true,
+        "checkedAt": "2026-09-29"
+      }
+    }
+  },
+  "cloudflare.workers_ai.glm-5.3.cache_read": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/zai-org/glm-5.3: 23636 neurons per million cached input tokens. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 0.26,
+        "verified": true,
+        "checkedAt": "2026-09-29"
+      }
+    }
+  },
+  "cloudflare.workers_ai.glm-5.3.cache_write": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/zai-org/glm-5.3: no price is listed for writing the cache; prefix caching is automatic, so leave cacheWriteShare at 0 and count first reads as input",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": false
+      }
+    }
+  },
+  "cloudflare.workers_ai.glm-5.3.input": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/zai-org/glm-5.3: 127273 neurons per million input tokens at $0.011 per 1,000 neurons. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 1.4,
+        "verified": true,
+        "checkedAt": "2026-09-29"
+      }
+    }
+  },
+  "cloudflare.workers_ai.glm-5.3.output": {
+    "unit": "token",
+    "per": 1000000,
+    "source": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "note": "@cf/zai-org/glm-5.3: 400000 neurons per million output tokens at $0.011 per 1,000 neurons. Read on the pricing page; Cloudflare publishes no price API, so sync cannot recheck it",
+    "values": {
+      "*": {
+        "value": 4.4,
+        "verified": true,
+        "checkedAt": "2026-09-29"
+      }
+    }
+  },
   "cloudflare.workers_ai.llama-3.1-8b-instruct-fp8-fast.cache_read": {
     "unit": "token",
     "per": 1000000,

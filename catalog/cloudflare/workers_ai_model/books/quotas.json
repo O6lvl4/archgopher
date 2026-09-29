@@ -69,6 +69,76 @@
       }
     }
   },
+  "cloudflare.workers_ai.glm-5.3-flash.output_burndown": {
+    "unit": "multiplier",
+    "source": "https://developers.cloudflare.com/workers-ai/platform/limits/",
+    "note": "No tokens-per-minute limit, so output tokens are counted once",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": false
+      }
+    }
+  },
+  "cloudflare.workers_ai.glm-5.3-flash.rpm": {
+    "unit": "requests/minute",
+    "source": "https://developers.cloudflare.com/workers-ai/platform/limits/",
+    "note": "Per account and model for models that require Workers Paid, on standard Workers AI billing; 50 with prepaid AI Gateway credits",
+    "values": {
+      "*": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-29"
+      }
+    }
+  },
+  "cloudflare.workers_ai.glm-5.3-flash.tpm": {
+    "unit": "tokens/minute",
+    "source": "https://developers.cloudflare.com/workers-ai/platform/limits/",
+    "note": "No tokens-per-minute limit is published; requests per minute is the only rate limit",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-29"
+      }
+    }
+  },
+  "cloudflare.workers_ai.glm-5.3.output_burndown": {
+    "unit": "multiplier",
+    "source": "https://developers.cloudflare.com/workers-ai/platform/limits/",
+    "note": "No tokens-per-minute limit, so output tokens are counted once",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": false
+      }
+    }
+  },
+  "cloudflare.workers_ai.glm-5.3.rpm": {
+    "unit": "requests/minute",
+    "source": "https://developers.cloudflare.com/workers-ai/platform/limits/",
+    "note": "Per account and model for models that require Workers Paid, on standard Workers AI billing; 50 with prepaid AI Gateway credits",
+    "values": {
+      "*": {
+        "value": 20,
+        "verified": true,
+        "checkedAt": "2026-09-29"
+      }
+    }
+  },
+  "cloudflare.workers_ai.glm-5.3.tpm": {
+    "unit": "tokens/minute",
+    "source": "https://developers.cloudflare.com/workers-ai/platform/limits/",
+    "note": "No tokens-per-minute limit is published; requests per minute is the only rate limit",
+    "values": {
+      "*": {
+        "value": null,
+        "verified": true,
+        "checkedAt": "2026-09-29"
+      }
+    }
+  },
   "cloudflare.workers_ai.llama-3.1-8b-instruct-fp8-fast.output_burndown": {
     "unit": "multiplier",
     "source": "https://developers.cloudflare.com/workers-ai/platform/limits/",

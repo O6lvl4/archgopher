@@ -271,7 +271,7 @@ is a product not sold in that region.
 | `cloudflare_workers_script` | Requests and CPU milliseconds (routes, custom domains and cron triggers fold in) | CPU time per request |
 | `cloudflare_workers_paid_plan` | The Workers Paid base fee, one per account (placed by hand) | - |
 | `cloudflare_durable_object` | Requests, duration of active objects, SQLite rows read and written, storage (placed by hand) | Requests per second per object |
-| `workers_ai_model` | Input, cached and output tokens by model (placed by hand) | Requests per minute |
+| `workers_ai_model` | Input, cached and output tokens by model (placed by hand), including GLM 5.3 and GLM 5.3 Flash, the models comide and golemide call | Requests per minute |
 | `cloudflare_zone` | The plan's monthly fee (DNS records and settings fold in) | - |
 | `cloudflare_r2_bucket` | Storage, Class A and B operations, Infrequent Access retrieval; egress is free | Writes per second to one key |
 | `cloudflare_d1_database` | Rows read and written, storage | Database size; queries per second from one query at a time |
