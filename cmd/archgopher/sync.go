@@ -25,6 +25,8 @@ func cmdSync(args []string, out io.Writer) error {
 	regions := fs.String("regions", "", "comma-separated regions to verify (default: every region in the book)")
 	add := fs.String("add-regions", "", "comma-separated regions to add to every price that varies by region")
 	check := fs.Bool("check", false, "report differences without writing")
+	strict := fs.Bool("strict", false, "fail if a mapped price cannot be resolved")
+	summary := fs.String("summary", "", "write machine-readable sync coverage JSON")
 	if err := fs.Parse(reorder(args)); err != nil {
 		return err
 	}
@@ -33,11 +35,20 @@ func cmdSync(args []string, out io.Writer) error {
 		return err
 	}
 	s := syncer{today: time.Now().UTC().Format("2006-01-02"), regions: *regions, add: split(*add)}
-	if err := s.files(out, files, *check); err != nil {
+	err = s.files(out, files, *check)
+	if *summary != "" {
+		if summaryErr := s.writeSummary(*summary, err); summaryErr != nil {
+			return summaryErr
+		}
+	}
+	if err != nil {
 		return err
 	}
 	if err := byHand(out, files, s.add); err != nil {
 		return err
+	}
+	if *strict && s.failed > 0 {
+		return fmt.Errorf("%d prices could not be resolved; retained their previous values", s.failed)
 	}
 	if *check && (s.changed > 0 || s.failed > 0) {
 		return fmt.Errorf("the price books are out of date")
@@ -261,4 +272,25 @@ func trim(s string, n int) string {
 func round(v float64) float64 {
 	r, _ := strconv.ParseFloat(strconv.FormatFloat(v, 'g', 12, 64), 64)
 	return r
+}
+
+// writeSummary makes partial coverage observable without parsing human output.
+// Missing credentials remain explicitly skipped, not silently complete.
+func (s *syncer) writeSummary(path string, runErr error) error {
+	status := struct {
+		Changed int    `json:"changed"`
+		Absent  int    `json:"absent"`
+		Failed  int    `json:"failed"`
+		Skipped int    `json:"skipped"`
+		Error   string `json:"error,omitempty"`
+	}{Changed: s.changed, Absent: s.absent, Failed: s.failed, Skipped: s.skipped}
+	if runErr != nil {
+		status.Error = runErr.Error()
+		status.Failed++
+	}
+	data, err := json.MarshalIndent(status, "", "  ")
+	if err != nil {
+		return err
+	}
+	return os.WriteFile(path, append(data, '\n'), 0o644)
 }
