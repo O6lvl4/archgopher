@@ -144,3 +144,39 @@ func TestTierRowIsANumberNotAPattern(t *testing.T) {
 		t.Fatalf("got %s", got)
 	}
 }
+
+// Structured coverage must retain failures and credential skips even when no
+// price changes. A completed process is not evidence of complete coverage.
+func TestSyncSummaryRecordsIncompleteCoverage(t *testing.T) {
+	s := syncer{changed: 2, absent: 3, failed: 4, skipped: 5}
+	path := filepath.Join(t.TempDir(), "summary.json")
+	if err := s.writeSummary(path, errors.New("partial fetch")); err != nil {
+		t.Fatal(err)
+	}
+	data, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var got map[string]any
+	if err := json.Unmarshal(data, &got); err != nil {
+		t.Fatal(err)
+	}
+	if got["changed"] != float64(2) || got["failed"] != float64(5) || got["skipped"] != float64(5) || got["error"] != "partial fetch" {
+		t.Fatalf("incomplete summary: %s", data)
+	}
+}
+
+func TestSyncSummaryWithoutNetwork(t *testing.T) {
+	dir := t.TempDir()
+	path, summary := filepath.Join(dir, "prices.json"), filepath.Join(dir, "summary.json")
+	if err := os.WriteFile(path, []byte(`{"manual":{"unit":"hour","source":"test","values":{"*":{"value":1,"verified":true}}}}`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if err := cmdSync([]string{"--books", path, "--strict", "--summary", summary}, &bytes.Buffer{}); err != nil {
+		t.Fatal(err)
+	}
+	data, err := os.ReadFile(summary)
+	if err != nil || !bytes.Contains(data, []byte(`"skipped": 0`)) {
+		t.Fatalf("%s: %v", data, err)
+	}
+}

@@ -1,0 +1,22 @@
+{
+  "aws": {
+    "source": "hashicorp/aws",
+    "version": "6.67.0",
+    "lockfile": "aws.lock.hcl"
+  },
+  "azure": {
+    "source": "hashicorp/azurerm",
+    "version": "5.8.0",
+    "lockfile": "azure.lock.hcl"
+  },
+  "gcp": {
+    "source": "hashicorp/google",
+    "version": "8.5.0",
+    "lockfile": "gcp.lock.hcl"
+  },
+  "cloudflare": {
+    "source": "cloudflare/cloudflare",
+    "version": "5.26.0",
+    "lockfile": "cloudflare.lock.hcl"
+  }
+}

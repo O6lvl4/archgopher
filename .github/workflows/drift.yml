@@ -1,0 +1,119 @@
+name: catalog drift
+
+# Inert until merged into the default branch. Manual runs default to dry-run.
+on:
+  schedule:
+    - cron: "23 5 * * *"
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Create or update bot-owned review Issues
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  actions: read
+  issues: write
+
+concurrency:
+  group: catalog-drift
+  cancel-in-progress: false
+
+jobs:
+  detect:
+    # Never execute a publisher from a feature branch or a fork.
+    if: github.repository == 'O6lvl4/archgopher' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: '1.14.5'
+          terraform_wrapper: false
+      - name: PDF text extraction
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils
+      - name: Find the previous trusted baseline
+        id: baseline
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const {owner, repo} = context.repo;
+            const branch = context.payload.repository.default_branch;
+            const runs = await github.paginate(github.rest.actions.listWorkflowRuns, {
+              owner, repo, workflow_id: 'drift.yml', branch, status: 'completed', per_page: 100
+            });
+            const trusted = runs.filter(run => run.id !== context.runId &&
+              ['schedule', 'workflow_dispatch'].includes(run.event) &&
+              run.head_repository?.full_name === `${owner}/${repo}` && run.head_branch === branch);
+            let hadBaseline = false;
+            for (const run of trusted) {
+              const artifacts = await github.paginate(github.rest.actions.listWorkflowRunArtifacts,
+                {owner, repo, run_id: run.id, per_page: 100});
+              hadBaseline ||= artifacts.some(a => a.name === 'catalog-drift-state') || run.conclusion === 'success';
+              if (!hadBaseline) {
+                const jobs = await github.paginate(github.rest.actions.listJobsForWorkflowRun,
+                  {owner, repo, run_id: run.id, per_page: 100});
+                hadBaseline ||= jobs.some(job => job.steps?.some(step =>
+                  step.name === 'Detect changes' && step.status === 'completed' && step.conclusion !== 'skipped'));
+              }
+              if (artifacts.some(a => a.name === 'catalog-drift-state' && !a.expired)) {
+                core.setOutput('run', String(run.id));
+                return;
+              }
+            }
+            // Failed setup on the first run does not imply a baseline ever existed.
+            // An expired/missing previously-created state cannot silently reset.
+            if (hadBaseline) core.setFailed('No retained baseline from previous trusted runs. Restore the state artifact before publishing.');
+      - name: Restore baseline and provider cache
+        if: steps.baseline.outputs.run != ''
+        uses: actions/download-artifact@v4
+        with:
+          name: catalog-drift-state
+          path: .drift
+          github-token: ${{ github.token }}
+          run-id: ${{ steps.baseline.outputs.run }}
+      - name: Verify restored baseline exists
+        if: steps.baseline.outputs.run != ''
+        run: test -s .drift/state.json
+      - name: Test monitor
+        run: python3 -m unittest discover -s tools/drift -v
+      - name: Detect changes
+        id: detect
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PUBLISH: ${{ github.event_name == 'schedule' || inputs.publish }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          args=()
+          if [[ "$PUBLISH" == "true" ]]; then args+=(--publish); fi
+          python3 tools/drift/monitor.py --repository "$GITHUB_REPOSITORY" --run-url "$RUN_URL" "${args[@]}"
+      - name: Persist successful snapshots and pending findings
+        if: always() && steps.detect.outcome != 'skipped' && hashFiles('.drift/state.json') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: catalog-drift-state
+          path: |
+            .drift/state.json
+            .drift/cache/
+          include-hidden-files: true
+          retention-days: 90
+          if-no-files-found: error
+      - name: Full dry-run / publication evidence
+        if: always() && steps.detect.outcome != 'skipped'
+        uses: actions/upload-artifact@v4
+        with:
+          name: catalog-drift-report
+          path: .drift/report.json
+          include-hidden-files: true
+          retention-days: 30
+      - name: Mark incomplete monitoring visibly
+        if: steps.detect.outcome == 'failure'
+        run: exit 1

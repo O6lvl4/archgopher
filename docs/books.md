@@ -14,12 +14,17 @@ a value per region, a unit, a source URL and a `verified` flag.
   `ARCHGOPHER_GCP_ACCOUNT` (a gcloud account to take a token from) or
   `ARCHGOPHER_GCP_API_KEY`. Without them, Google Cloud rows are skipped, not
   failed, and keep their values.
-  A weekly workflow opens a pull request when a price changes.
+  A weekly workflow opens a tested draft pull request when a mapped price changes
+  and reports incomplete coverage. A separate [daily drift review](../tools/drift/README.md)
+  watches Terraform provider surfaces and linked official pricing pages for
+  changes that need a person to classify or model. It does not provide complete
+  discovery of new SKUs or automatically merge model changes.
   `archgopher explore <service> <region> [attr=regex...]` helps you write the
   filters for a new price.
 
 ```sh
 archgopher sync --check      # exit 1 if the book is out of date
+archgopher sync --strict --summary sync.json # fail unresolved mappings; record skips
 archgopher sync --add-regions eu-west-2   # add a region to every price
 archgopher explore AWSLambda ap-northeast-1 'usagetype=.*GB-Second.*'
 archgopher explore azure Functions japaneast 'meterName=Standard.*'

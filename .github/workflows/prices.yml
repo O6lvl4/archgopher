@@ -1,8 +1,6 @@
 name: prices
 
-# Re-reads the public price lists every week (the AWS Price List and the Azure
-# Retail Prices API, neither needs credentials) and opens a pull request when a
-# price in catalog/*/*/books/prices.json changed.
+# Update existing mapped prices; daily drift monitoring finds review candidates.
 on:
   schedule:
     - cron: "0 3 * * 1"
@@ -11,22 +9,79 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  issues: write
+
+concurrency:
+  group: catalog-prices
+  cancel-in-progress: false
 
 jobs:
   sync:
+    if: github.repository == 'O6lvl4/archgopher' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-go@v6
         with:
           go-version-file: go.mod
-      - name: Sync prices
-        run: go run ./cmd/archgopher sync | tee sync.txt
-      - name: Open a pull request
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Sync prices with explicit coverage
+        id: sync
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          go run ./cmd/archgopher sync --strict --summary sync.json | tee sync.txt
+      - name: Validate resulting books before proposing them
+        id: validate
+        if: steps.sync.outcome == 'success'
+        continue-on-error: true
+        run: go test ./...
+      - name: Prepare concise price PR evidence
+        if: always()
+        env:
+          SYNC_OUTCOME: ${{ steps.sync.outcome }}
+          VALIDATION_OUTCOME: ${{ steps.validate.outcome }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          path = Path('sync.json')
+          summary = json.loads(path.read_text()) if path.exists() else {'failed': 1, 'error': 'sync did not produce a complete summary'}
+          summary['validationFailed'] = os.environ['VALIDATION_OUTCOME'] != 'success'
+          path.write_text(json.dumps(summary, indent=2) + '\n')
+          Path('price-pr.md').write_text('Existing mapped price update\n\nCoverage: ' + json.dumps(summary, sort_keys=True) + '\n\nFull logs: ' + os.environ['RUN_URL'] + '\n\nGCP rows are skipped without separately configured credentials. This does not discover new SKUs, tiers or billing dimensions. Review related [catalog drift] Issues before merging.\n')
+          PY
+      - name: Report incomplete coverage as a deduplicated Issue
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: python3 tools/drift/monitor.py --sync-report sync.json --publish --repository "$GITHUB_REPOSITORY" --run-url "$RUN_URL"
+      - name: Open a tested draft pull request
+        if: steps.sync.outcome == 'success' && steps.validate.outcome == 'success'
         uses: peter-evans/create-pull-request@v7
         with:
           branch: prices/sync
-          commit-message: Update prices from the AWS Price List
-          title: Update prices from the AWS Price List
-          body-path: sync.txt
+          draft: true
+          commit-message: Update mapped cloud prices
+          title: Update mapped cloud prices
+          body-path: price-pr.md
           add-paths: catalog/*/*/books/prices.json
+      - name: Keep complete sync evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: price-sync-report
+          path: |
+            sync.json
+            sync.txt
+            .drift/report.json
+          include-hidden-files: true
+          retention-days: 30
+      - name: Fail visibly if sync or validation was incomplete
+        if: steps.sync.outcome != 'success' || steps.validate.outcome != 'success'
+        run: exit 1
