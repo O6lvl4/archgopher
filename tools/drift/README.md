@@ -127,3 +127,21 @@ observed difference, run evidence, and an acceptance checklist. Review billabili
 free/helper classification, region/SKU, unit and currency, tiers and included
 pools, term/tax/discount validity, then add reproducible tests before a draft PR.
 No automatic merge or deployment is part of either workflow.
+
+## Live CI schema smoke test
+
+Normal CI also exports actual schemas for four reviewed, exact provider releases
+using the production collector. `fixtures/provider-pins.json` records those
+versions, and each checked-in Terraform lock file pins the checksums obtained
+from an official, signature-checked install. Initialization uses
+`-lockfile=readonly`; it cannot silently upgrade a release or replace its hashes.
+The isolated Terraform subprocess receives no cloud credentials. Each matrix
+job has a 20-minute limit and uploads resource counts, known-type coverage and a
+normalized schema digest. It never publishes Issues or enables the daily job.
+
+The CI pins are reproducible smoke-test fixtures, not the daily discovery policy:
+the daily monitor still checks the latest stable upstream release. Refresh pins
+and official checksums through a reviewed change when testing a new release.
+Local runtimes that prohibit Unix IPC sockets cannot run provider plugins; in
+that case report the export as unverified and use the ordinary CI runner for
+this integration check. Do not relax local security settings.

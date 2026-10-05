@@ -18,6 +18,40 @@ jobs:
           python-version: '3.12'
       - run: python3 -m unittest discover -s tools/drift -v
 
+  provider-schema-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        provider: [aws, azure, gcp, cloudflare]
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install checksum-pinned Terraform from HashiCorp
+        run: |
+          curl --fail --location --retry 2 --max-time 120 \
+            https://releases.hashicorp.com/terraform/1.14.5/terraform_1.14.5_linux_amd64.zip \
+            -o "$RUNNER_TEMP/terraform.zip"
+          printf 'ac21c2b9dcd115711f540cbd27ead0596bb4288a917cb56dfa9b25edb3eb6280  %s\n' "$RUNNER_TEMP/terraform.zip" | sha256sum --check -
+          unzip -q "$RUNNER_TEMP/terraform.zip" -d "$RUNNER_TEMP/drift-terraform"
+          echo "$RUNNER_TEMP/drift-terraform" >> "$GITHUB_PATH"
+      - name: Verify checksum-locked official resource schemas
+        run: python3 tools/drift/smoke.py "${{ matrix.provider }}" --out ".drift/smoke-${{ matrix.provider }}.json"
+      - name: Keep schema verification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: provider-schema-${{ matrix.provider }}
+          path: .drift/smoke-${{ matrix.provider }}.json
+          include-hidden-files: true
+          retention-days: 14
+          if-no-files-found: error
+
   test:
     runs-on: ubuntu-latest
     steps:
