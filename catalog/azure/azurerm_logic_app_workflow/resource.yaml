@@ -1,0 +1,22 @@
+type: azurerm_logic_app_workflow
+label: Logic App (Consumption)
+category: Integration
+icon: logic-apps
+description: "Multi-tenant Logic Apps billed per action run: built-in actions and triggers at one rate, managed standard and enterprise connector calls at theirs. On import the trigger and the actions that name the workflow are counted, a condition or switch by its longest branch; loops and workflows defined outside Terraform ask for the counts. The first 4,000 built-in actions a month are a free grant and are not counted."
+kinds: [invoke]
+sla: azure.logicapps
+attributes:
+  - { key: builtInActions, label: Counted built-in actions per run, type: number, optional: true, hint: "Read from Terraform: the trigger and the built-in actions that name the workflow, the longest branch of each condition or switch" }
+  - { key: connectorActions, label: Counted connector calls per run, type: number, optional: true, hint: "Read from Terraform: actions and triggers of type ApiConnection, billed as standard connectors" }
+assumptions:
+  - { key: builtInActionsPerRun, label: Built-in actions per run, type: number, optional: true, overrides: builtInActions, hint: "The trigger and every built-in action a run executes, each loop iteration included; set it when Terraform does not define the workflow, or to correct the count" }
+  - { key: standardCallsPerRun, label: Standard connector calls per run, type: number, optional: true, overrides: connectorActions, hint: "Managed connectors such as Office 365, SharePoint, Blob Storage (managed)" }
+  - { key: enterpriseCallsPerRun, label: Enterprise connector calls per run, type: number, default: 0, hint: "Managed enterprise connectors such as SAP, IBM MQ; counted calls are taken as standard, so move them here" }
+readings:
+  - fail: { when: builtInActionsPerRun == nil && builtInActions == nil, message: builtInActionsPerRun is required when Terraform does not define the workflow's actions }
+  - cost: { name: Built-in actions, quantity: "total.monthly * (builtInActionsPerRun ?? builtInActions ?? 0)", unit: action, price: azure.logicapps.consumption.builtin_action }
+  - cost: { name: Standard connector calls, quantity: "total.monthly * (standardCallsPerRun ?? connectorActions ?? 0)", unit: call, price: azure.logicapps.standard_connector }
+  - cost: { when: enterpriseCallsPerRun > 0, name: Enterprise connector calls, quantity: total.monthly * enterpriseCallsPerRun, unit: call, price: azure.logicapps.enterprise_connector }
+terraform:
+  frontDoor: true
+  ignoreRefs: [identity]

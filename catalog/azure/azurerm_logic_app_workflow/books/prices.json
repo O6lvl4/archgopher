@@ -1,0 +1,68 @@
+{
+  "azure.logicapps.consumption.builtin_action": {
+    "unit": "action",
+    "source": "https://azure.microsoft.com/pricing/details/logic/",
+    "note": "Consumption built-in action or trigger run. The price list's first tier (4,000 actions) is a free grant, billed here at the first paid tier's price",
+    "sync": {
+      "source": "azure",
+      "service": "Logic Apps",
+      "filters": {
+        "productName": "Logic Apps",
+        "skuName": "Consumption",
+        "meterName": "Consumption Built-in Actions"
+      }
+    },
+    "values": {
+      "australiaeast": {
+        "value": 0.000028,
+        "verified": true,
+        "checkedAt": "2026-10-05"
+      },
+      "centralindia": {
+        "value": 0.000028,
+        "verified": true,
+        "checkedAt": "2026-10-05"
+      },
+      "eastus": {
+        "value": 0.000025,
+        "verified": true,
+        "checkedAt": "2026-10-05"
+      },
+      "eastus2": {
+        "value": 0.000025,
+        "verified": true,
+        "checkedAt": "2026-10-05"
+      },
+      "germanywestcentral": {
+        "value": 0.000031,
+        "verified": true,
+        "checkedAt": "2026-10-05"
+      },
+      "japaneast": {
+        "value": 0.000028,
+        "verified": true,
+        "checkedAt": "2026-10-05"
+      },
+      "koreacentral": {
+        "value": 0.000045,
+        "verified": true,
+        "checkedAt": "2026-10-05"
+      },
+      "northeurope": {
+        "value": 0.000025,
+        "verified": true,
+        "checkedAt": "2026-10-05"
+      },
+      "southeastasia": {
+        "value": 0.000025,
+        "verified": true,
+        "checkedAt": "2026-10-05"
+      },
+      "westus2": {
+        "value": 0.000025,
+        "verified": true,
+        "checkedAt": "2026-10-05"
+      }
+    }
+  }
+}

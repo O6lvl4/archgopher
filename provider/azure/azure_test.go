@@ -38,6 +38,7 @@ var (
 		"azurerm_monitor_action_group":                   {"email_receivers": 1.0, "push_receivers": 1.0, "itsm_receivers": 1.0, "webhook_receivers": 2.0, "secure_webhook_receivers": 1.0, "sms_receivers": 1.0, "voice_receivers": 1.0},
 		"azurerm_monitor_diagnostic_setting":             {"storage_account_id": true},
 		"azurerm_monitor_data_collection_rule":           {"metrics_destination": true},
+		"azurerm_logic_app_workflow":                     {"builtInActions": 5.0, "connectorActions": 1.0},
 		"azurerm_monitor_metric_alert":                   {"dynamic_criteria": 1.0},
 		"azurerm_monitor_scheduled_query_rules_alert_v2": {"scopes": 2.0},
 		"azurerm_log_analytics_solution":                 {"solution_name": "SecurityInsights"},
@@ -183,5 +184,39 @@ func TestCallsToCosmosDBContainersReachTheAccount(t *testing.T) {
 	want := "api>archive api>events api>log api>orders api>plan api>shop api>store users>api"
 	if strings.Join(got, " ") != want {
 		t.Errorf("edges: want %s, got %s", want, strings.Join(got, " "))
+	}
+}
+
+// A Consumption workflow counts its trigger and the actions that name it.
+func TestLogicAppActions(t *testing.T) {
+	ev, err := eval.Evaluate(filepath.Join("testdata", "logicapps"), eval.Options{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	spec, warnings := infer.Build(ev, TerraformRules(), "test")
+	got := map[string]any{}
+	for _, n := range spec.Nodes {
+		if n.Type == "azurerm_logic_app_workflow" {
+			got[n.ID] = map[string]any(n.Attributes)
+		}
+	}
+	// request trigger + HTTP + If + its longer branch (the connector call).
+	want := map[string]any{"builtInActions": 3.0, "connectorActions": 1.0}
+	if a, _ := got["orders"].(map[string]any); a["builtInActions"] != want["builtInActions"] || a["connectorActions"] != want["connectorActions"] {
+		t.Errorf("orders = %v, want %v", got["orders"], want)
+	}
+	for _, id := range []string{"batch", "designer"} {
+		if a, _ := got[id].(map[string]any); len(a) > 0 {
+			t.Errorf("%s should not be counted: %v", id, a)
+		}
+	}
+	joined := strings.Join(warnings, "\n")
+	for _, w := range []string{
+		`azurerm_logic_app_action_custom.each: action "each" is a Foreach loop`,
+		"azurerm_logic_app_workflow.designer: no action or trigger in Terraform names this workflow",
+	} {
+		if !strings.Contains(joined, w) {
+			t.Errorf("missing warning %q in:\n%s", w, joined)
+		}
 	}
 }

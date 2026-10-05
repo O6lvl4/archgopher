@@ -40,6 +40,7 @@ func TerraformRules() infer.Rules {
 		Region:     Region,
 		Sources:    []infer.EdgeSource{RBAC(roles())},
 		IgnoreRefs: []string{"identity", "key_vault_reference_identity_id"},
+		Readers:    readers,
 	})
 }
 

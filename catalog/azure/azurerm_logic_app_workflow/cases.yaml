@@ -1,0 +1,42 @@
+# Worked examples: given these values and this load, the resource reads this.
+# Expected values are computed by hand from the unit prices, not taken from the engine.
+# Counted from Terraform in East US, 100k runs of a trigger, 4 built-in actions and 2 connector calls:
+#   built-in 100000 x 5 x 0.000025 = 12.5; standard 100000 x 2 x 0.000125 = 25
+- name: counted (eastus)
+  region: eastus
+  attributes:
+    builtInActions: 5
+    connectorActions: 2
+  demand:
+    invoke:
+      monthly: 100000
+      peak: 5
+  costs:
+    Built-in actions: 12.5
+    Standard connector calls: 25
+# Corrected by hand in Japan East: a loop of 10 items around 3 actions plus the trigger, one SAP call:
+#   built-in 50000 x 31 x 0.000028 = 43.4; standard 50000 x 2 x 0.00013 = 13; enterprise 50000 x 1 x 0.001 = 50
+- name: corrected with an enterprise call (japaneast)
+  region: japaneast
+  attributes:
+    builtInActions: 4
+    connectorActions: 3
+  assumptions:
+    builtInActionsPerRun: 31
+    standardCallsPerRun: 2
+    enterpriseCallsPerRun: 1
+  demand:
+    invoke:
+      monthly: 50000
+      peak: 2
+  costs:
+    Built-in actions: 43.4
+    Standard connector calls: 13
+    Enterprise connector calls: 50
+- name: defined outside Terraform (eastus)
+  region: eastus
+  demand:
+    invoke:
+      monthly: 1000
+      peak: 1
+  error: builtInActionsPerRun is required when Terraform does not define the workflow's actions
