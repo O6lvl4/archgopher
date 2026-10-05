@@ -164,6 +164,20 @@ class ProviderTests(unittest.TestCase):
             mutation(other["provider_schemas"]["registry.terraform.io/hashicorp/aws"]["resource_schemas"]["aws_instance"])
             self.assertNotEqual(normalize(before), normalize(other))
 
+    def test_empty_nested_object_can_omit_its_attributes(self):
+        # Terraform v1.14.5 jsonprovider/attribute.go marks NestedType.Attributes
+        # omitempty. Cloudflare 5.26.0 emits this valid empty-object form.
+        schema = document()
+        attrs = schema["provider_schemas"]["registry.terraform.io/hashicorp/aws"]["resource_schemas"]["aws_instance"]["block"]["attributes"]
+        attrs["settings"]["nested_type"] = {"nesting_mode": "single"}
+        snapshots, errors = self.collect(run=FakeTerraform(schema))
+        self.assertFalse(errors)
+        normalized = snapshots["provider:aws"]["records"]["aws_instance"]["schema"]["block"]["attributes"]["settings"]["nested_type"]
+        self.assertEqual(normalized, {"nesting_mode": "single", "attributes": {}})
+        attrs["settings"]["nested_type"]["attributes"] = None
+        with self.assertRaises(ValueError):
+            providers._schema_document(schema, "registry.terraform.io/hashicorp/aws", "aws_")
+
     def test_invalid_and_incomplete_sources_never_produce_snapshots_or_cache(self):
         invalid = [
             {"format_version": "2.0", "provider_schemas": {}},

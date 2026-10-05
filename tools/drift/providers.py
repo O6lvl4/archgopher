@@ -82,7 +82,9 @@ def _attributes(value):
             nested = _object(attribute["nested_type"], "nested_type")
             normalized["nested_type"] = {
                 "nesting_mode": _nesting_mode(nested),
-                "attributes": _attributes(nested.get("attributes")),
+                # Terraform omits an empty nested attribute map (omitempty).
+                # Explicit null/non-object values are still invalid.
+                "attributes": _attributes(nested.get("attributes", {})),
             }
         if not ("type" in normalized or "nested_type" in normalized):
             raise ValueError(f"attribute {name} has no type")
