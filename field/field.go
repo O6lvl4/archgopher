@@ -41,6 +41,11 @@ type Field struct {
 	Multi    bool              `json:"multi,omitempty"`
 	Required bool              `json:"required"`
 	Path     string            `json:"path,omitempty"`
+	// Overrides names the attribute, read from Terraform, that this
+	// assumption replaces when set: a count derived from a definition that
+	// people may correct. gaps reports the pair, so a correction made once
+	// does not silently outlive the Terraform it corrected.
+	Overrides string `json:"overrides,omitempty"`
 
 	index []int
 }
@@ -119,11 +124,12 @@ func fieldsAt(t reflect.Type, i int) ([]Field, error) {
 // tagged builds the field that struct field sf declares under key.
 func tagged(key string, sf reflect.StructField) (Field, error) {
 	f := Field{
-		Key:   key,
-		Label: sf.Tag.Get("label"),
-		Unit:  sf.Tag.Get("unit"),
-		Hint:  sf.Tag.Get("hint"),
-		Path:  sf.Tag.Get("path"),
+		Key:       key,
+		Label:     sf.Tag.Get("label"),
+		Unit:      sf.Tag.Get("unit"),
+		Hint:      sf.Tag.Get("hint"),
+		Path:      sf.Tag.Get("path"),
+		Overrides: sf.Tag.Get("overrides"),
 	}
 	if f.Label == "" {
 		f.Label = key

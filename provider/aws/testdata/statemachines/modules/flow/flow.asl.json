@@ -1,0 +1,13 @@
+{
+  "StartAt": "Validate",
+  "States": {
+    "Validate": {"Type": "Task", "Resource": "${function}", "Next": "Each",
+      "Catch": [{"ErrorEquals": ["States.ALL"], "Next": "Failed"}]},
+    "Each": {"Type": "Map", "Next": "Done",
+      "ItemProcessor": {"ProcessorConfig": {"Mode": "INLINE"}, "StartAt": "Process",
+        "States": {"Process": {"Type": "Task", "Resource": "${function}", "Next": "Record"},
+                   "Record": {"Type": "Pass", "End": true}}}},
+    "Failed": {"Type": "Fail"},
+    "Done": {"Type": "Succeed"}
+  }
+}

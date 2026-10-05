@@ -53,14 +53,16 @@ var allowed = map[string][]string{
 	// AWS provider: resources are data in catalog/aws; the provider adds IAM,
 	// the schedule syntax and account-wide rules.
 	"provider/aws/iam":           {"terraform/eval", "terraform/infer"},
+	"provider/aws/asl":           {},
 	"provider/aws/pricelist":     {},
 	"provider/aws/servicequotas": {},
 	"provider/aws/pattern":       {"model", "pattern", "scouter"},
-	"provider/aws":               {"book", "catalog", "definition", "scouter", "terraform/eval", "terraform/infer", "provider/aws/iam", "provider/internal/embedded"},
+	"provider/aws":               {"book", "catalog", "definition", "scouter", "terraform/eval", "terraform/infer", "provider/aws/asl", "provider/aws/iam", "provider/internal/embedded"},
 
 	// Azure provider: resources are data in catalog/azure.
 	"provider/azure/retailprices": {},
-	"provider/azure":              {"book", "catalog", "definition", "scouter", "terraform/eval", "terraform/infer", "provider/internal/embedded"},
+	"provider/azure/wdl":          {},
+	"provider/azure":              {"book", "catalog", "definition", "scouter", "terraform/eval", "terraform/infer", "provider/azure/wdl", "provider/internal/embedded"},
 
 	// Google Cloud provider: prices from the Billing Catalog.
 	"provider/gcp/billingcatalog": {},

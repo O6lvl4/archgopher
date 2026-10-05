@@ -123,6 +123,15 @@ func (r *Resource) buildFields() error {
 		}
 		r.assumptions = append(r.assumptions, field.FieldsOf(t)...)
 	}
+	attrs := map[string]bool{}
+	for _, a := range r.attributes {
+		attrs[a.Key] = true
+	}
+	for _, a := range r.assumptions {
+		if a.Overrides != "" && !attrs[a.Overrides] {
+			return fmt.Errorf("%s: assumption %q overrides %q, which is not an attribute", f.Type, a.Key, a.Overrides)
+		}
+	}
 	for _, fd := range append(append([]field.Field(nil), r.attributes...), r.assumptions...) {
 		if reserved[fd.Key] {
 			return fmt.Errorf("%s: %q is a name every expression already has", f.Type, fd.Key)

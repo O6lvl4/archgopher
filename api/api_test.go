@@ -244,3 +244,36 @@ edges:
 		t.Fatalf("gaps\n got  %v\n want %v", got, want)
 	}
 }
+
+// An assumption set over a value read from Terraform is a gap: a correction
+// made once must not silently outlive the Terraform it corrected.
+func TestGapsNameOverrides(t *testing.T) {
+	spec, err := model.ParseSpec([]byte(`
+name: overrides
+region: us-east-1
+nodes:
+  - { id: users, type: entry, load: { monthly: 1000 } }
+  - { id: counted, type: aws_sfn_state_machine, attributes: { transitions: 9 } }
+  - { id: corrected, type: aws_sfn_state_machine, attributes: { transitions: 9 }, assumptions: { transitionsPerExecution: 12 } }
+  - { id: written, type: aws_sfn_state_machine, assumptions: { transitionsPerExecution: 12 } }
+edges:
+  - { from: users, to: counted, note: one execution per request }
+  - { from: users, to: corrected, note: one execution per request }
+  - { from: users, to: written, note: one execution per request }
+`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	gs, err := Gaps(spec)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var got []string
+	for _, g := range gs {
+		got = append(got, string(g.Kind)+" "+g.Node+"."+g.Key+": "+g.Message)
+	}
+	want := []string{"override corrected.transitionsPerExecution: transitionsPerExecution 12 is set over transitions 9 read from Terraform"}
+	if strings.Join(got, "\n") != strings.Join(want, "\n") {
+		t.Fatalf("gaps\n got  %q\n want %q", got, want)
+	}
+}

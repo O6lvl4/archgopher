@@ -21,11 +21,13 @@ type Spec struct {
 	Multi    bool              `yaml:"multi"`
 	Optional bool              `yaml:"optional"`
 	Path     string            `yaml:"path"`
+	// Overrides names the attribute an assumption replaces when set.
+	Overrides string `yaml:"overrides"`
 }
 
 // Build validates a spec and turns it into a Field.
 func (s Spec) Build() (Field, error) {
-	f := Field{Key: s.Key, Label: s.Label, Type: s.Type, Unit: s.Unit, Hint: s.Hint, Options: s.Options, Labels: s.Labels, Multi: s.Multi, Path: s.Path}
+	f := Field{Key: s.Key, Label: s.Label, Type: s.Type, Unit: s.Unit, Hint: s.Hint, Options: s.Options, Labels: s.Labels, Multi: s.Multi, Path: s.Path, Overrides: s.Overrides}
 	if f.Key == "" {
 		return f, fmt.Errorf("a field has no key")
 	}

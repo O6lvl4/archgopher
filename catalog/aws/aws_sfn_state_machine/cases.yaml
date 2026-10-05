@@ -14,6 +14,62 @@
     State transitions: 600
   limits:
     StartExecution rate: 40
+- name: standard counted from the definition (us-east-1)
+  region: us-east-1
+  attributes:
+    transitions: 9
+  demand:
+    execution:
+        monthly: 100000
+        peak: 5
+  # The pricing page's second example: 9 transitions on the happy path.
+  # 1e5 × 9 = 9e5 transitions / 1,000 × 0.025 = 22.5.
+  costs:
+    State transitions: 22.5
+  limits:
+    StartExecution rate: 5
+- name: standard counted with a Map (us-east-1)
+  region: us-east-1
+  attributes:
+    transitions: 5
+    transitionsPerItem: 3
+  assumptions:
+    itemsPerMap: 10
+  demand:
+    execution:
+        monthly: 2e+06
+        peak: 40
+  # 5 + 3 × 10 = 35 per execution; 2e6 × 35 = 7e7 transitions / 1,000 × 0.025 = 1,750.
+  costs:
+    State transitions: 1750
+  limits:
+    StartExecution rate: 40
+- name: standard count overridden (us-east-1)
+  region: us-east-1
+  attributes:
+    transitions: 9
+    transitionsPerItem: 3
+  assumptions:
+    transitionsPerExecution: 12
+  demand:
+    execution:
+        monthly: 2e+06
+        peak: 40
+  # The assumption wins over the count: 2e6 × 12 = 24e6 / 1,000 × 0.025 = 600.
+  costs:
+    State transitions: 600
+  limits:
+    StartExecution rate: 40
+- name: standard Map without items (us-east-1)
+  region: us-east-1
+  attributes:
+    transitions: 5
+    transitionsPerItem: 3
+  demand:
+    execution:
+        monthly: 2e+06
+        peak: 40
+  error: itemsPerMap is required for a definition that maps items
 - name: express (us-east-1)
   region: us-east-1
   attributes:

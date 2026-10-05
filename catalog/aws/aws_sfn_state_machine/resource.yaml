@@ -2,23 +2,29 @@ type: aws_sfn_state_machine
 label: Step Functions
 category: Compute
 icon: step-functions
-description: "Standard bills state transitions; express bills requests and GB-seconds, the duration rounded up to 100 ms and the memory to 64 MB, in volume tiers from 1,000 and 5,000 GB-hours counted over every express workflow in the region. Headroom is the StartExecution rate."
+description: "Standard bills state transitions, read on import from the definition's longest path; express bills requests and GB-seconds, the duration rounded up to 100 ms and the memory to 64 MB, in volume tiers from 1,000 and 5,000 GB-hours counted over every express workflow in the region. Headroom is the StartExecution rate."
 kinds: [execution]
 sla: aws.sfn
 attributes:
   - { key: type, label: Workflow type, type: choice, options: [STANDARD, EXPRESS], default: STANDARD }
+  - { key: transitions, label: Counted transitions per execution, type: number, optional: true, hint: "Read from the definition: the longest path, start and end included; retries and Catch paths left out" }
+  - { key: transitionsPerItem, label: Counted transitions per Map item, type: number, optional: true, hint: "Read from the definition: the states each item of an inline Map runs" }
 assumptions:
-  - { key: transitionsPerExecution, label: State transitions per execution, type: number, optional: true, hint: "Standard workflows bill per transition" }
+  - { key: transitionsPerExecution, label: State transitions per execution, type: number, optional: true, overrides: transitions, hint: "Standard workflows bill per transition; set it when the definition cannot be counted, or to correct the count" }
+  - { key: itemsPerMap, label: Items per Map state, type: number, optional: true, hint: "Each item of an inline Map runs its states" }
   - { key: durationMs, label: Duration per execution, type: number, unit: ms, optional: true, hint: "Express workflows bill GB-seconds" }
   - { key: memoryMb, label: Memory per execution, type: number, unit: MB, default: 64, hint: "Express bills in 64 MB steps" }
 let:
   - express: 'type == "EXPRESS"'
+  - counted: 'transitionsPerExecution == nil && transitions != nil'
+  - perExecution: 'transitionsPerExecution ?? ((transitions ?? 0) + (transitionsPerItem ?? 0) * (itemsPerMap ?? 0))'
 readings:
   - fail: { when: express && durationMs == nil, message: durationMs is required for express workflows }
   - requests: { when: express, name: Requests, price: aws.sfn.express.requests, count: total.monthly }
   - compute: { when: express, name: Duration, price: aws.sfn.express.gb_second, count: total.monthly, seconds: "ceilDiv(durationMs ?? 0, 100) * 100 / 1000", memoryMb: memoryMb, stepMb: 64 }
-  - fail: { when: "!express && transitionsPerExecution == nil", message: transitionsPerExecution is required for standard workflows }
-  - cost: { when: "!express", name: State transitions, quantity: "total.monthly * (transitionsPerExecution ?? 0)", unit: state transition, price: aws.sfn.standard.transitions }
+  - fail: { when: "!express && transitionsPerExecution == nil && transitions == nil", message: transitionsPerExecution is required for standard workflows }
+  - fail: { when: "!express && counted && transitionsPerItem != nil && itemsPerMap == nil", message: itemsPerMap is required for a definition that maps items }
+  - cost: { when: "!express", name: State transitions, quantity: "total.monthly * perExecution", unit: state transition, price: aws.sfn.standard.transitions }
   - rate: { when: "!express", name: StartExecution rate, unit: requests/second, quota: aws.sfn.standard.start_execution, peak: total.peak }
 iam:
   execution: ["states:StartExecution", "states:StartSyncExecution"]

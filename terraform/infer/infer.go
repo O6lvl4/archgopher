@@ -43,6 +43,9 @@ type Rules struct {
 	Schedules map[string]string
 	// IgnoreRefs are attribute path prefixes whose references are not calls (roles, keys, DLQs).
 	IgnoreRefs []string
+	// Readers derive attributes of a node type that no path can read, such as
+	// what a state machine's definition bills.
+	Readers map[string]Reader
 	// Sources add edges from knowledge the builder does not have, such as IAM permissions.
 	Sources []EdgeSource
 	// Region reads the region from the evaluated configuration: provider blocks
@@ -75,6 +78,11 @@ type Link struct {
 // an endpoint group that names its listener is called through that listener.
 const Self = "self"
 
+// Reader derives attributes of resource r, seeing the whole configuration
+// through g: a workflow counts the actions that name it. An error says why it
+// could not, and becomes a warning.
+type Reader func(g *Graph, r *eval.Resource) (map[string]any, error)
+
 // Hint is an edge an EdgeSource proposes. Kind "" means the target's default.
 type Hint struct {
 	From, To, Kind string
@@ -106,7 +114,7 @@ func (g *Graph) Targets(ref string) []string { return g.b.targets(ref) }
 func Combine(parts ...Rules) Rules {
 	out := Rules{
 		NodeTypes: map[string]bool{}, Aliases: map[string]string{}, Forward: map[string]string{}, Mentioned: map[string]bool{}, Passive: map[string]bool{},
-		FrontDoors: map[string]bool{}, FrontDoorAliases: map[string]string{}, Schedules: map[string]string{},
+		FrontDoors: map[string]bool{}, FrontDoorAliases: map[string]string{}, Schedules: map[string]string{}, Readers: map[string]Reader{},
 		Scouters: scouter.Registry{}, Boundaries: map[string]string{}, Free: map[string]bool{},
 	}
 	for _, p := range parts {
@@ -118,6 +126,7 @@ func Combine(parts ...Rules) Rules {
 		copyMap(out.FrontDoors, p.FrontDoors)
 		copyMap(out.FrontDoorAliases, p.FrontDoorAliases)
 		copyMap(out.Schedules, p.Schedules)
+		copyMap(out.Readers, p.Readers)
 		copyMap(out.Scouters, p.Scouters)
 		copyMap(out.Boundaries, p.Boundaries)
 		copyMap(out.Free, p.Free)

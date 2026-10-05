@@ -36,9 +36,12 @@ const (
 	Instances Kind = "instances"
 	// Failed: the node could not be read for another reason.
 	Failed Kind = "failed"
+	// Override: an assumption replaces a value read from Terraform, so a
+	// change in Terraform no longer reaches the reading.
+	Override Kind = "override"
 )
 
-var order = map[Kind]int{Load: 0, Caller: 1, Assumption: 2, Instances: 3, Ratio: 4, Failed: 5}
+var order = map[Kind]int{Load: 0, Caller: 1, Assumption: 2, Instances: 3, Ratio: 4, Failed: 5, Override: 6}
 
 // Gap is one unknown.
 type Gap struct {
@@ -101,6 +104,7 @@ func (j judge) nodeGaps(n model.Node, s scouter.Scouter) []Gap {
 	}
 	missing := assumptionGaps(n, s)
 	out = append(out, missing...)
+	out = append(out, overrideGaps(n, s)...)
 	if n.Instances == model.UnknownInstances {
 		out = append(out, Gap{Kind: Instances, Node: n.ID, Message: "count or for_each is not known before apply; one is read",
 			Hint: "set instances to how many there will be"})
@@ -142,6 +146,24 @@ func assumptionGaps(n model.Node, s scouter.Scouter) []Gap {
 			label += " (" + f.Unit + ")"
 		}
 		out = append(out, Gap{Kind: Assumption, Node: n.ID, Key: f.Key, Message: label + " is unknown", Hint: f.Hint})
+	}
+	return out
+}
+
+// overrideGaps are the assumptions set over a value read from Terraform.
+func overrideGaps(n model.Node, s scouter.Scouter) []Gap {
+	var out []Gap
+	for _, f := range s.Assumptions() {
+		if f.Overrides == "" {
+			continue
+		}
+		set, read := n.Assumptions[f.Key], n.Attributes[f.Overrides]
+		if set == nil || read == nil {
+			continue
+		}
+		out = append(out, Gap{Kind: Override, Node: n.ID, Key: f.Key,
+			Message: fmt.Sprintf("%s %v is set over %s %v read from Terraform", f.Key, set, f.Overrides, read),
+			Hint:    "remove it to follow Terraform as it changes; keep it only where the reading from Terraform is wrong"})
 	}
 	return out
 }

@@ -20,6 +20,7 @@ func (b *builder) nodeAs(id string, r *eval.Resource) model.Node {
 	n := model.Node{ID: id, Type: r.Type, Address: r.Address, Attributes: map[string]any{}}
 	if s, ok := b.rules.Scouters[r.Type]; ok {
 		b.readFields(&n, r, s)
+		b.readDerived(&n, r)
 	} else {
 		n.Note = "No scouter reads " + r.Type + " yet; load passes through."
 	}
@@ -51,6 +52,22 @@ func (b *builder) readFields(n *model.Node, r *eval.Resource, s scouter.Scouter)
 			n.Assumptions = map[string]any{}
 		}
 		n.Assumptions[f.Key] = nil
+	}
+}
+
+// readDerived adds the attributes the type's reader derives; when it cannot,
+// the node keeps asking for the assumptions they would have answered.
+func (b *builder) readDerived(n *model.Node, r *eval.Resource) {
+	read, ok := b.rules.Readers[r.Type]
+	if !ok {
+		return
+	}
+	attrs, err := read(&Graph{b: b}, r)
+	if err != nil {
+		b.warnings = append(b.warnings, fmt.Sprintf("%s: %v", r.Address, err))
+	}
+	for k, v := range attrs {
+		n.Attributes[k] = v
 	}
 }
 

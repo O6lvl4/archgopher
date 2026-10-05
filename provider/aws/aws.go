@@ -79,5 +79,6 @@ func TerraformRules() infer.Rules {
 		Scouters: Registry(),
 		Free:     cat.FreeTypes(),
 		Sources:  []infer.EdgeSource{iam.Source(IAM())},
+		Readers:  readers,
 	})
 }
