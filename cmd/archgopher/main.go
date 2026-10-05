@@ -27,6 +27,7 @@ Usage:
   archgopher catalog                        List scouters and their fields as JSON
   archgopher quotas <spec.yaml> [flags]     Put the account's own quota values into a declaration
   archgopher sync [--check]                 Verify the books against the price lists and Service Quotas
+  archgopher stale [--days 90]              List the books' values nobody checked lately, by page
   archgopher explore <service> <region> [attr=regex...]
                                               Search the Price List to write sync filters
 
@@ -62,6 +63,8 @@ func run(args []string, out io.Writer) error {
 		return cmdCatalog(out)
 	case "sync":
 		return cmdSync(args[1:], out)
+	case "stale":
+		return cmdStale(args[1:], out)
 	case "quotas":
 		return cmdQuotas(args[1:], out)
 	case "explore":

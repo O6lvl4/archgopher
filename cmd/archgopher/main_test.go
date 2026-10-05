@@ -91,3 +91,34 @@ func readFile(path string) (string, error) {
 	b, err := os.ReadFile(path)
 	return string(b), err
 }
+
+// Stale lists, by page, the values checked before the cutoff or never:
+// never-checked pages first, then the oldest; a value is as old as its
+// oldest region.
+func TestStaleListsPagesToRecheck(t *testing.T) {
+	var out bytes.Buffer
+	err := run([]string{"stale", "--books", "testdata/stale/*/books/*.json", "--days", "90", "--today", "2026-10-05"}, &out)
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := `Not checked in the last 90 days: 3 values on 3 pages.`
+	if !strings.HasPrefix(out.String(), want) {
+		t.Fatalf("got\n%s", out.String())
+	}
+	rows := strings.Split(strings.TrimSpace(out.String()), "\n")[4:]
+	wantRows := []string{
+		"| https://example.com/b | never | x.never |",
+		"| https://example.com/a | 2026-05-01 | x.old |",
+		"| https://example.com/c | 2026-06-01 | x.table |",
+	}
+	if strings.Join(rows, "\n") != strings.Join(wantRows, "\n") {
+		t.Fatalf("rows\n got  %q\n want %q", rows, wantRows)
+	}
+	out.Reset()
+	if err := run([]string{"stale", "--books", "testdata/stale/*/books/*.json", "--days", "200", "--today", "2026-10-05"}, &out); err != nil {
+		t.Fatal(err)
+	}
+	if !strings.HasPrefix(out.String(), "Not checked in the last 200 days: 1 value on 1 page.") {
+		t.Fatalf("with 200 days only the never-checked value is stale:\n%s", out.String())
+	}
+}

@@ -17,9 +17,17 @@ a value per region, a unit, a source URL and a `verified` flag.
   A weekly workflow opens a pull request when a price changes.
   `archgopher explore <service> <region> [attr=regex...]` helps you write the
   filters for a new price.
+- **Hand-read values are re-checked on a schedule.** Quotas, SLAs and the
+  prices no API publishes (Cloudflare, ConoHa) cannot be synced.
+  `archgopher stale [--days 90]` lists every value not checked within the
+  period, or never, grouped by the page it was read from, so one visit
+  re-checks all of a page's values. A monthly workflow keeps one issue with
+  that list open and closes it when nothing is left. A synced price that
+  shows up there means sync stopped reaching it.
 
 ```sh
 archgopher sync --check      # exit 1 if the book is out of date
+archgopher stale --days 90   # values nobody checked in 90 days, by page
 archgopher sync --add-regions eu-west-2   # add a region to every price
 archgopher explore AWSLambda ap-northeast-1 'usagetype=.*GB-Second.*'
 archgopher explore azure Functions japaneast 'meterName=Standard.*'

@@ -1,0 +1,20 @@
+# Keeps the Go modules (with the tools pinned in go.mod), the web UI's
+# packages and the workflows' actions current, one grouped pull request per
+# ecosystem a week, so updates arrive small and often instead of all at once.
+version: 2
+updates:
+  - package-ecosystem: gomod
+    directory: /
+    schedule: { interval: weekly }
+    groups:
+      go: { patterns: ["*"], update-types: [minor, patch] }
+  - package-ecosystem: npm
+    directory: /web
+    schedule: { interval: weekly }
+    groups:
+      web: { patterns: ["*"], update-types: [minor, patch] }
+  - package-ecosystem: github-actions
+    directory: /
+    schedule: { interval: weekly }
+    groups:
+      actions: { patterns: ["*"] }

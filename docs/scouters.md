@@ -10,7 +10,7 @@
 | `aws_s3_bucket` | GET, PUT, storage (Standard), direct transfer out to the internet | Per-prefix request rate × prefixes |
 | `aws_sqs_queue` | Requests in 64 KB chunks | FIFO send rate, by region in high throughput mode |
 | `aws_sns_topic` | Publishes in 64 KB chunks | Publish rate |
-| `aws_sfn_state_machine` | Transitions (standard), requests and GB-seconds (express) | StartExecution rate |
+| `aws_sfn_state_machine` | Transitions counted from the definition, plus those per inline Map item (standard); requests and GB-seconds (express) | StartExecution rate |
 | `aws_rds_cluster` | Aurora Serverless v2 ACU-hours (provisioned instances are their own nodes), storage, I/O (Standard or I/O-Optimized), backup storage, Backtrack, snapshot export, the managed master password secret | Peak ACU against max capacity |
 | `aws_rds_cluster_instance` | Provisioned Aurora instance-hours (Standard or I/O-Optimized), surplus CPU credits, Database Insights and Extended Support per vCPU | - |
 | `aws_db_instance` | Instance-hours by engine, license and Single-AZ or Multi-AZ, storage (gp2, gp3, io1, io2, magnetic), IOPS and gp3 throughput above the baseline, magnetic I/O, backups beyond the free allowance, CPU credits, Database Insights, Extended Support, the managed master password secret | Storage IOPS against the volume |
@@ -122,6 +122,7 @@ not zero.
 | `azurerm_app_service_certificate_order` / `azurerm_app_service_certificate_binding` / `azurerm_app_service_custom_hostname_binding` | Certificate per year / IP-based SSL bindings per month | - |
 | `azurerm_static_web_app` / `azurerm_static_site` | Standard plan fee and bandwidth above 100 GB | Free plan bandwidth |
 | `azurerm_container_registry` | Registry units by SKU, geo-replicas, storage above the included amount, build vCPU time | Read and write request rates, storage |
+| `azurerm_logic_app_workflow` | Consumption built-in actions and connector calls per run, counted on import from the trigger and actions that name the workflow | - |
 | `azurerm_logic_app_standard` | Workflow Standard vCPU and memory hours, connector calls | - |
 | `azurerm_logic_app_integration_account` / `azurerm_integration_service_environment` | Account fee by SKU / base and scale unit-hours | - |
 | `azurerm_container_app` | Consumption vCPU- and GiB-seconds, active and idle, requests | Replicas |
@@ -386,7 +387,11 @@ label for a value that is not an option is refused.
 Expressions see every attribute and assumption by key (optional ones are nil
 when unset), `total.monthly` and `total.peak`, `demand.<kind>.monthly` and
 `.peak`, `region`, earlier `let` values, and `ceilDiv(a, b)`. `includes: [logs]` adds a
-facet's own assumption fields. A directory without `resource.yaml` holds rows
+facet's own assumption fields. An assumption with `overrides: <attribute>`
+corrects a value read from Terraform; `gaps` lists the pair while both are
+set. Values no attribute path can read (a count derived from a workflow
+definition) come from a provider's `Readers`, written in Go next to the
+provider. A directory without `resource.yaml` holds rows
 several resources share, such as log prices.
 
 An attribute's `path` says where Terraform keeps it:

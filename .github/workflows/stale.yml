@@ -1,0 +1,38 @@
+name: stale
+
+# Prices sync re-reads every week, but quotas, SLAs and the prices no API
+# publishes (Cloudflare, ConoHa) are read by hand. Once a month this lists the
+# values nobody checked in 90 days, by the page they come from, in one issue
+# that it keeps up to date and closes when nothing is left.
+on:
+  schedule:
+    - cron: "0 5 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+      - run: go run ./cmd/archgopher stale --days 90 > stale.md
+      - name: Open, update or close the issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TITLE: Values to re-check by hand
+        run: |
+          set -euo pipefail
+          id=$(gh issue list --state open --search "in:title \"$TITLE\"" --json number --jq '.[0].number // empty')
+          if grep -q '^Every value was checked' stale.md; then
+            [ -z "$id" ] || gh issue close "$id" --comment "$(cat stale.md)"
+          elif [ -n "$id" ]; then
+            gh issue edit "$id" --body-file stale.md
+          else
+            gh issue create --title "$TITLE" --body-file stale.md
+          fi

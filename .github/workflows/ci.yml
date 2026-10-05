@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
   pull_request:
+  # Vulnerabilities are published after the code is written: re-check weekly.
+  schedule:
+    - cron: "0 4 * * 1"
 
 permissions:
   contents: read
@@ -18,9 +21,22 @@ jobs:
           go-version-file: go.mod
       - name: gofmt
         run: test -z "$(gofmt -l .)" || (gofmt -l . && exit 1)
+      - name: go.mod and go.sum are tidy
+        run: go mod tidy -diff
       - run: go vet ./...
-      - run: go run honnef.co/go/tools/cmd/staticcheck@latest ./...
-      - run: go test ./...
+      # Tools are pinned by the tool directive in go.mod, so a new release
+      # never changes the result without a pull request that says so.
+      - run: go tool staticcheck ./...
+      - run: go test -shuffle=on ./...
+
+  vulnerabilities:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+      - run: go tool govulncheck ./...
 
   web:
     runs-on: ubuntu-latest

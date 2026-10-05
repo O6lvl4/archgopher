@@ -35,6 +35,25 @@ without state and without cloud credentials, so it also works on a pull request.
   balancers, Cognito, Lambda function URLs) get a shared `users` entry.
   Schedules (EventBridge rules and schedules, Cloud Scheduler jobs) become
   the node's `traffic` as written, so a changed schedule follows on merge.
+- **Workflows.** Where a workflow's definition decides its bill, the
+  definition is counted on import, and an assumption that corrects the
+  count (`overrides:` in `resource.yaml`) is listed by `gaps` for as long
+  as it is set, so a correction never silently outlives the definition it
+  corrected. A standard Step Functions workflow's definition is
+  counted on import: the transitions of its longest path, start and end
+  included (`transitions`), and those each item of an inline Map runs
+  (`transitionsPerItem`, multiplied by the `itemsPerMap` assumption). The
+  definition is read whether it is written with `jsonencode`, a heredoc,
+  `file` or `templatefile`, through locals and module variables, with ARNs
+  known only after apply. A Choice takes its longest branch; retries and
+  Catch paths are left out. States that loop, a Map inside another and a
+  distributed Map are reported, and `transitionsPerExecution` is asked
+  for instead; set it to override the count. A Logic Apps Consumption
+  workflow counts its trigger and the actions that name it
+  (`azurerm_logic_app_action_*`, `azurerm_logic_app_trigger_*`, custom
+  bodies included): built-in actions and managed connector calls per run, a
+  condition or switch by its longest branch. Loops and workflows defined
+  outside Terraform ask for `builtInActionsPerRun`.
 - **Boundaries.** A node that references a security group, subnet or subnet
   group leading to a VPC (an `aws_vpc`, a VNet, a Google Cloud network, managed
   or looked up with a data source) sits in that VPC's frame. Only placement

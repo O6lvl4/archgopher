@@ -1,0 +1,6 @@
+{
+  "x.fresh": {"unit": "request", "source": "https://example.com/a", "values": {"*": {"value": 1, "verified": true, "checkedAt": "2026-09-01"}}},
+  "x.old": {"unit": "request", "source": "https://example.com/a", "values": {"*": {"value": 1, "verified": true, "checkedAt": "2026-05-01"}, "eu-west-1": {"value": 1, "verified": true, "checkedAt": "2026-09-01"}}},
+  "x.never": {"unit": "request", "source": "https://example.com/b", "values": {"*": {"value": 1, "verified": false}}},
+  "x.table": {"unit": "hour", "source": "https://example.com/c", "rows": {"small": {"*": 1}}, "verified": true, "checkedAt": "2026-06-01"}
+}
