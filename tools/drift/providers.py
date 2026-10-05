@@ -254,6 +254,8 @@ def _registry_snapshot(provider, selection, cache_dir, fetch_json, run):
     return {"kind": "terraform-schema", "provider": provider,
             "url": f"https://registry.terraform.io/providers/{source}/{version}/docs",
             "version": version, "coverage": coverage,
+            "providerAddress": address, "schemaCommand": "terraform providers schema -json",
+            "schemaCollection": "resource_schemas",
             "records": {name: {"classification": _classification(name, selection), "schema": schema}
                         for name, schema in resources.items()}}
 

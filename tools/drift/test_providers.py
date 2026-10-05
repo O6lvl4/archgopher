@@ -76,6 +76,9 @@ class ProviderTests(unittest.TestCase):
         self.assertEqual(errors, {})
         snapshot = snapshots["provider:aws"]
         self.assertEqual(snapshot["version"], "1.10.0")
+        self.assertEqual(snapshot["providerAddress"], "registry.terraform.io/hashicorp/aws")
+        self.assertEqual(snapshot["schemaCommand"], "terraform providers schema -json")
+        self.assertEqual(snapshot["schemaCollection"], "resource_schemas")
         self.assertEqual(snapshot["records"]["aws_instance"]["schema"]["version"], 3)
         self.assertEqual({key: value["classification"] for key, value in snapshot["records"].items()},
                          {"aws_instance": "modeled", "aws_iam_role": "free", "aws_new_thing": "unmodeled"})

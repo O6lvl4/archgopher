@@ -163,6 +163,15 @@ class MonitorTests(unittest.TestCase):
         self.assertFalse(snapshots)
         self.assertEqual(len(errors), 1)
 
+    def test_issue_identifies_exact_official_resource_definition_source(self):
+        f = finding()
+        f["snapshot"].update(kind="terraform-schema", provider="aws", version="6.0.0",
+                             providerAddress="registry.terraform.io/hashicorp/aws",
+                             schemaCommand="terraform providers schema -json", schemaCollection="resource_schemas")
+        _, body = m.issue_text(f)
+        self.assertIn("registry.terraform.io/hashicorp/aws@6.0.0", body)
+        self.assertIn("terraform providers schema -json (resource_schemas)", body)
+
     def test_partial_http_and_length_mismatch_are_errors(self):
         class Response(io.BytesIO):
             def __init__(self, status, length):

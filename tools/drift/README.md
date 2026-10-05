@@ -4,6 +4,31 @@
 changes catalog definitions or prices, runs `terraform plan/apply`, creates cloud
 resources, configures accounts, or creates credentials.
 
+## Definition sources and pricing sources
+
+Terraform support is based on the resource definitions exported by the upstream
+provider binary, not a scrape of a documentation page or a third-party summary.
+The primary input is `provider_schemas[provider-address].resource_schemas` from
+HashiCorp's documented [`terraform providers schema -json` command](https://developer.hashicorp.com/terraform/cli/commands/providers/schema).
+The monitor uses these fixed upstream namespaces and the latest stable release
+version returned by the official Terraform Registry:
+
+- AWS: [`hashicorp/aws`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
+- Azure: [`hashicorp/azurerm`](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs)
+- Google Cloud: [`hashicorp/google`](https://registry.terraform.io/providers/hashicorp/google/latest/docs)
+- Cloudflare: [`cloudflare/cloudflare`](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs)
+
+Each observation pins that exact release. Issues include the provider address,
+release, exported collection and command so the definition can be reproduced.
+Data sources, ephemeral resources and provider functions are outside this first
+version's resource-model comparison. A schema export does not establish pricing,
+billability, cloud account availability or the behavior of every API operation.
+Official cloud pricing pages are monitored independently for pricing evidence.
+
+ConoHa is an explicit exception: this repository uses the unpublished Aid-On
+fork, so its source/documentation surface is watched and labeled as such. It is
+not represented as an official Registry provider or a successfully exported schema.
+
 ## What is checked
 
 - AWS (`hashicorp/aws`), Azure (`hashicorp/azurerm`), Google Cloud

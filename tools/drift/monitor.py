@@ -341,6 +341,9 @@ def issue_text(finding, run_url=""):
         title = f"[catalog drift] Review {snap['provider']} {snap['kind']} change"
         lines = [f"Source: {snap['url']}", f"Observed: {finding['observedAt']}",
                  f"Version: {finding['before'].get('version', 'previous fetch')} → {snap.get('version', 'current fetch')}"]
+        if snap.get("providerAddress"):
+            lines += [f"Definition source: {snap['providerAddress']}@{snap['version']}",
+                      f"Schema export: {snap['schemaCommand']} ({snap['schemaCollection']})"]
         if snap.get("scope"):
             lines += ["Affected book files: " + ", ".join(snap["scope"].get("files", [])),
                       "Modeled regions: " + ", ".join(snap["scope"].get("regions", []))]
