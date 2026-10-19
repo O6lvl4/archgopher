@@ -85,12 +85,15 @@ platform declaration of their own
 ([`docs/declaration.md`, What a declaration does not cover](../../docs/declaration.md#what-a-declaration-does-not-cover))
 and leave the rest listed.
 
-Then go service by service, and inside a service by usage quantity (ACU-hours,
-GB-months, tokens), not by totals: totals hide errors that cancel out. Aim for
-a few percent per node and explain what remains (a bucket still growing, a
-price that changed, a key created mid-month). Measure what the declaration
-asks for from the cloud's metrics, not from the bill: a session count fitted
-to the bill reproduces it by construction and proves nothing.
+Then go one level down with the export grouped by SERVICE and USAGE_TYPE
+(`--metrics UnblendedCost UsageQuantity`): `reconcile` puts each price next to
+the usage types it is billed under, money and quantity, and lists the usage
+types no price reads. Chase the per-line differences, not the totals: totals
+hide errors that cancel out. Aim for a few percent per line and explain what
+remains (a bucket still growing, a price that changed, a key created
+mid-month). Measure what the declaration asks for from the cloud's metrics,
+not from the bill: a session count fitted to the bill reproduces it by
+construction and proves nothing.
 
 ## Sources
 

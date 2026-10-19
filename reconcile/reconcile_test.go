@@ -69,8 +69,75 @@ func TestCompareSplitsTheBill(t *testing.T) {
 	}
 }
 
+func TestUsageTypesSharedByModelEditionsAreNarrowedByThePrice(t *testing.T) {
+	bill := Bill{Usage: []UsageLine{
+		{Service: "Claude Haiku 4.5 (Amazon Bedrock Edition)", UsageType: "APN1-MP:APN1_InputTokenCount-Units", USD: 17, Quantity: 16, Unit: "1M tokens"},
+		{Service: "Claude Sonnet 4.6 (Amazon Bedrock Edition)", UsageType: "APN1-MP:APN1_InputTokenCount-Units", USD: 1, Quantity: 0.3, Unit: "1M tokens"},
+	}}
+	books := book.Books{Prices: book.Book{
+		"aws.bedrock.claude-haiku-4-5.regional.input": {Sync: json.RawMessage(`{"service":"AmazonBedrockFoundationModels","filters":{"usagetype":".*InputTokenCount-Units"}}`)},
+	}}
+	names := Names{"AmazonBedrockFoundationModels": {"* (Amazon Bedrock Edition)"}}
+	res := engine.Result{Nodes: []engine.NodeResult{{ID: "haiku", Costs: []meter.Cost{{Name: "Input tokens", PriceID: "aws.bedrock.claude-haiku-4-5.regional.input", Quantity: 16e6, Unit: "token", MonthlyUSD: f(17.2)}}}}}
+	rows, unread := compareUsage(res, books, names, bill, map[string]map[string]bool{"AmazonBedrockFoundationModels": {"haiku": true}})
+	if len(rows) != 1 || rows[0].Service != "Claude Haiku 4.5 (Amazon Bedrock Edition)" || rows[0].BillUSD != 17 || len(rows[0].UsageTypes) != 1 {
+		t.Errorf("the Haiku price should be read against the Haiku edition only: %+v", rows)
+	}
+	if len(unread) != 1 || unread[0].Service != "Claude Sonnet 4.6 (Amazon Bedrock Edition)" {
+		t.Errorf("the Sonnet edition has no price reading it: %+v", unread)
+	}
+}
+
 func TestParseCostExplorerRejectsOtherShapes(t *testing.T) {
 	if _, err := ParseCostExplorer([]byte(`{"nodes":[]}`)); err == nil || !strings.Contains(err.Error(), "SERVICE") {
 		t.Errorf("a scout result is not a bill: %v", err)
+	}
+}
+
+const usageBill = `{"GroupDefinitions":[{"Type":"DIMENSION","Key":"SERVICE"},{"Type":"DIMENSION","Key":"USAGE_TYPE"}],"ResultsByTime":[{"TimePeriod":{"Start":"2026-09-01","End":"2026-10-01"},"Groups":[
+ {"Keys":["Amazon Simple Storage Service","APN1-TimedStorage-ByteHrs"],"Metrics":{"UnblendedCost":{"Amount":"6.0","Unit":"USD"},"UsageQuantity":{"Amount":"254","Unit":"GB-Mo"}}},
+ {"Keys":["Amazon Simple Storage Service","APN1-Requests-Tier2"],"Metrics":{"UnblendedCost":{"Amount":"0.06","Unit":"USD"},"UsageQuantity":{"Amount":"168337","Unit":"Requests"}}},
+ {"Keys":["Amazon Simple Storage Service","APN1-DataTransfer-Out-Bytes"],"Metrics":{"UnblendedCost":{"Amount":"4.5","Unit":"USD"},"UsageQuantity":{"Amount":"41.3","Unit":"GB"}}},
+ {"Keys":["AWS WAF","APN1-WebACLV2"],"Metrics":{"UnblendedCost":{"Amount":"5","Unit":"USD"},"UsageQuantity":{"Amount":"1","Unit":"Months"}}}]}]}`
+
+func TestCompareByUsageType(t *testing.T) {
+	b, err := ParseCostExplorer([]byte(usageBill))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(b.Lines) != 2 || len(b.Usage) != 4 || b.Lines[0].USD < 10.559 || b.Lines[0].USD > 10.561 {
+		t.Fatalf("bill %+v", b)
+	}
+	books := book.Books{Prices: book.Book{
+		"aws.s3.standard.storage": {Sync: json.RawMessage(`{"service":"AmazonS3","filters":{"usagetype":"((?:[A-Z]+[0-9]|EU)-)?TimedStorage-ByteHrs"}}`)},
+		"aws.s3.standard.get":     {Sync: json.RawMessage(`{"service":"AmazonS3","filters":{"usagetype":"((?:[A-Z]+[0-9]|EU)-)?Requests-Tier2"}}`)},
+	}}
+	names := Names{"AmazonS3": {"Amazon Simple Storage Service"}, "awswaf": {"AWS WAF"}}
+	res := engine.Result{Nodes: []engine.NodeResult{
+		{ID: "landing", Costs: []meter.Cost{
+			{Name: "Storage", PriceID: "aws.s3.standard.storage", Quantity: 254, Unit: "GB-month", MonthlyUSD: f(6.35)},
+			{Name: "GET requests", PriceID: "aws.s3.standard.get", Quantity: 77731, Unit: "request", MonthlyUSD: f(0.03)},
+		}},
+		{ID: "spa", Costs: []meter.Cost{{Name: "Storage", PriceID: "aws.s3.standard.storage", Quantity: 1, Unit: "GB-month", MonthlyUSD: f(0.03)}}},
+	}}
+	r := Compare("app", res, books, names, b)
+	if len(r.UsageRows) != 2 {
+		t.Fatalf("usage rows %+v", r.UsageRows)
+	}
+	st := r.UsageRows[0]
+	if st.PriceID != "aws.s3.standard.storage" || st.BillQty != 254 || st.BillUnit != "GB-Mo" || st.DeclaredQty != 255 || st.DeclaredUSD != 6.38 || len(st.Lines) != 2 {
+		t.Errorf("storage row should gather both buckets against the one usage type: %+v", st)
+	}
+	if len(r.UnreadUsage) != 1 || r.UnreadUsage[0].UsageType != "APN1-DataTransfer-Out-Bytes" {
+		t.Errorf("S3 egress is billed and no line reads it; WAF is outside the declaration and not listed here: %+v", r.UnreadUsage)
+	}
+	var out strings.Builder
+	if err := Markdown(&out, r); err != nil {
+		t.Fatal(err)
+	}
+	for _, want := range []string{"## By usage type", "| 254.00 GB-Mo | 255.00 GB-month |", "## Billed usage no line reads", "| APN1-DataTransfer-Out-Bytes | $4.50 | 41.30 GB |"} {
+		if !strings.Contains(out.String(), want) {
+			t.Errorf("markdown lacks %q:\n%s", want, out.String())
+		}
 	}
 }

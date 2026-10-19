@@ -48,6 +48,41 @@ func Markdown(w io.Writer, r Report) error {
 			fmt.Fprintf(b, "\nUnder a cent: %s.\n", strings.Join(under, ", "))
 		}
 	}
+	if len(r.UsageRows) > 0 {
+		b.WriteString("\n## By usage type\n\nEach price of the declaration against the usage types the bill lists it under. Quantities are in each side's own unit; the money is the same on both.\n\n| Service | Usage type | Bill | Declaration | Difference | Billed quantity | Declared quantity | Lines |\n| --- | --- | ---: | ---: | ---: | ---: | ---: | --- |\n")
+		for _, u := range r.UsageRows {
+			types := strings.Join(u.UsageTypes, ", ")
+			if types == "" {
+				types = "(none billed)"
+			}
+			fmt.Fprintf(b, "| %s | %s | %s | %s | %s | %s | %s | %s |\n", u.Service, types, usd(u.BillUSD), usd(u.DeclaredUSD),
+				diff(Row{BillUSD: u.BillUSD, DeclaredUSD: u.DeclaredUSD}), qty(u.BillQty, u.BillUnit), qty(u.DeclaredQty, u.Unit), strings.Join(u.Lines, "; "))
+		}
+	}
+	if len(r.UnreadUsage) > 0 {
+		b.WriteString("\n## Billed usage no line reads\n\nUsage types of services the declaration covers that none of its prices stands for: what the scouters do not model yet, or what people did by hand.\n\n| Service | Usage type | Bill | Quantity |\n| --- | --- | ---: | ---: |\n")
+		var under []string
+		for _, u := range r.UnreadUsage {
+			if cents(u.USD) == 0 {
+				under = append(under, u.UsageType)
+				continue
+			}
+			t := u.UsageType
+			if u.Note != "" {
+				t += " *"
+			}
+			fmt.Fprintf(b, "| %s | %s | %s | %s |\n", u.Service, t, usd(u.USD), qty(u.Quantity, u.Unit))
+		}
+		if len(under) > 0 {
+			fmt.Fprintf(b, "\nUnder a cent: %s.\n", strings.Join(under, ", "))
+		}
+		for _, u := range r.UnreadUsage {
+			if u.Note != "" {
+				fmt.Fprintf(b, "\n\\* %s.\n", u.Note)
+				break
+			}
+		}
+	}
 	if len(r.Unmapped) > 0 {
 		b.WriteString("\n## Lines without a billing service\n\nTheir price names no service code the bill is known by; add one to the provider's billing names.\n\n| Node | Line | Price | Declaration |\n| --- | --- | --- | ---: |\n")
 		for _, u := range r.Unmapped {
@@ -87,4 +122,21 @@ func usd(v float64) string {
 		return fmt.Sprintf("-$%d.%02d", -c/100, -c%100)
 	}
 	return fmt.Sprintf("$%d.%02d", c/100, c%100)
+}
+
+// qty writes a quantity with its unit, with the precision the size calls for.
+func qty(v float64, unit string) string {
+	if v == 0 && unit == "" {
+		return "-"
+	}
+	var n string
+	switch {
+	case v != 0 && v < 1:
+		n = fmt.Sprintf("%.4f", v)
+	case v < 1000:
+		n = fmt.Sprintf("%.2f", v)
+	default:
+		n = fmt.Sprintf("%.0f", v)
+	}
+	return strings.TrimSpace(n + " " + unit)
 }

@@ -128,6 +128,24 @@ can grow. A difference per service is what to chase: totals that agree can
 hide errors that cancel out. Bedrock bills each model as its own service,
 and those lines are matched to the model nodes.
 
+Group the export by usage type as well to go one level down:
+
+```sh
+aws ce get-cost-and-usage --time-period Start=2026-09-01,End=2026-10-01 --granularity MONTHLY \
+  --metrics UnblendedCost UsageQuantity \
+  --group-by Type=DIMENSION,Key=SERVICE Type=DIMENSION,Key=USAGE_TYPE > usage.json
+archgopher reconcile app.scouter.yaml --bill usage.json
+```
+
+Each price of the declaration then stands next to the usage types the bill
+lists it under, picked by the same filter the book syncs the price with, with
+the money on both sides and each side's quantity in its own unit (27.8 ACU-Hr
+billed against 28.3 ACU-hour read). The usage types of a covered service that
+no price reads are listed on their own: what the scouters do not model yet
+(an invalidation, a metric), or what people did by hand (a download). A price
+the book picks out by something other than usage type is footnoted rather
+than counted as unread.
+
 ## Filling the gaps
 
 Terraform says what exists and what may call what, not how much is called or

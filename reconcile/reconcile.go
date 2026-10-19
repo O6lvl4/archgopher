@@ -9,6 +9,7 @@ package reconcile
 import (
 	"encoding/json"
 	"fmt"
+	"regexp"
 	"sort"
 	"strconv"
 	"strings"
@@ -17,16 +18,46 @@ import (
 	"github.com/O6lvl4/archgopher/engine"
 )
 
-// Bill is what the account paid in a period, by service name.
+// Bill is what the account paid in a period, by service name, and by usage
+// type within a service when the export was grouped that finely.
 type Bill struct {
-	Period string     `json:"period"`
-	Lines  []BillLine `json:"lines"`
+	Period string      `json:"period"`
+	Lines  []BillLine  `json:"lines"`
+	Usage  []UsageLine `json:"usage,omitempty"`
 }
 
 // BillLine is one service's charge.
 type BillLine struct {
 	Service string  `json:"service"`
 	USD     float64 `json:"usd"`
+}
+
+// UsageLine is one usage type's charge and quantity within a service.
+type UsageLine struct {
+	Service   string  `json:"service"`
+	UsageType string  `json:"usageType"`
+	USD       float64 `json:"usd"`
+	Quantity  float64 `json:"quantity"`
+	Unit      string  `json:"unit"`
+	// Note, on an unread line, says why no price could read it when the
+	// reason is the book rather than the declaration.
+	Note string `json:"note,omitempty"`
+}
+
+// UsageRow is one price of the declaration against the usage types it is
+// billed under: the same money on both sides, and the quantities each side
+// counted, in each side's unit.
+type UsageRow struct {
+	Service     string   `json:"service"`
+	UsageTypes  []string `json:"usageTypes"`
+	BillUSD     float64  `json:"billUsd"`
+	BillQty     float64  `json:"billQuantity"`
+	BillUnit    string   `json:"billUnit"`
+	DeclaredUSD float64  `json:"declaredUsd"`
+	DeclaredQty float64  `json:"declaredQuantity"`
+	Unit        string   `json:"declaredUnit"`
+	PriceID     string   `json:"priceId"`
+	Lines       []string `json:"lines"`
 }
 
 // Names maps a billing service code (the Price List offer code the books
@@ -70,18 +101,25 @@ type Report struct {
 	Outside []Row `json:"outside"`
 	// Unmapped are declared lines that could not be placed under a service.
 	Unmapped []Unmapped `json:"unmapped,omitempty"`
+	// UsageRows put each price next to the usage types it is billed under,
+	// when the bill was grouped by usage type; UnreadUsage are usage types of
+	// covered services that no line of the declaration reads.
+	UsageRows   []UsageRow  `json:"usageRows,omitempty"`
+	UnreadUsage []UsageLine `json:"unreadUsage,omitempty"`
 }
 
 // ParseCostExplorer reads the JSON `aws ce get-cost-and-usage` writes when
-// grouped by the SERVICE dimension (the first group key); several periods
-// are summed and the period spans them.
+// grouped by the SERVICE dimension, alone or with USAGE_TYPE as the second
+// group; several periods are summed and the period spans them. With usage
+// types, the UsageQuantity metric gives each line its quantity.
 func ParseCostExplorer(data []byte) (Bill, error) {
 	var doc struct {
-		ResultsByTime []struct {
+		GroupDefinitions []struct{ Key string }
+		ResultsByTime    []struct {
 			TimePeriod struct{ Start, End string }
 			Groups     []struct {
 				Keys    []string
-				Metrics map[string]struct{ Amount string }
+				Metrics map[string]struct{ Amount, Unit string }
 			}
 		}
 	}
@@ -91,8 +129,11 @@ func ParseCostExplorer(data []byte) (Bill, error) {
 	if len(doc.ResultsByTime) == 0 {
 		return Bill{}, fmt.Errorf("bill: no ResultsByTime; group `aws ce get-cost-and-usage` by SERVICE")
 	}
+	byUsage := len(doc.GroupDefinitions) == 2 && doc.GroupDefinitions[0].Key == "SERVICE" && doc.GroupDefinitions[1].Key == "USAGE_TYPE"
 	sums := map[string]float64{}
+	usage := map[[2]string]*UsageLine{}
 	var order []string
+	var usageOrder [][2]string
 	for _, r := range doc.ResultsByTime {
 		for _, g := range r.Groups {
 			if len(g.Keys) == 0 {
@@ -113,11 +154,30 @@ func ParseCostExplorer(data []byte) (Bill, error) {
 				order = append(order, g.Keys[0])
 			}
 			sums[g.Keys[0]] += usd
+			if !byUsage || len(g.Keys) < 2 {
+				continue
+			}
+			k := [2]string{g.Keys[0], g.Keys[1]}
+			u, seen := usage[k]
+			if !seen {
+				u = &UsageLine{Service: k[0], UsageType: k[1]}
+				usage[k] = u
+				usageOrder = append(usageOrder, k)
+			}
+			u.USD += usd
+			if q, ok := g.Metrics["UsageQuantity"]; ok {
+				qty, _ := strconv.ParseFloat(q.Amount, 64)
+				u.Quantity += qty
+				u.Unit = q.Unit
+			}
 		}
 	}
 	b := Bill{Period: doc.ResultsByTime[0].TimePeriod.Start + ".." + doc.ResultsByTime[len(doc.ResultsByTime)-1].TimePeriod.End}
 	for _, s := range order {
 		b.Lines = append(b.Lines, BillLine{Service: s, USD: sums[s]})
+	}
+	for _, k := range usageOrder {
+		b.Usage = append(b.Usage, *usage[k])
 	}
 	return b, nil
 }
@@ -185,6 +245,7 @@ func Compare(name string, res engine.Result, books book.Books, names Names, bill
 		rep.CoveredUSD += row.BillUSD
 		rep.Rows = append(rep.Rows, row)
 	}
+	rep.UsageRows, rep.UnreadUsage = compareUsage(res, books, names, bill, nodes)
 	byMoney := func(rows []Row) {
 		sort.SliceStable(rows, func(i, j int) bool {
 			a, b := max(rows[i].BillUSD, rows[i].DeclaredUSD), max(rows[j].BillUSD, rows[j].DeclaredUSD)
@@ -211,15 +272,26 @@ func nodeResults(res engine.Result) []engine.NodeResult {
 	return append(out, res.Groups...)
 }
 
-// serviceCode is the offer code a price syncs from, read from its book
-// entry, or from the table it is a row of when the row carries none; ""
-// when no entry on the way up names one.
-func serviceCode(books book.Books, priceID string) string {
+// syncOf is how a price syncs: the service it comes from and the filters
+// that pick it out of the price list, read from its book entry or from the
+// table it is a row of. A "{row}" in a filter stands for the row's key.
+type syncOf struct {
+	Service string
+	Filters map[string]string
+}
+
+func syncFor(books book.Books, priceID string) (syncOf, bool) {
 	for id := priceID; id != ""; {
 		if e, ok := books.Prices[id]; ok && len(e.Sync) > 0 {
-			var sync struct{ Service string }
+			var sync syncOf
 			if json.Unmarshal(e.Sync, &sync) == nil && sync.Service != "" {
-				return sync.Service
+				if id != priceID {
+					row := priceID[len(id)+1:]
+					for k, v := range sync.Filters {
+						sync.Filters[k] = strings.ReplaceAll(v, "{row}", regexp.QuoteMeta(row))
+					}
+				}
+				return sync, true
 			}
 		}
 		i := strings.LastIndex(id, ".")
@@ -228,7 +300,169 @@ func serviceCode(books book.Books, priceID string) string {
 		}
 		id = id[:i]
 	}
-	return ""
+	return syncOf{}, false
+}
+
+// serviceCode is the offer code a price syncs from; "" when none is known.
+func serviceCode(books book.Books, priceID string) string {
+	s, _ := syncFor(books, priceID)
+	return s.Service
+}
+
+// compareUsage puts each price of the declaration next to the bill's usage
+// types that its sync filter names, within the price's service, and lists
+// the usage types of covered services that no price reads.
+func compareUsage(res engine.Result, books book.Books, names Names, bill Bill, nodes map[string]map[string]bool) ([]UsageRow, []UsageLine) {
+	if len(bill.Usage) == 0 {
+		return nil, nil
+	}
+	rows := map[string]*UsageRow{}
+	var order []string
+	read := map[[2]string]bool{}
+	// unfiltered are the codes with a price the book picks out by something
+	// other than usage type: the bill's usage types cannot be read against it.
+	unfiltered := map[string]bool{}
+	for _, n := range nodeResults(res) {
+		for _, c := range n.Costs {
+			if c.MonthlyUSD == nil {
+				continue
+			}
+			sync, ok := syncFor(books, c.PriceID)
+			if !ok {
+				continue
+			}
+			if sync.Filters["usagetype"] == "" {
+				unfiltered[sync.Service] = true
+				continue
+			}
+			re, err := regexp.Compile("^(?:" + strings.ReplaceAll(sync.Filters["usagetype"], "{region}", "[A-Za-z0-9-]+") + ")$")
+			if err != nil {
+				continue
+			}
+			row, seen := rows[c.PriceID]
+			if !seen {
+				row = &UsageRow{PriceID: c.PriceID, Unit: c.Unit}
+				services := narrow(servicesOf(bill, names, sync.Service), c.PriceID)
+				types := map[string]bool{}
+				for _, u := range bill.Usage {
+					if !services[u.Service] || !re.MatchString(u.UsageType) {
+						continue
+					}
+					row.Service = u.Service
+					if !types[u.UsageType] {
+						types[u.UsageType] = true
+						row.UsageTypes = append(row.UsageTypes, u.UsageType)
+					}
+					row.BillUSD += u.USD
+					row.BillQty += u.Quantity
+					row.BillUnit = u.Unit
+					read[[2]string{u.Service, u.UsageType}] = true
+				}
+				if row.Service == "" {
+					row.Service = plain(names[sync.Service], sync.Service)
+				}
+				rows[c.PriceID] = row
+				order = append(order, c.PriceID)
+			}
+			row.DeclaredUSD += *c.MonthlyUSD
+			row.DeclaredQty += c.Quantity
+			row.Lines = append(row.Lines, n.ID+": "+c.Name)
+		}
+	}
+	var out []UsageRow
+	for _, id := range order {
+		out = append(out, *rows[id])
+	}
+	sort.SliceStable(out, func(i, j int) bool {
+		a, b := max(out[i].BillUSD, out[i].DeclaredUSD), max(out[j].BillUSD, out[j].DeclaredUSD)
+		if a != b {
+			return a > b
+		}
+		return out[i].PriceID < out[j].PriceID
+	})
+	var unread []UsageLine
+	for _, u := range bill.Usage {
+		code := codeOf(names, u.Service)
+		if code == "" || len(nodes[code]) == 0 || read[[2]string{u.Service, u.UsageType}] {
+			continue
+		}
+		if unfiltered[code] {
+			u.Note = "a price of this service is picked out of the price list by something other than usage type, so the bill's line cannot be read against it"
+		}
+		unread = append(unread, u)
+	}
+	sort.SliceStable(unread, func(i, j int) bool { return unread[i].USD > unread[j].USD })
+	return out, unread
+}
+
+// servicesOf lists the bill's service names that fall under one code.
+func servicesOf(bill Bill, names Names, code string) []string {
+	seen := map[string]bool{}
+	var out []string
+	for _, u := range bill.Usage {
+		if !seen[u.Service] && codeOf(names, u.Service) == code {
+			seen[u.Service] = true
+			out = append(out, u.Service)
+		}
+	}
+	return out
+}
+
+// narrow picks, among the bill's services under one code, the ones a price
+// is about when the code gathers several: Bedrock bills each model as its
+// own service, and the price id names the model ("claude-haiku-4-5" is in
+// "Claude Haiku 4.5 (Amazon Bedrock Edition)" once both lose their
+// punctuation). A price that names none of them is read against all.
+func narrow(services []string, priceID string) map[string]bool {
+	out := map[string]bool{}
+	if len(services) > 1 {
+		for _, seg := range strings.Split(priceID, ".") {
+			key := squash(seg)
+			if len(key) < 4 {
+				continue
+			}
+			// A segment every service carries ("bedrock") tells nothing.
+			hits := map[string]bool{}
+			for _, s := range services {
+				if strings.Contains(squash(s), key) {
+					hits[s] = true
+				}
+			}
+			if len(hits) == len(services) {
+				continue
+			}
+			for s := range hits {
+				out[s] = true
+			}
+		}
+	}
+	if len(out) == 0 {
+		for _, s := range services {
+			out[s] = true
+		}
+	}
+	return out
+}
+
+// squash lowers a name and drops everything but letters and digits.
+func squash(s string) string {
+	var b strings.Builder
+	for _, r := range strings.ToLower(s) {
+		if r >= 'a' && r <= 'z' || r >= '0' && r <= '9' {
+			b.WriteRune(r)
+		}
+	}
+	return b.String()
+}
+
+// plain is the first name without a wildcard, else the code.
+func plain(names []string, code string) string {
+	for _, n := range names {
+		if !strings.Contains(n, "*") {
+			return n
+		}
+	}
+	return code
 }
 
 // codeOf finds the service code a bill line's name belongs to.
