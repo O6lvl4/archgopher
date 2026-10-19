@@ -288,9 +288,9 @@
         "checkedAt": "2026-09-24"
       },
       "ap-south-1": {
-        "value": null,
+        "value": 0.11,
         "verified": true,
-        "checkedAt": "2026-09-24"
+        "checkedAt": "2026-10-19"
       },
       "ap-southeast-1": {
         "value": null,
@@ -354,9 +354,9 @@
         "checkedAt": "2026-09-24"
       },
       "ap-south-1": {
-        "value": null,
+        "value": 1.375,
         "verified": true,
-        "checkedAt": "2026-09-24"
+        "checkedAt": "2026-10-19"
       },
       "ap-southeast-1": {
         "value": null,
@@ -420,9 +420,9 @@
         "checkedAt": "2026-09-24"
       },
       "ap-south-1": {
-        "value": null,
+        "value": 1.1,
         "verified": true,
-        "checkedAt": "2026-09-24"
+        "checkedAt": "2026-10-19"
       },
       "ap-southeast-1": {
         "value": null,
@@ -486,9 +486,9 @@
         "checkedAt": "2026-09-24"
       },
       "ap-south-1": {
-        "value": null,
+        "value": 5.5,
         "verified": true,
-        "checkedAt": "2026-09-24"
+        "checkedAt": "2026-10-19"
       },
       "ap-southeast-1": {
         "value": null,

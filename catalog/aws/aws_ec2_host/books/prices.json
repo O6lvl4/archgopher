@@ -257,16 +257,16 @@
         "ap-south-1": null,
         "ap-southeast-1": null,
         "ap-southeast-2": null,
-        "eu-central-1": null,
-        "eu-west-1": null,
+        "eu-central-1": 14.252,
+        "eu-west-1": 14.136,
         "us-east-1": 12.514,
-        "us-east-2": null,
+        "us-east-2": 12.514,
         "us-west-2": 12.514
       },
       "c8gd": {
         "ap-northeast-1": 13.149,
-        "ap-northeast-2": null,
-        "ap-south-1": null,
+        "ap-northeast-2": 11.857,
+        "ap-south-1": 6.568,
         "ap-southeast-1": 12.07,
         "ap-southeast-2": 13.58,
         "eu-central-1": 11.964,
@@ -337,9 +337,9 @@
       },
       "c9g": {
         "ap-northeast-1": 23.033,
-        "ap-northeast-2": null,
+        "ap-northeast-2": 20.664,
         "ap-south-1": null,
-        "ap-southeast-1": null,
+        "ap-southeast-1": 21.095,
         "ap-southeast-2": null,
         "eu-central-1": 20.879,
         "eu-west-1": null,
@@ -349,9 +349,9 @@
       },
       "c9gd": {
         "ap-northeast-1": 28.664,
-        "ap-northeast-2": null,
+        "ap-northeast-2": 25.847,
         "ap-south-1": null,
-        "ap-southeast-1": null,
+        "ap-southeast-1": 26.311,
         "ap-southeast-2": null,
         "eu-central-1": 26.083,
         "eu-west-1": null,
@@ -521,7 +521,7 @@
         "ap-south-1": null,
         "ap-southeast-1": null,
         "ap-southeast-2": null,
-        "eu-central-1": null,
+        "eu-central-1": 39.222,
         "eu-west-1": null,
         "us-east-1": 31.365,
         "us-east-2": 31.365,
@@ -963,7 +963,7 @@
         "ap-northeast-1": 15.734,
         "ap-northeast-2": null,
         "ap-south-1": 8.097,
-        "ap-southeast-1": null,
+        "ap-southeast-1": 15.196,
         "ap-southeast-2": 15.304,
         "eu-central-1": 14.657,
         "eu-west-1": 13.58,
@@ -1012,7 +1012,7 @@
         "ap-northeast-2": null,
         "ap-south-1": 29.76,
         "ap-southeast-1": null,
-        "ap-southeast-2": null,
+        "ap-southeast-2": 34.639,
         "eu-central-1": 33.175,
         "eu-west-1": 30.736,
         "us-east-1": 27.566,
@@ -1921,6 +1921,6 @@
       }
     },
     "verified": true,
-    "checkedAt": "2026-09-25"
+    "checkedAt": "2026-10-19"
   }
 }
