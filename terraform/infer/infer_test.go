@@ -91,9 +91,9 @@ func TestCountZeroRemovesResourcesAndModules(t *testing.T) {
 		}
 	}
 	w := strings.Join(warnings, "\n")
-	for _, addr := range []string{"aws_cloudwatch_event_rule.cleanup", "module.cleanup.aws_lambda_function.this"} {
-		if !strings.Contains(w, addr) {
-			t.Errorf("the warning should list %s as off: %q", addr, w)
+	for _, want := range []string{"aws_cloudwatch_event_rule.cleanup", "module.cleanup.aws_lambda_function.this", "decided by var.enable_cleanup", "--var enable_cleanup="} {
+		if !strings.Contains(w, want) {
+			t.Errorf("the warning should list what is off and the variable that decides it, %q: %q", want, w)
 		}
 	}
 }

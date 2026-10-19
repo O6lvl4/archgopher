@@ -188,18 +188,32 @@ func Build(ev *eval.Evaluated, rules Rules, name string) (model.Spec, []string) 
 	return spec, b.warnings
 }
 
-// warnOff names the nodes that count or for_each switch off, so people know
-// which variables would bring them in.
+// warnOff names the nodes that count or for_each switch off, grouped by the
+// root variables that decide it, so people know which --var brings them in.
 func (b *builder) warnOff(removed []*eval.Resource) {
-	var off []string
+	groups := map[string][]string{}
 	for _, r := range removed {
 		if b.owned(r) {
-			off = append(off, r.Address)
+			key := strings.Join(r.Off, ", ")
+			groups[key] = append(groups[key], r.Address)
 		}
 	}
-	if len(off) > 0 {
-		b.warnings = append(b.warnings, fmt.Sprintf("off with the current variables (count or for_each is 0), pass --var to include: %s", strings.Join(off, ", ")))
+	for _, key := range sortedStrings(groups) {
+		by := "a count or for_each of 0 that no root variable decides"
+		if key != "" {
+			by = key + " (pass --var " + strings.TrimPrefix(strings.SplitN(key, ", ", 2)[0], "var.") + "=... to include)"
+		}
+		b.warnings = append(b.warnings, fmt.Sprintf("off with the current variables: %s; decided by %s", strings.Join(groups[key], ", "), by))
 	}
+}
+
+func sortedStrings[V any](m map[string]V) []string {
+	out := make([]string, 0, len(m))
+	for k := range m {
+		out = append(out, k)
+	}
+	sort.Strings(out)
+	return out
 }
 
 type builder struct {

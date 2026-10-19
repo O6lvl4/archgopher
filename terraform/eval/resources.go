@@ -36,7 +36,7 @@ func (ev *evaluator) collect(in *instance, out *Evaluated) {
 func (ev *evaluator) collectResource(in *instance, rb *config.ResourceBlock, out *Evaluated) {
 	n := ev.instances(rb.Count, rb.ForEach, in)
 	if n == 0 {
-		out.Removed = append(out.Removed, removedResource(in.addr(), rb))
+		out.Removed = append(out.Removed, removedResource(in.addr(), rb, ev.offBy(rb.Count, rb.ForEach, in)))
 		return
 	}
 	extra := map[string]cty.Value{}
@@ -82,13 +82,14 @@ func (ev *evaluator) collectRemoved(in *instance, call *config.ModuleCall, out *
 		return
 	}
 	child := &instance{mod: mod, path: key, copies: 1}
+	off := ev.offBy(call.Count, call.ForEach, in)
 	for _, rb := range mod.Resources {
-		out.Removed = append(out.Removed, removedResource(child.addr(), rb))
+		out.Removed = append(out.Removed, removedResource(child.addr(), rb, off))
 	}
 }
 
-func removedResource(prefix string, rb *config.ResourceBlock) *Resource {
-	return &Resource{Address: resourceAddr(prefix, rb), Mode: rb.Mode, Type: rb.Type, Name: rb.Name}
+func removedResource(prefix string, rb *config.ResourceBlock, off []string) *Resource {
+	return &Resource{Address: resourceAddr(prefix, rb), Mode: rb.Mode, Type: rb.Type, Name: rb.Name, Off: off}
 }
 
 func resourceAddr(prefix string, rb *config.ResourceBlock) string {

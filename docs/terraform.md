@@ -74,8 +74,11 @@ without state and without cloud credentials, so it also works on a pull request.
 - **Mentions.** A reference to a CloudFront distribution (a callback URL, a
   link in an invitation email) is a mention, not a call, and makes no edge.
 - **Resources that are off.** Resources and modules whose `count` or
-  `for_each` is 0 with the current variables are listed in a warning, so you
-  can pass `--var` to include them.
+  `for_each` is 0 with the current variables are listed in a warning, grouped
+  by the root variables that decide it (followed back through module
+  arguments and locals), with the `--var` that would bring them in. A module
+  switched on only by a value the pipeline passes (an image URI) is the
+  common case.
 - **Modules.** Local sources are read directly. Registry and git sources are
   read from `.terraform/modules` when `terraform init` has run; otherwise they
   are reported and skipped.

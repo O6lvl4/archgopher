@@ -40,6 +40,9 @@ type Resource struct {
 	// Body and Scope let provider packages read the block further (IAM policies).
 	Body  *hclsyntax.Body
 	Scope *Scope
+	// Off lists, on a removed resource, the root variables ("var.name") its
+	// count or for_each depends on: what --var would have to change.
+	Off []string
 }
 
 // Options tunes evaluation.
