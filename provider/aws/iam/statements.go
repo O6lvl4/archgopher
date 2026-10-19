@@ -20,6 +20,9 @@ type Statement struct {
 	// Actions is nil when the actions could not be read.
 	Actions []string
 	Targets []string
+	// Literals are the resources written out: ARNs known before apply and "*".
+	// They name what the configuration does not own.
+	Literals []string
 	// Docs are policy documents (data sources) the statement defers to.
 	Docs []string
 }
@@ -74,6 +77,7 @@ func docStatement(body *hclsyntax.Body, s *eval.Scope, refsOf func(hcl.Expressio
 	}
 	if a, ok := body.Attributes["resources"]; ok {
 		st.Targets = refsOf(a.Expr)
+		st.Literals = literals(eval.Strings(s.Eval(a.Expr)))
 	}
 	return []Statement{st}
 }
@@ -127,8 +131,9 @@ func policy(expr hcl.Expression, s *eval.Scope) []Statement {
 	if len(docs) > 0 {
 		out = append(out, Statement{Docs: docs})
 	}
-	if len(targets) > 0 {
-		out = append(out, Statement{Actions: literalActions(eval.String(s.Eval(expr))), Targets: targets})
+	text := eval.String(s.Eval(expr))
+	if lits := literals(literalResources(text)); len(targets) > 0 || len(lits) > 0 {
+		out = append(out, Statement{Actions: literalActions(text), Targets: targets, Literals: lits})
 	}
 	return out
 }
@@ -175,6 +180,7 @@ func objectStatement(e hclsyntax.Expression, s *eval.Scope) (Statement, bool) {
 			st.Actions = eval.Strings(s.Eval(item.ValueExpr))
 		case "Resource":
 			st.Targets = s.Refs(item.ValueExpr)
+			st.Literals = literals(eval.Strings(s.Eval(item.ValueExpr)))
 		}
 	}
 	return st, true
@@ -222,6 +228,50 @@ func blocksNamed(b *hclsyntax.Body, name string) []*hclsyntax.Body {
 		case blk.Type == "dynamic" && len(blk.Labels) == 1 && blk.Labels[0] == name:
 			if c := eval.DynamicContent(blk); c != nil {
 				out = append(out, c)
+			}
+		}
+	}
+	return out
+}
+
+// literals keeps the resources written out: ARNs and "*".
+func literals(vals []string) []string {
+	var out []string
+	for _, v := range vals {
+		if v == "*" || strings.HasPrefix(v, "arn:") {
+			out = append(out, v)
+		}
+	}
+	return out
+}
+
+// literalResources reads the resources of a policy string when it is fully known.
+func literalResources(text string) []string {
+	if text == "" {
+		return nil
+	}
+	var doc struct {
+		Statement []struct {
+			Effect   string
+			Resource any
+		}
+	}
+	if json.Unmarshal([]byte(text), &doc) != nil {
+		return nil
+	}
+	var out []string
+	for _, st := range doc.Statement {
+		if strings.EqualFold(st.Effect, "Deny") {
+			continue
+		}
+		switch r := st.Resource.(type) {
+		case string:
+			out = append(out, r)
+		case []any:
+			for _, x := range r {
+				if s, ok := x.(string); ok {
+					out = append(out, s)
+				}
 			}
 		}
 	}

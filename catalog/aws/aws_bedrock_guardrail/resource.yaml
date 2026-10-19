@@ -34,3 +34,5 @@ terraform:
   ignoreRefs: [kms_key_arn, cross_region_config]
 iam:
   apply: ["bedrock:ApplyGuardrail"]
+# A guardrail in another account is applied by its ARN and billed to the caller.
+arns: ["bedrock:guardrail/*"]

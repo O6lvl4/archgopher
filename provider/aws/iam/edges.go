@@ -26,6 +26,11 @@ type Config struct {
 	Actions map[string]map[string][]string
 	// KindOrder fixes the order kinds are emitted in.
 	KindOrder []string
+	// ARNs maps a node type to the "service:resource" shapes of ARN it answers
+	// to, and External lists the types that are never Terraform resources:
+	// what a permission on an ARN, or on "*", outside the configuration stands up.
+	ARNs     map[string][]string
+	External map[string]bool
 }
 
 // Source returns an edge source: for every node, the permissions of the roles
@@ -111,7 +116,7 @@ func expand(g *infer.Graph, sts []Statement) []Statement {
 				out = append(out, expand(g, Statements(dr))...)
 			}
 		}
-		if len(st.Targets) > 0 {
+		if len(st.Targets) > 0 || len(st.Literals) > 0 {
 			out = append(out, st)
 		}
 	}

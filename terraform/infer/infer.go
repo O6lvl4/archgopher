@@ -48,6 +48,10 @@ type Rules struct {
 	Readers map[string]Reader
 	// Sources add edges from knowledge the builder does not have, such as IAM permissions.
 	Sources []EdgeSource
+	// NodeSources propose nodes for what the configuration calls but does not
+	// own, read from the same knowledge: a model or another account's bucket
+	// an IAM policy names.
+	NodeSources []NodeSource
 	// Region reads the region from the evaluated configuration: provider blocks
 	// (AWS) or resource locations (Azure). Empty when it cannot tell.
 	Region func(ev *eval.Evaluated) string
@@ -133,6 +137,7 @@ func Combine(parts ...Rules) Rules {
 		out.Links = append(out.Links, p.Links...)
 		out.IgnoreRefs = append(out.IgnoreRefs, p.IgnoreRefs...)
 		out.Sources = append(out.Sources, p.Sources...)
+		out.NodeSources = append(out.NodeSources, p.NodeSources...)
 		out.Region = firstRegion(out.Region, p.Region)
 	}
 	return out
@@ -166,7 +171,7 @@ const UsersID = "users"
 
 // Build turns evaluated resources into a declaration.
 func Build(ev *eval.Evaluated, rules Rules, name string) (model.Spec, []string) {
-	b := &builder{ev: ev, rules: rules, byAddr: map[string]*eval.Resource{}, ids: map[string]string{}, warnings: append([]string(nil), ev.Warnings...)}
+	b := &builder{ev: ev, rules: rules, byAddr: map[string]*eval.Resource{}, ids: map[string]string{}, stubIDs: map[string]string{}, warnings: append([]string(nil), ev.Warnings...)}
 	for _, r := range ev.Resources {
 		b.byAddr[r.Address] = r
 	}
@@ -179,6 +184,7 @@ func Build(ev *eval.Evaluated, rules Rules, name string) (model.Spec, []string) 
 			spec.Nodes = append(spec.Nodes, b.node(r))
 		}
 	}
+	spec.Nodes = append(spec.Nodes, b.stubs()...)
 	b.warnOff(ev.Removed)
 	spec.Groups = b.groups(spec.Nodes)
 	edges := b.edges()
@@ -217,12 +223,16 @@ func sortedStrings[V any](m map[string]V) []string {
 }
 
 type builder struct {
-	ev       *eval.Evaluated
-	rules    Rules
-	byAddr   map[string]*eval.Resource
-	ids      map[string]string // address -> node id
-	used     map[string]bool
-	warnings []string
+	ev     *eval.Evaluated
+	rules  Rules
+	byAddr map[string]*eval.Resource
+	ids    map[string]string // address -> node id
+	// stubIDs maps a stub's key to its node id, and stubEdges are the calls
+	// to stubs, keyed by that key where an address would be.
+	stubIDs   map[string]string
+	stubEdges []edgeKey
+	used      map[string]bool
+	warnings  []string
 }
 
 func (b *builder) mentioned(addr string) bool {

@@ -21,3 +21,8 @@ readings:
       output: outputTokensPerCall
       cacheRead: cacheReadShare
       cacheWrite: cacheWriteShare
+# A model is called through its foundation-model or inference-profile ARN,
+# and a policy on "*" with these actions can only mean a model.
+iam:
+  call: ["bedrock:InvokeModel", "bedrock:InvokeModelWithResponseStream", "bedrock:Converse", "bedrock:ConverseStream"]
+arns: ["bedrock:foundation-model/*", "bedrock:inference-profile/*", "bedrock:application-inference-profile/*"]

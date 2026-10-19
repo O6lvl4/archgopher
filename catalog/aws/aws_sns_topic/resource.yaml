@@ -20,3 +20,4 @@ terraform:
     - { type: aws_sns_topic_subscription, from: topic_arn, to: [self] }
 iam:
   publish: ["sns:Publish"]
+arns: ["sns:*"]

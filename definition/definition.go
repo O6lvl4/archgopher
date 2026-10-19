@@ -43,6 +43,11 @@ type File struct {
 	Terraform Terraform           `yaml:"terraform"`
 	// IAM maps a kind of work to the actions that do it on this resource.
 	IAM map[string][]string `yaml:"iam"`
+	// ARNs are the shapes of ARN this resource type answers to, as
+	// "service:resource" with * standing for any text ("bedrock:foundation-model/*",
+	// "s3:*"). A permission on such an ARN that no resource of the
+	// configuration owns becomes a node of this type, placed outside it.
+	ARNs []string `yaml:"arns"`
 }
 
 // Terraform is the resource's share of the rules that turn Terraform into a graph.

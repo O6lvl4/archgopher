@@ -55,10 +55,14 @@ func (b *builder) breakCycles(nodes []model.Node, edges []edgeKey) []model.Edge 
 	return oneEdgePerPair(out)
 }
 
-// nodeID is the id of the node at addr; the users entry is its own address.
+// nodeID is the id of the node at addr; the users entry is its own address,
+// and a stub is found by its key.
 func (b *builder) nodeID(addr string) string {
 	if addr == UsersID {
 		return UsersID
+	}
+	if id, ok := b.stubIDs[addr]; ok {
+		return id
 	}
 	return b.ids[addr]
 }

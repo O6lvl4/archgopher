@@ -102,7 +102,7 @@ number next to the bill with this list in hand:
 | Organization-wide GuardDuty, Security Hub, Config recorders and rules | `aws_config_configuration_recorder`, `aws_config_config_rule`; the others have no node yet and stay a line in the reconciliation |
 | Downloads by people from a bucket, over the internet | `internetGbPerMonth` on the `aws_s3_bucket` node, from the server access logs |
 | Savings plans, reserved capacity, free tiers | Not modelled: they lower the bill, never the reading |
-| Model calls, and a guardrail that lives in another account | `bedrock_model` and `aws_bedrock_guardrail` placed by hand, with edges from the caller |
+| Model calls, and a guardrail that lives in another account | `tf` stubs them from the role's permissions when the policy writes the ARN out (`bedrock_model`, `aws_bedrock_guardrail`); otherwise place them by hand, with edges from the caller |
 
 [`examples/landing-zone`](../examples/landing-zone/platform.scouter.yaml) is
 such a platform declaration. Keep it apart from the workload's so that one

@@ -24,3 +24,4 @@ terraform:
   ignoreRefs: [redrive_policy, redrive_allow_policy]
 iam:
   send: ["sqs:SendMessage"]
+arns: ["sqs:*"]

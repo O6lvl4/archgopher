@@ -314,3 +314,40 @@ func TestSiblingArgumentsAreKnownBeforeApply(t *testing.T) {
 		t.Errorf("an argument inside a sibling's nested block should read: %v", got)
 	}
 }
+
+func TestPermissionsOutsideTheConfigurationBecomeStubs(t *testing.T) {
+	spec, warnings := build(t, "testdata/outside", eval.Options{})
+	if len(warnings) > 0 {
+		t.Errorf("warnings: %v", warnings)
+	}
+	want := []string{
+		"agent>bedrock.abc123:apply",
+		"agent>model.claude-haiku-4-5:call",
+		"agent>s3.shared-datasets:read",
+		"chat>model.any:call",
+	}
+	if got := edges(spec); strings.Join(got, "\n") != strings.Join(want, "\n") {
+		t.Errorf("edges:\n%s\nwant:\n%s", strings.Join(got, "\n"), strings.Join(want, "\n"))
+	}
+	model := nodeByID(spec, "model.claude-haiku-4-5")
+	if model.Type != "bedrock_model" || model.Address != "" {
+		t.Errorf("the two model ARNs should be one external bedrock_model node: %+v", model)
+	}
+	if got := model.Assumptions["model"]; got != "claude-haiku-4-5" {
+		t.Errorf("the model id in the ARN should select the model: %v", got)
+	}
+	if v, ok := model.Assumptions["inputTokensPerCall"]; !ok || v != nil {
+		t.Errorf("required numbers should be left null for gaps: %v", model.Assumptions)
+	}
+	if any := nodeByID(spec, "model.any"); any.Assumptions["model"] != nil {
+		t.Errorf("a wildcard stub should not pick a model: %v", any.Assumptions)
+	}
+	if g := nodeByID(spec, "bedrock.abc123"); !strings.Contains(g.Note, "account 111122223333") {
+		t.Errorf("a stub in another account should say so: %q", g.Note)
+	}
+	for _, id := range []string{"logs.any", "s3.any"} {
+		if n := nodeByID(spec, id); n.ID != "" {
+			t.Errorf("%s should not exist: only load-carrying actions on an external type make a wildcard stub", id)
+		}
+	}
+}

@@ -39,3 +39,4 @@ terraform:
   ignoreRefs: [layers, vpc_config, dead_letter_config, logging_config, tracing_config]
 iam:
   invoke: ["lambda:InvokeFunction"]
+arns: ["lambda:function:*"]

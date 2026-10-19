@@ -23,3 +23,4 @@ terraform:
 iam:
   read: ["s3:GetObject"]
   write: ["s3:PutObject", "s3:DeleteObject"]
+arns: ["s3:*"]

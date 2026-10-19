@@ -58,6 +58,28 @@ func kindOrder(reg scouter.Registry) []string {
 	return out
 }
 
+// ARNs maps each resource type to the ARN shapes it answers to.
+func ARNs() map[string][]string {
+	out := map[string][]string{}
+	for _, u := range cat.MustUnits() {
+		if u.Resource != nil && len(u.Resource.File.ARNs) > 0 {
+			out[u.Resource.File.Type] = u.Resource.File.ARNs
+		}
+	}
+	return out
+}
+
+// externals lists the types that are never Terraform resources (models).
+func externals() map[string]bool {
+	out := map[string]bool{}
+	for _, u := range cat.MustUnits() {
+		if u.Resource != nil && u.Resource.File.External {
+			out[u.Resource.File.Type] = true
+		}
+	}
+	return out
+}
+
 // IAM is the configuration of the IAM edge source.
 func IAM() iam.Config {
 	return iam.Config{
@@ -69,16 +91,20 @@ func IAM() iam.Config {
 		},
 		Actions:   Actions(),
 		KindOrder: kindOrder(Registry()),
+		ARNs:      ARNs(),
+		External:  externals(),
 	}
 }
 
 // TerraformRules combine the account-wide rules, every resource's rules, the
-// IAM edge source.
+// IAM edge source and the stubs IAM proposes for what the configuration calls
+// but does not own.
 func TerraformRules() infer.Rules {
 	return cat.Rules(common(), infer.Rules{
-		Scouters: Registry(),
-		Free:     cat.FreeTypes(),
-		Sources:  []infer.EdgeSource{iam.Source(IAM())},
-		Readers:  readers,
+		Scouters:    Registry(),
+		Free:        cat.FreeTypes(),
+		Sources:     []infer.EdgeSource{iam.Source(IAM())},
+		NodeSources: []infer.NodeSource{iam.Stubs(IAM())},
+		Readers:     readers,
 	})
 }

@@ -36,6 +36,18 @@ without state and without cloud credentials, so it also works on a pull request.
   edge. Policies written with `jsonencode`, `aws_iam_policy_document` and
   `dynamic "statement"` blocks fed from module variables are all followed
   element by element.
+- **What the configuration calls but does not own.** A policy whose
+  `Resource` is an ARN written out (or built from variables), or `*`, names
+  something outside the configuration: a foundation model, a guardrail or a
+  bucket in another account, a queue another team made. Each becomes a stub
+  node of the catalog type whose ARN shape it fits (`arns:` in
+  `resource.yaml`, `bedrock:foundation-model/*`, `s3:*`), with no `address`,
+  its numbers left `null` for `gaps`, and a kinded edge from the caller. A
+  `choice` assumption whose option appears in the ARN is filled (the model id
+  in a model ARN), and the ARNs of one model are one node. `*` makes a stub
+  only for a type that is never a Terraform resource (`external: true`) and
+  only when the actions carry load (`bedrock:InvokeModel`; `logs:*` makes
+  nothing). The note names the ARN and its account.
 - **Entries.** Front doors nobody calls (CloudFront, API Gateway, load
   balancers, Cognito, Lambda function URLs) get a shared `users` entry.
   Schedules (EventBridge rules and schedules, Cloud Scheduler jobs) become

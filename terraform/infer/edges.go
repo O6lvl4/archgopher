@@ -38,7 +38,7 @@ func (s *edgeSet) addAll(froms, tos []string) {
 }
 
 // edges gathers the calls between nodes: references, then what edge sources
-// know, then links.
+// know, the calls to stubs, then links.
 func (b *builder) edges() []edgeKey {
 	s := &edgeSet{b: b, seen: map[edgeKey]bool{}}
 	for _, r := range b.ev.Resources {
@@ -50,6 +50,9 @@ func (b *builder) edges() []edgeKey {
 		for _, h := range src(&Graph{b: b}) {
 			s.add(h.From, h.To, h.Kind)
 		}
+	}
+	for _, e := range b.stubEdges {
+		s.add(e.from, e.to, e.kind)
 	}
 	for _, l := range b.rules.Links {
 		for _, r := range b.ev.Resources {

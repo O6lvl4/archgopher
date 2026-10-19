@@ -366,6 +366,7 @@ readings:
   - rate: { when: fifo_queue, name: FIFO send rate, unit: messages/second, quota: aws.sqs.fifo.tps, peak: total.peak }
 iam:
   send: ["sqs:SendMessage"]
+arns: ["sqs:*"]
 ```
 
 | Reading | What it records |
@@ -379,6 +380,11 @@ iam:
 | `session` | Session compute: active vCPU-hours, peak-memory GB-hours, concurrent sessions |
 | `cost` / `limit` | Any quantity × price / any demand against a quota or capacity |
 | `fail` | A problem with the declaration; stops the node unless `continue: true` |
+
+| Key | What it says |
+| --- | --- |
+| `iam` | Per kind of work, the IAM actions that do it on this resource; a role holding them makes an edge of that kind |
+| `arns` | The `service:resource` shapes of ARN the type answers to (`*` is any text). A permission on such an ARN that no resource of the configuration owns makes a stub node of this type outside it; with `external: true`, a permission on `*` with one of the `iam` actions does too |
 
 A `choice` field lists its `options`; `labels` shows them as people know
 them in the web UI (`{ g2l-t-c4m4: "4 GB, 4 cores, 100 GB SSD" }`), and a
