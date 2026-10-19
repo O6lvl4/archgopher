@@ -57,7 +57,7 @@ func (ev *evaluator) document(expr hcl.Expression, in *instance, extra map[strin
 func (ev *evaluator) documentCall(e *hclsyntax.FunctionCallExpr, in *instance, extra map[string]cty.Value) (any, bool) {
 	switch {
 	case e.Name == "jsonencode" && len(e.Args) == 1:
-		doc := toGo(ev.eval(e.Args[0], in, extra))
+		doc := ev.structure(e.Args[0], in, extra)
 		return doc, doc != nil
 	case e.Name == "file" && len(e.Args) == 1:
 		if data, ok := ev.readFile(e.Args[0], in, extra); ok {
@@ -126,4 +126,79 @@ func decodeJSON(s string) (any, bool) {
 		return nil, false
 	}
 	return doc, doc != nil
+}
+
+// structure reads an expression as the document jsonencode would write, part
+// by part, so that one part known only after apply, or a conditional whose
+// branches HCL cannot unify ("Inconsistent conditional result types"), does
+// not lose the rest. Objects and tuples are read item by item, merge() merges
+// what its arguments read, and a conditional reads the branch its condition
+// selects, or the larger branch when the condition is not known before apply:
+// the longest path, as a Choice state is counted.
+func (ev *evaluator) structure(expr hcl.Expression, in *instance, extra map[string]cty.Value) any {
+	switch e := expr.(type) {
+	case *hclsyntax.ObjectConsExpr:
+		out := map[string]any{}
+		for _, item := range e.Items {
+			k := keyName(item.KeyExpr)
+			if k == "" {
+				k = String(ev.eval(item.KeyExpr, in, extra))
+			}
+			if k == "" {
+				continue
+			}
+			if v := ev.structure(item.ValueExpr, in, extra); v != nil {
+				out[k] = v
+			}
+		}
+		return out
+	case *hclsyntax.TupleConsExpr:
+		out := []any{}
+		for _, x := range e.Exprs {
+			if v := ev.structure(x, in, extra); v != nil {
+				out = append(out, v)
+			}
+		}
+		return out
+	case *hclsyntax.ParenthesesExpr:
+		return ev.structure(e.Expression, in, extra)
+	case *hclsyntax.FunctionCallExpr:
+		if e.Name == "merge" {
+			out := map[string]any{}
+			for _, a := range e.Args {
+				m, _ := ev.structure(a, in, extra).(map[string]any)
+				for k, v := range m {
+					out[k] = v
+				}
+			}
+			return out
+		}
+	case *hclsyntax.ConditionalExpr:
+		cond := ev.eval(e.Condition, in, extra)
+		if cond.IsKnown() && !cond.IsNull() && cond.Type() == cty.Bool {
+			if cond.True() {
+				return ev.structure(e.TrueResult, in, extra)
+			}
+			return ev.structure(e.FalseResult, in, extra)
+		}
+		t, f := ev.structure(e.TrueResult, in, extra), ev.structure(e.FalseResult, in, extra)
+		if size(t) >= size(f) {
+			return t
+		}
+		return f
+	}
+	return toGo(ev.eval(expr, in, extra))
+}
+
+// size is how much a read part holds: entries of a map or list, one for a scalar.
+func size(v any) int {
+	switch x := v.(type) {
+	case nil:
+		return 0
+	case map[string]any:
+		return len(x)
+	case []any:
+		return len(x)
+	}
+	return 1
 }

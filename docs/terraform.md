@@ -68,7 +68,11 @@ without state and without cloud credentials, so it also works on a pull request.
   (`transitionsPerItem`, multiplied by the `itemsPerMap` assumption). The
   definition is read whether it is written with `jsonencode`, a heredoc,
   `file` or `templatefile`, through locals and module variables, with ARNs
-  known only after apply. A Choice takes its longest branch; retries and
+  known only after apply. A `jsonencode` document is read part by part:
+  `merge()` merges what its arguments hold, and a conditional takes the
+  branch its condition selects, or the larger branch when the condition is
+  known only after apply (an optional tail of states), so a conditional whose
+  branches HCL cannot unify does not lose the definition. A Choice takes its longest branch; retries and
   Catch paths are left out. States that loop, a Map inside another and a
   distributed Map are reported, and `transitionsPerExecution` is asked
   for instead; set it to override the count. A Logic Apps Consumption

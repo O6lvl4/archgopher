@@ -354,3 +354,16 @@ func TestPermissionsOutsideTheConfigurationBecomeStubs(t *testing.T) {
 		}
 	}
 }
+
+func TestDefinitionsAssembledWithMergeAndConditionalsAreCounted(t *testing.T) {
+	spec, warnings := build(t, "testdata/workflow", eval.Options{})
+	if len(warnings) > 0 {
+		t.Errorf("warnings: %v", warnings)
+	}
+	assembled, plain := nodeByID(spec, "assembled").Attributes, nodeByID(spec, "plain").Attributes
+	for _, k := range []string{"transitions", "transitionsPerItem"} {
+		if assembled[k] == nil || assembled[k] != plain[k] {
+			t.Errorf("%s: assembled %v, written out %v", k, assembled[k], plain[k])
+		}
+	}
+}
