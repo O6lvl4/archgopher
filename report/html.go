@@ -21,6 +21,9 @@ func HTML(w io.Writer, r engine.Result, svg []byte) error {
 		fmt.Fprintf(b, " <span class=\"muted\">plus %d cost lines with unknown prices</span>", r.UnpricedCosts)
 	}
 	b.WriteString("</p>\n")
+	if r.Scope != "" {
+		fmt.Fprintf(b, "<p class=\"note\">%s</p>\n", h(r.Scope))
+	}
 	if len(svg) > 0 {
 		s := string(svg)
 		if i := strings.Index(s, "<svg"); i > 0 {

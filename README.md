@@ -42,7 +42,7 @@ install && pnpm run dev`.
 
 ## Docs
 
-- [The declaration](docs/declaration.md): nodes, edges, load, filling the gaps
+- [The declaration](docs/declaration.md): nodes, edges, load, what it does not cover, filling the gaps
 - [Terraform and pull requests](docs/terraform.md): import, merge, diff, GitHub Action
 - [Export](docs/export.md): the declaration as an architecture diagram
 - [Reference books](docs/books.md): prices, quotas, SLAs, regions, `sync`

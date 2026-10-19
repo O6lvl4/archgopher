@@ -1,0 +1,31 @@
+name: landing-zone platform
+region: ap-northeast-1
+# Charges a platform or network team creates for an account, which the
+# workload's Terraform never mentions: the VPC's attachment to a shared
+# transit gateway, the web ACLs a Firewall Manager policy puts in front of the
+# workload, the organization's security services. `tf` cannot see them, so
+# they live in their own declaration, read next to the workload's. The
+# numbers come from the platform's consoles or the bill, never from code.
+nodes:
+  - id: users
+    type: entry
+    load: { monthly: 1000000, peakPerSecond: 5 }
+    note: Requests reaching the organization's web ACL in front of the workload (the CDN's request count).
+  - id: edge_waf
+    type: aws_wafv2_web_acl
+    attributes: { scope: CLOUDFRONT }
+    assumptions: { rules: 10, capacityUnits: 1000 }
+    note: The Firewall Manager policy's web ACL on the CDN; rules are the rule groups it references.
+  - id: api_waf
+    type: aws_wafv2_web_acl
+    attributes: { scope: REGIONAL }
+    assumptions: { rules: 10, capacityUnits: 1000 }
+    note: The same policy's regional web ACL on the API stage.
+  - id: tgw
+    type: aws_ec2_transit_gateway_vpc_attachment
+    assumptions: { kbPerUnit: 2, gbPerMonth: 0 }
+    note: The VPC's attachment to the shared transit gateway, billed by the hour to the account that owns the VPC.
+edges:
+  - { from: users, to: edge_waf, note: every request is inspected }
+  - { from: edge_waf, to: api_waf, perUnit: 0.05, note: one request in twenty is an API call }
+  - { from: api_waf, to: tgw, perUnit: 1, note: API calls reach the VPC through the attachment }

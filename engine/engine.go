@@ -32,6 +32,9 @@ type Result struct {
 	// lines that share each.
 	Pools    []meter.Pool `json:"pools,omitempty"`
 	Warnings []string     `json:"warnings"`
+	// Scope says what the total covers, so the number is read right next to a
+	// bill: the declared nodes, and nothing the account pays for besides.
+	Scope string `json:"scope"`
 }
 
 // NodeResult is one node's readings.
@@ -99,6 +102,13 @@ type PathResult struct {
 	MissingSLA     []string `json:"missingSla"`
 }
 
+// Scope is what every total covers. A declaration built from one Terraform
+// configuration sees that configuration; what a platform team adds to the
+// account, and what people do by hand, is billed too and is not here.
+const Scope = "The declared nodes only. Charges the account pays that no node here stands for are not counted: " +
+	"network attachments and endpoints a platform team owns, an organization's WAF and security services, " +
+	"downloads by people, savings plans and free tiers."
+
 // MaxPaths caps path enumeration on dense graphs.
 const MaxPaths = 200
 
@@ -121,7 +131,7 @@ func Run(spec model.Spec, reg scouter.Registry, books book.Books) (Result, error
 	demand := g.propagate()
 	books, quotaWarnings := withApplied(books, spec.Quotas)
 	rd := newReader(reg, books, spec.Region)
-	res := Result{Name: spec.Name, Region: spec.Region}
+	res := Result{Name: spec.Name, Region: spec.Region, Scope: Scope}
 	res.Nodes = g.readNodes(rd, demand, arrivals)
 	res.Groups = g.readGroups(spec.Groups, rd, demand)
 	all := results(res.Nodes, res.Groups)

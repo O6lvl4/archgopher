@@ -79,6 +79,15 @@ not only the totals: totals hide errors that cancel out. Aim for a few
 percent per node and explain what remains (resources outside the
 infrastructure code, a bucket still growing, a price that changed).
 
+Split the bill first: lines no node stands for (a shared transit gateway's
+attachment hours, an organization's WAF and security services, downloads by
+people, savings plans) are not the declaration's error. Put the ones that have
+a node type in a platform declaration of their own
+([`docs/declaration.md`, What a declaration does not cover](../../docs/declaration.md#what-a-declaration-does-not-cover))
+and list the rest in the reconciliation. Measure what the declaration asks for
+from the cloud's metrics, not from the bill: a session count fitted to the
+bill reproduces it by construction and proves nothing.
+
 ## Sources
 
 The kinds of measurement are the same everywhere; only the names differ.

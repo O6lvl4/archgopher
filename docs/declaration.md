@@ -86,6 +86,28 @@ lands on the downstream node under `kind`. Cycles are errors.
 Unknown keys are errors too. A typo such as `durationMS` fails loudly instead
 of being ignored.
 
+## What a declaration does not cover
+
+The monthly total is for the declared nodes, and `scout` says so under it. A
+declaration built by `tf` sees one Terraform configuration; an account is
+billed for more than that. In an account inside a landing zone, the charges
+the platform team creates have been the larger part of the bill, so read the
+number next to the bill with this list in hand:
+
+| Billed, but not in the workload's Terraform | Put it in a declaration of its own as |
+| --- | --- |
+| The VPC's attachment to a shared transit gateway, by the hour | `aws_ec2_transit_gateway_vpc_attachment` on the path, with `kbPerUnit` |
+| Web ACLs a Firewall Manager policy places on the CDN and the API | `aws_wafv2_web_acl` per scope, `rules` set to the rule groups it references |
+| Interface endpoints, DNS firewall and resolver endpoints the network team owns | `aws_vpc_endpoint`, `aws_route53_resolver_endpoint` |
+| Organization-wide GuardDuty, Security Hub, Config recorders and rules | `aws_config_configuration_recorder`, `aws_config_config_rule`; the others have no node yet and stay a line in the reconciliation |
+| Downloads by people from a bucket, over the internet | `internetGbPerMonth` on the `aws_s3_bucket` node, from the server access logs |
+| Savings plans, reserved capacity, free tiers | Not modelled: they lower the bill, never the reading |
+| Model calls, and a guardrail that lives in another account | `bedrock_model` and `aws_bedrock_guardrail` placed by hand, with edges from the caller |
+
+[`examples/landing-zone`](../examples/landing-zone/platform.scouter.yaml) is
+such a platform declaration. Keep it apart from the workload's so that one
+number follows the code and the other follows the platform.
+
 ## Filling the gaps
 
 Terraform says what exists and what may call what, not how much is called or

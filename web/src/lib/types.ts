@@ -212,6 +212,8 @@ export interface Result {
   groups?: NodeResult[] | null;
   monthlyUsd: number;
   unpricedCosts: number;
+  // What the total covers: the declared nodes only.
+  scope?: string;
   unverified: RefUse[] | null;
   /** Prices billed on the whole account's usage. */
   pools?: Pool[] | null;

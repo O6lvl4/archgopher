@@ -36,6 +36,9 @@ func writeTotal(b *strings.Builder, r engine.Result) {
 		fmt.Fprintf(b, " (plus %d cost lines with unknown prices)", r.UnpricedCosts)
 	}
 	b.WriteString("\n\n")
+	if r.Scope != "" {
+		b.WriteString(r.Scope + "\n\n")
+	}
 }
 
 func writeNodes(b *strings.Builder, r engine.Result) {
