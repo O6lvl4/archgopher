@@ -112,6 +112,9 @@ type instance struct {
 	locals   map[string]cty.Value
 	children map[string]*instance
 	outputs  map[string]cty.Value
+	// resources are the configured arguments of each managed, uncounted
+	// resource, by "type.name": what a reference to a sibling reads.
+	resources map[string]cty.Value
 	// counted children have count or for_each; their outputs are left unknown
 	counted map[string]bool
 	removed map[string]bool
@@ -165,7 +168,11 @@ func (ev *evaluator) warn(format string, args ...any) {
 	}
 }
 
-// eval never fails: errors become unknown values, and unknown functions are reported once.
+// eval never fails: errors become unknown values, and unknown functions are
+// reported once. An attribute a sibling resource does not set in the
+// configuration (its arn, its id) is unknown rather than an error: HCL leaves
+// an unknown there and builds the rest of the value around it, so a list of
+// policies that names a queue's arn is still a list.
 func (ev *evaluator) eval(expr hcl.Expression, in *instance, extra map[string]cty.Value) cty.Value {
 	v, diags := expr.Value(ev.ctx(in, extra))
 	if diags.HasErrors() {
@@ -174,7 +181,20 @@ func (ev *evaluator) eval(expr hcl.Expression, in *instance, extra map[string]ct
 				ev.warn("%s: %s", d.Summary, d.Detail)
 			}
 		}
-		return cty.DynamicVal
+		if !onlyUnsupportedAttributes(diags) || v == cty.NilVal {
+			return cty.DynamicVal
+		}
 	}
 	return v
+}
+
+// onlyUnsupportedAttributes says whether every error is a read of an
+// attribute the value does not have.
+func onlyUnsupportedAttributes(diags hcl.Diagnostics) bool {
+	for _, d := range diags {
+		if d.Severity == hcl.DiagError && d.Summary != "Unsupported attribute" {
+			return false
+		}
+	}
+	return true
 }

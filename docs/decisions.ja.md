@@ -2,7 +2,7 @@
 
 | 論点 | 決めたこと | 理由 |
 | --- | --- | --- |
-| Terraform の読み方 | HCL を静的に評価する（hashicorp/hcl と go-cty） | init・state・認証なしで PR の段階から回る。apply 後にしか決まらない値（ARN など）は未確定のまま残し、辺は参照そのものから出す |
+| Terraform の読み方 | HCL を静的に評価する（hashicorp/hcl と go-cty）。他の資源の引数への参照（`engine = aws_rds_cluster.db.engine`）は、その資源が設定に書いた値として読む。count や for_each の付いた資源と、apply 後に決まる属性（arn・id）は未確定のまま | init・state・認証なしで PR の段階から回る。plan が知っている値を知らないと、エンジン名のような必須の属性を人が書き写すことになる。辺は参照そのものから出すので未確定でも困らない |
 | 辺の推定 | ノード間の参照、仲介資源（API の統合・イベントソース・購読・ターゲット・S3 通知）、ロールに付いた IAM 方針 | IAM の許可アクションから読み書きの種類が決まる。`dynamic "statement"` を module 変数から展開する書き方も要素ごとに辿る |
 | Step Functions の遷移数 | 標準ワークフローの定義（ASL）を取り込み時に数え、`transitions`（開始と終了を含む最長経路）と `transitionsPerItem`（インライン Map の1項目あたり）を属性に書く。Choice は最長の分岐を取り、リトライと Catch の経路は数えない。ループ・入れ子の Map・分散 Map は数えずに警告し、`transitionsPerExecution` を求める。定義は jsonencode・ヒアドキュメント・file・templatefile のどれで書かれていても、ARN を未確定のまま構造だけ読む | 料金ページの例は状態の数に開始と終了を足して数えている。最長経路は1実行が払う上限で、失敗の経路を除けば正常系とほぼ一致する。ループの回数や Map の項目数は定義から決まらないので、推測で埋めずに前提として聞く |
 | ワークフローの数え方 | Step Functions（ASL）と Logic Apps Consumption（ワークフロー定義言語）は、定義から1実行あたりの課金単位を取り込み時に数える。分岐は最長、失敗経路とリトライは数えない。ループ・入れ子の Map・分散 Map・知らない種類の状態やアクションは数えずに警告し、前提を求める。Logic Apps Consumption は Infracost の無料リストに入っていたが、アクションごとに課金されるので外して読む | 推測で数えると、新しい種類が増えたときに黙って誤る。拒否して前提を聞けば、誤りは gaps に出る |

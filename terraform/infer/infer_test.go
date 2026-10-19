@@ -297,3 +297,20 @@ func TestDifferentInstancesSplitAndAlikeOnesStay(t *testing.T) {
 		}
 	}
 }
+
+func TestSiblingArgumentsAreKnownBeforeApply(t *testing.T) {
+	spec, warnings := build(t, "testdata/siblings", eval.Options{})
+	if len(warnings) > 0 {
+		t.Errorf("warnings: %v", warnings)
+	}
+	if got := nodeByID(spec, "writer").Attributes["engine"]; got != "aurora-postgresql" {
+		t.Errorf("engine = aws_rds_cluster.db.engine should read the cluster's literal: %v", got)
+	}
+	n := nodeByID(spec, "postgres")
+	if n.ID == "" {
+		t.Fatal("a count that compares a sibling's argument should be known, not leave the resource out")
+	}
+	if got := n.Attributes["retention_in_days"]; got != 28 {
+		t.Errorf("an argument inside a sibling's nested block should read: %v", got)
+	}
+}

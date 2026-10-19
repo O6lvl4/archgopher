@@ -7,7 +7,7 @@ description: "Instance-hours of a provisioned Aurora instance, Aurora Standard o
 kinds: [query]
 sla: aws.aurora
 attributes:
-  - { key: engine, label: Engine, type: string, optional: true, hint: "aurora-mysql or aurora-postgresql; unknown before apply when it names the cluster's engine, so write it here" }
+  - { key: engine, label: Engine, type: string, optional: true, hint: "aurora-mysql or aurora-postgresql; read from the cluster when engine names it, else write it here" }
   - { key: instance_class, label: Instance class, type: string }
   - { key: performance_insights_enabled, label: Performance Insights, type: boolean, default: false }
   - { key: performance_insights_retention_period, label: Performance Insights retention, type: number, unit: days, default: 7, hint: "7 days are free; 31 × months, or 731" }

@@ -19,7 +19,12 @@ without state and without cloud credentials, so it also works on a pull request.
   load coming in shared out by instances. Names and tags that differ do not
   split a node.
 - **Unknowns.** Values that exist only after apply (ARNs, IDs) stay unknown.
-  Edges do not need them: they come from references.
+  Edges do not need them: they come from references. A reference to an
+  argument another resource sets in the configuration is known, as it is to
+  `terraform plan`: an instance whose `engine = aws_rds_cluster.db.engine`
+  reads the cluster's literal, and a `count` that compares it is decided.
+  Only a resource without `count` or `for_each` is read this way; an index
+  into a counted resource is seldom a literal, so those stay unknown.
 - **Edges.** A node that references another node calls it (a Lambda whose
   environment names a table). Helper resources connect nodes (API Gateway
   integrations, event source mappings, EventBridge targets, S3

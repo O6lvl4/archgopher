@@ -13,21 +13,23 @@ import (
 // only make more values known, and real configurations settle in two or three.
 const maxPasses = 6
 
-// evalInstance evaluates the locals, module calls and outputs of an
-// instance. Locals and calls can depend on each other in any order, so they
+// evalInstance evaluates the locals, resource arguments, module calls and
+// outputs of an instance. They can depend on each other in any order, so they
 // are evaluated again until nothing changes.
 func (ev *evaluator) evalInstance(in *instance) {
 	in.locals = map[string]cty.Value{}
 	in.children = map[string]*instance{}
 	in.counted = map[string]bool{}
 	in.removed = map[string]bool{}
+	in.initResources()
 	for name := range in.mod.Locals {
 		in.locals[name] = cty.DynamicVal
 	}
 	for pass := 0; pass < maxPasses; pass++ {
 		localsChanged := ev.settleLocals(in)
+		resourcesChanged := ev.settleResources(in)
 		callsChanged := ev.evalCalls(in)
-		if !localsChanged && !callsChanged && pass > 0 {
+		if !localsChanged && !resourcesChanged && !callsChanged && pass > 0 {
 			break
 		}
 	}

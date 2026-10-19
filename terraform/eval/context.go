@@ -24,7 +24,8 @@ func (ev *evaluator) ctx(in *instance, extra map[string]cty.Value) *hcl.EvalCont
 }
 
 // addInstanceVars adds what a module instance defines: var, local, path,
-// module and its resources and data sources, which stay unknown.
+// module, its resources (their configured arguments; counted ones and
+// data sources stay unknown).
 func (ev *evaluator) addInstanceVars(vars map[string]cty.Value, in *instance) {
 	vars["var"] = cty.ObjectVal(orEmpty(in.vars))
 	vars["local"] = cty.ObjectVal(orEmpty(in.locals))
@@ -57,8 +58,9 @@ func moduleObject(in *instance) cty.Value {
 	return cty.ObjectVal(mods)
 }
 
-// resourceObjects returns, by type, an object of unknown values for every
-// managed resource and every data source the instance declares.
+// resourceObjects returns, by type, an object for every managed resource and
+// every data source the instance declares: the configured arguments of a
+// settled resource, unknown otherwise.
 func resourceObjects(in *instance) (managed, data map[string]cty.Value) {
 	managedNames := map[string]map[string]cty.Value{}
 	dataNames := map[string]map[string]cty.Value{}
@@ -70,7 +72,11 @@ func resourceObjects(in *instance) (managed, data map[string]cty.Value) {
 		if target[r.Type] == nil {
 			target[r.Type] = map[string]cty.Value{}
 		}
-		target[r.Type][r.Name] = cty.DynamicVal
+		v := cty.DynamicVal
+		if rv, ok := in.resources[r.Type+"."+r.Name]; ok && r.Mode == "managed" {
+			v = rv
+		}
+		target[r.Type][r.Name] = v
 	}
 	return objectsByType(managedNames), objectsByType(dataNames)
 }
