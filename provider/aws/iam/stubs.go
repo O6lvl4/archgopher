@@ -56,12 +56,19 @@ func (c Config) stubs(from string, st Statement) []infer.Stub {
 			continue
 		}
 		for _, typ := range sortedTypes(c.ARNs) {
-			if !a.matchesAny(c.ARNs[typ]) {
+			pattern, ok := a.match(c.ARNs[typ])
+			if !ok {
 				continue
+			}
+			// An ARN that names nothing past the pattern's own words
+			// (foundation-model/*) is the same stub as "*".
+			key, name := lit, a.nameUnder(pattern)
+			if name == "" {
+				key = typ + ":*"
 			}
 			for _, kind := range c.arnKinds(typ, st.Actions) {
 				out = append(out, infer.Stub{
-					Key: lit, Type: typ, Name: a.name(), Match: lit, From: from, Kind: kind,
+					Key: key, Type: typ, Name: name, Match: lit, From: from, Kind: kind,
 					Note: fmt.Sprintf("Outside this configuration: the role of %s allows %s on %s%s.", from, actionsText(st.Actions), lit, a.accountText()),
 				})
 			}
@@ -97,24 +104,29 @@ func parseARN(s string) (arn, bool) {
 	return arn{service: p[2], account: p[4], resource: p[5]}, true
 }
 
-// matchesAny says whether the ARN fits one of the "service:resource"
-// patterns, * standing for any text.
-func (a arn) matchesAny(patterns []string) bool {
+// match returns the first "service:resource" pattern the ARN fits, * standing
+// for any text.
+func (a arn) match(patterns []string) (string, bool) {
 	for _, p := range patterns {
 		svc, res, ok := strings.Cut(p, ":")
 		if ok && svc == a.service && wildcard(res, a.resource) {
-			return true
+			return p, true
 		}
 	}
-	return false
+	return "", false
 }
 
-// name is what the ARN names: the bucket for S3, otherwise the last path
-// segment that is not a wildcard, without a trailing version
-// ("anthropic.claude-haiku-4-5-20251001-v1:0" keeps its text up to the colon).
-func (a arn) name() string {
+// nameUnder is what the ARN names past the pattern's literal lead
+// ("foundation-model/" of "bedrock:foundation-model/*"): the bucket for S3,
+// otherwise the last path segment that is not a wildcard, without a trailing
+// version ("anthropic.claude-haiku-4-5-20251001-v1:0" keeps its text up to
+// the colon). "" when only wildcards remain.
+func (a arn) nameUnder(pattern string) string {
+	_, res, _ := strings.Cut(pattern, ":")
+	lead, _, _ := strings.Cut(res, "*")
+	rest := strings.TrimPrefix(a.resource, lead)
 	var segs []string
-	for _, s := range strings.Split(a.resource, "/") {
+	for _, s := range strings.Split(rest, "/") {
 		if s != "" && s != "*" {
 			segs = append(segs, s)
 		}

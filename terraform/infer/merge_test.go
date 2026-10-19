@@ -99,3 +99,34 @@ func TestMergeFollowsTerraformSchedules(t *testing.T) {
 		}
 	}
 }
+
+func TestMergeFoldsStubsIntoHandPlacedNodes(t *testing.T) {
+	fresh, _ := build(t, "testdata/outside", eval.Options{})
+	existing := model.Spec{Name: "mine", Region: "ap-northeast-1",
+		Nodes: []model.Node{
+			{ID: "agent", Type: "aws_lambda_function", Address: "aws_lambda_function.agent"},
+			{ID: "chat", Type: "aws_lambda_function", Address: "aws_lambda_function.chat"},
+			{ID: "haiku", Type: "bedrock_model", Assumptions: map[string]any{"model": "claude-haiku-4-5", "inputTokensPerCall": 2000, "outputTokensPerCall": 300}},
+			{ID: "sonnet", Type: "bedrock_model", Assumptions: map[string]any{"model": "claude-sonnet-4-6"}},
+		},
+	}
+	merged, warnings := merge.Merge(existing, fresh)
+	if n := nodeByID(merged, "model.claude-haiku-4-5"); n.ID != "" {
+		t.Error("the stub for a model people placed should fold into their node, not double it")
+	}
+	if h := nodeByID(merged, "haiku"); h.Assumptions["inputTokensPerCall"] != 2000 {
+		t.Errorf("folding keeps people's numbers: %v", h.Assumptions)
+	}
+	hasEdges(t, merged, "agent>haiku:call", "agent>bedrock.abc123:apply", "agent>s3.shared-datasets:read")
+	if n := nodeByID(merged, "model.any"); n.ID != "" {
+		t.Error("a stub that cannot tell which hand-placed model it is should be left out")
+	}
+	w := strings.Join(warnings, "\n")
+	if !strings.Contains(w, "model.any") || !strings.Contains(w, "haiku, sonnet") {
+		t.Errorf("leaving a stub out should be reported with the nodes that stand for it: %q", w)
+	}
+	again, _ := merge.Merge(merged, fresh)
+	if len(again.Nodes) != len(merged.Nodes) || len(again.Edges) != len(merged.Edges) {
+		t.Error("merging twice must not add anything")
+	}
+}

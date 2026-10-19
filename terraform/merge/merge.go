@@ -4,6 +4,7 @@ package merge
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/O6lvl4/archgopher/model"
 )
@@ -32,6 +33,8 @@ type merger struct {
 	out      model.Spec
 	warnings []string
 	byAddr   map[string]int    // address -> index of the existing node
+	index    map[string]int    // id -> index of the existing node
+	existing int               // how many of out.Nodes people wrote
 	used     map[string]bool   // node ids taken in out
 	seen     map[int]bool      // existing nodes Terraform still declares
 	rename   map[string]string // fresh id -> final id
@@ -40,16 +43,19 @@ type merger struct {
 
 func newMerger(existing model.Spec) *merger {
 	m := &merger{
-		out:    existing,
-		byAddr: map[string]int{},
-		used:   map[string]bool{},
-		seen:   map[int]bool{},
-		rename: map[string]string{},
+		out:      existing,
+		byAddr:   map[string]int{},
+		index:    map[string]int{},
+		existing: len(existing.Nodes),
+		used:     map[string]bool{},
+		seen:     map[int]bool{},
+		rename:   map[string]string{},
 	}
 	for i, n := range existing.Nodes {
 		if n.Address != "" {
 			m.byAddr[n.Address] = i
 		}
+		m.index[n.ID] = i
 		m.used[n.ID] = true
 	}
 	m.out.Nodes = append([]model.Node(nil), existing.Nodes...)
@@ -74,7 +80,7 @@ func (m *merger) mergeHeader(fresh model.Spec) {
 // free id.
 func (m *merger) mergeNode(f model.Node) {
 	if f.Address == "" {
-		m.addGenerated(f)
+		m.addExternal(f)
 		return
 	}
 	if i, ok := m.byAddr[f.Address]; ok {
@@ -95,6 +101,80 @@ func (m *merger) addGenerated(f model.Node) {
 		m.out.Nodes = append(m.out.Nodes, f)
 		m.used[f.ID] = true
 	}
+}
+
+// entryType is scouter.EntryType, which this layer may not import: the users
+// entry is generated, never a stub, and keeps its own rule.
+const entryType = "entry"
+
+// addExternal places a node with no address: the users entry, or a stub for
+// something the configuration calls but does not own. A node people already
+// have under the same id stands for it. Otherwise, when people placed nodes
+// of its type by hand, the stub folds into the one whose assumptions agree
+// with what Terraform read (the model id); a stub that says nothing to tell
+// them apart, or agrees with several, is left out with a warning rather than
+// doubling what people wrote. A type people have not placed is added.
+func (m *merger) addExternal(f model.Node) {
+	if m.used[f.ID] || f.Type == entryType {
+		m.addGenerated(f)
+		return
+	}
+	placed := m.placedByHand(f.Type)
+	if len(placed) == 0 {
+		m.addGenerated(f)
+		return
+	}
+	var agree []string
+	for _, id := range placed {
+		if agrees(f, m.out.Nodes[m.index[id]]) {
+			agree = append(agree, id)
+		}
+	}
+	switch {
+	case len(agree) == 1:
+		m.rename[f.ID] = agree[0]
+	case len(agree) == 0 && len(identifying(f)) > 0:
+		m.addGenerated(f)
+	default:
+		m.warn("%s (%s) left out: %s already stands for it; add the edges by hand if they are missing", f.ID, f.Type, strings.Join(placed, ", "))
+	}
+}
+
+// placedByHand lists the ids of the nodes people wrote without an address, of one type.
+func (m *merger) placedByHand(typ string) []string {
+	var out []string
+	for _, n := range m.out.Nodes[:m.existing] {
+		if n.Address == "" && n.Type == typ {
+			out = append(out, n.ID)
+		}
+	}
+	return out
+}
+
+// identifying are the assumptions Terraform filled on a stub: what tells
+// one of its type from another (a model id).
+func identifying(f model.Node) map[string]any {
+	out := map[string]any{}
+	for k, v := range f.Assumptions {
+		if v != nil {
+			out[k] = v
+		}
+	}
+	return out
+}
+
+// agrees says whether a node people wrote has every identifying value of f.
+func agrees(f, n model.Node) bool {
+	id := identifying(f)
+	if len(id) == 0 {
+		return false
+	}
+	for k, v := range id {
+		if fmt.Sprint(n.Assumptions[k]) != fmt.Sprint(v) {
+			return false
+		}
+	}
+	return true
 }
 
 // addNew adds a node Terraform declares for the first time, numbering its id

@@ -47,7 +47,13 @@ without state and without cloud credentials, so it also works on a pull request.
   in a model ARN), and the ARNs of one model are one node. `*` makes a stub
   only for a type that is never a Terraform resource (`external: true`) and
   only when the actions carry load (`bedrock:InvokeModel`; `logs:*` makes
-  nothing). The note names the ARN and its account.
+  nothing). An ARN that names nothing past the pattern's own words
+  (`foundation-model/*`) is the same stub as `*`. The note names the ARN and
+  its account. `tf --merge` folds a stub into the node people already placed
+  for it: the same id, or the one node of its type whose assumptions agree
+  with what was read (the model id); a stub that cannot tell which of several
+  hand-placed nodes it is, or says nothing to tell them apart, is left out
+  with a warning rather than doubling them.
 - **Entries.** Front doors nobody calls (CloudFront, API Gateway, load
   balancers, Cognito, Lambda function URLs) get a shared `users` entry.
   Schedules (EventBridge rules and schedules, Cloud Scheduler jobs) become

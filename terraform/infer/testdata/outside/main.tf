@@ -49,7 +49,10 @@ resource "aws_iam_role" "chat" {
   inline_policy {
     name = "any-model"
     policy = jsonencode({
-      Statement = [{ Effect = "Allow", Action = "bedrock:InvokeModel", Resource = "*" }]
+      Statement = [
+        { Effect = "Allow", Action = "bedrock:InvokeModel", Resource = "*" },
+        { Effect = "Allow", Action = "bedrock:InvokeModelWithResponseStream", Resource = "arn:aws:bedrock:*::foundation-model/*" },
+      ]
     })
   }
 }

@@ -342,6 +342,9 @@ func TestPermissionsOutsideTheConfigurationBecomeStubs(t *testing.T) {
 	if any := nodeByID(spec, "model.any"); any.Assumptions["model"] != nil {
 		t.Errorf("a wildcard stub should not pick a model: %v", any.Assumptions)
 	}
+	if n := nodeByID(spec, "model.foundation-model"); n.ID != "" {
+		t.Error("foundation-model/* names no model: it is the same stub as *")
+	}
 	if g := nodeByID(spec, "bedrock.abc123"); !strings.Contains(g.Note, "account 111122223333") {
 		t.Errorf("a stub in another account should say so: %q", g.Note)
 	}
