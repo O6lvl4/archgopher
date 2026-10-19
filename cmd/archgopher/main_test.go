@@ -122,3 +122,26 @@ func TestStaleListsPagesToRecheck(t *testing.T) {
 		t.Fatalf("with 200 days only the never-checked value is stale:\n%s", out.String())
 	}
 }
+
+func TestReconcileSplitsTheBillAroundTheDeclaration(t *testing.T) {
+	var out bytes.Buffer
+	if err := run([]string{"reconcile", "../../examples/serverless-api/notes.scouter.yaml", "--bill", "testdata/bill/costs.json"}, &out); err != nil {
+		t.Fatal(err)
+	}
+	md := out.String()
+	for _, want := range []string{"against the bill (2026-09-01..2026-10-01)", "| Bill | $115.28 |", "| of it, tax | $10.50 |", "## By service", "| AWS Lambda | $11.20 |", "## Billed, no node stands for it", "| Amazon Virtual Private Cloud | $50.40 |", "| AWS WAF | $30.08 |"} {
+		if !strings.Contains(md, want) {
+			t.Fatalf("reconcile lacks %q:\n%s", want, md)
+		}
+	}
+	if strings.Contains(md, "## Lines without a billing service") {
+		t.Fatalf("every AWS price should name its service:\n%s", md)
+	}
+	out.Reset()
+	if err := run([]string{"reconcile", "../../examples/serverless-api/notes.scouter.yaml", "--bill", "testdata/bill/costs.json", "--json"}, &out); err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(out.String(), `"coveredUsd"`) {
+		t.Fatal("JSON output lacks coveredUsd")
+	}
+}

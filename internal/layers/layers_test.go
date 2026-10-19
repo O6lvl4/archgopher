@@ -37,6 +37,8 @@ var allowed = map[string][]string{
 	"icons":   {},
 	"diagram": {"icons", "model", "scouter"},
 	"gaps":    {"book", "engine", "field", "meter", "model", "scouter"},
+	// Reconcile puts a reading next to the bill; it knows no provider.
+	"reconcile": {"book", "engine", "meter"},
 
 	// Terraform adapter: read, evaluate, infer, merge. No provider knowledge.
 	"terraform/config": {},
@@ -80,7 +82,7 @@ var allowed = map[string][]string{
 
 	// Edges of the system.
 	"api":            {"book", "cloud", "diagram", "engine", "field", "gaps", "icons", "model", "pattern", "report", "scouter", "terraform/eval", "terraform/infer", "terraform/merge"},
-	"cmd/archgopher": {"api", "book", "cloud", "engine", "gaps", "model", "report", "provider/aws/pricelist", "provider/aws/servicequotas", "provider/azure/retailprices", "provider/gcp/billingcatalog", "provider/gcp/cloudquotas", "terraform/eval", "terraform/infer", "terraform/merge"},
+	"cmd/archgopher": {"api", "book", "cloud", "engine", "gaps", "model", "reconcile", "report", "provider/aws/pricelist", "provider/aws/servicequotas", "provider/azure/retailprices", "provider/gcp/billingcatalog", "provider/gcp/cloudquotas", "terraform/eval", "terraform/infer", "terraform/merge"},
 	"cmd/wasm":       {"api"},
 }
 

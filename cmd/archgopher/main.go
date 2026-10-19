@@ -21,6 +21,8 @@ const usage = `archgopher reads an architecture on cost, headroom, latency and a
 Usage:
   archgopher scout <spec.yaml> [--json]     Read a declaration
   archgopher gaps <spec.yaml> [--json]      List what the declaration does not know yet
+  archgopher reconcile <spec.yaml> --bill <costs.json> [--json]
+                                              Put the reading next to the bill, service by service
   archgopher tf <dir> [flags]               Build a declaration from Terraform
   archgopher diff <before> <after> [flags]  What changed: declarations or Terraform directories
   archgopher export <spec.yaml> [flags]     Draw a declaration: -o app.svg, app.png or app.html
@@ -53,6 +55,8 @@ func run(args []string, out io.Writer) error {
 		return cmdScout(args[1:], out)
 	case "gaps":
 		return cmdGaps(args[1:], out)
+	case "reconcile":
+		return cmdReconcile(args[1:], out)
 	case "diff":
 		return cmdDiff(args[1:], out)
 	case "tf":

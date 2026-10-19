@@ -37,7 +37,7 @@ func (b Book) flattenTable(id string, e Entry, out Book) error {
 		if err != nil {
 			return err
 		}
-		out[id] = Entry{Unit: e.Unit, Per: e.Per, Source: e.Source, Note: e.Note, Pool: e.Pool, Included: e.Included, Combine: e.Combine, Tiered: true, Tiers: tiers, Verified: e.Verified, CheckedAt: e.CheckedAt}
+		out[id] = Entry{Unit: e.Unit, Per: e.Per, Source: e.Source, Note: e.Note, Sync: e.Sync, Pool: e.Pool, Included: e.Included, Combine: e.Combine, Tiered: true, Tiers: tiers, Verified: e.Verified, CheckedAt: e.CheckedAt}
 	}
 	for key, row := range e.Rows {
 		full := id + "." + key
@@ -55,7 +55,8 @@ func (e Entry) row(prices map[string]*float64) Entry {
 	for region, v := range prices {
 		values[region] = Value{Value: v, Verified: e.Verified, CheckedAt: e.CheckedAt}
 	}
-	row := Entry{Unit: e.Unit, Per: e.Per, Source: e.Source, Note: e.Note, Currency: e.Currency, Tax: e.Tax, Values: values}
+	// Sync names the service the table came from; reconcile reads it off each row.
+	row := Entry{Unit: e.Unit, Per: e.Per, Source: e.Source, Note: e.Note, Sync: e.Sync, Currency: e.Currency, Tax: e.Tax, Values: values}
 	if !e.Tiered {
 		// The rules hold for each row on its own: one pool per row.
 		row.Pool, row.Included, row.Combine = e.Pool, e.Included, e.Combine

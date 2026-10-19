@@ -74,19 +74,23 @@ infrastructure code:
 
 ## Reconcile
 
-Compare each node's reading with the bill's usage quantities for the window,
-not only the totals: totals hide errors that cancel out. Aim for a few
-percent per node and explain what remains (resources outside the
-infrastructure code, a bucket still growing, a price that changed).
-
-Split the bill first: lines no node stands for (a shared transit gateway's
-attachment hours, an organization's WAF and security services, downloads by
-people, savings plans) are not the declaration's error. Put the ones that have
-a node type in a platform declaration of their own
+Start from `archgopher reconcile spec.yaml --bill costs.json`, with the bill
+as Cost Explorer JSON grouped by SERVICE for the same window. It splits the
+bill into the services the declaration has nodes for, the ones nothing in it
+stands for, and tax, and puts the two sides next to each other per service.
+Lines no node stands for (a shared transit gateway's attachment hours, an
+organization's WAF and security services, downloads by people, savings plans)
+are not the declaration's error: put the ones that have a node type in a
+platform declaration of their own
 ([`docs/declaration.md`, What a declaration does not cover](../../docs/declaration.md#what-a-declaration-does-not-cover))
-and list the rest in the reconciliation. Measure what the declaration asks for
-from the cloud's metrics, not from the bill: a session count fitted to the
-bill reproduces it by construction and proves nothing.
+and leave the rest listed.
+
+Then go service by service, and inside a service by usage quantity (ACU-hours,
+GB-months, tokens), not by totals: totals hide errors that cancel out. Aim for
+a few percent per node and explain what remains (a bucket still growing, a
+price that changed, a key created mid-month). Measure what the declaration
+asks for from the cloud's metrics, not from the bill: a session count fitted
+to the bill reproduces it by construction and proves nothing.
 
 ## Sources
 

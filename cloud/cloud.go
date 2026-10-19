@@ -28,6 +28,11 @@ func Registry() scouter.Registry {
 	return reg
 }
 
+// BillingNames maps the service codes the books sync from to the names the
+// bill carries, for `reconcile`. Only AWS has one so far; a provider without
+// it has its lines listed as having no billing service.
+func BillingNames() map[string][]string { return aws.BillingNames() }
+
 // Books merges every provider's books; an id defined twice is an error.
 func Books() (book.Books, error) {
 	a, err := aws.Books()

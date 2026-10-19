@@ -1,0 +1,70 @@
+package aws
+
+// BillingNames maps each Price List offer code the books sync from to the
+// names the same service carries in the bill: the SERVICE dimension of Cost
+// Explorer and the product name in the Cost and Usage Report. A name with *
+// matches any text in its place; Bedrock bills each model as its own service
+// ("Claude Haiku 4.5 (Amazon Bedrock Edition)"). A code missing here shows up
+// in `reconcile` as a line without a billing service, which is the signal to
+// add it.
+func BillingNames() map[string][]string {
+	return map[string][]string{
+		"AWSBackup":                     {"AWS Backup"},
+		"AWSCertificateManager":         {"AWS Certificate Manager"},
+		"AWSCloudFormation":             {"AWS CloudFormation"},
+		"AWSCloudTrail":                 {"AWS CloudTrail"},
+		"AWSConfig":                     {"AWS Config"},
+		"AWSDataTransfer":               {"AWS Data Transfer"},
+		"AWSDatabaseMigrationSvc":       {"AWS Database Migration Service"},
+		"AWSDirectConnect":              {"AWS Direct Connect"},
+		"AWSDirectoryService":           {"AWS Directory Service"},
+		"AWSELB":                        {"Elastic Load Balancing"},
+		"AWSEvents":                     {"CloudWatch Events", "Amazon EventBridge"},
+		"AWSGlobalAccelerator":          {"AWS Global Accelerator"},
+		"AWSGlue":                       {"AWS Glue"},
+		"AWSLambda":                     {"AWS Lambda"},
+		"AWSNetworkFirewall":            {"AWS Network Firewall"},
+		"AWSQueueService":               {"Amazon Simple Queue Service"},
+		"AWSSecretsManager":             {"AWS Secrets Manager"},
+		"AWSSystemsManager":             {"AWS Systems Manager"},
+		"AWSTransfer":                   {"AWS Transfer Family"},
+		"AmazonApiGateway":              {"Amazon API Gateway"},
+		"AmazonBedrock":                 {"Amazon Bedrock"},
+		"AmazonBedrockAgentCore":        {"Amazon Bedrock AgentCore"},
+		"AmazonBedrockFoundationModels": {"* (Amazon Bedrock Edition)"},
+		"AmazonCloudFront":              {"Amazon CloudFront"},
+		"AmazonCloudWatch":              {"AmazonCloudWatch"},
+		"AmazonCognito":                 {"Amazon Cognito"},
+		"AmazonDocDB":                   {"Amazon DocumentDB (with MongoDB compatibility)"},
+		"AmazonDynamoDB":                {"Amazon DynamoDB"},
+		"AmazonEC2":                     {"Amazon Elastic Compute Cloud - Compute", "EC2 - Other"},
+		"AmazonECR":                     {"Amazon EC2 Container Registry (ECR)"},
+		"AmazonECS":                     {"Amazon Elastic Container Service"},
+		"AmazonEFS":                     {"Amazon Elastic File System"},
+		"AmazonEKS":                     {"Amazon Elastic Container Service for Kubernetes"},
+		"AmazonES":                      {"Amazon OpenSearch Service"},
+		"AmazonElastiCache":             {"Amazon ElastiCache"},
+		"AmazonFSx":                     {"Amazon FSx"},
+		"AmazonGrafana":                 {"Amazon Managed Grafana"},
+		"AmazonKinesis":                 {"Amazon Kinesis"},
+		"AmazonKinesisAnalytics":        {"Amazon Managed Service for Apache Flink", "Amazon Kinesis Analytics"},
+		"AmazonKinesisFirehose":         {"Amazon Data Firehose", "Amazon Kinesis Firehose"},
+		"AmazonLightsail":               {"Amazon Lightsail"},
+		"AmazonMQ":                      {"Amazon MQ"},
+		"AmazonMSK":                     {"Amazon Managed Streaming for Apache Kafka"},
+		"AmazonMWAA":                    {"Amazon Managed Workflows for Apache Airflow"},
+		"AmazonNeptune":                 {"Amazon Neptune"},
+		"AmazonRDS":                     {"Amazon Relational Database Service"},
+		"AmazonRedshift":                {"Amazon Redshift"},
+		"AmazonRoute53":                 {"Amazon Route 53"},
+		"AmazonS3":                      {"Amazon Simple Storage Service"},
+		"AmazonS3GlacierDeepArchive":    {"Amazon Glacier", "Amazon S3 Glacier Deep Archive"},
+		"AmazonSNS":                     {"Amazon Simple Notification Service"},
+		"AmazonStates":                  {"AWS Step Functions"},
+		"AmazonVPC":                     {"Amazon Virtual Private Cloud"},
+		"CloudHSM":                      {"AWS CloudHSM"},
+		"CodeBuild":                     {"CodeBuild"},
+		"awskms":                        {"AWS Key Management Service"},
+		"awswaf":                        {"AWS WAF"},
+	}
+}

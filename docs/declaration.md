@@ -108,6 +108,26 @@ number next to the bill with this list in hand:
 such a platform declaration. Keep it apart from the workload's so that one
 number follows the code and the other follows the platform.
 
+## Reconciling with the bill
+
+```sh
+aws ce get-cost-and-usage --time-period Start=2026-09-01,End=2026-10-01 --granularity MONTHLY \
+  --metrics UnblendedCost --group-by Type=DIMENSION,Key=SERVICE > costs.json
+archgopher reconcile app.scouter.yaml --bill costs.json
+```
+
+`reconcile` places every cost line of the reading under the billing service
+its price came from (the Price List service the book syncs from, mapped to
+the name the bill uses), matches the bill's lines to the same services, and
+writes three things: the bill split into what the declaration has nodes for,
+what nothing in it stands for, and tax; the services side by side with the
+difference per service; and the billed services no node stands for, which are
+the platform's, another declaration's or people's, not the declaration's
+error. Lines whose price names no billing service are listed so the mapping
+can grow. A difference per service is what to chase: totals that agree can
+hide errors that cancel out. Bedrock bills each model as its own service,
+and those lines are matched to the model nodes.
+
 ## Filling the gaps
 
 Terraform says what exists and what may call what, not how much is called or
