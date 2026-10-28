@@ -3,14 +3,15 @@ package aws
 import "github.com/O6lvl4/archgopher/review"
 
 const (
-	lens         = "https://docs.aws.amazon.com/wellarchitected/latest/serverless-applications-lens/welcome.html"
-	reliability  = "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html"
-	operational  = "https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/welcome.html"
-	security     = "https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/welcome.html"
-	cost         = "https://docs.aws.amazon.com/wellarchitected/latest/cost-optimization-pillar/welcome.html"
-	sqsLambda    = "https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html"
-	sqsDLQ       = "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html"
-	foundational = "https://docs.aws.amazon.com/securityhub/latest/userguide/fsbp-standard.html"
+	lens          = "https://docs.aws.amazon.com/wellarchitected/latest/serverless-applications-lens/welcome.html"
+	reliability   = "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html"
+	operational   = "https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/welcome.html"
+	security      = "https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/welcome.html"
+	cost          = "https://docs.aws.amazon.com/wellarchitected/latest/cost-optimization-pillar/welcome.html"
+	sqsLambda     = "https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html"
+	sqsDLQ        = "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html"
+	foundational  = "https://docs.aws.amazon.com/securityhub/latest/userguide/fsbp-standard.html"
+	priorityQueue = "https://learn.microsoft.com/en-us/azure/architecture/patterns/priority-queue"
 )
 
 func atLeast(n float64) *float64 { return &n }
@@ -33,10 +34,10 @@ func ReviewRules() []review.Rule {
 	return []review.Rule{
 		// Event-driven shape.
 		{
-			ID: "aws.lambda.one-queue-per-consumer", Pillar: "Serverless Lens / operational excellence", Source: lens,
+			ID: "aws.lambda.one-queue-per-consumer", Pillar: "performance efficiency (Priority Queue pattern)", Source: priorityQueue,
 			Title: "one Lambda function consumes several SQS queues",
-			Hint: "One consumer, one queue: tell kinds of work apart by a message attribute. Separate queues earn their place when the consumers differ " +
-				"(timeout, permissions, maximum concurrency, retention), and then each queue usually has its own function. If priority is the reason, write down why one queue cannot do.",
+			Hint: "Several queues into one function is the Priority Queue pattern only when the priorities are a requirement and each queue keeps its own consumer capacity " +
+				"(a maximum concurrency per event source): name the pattern and the requirement. Otherwise use one queue and tell kinds of work apart by a message attribute.",
 			FanIn: &review.FanIn{Node: "aws_lambda_function", From: "aws_sqs_queue", Max: 1},
 		},
 		{
