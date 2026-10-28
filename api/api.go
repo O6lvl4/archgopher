@@ -21,6 +21,7 @@ import (
 	"github.com/O6lvl4/archgopher/model"
 	"github.com/O6lvl4/archgopher/pattern"
 	"github.com/O6lvl4/archgopher/report"
+	"github.com/O6lvl4/archgopher/review"
 	"github.com/O6lvl4/archgopher/scouter"
 	"github.com/O6lvl4/archgopher/terraform/eval"
 	"github.com/O6lvl4/archgopher/terraform/infer"
@@ -104,6 +105,16 @@ func Export(spec model.Spec, format string) ([]byte, error) {
 type ExportRequest struct {
 	Format string     `json:"format"`
 	Spec   model.Spec `json:"spec"`
+}
+
+// Review reads the shape of the declaration, patterns expanded, against the
+// practices the providers know, and lists where it departs from them.
+func Review(spec model.Spec) ([]review.Finding, error) {
+	expanded, _, err := pattern.Expand(spec, cloud.Patterns())
+	if err != nil {
+		return nil, err
+	}
+	return review.Find(expanded, cloud.ReviewRules()), nil
 }
 
 // Gaps lists what the declaration does not know yet: entries without load,

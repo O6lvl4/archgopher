@@ -21,6 +21,7 @@ const usage = `archgopher reads an architecture on cost, headroom, latency and a
 Usage:
   archgopher scout <spec.yaml> [--json]     Read a declaration
   archgopher gaps <spec.yaml> [--json]      List what the declaration does not know yet
+  archgopher review <spec.yaml|dir> [flags] List where the shape departs from known practices
   archgopher reconcile <spec.yaml> --bill <costs.json> [--json]
                                               Put the reading next to the bill, service by service
   archgopher tf <dir> [flags]               Build a declaration from Terraform
@@ -55,6 +56,8 @@ func run(args []string, out io.Writer) error {
 		return cmdScout(args[1:], out)
 	case "gaps":
 		return cmdGaps(args[1:], out)
+	case "review":
+		return cmdReview(args[1:], out)
 	case "reconcile":
 		return cmdReconcile(args[1:], out)
 	case "diff":
@@ -143,7 +146,7 @@ func cmdCatalog(out io.Writer) error {
 // reorder moves flags before positional arguments so "scout file --json" works.
 // Every flag takes a value except the boolean ones listed here.
 func reorder(args []string) []string {
-	boolean := map[string]bool{"json": true, "check": true, "h": true, "help": true}
+	boolean := map[string]bool{"json": true, "check": true, "fail": true, "h": true, "help": true}
 	var flags, rest []string
 	for i := 0; i < len(args); i++ {
 		a := args[i]

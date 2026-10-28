@@ -34,6 +34,7 @@ facet ── scouter                    L2 reusable readings; how one type is re
 | L2 | [`facet`](../facet) | Reusable readings with their own assumption structs: requests in size chunks, GB-seconds, storage, provisioned capacity, Little's law concurrency, logs, tokens |
 | Scouter | [`scouter`](../scouter) | How one resource type is read: catalog entry, fields, and a function built from facets |
 | Engine | [`engine`](../engine) | Validation, load propagation in topological order, path composition. No provider knowledge |
+| Review | [`review`](../review) | Where a declaration's shape departs from the practices providers supply (one function fed by several queues). No provider knowledge |
 | Gaps | [`gaps`](../gaps) | What a declaration does not know yet, found from the readings and the scouters' fields. No provider knowledge |
 | Diagram | [`diagram`](../diagram), [`icons`](../icons) | The declaration drawn: attached nodes folded under their owners, a layered layout with groups placed as blocks, the cloud and region as frames, and the providers' icons embedded once for the CLI and the web UI |
 | L3 | [`pattern`](../pattern) | Reusable architectures that expand into nodes and edges, then roll up |

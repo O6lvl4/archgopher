@@ -19,6 +19,7 @@ go install github.com/O6lvl4/archgopher/cmd/archgopher@latest
 
 archgopher tf ./infra -o app.scouter.yaml   # Terraform から宣言を作る（init・認証は不要）
 archgopher gaps app.scouter.yaml            # Terraform から分からないものを並べ、埋める
+archgopher review ./infra                   # 形が定石（Well-Architected）から外れた箇所を出す
 archgopher scout app.scouter.yaml           # 読む（--json で機械可読）
 archgopher export app.scouter.yaml -o app.png # 描く（拡張子で .svg / .png / .html）
 ```

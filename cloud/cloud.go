@@ -13,6 +13,7 @@ import (
 	"github.com/O6lvl4/archgopher/provider/cloudflare"
 	"github.com/O6lvl4/archgopher/provider/conoha"
 	"github.com/O6lvl4/archgopher/provider/gcp"
+	"github.com/O6lvl4/archgopher/review"
 	"github.com/O6lvl4/archgopher/scouter"
 	"github.com/O6lvl4/archgopher/terraform/infer"
 )
@@ -62,6 +63,9 @@ func Books() (book.Books, error) {
 func TerraformRules() infer.Rules {
 	return infer.Combine(aws.TerraformRules(), azure.TerraformRules(), gcp.TerraformRules(), cloudflare.TerraformRules(), conoha.TerraformRules())
 }
+
+// ReviewRules are every provider's practices for `review`. Only AWS has any so far.
+func ReviewRules() []review.Rule { return aws.ReviewRules() }
 
 // Patterns are the L3 patterns.
 func Patterns() pattern.Registry { return awspattern.Registry() }

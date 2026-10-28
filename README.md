@@ -23,6 +23,7 @@ go install github.com/O6lvl4/archgopher/cmd/archgopher@latest
 
 archgopher tf ./infra -o app.scouter.yaml   # Terraform → declaration (no init, no credentials)
 archgopher gaps app.scouter.yaml            # what Terraform cannot know; fill it in
+archgopher review ./infra                   # where the shape departs from known practices
 archgopher scout app.scouter.yaml           # read it (--json for machines)
 archgopher reconcile app.scouter.yaml --bill costs.json  # put the reading next to the bill, service by service
 archgopher export app.scouter.yaml -o app.png # draw it: .svg, .png or .html by extension
