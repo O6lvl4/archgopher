@@ -107,14 +107,57 @@ type ExportRequest struct {
 	Spec   model.Spec `json:"spec"`
 }
 
-// Review reads the shape of the declaration, patterns expanded, against the
-// practices the providers know, and lists where it departs from them.
-func Review(spec model.Spec) ([]review.Finding, error) {
+// Review reads the declaration against the practices the providers know and
+// lists where it departs from them. The graph rules read the declaration with
+// its patterns expanded; ev, the Terraform it came from when there is one,
+// lets the rules read settings and the resources beside each other too.
+func Review(spec model.Spec, ev *eval.Evaluated) ([]review.Finding, error) {
 	expanded, _, err := pattern.Expand(spec, cloud.Patterns())
 	if err != nil {
 		return nil, err
 	}
-	return review.Find(expanded, cloud.ReviewRules()), nil
+	in := review.Input{Spec: expanded}
+	if ev != nil {
+		in.Resources = reviewResources(ev)
+	}
+	return review.Find(in, cloud.ReviewRules()), nil
+}
+
+// reviewResources are the managed resources as review reads them. An
+// attribute written in the block but neither known nor a reference is
+// unknown before apply, and no rule judges it.
+func reviewResources(ev *eval.Evaluated) []review.Resource {
+	var out []review.Resource
+	for _, r := range ev.Resources {
+		if r.Mode == "data" {
+			continue
+		}
+		var unknown []string
+		if r.Body != nil {
+			for name := range r.Body.Attributes {
+				if _, ok := r.Attrs[name]; ok || hasRefsUnder(r.Refs, name) {
+					continue
+				}
+				unknown = append(unknown, name)
+			}
+		}
+		sort.Strings(unknown)
+		var variants []map[string]any
+		for _, v := range r.Variants {
+			variants = append(variants, v.Attrs)
+		}
+		out = append(out, review.Resource{Address: r.Address, Type: r.Type, Attrs: r.Attrs, Refs: r.Refs, Instances: r.Instances, Unknown: unknown, Variants: variants})
+	}
+	return out
+}
+
+func hasRefsUnder(refs map[string][]string, name string) bool {
+	for p := range refs {
+		if p == name || strings.HasPrefix(p, name+".") {
+			return true
+		}
+	}
+	return false
 }
 
 // Gaps lists what the declaration does not know yet: entries without load,
