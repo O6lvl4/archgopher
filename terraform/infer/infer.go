@@ -171,7 +171,7 @@ const UsersID = "users"
 
 // Build turns evaluated resources into a declaration.
 func Build(ev *eval.Evaluated, rules Rules, name string) (model.Spec, []string) {
-	b := &builder{ev: ev, rules: rules, byAddr: map[string]*eval.Resource{}, ids: map[string]string{}, stubIDs: map[string]string{}, warnings: append([]string(nil), ev.Warnings...)}
+	b := &builder{ev: ev, rules: rules, byAddr: map[string]*eval.Resource{}, ids: map[string]string{}, stubIDs: map[string]string{}, declared: map[[2]string]bool{}, warnings: append([]string(nil), ev.Warnings...)}
 	for _, r := range ev.Resources {
 		b.byAddr[r.Address] = r
 	}
@@ -233,6 +233,9 @@ type builder struct {
 	stubEdges []edgeKey
 	used      map[string]bool
 	warnings  []string
+	// declared are the pairs a link resource joins (an event source
+	// mapping): calls Terraform states, not ones read from references or IAM.
+	declared map[[2]string]bool
 }
 
 func (b *builder) mentioned(addr string) bool {

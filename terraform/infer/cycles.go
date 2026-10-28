@@ -39,18 +39,37 @@ func (b *builder) frontDoors(nodes []model.Node, edges []edgeKey) ([]model.Node,
 }
 
 // breakCycles drops edges that close a cycle (a callback URL, mutual references)
-// and reports them; the engine refuses cyclic graphs.
+// and reports them; the engine refuses cyclic graphs. Declared edges are
+// placed first, so a cycle is broken on an inferred edge: a queue's event
+// source mapping stays, and the consumer's permission back to the queue goes.
 func (b *builder) breakCycles(nodes []model.Node, edges []edgeKey) []model.Edge {
 	adj := map[string][]string{}
-	var out []model.Edge
-	for _, e := range edges {
+	keep := make([]bool, len(edges))
+	place := func(i int) {
+		e := edges[i]
 		from, to := b.nodeID(e.from), b.nodeID(e.to)
 		if reaches(adj, to, from) {
 			b.warnings = append(b.warnings, fmt.Sprintf("dropped edge %s -> %s: it closes a cycle", from, to))
-			continue
+			return
 		}
 		adj[from] = append(adj[from], to)
-		out = append(out, model.Edge{From: from, To: to, Kind: e.kind})
+		keep[i] = true
+	}
+	for i, e := range edges {
+		if b.declared[[2]string{e.from, e.to}] {
+			place(i)
+		}
+	}
+	for i, e := range edges {
+		if !b.declared[[2]string{e.from, e.to}] {
+			place(i)
+		}
+	}
+	var out []model.Edge
+	for i, e := range edges {
+		if keep[i] {
+			out = append(out, model.Edge{From: b.nodeID(e.from), To: b.nodeID(e.to), Kind: e.kind})
+		}
 	}
 	return oneEdgePerPair(out)
 }

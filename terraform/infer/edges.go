@@ -15,6 +15,9 @@ type edgeSet struct {
 	b    *builder
 	out  []edgeKey
 	seen map[edgeKey]bool
+	// declaring is set while links are read: their edges are declared in
+	// Terraform, not inferred, and win when a cycle has to be broken.
+	declaring bool
 }
 
 func (s *edgeSet) add(from, to, kind string) {
@@ -22,6 +25,9 @@ func (s *edgeSet) add(from, to, kind string) {
 		return
 	}
 	k := edgeKey{from, to, kind}
+	if s.declaring {
+		s.b.declared[[2]string{from, to}] = true
+	}
 	if !s.seen[k] {
 		s.seen[k] = true
 		s.out = append(s.out, k)
@@ -54,6 +60,7 @@ func (b *builder) edges() []edgeKey {
 	for _, e := range b.stubEdges {
 		s.add(e.from, e.to, e.kind)
 	}
+	s.declaring = true
 	for _, l := range b.rules.Links {
 		for _, r := range b.ev.Resources {
 			if r.Type == l.Type {
