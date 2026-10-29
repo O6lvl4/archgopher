@@ -60,11 +60,23 @@ type Terraform struct {
 	Aliases map[string]string `yaml:"aliases"`
 	// Forward names the attribute pointing at a node that every call to this
 	// one also reaches (a Cosmos DB container is called through its account).
-	Forward          string            `yaml:"forward"`
+	Forward string `yaml:"forward"`
+	// Carries says this resource holds another's connection details.
+	Carries          *Carries          `yaml:"carries"`
 	FrontDoorAliases map[string]string `yaml:"frontDoorAliases"`
 	// Schedule names the attribute holding a schedule expression.
 	Schedule   string   `yaml:"schedule"`
 	IgnoreRefs []string `yaml:"ignoreRefs"`
+}
+
+// Carries is where a carrier holds what it carries: at Path on itself, or on
+// the resources of type Via that point at it through Owner. Only resources of
+// the Types are carried.
+type Carries struct {
+	Path  string   `yaml:"path"`
+	Via   string   `yaml:"via"`
+	Owner string   `yaml:"owner"`
+	Types []string `yaml:"types"`
 }
 
 // Link is a helper resource that connects two nodes.

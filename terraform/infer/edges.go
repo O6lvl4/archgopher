@@ -1,6 +1,7 @@
 package infer
 
 import (
+	"slices"
 	"sort"
 	"strings"
 
@@ -60,6 +61,7 @@ func (b *builder) edges() []edgeKey {
 	for _, e := range b.stubEdges {
 		s.add(e.from, e.to, e.kind)
 	}
+	b.carried(s)
 	s.declaring = true
 	for _, l := range b.rules.Links {
 		for _, r := range b.ev.Resources {
@@ -72,17 +74,63 @@ func (b *builder) edges() []edgeKey {
 }
 
 // refEdges adds a call from node r to every node its attributes reference,
-// except through the paths the rules ignore.
+// except through the paths the rules ignore and the one a carrier holds what
+// it carries at.
 func (b *builder) refEdges(s *edgeSet, r *eval.Resource) {
 	from := []string{r.Address}
+	c, carrier := b.rules.Carriers[r.Type]
 	for _, path := range sortedPaths(r.Refs) {
-		if b.ignored(path) {
+		if b.ignored(path) || (carrier && c.Via == "" && (path == c.Path || strings.HasPrefix(path, c.Path+"."))) {
 			continue
 		}
 		for _, ref := range r.Refs[path] {
 			s.addAll(from, b.targets(ref))
 		}
 	}
+}
+
+// carried adds, for every call found so far to a carrier, a call from the
+// same caller to each node the carrier carries.
+func (b *builder) carried(s *edgeSet) {
+	if len(b.rules.Carriers) == 0 {
+		return
+	}
+	payload := map[string][]string{}
+	for _, r := range b.ev.Resources {
+		if c, ok := b.rules.Carriers[r.Type]; ok && b.isNode(r.Address) {
+			if c.Via == "" {
+				payload[r.Address] = b.carriedAt(r, c)
+			}
+		}
+	}
+	for _, r := range b.ev.Resources {
+		for t, c := range b.rules.Carriers {
+			if c.Via != r.Type {
+				continue
+			}
+			for _, owner := range b.targetsAt(r, c.Owner) {
+				if o, ok := b.byAddr[owner]; ok && o.Type == t {
+					payload[owner] = append(payload[owner], b.carriedAt(r, c)...)
+				}
+			}
+		}
+	}
+	for _, e := range append([]edgeKey(nil), s.out...) {
+		for _, to := range payload[e.to] {
+			s.add(e.from, to, "")
+		}
+	}
+}
+
+// carriedAt are the nodes of the carried types that r references at c.Path.
+func (b *builder) carriedAt(r *eval.Resource, c Carrier) []string {
+	var out []string
+	for _, t := range b.targetsAt(r, c.Path) {
+		if x, ok := b.byAddr[t]; ok && slices.Contains(c.Types, x.Type) {
+			out = append(out, t)
+		}
+	}
+	return out
 }
 
 // linkEdges adds the calls one link resource makes.

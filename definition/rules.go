@@ -39,6 +39,9 @@ func (r *Resource) Rules() infer.Rules {
 	if t.Forward != "" {
 		rules.Forward[f.Type] = t.Forward
 	}
+	if t.Carries != nil {
+		rules.Carriers = map[string]infer.Carrier{f.Type: {Path: t.Carries.Path, Via: t.Carries.Via, Owner: t.Carries.Owner, Types: t.Carries.Types}}
+	}
 	if t.Schedule != "" {
 		rules.Schedules[f.Type] = t.Schedule
 	}

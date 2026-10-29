@@ -28,6 +28,10 @@ type Rules struct {
 	// call to it also reaches: a Cosmos DB container is called through its
 	// account, which bills the request units.
 	Forward map[string]string
+	// Carriers hold another node's connection details (a parameter or a
+	// secret holding a database endpoint): whoever reads one also reaches the
+	// node it carries, and the carrier's own reference to it is not a call.
+	Carriers map[string]Carrier
 	// Mentioned types are outermost front doors: nothing inside the system calls
 	// them, so references to them (callback URLs, links in emails, CORS origins)
 	// are mentions, not edges.
@@ -87,6 +91,17 @@ const Self = "self"
 // could not, and becomes a warning.
 type Reader func(g *Graph, r *eval.Resource) (map[string]any, error)
 
+// Carrier says where a carrier holds the reference to what it carries: at
+// Path on itself, or, when Via is set, at Path on resources of type Via that
+// point at the carrier through Owner (a secret's versions). Only nodes of
+// the Types are carried.
+type Carrier struct {
+	Path  string
+	Via   string
+	Owner string
+	Types []string
+}
+
 // Hint is an edge an EdgeSource proposes. Kind "" means the target's default.
 type Hint struct {
 	From, To, Kind string
@@ -117,7 +132,7 @@ func (g *Graph) Targets(ref string) []string { return g.b.targets(ref) }
 // non-nil function wins.
 func Combine(parts ...Rules) Rules {
 	out := Rules{
-		NodeTypes: map[string]bool{}, Aliases: map[string]string{}, Forward: map[string]string{}, Mentioned: map[string]bool{}, Passive: map[string]bool{},
+		NodeTypes: map[string]bool{}, Aliases: map[string]string{}, Forward: map[string]string{}, Carriers: map[string]Carrier{}, Mentioned: map[string]bool{}, Passive: map[string]bool{},
 		FrontDoors: map[string]bool{}, FrontDoorAliases: map[string]string{}, Schedules: map[string]string{}, Readers: map[string]Reader{},
 		Scouters: scouter.Registry{}, Boundaries: map[string]string{}, Free: map[string]bool{},
 	}
@@ -125,6 +140,7 @@ func Combine(parts ...Rules) Rules {
 		copyMap(out.NodeTypes, p.NodeTypes)
 		copyMap(out.Aliases, p.Aliases)
 		copyMap(out.Forward, p.Forward)
+		copyMap(out.Carriers, p.Carriers)
 		copyMap(out.Mentioned, p.Mentioned)
 		copyMap(out.Passive, p.Passive)
 		copyMap(out.FrontDoors, p.FrontDoors)

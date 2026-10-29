@@ -50,7 +50,14 @@ func (ev *evaluator) collectResource(in *instance, rb *config.ResourceBlock, out
 	if in.copies != UnknownInstances {
 		r.Variants = ev.variants(rb, in, r.Address)
 	}
-	ev.bodyRefs(rb.Body, in, "", r.Refs)
+	var each *iterator
+	if rb.ForEach != nil {
+		// each.value.x follows into the for_each collection, so a module that
+		// makes its resources from a map of objects still references what
+		// the caller put in the map.
+		each = &iterator{name: "each", forEach: rb.ForEach, elem: Every}
+	}
+	ev.bodyRefs(rb.Body, in, "", r.Refs, each)
 	r.Body, r.Scope = rb.Body, &Scope{ev: ev, in: in, extra: extra}
 	out.Resources = append(out.Resources, r)
 }
@@ -171,13 +178,18 @@ func withIterator(extra map[string]cty.Value, blk *hclsyntax.Block) map[string]c
 }
 
 // bodyRefs records, by attribute path, the resources each attribute of a
-// block and its nested blocks references.
-func (ev *evaluator) bodyRefs(b *hclsyntax.Body, in *instance, prefix string, out map[string][]string) {
+// block and its nested blocks references. each, when set, is the iterator of
+// the resource's for_each.
+func (ev *evaluator) bodyRefs(b *hclsyntax.Body, in *instance, prefix string, out map[string][]string, each *iterator) {
 	for name, a := range b.Attributes {
 		if metaArgs[name] {
 			continue
 		}
-		addRefs(out, prefix+name, ev.refs(a.Expr, in))
+		if each != nil {
+			addRefs(out, prefix+name, ev.iterRefs(a.Expr, in, *each))
+		} else {
+			addRefs(out, prefix+name, ev.refs(a.Expr, in))
+		}
 	}
 	for _, blk := range b.Blocks {
 		switch {
@@ -185,7 +197,7 @@ func (ev *evaluator) bodyRefs(b *hclsyntax.Body, in *instance, prefix string, ou
 		case blk.Type == "dynamic" && len(blk.Labels) == 1:
 			ev.dynamicRefs(blk, in, prefix, out)
 		default:
-			ev.bodyRefs(blk.Body, in, prefix+blk.Type+".", out)
+			ev.bodyRefs(blk.Body, in, prefix+blk.Type+".", out, each)
 		}
 	}
 }
