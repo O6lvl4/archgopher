@@ -110,6 +110,9 @@ func Read(spec model.Spec, res engine.Result, minutes float64, c Config, scenari
 			}
 		}
 		if len(q.Consumers) == 0 {
+			if q.Arrival == 0 && !fed(spec, n.ID) {
+				continue // outside the flow: a dead-letter queue, kept for people
+			}
 			q.Unknown = "nothing consumes it"
 			known = false
 		}
@@ -148,6 +151,15 @@ func Read(spec model.Spec, res engine.Result, minutes float64, c Config, scenari
 		}
 	}
 	return out
+}
+
+func fed(spec model.Spec, id string) bool {
+	for _, e := range spec.Edges {
+		if e.To == id {
+			return true
+		}
+	}
+	return false
 }
 
 func capOf(n model.Node, c Consumer) int {

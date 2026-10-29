@@ -74,3 +74,26 @@ func TestEventSourceCapIsRead(t *testing.T) {
 		t.Errorf("found %d of the 2 functions", seen)
 	}
 }
+
+// TestFlowLeavesOutQueuesOutsideTheFlow: a queue nothing sends to and nothing
+// reads (a dead-letter queue) is not read as a queue without consumers.
+func TestFlowLeavesOutQueuesOutsideTheFlow(t *testing.T) {
+	data, err := os.ReadFile(filepath.Join("testdata", "flow.yaml"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	spec, err := model.ParseSpec(data)
+	if err != nil {
+		t.Fatal(err)
+	}
+	spec.Nodes = append(spec.Nodes, model.Node{ID: "dead", Type: "aws_sqs_queue"})
+	rs, err := Flow(spec)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, q := range rs[0].Queues {
+		if q.Node == "dead" {
+			t.Errorf("dead-letter queue read: %+v", q)
+		}
+	}
+}
