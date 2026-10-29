@@ -6,11 +6,21 @@ resource "aws_sqs_queue" "jobs" {
   name = "jobs"
 }
 
+resource "aws_sqs_queue" "failures" {
+  name = "failures"
+}
+
+resource "aws_kinesis_stream" "events" {
+  name        = "events"
+  shard_count = 1
+}
+
 module "worker" {
   source = "./modules/fn"
   name   = "worker"
   event_source_mapping = {
-    jobs = { event_source_arn = aws_sqs_queue.jobs.arn, batch_size = 5 }
+    jobs   = { event_source_arn = aws_sqs_queue.jobs.arn, batch_size = 5 }
+    events = { event_source_arn = aws_kinesis_stream.events.arn, destination_arn_on_failure = aws_sqs_queue.failures.arn }
   }
 }
 

@@ -26,6 +26,12 @@ func TestLinksThroughModulesAndCarriers(t *testing.T) {
 			t.Errorf("no edge %s -> %s; edges %v", want[0], want[1], spec.Edges)
 		}
 	}
+	if !has[[2]string{"events", "worker"}] {
+		t.Errorf("no edge events -> worker; edges %v", spec.Edges)
+	}
+	if has[[2]string{"failures", "worker"}] {
+		t.Error("a failure destination is not an event source")
+	}
 	if has[[2]string{"db_host", "db"}] {
 		t.Error("a parameter holding an endpoint does not call the database")
 	}

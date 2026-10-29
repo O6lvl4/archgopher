@@ -20,8 +20,17 @@ resource "aws_lambda_function" "this" {
 }
 
 resource "aws_lambda_event_source_mapping" "this" {
-  for_each         = var.event_source_mapping
+  for_each         = { for k, v in var.event_source_mapping : k => v if var.name != "" }
   event_source_arn = try(each.value.event_source_arn, null)
   function_name    = aws_lambda_function.this.arn
   batch_size       = try(each.value.batch_size, null)
+
+  dynamic "destination_config" {
+    for_each = try(each.value.destination_arn_on_failure, null) != null ? [true] : []
+    content {
+      on_failure {
+        destination_arn = each.value.destination_arn_on_failure
+      }
+    }
+  }
 }

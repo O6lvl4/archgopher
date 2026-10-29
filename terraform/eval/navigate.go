@@ -28,7 +28,23 @@ func (ev *evaluator) navigate(expr hcl.Expression, in *instance, path []PathStep
 		if i := path[0].Index; i >= 0 && i < len(e.Exprs) {
 			return ev.navigate(e.Exprs[i], in, path[1:])
 		}
+		if path[0] == Every {
+			var out []string
+			for _, x := range e.Exprs {
+				out = union(out, ev.navigate(x, in, path[1:]))
+			}
+			return out
+		}
 	case *hclsyntax.ObjectConsExpr:
+		// Every element of a map of objects: each value on its own, so one
+		// element's other attributes do not leak into the path asked for.
+		if path[0] == Every {
+			var out []string
+			for _, item := range e.Items {
+				out = union(out, ev.navigate(item.ValueExpr, in, path[1:]))
+			}
+			return out
+		}
 		if path[0].Index == -1 {
 			for _, item := range e.Items {
 				if keyName(item.KeyExpr) == path[0].Attr {
@@ -40,6 +56,14 @@ func (ev *evaluator) navigate(expr hcl.Expression, in *instance, path []PathStep
 	case *hclsyntax.ScopeTraversalExpr:
 		if target, tin, rest, ok := ev.definition(e.Traversal, in); ok {
 			return ev.navigate(target, tin, append(rest, path...))
+		}
+	case *hclsyntax.ForExpr:
+		// { for k, v in X : k => v if ... } keeps X's elements as they are:
+		// its every element is X's every element.
+		if path[0] == Every {
+			if v, ok := e.ValExpr.(*hclsyntax.ScopeTraversalExpr); ok && len(v.Traversal) == 1 && v.Traversal.RootName() == e.ValVar {
+				return ev.navigate(e.CollExpr, in, path)
+			}
 		}
 	}
 	return ev.refs(expr, in)
