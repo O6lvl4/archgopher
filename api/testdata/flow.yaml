@@ -1,0 +1,24 @@
+name: flow
+region: us-east-1
+nodes:
+  - id: producer
+    type: entry
+    load: { monthly: 30000, peakPerSecond: 0.05 }
+  - id: jobs
+    type: aws_sqs_queue
+  - id: worker
+    type: aws_lambda_function
+    attributes: { event_source_max_concurrency: 5 }
+    assumptions: { durationMs: 60000 }
+  - id: db
+    type: aws_rds_cluster
+    attributes: { engine: aurora-postgresql }
+    assumptions: { storageGb: 10 }
+edges:
+  - { from: producer, to: jobs }
+  - { from: jobs, to: worker }
+  - { from: worker, to: db }
+scenarios:
+  - name: burst
+    minutes: 60
+    load: { producer: { monthly: 30000, peakPerSecond: 1 } }

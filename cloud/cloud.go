@@ -5,6 +5,7 @@ package cloud
 
 import (
 	"github.com/O6lvl4/archgopher/book"
+	"github.com/O6lvl4/archgopher/flow"
 	"github.com/O6lvl4/archgopher/model"
 	"github.com/O6lvl4/archgopher/pattern"
 	"github.com/O6lvl4/archgopher/provider/aws"
@@ -63,6 +64,9 @@ func Books() (book.Books, error) {
 func TerraformRules() infer.Rules {
 	return infer.Combine(aws.TerraformRules(), azure.TerraformRules(), gcp.TerraformRules(), cloudflare.TerraformRules(), conoha.TerraformRules())
 }
+
+// FlowConfig is what flow reads as queues, consumers and stores. Only AWS has any so far.
+func FlowConfig() flow.Config { return aws.FlowConfig() }
 
 // ReviewRules are every provider's practices for `review`. Only AWS has any so far.
 func ReviewRules() []review.Rule { return aws.ReviewRules() }

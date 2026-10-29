@@ -41,6 +41,8 @@ var allowed = map[string][]string{
 	"reconcile": {"book", "engine", "meter"},
 	// Review reads a declaration's shape against practices providers supply.
 	"review": {"model"},
+	// Flow reads queues and stores from a reading; providers say which types are which.
+	"flow": {"engine", "model"},
 
 	// Terraform adapter: read, evaluate, infer, merge. No provider knowledge.
 	"terraform/config": {},
@@ -61,7 +63,7 @@ var allowed = map[string][]string{
 	"provider/aws/pricelist":     {},
 	"provider/aws/servicequotas": {},
 	"provider/aws/pattern":       {"model", "pattern", "scouter"},
-	"provider/aws":               {"book", "catalog", "definition", "review", "scouter", "terraform/eval", "terraform/infer", "provider/aws/asl", "provider/aws/iam", "provider/internal/embedded"},
+	"provider/aws":               {"book", "catalog", "definition", "flow", "review", "scouter", "terraform/eval", "terraform/infer", "provider/aws/asl", "provider/aws/iam", "provider/internal/embedded"},
 
 	// Azure provider: resources are data in catalog/azure.
 	"provider/azure/retailprices": {},
@@ -80,11 +82,11 @@ var allowed = map[string][]string{
 	"provider/conoha": {"book", "catalog", "definition", "scouter", "terraform/infer", "provider/internal/embedded"},
 
 	// The one place that lists the providers.
-	"cloud": {"book", "model", "pattern", "scouter", "terraform/infer", "provider/aws", "provider/aws/pattern", "provider/azure", "provider/cloudflare", "provider/conoha", "provider/gcp", "review"},
+	"cloud": {"book", "model", "pattern", "scouter", "terraform/infer", "provider/aws", "provider/aws/pattern", "provider/azure", "provider/cloudflare", "provider/conoha", "provider/gcp", "flow", "review"},
 
 	// Edges of the system.
-	"api":            {"book", "cloud", "diagram", "engine", "field", "gaps", "icons", "model", "pattern", "report", "review", "scouter", "terraform/eval", "terraform/infer", "terraform/merge"},
-	"cmd/archgopher": {"api", "book", "cloud", "engine", "gaps", "model", "reconcile", "report", "review", "provider/aws/pricelist", "provider/aws/servicequotas", "provider/azure/retailprices", "provider/gcp/billingcatalog", "provider/gcp/cloudquotas", "terraform/eval", "terraform/infer", "terraform/merge"},
+	"api":            {"book", "cloud", "diagram", "engine", "field", "flow", "gaps", "icons", "model", "pattern", "report", "review", "scouter", "terraform/eval", "terraform/infer", "terraform/merge"},
+	"cmd/archgopher": {"api", "book", "cloud", "engine", "flow", "gaps", "model", "reconcile", "report", "review", "provider/aws/pricelist", "provider/aws/servicequotas", "provider/azure/retailprices", "provider/gcp/billingcatalog", "provider/gcp/cloudquotas", "terraform/eval", "terraform/infer", "terraform/merge"},
 	"cmd/wasm":       {"api"},
 }
 

@@ -17,6 +17,7 @@ import (
 	"github.com/O6lvl4/archgopher/diagram"
 	"github.com/O6lvl4/archgopher/engine"
 	"github.com/O6lvl4/archgopher/field"
+	"github.com/O6lvl4/archgopher/flow"
 	"github.com/O6lvl4/archgopher/gaps"
 	"github.com/O6lvl4/archgopher/model"
 	"github.com/O6lvl4/archgopher/pattern"
@@ -105,6 +106,37 @@ func Export(spec model.Spec, format string) ([]byte, error) {
 type ExportRequest struct {
 	Format string     `json:"format"`
 	Spec   model.Spec `json:"spec"`
+}
+
+// Flow reads the queues and connection-limited stores of the declaration, as
+// it is and under each of its scenarios.
+func Flow(spec model.Spec) ([]flow.Result, error) {
+	run := func(s model.Spec, minutes float64, name string) (flow.Result, error) {
+		r, err := read(s)
+		if err != nil {
+			return flow.Result{}, err
+		}
+		return flow.Read(r.expanded, r.res, minutes, cloud.FlowConfig(), name), nil
+	}
+	base := spec
+	base.Scenarios = nil
+	first, err := run(base, 0, "as declared")
+	if err != nil {
+		return nil, err
+	}
+	out := []flow.Result{first}
+	for _, sc := range spec.Scenarios {
+		s, sc, err := spec.In(sc.Name)
+		if err != nil {
+			return nil, err
+		}
+		r, err := run(s, sc.Minutes, sc.Name)
+		if err != nil {
+			return nil, err
+		}
+		out = append(out, r)
+	}
+	return out, nil
 }
 
 // Review reads the declaration against the practices the providers know and

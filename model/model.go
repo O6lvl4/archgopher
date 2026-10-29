@@ -3,6 +3,8 @@
 // depends on nothing but YAML.
 package model
 
+import "fmt"
+
 // HoursPerMonth follows the AWS convention for monthly estimates.
 const HoursPerMonth = 730
 
@@ -123,6 +125,55 @@ type Spec struct {
 	// place of the published defaults (archgopher quotas reads them from
 	// Service Quotas).
 	Quotas map[string]AppliedQuota `yaml:"quotas,omitempty" json:"quotas,omitempty"`
+	// Scenarios are other situations the same architecture meets (a burst,
+	// a backfill): each replaces the load of some entries for a while.
+	Scenarios []Scenario `yaml:"scenarios,omitempty" json:"scenarios,omitempty"`
+}
+
+// Scenario is one situation: the entries' loads while it lasts, and how
+// long it lasts, which is what turns a rate above capacity into a backlog.
+type Scenario struct {
+	Name string `yaml:"name" json:"name"`
+	Note string `yaml:"note,omitempty" json:"note,omitempty"`
+	// Minutes is how long the scenario's peak lasts; 0 for a steady state.
+	Minutes float64 `yaml:"minutes,omitempty" json:"minutes,omitempty"`
+	// Load replaces the load of the entries it names, by node id.
+	Load map[string]Load `yaml:"load" json:"load"`
+}
+
+// In returns the spec under a scenario: the loads it names replaced, the
+// scenarios themselves dropped. An unknown name is an error.
+func (s Spec) In(name string) (Spec, Scenario, error) {
+	for _, sc := range s.Scenarios {
+		if sc.Name != name {
+			continue
+		}
+		out := s
+		out.Scenarios = nil
+		out.Nodes = append([]Node(nil), s.Nodes...)
+		for i, n := range out.Nodes {
+			if l, ok := sc.Load[n.ID]; ok {
+				l := l
+				out.Nodes[i].Load, out.Nodes[i].Traffic = &l, nil
+			}
+		}
+		for id := range sc.Load {
+			if !s.has(id) {
+				return Spec{}, Scenario{}, fmt.Errorf("scenario %q: no node %q", name, id)
+			}
+		}
+		return out, sc, nil
+	}
+	return Spec{}, Scenario{}, fmt.Errorf("no scenario %q", name)
+}
+
+func (s Spec) has(id string) bool {
+	for _, n := range s.Nodes {
+		if n.ID == id {
+			return true
+		}
+	}
+	return false
 }
 
 // AppliedQuota is a quota value read from an account.

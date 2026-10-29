@@ -10,7 +10,7 @@ import (
 )
 
 // readers derive what no attribute path can read.
-var readers = map[string]infer.Reader{"aws_sfn_state_machine": stateMachine}
+var readers = map[string]infer.Reader{"aws_sfn_state_machine": stateMachine, "aws_lambda_function": eventSourceCap}
 
 // stateMachine reads the state transitions a standard workflow's definition
 // bills per execution and per inline Map item. Express workflows bill

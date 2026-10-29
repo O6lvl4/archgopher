@@ -22,6 +22,7 @@ Usage:
   archgopher scout <spec.yaml> [--json]     Read a declaration
   archgopher gaps <spec.yaml> [--json]      List what the declaration does not know yet
   archgopher review <spec.yaml|dir> [flags] List where the shape departs from known practices
+  archgopher flow <spec.yaml|dir> [--json]  Queue drain, backlog and wait, and connections, per scenario
   archgopher reconcile <spec.yaml> --bill <costs.json> [--json]
                                               Put the reading next to the bill, service by service
   archgopher tf <dir> [flags]               Build a declaration from Terraform
@@ -58,6 +59,8 @@ func run(args []string, out io.Writer) error {
 		return cmdGaps(args[1:], out)
 	case "review":
 		return cmdReview(args[1:], out)
+	case "flow":
+		return cmdFlow(args[1:], out)
 	case "reconcile":
 		return cmdReconcile(args[1:], out)
 	case "diff":

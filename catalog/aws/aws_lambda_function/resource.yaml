@@ -9,6 +9,7 @@ attributes:
   - { key: memory_size, label: Memory, type: number, unit: MB, default: 128 }
   - { key: architectures, label: Architecture, type: choice, multi: true, options: [x86_64, arm64], default: [x86_64], hint: "arm64 has a lower GB-second price" }
   - { key: reserved_concurrent_executions, label: Reserved concurrency, type: number, optional: true, hint: "Empty or -1 uses the account pool" }
+  - { key: event_source_max_concurrency, label: Event source cap, type: number, optional: true, hint: "Sum of the maximum concurrency of its SQS event sources; empty when one has none" }
 assumptions:
   - { key: durationMs, label: Duration per invocation, type: number, unit: ms }
 includes: [logs]
@@ -29,7 +30,7 @@ readings:
       quota: aws.lambda.concurrent_executions
       peak: total.peak
       seconds: seconds
-      capacity: "reserved_concurrent_executions != nil && reserved_concurrent_executions >= 0 ? reserved_concurrent_executions : nil"
+      capacity: "reserved_concurrent_executions != nil && reserved_concurrent_executions >= 0 ? (event_source_max_concurrency != nil && event_source_max_concurrency < reserved_concurrent_executions ? event_source_max_concurrency : reserved_concurrent_executions) : event_source_max_concurrency"
   - logs: { count: total.monthly, kb: logKbPerCall, retentionDays: logRetentionDays, ingest: aws.logs.ingest, storage: aws.logs.storage }
 terraform:
   links:
