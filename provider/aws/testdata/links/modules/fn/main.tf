@@ -20,7 +20,7 @@ resource "aws_lambda_function" "this" {
 }
 
 resource "aws_lambda_event_source_mapping" "this" {
-  for_each         = { for k, v in var.event_source_mapping : k => v if var.name != "" }
+  for_each         = var.name != "" ? { for k, v in var.event_source_mapping : k => v if var.name != "" } : tomap({})
   event_source_arn = try(each.value.event_source_arn, null)
   function_name    = aws_lambda_function.this.arn
   batch_size       = try(each.value.batch_size, null)

@@ -57,6 +57,22 @@ func (ev *evaluator) navigate(expr hcl.Expression, in *instance, path []PathStep
 		if target, tin, rest, ok := ev.definition(e.Traversal, in); ok {
 			return ev.navigate(target, tin, append(rest, path...))
 		}
+	case *hclsyntax.ConditionalExpr:
+		// cond ? a : b holds the elements of either side.
+		return union(ev.navigate(e.TrueResult, in, path), ev.navigate(e.FalseResult, in, path))
+	case *hclsyntax.ParenthesesExpr:
+		return ev.navigate(e.Expression, in, path)
+	case *hclsyntax.FunctionCallExpr:
+		// Conversions keep their argument's elements, and merge holds the
+		// elements of every argument.
+		switch e.Name {
+		case "tomap", "toset", "tolist", "merge", "concat", "flatten":
+			var out []string
+			for _, a := range e.Args {
+				out = union(out, ev.navigate(a, in, path))
+			}
+			return out
+		}
 	case *hclsyntax.ForExpr:
 		// { for k, v in X : k => v if ... } keeps X's elements as they are:
 		// its every element is X's every element.
