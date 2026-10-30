@@ -1,6 +1,6 @@
 module github.com/O6lvl4/archgopher
 
-go 1.26.9
+go 1.26.10
 
 require (
 	github.com/expr-lang/expr v1.17.8
