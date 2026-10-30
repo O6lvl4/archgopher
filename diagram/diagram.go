@@ -36,7 +36,10 @@ type node struct {
 type edge struct {
 	from, to *node
 	label    string
-	via      []point // bends through the columns between the two, when they are apart
+	path     []point // the route the layout found, from icon to icon; empty draws it straight
+	// labelAtEnd puts the label by the arrowhead, when the start is shared
+	// with the other edges leaving the same node
+	labelAtEnd bool
 }
 
 type point struct{ x, y float64 }
@@ -58,7 +61,8 @@ type graph struct {
 	frames   []*frame
 	provider string // the one cloud every inside node belongs to, or ""
 	w, h     float64
-	cloud    box // the cloud frame, empty when provider is ""
+	dots     []point // where edges sharing a track branch
+	cloud    box     // the cloud frame, empty when provider is ""
 	region   box
 }
 

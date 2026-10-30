@@ -60,11 +60,46 @@ owner: `users → stage → api` is drawn as `users → api`.
 ## Placement
 
 When every drawn node has a `position` (the web UI saves them), the diagram
-uses those. Otherwise nodes are laid out left to right, callers before what
-they call: each node's column is the longest path from a source, the rows are
-ordered to keep neighbours close, and an edge that skips columns bends
-through a lane in each column it crosses instead of running over the nodes
-there. Nodes without edges sit beside the busiest node of their module.
+uses those and draws each edge straight. Otherwise the nodes are laid out
+left to right, callers before what they call, in the steps of a layered
+layout (the Sugiyama framework dot and ELK Layered follow):
+
+1. **Cycles.** An edge that closes a cycle is laid out the other way round,
+   then drawn in its own direction.
+2. **Columns.** Each node starts at the longest path from a source, then
+   moves to the column that makes its edges shorter: a node anywhere between
+   what calls it and what it calls goes to the end nearer the side with more
+   edges, the sum network simplex minimises. Nodes without edges sit in the
+   column of the busiest node of their module.
+3. **Order.** An edge that skips columns holds a lane in each column it
+   crosses, so it runs between the nodes there, not over them. Each column is
+   ordered by the mean position of its neighbours, a sweep each way at a
+   time, each sweep followed by swapping neighbours while that removes
+   crossings; the order with the fewest crossings any sweep found is kept.
+   Nodes without edges go to the bottom of their column.
+4. **Heights.** Every node moves toward the height of the nodes it is
+   connected to, keeping the order: nodes that would overlap share the move,
+   by weighted least squares, and lanes weigh more, so long edges run
+   straight.
+5. **Routes.** Edges are drawn at right angles: across at the source's
+   height, along a track in the gap between two columns, across again at the
+   target's height. Edges leaving one node share a track, as do edges
+   reaching one node from nodes that send nothing else there; the gap widens
+   to fit its tracks, which are ordered so the stretch across to a track does
+   not cross another's. Edges reaching one node arrive at points of their
+   own along the side of its icon. A dot marks where a shared track
+   branches, and a horizontal stretch arches over a vertical one it crosses
+   (a line jump), so a branch is told from a crossing.
+6. **Labels.** A label sits above the stretch the edge has to itself: the
+   first, or the last when the first is shared with the other edges leaving
+   its node. Labels are drawn over every line; the same word twice in a row
+   by one node is written once, and words that land on one spot are joined
+   (`read · write`).
+
+A group (a VPC) is laid out the same way on its own and placed as one block.
+An edge from outside comes in at a port on the group's left edge and an edge
+to outside leaves at a port on its right edge, so inside the group it holds
+lanes like any other edge and does not run over the members.
 
 ## Formats
 

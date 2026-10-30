@@ -3,6 +3,7 @@ package diagram
 import (
 	"bytes"
 	"image/png"
+	"math"
 	"os"
 	"strings"
 	"testing"
@@ -156,8 +157,8 @@ edges:
 	}
 	// The edge from users to audit skips the api column, so it bends there.
 	for _, e := range g.edges {
-		if e.from.id == "users" && e.to.id == "audit" && len(e.via) == 0 {
-			t.Error("users→audit skips a column and should bend through it")
+		if e.from.id == "users" && e.to.id == "audit" && len(e.path) < 2 {
+			t.Error("users→audit skips a column and should be routed")
 		}
 	}
 	svg := string(g.svg())
@@ -195,7 +196,13 @@ edges:
 }
 
 func TestExamplesDraw(t *testing.T) {
-	for _, path := range []string{"../examples/private-network/reports.scouter.yaml", "../examples/patterns/orders.scouter.yaml"} {
+	for _, path := range []string{
+		"../examples/private-network/reports.scouter.yaml",
+		"../examples/patterns/orders.scouter.yaml",
+		"../examples/landing-zone/platform.scouter.yaml",
+		"../examples/pay-per-use/habits.scouter.yaml",
+		"../examples/serverless-api/notes.scouter.yaml",
+	} {
 		data, err := os.ReadFile(path)
 		if err != nil {
 			t.Fatal(err)
@@ -207,6 +214,21 @@ func TestExamplesDraw(t *testing.T) {
 		out, err := SVG(spec, lookup)
 		if err != nil {
 			t.Fatalf("%s: %v", path, err)
+		}
+		g, err := build(spec, lookup)
+		if err != nil {
+			t.Fatal(err)
+		}
+		g.layout()
+		for _, msg := range crossings(g) {
+			t.Errorf("%s: %s", path, msg)
+		}
+		for _, e := range g.edges {
+			for i := 1; i < len(e.path); i++ {
+				if a, b := e.path[i-1], e.path[i]; a.x != b.x && a.y != b.y {
+					t.Errorf("%s: %s → %s has a slanted stretch", path, e.from.id, e.to.id)
+				}
+			}
 		}
 		if !strings.HasPrefix(string(out), `<?xml version="1.0" encoding="UTF-8"?>`+"\n<svg ") || !strings.HasSuffix(strings.TrimSpace(string(out)), "</svg>") {
 			t.Fatalf("%s: not an SVG document", path)
@@ -256,4 +278,25 @@ edges:
 	if orange < 100 {
 		t.Errorf("only %d orange samples; the Lambda icon was not drawn", orange)
 	}
+}
+
+// crossings lists the edges whose route runs over a node other than its ends.
+func crossings(g *graph) []string {
+	var out []string
+	for _, e := range g.edges {
+		for i := 1; i < len(e.path); i++ {
+			a, b := e.path[i-1], e.path[i]
+			x0, x1 := math.Min(a.x, b.x), math.Max(a.x, b.x)
+			y0, y1 := math.Min(a.y, b.y), math.Max(a.y, b.y)
+			for _, d := range g.nodes {
+				if d == e.from || d == e.to {
+					continue
+				}
+				if x0 < d.right()-2 && x1 > d.left()+2 && y0 < d.bottom()-2 && y1 > d.top()+2 {
+					out = append(out, e.from.id+" → "+e.to.id+" runs over "+d.id)
+				}
+			}
+		}
+	}
+	return out
 }
