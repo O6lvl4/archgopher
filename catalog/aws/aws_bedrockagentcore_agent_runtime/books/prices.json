@@ -82,24 +82,24 @@
         "checkedAt": "2026-09-24"
       },
       "ap-south-1": {
-        "value": null,
+        "value": 0.0169,
         "verified": true,
-        "checkedAt": "2026-09-24"
+        "checkedAt": "2026-11-02"
       },
       "ap-southeast-1": {
-        "value": null,
+        "value": 0.0169,
         "verified": true,
-        "checkedAt": "2026-09-24"
+        "checkedAt": "2026-11-02"
       },
       "ap-southeast-2": {
-        "value": null,
+        "value": 0.0169,
         "verified": true,
-        "checkedAt": "2026-09-24"
+        "checkedAt": "2026-11-02"
       },
       "eu-central-1": {
-        "value": null,
+        "value": 0.0169,
         "verified": true,
-        "checkedAt": "2026-09-24"
+        "checkedAt": "2026-11-02"
       },
       "eu-west-1": {
         "value": 0.0169,
@@ -144,24 +144,24 @@
         "checkedAt": "2026-09-24"
       },
       "ap-south-1": {
-        "value": null,
+        "value": 0.1276,
         "verified": true,
-        "checkedAt": "2026-09-24"
+        "checkedAt": "2026-11-02"
       },
       "ap-southeast-1": {
-        "value": null,
+        "value": 0.1276,
         "verified": true,
-        "checkedAt": "2026-09-24"
+        "checkedAt": "2026-11-02"
       },
       "ap-southeast-2": {
-        "value": null,
+        "value": 0.1276,
         "verified": true,
-        "checkedAt": "2026-09-24"
+        "checkedAt": "2026-11-02"
       },
       "eu-central-1": {
-        "value": null,
+        "value": 0.1276,
         "verified": true,
-        "checkedAt": "2026-09-24"
+        "checkedAt": "2026-11-02"
       },
       "eu-west-1": {
         "value": 0.1276,
