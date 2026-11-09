@@ -1081,9 +1081,9 @@
         "checkedAt": "2026-09-25"
       },
       "westus2": {
-        "value": 0.000051,
+        "value": 0.000068,
         "verified": true,
-        "checkedAt": "2026-09-25"
+        "checkedAt": "2026-11-09"
       }
     }
   },
@@ -1147,9 +1147,9 @@
         "checkedAt": "2026-09-25"
       },
       "westus2": {
-        "value": 0.00024,
+        "value": 0.000479,
         "verified": true,
-        "checkedAt": "2026-09-25"
+        "checkedAt": "2026-11-09"
       }
     }
   },
